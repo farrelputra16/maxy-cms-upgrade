@@ -7,8 +7,5 @@
         @foreach ($mybatch as $item)
             <p>Kowe terdaftar ning batch {{$item->batch}}</p> 
         @endforeach
-        @foreach ($mybatch as $item)
-            <p>Kowe terdaftar ning batch {{$item->batch_id}}</p> 
-        @endforeach
     </body>
 </html>
