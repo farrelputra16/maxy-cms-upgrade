@@ -8,6 +8,7 @@
             <p>Kowe terdaftar ning batch {{$item->batch}}</p> 
         @endforeach
         <form action="" method="post">
+            @csrf
             <button type="submit">Logout nengkene</button>
         </form>
     </body>

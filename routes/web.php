@@ -17,9 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('dashboard');
 
 Route::get('/login', [AuthController::class, 'getLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'postLogin'])->name('postLogin');
+
+Route::post('/mycourse', [AuthController::class, 'postLogout'])->name('postLogout');
 
 Route::get('/mycourse', [CourseController::class, 'getCourse'])->name('getCourse');
