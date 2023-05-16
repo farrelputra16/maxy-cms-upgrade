@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -33,5 +34,36 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('dashboard');
+    }
+
+    function getRegister(){
+        if (Auth::user()){
+            return redirect()->back();
+        } else {
+            return view('auth.register');
+        }
+    }
+
+    function postRegister(Request $request){
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users|email',
+            'password' => 'required|min:5'
+        ]);
+
+        if ($validated){
+            $passwordcrpyt = bcrypt($validated['password']);
+
+            User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $passwordcrpyt,
+                'id_partner_university_detail' => 3,
+                'created_id' => 1,
+                'updated_id' => 1
+            ]);
+
+            return redirect()->route('login');
+        }
     }
 }

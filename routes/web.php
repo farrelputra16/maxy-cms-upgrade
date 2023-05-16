@@ -20,7 +20,10 @@ Route::get('/', function () {
 })->name('dashboard');
 
 Route::get('/login', [AuthController::class, 'getLogin'])->name('login');
+Route::get('/register', [AuthController::class, 'getRegister'])->name('register');
+
 Route::post('/login', [AuthController::class, 'postLogin'])->name('postLogin');
+Route::post('/register', [AuthController::class, 'postRegister'])->name('postRegister');
 
 Route::post('/mycourse', [AuthController::class, 'postLogout'])->name('postLogout');
 
