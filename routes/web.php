@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('dashboard');
+})->name('welcome');
 
 Route::get('/login', [AuthController::class, 'getLogin'])->name('login');
 Route::get('/register', [AuthController::class, 'getRegister'])->name('register');
@@ -25,6 +26,10 @@ Route::get('/register', [AuthController::class, 'getRegister'])->name('register'
 Route::post('/login', [AuthController::class, 'postLogin'])->name('postLogin');
 Route::post('/register', [AuthController::class, 'postRegister'])->name('postRegister');
 
-Route::post('/mycourse', [AuthController::class, 'postLogout'])->name('postLogout');
+Route::post('/logout', [AuthController::class, 'postLogout'])->name('logout');
 
-Route::get('/mycourse', [CourseController::class, 'getCourse'])->name('getCourse');
+// dashboard route
+Route::get('/dashboard', [DashboardController::class, 'getDashboard'])->name('getDashboard');
+
+// course route
+Route::get('/course', [CourseController::class, 'getCourse'])->name('getCourse');

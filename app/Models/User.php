@@ -21,7 +21,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'id_partner_university_detail',
         'created_id',
         'updated_id'
     ];

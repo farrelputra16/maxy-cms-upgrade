@@ -17,13 +17,13 @@ class AuthController extends Controller
     function postLogin(Request $request){
         $validated = $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:5'
+            'password' => 'required'
         ]);
 
         if (Auth::attempt($validated)){
             $request->session()->regenerate();
 
-            return redirect()->route('getCourse');
+            return redirect()->route('getDashboard');
         } else {
             return back();
         }
@@ -31,9 +31,9 @@ class AuthController extends Controller
 
     function postLogout(Request $request){
         Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect()->route('dashboard');
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+        return redirect()->route('welcome');
     }
 
     function getRegister(){
