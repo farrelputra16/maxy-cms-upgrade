@@ -12,4 +12,8 @@ class CourseController extends Controller
         $courses = Course::all();
         return view('course.index', ['courses' => $courses]);
     }
+
+    function getAddCourse(){
+        return view('course.addcourse');
+    }
 }
