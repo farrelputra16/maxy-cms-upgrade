@@ -41,4 +41,3 @@ Route::post('/course/edit', [CourseController::class, 'postEditCourse'])->name('
 
 Route::get('/course/delete', [CourseController::class, 'getDeleteCourse'])->name('getDeleteCourse');
 Route::post('/course/delete', [CourseController::class, 'postDeleteCourse'])->name('postDeleteCourse');
-Route::post('/course', [CourseController::class, 'postAddCourse'])->name('submit.course');
