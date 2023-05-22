@@ -35,6 +35,7 @@ Route::get('/dashboard', [DashboardController::class, 'getDashboard'])->name('ge
 Route::get('/course', [CourseController::class, 'getCourse'])->name('getCourse');
 
 Route::get('/course/add', [CourseController::class, 'getAddCourse'])->name('getAddCourse');
+Route::post('/course/add', [CourseController::class, 'postAddCourse'])->name('postAddCourse');
 
 Route::get('/course/edit', [CourseController::class, 'getEditCourse'])->name('getEditCourse');
 Route::post('/course/edit', [CourseController::class, 'postEditCourse'])->name('postEditCourse');

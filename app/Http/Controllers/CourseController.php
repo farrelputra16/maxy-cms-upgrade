@@ -17,7 +17,38 @@ class CourseController extends Controller
     }
 
     function getAddCourse(){
-        return view('course.addcourse');
+        $allCourseTypes = MCourseType::all();
+        $allCourseDifficulty = MDifficultyType::all();
+
+        return view('course.addcourse', [
+            'allCourseTypes' => $allCourseTypes, 
+            'allCourseDifficulty'=> $allCourseDifficulty
+        ]);
+    }
+
+    public function postAddCourse(Request $request){
+        $create = Course::create([
+            'name' => $request->name,
+            'fake_price' => 0,
+            'price' => 0,
+            'discounted_price' => 0,
+            'short_description' => 'no desc',
+            'image' => 'no.jpg',
+            'preview' => '0',
+            'target' => '0',
+            'payment_link' => '0',
+            'slug' => $request->slug,
+            'id_m_course_type' => $request->type,
+            'id_m_difficulty_type' => $request->level,
+            'description' => $request->description,
+            'status' => $request->status,
+            'created_id' => 1,
+            'updated_id' => 1
+        ]);
+
+        if ($create){
+            return redirect('/course');
+        }
     }
 
     function getEditCourse(Request $request){
