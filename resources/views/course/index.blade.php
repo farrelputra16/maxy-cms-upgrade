@@ -10,37 +10,36 @@
                 <a class="btn btn-primary" href="{{ route('getAddCourse') }}" role="button">Tambah Course +</a>
             </div>
         </nav>
-        <table class="table">
-            <thead class="thead-dark">
+        <table class="ui tablet unstackable table">
+            <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Course Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Created At</th>
-                    <th scope="col">Updated At</th>
-                    <th scope="col">More</th>
+                    <th>ID</th>
+                    <th>Course Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($courses as $item)
-                <tr>
-                    <th scope="row">{{ $item->id }}</th>
-                    <td>{{ $item->name }}</td>
-                    <td id="description">{{ $item->description }}</td>
-                    <td>
-                        @if (($item->status) == 1)
-                            <span class="badge badge-success">Aktif</span>
-                        @else
-                            <span class="badge badge-warnign">Tidak Aktif</span>
-                        @endif
-                    </td>
-                    <td>{{ $item->created_at }}</td>
-                    <td>{{ $item->updated_at }}</td>
-                    <td><a >Edit</a></td>
-                </tr>
+                    <tr>
+                        <td>{{ $item->id }}</td>
+                        <td>{{ $item->name }}</td>
+                        <td id="description">{{ $item->description }}</td>
+                        <td>
+                            @if ($item->status == 1)
+                                <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
+                            @else
+                                <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
+                            @endif
+                        </td>
+                        <td>
+                            <a href="{{ route('getEditCourse', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
+                            <a href="{{ route('getDeleteCourse', ['id' => $item->id]) }}" style="text-decoration: none; color:red;">Hapus</a>
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
-          </table>
+        </table>
     </div>
 @endsection

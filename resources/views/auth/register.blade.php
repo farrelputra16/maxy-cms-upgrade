@@ -3,26 +3,29 @@
 @section('title', 'Register')
 
 @section('content')
-<div class="card" style="width: 18rem;">
-    <form style="padding: 10px;" method="post">
+<div style="width: 18rem; top:50%; left:50%; position: absolute; transform: translate(-50%, -50%);">
+    <center>
+        <h1>Maxy's CMS</h1>
+    </center>
+    <hr>
+    <form class="ui form" style="padding: 10px;" method="post">
         @csrf
-        <div class="form-group">
-            <label for="">Name</label>
-            <input type="text" class="form-control" id="" placeholder="Jenengmu" name="name"></div>
-            <div class="form-group form-check">
+        <div class="field">
+            <label>Nama</label>
+            <input type="text" name="nama">
         </div>
-        <div class="form-group">
-            <label for="">Email address</label>
-            <input type="email" class="form-control" id="" placeholder="Enter email" name="email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <div class="field">
+            <label>Email</label>
+            <input type="email" name="email">
         </div>
-        <div class="form-group">
-            <label for="">Password</label>
-            <input type="password" class="form-control" id="" placeholder="Password" name="password"></div>
-            <div class="form-group form-check">
+        <div class="field">
+            <label>Password</label>
+            <input type="password" name="password">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="ui horizontal divider">     
+            <button class="ui button primary" type="submit">Register</button>
+        </div>
+        <p>Wis nduwe akun? <a href="{{ route('login') }}">Login ingkene</a></p>
     </form>
 </div>
-
 @endsection
