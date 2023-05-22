@@ -17,51 +17,7 @@ class CourseController extends Controller
         return view('course.addcourse');
     }
 
-    public function postAddCourse(Request $request)
-{
-    // Validate the form data
-    $validatedData = $request->validate([
-        'name' => 'required',
-        'slug' => 'required',
-        'description' => 'required',
-        'id_m_course_type' => 'required',
-        'id_m_difficulty_type' => 'required']);
-
-        $validatedData['fake_price'] = 0;
-        $validatedData['price'] = 0;
-        $validatedData['discounted_price'] = 0;
-        $validatedData['short_description'] = 0;
-        $validatedData['image'] = 0;
-        $validatedData['preview'] = 0;
-        $validatedData['target'] = 0;
-        $validatedData['payment_link'] = 0;
-        $validatedData['status'] = 0;
-        $validatedData['created_id'] = 0;
-        $validatedData['discounted_price'] = 0;
-    
-    Course::create($validatedData);
-
-    return redirect()->route('course.index')->with('Data ditambahkan');
-    // return view('course.index');
-}
-public function testDatabaseConnection()
-    {
-        try {
-            DB::table('course')->insert([
-                'name' => 'Sample Course',
-                'slug' => 'sample-course',
-                'description' => 'Sample course description',
-                'id_m_course_type' => 1,
-                'id_m_difficulty_type' => 1,
-            ]);
-
-            return "Database connection and insertion successful!";
-        } catch (\Exception $e) {
-            return "Error: " . $e->getMessage();
-        }
-}
-
-public function postAddCourse2(Request $request)
+public function postAddCourse(Request $request)
 {
     $course= Course::create([
         'name' =>  $request->name, 
