@@ -25,7 +25,7 @@ class AccessGroupController extends Controller
 
     public function postAddAccessGroup(Request $request){
 
-        $validated = $request->validate([
+        $validated = $request->validate ([
             'name' => 'required',
             'access_master' => 'required|array|min:1',
         ]);
