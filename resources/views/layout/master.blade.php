@@ -44,6 +44,8 @@
                                             <a class="dropdown-item" href="{{ route('getCoursePackage') }}">Course Package</a>
                                             <a class="dropdown-item" href="{{ route('getCoursePackageBenefit') }}">Course Package Benefit</a>
                                             <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{{ route('getDifficulty')}}">Course Difficulty</a>
+                                            <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="#">Need Help?</a>
                                         </div>
                                 </li>
@@ -59,18 +61,20 @@
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Master
+                                        Partner
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('getDifficulty')}}">Course Difficulty</a>
-                                        <div class="drowpdown-divider"></div>
-                                        <a class="dropdown-item" href="{{ route('getOrder') }}">Order</a>
-                                        <a class="dropdown-item" href="{{ route('getOrderConfirmation') }}">Order Confirmation</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{{ route('getPartner') }}">Partner</a>
+                                        <a class="dropdown-item" href="{{ route('getPartner') }}">Partners</a>
                                         <a class="dropdown-item" href="{{ route('getPartnerUniversityDetail') }}">Partner University Detail</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="">Need help?</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Order
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('getTransOrder') }}">Orders</a>
+                                        <a class="dropdown-item" href="{{ route('getTransOrderConfirm') }}">Order Confirmation</a>
                                     </div>
                                 </li>
                             </li>

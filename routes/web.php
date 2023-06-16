@@ -11,10 +11,14 @@ use App\Http\Controllers\CourseClassModuleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AccessGroupController;
 use App\Http\Controllers\AccessMasterController;
+use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\PartnerUniversityDetialController;
+use App\Http\Controllers\TransOrderConfirmationController;
+use App\Http\Controllers\TransOrderController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserListController;
-
 use App\Http\Controllers\MDifficultyTypeController;
+use App\Models\TransOrder;
+use App\Models\TransOrderConfirmation;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -151,6 +155,18 @@ Route::post('/user/add', [UserController::class, 'postAddUser'])->name('postAddU
 
 Route::get('/user/edit', [UserController::class, 'getEditUser'])->name('getEditUser')->middleware('access:users_edit');
 Route::post('/user/edit', [UserController::class, 'postEditUser'])->name('postEditUser')->middleware('access:users_edit');
+
+//                                      PARTNER
+// partner routes
+Route::get('/partner', [PartnerController::class, 'getPartner'])->name('getPartner');
+Route::get('/parnter/university/detail', [PartnerUniversityDetialController::class, 'getPartnerUniversityDetail'])->name('getPartnerUniversityDetail');
+
+//                                      ORDER
+// order routes ##########################################################################################################
+Route::get('/order', [TransOrderController::class, 'getTransOrder'])->name('getTransOrder');
+
+// order confirmation
+Route::get('/order/confirm', [TransOrderConfirmationController::class, 'getTransOrderConfirm'])->name('getTransOrderConfirm');
 
 // bad access
 Route::get('/noauthority', function () {
