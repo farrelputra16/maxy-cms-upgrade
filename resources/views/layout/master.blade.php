@@ -35,16 +35,14 @@
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                             <a class="dropdown-item" href="{{ route('getCourse') }}">Course</a>
-                                            <a class="dropdown-item" href="{{ route('getCourseModule', ['access' => 'course_module_manage']) }}">Course Module</a>
+                                            <a class="dropdown-item" href="{{ route('getCourseModule') }}">Course Module</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="{{ route('getCourseClass', ['access' => 'course_class_manage']) }}">Course Class</a>
-                                            <a class="dropdown-item" href="{{ route('getCourseClassMember', ['access' => 'course_class_member_manage']) }}">Course Class Member</a>
-                                            <a class="dropdown-item" href="{{ route('getCourseClassModule', ['access' => 'course_class_module_manage']) }}">Course Class Module</a>
+                                            <a class="dropdown-item" href="{{ route('getCourseClass') }}">Course Class</a>
+                                            <a class="dropdown-item" href="{{ route('getCourseClassMember') }}">Course Class Member</a>
+                                            <a class="dropdown-item" href="{{ route('getCourseClassModule') }}">Course Class Module</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="{{ route('getCoursePackage', ['access' => 'course_package_manage']) }}">Course Package</a>
-                                            <a class="dropdown-item" href="{{ route('getCoursePackageBenefit', ['access' => 'course_package_benefit_manage']) }}">Course Package Benefit</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="{{ route('getDifficulty', ['access' => 'm_difficulty_type_manage'])}}">Course Difficulty</a>
+                                            <a class="dropdown-item" href="{{ route('getCoursePackage') }}">Course Package</a>
+                                            <a class="dropdown-item" href="{{ route('getCoursePackageBenefit') }}">Course Package Benefit</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="#">Need Help?</a>
                                         </div>
@@ -54,9 +52,9 @@
                                         Manage User
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('getUser', ['access' => 'users_manage']) }}">Users</a>
-                                        <a class="dropdown-item" href="{{ route('getAccessGroup', ['access' => 'access_group_manage']) }}">Access Group</a>
-                                        <a class="dropdown-item" href="{{ route('getAccessMaster', ['access' => 'access_master_manage']) }}">Access Master</a>
+                                        <a class="dropdown-item" href="{{ route('getUser') }}">Users</a>
+                                        <a class="dropdown-item" href="{{ route('getAccessGroup') }}">Access Group</a>
+                                        <a class="dropdown-item" href="{{ route('getAccessMaster') }}">Access Master</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
@@ -64,7 +62,15 @@
                                         Master
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('getUser', ['access' => 'users_manage']) }}">Users</a>
+                                        <a class="dropdown-item" href="{{ route('getDifficulty')}}">Course Difficulty</a>
+                                        <div class="drowpdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ route('getOrder') }}">Order</a>
+                                        <a class="dropdown-item" href="{{ route('getOrderConfirmation') }}">Order Confirmation</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ route('getPartner') }}">Partner</a>
+                                        <a class="dropdown-item" href="{{ route('getPartnerUniversityDetail') }}">Partner University Detail</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="">Need help?</a>
                                     </div>
                                 </li>
                             </li>
