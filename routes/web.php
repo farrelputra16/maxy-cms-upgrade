@@ -13,13 +13,10 @@ use App\Http\Controllers\AccessGroupController;
 use App\Http\Controllers\AccessMasterController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\PartnerUniversityDetailController;
-use App\Http\Controllers\PartnerUniversityDetialController;
 use App\Http\Controllers\TransOrderConfirmationController;
 use App\Http\Controllers\TransOrderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MDifficultyTypeController;
-use App\Models\TransOrder;
-use App\Models\TransOrderConfirmation;
 use Illuminate\Support\Facades\Route;
 
 /*
