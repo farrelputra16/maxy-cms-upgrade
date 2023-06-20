@@ -7,7 +7,7 @@
         <hr style="margin-bottom: 0px;">
         <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
             <div class="navbar-nav">
-                <a class="btn btn-primary" href="{{ route('getAddCourse', ['access' => 'course_create']) }}" role="button">Tambah Course +</a>
+                <a class="btn btn-primary" href="{{ route('getAddCourse') }}" role="button">Tambah Course +</a>
             </div>
         </nav>
         <div id="table_content">

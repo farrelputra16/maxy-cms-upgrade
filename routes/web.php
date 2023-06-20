@@ -175,7 +175,13 @@ Route::post('/partner/university/edit', [PartnerUniversityDetailController::clas
 
 //                                      ORDER
 // order routes ##########################################################################################################
-Route::get('/order', [TransOrderController::class, 'getTransOrder'])->name('getTransOrder');
+Route::get('/order', [TransOrderController::class, 'getTransOrder'])->name('getTransOrder')->middleware('access:trans_order_manage');
+
+Route::get('/order/add', [TransOrderController::class, 'getAddTransOrder'])->name('getAddTransOrder')->middleware('access:trans_order_create');
+Route::post('/order/add', [TransOrderController::class, 'postAddTransOrder'])->name('postAddTransOrder')->middleware('access:trans_order_create');
+
+Route::get('/order/edit', [TransOrderController::class, 'getEditTransOrder'])->name('getEditTransOrder')->middleware('access:trans_order_update');
+Route::post('/order/edit', [TransOrderController::class, 'postEditTransOrder'])->name('postEditTransOrder')->middleware('access:trans_order_update');
 
 // order confirmation
 Route::get('/order/confirm', [TransOrderConfirmationController::class, 'getTransOrderConfirm'])->name('getTransOrderConfirm');
