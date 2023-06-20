@@ -34,17 +34,49 @@
                                         All Course
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('getCourse') }}">Course</a>
-                                        <a class="dropdown-item" href="{{ route('getCourseModule') }}">Course Module</a>
+                                        @if ($broGotAccessMaster->contains('name', 'course_manage'))
+                                            <a class="dropdown-item" href="{{ route('getCourse') }}">Course</a>
+                                        @else
+                                            <a class="dropdown-item disabled" href="{{ route('getCourse') }}">Course <i class="lock icon"></i></a>
+                                        @endif
+                                        @if ($broGotAccessMaster->contains('name', 'course_module_manage'))
+                                            <a class="dropdown-item" href="{{ route('getCourseModule') }}">Course Module</a>
+                                        @else
+                                            <a class="dropdown-item disabled" href="{{ route('getCourseModule') }}">Course Module <i class="lock icon"></i></a>
+                                        @endif
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{{ route('getCourseClass') }}">Course Class</a>
-                                        <a class="dropdown-item" href="{{ route('getCourseClassMember') }}">Course Class Member</a>
-                                        <a class="dropdown-item" href="{{ route('getCourseClassModule') }}">Course Class Module</a>
+                                        @if ($broGotAccessMaster->contains('name', 'course_class_manage'))
+                                            <a class="dropdown-item" href="{{ route('getCourseClass') }}">Course Class</a>
+                                        @else
+                                            <a class="dropdown-item disabled" href="{{ route('getCourseClass') }}">Course Class <i class="lock icon"></i></a>
+                                        @endif
+                                        @if ($broGotAccessMaster->contains('name', 'course_class_member_manage'))
+                                            <a class="dropdown-item" href="{{ route('getCourseClassMember') }}">Course Class Member</a>
+                                        @else
+                                            <a class="dropdown-item disabled" href="{{ route('getCourseClassMember') }}">Course Class Member <i class="lock icon"></i></a>
+                                        @endif
+                                        @if ($broGotAccessMaster->contains('name', 'course_class_module_manage'))
+                                            <a class="dropdown-item" href="{{ route('getCourseClassModule') }}">Course Class Module</a>
+                                        @else
+                                            <a class="dropdown-item disabled" href="{{ route('getCourseClassModule') }}">Course Class Module <i class="lock icon"></i></a>
+                                        @endif
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{{ route('getCoursePackage') }}">Course Package</a>
-                                        <a class="dropdown-item" href="{{ route('getCoursePackageBenefit') }}">Course Package Benefit</a>
+                                        @if ($broGotAccessMaster->contains('name', 'course_package_manage'))
+                                            <a class="dropdown-item" href="{{ route('getCoursePackage') }}">Course Package</a>
+                                        @else
+                                            <a class="dropdown-item disabled" href="{{ route('getCoursePackage') }}">Course Package <i class="lock icon"></i></a>
+                                        @endif
+                                        @if ($broGotAccessMaster->contains('name', 'course_package_benefit_manage'))
+                                            <a class="dropdown-item" href="{{ route('getCoursePackageBenefit') }}">Course Package Benefit</a>
+                                        @else
+                                            <a class="dropdown-item disabled" href="{{ route('getCoursePackageBenefit') }}">Course Package Benefit <i class="lock icon"></i></a>
+                                        @endif
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{{ route('getDifficulty')}}">Course Difficulty</a>
+                                        @if ($broGotAccessMaster->contains('name', 'm_difficulty_manage'))
+                                            <a class="dropdown-item" href="{{ route('getDifficulty')}}">Course Difficulty</a>
+                                        @else
+                                            <a class="dropdown-item disabled" href="{{ route('getDifficulty')}}">Course Difficulty <i class="lock icon"></i></a>
+                                        @endif
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Need Help?</a>
                                     </div>
@@ -54,9 +86,23 @@
                                         User & Access
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('getUser') }}">Users</a>
-                                        <a class="dropdown-item" href="{{ route('getAccessGroup') }}">Access Group</a>
-                                        <a class="dropdown-item" href="{{ route('getAccessMaster') }}">Access Master</a>
+                                        @if ($broGotAccessMaster->contains('name', 'users_manage'))
+                                            <a class="dropdown-item" href="{{ route('getUser') }}">Users</a>
+                                        @else
+                                            <a class="dropdown-item disabled" href="{{ route('getUser') }}">Users <i class="lock icon"></i></a>
+                                        @endif
+                                        @if ($broGotAccessMaster->contains('name', 'access_group_manage'))
+                                            <a class="dropdown-item" href="{{ route('getAccessGroup') }}">Access Group</a>
+                                        @else
+                                            <a class="dropdown-item disabled" href="{{ route('getAccessGroup') }}">Access Group <i class="lock icon"></i></a>
+                                        @endif
+                                        @if ($broGotAccessMaster->contains('name', 'access_master_manage'))
+                                            <a class="dropdown-item" href="{{ route('getAccessMaster') }}">Access Master</a>
+                                        @else
+                                            <a class="dropdown-item disabled" href="{{ route('getAccessMaster') }}">Access Master <i class="lock icon"></i></a>
+                                        @endif
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Need Help?</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
@@ -64,8 +110,16 @@
                                         Partner
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('getPartner') }}">Partners</a>
-                                        <a class="dropdown-item" href="{{ route('getPartnerUniversityDetail') }}">Partner University Detail</a>
+                                        @if ($broGotAccessMaster->contains('name', 'partner_manage'))
+                                            <a class="dropdown-item" href="{{ route('getPartner') }}">Partners</a>
+                                        @else
+                                            <a class="dropdown-item disabled" href="{{ route('getPartner') }}">Partners <i class="lock icon"></i></a>
+                                        @endif
+                                        @if ($broGotAccessMaster->contains('name', 'course_manage'))
+                                            <a class="dropdown-item" href="{{ route('getPartnerUniversityDetail') }}">Partner University Detail</a>
+                                        @else
+                                            <a class="dropdown-item disabled" href="{{ route('getPartnerUniversityDetail') }}">Partner University Detail <i class="lock icon"></i></a>
+                                        @endif
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
@@ -73,8 +127,16 @@
                                         Order
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('getTransOrder') }}">Orders</a>
-                                        <a class="dropdown-item" href="{{ route('getTransOrderConfirm') }}">Order Confirmation</a>
+                                        @if ($broGotAccessMaster->contains('name', 'trans_order_manage'))
+                                            <a class="dropdown-item" href="{{ route('getTransOrder') }}">Orders</a>
+                                        @else
+                                            <a class="dropdown-item disabled" href="{{ route('getTransOrder') }}">Orders <i class="lock icon"></i></a>
+                                        @endif
+                                        @if ($broGotAccessMaster->contains('name', 'course_manage'))
+                                            <a class="dropdown-item" href="{{ route('getTransOrderConfirm') }}">Order Confirmation</a>
+                                        @else
+                                            <a class="dropdown-item disabled" href="{{ route('getTransOrderConfirm') }}">Order Confirmation <i class="lock icon"></i></a>
+                                        @endif
                                     </div>
                                 </li>
                             </li>
