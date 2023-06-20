@@ -12,6 +12,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AccessGroupController;
 use App\Http\Controllers\AccessMasterController;
 use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\PartnerUniversityDetailController;
 use App\Http\Controllers\PartnerUniversityDetialController;
 use App\Http\Controllers\TransOrderConfirmationController;
 use App\Http\Controllers\TransOrderController;
@@ -158,8 +159,22 @@ Route::post('/user/edit', [UserController::class, 'postEditUser'])->name('postEd
 
 //                                      PARTNER
 // partner routes
-Route::get('/partner', [PartnerController::class, 'getPartner'])->name('getPartner');
-Route::get('/parnter/university/detail', [PartnerUniversityDetialController::class, 'getPartnerUniversityDetail'])->name('getPartnerUniversityDetail');
+Route::get('/partner', [PartnerController::class, 'getPartner'])->name('getPartner')->middleware('access:partner_manage');
+
+Route::get('/partner/add', [PartnerController::class, 'getAddPartner'])->name('getAddPartner')->middleware('access:partner_create');
+Route::post('/partner/add', [PartnerController::class, 'postAddPartner'])->name('postAddPartner')->middleware('access:partner_create');
+
+Route::get('/partner/edit', [PartnerController::class, 'getEditPartner'])->name('getEditPartner')->middleware('access:partner_update');
+Route::post('/partner/edit', [PartnerController::class, 'postEditPartner'])->name('postEditPartner')->middleware('access:partner_update');
+
+// partner university detail
+Route::get('/parnter/university/detail', [PartnerUniversityDetailController::class, 'getPartnerUniversityDetail'])->name('getPartnerUniversityDetail')->middleware('access:partner_university_detail_manage');
+
+Route::get('/partner/university/add', [PartnerUniversityDetailController::class, 'getAddPartnerUniversityDetail'])->name('getAddPartnerUniversityDetail')->middleware('access:partner_university_detail_create');
+Route::post('/partner/university/add', [PartnerUniversityDetailController::class, 'postAddPartnerUniversityDetail'])->name('postAddPartnerUniversityDetail')->middleware('access:partner_university_detail_create');
+
+Route::get('/partner/university/edit', [PartnerUniversityDetailController::class, 'getEditPartnerUniversityDetail'])->name('getEditPartnerUniversityDetail')->middleware('access:partner_university_detail_update');
+Route::post('/partner/university/edit', [PartnerUniversityDetailController::class, 'postEditPartnerUniversityDetail'])->name('postEditPartnerUniversityDetail')->middleware('access:partner_university_detail_update');
 
 //                                      ORDER
 // order routes ##########################################################################################################
