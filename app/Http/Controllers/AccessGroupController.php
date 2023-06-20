@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AccessGroupDetail;
 use App\Models\AccessMaster;
 use Illuminate\Http\Request;
 use App\Models\AccessGroup;
@@ -35,8 +34,8 @@ class AccessGroupController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
-                'created_id' => 1,
-                'updated_id' => 1,
+                'created_id' => Auth::user()->id,
+                'updated_id' => Auth::user()->id,
             ]);
 
             $access_master = $request->get('access_master');
