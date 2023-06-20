@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\AccessMaster;
+use Illuminate\Foundation\Auth\User;
 
 class DashboardController extends Controller
 {
     //
     function getDashboard(){
-        return view('dashboard.index');
+        $accessMaster = AccessMaster::count();
+        $user = User::count();
+        return view('dashboard.index', [
+            'accessMaster' => $accessMaster,
+            'user' => $user
+        ]);
     }
 }
