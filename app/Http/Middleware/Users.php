@@ -2,12 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\AccessGroup;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Response;
 
 class Users
 {
