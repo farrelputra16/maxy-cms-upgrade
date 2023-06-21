@@ -18,7 +18,7 @@
                 <div class="three fields">
                     <div class="field">
                         <label for="">Date</label>
-                        <input type="date" name="date" value="{{ $transorders->dates }}">
+                        <input type="datetime-local" name="date" value="{{ $transorders->dates }}">
                     </div>
                     <div class="field">
                         <label for="">Total</label>

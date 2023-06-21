@@ -19,7 +19,7 @@
                 <div class="three fields">
                     <div class="field">
                         <label for="">Date</label>
-                        <input type="date" name="date">
+                        <input type="datetime-local" name="date">
                     </div>
                     <div class="field">
                         <label for="">Total</label>
