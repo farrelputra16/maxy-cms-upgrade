@@ -89,8 +89,8 @@ class CourseController extends Controller
             WHERE course_package.id = course.course_package_id AND course.id = ?
         ', [$idCourse]));
         
-        $allCourseTypes = MCourseType::where('id', '!=', $currentDataCourse->value('id_course_type'))->get();
-        $allDifficultyTypes = MDifficultyType::where('id', '!=', $currentDataCourse->value('id_course_difficulty'))->get();
+        $allCourseTypes = MCourseType::where('id', '!=', $currentDataCourse->value('m_course_type_id'))->get();
+        $allDifficultyTypes = MDifficultyType::where('id', '!=', $currentDataCourse->value('m_difficulty_type_id'))->get();
         $allCoursePackages = CoursePackage::where('id', '!=', $currentCoursePackages->value('course_package_id'))->get();
 
         return view('course.edit', [
