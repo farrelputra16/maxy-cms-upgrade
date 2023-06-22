@@ -7,7 +7,7 @@
         <hr style="margin-bottom: 0px;">
         <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
             <div class="navbar-nav">
-                <a class="btn btn-primary" href="{{ route('getAddCoursePackage', ['access' => 'course_package_create']) }}" role="button">Tambah Course Package +</a>
+                <a class="btn btn-primary" href="{{ route('getAddCoursePackage') }}" role="button">Tambah Course Package +</a>
             </div>
         </nav>
         <div id="table_content">
@@ -44,7 +44,7 @@
                         <td>{{ $item->created_at }}</td>
                         <td>{{ $item->updated_at }}</td>
                         <td>
-                            <a href="{{ route('getEditCoursePackage', ['id' => $item->id, 'access' => 'course_package_update']) }}" style="text-decoration: none; color:blue;">Edit</a>
+                            <a href="{{ route('getEditCoursePackage', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
                         </td>
                     </tr>
                     @endforeach

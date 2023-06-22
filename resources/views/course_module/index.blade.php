@@ -7,7 +7,7 @@
         <hr style="margin-bottom: 0px;">
         <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
             <div class="navbar-nav">
-                <a class="btn btn-primary" href="{{ route('getAddCourseModule', ['access' => 'course_module_create']) }}" role="button">Tambah Course Module +</a>
+                <a class="btn btn-primary" href="{{ route('getAddCourseModule') }}" role="button">Tambah Course Module +</a>
             </div>
         </nav>
         <div id="table_content">
@@ -35,8 +35,8 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('getEditCourseModule', ['id' => $item->id, 'access' => 'course_module_update']) }}" style="text-decoration: none; color:blue;">Edit</a>
-                                <a href="{{ route('getCourseChildModule', ['id' => $item->id, 'access' => 'course_module_child_manage']) }}" style="text-decoration: none; color:teal;">Child</a>
+                                <a href="{{ route('getEditCourseModule', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
+                                <a href="{{ route('getCourseChildModule', ['id' => $item->id]) }}" style="text-decoration: none; color:teal;">Child</a>
                             </td>
                         </tr>
                     @endforeach
