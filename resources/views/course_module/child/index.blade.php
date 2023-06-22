@@ -39,7 +39,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('getEditChildModule', ['id' => $item->id) }}" style="text-decoration: none; color:blue;">Edit</a>
+                                <a href="{{ route('getEditChildModule', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
                             </td>
                         </tr>
                     @endforeach

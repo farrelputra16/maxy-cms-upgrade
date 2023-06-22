@@ -39,7 +39,7 @@
                             <td>{{ $item->created_at }}</td>
                             <td>{{ $item->updated_at }}</td>
                             <td>
-                                <a href="{{ route('getEditAccessMaster', ['id' => $item->id) }}" style="text-decoration: none; color:blue;">Edit</a>
+                                <a href="{{ route('getEditAccessMaster', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
                             </td>
                         </tr>
                     @endforeach
