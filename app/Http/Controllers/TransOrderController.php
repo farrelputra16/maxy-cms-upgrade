@@ -16,8 +16,32 @@ class TransOrderController extends Controller
 {
     //
     function getTransOrder(){
-        $transorder = TransOrder::all();
-        return view('transorder.index', ['transorder' => $transorder]);
+        $transOrders = DB::select('SELECT 
+            trans_order.id, 
+            trans_order.order_number, 
+            trans_order.date, 
+            trans_order.total, 
+            trans_order.discount, 
+            trans_order.total_after_discount, 
+            trans_order.payment_status, 
+            course.name AS course_name, 
+            course_class.batch AS course_class_batch,
+            member.name AS member_name, 
+            course_package.name AS course_package_name, 
+            promotion.name AS promotion_name,
+            trans_order.forced_at,
+            trans_order.forced_comment,
+            trans_order.description,
+            trans_order.status
+            FROM trans_order
+            LEFT JOIN course ON trans_order.course_id = course.id
+            LEFT JOIN course_class ON trans_order.course_class_id = course_class.id
+            LEFT JOIN member ON trans_order.member_id = member.id
+            LEFT JOIN course_package ON trans_order.course_package_id = course_package.id
+            LEFT JOIN promotion ON trans_order.promotion_id = promotion.id
+        ');
+
+        return view('trans_order.index', ['transOrders' => $transOrders]);
     }
 
     function getAddTransOrder(Request $request){
@@ -27,7 +51,7 @@ class TransOrderController extends Controller
         $idcoursepackages = CoursePackage::all();
         $idpromotions = Promotion::all();
 
-        return view('transorder.add', [
+        return view('trans_order.add', [
             'idcourses' => $idcourses,
             'idcourseclasses' => $idcourseclasses,
             'idmembers' => $idmembers,
@@ -40,29 +64,31 @@ class TransOrderController extends Controller
         $validate = $request->validate([
             'order_number' => 'required',
             'date' => 'required',
+            'member_id' =>'required',
             'total' => 'required',
             'total_after_discount' => 'required',
             'payment_status' => 'required',
-            'id_course' => 'required',
-            'id_course_class' =>'required',
-            'id_member' =>'required',
-            'id_course_package' =>'required',
-            'id_promotion' =>'required'
+            'course_id' => 'required',
+            'course_class_id' =>'required',
+            'course_package_id' =>'required',
         ]);
+
+        $trim_total = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->total));
+        $trim_total_after_discount = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->total_after_discount));
         
         if($validate){
             $create = TransOrder::create([
                 'order_number' => $request->order_number,
                 'date' => $request->date,
-                'total' => $request->total,
+                'total' => (float)$trim_total,
                 'discount' => $request->discount,
-                'total_after_discount' => $request->total_after_discount,
+                'total_after_discount' => $request->discount ? (float) $trim_total_after_discount : (float) $trim_total,
                 'payment_status' => $request->payment_status,
-                'id_course' => $request->id_course,
-                'id_course_class' => $request->id_course_class,
-                'id_member' => $request->id_member,
-                'id_course_package' => $request->id_course_package,
-                'id_promotion' => $request->id_promotion,
+                'course_id' => $request->course_id,
+                'course_class_id' => $request->course_class_id,
+                'member_id' => $request->member_id,
+                'course_package_id' => $request->course_package_id,
+                'promotion_id' => $request->promotion_id,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => Auth::user()->id,
@@ -81,63 +107,71 @@ class TransOrderController extends Controller
         $idtransorder = $request->id;
         $transorders = TransOrder::find($idtransorder);
 
-
         $currentData = collect(DB::select('SELECT 
-        trans_order.id, 
-        trans_order.order_number, 
-        trans_order.date AS dates, 
-        trans_order.total, 
-        trans_order.discount, 
-        trans_order.total_after_discount, 
-        trans_order.payment_status, 
-        trans_order.id_course, 
-        trans_order.id_course_class, 
-        trans_order.id_member, 
-        trans_order.id_course_package, 
-        trans_order.id_promotion, 
-        trans_order.description
-        FROM trans_order
-        JOIN course ON trans_order.id_course = course.id
-        JOIN course_class ON trans_order.id_course_class = course_class.id
-        JOIN member ON trans_order.id_member = member.id
-        JOIN course_package ON trans_order.id_course_package = course_package.id
-        JOIN promotion ON trans_order.id_promotion = promotion.id
-        WHERE trans_order.id = ?; ',[$idtransorder]));
+            trans_order.id, 
+            trans_order.order_number, 
+            trans_order.date AS dates, 
+            trans_order.total, 
+            trans_order.discount, 
+            trans_order.total_after_discount, 
+            trans_order.payment_status, 
+            trans_order.course_id,
+            course.name AS course_name,
+            trans_order.course_class_id,
+            course_class.batch AS course_class_batch,
+            trans_order.member_id,
+            member.name AS member_name,
+            trans_order.course_package_id,
+            course_package.name AS course_package_name,
+            trans_order.promotion_id,
+            promotion.name AS promotion_name,
+            trans_order.description,
+            trans_order.status
+            FROM trans_order
+            LEFT JOIN course ON trans_order.course_id = course.id
+            LEFT JOIN course_class ON trans_order.course_class_id = course_class.id
+            LEFT JOIN member ON trans_order.member_id = member.id
+            LEFT JOIN course_package ON trans_order.course_package_id = course_package.id
+            LEFT JOIN promotion ON trans_order.promotion_id = promotion.id
+            WHERE trans_order.id = ?; ',[$idtransorder]));
 
-        $idcourses = Course::where('id', '!=', $currentData->value('id_course'))->get();
-        $idcourseclasses = CourseClass::where('id', '!=', $currentData->value('id_course_class'))->get();
-        $idmembers = Member::where('id', '!=', $currentData->value('id_member'))->get();
-        $idcoursepackages = CoursePackage::where('id', '!=', $currentData->value('id_course_package'))->get();
-        $idpromotions = Promotion::where('id', '!=', $currentData->value('id_promotion'))->get();
+        $allCourse = Course::where('id', '!=', $currentData->value('course_id'))->get();
+        $allCourseClass = CourseClass::where('id', '!=', $currentData->value('course_class_id'))->get();
+        $allMember = Member::where('id', '!=', $currentData->value('member_id'))->get();
+        $allCoursePackage = CoursePackage::where('id', '!=', $currentData->value('course_package_id'))->get();
+        $allPromotion = Promotion::where('id', '!=', $currentData->value('promotion_id'))->get();
 
-        return view('transorder.edit', [
+        return view('trans_order.edit', [
             'transorders' => $transorders,
             'currentData' => $currentData,
-            'idcourses' => $idcourses,
-            'idcourseclasses' => $idcourseclasses,
-            'idmembers' => $idmembers,
-            'idcoursepackages' => $idcoursepackages,
-            'idpromotions' => $idpromotions
+            'allCourse' => $allCourse,
+            'allCourseClass' => $allCourseClass,
+            'allMember' => $allMember,
+            'allCoursePackage' => $allCoursePackage,
+            'allPromotion' => $allPromotion
         ]);
     }
 
     function postEditTransOrder(Request $request){
         $idTransOrder = $request->id;
 
+        $trim_total = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->total));
+        $trim_total_after_discount = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->total_after_discount));
+
         $updateData = DB::table('trans_order')
             ->where('id', $idTransOrder)
             ->update([
                 'order_number' => $request->order_number,
                 'date' => $request->date,
-                'total' => $request->total,
+                'total' => (float)$trim_total,
                 'discount' => $request->discount,
-                'total_after_discount' => $request->total_after_discount,
+                'total_after_discount' => $request->discount ? (float) $trim_total_after_discount : (float) $trim_total,
                 'payment_status' => $request->payment_status,
-                'id_course' => $request->id_course,
-                'id_course_class' => $request->id_course_class,
-                'id_member' => $request->id_member,
-                'id_course_package' => $request->id_course_package,
-                'id_promotion' => $request->id_promotion,
+                'course_id' => $request->course_id,
+                'course_class_id' => $request->course_class_id,
+                'member_id' => $request->member_id,
+                'course_package_id' => $request->course_package_id,
+                'promotion_id' => $request->promotion_id,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => Auth::user()->id,
@@ -146,8 +180,7 @@ class TransOrderController extends Controller
             if ($updateData){
                 return app(HelperController::class)->Positive('getTransOrder');
             } else {
-                return app(HelperController::class)->Negative('getTransOrder');
+                return app(HelperController::class)->Warning('getTransOrder');
             }
-
     }
 }
