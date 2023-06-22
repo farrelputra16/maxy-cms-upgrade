@@ -183,9 +183,6 @@ Route::post('/order/add', [TransOrderController::class, 'postAddTransOrder'])->n
 Route::get('/order/edit', [TransOrderController::class, 'getEditTransOrder'])->name('getEditTransOrder')->middleware('access:trans_order_update');
 Route::post('/order/edit', [TransOrderController::class, 'postEditTransOrder'])->name('postEditTransOrder')->middleware('access:trans_order_update');
 
-// order confirmation
-Route::get('/order/confirm', [TransOrderConfirmationController::class, 'getTransOrderConfirm'])->name('getTransOrderConfirm');
-
 // bad access
 Route::get('/noauthority', function () {
     return view('bad_access');
