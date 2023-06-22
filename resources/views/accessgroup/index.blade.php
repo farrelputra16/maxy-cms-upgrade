@@ -7,7 +7,7 @@
         <hr style="margin-bottom: 0px;">
         <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
             <div class="navbar-nav">
-                <a class="btn btn-primary" href="{{ route('getAddAccessGroup', ['access' => 'access_group_create']) }}" role="button">Tambah Group +</a>
+                <a class="btn btn-primary" href="{{ route('getAddAccessGroup') }}" role="button">Tambah Group +</a>
             </div>
         </nav>
         <div id="table_content">
@@ -39,7 +39,7 @@
                             <td>{{ $item->created_at }}</td>
                             <td>{{ $item->updated_at }}</td>
                             <td>
-                                <a href="{{ route('getEditAccessGroup', ['id' => $item->id, 'access' => 'access_group_update']) }}" style="text-decoration: none; color:blue;">Edit</a>
+                                <a href="{{ route('getEditAccessGroup', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
                             </td>
                         </tr>
                     @endforeach

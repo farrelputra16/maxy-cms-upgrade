@@ -11,7 +11,7 @@
         </h2>
         <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
             <div class="navbar-nav">
-                <a class="btn btn-primary" href="{{ route('getAddChildModule', ['id' => $courseParent->id, 'access' => 'course_module_child_create']) }}" role="button">Tambah Child Module +</a>
+                <a class="btn btn-primary" href="{{ route('getAddChildModule', ['id' => $courseParent->id]) }}" role="button">Tambah Child Module +</a>
             </div>
         </nav>
         <div id="table_content">
@@ -39,7 +39,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('getEditChildModule', ['id' => $item->id, 'access' => 'course_module_child_update']) }}" style="text-decoration: none; color:blue;">Edit</a>
+                                <a href="{{ route('getEditChildModule', ['id' => $item->id) }}" style="text-decoration: none; color:blue;">Edit</a>
                             </td>
                         </tr>
                     @endforeach
