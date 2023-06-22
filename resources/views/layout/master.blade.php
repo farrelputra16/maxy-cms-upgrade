@@ -72,7 +72,7 @@
                                             <a class="dropdown-item disabled" href="{{ route('getCoursePackageBenefit') }}">Course Package Benefit <i class="lock icon"></i></a>
                                         @endif
                                         <div class="dropdown-divider"></div>
-                                        @if ($broGotAccessMaster->contains('name', 'm_difficulty_manage'))
+                                        @if ($broGotAccessMaster->contains('name', 'm_difficulty_type_manage'))
                                             <a class="dropdown-item" href="{{ route('getDifficulty')}}">Course Difficulty</a>
                                         @else
                                             <a class="dropdown-item disabled" href="{{ route('getDifficulty')}}">Course Difficulty <i class="lock icon"></i></a>
@@ -131,11 +131,6 @@
                                             <a class="dropdown-item" href="{{ route('getTransOrder') }}">Orders</a>
                                         @else
                                             <a class="dropdown-item disabled" href="{{ route('getTransOrder') }}">Orders <i class="lock icon"></i></a>
-                                        @endif
-                                        @if ($broGotAccessMaster->contains('name', 'course_manage'))
-                                            <a class="dropdown-item" href="{{ route('getTransOrderConfirm') }}">Order Confirmation</a>
-                                        @else
-                                            <a class="dropdown-item disabled" href="{{ route('getTransOrderConfirm') }}">Order Confirmation <i class="lock icon"></i></a>
                                         @endif
                                     </div>
                                 </li>
