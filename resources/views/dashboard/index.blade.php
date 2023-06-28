@@ -8,7 +8,7 @@
             <div class="header">
                 Sugeng Rawuh, {{ Auth::user()->name }}
             </div>
-            <p>Aplikasi ini sedang tahap pengembangan, beberapa kesalahan mungkin terjadi. Silakan hubungi <a href="">backend team development</a>.</p>
+            <p>Aplikasi ini sedang tahap pengembangan, beberapa kesalahan mungkin terjadi. Silakan hubungi <a href="https://wa.me/+6281281910513/?text=Banh webnya error banh">backend team development</a>.</p>
         </div>
         <div class="ui three stackable cards">
             <div class="ui card" style="width: 10%;">
