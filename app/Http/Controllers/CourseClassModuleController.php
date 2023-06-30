@@ -6,7 +6,7 @@ use App\Models\CourseClassModule;
 use App\Models\CourseModule;
 use Illuminate\Http\Request;
 use DB;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class CourseClassModuleController extends Controller
 {
@@ -69,8 +69,8 @@ class CourseClassModuleController extends Controller
                 'course_class_id' => $request->courseclassid,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
-                'created_id' => 1,
-                'updated_id' => 1
+                'created_id' => Auth::user()->id,
+                'updated_id' => Auth::user()->id
             ]);
 
             if ($create){

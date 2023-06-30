@@ -56,8 +56,8 @@ class CourseController extends Controller
                 'm_difficulty_type_id' => $request->level,
                 'description' => $request->description,
                 'status' => $request->status == '' ? 0 : 1,
-                'created_id' => 1,
-                'updated_id' => 1
+                'created_id' => Auth::user()->id,
+                'updated_id' => Auth::user()->id
             ]);
 
             if ($create){
@@ -130,8 +130,8 @@ class CourseController extends Controller
                     'm_difficulty_type_id' => $request->level,
                     'description' => $request->description,
                     'status' => $request->status == '' ? 0 : 1,
-                    'created_id' => 1,
-                    'updated_id' => 1
+                    'created_created_id' => Auth::user()->id,
+                    'updated_id' => Auth::user()->id
             ]);
 
             if ($updateData){
@@ -158,8 +158,8 @@ class CourseController extends Controller
                     'm_difficulty_type_id' => $request->level,
                     'description' => $request->description,
                     'status' => $request->status == '' ? 0 : 1,
-                    'created_id' => 1,
-                    'updated_id' => 1
+                    'created_id' => Auth::user()->id,
+                    'updated_id' => Auth::user()->id
             ]);
 
             if ($updateData){
@@ -186,8 +186,8 @@ class CourseController extends Controller
                     'm_difficulty_type_id' => $request->level,
                     'description' => $request->description,
                     'status' => $request->status == '' ? 0 : 1,
-                    'created_id' => 1,
-                    'updated_id' => 1
+                    'created_id' => Auth::user()->id,
+                    'updated_id' => Auth::user()->id
             ]);
 
             if ($updateData){

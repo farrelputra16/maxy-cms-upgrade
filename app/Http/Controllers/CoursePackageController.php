@@ -78,8 +78,8 @@ class CoursePackageController extends Controller
                         'price' => $trim_price,
                         'description' => $request->description,
                         'status' => $request->status ? 1 : 0,
-                        'created_id' => 1,
-                        'updated_id' => 1
+                        'created_id' => Auth::user()->id,
+                        'updated_id' => Auth::user()->id
                     ]);
 
                 if ($updateData){
@@ -95,8 +95,8 @@ class CoursePackageController extends Controller
                         'price' => $request->price,
                         'description' => $request->description,
                         'status' => $request->status ? 1 : 0,
-                        'created_id' => 1,
-                        'updated_id' => 1
+                        'created_id' => Auth::user()->id,
+                        'updated_id' => Auth::user()->id
                     ]);
 
                 if ($updateData){
