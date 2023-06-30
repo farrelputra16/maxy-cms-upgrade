@@ -134,6 +134,18 @@
                                         @endif
                                     </div>
                                 </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Settings
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        @if ($broGotAccessMaster->contains('name', 'general_manage'))
+                                            <a class="dropdown-item" href="{{ route('getGeneral') }}">General</a>
+                                        @else
+                                            <a class="dropdown-item disabled" href="{{ route('getGeneral') }}">General <i class="lock icon"></i></a>
+                                        @endif
+                                    </div>
+                                </li>
                             </li>
                         </ul>
                         <form class="form-inline my-2 my-lg-0 me-3" method="post" action="{{ route('logout') }}">

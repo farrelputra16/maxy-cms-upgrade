@@ -17,6 +17,7 @@ use App\Http\Controllers\TransOrderConfirmationController;
 use App\Http\Controllers\TransOrderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MDifficultyTypeController;
+use App\Http\Controllers\GeneralController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -182,6 +183,16 @@ Route::post('/order/add', [TransOrderController::class, 'postAddTransOrder'])->n
 
 Route::get('/order/edit', [TransOrderController::class, 'getEditTransOrder'])->name('getEditTransOrder')->middleware('access:trans_order_update');
 Route::post('/order/edit', [TransOrderController::class, 'postEditTransOrder'])->name('postEditTransOrder')->middleware('access:trans_order_update');
+
+//                                     General
+//General Routes #########################################################################################################
+Route::get('/general', [GeneralController::class, 'getGeneral'])->name('getGeneral')->middleware('access:general_manage');
+
+Route::get('/general/add', [GeneralController::class, 'getAddGeneral'])->name('getAddGeneral')->middleware('access:general_create');
+Route::post('/general/add', [GeneralController::class, 'postAddGeneral'])->name('postAddGeneral')->middleware('access:general_create');
+
+Route::get('/general/edit', [GeneralController::class, 'getEditGeneral'])->name('getEditGeneral')->middleware('access:general_update');
+Route::post('/general/edit', [GeneralController::class, 'postEditGeneral'])->name('postEditGeneral')->middleware('access:general_update');
 
 // bad access
 Route::get('/noauthority', function () {

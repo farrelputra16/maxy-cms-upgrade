@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CoursePackage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CoursePackageController extends Controller
 {
@@ -36,8 +37,8 @@ class CoursePackageController extends Controller
                 'price' => $trim_price,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
-                'created_id' => 1,
-                'updated_id' => 1
+                'created_id' => Auth::user()->id,
+                'updated_id' => Auth::user()->id
             ]);
     
             if ($create){
