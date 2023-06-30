@@ -110,7 +110,7 @@ class CourseModuleController extends Controller
 
         $create = CourseModule::create([
             'name' => $request->name,
-            'priority' => 0,
+            'priority' => $request->priority,
             'level' => $request->level,
             'course_id' => $parentModule->course_id,
             'course_module_parent_id' => $parentModule->id,
