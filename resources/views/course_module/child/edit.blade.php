@@ -13,6 +13,10 @@
                         <input type="text" name="name" value="{{ $childModules->name }}">
                     </div>
                     <div class="field">
+                        <label for="">Child Module Priority</label>
+                        <input type="text" name="priority" value="{{ $childModules->priority }}">
+                    </div>
+                    <div class="field">
                         <label for="">Child Module Level</label>
                         <input type="text" name="level" value="{{ $childModules->level }}">
                     </div>

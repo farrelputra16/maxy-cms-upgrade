@@ -11,10 +11,14 @@
                     <label for="">Parent Module</label>
                     <input type="text" value="{{ $parent->name }}" disabled>
                 </div>
-                <div class="two fields">
+                <div class="three fields">
                     <div class="field">
                         <label for="">Child Module Name</label>
                         <input type="text" name="name">
+                    </div>
+                    <div class="field">
+                        <label for="">Child Priority</label>
+                        <input type="number" name="priority">
                     </div>
                     <div class="field">
                         <label for="">Child Level</label>

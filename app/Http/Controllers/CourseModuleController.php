@@ -137,6 +137,7 @@ class CourseModuleController extends Controller
         $updated = CourseModule::where('id', '=', $request->id)
         ->update([
             'name' => $request->name,
+            'priority' => $request->priority,
             'level' => $request->level,
             'description' => $request->description,
             'status' => $request->status ? 1 : 0,
