@@ -206,6 +206,16 @@ Route::post('/testimonial/add', [TestimonialController::class, 'postAddTestimoni
 Route::get('/testimonial/edit', [TestimonialController::class, 'getEditTestimonial'])->name('getEditTestimonial')->middleware('access:member_testimonial_update');
 Route::post('/testimonial/edit', [TestimonialController::class, 'postEditTestimonial'])->name('postEditTestimonial')->middleware('access:member_testimonial_update');
 
+//                                     Maxy Talks
+//Testimonial Routes #########################################################################################################
+Route::get('maxytalk', [MaxyTalkController::class, 'getMaxyTalk'])->name('getMaxyTalk')->middleware('access:maxy_talk_manage');
+
+Route::get('maxytalk/add', [MaxyTalkController::class, 'getAddMaxyTalk'])->name('getAddMaxyTalk')->middleware('access:maxy_talk_create');
+Route::post('maxytalk/add', [MaxyTalkController::class, 'postAddMaxyTalk'])->name('postAddMaxyTalk')->middleware('access:maxy_talk_create');
+
+Route::get('maxytalk/edit', [MaxyTalkController::class, 'getEditMaxyTalk'])->name('getEditMaxyTalk')->middleware('access:maxy_talk_update');
+Route::post('maxytalk/edit', [MaxyTalkController::class, 'postEditMaxyTalk'])->name('postEditMaxyTalk')->middleware('access:maxy_talk_update');
+
 // bad access
 Route::get('/noauthority', function () {
     return view('bad_access');
