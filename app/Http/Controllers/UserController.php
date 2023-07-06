@@ -54,7 +54,7 @@ class UserController extends Controller
                 'password' => $passwordcrpyt,
                 'type' => $request->type,
                 'access_group_id' => $request->access_group,
-                'status' => 1,
+                'status' => $request->status ? 1 : 0,
                 'created_id' => Auth::user()->id,
                 'updated_id' => Auth::user()->id
             ]);
@@ -67,14 +67,9 @@ class UserController extends Controller
 
     function getEditUser(Request $request){
         $currentData = collect(DB::select('SELECT
-            users.name,
-            users.email,
-            users.password,
-            users.type,
+            users.*,
             access_group.id AS access_group_id,
-            access_group.name AS access_group_name,
-            users.description,
-            users.status
+            access_group.name AS access_group_name
             FROM users
             JOIN access_group
             WHERE users.access_group_id = access_group.id

@@ -13,14 +13,9 @@ class CoursePackageBenefitController extends Controller
     //
     function getCoursePackageBenefit(){
         $coursePackageBenefits = DB::select('SELECT
-            course_package_benefit.id,
-            course_package_benefit.name,
+            course_package_benefit.*,
             course_package.name AS course_package_name,
-            course_package.price AS course_package_price,
-            course_package_benefit.description,
-            course_package_benefit.status,
-            course_package_benefit.created_at,
-            course_package_benefit.updated_at
+            course_package.price AS course_package_price
             FROM course_package_benefit
             JOIN course_package
             WHERE course_package_benefit.course_package_id = course_package.id;
