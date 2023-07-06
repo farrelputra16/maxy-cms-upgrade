@@ -31,7 +31,7 @@
                 @endif
                 <div class="field">
                     <label>Password</label>
-                    <small>The password has been hashing, no one can't see the password. <span style="color: blue;">You can change below if you want it.</span></small>
+                    <small>The user's password has been hashed to protect their privacy, proceed to change it to your liking. <span style="color: blue;">Just make sure to remember it.</span></small>
                     <input type="password" name="password" value="{{ $currentData->value('password') }}">
                 </div>
                 @if ($errors->has('password'))

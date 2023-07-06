@@ -1,6 +1,6 @@
 @extends ('layout.master')
 
-@section ('title', 'Trans Order')
+@section ('title', 'General Settings')
 @section ('content')
     <div style="padding: 0px 12px 0px 12px;">
         <hr style = "margin-bottom: 0px;">
