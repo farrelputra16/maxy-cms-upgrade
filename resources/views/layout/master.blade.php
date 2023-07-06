@@ -144,6 +144,11 @@
                                         @else
                                             <a class="dropdown-item disabled" href="{{ route('getGeneral') }}">General <i class="lock icon"></i></a>
                                         @endif
+                                        @if ($broGotAccessMaster->contains('name', 'maxy_talk_manage'))
+                                            <a class="dropdown-item" href="{{ route('getMaxyTalk') }}">Maxy Talk</a>
+                                        @else
+                                        <a class="dropdown-item disabled" href="{{ route('getMaxyTalk') }}">Maxy Talk <i class="lock icon"></i></a>
+                                        @endif
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
