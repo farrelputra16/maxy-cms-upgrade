@@ -23,10 +23,10 @@
                         <label for="start-date">Start Date</label>
                         <input type="datetime-local" id="start-date" name="datestart" onchange="updateEndDateMin()">
                         @if ($errors->has('datestart'))
-                        @foreach ($errors->get('datestart') as $error)
-                            <span style="color: red;">{{$error}}</span>
-                        @endforeach
-                    @endif
+                            @foreach ($errors->get('datestart') as $error)
+                                <span style="color: red;">{{$error}}</span>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
                 <div class="eight fields">
@@ -34,16 +34,32 @@
                         <label for="end-date">End Date</label>
                         <input type="datetime-local" id="end-date" name="dateend">
                         @if ($errors->has('dateend'))
-                        @foreach ($errors->get('dateend') as $error)
-                            <span style="color: red;">{{$error}}</span>
-                        @endforeach
-                    @endif
+                            @foreach ($errors->get('dateend') as $error)
+                                <span style="color: red;">{{$error}}</span>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
                 <div class="three fields">
                     <div class="field">
-                        <label for="">Regsistration Link</label>
+                        <label for="">Registration Link</label>
                         <input type="text" name="registration">
+                        @if ($errors->has('registration'))
+                            @foreach ($errors->get('registration') as $error)
+                                <span style="color: red;">{{$error}}</span>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+                <div class="three fields">
+                    <div class="field">
+                        <label for="">Priority</label>
+                        <input type="number" name="priority">
+                        @if ($errors->has('priority'))
+                            @foreach ($errors->get('priority') as $error)
+                                <span style="color: red;">{{$error}}</span>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
                 <div class="field">
@@ -61,7 +77,7 @@
                     @endif
                 </div>
                 <div class="field">
-                    <label for="">Maxy Talk Parents</label>
+                    <label for="">Maxy Talk Parents (optional)</label>
                     <select name="parentsid" class="ui dropdown">
                     <option value="">-- Pilih Parents --</option>
                         @foreach ($maxytalk as $item)

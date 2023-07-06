@@ -17,6 +17,7 @@ class MaxyTalk extends Model
         'start_date',
         'end_date',
         'register_link',
+        'priority',
         'users_id',
         'maxy_talk_parent_id',
         'description',

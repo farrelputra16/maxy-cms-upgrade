@@ -16,11 +16,10 @@ class MaxyTalkController extends Controller
 
         return view('maxytalk.index', [
             'maxytalk' => $maxytalk
-            ]);
-        
+        ]);
     }
 
-    function getAddMaxyTalk(Request $request){
+    function getAddMaxyTalk(){
         $maxytalk = MaxyTalk::all();
         $users = User::all();
 
@@ -33,21 +32,22 @@ class MaxyTalkController extends Controller
     function postAddMaxyTalk(Request $request){
         $validate = $request->validate([
             'name' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'users_id' => 'required'
+            'datestart' => 'required',
+            'dateend' => 'required',
+            'userid' => 'required'
         ]);
 
         if($validate){
-            $create=MaxyTalk::create([
+            $create = MaxyTalk::create([
                 'name' => $request->name,
                 'start_date' => $request->datestart,
                 'end_date' => $request->dateend,
                 'register_link' => $request->registration,
+                'priority'=>$request->priority,
                 'users_id' => $request->userid,
                 'maxy_talk_parent_id' => $request->parentsid,
                 'description' => $request->description,
-                'status' => $request->status ? 1 : 0,
+                'status' => $request->status == 1 ? 1 : 0,
                 'created_id' => Auth::user()->id,
                 'updated_id' => Auth::user()->id
             ]);
