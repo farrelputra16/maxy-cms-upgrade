@@ -18,6 +18,8 @@ use App\Http\Controllers\TransOrderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MDifficultyTypeController;
 use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\MaxyTalkController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -152,8 +154,8 @@ Route::get('/user', [UserController::class, 'getUser'])->name('getUser')->middle
 Route::get('/user/add', [UserController::class, 'getAddUser'])->name('getAddUser')->middleware('access:users_create');
 Route::post('/user/add', [UserController::class, 'postAddUser'])->name('postAddUser')->middleware('access:users_create');
 
-Route::get('/user/edit', [UserController::class, 'getEditUser'])->name('getEditUser')->middleware('access:users_edit');
-Route::post('/user/edit', [UserController::class, 'postEditUser'])->name('postEditUser')->middleware('access:users_edit');
+Route::get('/user/edit', [UserController::class, 'getEditUser'])->name('getEditUser')->middleware('access:users_update');
+Route::post('/user/edit', [UserController::class, 'postEditUser'])->name('postEditUser')->middleware('access:users_update');
 
 //                                      PARTNER
 // partner routes
@@ -193,6 +195,16 @@ Route::post('/general/add', [GeneralController::class, 'postAddGeneral'])->name(
 
 Route::get('/general/edit', [GeneralController::class, 'getEditGeneral'])->name('getEditGeneral')->middleware('access:general_update');
 Route::post('/general/edit', [GeneralController::class, 'postEditGeneral'])->name('postEditGeneral')->middleware('access:general_update');
+
+//                                     Testimonial
+//Testimonial Routes #########################################################################################################
+Route::get('/testimonial', [TestimonialController::class, 'getTestimonial'])->name('getTestimonial')->middleware('access:member_testimonial_manage');
+
+Route::get('/testimonial/add', [TestimonialController::class, 'getAddTestimonial'])->name('getAddTestimonial')->middleware('access:member_testimonial_create');
+Route::post('/testimonial/add', [TestimonialController::class, 'postAddTestimonial'])->name('postAddTestimonial')->middleware('access:member_testimonial_create');
+
+Route::get('/testimonial/edit', [TestimonialController::class, 'getEditTestimonial'])->name('getEditTestimonial')->middleware('access:member_testimonial_update');
+Route::post('/testimonial/edit', [TestimonialController::class, 'postEditTestimonial'])->name('postEditTestimonial')->middleware('access:member_testimonial_update');
 
 // bad access
 Route::get('/noauthority', function () {
