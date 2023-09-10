@@ -12,9 +12,11 @@ class CourseModuleController extends Controller
 {
     // PARENT
     function getCourseModule(){
-        $courseModuleParent = DB::select('SELECT id, name, description, status 
+        $courseModuleParent = DB::select('SELECT id, name, course_id, description, status 
             FROM course_module 
-            WHERE course_module_parent_id IS NULL ORDER BY priority ASC;');
+            WHERE course_module_parent_id IS NULL 
+            ORDER BY id ASC, priority ASC;');
+
             
         return view('course_module.index', [
             'courseModules' => $courseModuleParent
@@ -30,7 +32,7 @@ class CourseModuleController extends Controller
         $create = CourseModule::create([
             'name' => $request->name,
             'priority' => $request->priority,
-            'level' => 0,
+            'level' => 1,
             'course_id' => $request->course,
             'description' => $request->description,
             'status' => $request->status ? 1 : 0,
@@ -46,22 +48,29 @@ class CourseModuleController extends Controller
 
     function getEditCourseModule(Request $request){
         $courseModule = CourseModule::find($request->id);
-
+    
         $currentCourse = collect(DB::select('SELECT course.id as course_id, course.name as course_name
             FROM course_module
             JOIN course
             WHERE course_module.course_id = course.id
             AND course_module.id = ?;
         ', [$request->id]));
+    
+        $allCourses = Course::where('id', '!=', $currentCourse->pluck('course_id')->first())->get();
 
-        $allCourses = Course::where('id', '!=', $currentCourse->value('course_id'))->get();
-
+        // return dd($allCourses);
+    
         return view('course_module.edit', [
             'courseModule' => $courseModule,
             'allCourses' => $allCourses,
-            'courseName' => $currentCourse
+            'courseName' => [
+                'course_id' => $currentCourse->pluck('course_id')->first(),
+                'course_name' => $currentCourse->pluck('course_name')->first()
+            ]
+            
         ]);
     }
+    
 
     function postEditCourseModule(Request $request){
         $update = CourseModule::where('id', $request->id)

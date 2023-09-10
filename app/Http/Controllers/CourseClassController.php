@@ -67,22 +67,23 @@ class CourseClassController extends Controller
     function getEditCourseClass(Request $request){
         $idCourseClass = $request->id;
         $courseclasses = CourseClass::find($idCourseClass);
-
+    
         $currentData = collect(DB::select('SELECT course.name AS course_name, 
             course_class.course_id AS course_id
             FROM course_class 
             INNER JOIN course 
             ON course_class.course_id = course.id 
-            WHERE course_class.id = ?;', [$idCourseClass]));
-
-        $allCourses = Course::where('id', '!=', $currentData->value('course_id'))->get();    
-
+            WHERE course_class.id = ?;', [$idCourseClass]))->first(); // Use first() to get the first item in the collection
+    
+        $allCourses = Course::where('id', '!=', $currentData->course_id)->get(); // Access the attribute directly
+    
         return view('course_class.edit', [
             'courseclasses' => $courseclasses,
             'currentData' => $currentData,
             'allCourses' => $allCourses
         ]);
     }
+    
 
     function postEditCourseClass(Request $request){
         $idCourseClass = $request->id;

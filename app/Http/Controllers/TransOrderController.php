@@ -7,7 +7,7 @@ use App\Models\TransOrder;
 use illuminate\Support\Facades\Auth;
 use App\Models\Course;
 use App\Models\CourseClass;
-use App\Models\Member;
+use App\Models\User;
 use App\Models\CoursePackage;
 use App\Models\Promotion;
 use DB; 
@@ -26,7 +26,7 @@ class TransOrderController extends Controller
             trans_order.payment_status, 
             course.name AS course_name, 
             course_class.batch AS course_class_batch,
-            member.name AS member_name, 
+            users.name AS users_name, 
             course_package.name AS course_package_name, 
             promotion.name AS promotion_name,
             trans_order.forced_at,
@@ -36,7 +36,7 @@ class TransOrderController extends Controller
             FROM trans_order
             LEFT JOIN course ON trans_order.course_id = course.id
             LEFT JOIN course_class ON trans_order.course_class_id = course_class.id
-            LEFT JOIN member ON trans_order.member_id = member.id
+            LEFT JOIN users ON trans_order.user_id = users.id
             LEFT JOIN course_package ON trans_order.course_package_id = course_package.id
             LEFT JOIN promotion ON trans_order.promotion_id = promotion.id
         ');
@@ -47,7 +47,7 @@ class TransOrderController extends Controller
     function getAddTransOrder(Request $request){
         $idcourses = Course::all();
         $idcourseclasses = CourseClass::all();
-        $idmembers = Member::all();
+        $idmembers = User::all();
         $idcoursepackages = CoursePackage::all();
         $idpromotions = Promotion::all();
 
@@ -64,7 +64,7 @@ class TransOrderController extends Controller
         $validate = $request->validate([
             'order_number' => 'required',
             'date' => 'required',
-            'member_id' =>'required',
+            'user_id' =>'required',
             'total' => 'required',
             'total_after_discount' => 'required',
             'payment_status' => 'required',
@@ -86,7 +86,7 @@ class TransOrderController extends Controller
                 'payment_status' => $request->payment_status,
                 'course_id' => $request->course_id,
                 'course_class_id' => $request->course_class_id,
-                'member_id' => $request->member_id,
+                'user_id' => $request->user_id,
                 'course_package_id' => $request->course_package_id,
                 'promotion_id' => $request->promotion_id,
                 'description' => $request->description,
@@ -119,8 +119,8 @@ class TransOrderController extends Controller
             course.name AS course_name,
             trans_order.course_class_id,
             course_class.batch AS course_class_batch,
-            trans_order.member_id,
-            member.name AS member_name,
+            trans_order.user_id,
+            users.name AS member_name,
             trans_order.course_package_id,
             course_package.name AS course_package_name,
             trans_order.promotion_id,
@@ -130,14 +130,14 @@ class TransOrderController extends Controller
             FROM trans_order
             LEFT JOIN course ON trans_order.course_id = course.id
             LEFT JOIN course_class ON trans_order.course_class_id = course_class.id
-            LEFT JOIN member ON trans_order.member_id = member.id
+            LEFT JOIN users ON trans_order.user_id = users.id
             LEFT JOIN course_package ON trans_order.course_package_id = course_package.id
             LEFT JOIN promotion ON trans_order.promotion_id = promotion.id
             WHERE trans_order.id = ?; ',[$idtransorder]));
 
         $allCourse = Course::where('id', '!=', $currentData->value('course_id'))->get();
         $allCourseClass = CourseClass::where('id', '!=', $currentData->value('course_class_id'))->get();
-        $allMember = Member::where('id', '!=', $currentData->value('member_id'))->get();
+        $allMember = User::where('id', '!=', $currentData->value('user_id'))->get();
         $allCoursePackage = CoursePackage::where('id', '!=', $currentData->value('course_package_id'))->get();
         $allPromotion = Promotion::where('id', '!=', $currentData->value('promotion_id'))->get();
 
@@ -169,7 +169,7 @@ class TransOrderController extends Controller
                 'payment_status' => $request->payment_status,
                 'course_id' => $request->course_id,
                 'course_class_id' => $request->course_class_id,
-                'member_id' => $request->member_id,
+                'user_id' => $request->user_id,
                 'course_package_id' => $request->course_package_id,
                 'promotion_id' => $request->promotion_id,
                 'description' => $request->description,

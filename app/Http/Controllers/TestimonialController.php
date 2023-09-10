@@ -7,7 +7,7 @@ use DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Testimonial;
 use App\Models\Course;
-use App\Models\Member;
+use App\Models\User;
 use App\Models\CourseClass;
 
 class TestimonialController extends Controller
@@ -16,11 +16,11 @@ class TestimonialController extends Controller
     function getTestimonial(){
         $testimonials = DB::select('SELECT 
         member_testimonial.*, 
-        member.name AS membername, 
-        course.name AS coursename, 
+        users.name AS membername, 
+        users.name AS coursename, 
         course_class.batch AS coursebatch 
         FROM member_testimonial
-        JOIN member ON member_testimonial.member_id = member.id
+        JOIN users ON member_testimonial.user_id = users.id
         JOIN course ON member_testimonial.course_id = course.id
         JOIN course_class ON member_testimonial.course_class_id = course_class.id');
 
@@ -32,7 +32,7 @@ class TestimonialController extends Controller
 
     function getAddTestimonial(){
         $allcourse = Course::all();
-        $allmember = Member::all();
+        $allmember = User::all();
         $allcourseclass = CourseClass::all();
 
         return view('member_testimonial.add',[
@@ -47,7 +47,7 @@ class TestimonialController extends Controller
             'stars' => 'required',
             'role' => 'required',
             'course_id' => 'required',
-            'member_id' => 'required',
+            'user_id' => 'required',
             'course_class_id' => 'required',
             'description' => 'required',
         ]);
@@ -58,7 +58,7 @@ class TestimonialController extends Controller
                 'role' => $request->role,
                 'status_highlight' => $request->status_highlight ? 1 : 0,
                 'course_id' => $request->course_id,
-                'member_id' => $request->member_id,
+                'user_id' => $request->user_id,
                 'course_class_id' => $request->course_class_id,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
@@ -78,19 +78,19 @@ class TestimonialController extends Controller
 
         $currentData = collect(DB::select('SELECT 
         member_testimonial.course_id, 
-        member_testimonial.member_id,
+        member_testimonial.user_id,
         member_testimonial.course_class_id,
-        member.name AS membername, 
+        users.name AS membername, 
         course.name AS coursename, 
         course_class.batch AS coursebatch 
         FROM member_testimonial
-        JOIN member ON member_testimonial.member_id = member.id
+        JOIN member ON member_testimonial.user_id = users.id
         JOIN course ON member_testimonial.course_id = course.id
         JOIN course_class ON member_testimonial.course_class_id = course_class.id
         WHERE member_testimonial.id = ?;',[$idtestimonial]));
 
         $allcourse = Course::where('id', '!=', $currentData->value('course_id'))->get();
-        $allmember = Member::where('id', '!=', $currentData->value('member_id'))->get();
+        $allmember = User::where('id', '!=', $currentData->value('user_id'))->get();
         $allcourseclass = CourseClass::where('id', '!=', $currentData->value('course_class_id'))->get();
 
         return view('member_testimonial.edit',[
@@ -112,7 +112,7 @@ class TestimonialController extends Controller
                 'role' => $request->role,
                 'status_highlight' => $request->status_highlight ? 1 : 0,
                 'course_id' => $request->course_id,
-                'member_id' => $request->member_id,
+                'user_id' => $request->user_id,
                 'course_class_id' => $request->course_class_id,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,

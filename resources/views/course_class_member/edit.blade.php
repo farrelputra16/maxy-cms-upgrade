@@ -14,7 +14,7 @@
                 <div class="three wide field">
                     <label for="">ID Member</label>
                     <select class="ui dropdown" name="member" id="">
-                        <option value="{{ $currentData->value('ccm_member_id') }}" selected>{{ $currentData->value('ccm_member_id') }} - {{ $currentData->value('member_name') }}</option>
+                    <option value="{{ $currentData[0]->ccm_member_id }}" selected>{{ $currentData[0]->ccm_member_id }} - {{ $currentData[0]->user_name }}</option>
                         @foreach ($allMembers as $item)
                             <option value="{{ $item->id }}">{{ $item->id }} - {{ $item->name }}</option>
                         @endforeach
@@ -28,10 +28,12 @@
                 <div class="three wide field">
                     <label for="">ID Course Class (Batch)</label>
                     <select class="ui dropdown" name="course_class" id="">
-                        <option value="{{ $currentData->value('ccm_course_class_id') }}" selected>{{ $currentData->value('course_class_batch') }} - {{ $currentDataCourse->value('course_name') }}</option>
-                        @foreach ($allCourseClasses as $item)
-                            <option value="{{ $item->course_class_id }}">{{ $item->course_class_batch }} - {{ $item->course_name }}</option>
-                        @endforeach
+                    <option value="{{ $currentData[0]->ccm_course_class_id }}" selected>{{ $currentData[0]->course_class_batch }} - {{ $currentData[0]->user_name }}</option>
+
+                    @foreach ($allCourseClasses as $item)
+                        <option value="{{ $item->course_class_id }}">{{ $item->course_class_batch }} - {{ $item->course_name }}</option>
+                    @endforeach
+
                     </select>
                     @if ($errors->has('course_class'))
                         @foreach ($errors->get('course_class') as $error)
@@ -42,11 +44,18 @@
             </div>
             <div class="field">
                 <label for="">Course Class Description</label>
-                <textarea name="description">{{ $currentData->value('ccm_description') }}</textarea>
+                @if ($currentData->isNotEmpty())
+                    <textarea name="description">{{ $currentData[0]->ccm_description }}</textarea>
+                @endif
+
+
             </div>
             <div class="field">
                 <div class="ui checkbox">
-                    <input class="form-check-input" type="checkbox" value="1" {{ $currentData->value('ccm_status') == 1 ? 'checked' : ''}} name="status" >
+                @if ($currentData->isNotEmpty())
+                    <input class="form-check-input" type="checkbox" value="1" {{ $currentData[0]->ccm_status == 1 ? 'checked' : '' }} name="status">
+                @endif
+
                     <label>Aktif</label>
                 </div>
             </div>

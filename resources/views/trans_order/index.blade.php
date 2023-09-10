@@ -44,7 +44,7 @@
                             <td>{{ $item->payment_status }}</td>
                             <td>{{ $item->course_name }}</td>
                             <td>{{ $item->course_class_batch }}</td>
-                            <td>{{ $item->member_name }}</td>
+                            <td>{{ $item->users_name }}</td>
                             <td>{{ $item->course_package_name }}</td>
                             <td>{{ $item->promotion_name }}</td>
                             <td>{{ $item->forced_at }}</td>

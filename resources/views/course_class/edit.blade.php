@@ -32,9 +32,7 @@
                 <div class="field">
                     <label for="">ID Course</label>
                     <select name="courseid" class="ui dropdown">
-                        @foreach ($currentData as $item)
-                            <option selected value="{{ $item->course_id }}">{{ $item->course_name }}</option>
-                        @endforeach
+                        <option selected value="{{ $currentData->course_id }}">{{ $currentData->course_name }}</option>
                         @foreach ($allCourses as $items)
                             <option value="{{ $items->id }}">{{ $items->name }}</option>
                         @endforeach

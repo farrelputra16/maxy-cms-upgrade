@@ -24,9 +24,9 @@
                 <div class="field">
                     <label for="">Course</label>
                     <select name="course" class="ui dropdown">
-                        @foreach ($courseName as $item)
-                            <option selected value="{{ $item->course_id }}">{{ $item->course_name }}</option>
-                        @endforeach
+                    @if ($courseName)
+                        <option selected value="{{ $courseName['course_id'] }}">{{ $courseName['course_name'] }}</option>
+                    @endif
                         @foreach ($allCourses as $item)
                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach

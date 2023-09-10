@@ -34,7 +34,7 @@
                         <td>{{ $item->stars }}</td>
                         <td>{{ $item->role }}</td>
                         <td>{{ $item->status_highlight }}</td>
-                        <td>{{ $item->member_id}} - {{ $item->membername}}</td>
+                        <td>{{ $item->user_id}} - {{ $item->membername}}</td>
                         <td>{{ $item->course_id}} - {{ $item->coursename}}</td>
                         <td>{{ $item->course_class_id}} - Batch {{ $item->coursebatch}}</td>
 

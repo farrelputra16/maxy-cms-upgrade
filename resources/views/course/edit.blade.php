@@ -27,9 +27,9 @@
                     <div class="field">
                         <label for="">Course Type</label>
                         <select name="type" class="ui dropdown" id="type_selector">
-                            @foreach ($currentDataCourse as $item)
-                                <option selected value="{{ $item->m_course_type_id }}">{{ $item->course_type_name }}</option>
-                            @endforeach
+                        @if ($currentDataCourse)
+                            <option selected value="{{ $currentDataCourse->m_course_type_id }}">{{ $currentDataCourse->course_type_name }}</option>
+                        @endif
                             @foreach ($allCourseTypes as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
@@ -38,9 +38,12 @@
                     <div class="field" id="course_package">
                         <label for="">Course Package</label>
                         <select name="package">
-                            @foreach ($currentCoursePackages as $item)
-                                <option selected value="{{ $item->course_package_id }}">{{ $item->course_package_name }} - Rp. {{ $item->course_package_price }}</option>
-                            @endforeach
+                        @if ($currentCoursePackages)
+                            <option selected value="{{ $item->course_package_id }}">{{ $item->course_package_name }} - Rp. {{ $item->course_package_price }}</option> 
+                            
+                        @elseif ($currentCoursePackages  == NULL)
+                            <option selected value="">NULL</option> 
+                        @endif
                             @foreach ($allCoursePackages as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }} - Rp. {{ $item->price }}</option>
                             @endforeach
@@ -48,19 +51,21 @@
                     </div>
                     <div class="field" id="mini_fake_price">
                         <label for="">Mini Bootcamp Fake Price</label>
-                        <input type="text" name="mini_fake_price" id="fake_price" value="{{ $currentDataCourse->value('fake_price') }}">
+                        <input type="text" name="mini_fake_price" id="fake_price" value="{{ $currentDataCourse ? $currentDataCourse->fake_price : '' }}">
+
                     </div>
                     <div class="field" id="mini_price">
                         <label for="">Mini Bootcamp Price</label>
-                        <input type="text" name="mini_price" id="price" value="{{ $currentDataCourse->value('price') }}">
+                        <input type="text" name="mini_price" id="price" value="{{ $currentDataCourse ? $currentDataCourse->price : '' }}">
+
                     </div>
                 </div>
                 <div class="field">
                     <label for="">Course Difficulty</label>
                     <select name="level" class="ui dropdown">
-                        @foreach ($currentDataCourse as $item)
-                            <option selected value="{{ $item->m_difficulty_type_id }}">{{ $item->course_difficulty }}</option>
-                        @endforeach
+                        @if ($currentDataCourse)
+                            <option selected value="{{ $currentDataCourse->m_difficulty_type_id }}">{{ $currentDataCourse->course_difficulty }}</option>
+                        @endif
                         @foreach ($allDifficultyTypes as $item)
                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
@@ -89,7 +94,7 @@
             $('#mini_fake_price').show();
             $('#mini_price').show();
         } else {
-            console.log("Rapid Onboarding");
+            console.log("Rapid Onboarding atau Hackathon atau Prakerja atau MSIB");
             $('#mini_fake_price').hide();
             $('#mini_price').hide();
             $('#course_package').hide();

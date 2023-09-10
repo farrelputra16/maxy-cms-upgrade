@@ -28,7 +28,7 @@
                 @foreach ($courseClassMembers as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
-                        <td>{{ $item->member_id }} - {{ $item->member_name }}</td>
+                        <td>{{ $item->user_id }} - {{ $item->user_name }}</td>
                         <td>Batch {{ $item->course_class_batch }} - {{ $item->course_name }}</td>
                         <td id="description">{{ $item->description }}</td>
                         <td>

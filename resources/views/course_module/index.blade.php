@@ -16,6 +16,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Module Name</th>
+                        <th>Course Id</th>
                         <th>Description</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -26,6 +27,7 @@
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
+                            <td>{{ $item->course_id }}</td>
                             <td id="description">{{ $item->description }}</td>
                             <td>
                                 @if ($item->status == 1)
