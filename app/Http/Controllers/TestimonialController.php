@@ -43,6 +43,7 @@ class TestimonialController extends Controller
     }
 
     function postAddTestimonial(Request $request){
+        // return dd($request);
         $validated= $request->validate([
             'stars' => 'required',
             'role' => 'required',
@@ -61,9 +62,7 @@ class TestimonialController extends Controller
                 'user_id' => $request->user_id,
                 'course_class_id' => $request->course_class_id,
                 'description' => $request->description,
-                'status' => $request->status ? 1 : 0,
-                'created_id' => Auth::user()->id,
-                'updated_id' => Auth::user()->id
+                'status' => $request->status ? 1 : 0
             ]);
             if ($create){
                 return app(HelperController::class)->Positive('getTestimonial');
@@ -84,14 +83,16 @@ class TestimonialController extends Controller
         course.name AS coursename, 
         course_class.batch AS coursebatch 
         FROM member_testimonial
-        JOIN member ON member_testimonial.user_id = users.id
+        JOIN users ON member_testimonial.user_id = users.id
         JOIN course ON member_testimonial.course_id = course.id
         JOIN course_class ON member_testimonial.course_class_id = course_class.id
-        WHERE member_testimonial.id = ?;',[$idtestimonial]));
+        WHERE member_testimonial.id = ?;',[$idtestimonial]))->first();
 
-        $allcourse = Course::where('id', '!=', $currentData->value('course_id'))->get();
-        $allmember = User::where('id', '!=', $currentData->value('user_id'))->get();
-        $allcourseclass = CourseClass::where('id', '!=', $currentData->value('course_class_id'))->get();
+        $allcourse = Course::where('id', '!=', $currentData->course_id)->get();
+        $allmember = User::where('id', '!=', $currentData->user_id)->get();
+        $allcourseclass = CourseClass::where('id', '!=', $currentData->course_class_id)->get();
+
+        // return dd($currentData);
 
         return view('member_testimonial.edit',[
             'testimonials' => $testimonials,
@@ -115,9 +116,7 @@ class TestimonialController extends Controller
                 'user_id' => $request->user_id,
                 'course_class_id' => $request->course_class_id,
                 'description' => $request->description,
-                'status' => $request->status ? 1 : 0,
-                'created_id' => Auth::user()->id,
-                'updated_id' => Auth::user()->id
+                'status' => $request->status ? 1 : 0
         ]);
 
         if ($updateData){

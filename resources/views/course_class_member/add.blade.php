@@ -9,9 +9,9 @@
             <div class="two fields">
                 <div class="three wide field">
                     <label for="">ID Member</label>
-                    <select class="ui dropdown" name="member" id="">
+                    <select class="ui dropdown" name="users" id="">
                         <option value="">-- Silakan Pilih Member --</option>
-                        @foreach ($members as $item)
+                        @foreach ($users as $item)
                             <option value="{{ $item->id }}">{{ $item->id }} - {{ $item->name }}</option>
                         @endforeach
                     </select>

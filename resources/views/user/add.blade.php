@@ -63,8 +63,9 @@
                 </div>
                 <div class="field">
                     <label for="">Users Description (Optional)</label>
-                    <textarea name="" id=""></textarea>
+                    <textarea name="description" id=""></textarea>
                 </div>
+                
                 <div class="field">
                     <div class="ui checkbox">
                         <input class="form-check-input" type="checkbox" value="1" name="status" >

@@ -38,6 +38,7 @@ class UserController extends Controller
     }
 
     function postAddUser(Request $request){
+        // return dd($request);
         $validated = $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users,email|email',
@@ -52,6 +53,7 @@ class UserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => $passwordcrpyt,
+                'description' => $request->description , 
                 'type' => $request->type,
                 'access_group_id' => $request->access_group,
                 'status' => $request->status ? 1 : 0,
@@ -74,9 +76,12 @@ class UserController extends Controller
             JOIN access_group
             WHERE users.access_group_id = access_group.id
             AND users.id = ?;
-        ', [$request->id]));
+        ', [$request->id]))->first();
 
-        $allAccessGroups = AccessGroup::whereNot('id', $currentData->value('access_group_id'))->get();
+        // return dd($currentData);
+
+        $allAccessGroups = AccessGroup::where('id', '<>', $currentData->access_group_id)->get();
+
 
         return view('user.edit', [
             'currentData' => $currentData,
@@ -90,6 +95,7 @@ class UserController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
+        // return dd($request);
         
         if($validate){
             $users = User::where('id', $request->id)->first();

@@ -12,7 +12,7 @@ class CourseClassMember extends Model
     protected $table = 'course_class_member';
 
     protected $fillable = [
-        'member_id',
+        'user_id',
         'course_class_id',
         'trans_order_id',
         'description',

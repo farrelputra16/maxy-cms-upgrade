@@ -29,9 +29,9 @@
                     <div class="field">
                         <label for="">Course Module</label>
                         <select name="coursemodulesid" class="ui dropdown">
-                            @foreach ($currentData as $item)
-                                <option selected value="{{ $item->course_module_id }}">{{ $item->module_name }}</option>
-                            @endforeach
+                            @if ($currentData != NULL)
+                                <option selected value="{{ $currentData->course_module_id }}">{{ $currentData->module_name }}</option>
+                            @endif
                             @foreach ($allModules as $items)
                                 <option value="{{ $items->id }}">{{ $items->name }}</option>
                             @endforeach
@@ -40,9 +40,9 @@
                     <div class="field">
                         <label for="">Course Class (Batch)</label>
                         <select name="courseclassid" class="ui dropdown">
-                            @foreach ($currentData as $item)
-                                <option selected value="{{ $item->course_class_id }}">{{ $item->class_batch }} - {{ $item->course_name }}</option>
-                            @endforeach
+                            @if ($currentData != NULL)
+                                <option selected value="{{ $currentData->course_class_id }}">{{ $currentData->class_batch }} - {{ $currentData->course_name }}</option>
+                            @endif
                             @foreach ($allClasses as $items)
                                 <option value="{{ $items->course_class_id }}">{{ $items->batch }} - {{ $items->course_name }}</option>
                             @endforeach

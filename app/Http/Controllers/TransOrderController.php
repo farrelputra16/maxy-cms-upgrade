@@ -61,6 +61,7 @@ class TransOrderController extends Controller
     }
     
     public function postAddTransOrder(Request $request){
+        // return dd($request);
         $validate = $request->validate([
             'order_number' => 'required',
             'date' => 'required',
@@ -133,13 +134,13 @@ class TransOrderController extends Controller
             LEFT JOIN users ON trans_order.user_id = users.id
             LEFT JOIN course_package ON trans_order.course_package_id = course_package.id
             LEFT JOIN promotion ON trans_order.promotion_id = promotion.id
-            WHERE trans_order.id = ?; ',[$idtransorder]));
+            WHERE trans_order.id = ?; ',[$idtransorder]))->first();
 
-        $allCourse = Course::where('id', '!=', $currentData->value('course_id'))->get();
-        $allCourseClass = CourseClass::where('id', '!=', $currentData->value('course_class_id'))->get();
-        $allMember = User::where('id', '!=', $currentData->value('user_id'))->get();
-        $allCoursePackage = CoursePackage::where('id', '!=', $currentData->value('course_package_id'))->get();
-        $allPromotion = Promotion::where('id', '!=', $currentData->value('promotion_id'))->get();
+        $allCourse = Course::where('id', '!=', $currentData->course_id)->get();
+        $allCourseClass = CourseClass::where('id', '!=', $currentData->course_class_id)->get();
+        $allMember = User::where('id', '!=', $currentData->user_id)->get();
+        $allCoursePackage = CoursePackage::where('id', '!=', $currentData->course_package_id)->get();
+        $allPromotion = Promotion::where('id', '!=', $currentData->promotion_id)->get();
 
         return view('trans_order.edit', [
             'transorders' => $transorders,

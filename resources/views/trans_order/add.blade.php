@@ -23,12 +23,12 @@
                         <input type="datetime-local" name="date">
                     </div>
                 </div>
-                <h4 class="ui dividing header">Member Information</h4>
+                <h4 class="ui dividing header">User Information</h4>
                 <div class="four fields">
                     <div class="field">
-                        <label for="">Member</label>
-                        <select class="ui dropdown" name="member_id" id="">
-                            <option value="">-- Pilih Member --</option>
+                        <label for="">User</label>
+                        <select class="ui dropdown" name="user_id" id="">
+                            <option value="">-- Pilih User --</option>
                             @foreach ($idmembers as $item)
                                 <option value="{{ $item->id }}">{{ $item->id }} - {{ $item->name }}</option>
                             @endforeach

@@ -65,9 +65,10 @@ class CoursePackageBenefitController extends Controller
             JOIN course_package
             WHERE course_package_benefit.course_package_id = course_package.id
             AND course_package_benefit.id = ?
-            ', [$idCoursePackageBenefit]));
+            ', [$idCoursePackageBenefit]))->first();
 
-        $allCoursePackages = CoursePackage::where('id', '!=', $currentData->value('course_package_id'))->get();
+        // return dd($currentData);
+        $allCoursePackages = CoursePackage::where('id', '!=', $currentData->course_package_id)->get();
         
         return view('course_package_benefit.edit', [
             'currentData' => $currentData,

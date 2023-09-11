@@ -97,9 +97,13 @@ class CourseClassModuleController extends Controller
             ON course_class_module.course_module_id = course_module.id
             INNER JOIN course 
             ON course_class.course_id = course.id
-            WHERE course_class_module.id = ?;', [$idCourseClassModule]));
+            WHERE course_class_module.id = ?;', [$idCourseClassModule]))->first();
 
-        $allModules = CourseModule::where('id', '!=', $currentData->value('course_module_id'))->get();
+        $courseModuleId = $currentData->course_module_id;
+
+
+        $allModules = CourseModule::where('id', '!=', $currentData->course_module_id)->get();
+
 
         $allClasses = DB::select('SELECT 
             course_class.id AS course_class_id,
@@ -108,7 +112,8 @@ class CourseClassModuleController extends Controller
             FROM course_class
             JOIN course
             WHERE course_class.course_id = course.id AND course_class.id != ?;
-        ', [$currentData->value('course_class_id')]);
+        ', [$currentData->course_class_id]);
+
 
         return view('course_class_module.edit', [
             'courseclassmodules' => $courseclassmodules,

@@ -29,9 +29,9 @@
                     <div class="field">
                         <label for="">Course</label>
                         <select name="course_id" class="ui dropdown">
-                            @foreach ($currentData as $item)
-                            <option selected value="{{ $item->course_id }}">-- {{ $item->coursename }} --</option>
-                            @endforeach
+                            @if ($currentData != NULL)
+                            <option selected value="{{ $currentData->course_id }}">-- {{ $currentData->coursename }} --</option>
+                            @endif
                             @foreach ($allcourse as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
@@ -40,11 +40,11 @@
                 </div>
                 <div class="three fields">
                     <div class="field">
-                        <label for="">Member</label>
-                        <select name="member_id" class="ui dropdown">
-                            @foreach ($currentData as $item) 
-                            <option selected value="{{ $item->member_id }}">-- {{ $item->membername }} --</option>
-                            @endforeach
+                        <label for="">User</label>
+                        <select name="user_id" class="ui dropdown">
+                            @if ($currentData != NULL) 
+                            <option selected value="{{ $currentData->user_id }}">-- {{ $currentData->membername }} --</option>
+                            @endif
                             @foreach ($allmember as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
@@ -55,9 +55,9 @@
                     <div class="field">
                         <label for="">Course Class Batch</label>
                         <select name="course_class_id" class="ui dropdown"> 
-                            @foreach ($currentData as $item)
-                            <option selected value="{{ $item->course_class_id }}">-- {{ $item->coursebatch }} --</option>
-                            @endforeach
+                            @if ($currentData != NULL)
+                            <option selected value="{{ $currentData->course_class_id }}">-- {{ $currentData->coursebatch }} --</option>
+                            @endif
                             @foreach ($allcourseclass as $item)
                                 <option value="{{ $item->id }}">{{ $item->batch }}</option>
                             @endforeach

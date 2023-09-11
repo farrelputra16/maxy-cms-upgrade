@@ -11,7 +11,7 @@
                 <div class="two fields">
                     <div class="field">
                         <label for="">Order Number</label>
-                        <input type="text" name="order_number" value="{{ $currentData->value('order_number') }}">
+                        <input type="text" name="order_number" value="{{ $currentData->order_number }}">
                         @if ($errors->has('order_number'))
                             @foreach ($errors->get('order_number') as $error)
                                 <span style="color: red;">{{$error}}</span>
@@ -20,15 +20,15 @@
                     </div>
                     <div class="field">
                         <label for="">Date</label>
-                        <input type="datetime-local" name="date" value="{{ $currentData->value('dates') }}">
+                        <input type="datetime-local" name="date" value="{{ $currentData->dates }}">
                     </div>
                 </div>
-                <h4 class="ui dividing header">Member Information</h4>
+                <h4 class="ui dividing header">User Information</h4>
                 <div class="four fields">
                     <div class="field">
-                        <label for="">Member</label>
-                        <select class="ui dropdown" name="member_id" id="">
-                            <option value="{{ $currentData->value('member_id') }}" selected>{{ $currentData->value('member_name') }}</option>
+                        <label for="">User</label>
+                        <select class="ui dropdown" name="user_id" id="">
+                            <option value="{{ $currentData->user_id }}" selected>{{ $currentData->member_name }}</option>
                             @foreach ($allMember as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
@@ -42,7 +42,7 @@
                     <div class="field">
                         <label for="">Course</label>
                         <select class="ui dropdown" name="course_id" id="">
-                            <option value="{{ $currentData->value('course_id') }}" selected>{{ $currentData->value('course_name') }}</option>
+                            <option value="{{ $currentData->course_id }}" selected>{{ $currentData->course_name }}</option>
                             @foreach ($allCourse as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
@@ -56,7 +56,7 @@
                     <div class="field">
                         <label for="">Course Class</label>
                         <select class="ui dropdown" name="course_class_id" id="">
-                            <option value="{{ $currentData->value('course_class_id') }}" selected>{{ $currentData->value('course_class_batch') }}</option>
+                            <option value="{{ $currentData->course_class_id }}" selected>{{ $currentData->course_class_batch }}</option>
                             @foreach ($allCourseClass as $item)
                                 <option value="{{ $item->id }}">{{ $item->id }} - Batch {{ $item->batch }}</option>
                             @endforeach
@@ -70,7 +70,7 @@
                     <div class="field">
                         <label for="">Course Package</label>
                         <select class="ui dropdown" name="course_package_id" id="">
-                            <option value="{{ $currentData->value('course_package_id') }}" selected>{{ $currentData->value('course_package_name') }}</option>
+                            <option value="{{ $currentData->course_package_id }}" selected>{{ $currentData->course_package_name }}</option>
                             @foreach ($allCoursePackage as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
@@ -87,25 +87,25 @@
                     <div class="field">
                         <label for="">Status Pembayaran</label>
                         <select class="ui dropdown" name="payment_status" id="">
-                            @if ($currentData->value('payment_status') == 0)
+                            @if ($currentData->payment_status == 0)
                                 <option value="0" selected>0 - Not Completed </option>
                                 <option value="1">1 - Completed </option>
                                 <option value="2">2 - Partial </option>
                                 <option value="3">3 - Cancelled </option>
                             @endif
-                            @if ($currentData->value('payment_status') == 1)
+                            @if ($currentData->payment_status == 1)
                                 <option value="0">0 - Not Completed </option>
                                 <option value="1" selected>1 - Completed </option>
                                 <option value="2">2 - Partial </option>
                                 <option value="3">3 - Cancelled </option>
                             @endif
-                            @if ($currentData->value('payment_status') == 2)
+                            @if ($currentData->payment_status == 2)
                                 <option value="0">0 - Not Completed </option>
                                 <option value="1">1 - Completed </option>
                                 <option value="2" selected>2 - Partial </option>
                                 <option value="3">3 - Cancelled </option>
                             @endif
-                            @if ($currentData->value('payment_status') == 3)
+                            @if ($currentData->payment_status == 3)
                                 <option value="0">0 - Not Completed </option>
                                 <option value="1">1 - Completed </option>
                                 <option value="2">2 - Partial </option>
@@ -115,7 +115,7 @@
                     </div>
                     <div class="field">
                         <label for="">Total</label>
-                        <input type="text" name="total" id="total" value="{{ $currentData->value('total') }}">
+                        <input type="text" name="total" id="total" value="{{ $currentData->total }}">
                         @if ($errors->has('total'))
                             @foreach ($errors->get('total') as $error)
                                 <span style="color: red;">{{$error}}</span>
@@ -124,7 +124,7 @@
                     </div>
                     <div class="field">
                         <label for="">Discount (max 100%)</label>
-                        <input type="number" name="discount" id="discount" value="{{ $currentData->value('discount') }}">
+                        <input type="number" name="discount" id="discount" value="{{ $currentData->discount }}">
                         @if ($errors->has('discount'))
                             @foreach ($errors->get('discount') as $error)
                                 <span style="color: red;">{{$error}}</span>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="field">
                         <label for="">After Discount (automatically)</label>
-                        <input type="text" name="total_after_discount" id="afterDisc" value="{{ $currentData->value('total_after_discount') }}">
+                        <input type="text" name="total_after_discount" id="afterDisc" value="{{ $currentData->total_after_discount }}">
                         @if ($errors->has('total_after_discount'))
                             @foreach ($errors->get('total_after_discount') as $error)
                                 <span style="color: red;">{{$error}}</span>
@@ -143,8 +143,8 @@
                     <div class="field">
                         <label for="">Promotion (Optional)</label>
                         <select class="ui dropdown" name="promotion_id" id="">
-                            @if ($currentData->value('promotion_id'))
-                                <option value="{{ $currentData->value('promotion_id') }}" selected>{{ $currentData->value('promotion_name') }}</option>
+                            @if ($currentData->promotion_id)
+                                <option value="{{ $currentData->promotion_id }}" selected>{{ $currentData->promotion_name }}</option>
                                 @foreach ($allPromotion as $item)
                                     <option value="{{ $item->id }}">{{ $item->id }} - {{ $item->name }}</option>
                                 @endforeach
@@ -159,11 +159,11 @@
                 <div class="ui dividing header"></div>
                 <div class="field">
                     <label for="">Description</label>
-                    <textarea name="description">{{ $currentData->value('description') }}</textarea>
+                    <textarea name="description">{{ $currentData->description }}</textarea>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input class="form-check-input" type="checkbox" value="1" {{ $currentData->value('status') == 1 ? "checked" : "" }} name="status" >
+                        <input class="form-check-input" type="checkbox" value="1" {{ $currentData->status == 1 ? "checked" : "" }} name="status" >
                         <label>Aktif</label>
                     </div>
                   </div>

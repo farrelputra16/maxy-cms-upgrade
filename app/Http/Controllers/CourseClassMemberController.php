@@ -53,14 +53,17 @@ class CourseClassMemberController extends Controller
     }
 
     function postAddCourseClassMember(Request $request){
+        // return dd($request);
+
         $validate = $request->validate([
             'users' => 'required',
             'course_class' => 'required',
         ]);
 
+        // return dd($request);
         if ($validate){
             $created = CourseClassMember::create([
-                'user_id' => $request->user_id,
+                'user_id' => $request->users,
                 'course_class_id' => $request->course_class,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
@@ -91,6 +94,8 @@ class CourseClassMemberController extends Controller
                 AND course_class_member.course_class_id = course_class.id
                 AND course_class_member.id = ?;
             ', [$request->id]));
+
+            // return dd($currentData[0]);
             
 
             $currentDataCourse = DB::select('SELECT course.name AS course_name
@@ -124,6 +129,8 @@ class CourseClassMemberController extends Controller
         }
 
     function postEditCourseClassMember(Request $request){
+        // dd($request->user_id);
+
         $update = CourseClassMember::where('id', '=', $request->id)
             ->update([
                 'user_id' => $request->user_id,

@@ -10,10 +10,11 @@
                 <label for="">ID Course Class Member</label>
                 <input type="text" value="{{ request()->query('id') }}" disabled>
             </div>
+
             <div class="two fields">
                 <div class="three wide field">
                     <label for="">ID Member</label>
-                    <select class="ui dropdown" name="member" id="">
+                    <select class="ui dropdown" name="user_id" id="">
                     <option value="{{ $currentData[0]->ccm_member_id }}" selected>{{ $currentData[0]->ccm_member_id }} - {{ $currentData[0]->user_name }}</option>
                         @foreach ($allMembers as $item)
                             <option value="{{ $item->id }}">{{ $item->id }} - {{ $item->name }}</option>

@@ -48,9 +48,9 @@
                 </div>
                 <div class="three fields">
                     <div class="field">
-                        <label for="">Member</label>
-                        <select name="member_id" class="ui dropdown"> 
-                            <option selected value="">-- Pilih Member --</option>
+                        <label for="">User</label>
+                        <select name="user_id" class="ui dropdown"> 
+                            <option selected value="">-- Pilih User --</option>
                             @foreach ($allmember as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach

@@ -15,7 +15,7 @@ class Testimonial extends Model
         'stars',
         'role',
         'status_highlight',
-        'member_id',
+        'user_id',
         'course_id',
         'course_class_id',
         'description',

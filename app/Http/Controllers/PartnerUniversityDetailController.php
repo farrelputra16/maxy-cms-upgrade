@@ -79,7 +79,9 @@ class PartnerUniversityDetailController extends Controller
                     partner_university_detail.updated_at AS pud_updated_at
                 '))
             ->where('partner_university_detail.id', '=', $request->id)
-            ->get();
+            ->first();
+        
+            // return dd($currentData);
             
         $allPartnerUniversitiesDetail = Partner::where('id', '!=', $request->id)->get();
 

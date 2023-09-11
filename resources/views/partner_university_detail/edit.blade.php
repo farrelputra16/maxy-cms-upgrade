@@ -9,12 +9,12 @@
             <div class="field">
                 <div class="field">
                     <label for="">ID University Details</label>
-                    <input type="text" disabled value="{{ $currentData->value('pud_id') }}">
+                    <input type="text" disabled value="{{ $currentData->pud_id }}">
                 </div>
                 <div class="three fields">
                     <div class="field">
                         <label for="">University Details Name</label>
-                        <input type="text" name="name" value="{{ $currentData->value('pud_name') }}">
+                        <input type="text" name="name" value="{{ $currentData->pud_name }}">
                         @if ($errors->has('name'))
                             @foreach ($errors->get('name') as $error)
                                 <span style="color: red;">{{$error}}</span>
@@ -24,7 +24,7 @@
                     <div class="field">
                         <label for="">University Details Type</label>
                         <select name="type" id="">
-                            @if ($currentData->value('pud_type') == "faculty")
+                            @if ($currentData->pud_type == "faculty")
                                 <option selected value="faculty">Faculty</option>
                                 <option value="major">Major</option>
                             @else
@@ -35,7 +35,7 @@
                     </div>
                     <div class="field">
                         <label for="">University Details Ref (Parent)</label>
-                        <input type="text" name="ref" placeholder="set null or ignore if this parent" value="{{ $currentData->value('pud_ref')}}">
+                        <input type="text" name="ref" placeholder="set null or ignore if this parent" value="{{ $currentData->pud_ref }}">
                         @if ($errors->has('ref'))
                             @foreach ($errors->get('ref') as $error)
                                 <span style="color: red;">{{$error}}</span>
@@ -46,7 +46,7 @@
                 <div class="field">
                     <label for="">ID Partner University</label>
                     <select name="partner_id" id="">
-                        <option value="{{ $currentData->value('partner_id') }}" selected>{{ $currentData->value('partner_name') }}</option>
+                        <option value="{{ $currentData->partner_id }}" selected>{{ $currentData->partner_name }}</option>
                         @foreach ($allPartnerUniversitiesDetail as $item)
                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
@@ -59,11 +59,11 @@
                 </div>
                 <div class="field">
                     <label for="">Description</label>
-                    <textarea name="description">{{ $currentData->value('pud_description') }}</textarea>
+                    <textarea name="description">{{ $currentData->pud_description }}</textarea>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input class="form-check-input" type="checkbox" value="1" {{ $currentData->value('pud_status') == 1 ? "checked" : "" }} name="status" >
+                        <input class="form-check-input" type="checkbox" value="1" {{ $currentData->pud_status == 1 ? "checked" : "" }} name="status" >
                         <label>Aktif</label>
                     </div>
                 </div>

@@ -20,7 +20,7 @@ class TransOrder extends Model
         'payment_status',
         'course_id',
         'course_class_id',
-        'member_id',
+        'user_id',
         'course_package_id',
         'promotion_id',
         'forced_at',
