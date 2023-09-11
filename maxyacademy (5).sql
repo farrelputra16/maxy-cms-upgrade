@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 11, 2023 at 09:20 AM
+-- Generation Time: Sep 11, 2023 at 09:30 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -43,8 +43,7 @@ CREATE TABLE `access_group` (
 --
 
 INSERT INTO `access_group` (`id`, `name`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
-(1, 'super', 'fixed', 1, '2022-09-20 09:01:02', 1, '2023-07-06 15:47:42', 1),
-(13, 'COBAAAA', 'COBAAAAA ADDDDD DR CMSSSS , EDITTTTT DR CMSSSSS', 0, '2023-09-11 06:37:42', 1, '2023-09-11 13:38:39', 1);
+(1, 'super', 'fixed', 1, '2022-09-20 09:01:02', 1, '2023-07-06 15:47:42', 1);
 
 -- --------------------------------------------------------
 
@@ -473,8 +472,7 @@ INSERT INTO `access_master` (`id`, `name`, `description`, `status`, `created_at`
 (192, 'partner_university_detail_update', NULL, 0, '2023-06-21 02:37:45', 1, '2023-06-21 02:37:45', 1),
 (193, 'maxy_talk_manage', NULL, 0, '2023-07-06 08:49:50', 1, '2023-07-06 08:49:50', 1),
 (194, 'maxy_talk_create', NULL, 0, '2023-07-06 08:49:57', 1, '2023-07-06 08:49:57', 1),
-(195, 'maxy_talk_update', NULL, 0, '2023-07-06 08:50:04', 1, '2023-07-06 08:50:04', 1),
-(196, 'COBAAAAAA', 'COBAAAAA ADDDD DR CMSSSSS , EDITTTTT DR CMSSSSS', 0, '2023-09-11 06:39:47', 1, '2023-09-11 13:39:57', 1);
+(195, 'maxy_talk_update', NULL, 0, '2023-07-06 08:50:04', 1, '2023-07-06 08:50:04', 1);
 
 -- --------------------------------------------------------
 
@@ -531,7 +529,6 @@ INSERT INTO `course` (`id`, `name`, `fake_price`, `price`, `discounted_price`, `
 (19, 'Cyber Security', 0, 0, 0, 'no desc', 'no.jpg', '0', '0', '0', 'cyber_security', 1, 1, 2, NULL, 0, '2023-07-03 06:54:47', 1, '2023-07-03 06:54:47', 1),
 (20, 'Hacking is not Cracking', 2000000, 299000, 0, 'Belajar hacking dalam waktu hitungan bulan!', 'hacking_not_cracking.jpg', '-', '-', 'https://invoice.xendit.co/od/mbcp-cs-b03', 'hacking_is_not_cracking', 3, NULL, 1, '<p>Hacking dan cracking adalah dua hal yang berbeda.<p> Hacking adalah proses mencari celah keamanan dalam sistem komputer atau jaringan komputer dengan tujuan untuk meningkatkan keamanan sistem tersebut.</p><p>Sedangkan cracking adalah proses mencari celah keamanan dalam sistem komputer atau jaringan komputer dengan tujuan untuk merusak atau mengambil alih sistem tersebut.</p></p>', 1, '2023-07-04 14:18:46', 1, '2023-07-05 15:49:57', 1),
 (21, 'Digital Marketing', 2000000, 299000, 0, 'Kami dapat membantumu digital marketing Expert dalam hitungan bulan!', 'digital_marketing.jpg', '-', '-', 'https://invoice.xendit.co/od/mbcp-dm-b01', 'min_digital_marketing', 3, NULL, 1, 'Belajar digital marketing dapat membantu Anda memahami bagaimana cara memasarkan produk atau layanan Anda secara online. Dalam era digital saat ini, belajar digital marketing sangat penting untuk meningkatkan penjualan dan menjangkau pasar yang lebih luas. Selain itu, Anda juga dapat mempelajari cara membuat konten yang menarik dan efektif untuk menarik perhatian pelanggan potensial.', 1, '2023-07-04 14:18:46', 1, '2023-07-05 16:08:26', 1),
-(22, 'coba_prakerja', NULL, NULL, 0, 'no desc', 'no.jpg', '0', '0', '0', 'pdaadada', 5, NULL, 2, 'COBAAAAAAAAAAA ADDDD DI CMSSS , EDITTTT DI CMSS', 1, '2023-09-07 08:10:39', 1, '2023-09-11 13:46:59', 1),
 (23, 'Desain UI/UX website Tingkat Menengah', 0, 0, 0, 'no desc', 'no.jpg', '0', '0', '0', 'Desain_UI/UX_website_Tingkat_Menengah', 5, 1, 1, 'Desain UI/UX website Tingkat Menengah', 1, '2023-09-11 07:12:53', 1, '2023-09-11 07:12:53', 1),
 (24, 'Digital Marketing 101:Sosial Media Marketing', 0, 0, 0, 'no desc', 'no.jpg', '0', '0', '0', 'Digital_Marketing_101_:_Sosial_Media_Marketing', 5, 1, 1, 'Digital Marketing 101:Sosial Media Marketing', 1, '2023-09-11 07:13:51', 1, '2023-09-11 07:13:51', 1),
 (25, 'Teknik Pemasaran Produk untuk calon spesialis pemasaran', NULL, NULL, 0, 'no desc', 'no.jpg', '0', '0', '0', 'Teknik_Pemasaran_Produk_untuk_calon_spesialis_pemasaran', 5, NULL, 1, 'Teknik Pemasaran Produk untuk calon spesialis pemasaran', 1, '2023-09-11 07:14:34', 1, '2023-09-11 14:14:42', 1);
@@ -578,8 +575,7 @@ INSERT INTO `course_class` (`id`, `batch`, `start_date`, `end_date`, `quota`, `c
 (13, 1, '0000-00-00', '0000-00-00', 0, 14, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Digital Marketing. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', 1, '2023-05-11 09:42:21', 0, '2023-08-08 20:49:21', 0),
 (14, 1, '0000-00-00', '0000-00-00', 0, 15, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Rapid Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', 1, '2023-05-29 09:32:19', 1, '2023-08-08 20:49:40', 1),
 (15, 1, '0000-00-00', '0000-00-00', 0, 16, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Rapid Frontend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', 1, '2023-05-29 09:32:19', 1, '2023-08-08 20:49:59', 1),
-(16, 1, '0000-00-00', '0000-00-00', 0, 1, 'Jangan Lupa Mengerjakan Assignment', NULL, 1, '2023-05-29 09:32:35', 1, '2023-08-08 20:45:21', 1),
-(17, 1, '2023-09-09', '2023-09-23', 1, 1, NULL, 'COBAAAAAA ADDD DR BACKENDDD , EDITTTT DI CMSSS', 1, '2023-09-08 08:56:45', 1, '2023-09-11 13:47:20', 1);
+(16, 1, '0000-00-00', '0000-00-00', 0, 1, 'Jangan Lupa Mengerjakan Assignment', NULL, 1, '2023-05-29 09:32:35', 1, '2023-08-08 20:45:21', 1);
 
 -- --------------------------------------------------------
 
@@ -622,8 +618,7 @@ INSERT INTO `course_class_member` (`id`, `user_id`, `course_class_id`, `trans_or
 (15, 67, 1, 16, NULL, 1, '2023-07-24 01:13:17', 1, '2023-08-02 16:54:46', 1),
 (16, 66, 7, NULL, NULL, 1, '2023-08-21 11:25:44', 1, '2023-08-21 11:25:44', 1),
 (17, 66, 6, NULL, NULL, 1, '2023-08-21 11:27:11', 1, '2023-08-21 11:37:17', 1),
-(18, 66, 8, NULL, NULL, 1, '2023-08-21 11:27:11', 1, '2023-08-21 11:27:11', 1),
-(19, 66, 9, NULL, 'COBAAAAA ADD DARI BACKEND CMS , EDITTTTT DR CMS', 0, '2023-09-11 01:42:49', 1, '2023-09-11 06:47:36', 1);
+(18, 66, 8, NULL, NULL, 1, '2023-08-21 11:27:11', 1, '2023-08-21 11:27:11', 1);
 
 -- --------------------------------------------------------
 
@@ -771,8 +766,7 @@ INSERT INTO `course_class_module` (`id`, `start_date`, `end_date`, `priority`, `
 (72, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 9, 102, 14, NULL, 0, '2023-06-22 09:32:39', 0, '2023-06-22 09:32:39', 0),
 (73, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 10, 103, 14, NULL, 0, '2023-06-22 09:32:39', 0, '2023-06-22 09:32:39', 0),
 (74, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 11, 104, 14, NULL, 0, '2023-06-22 09:32:39', 0, '2023-06-22 09:32:39', 0),
-(75, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 12, 105, 14, NULL, 0, '2023-06-22 09:32:39', 0, '2023-06-22 09:32:39', 0),
-(76, '2023-09-12 00:00:00', '2023-09-12 00:00:00', 100, 405, 1, 'COBAA ADD DR CMS ,EDITTTT DR CMS', 0, '2023-09-11 01:47:30', 1, '2023-09-11 10:38:10', 1);
+(75, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 12, 105, 14, NULL, 0, '2023-06-22 09:32:39', 0, '2023-06-22 09:32:39', 0);
 
 -- --------------------------------------------------------
 
@@ -1380,9 +1374,7 @@ INSERT INTO `course_module` (`id`, `name`, `html`, `js`, `priority`, `level`, `c
 (596, 'Pola kalimat: kata kerja bentuk kamus\r\nKanji nama tempat umum', NULL, NULL, 1, 2, 18, 565, NULL, NULL, NULL, NULL, 1, '2023-08-31 10:20:31', 1, '2023-08-31 10:20:31', 1),
 (597, 'pola kalimat: ….toki\r\nKanji  musim, fasilitas umum\r\n', NULL, NULL, 1, 2, 18, 566, NULL, NULL, NULL, NULL, 1, '2023-08-31 10:20:54', 1, '2023-08-31 10:20:54', 1),
 (598, 'Pola kalimat: agemasu/moraimasu/kuremasu\r\nKanji hubungan persaudaraan', NULL, NULL, 1, 2, 18, 567, NULL, NULL, NULL, NULL, 1, '2023-08-31 10:21:17', 1, '2023-08-31 10:21:17', 1),
-(599, 'Pola kalimat: ..tara\r\nKanji Kata kerja (bagian 5)', NULL, NULL, 1, 2, 18, 568, NULL, NULL, NULL, NULL, 1, '2023-08-31 10:21:38', 1, '2023-08-31 10:21:38', 1),
-(600, 'coba add child yg keduaaaaa', NULL, NULL, 1, 2, 1, 1, NULL, NULL, NULL, 'halo saya coba addd di backend , EDITTTTT DI CMSS', 1, '2023-09-08 08:13:58', 1, '2023-09-11 06:45:51', 1),
-(602, 'COBAAAAAAA PARENTTTTTT ADDD DI BACKEND', NULL, NULL, 10, 1, 1, NULL, NULL, NULL, NULL, 'COBAAAAAA ADDD PERTAMAAAAAAA DI BACKKKENDDDDD , EDITTTT DR CMSSS', 0, '2023-09-08 08:50:22', 1, '2023-09-11 06:45:21', 1);
+(599, 'Pola kalimat: ..tara\r\nKanji Kata kerja (bagian 5)', NULL, NULL, 1, 2, 18, 568, NULL, NULL, NULL, NULL, 1, '2023-08-31 10:21:38', 1, '2023-08-31 10:21:38', 1);
 
 -- --------------------------------------------------------
 
@@ -1432,8 +1424,7 @@ CREATE TABLE `course_package` (
 INSERT INTO `course_package` (`id`, `name`, `fake_price`, `price`, `payment_link`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
 (1, 'Paket 1', 0, 2000000, NULL, '', 0, '2022-09-26 11:02:01', 1, '2023-08-28 15:07:36', 1),
 (2, 'Paket 1', 0, 9000000, 'https://invoice.xendit.co/od/bcp-p01', '', 1, '2022-09-26 11:02:35', 1, '2023-08-28 15:07:40', 1),
-(3, 'Paket 2', 0, 25000000, 'https://invoice.xendit.co/od/bcp-p02', '', 1, '2022-09-26 11:03:22', 1, '2023-08-28 15:07:44', 1),
-(4, 'COBAAAA', 1, 1, NULL, 'COBAAAAA ADD DARI CMSSS , EDITTTTT DARI CMS', 0, '2023-09-11 03:53:40', 1, '2023-09-11 03:54:03', 1);
+(3, 'Paket 2', 0, 25000000, 'https://invoice.xendit.co/od/bcp-p02', '', 1, '2022-09-26 11:03:22', 1, '2023-08-28 15:07:44', 1);
 
 -- --------------------------------------------------------
 
@@ -1475,8 +1466,7 @@ INSERT INTO `course_package_benefit` (`id`, `name`, `course_package_id`, `descri
 (22, 'Akses belajar tanpa batas', 2, '', 1, '2022-09-26 14:04:51', 1, '2023-08-28 15:12:42', 1),
 (23, '4 Proyek nyata untuk portofolio Anda', 2, '', 1, '2022-09-26 14:04:51', 1, '2023-08-28 15:12:50', 1),
 (24, '\nPenilaian Profiler Karir', 2, '', 0, '2022-09-26 14:04:51', 1, '2023-08-28 15:12:58', 1),
-(25, 'Service Job-Connector seumur hidup', 2, '', 0, '2022-09-26 14:04:51', 1, '2023-08-28 15:13:08', 1),
-(26, 'COBAAAAAAAAAAAAA', 4, 'COBAAAAA ADDDD DARIII CMSSSS , EDITTTTT DRRRR CMSSSS', 0, '2023-09-11 03:54:26', 1, '2023-09-11 04:03:52', 1);
+(25, 'Service Job-Connector seumur hidup', 2, '', 0, '2022-09-26 14:04:51', 1, '2023-08-28 15:13:08', 1);
 
 -- --------------------------------------------------------
 
@@ -1569,8 +1559,7 @@ INSERT INTO `general` (`id`, `name`, `value`, `description`, `status`, `created_
 (22, 'alamat_sby_lengkap', '<br>\nCiputra World Office 15(15-16) <br>\nJl. Mayjen Sungkono Kav.89 <br>\nSurabaya, Jawa Timur 60224</p>', NULL, 1, NULL, 1, '2023-06-26 09:02:03', 1),
 (23, 'alamat_jkt', 'Jakarta HQ', NULL, 1, NULL, 1, '2023-06-26 09:02:03', 1),
 (24, 'alamat_jkt_lengkap', '<br>\r\nPakuwon Tower 26-J\r\n<br>\r\nJl. Casablanca Raya No.88 <br>\r\nJakarta Selatan, DKI Jakarta 12960', NULL, 1, NULL, 1, '2023-06-26 09:02:03', 1),
-(25, 'maxyurl', 'https://www.maxy.academy', NULL, 1, NULL, 1, '2023-06-28 03:18:52', 1),
-(26, 'COBAAAAAAAA', 'COBAAAAAAAAAA', 'COBAAAAAAAAA ADDD DR CMSSSSS , EDITTTTTT DR CMSSS', 0, '2023-09-11 04:30:17', 1, '2023-09-11 04:30:17', 1);
+(25, 'maxyurl', 'https://www.maxy.academy', NULL, 1, NULL, 1, '2023-06-28 03:18:52', 1);
 
 -- --------------------------------------------------------
 
@@ -1883,8 +1872,7 @@ INSERT INTO `member_testimonial` (`id`, `stars`, `role`, `status_highlight`, `us
 (6, 5, 'Backend Developer Intern', 0, 1, 0, 1, 'Selama ikut bootcamp, aku cukup puas karena materinya cukup lengkap dan langsung dijelaskan oleh expert dibidangnya, proses pembelajaran di kelas juga learning by doing karena langsung dipraktekan. Bahkan ada fasilitas kelas untuk pembuatan cv dan bisa dapat portofolio dengan final project.', NULL, '2022-09-28 09:24:22', '2023-01-18 11:32:44'),
 (7, 5, 'Alumni Bootcamp Rapid UI/UX Batch 4', 1, 44, 3, 3, 'Overall saya suka selama mengikuti program UI/UX dan banyak insight baru yang aku tau terkait UI/UX. Pokoknya terima kasih banyak untuk MinMax dan mentor yang selalu respon ketika dihubungi via chat. Video pembelajarannya menarik dan materinya kepake banget saat aku magang sekarang. Walaupun durasi videonya cukup panjang tapi penjelasan step by-stepnya mudah dipahami.', 1, '2023-07-03 15:40:32', '2023-07-03 15:42:28'),
 (8, 5, 'Alumni Bootcamp Rapid UI/UX Batch 4', 1, 45, 3, 3, 'Awalnya aku gatau tentang UI/UX sama sekali, aku terbantu setelah mengikuti Bootcamp UI/UX di maxy academy karena jadi tau progress membuat website sampai membuat aplikasi menggunakan Figma.', 1, '2023-07-03 15:40:32', '2023-07-03 15:42:28'),
-(9, 5, 'Alumni Bootcamp Rapid UI/UX Batch 4', 1, 46, 3, 3, 'Kebetulan dari dulu aku udah pengen belajar UI/UX. Awalnya aku gatau tentang UI/UX,tapi banyak pengetahuan yang bisa aku ambil melalui bootcamp maxy academy. Pokonya seru banget selama 12 hari itu, kita juga dapet Internship jadi belajar real case langsung.', 1, '2023-07-03 15:40:32', '2023-07-03 16:26:00'),
-(10, 5, 'COBAAAAAAAAAAAAAAAA', 0, 66, 1, 1, 'COBAAAAAAAAA ADDDDD DI CMSSSS , EDITTTT DI CMSSSS', 0, '2023-09-11 04:16:33', '2023-09-11 11:27:45');
+(9, 5, 'Alumni Bootcamp Rapid UI/UX Batch 4', 1, 46, 3, 3, 'Kebetulan dari dulu aku udah pengen belajar UI/UX. Awalnya aku gatau tentang UI/UX,tapi banyak pengetahuan yang bisa aku ambil melalui bootcamp maxy academy. Pokonya seru banget selama 12 hari itu, kita juga dapet Internship jadi belajar real case langsung.', 1, '2023-07-03 15:40:32', '2023-07-03 16:26:00');
 
 -- --------------------------------------------------------
 
@@ -2419,8 +2407,7 @@ INSERT INTO `m_difficulty_type` (`id`, `name`, `description`, `status`, `created
 (1, 'Beginner', '', 1, '2022-09-12 10:51:10', 1, '2022-09-12 10:51:10', 1),
 (2, 'Intermediate', '', 1, '2022-09-20 09:59:17', 1, '2022-09-20 09:59:17', 1),
 (3, 'Advance', '', 1, '2022-09-20 09:59:27', 1, '2022-09-20 10:00:12', 1),
-(4, 'Test', '', 1, '2023-01-25 09:22:44', 1, '2023-01-25 09:22:44', 1),
-(5, 'COBA', 'COBAAA ADDD DARI CMSSS , EDITTTT DR CMSSS', 0, '2023-09-11 04:04:20', 1, '2023-09-11 04:04:31', 1);
+(4, 'Test', '', 1, '2023-01-25 09:22:44', 1, '2023-01-25 09:22:44', 1);
 
 -- --------------------------------------------------------
 
@@ -2608,8 +2595,7 @@ INSERT INTO `partner` (`id`, `name`, `type`, `url`, `address`, `phone`, `email`,
 (186, 'Universitas Maarif Hasyim Latif', 'UNIVERSITY', '#', '-', '-', 'test@mail.com', '', 'umaha.png', NULL, 1, 1, '2023-09-01 15:00:41', 1, '2023-09-01 15:00:41', 1),
 (187, 'Universitas Nusantara PGRI Kediri', 'UNIVERSITY', '#', '-', '-', 'test@mail.com', '', 'unp.png', NULL, 1, 1, '2023-09-01 15:01:04', 1, '2023-09-01 15:01:04', 1),
 (188, 'Universitas Islam Kadiri', 'UNIVERSITY', '#', '-', '-', 'test@mail.com', '', 'uik.png', NULL, 1, 1, '2023-09-01 15:01:24', 1, '2023-09-01 15:01:24', 1),
-(189, 'Universitas PGRI Madiun', 'UNIVERSITY', '#', '-', '-', 'test@mail.com', '', 'unipma.png', NULL, 1, 1, '2023-09-01 15:01:47', 1, '2023-09-01 15:01:47', 1),
-(190, 'COBAAAAAAAAAA', 'COBAAAAAAAAAA', 'COBAAAAAAAAAAAAA', 'COAAAAAAAAAAAAAAAAAAA', '2134565789023', 'COBAAAAAAAAA', '1', NULL, 'COBAAAAA ADDDDD DR CMSSSSS ,EDITTTTTT DR CMSSSSSS', 0, 0, '2023-09-11 04:50:39', 1, '2023-09-11 11:51:02', 1);
+(189, 'Universitas PGRI Madiun', 'UNIVERSITY', '#', '-', '-', 'test@mail.com', '', 'unipma.png', NULL, 1, 1, '2023-09-01 15:01:47', 1, '2023-09-01 15:01:47', 1);
 
 -- --------------------------------------------------------
 
@@ -2630,13 +2616,6 @@ CREATE TABLE `partner_university_detail` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `partner_university_detail`
---
-
-INSERT INTO `partner_university_detail` (`id`, `name`, `ref`, `type`, `partner_id`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
-(4, 'COBAAAAAAAAAAAAA', NULL, 'faculty', 190, 'COBAAAAAAAAAAAAA ADDDDDD DR CMSSSSS , EDITTTTTTTTTTTT DR CMSSSSS', 0, '2023-09-11 04:52:32', 1, '2023-09-11 11:56:23', 1);
 
 -- --------------------------------------------------------
 
@@ -2805,8 +2784,7 @@ INSERT INTO `trans_order` (`id`, `order_number`, `date`, `total`, `discount`, `t
 (13, 'ORDER/2023/01/001', '2023-01-27 04:19:40', 5000000, NULL, 5000000, 0, 3, 3, 25, 2, NULL, NULL, NULL, NULL, NULL, 1, '2023-01-27 04:19:40', 1, '2023-01-27 04:19:40', 1),
 (14, 'ORDER/2023/02/001', '2023-02-02 01:07:24', 0, NULL, 0, 1, 5, 5, 25, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2023-02-02 01:07:24', 1, '2023-02-02 01:07:24', 1),
 (15, 'ORDER/2023/03/001', '2023-03-02 03:51:54', 0, NULL, 0, 1, 8, 8, 66, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2023-03-02 03:51:54', 1, '2023-07-20 14:21:37', 1),
-(16, 'ORDER/2023/03/002', '2023-03-02 03:54:08', 0, NULL, 0, 1, 7, 7, 66, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2023-03-02 03:54:08', 1, '2023-07-20 14:21:57', 1),
-(17, 'COBAAAAAA/9999/99/999', '2023-09-13 11:40:00', 1e29, 100, 0, 0, 1, 1, 66, 1, NULL, NULL, NULL, NULL, 'COBAAAAAAAA ADDDD DR CMSSSS , EDITTTTTTTTTTTT DR CMSSSSSS', 0, '2023-09-11 04:42:13', 1, '2023-09-11 11:49:27', 1);
+(16, 'ORDER/2023/03/002', '2023-03-02 03:54:08', 0, NULL, 0, 1, 7, 7, 66, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2023-03-02 03:54:08', 1, '2023-07-20 14:21:57', 1);
 
 -- --------------------------------------------------------
 
@@ -2950,8 +2928,7 @@ INSERT INTO `users` (`id`, `name`, `nickname`, `referal`, `date_of_birth`, `telp
 (93, 'william willy', 'willy', 'FB', '2023-09-01', '089512347865', 'UC', 'Tech Industry', 4, NULL, 'halo', NULL, 'willy@gmail.com', '$2y$10$MDL7vh0UL8rHU9MPpdFFd.Z.9odO0aNRfxlwRF4z7y/WvuvgfzuT.', NULL, NULL, NULL, 0, NULL, NULL, 0, 1, '2023-09-05 01:33:53', 0, '2023-09-05 01:33:53', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-09-05 01:33:53', NULL),
 (94, 'jisooya', 'soo', 'TikTok', '2023-08-27', '081212123412', 'UC', 'Tech Industry', 3, NULL, 'test', NULL, 'sooya@gmail.com', '$2y$10$WZ8DNHe9880rqjN5aFVTxeFSyBN91AeEG2CIzND/3.OKME74wMiUa', NULL, NULL, NULL, 0, NULL, NULL, 0, 1, '2023-09-05 04:18:51', 0, '2023-09-05 04:18:51', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-09-05 04:18:51', NULL),
 (95, 'Berlin Chandra', 'Berlin', 'TikTok', '2023-06-28', '081212121212', 'ITS', 'Tech Industry', 6, NULL, 'gugugaga', '1693893649.png', 'berlin@gmail.com', '$2y$10$YxgG2xcwAbBnE3HTWhwyH.DyrriYtlmdX2tOIR.tZ4TrsCBs/wzVi', NULL, NULL, NULL, 0, NULL, NULL, 0, 1, '2023-09-05 06:02:03', 0, '2023-09-05 06:02:03', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-09-05 06:02:03', NULL),
-(96, 'k', 'k', 'TikTok', '2023-08-31', '1', '1', '1', 1, '1', '1', '1693896544.png', 'k@gmail.com', '$2y$10$k4I2g0QNw3rl.Eb3xHB9mOkSiVdv5LpCUMmo0rvC8ua1jR1wF/MGa', NULL, NULL, NULL, 0, NULL, NULL, 0, 1, '2023-09-05 06:49:38', 0, '2023-09-05 06:49:38', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-09-05 06:49:38', NULL),
-(97, 'CONAAAAAAAAAAAAAAAA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'CCCCCCCC@gmail.com', '$2y$10$2XpdpieviIMnBmp8PGYCQueMEK4LmsezJ/1/W6PTtuggC2QjgG1D6', NULL, 'admin', NULL, 1, 'COBAAAA ADDDDD DR CMSSSSS EDITT DR CMSSSS', 0, 0, 1, '2023-09-11 04:59:50', 1, '2023-09-11 06:31:21', 1, NULL, NULL, NULL, 0, NULL, NULL, '2023-09-11 06:36:51', NULL);
+(96, 'k', 'k', 'TikTok', '2023-08-31', '1', '1', '1', 1, '1', '1', '1693896544.png', 'k@gmail.com', '$2y$10$k4I2g0QNw3rl.Eb3xHB9mOkSiVdv5LpCUMmo0rvC8ua1jR1wF/MGa', NULL, NULL, NULL, 0, NULL, NULL, 0, 1, '2023-09-05 06:49:38', 0, '2023-09-05 06:49:38', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-09-05 06:49:38', NULL);
 
 -- --------------------------------------------------------
 
