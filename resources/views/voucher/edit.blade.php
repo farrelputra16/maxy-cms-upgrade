@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="field">
-                        <label for="">Max Discount (max 100%)</label>
+                        <label for="">Max Discount</label>
                         <input type="number" name="maxdiscount" id="maxdiscount" placeholder="e.g. 5" value="{{ $currentData->max_discount }}">
                     </div>
                 </div>
