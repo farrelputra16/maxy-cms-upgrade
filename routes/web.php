@@ -20,6 +20,7 @@ use App\Http\Controllers\MDifficultyTypeController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\MaxyTalkController;
+use App\Http\Controllers\VoucherController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -185,6 +186,16 @@ Route::post('/order/add', [TransOrderController::class, 'postAddTransOrder'])->n
 
 Route::get('/order/edit', [TransOrderController::class, 'getEditTransOrder'])->name('getEditTransOrder')->middleware('access:trans_order_update');
 Route::post('/order/edit', [TransOrderController::class, 'postEditTransOrder'])->name('postEditTransOrder')->middleware('access:trans_order_update');
+
+
+// voucher routes ##########################################################################################################
+Route::get('/voucher', [VoucherController::class, 'getVoucher'])->name('getVoucher')->middleware('access:trans_voucher_manage');
+
+Route::get('/voucher/add', [VoucherController::class, 'getAddVoucher'])->name('getAddVoucher')->middleware('access:trans_voucher_create');
+Route::post('/voucher/add', [VoucherController::class, 'postAddVoucher'])->name('postAddVoucher')->middleware('access:trans_voucher_create');
+
+Route::get('/voucher/edit', [VoucherController::class, 'getEditVoucher'])->name('getEditVoucher')->middleware('access:trans_voucher_update');
+Route::post('/voucher/edit', [VoucherController::class, 'postEditVoucher'])->name('postEditVoucher')->middleware('access:trans_voucher_update');
 
 //                                     General
 //General Routes #########################################################################################################

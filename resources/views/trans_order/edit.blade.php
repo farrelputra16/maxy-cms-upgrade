@@ -166,7 +166,7 @@
                         <input class="form-check-input" type="checkbox" value="1" {{ $currentData->status == 1 ? "checked" : "" }} name="status" >
                         <label>Aktif</label>
                     </div>
-                  </div>
+                </div>
             </div>
             <button class="right floated ui button primary">Save & Update</button>
         </form>

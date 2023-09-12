@@ -107,6 +107,7 @@ class TransOrderController extends Controller
     function getEditTransOrder(Request $request){
         $idtransorder = $request->id;
         $transorders = TransOrder::find($idtransorder);
+        // return dd($idtransorder);
 
         $currentData = collect(DB::select('SELECT 
             trans_order.id, 

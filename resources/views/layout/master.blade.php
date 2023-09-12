@@ -129,10 +129,13 @@
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         @if ($broGotAccessMaster->contains('name', 'trans_order_manage'))
                                             <a class="dropdown-item" href="{{ route('getTransOrder') }}">Orders</a>
+                                            <a class="dropdown-item" href="{{ route('getVoucher') }}">Vouchers</a>
                                         @else
                                             <a class="dropdown-item disabled" href="{{ route('getTransOrder') }}">Orders <i class="lock icon"></i></a>
+                                            <a class="dropdown-item disabled" href="{{ route('getVoucher') }}">Voucher <i class="lock icon"></i></a>
                                         @endif
                                     </div>
+                                    
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -1,0 +1,65 @@
+@extends('layout.master')
+
+@section('title', 'Add Voucher')
+
+@section('content')
+    <div style="padding: 0px 12px 0px 12px;">
+        <form class="ui form" action="{{ route('postAddVoucher') }}" method="post">
+        @csrf
+            <div class="field">
+                <div class="field">
+                    <label for="">Voucher Name</label>
+                    <input type="text" name="name">
+                </div>
+                <div class="field">
+                    <label for="">Voucher Code</label>
+                    <input type="text" name="code">
+                </div>
+
+                <div class="two fields">
+                    <div class="field">
+                        <label for="">Waktu Mulai</label>
+                        <input type="datetime-local" id="start_date" name="start_date">
+                    </div>
+                    <div class="field">
+                        <label for="">Waktu Berakhir</label>
+                        <input type="datetime-local" id="start_date" name="end_date">
+                    </div>
+                </div>
+                <div class="three fields">
+                    <div class="field">
+                        <label for="">Discount Type</label>
+                        <select class="ui dropdown" name="discount_type" id="discount_type">
+                            <option value="">-- Pilih Discount Type --</option>
+                            <option value="PERCENTAGE">PERCENTAGE</option>
+                            <option value="FIXED">FIXED</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="">Discount</label>
+                        <input type="text" name="discount">
+                    </div>
+
+                    <div class="field">
+                        <label for="">Max Discount (max 100%)</label>
+                        <input type="number" name="maxdiscount" id="maxdiscount" placeholder="e.g. 5">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="">Voucher Description</label>
+                    <textarea name="description"></textarea>
+                </div>
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input class="form-check-input" type="checkbox" value="1" name="status" >
+                        <label>Aktif</label>
+                    </div>
+                </div>
+            </div>
+            <button class="right floated ui button primary">Tambah Voucher</button>
+        </form>
+        <a href="{{ route("getVoucher") }}"><button class=" right floated ui red button">Batal</button></a>
+    </div>
+@endsection
