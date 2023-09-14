@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseClassMemberController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseClassController;
+use App\Http\Controllers\CourseClassMemberHistoryController;
 use App\Http\Controllers\CourseModuleController;
 use App\Http\Controllers\CoursePackageBenefitController;
 use App\Http\Controllers\CoursePackageController;
@@ -64,6 +65,15 @@ Route::post('/course/class/add', [CourseClassController::class, 'postAddCourseCl
 
 Route::get('/course/class/edit', [CourseClassController::class, 'getEditCourseClass'])->name('getEditCourseClass')->middleware('access:course_class_update');
 Route::post('/course/class/edit', [CourseClassController::class, 'postEditCourseClass'])->name('postEditCourseClass')->middleware('access:course_class_update');
+
+
+// course class member history route ####################################################################################################
+Route::get('/course/class/member/history', [CourseClassMemberHistoryController::class, 'getCCMH'])->name('getCCMH')->middleware('access:course_class_member_history_manage');
+Route::get('/course/class/member/history/course_type', [CourseClassMemberHistoryController::class, 'gettypeCCMH'])->name('gettypeCCMH')->middleware('access:course_class_member_history_manage');
+
+Route::get('/course/class/member/history/edit', [CourseClassMemberHistoryController::class, 'getEditCCMH'])->name('getEditCCMH')->middleware('access:course_class_member_history_update');
+Route::post('/course/class/member/history/edit', [CourseClassMemberHistoryController::class, 'postEditCCMH'])->name('postEditCCMH')->middleware('access:course_class_member_history_update');
+
 
 // course class member route ############################################################################################
 Route::get('/course/class/member', [CourseClassMemberController::class, 'getCourseClassMember'])->name('getCourseClassMember')->middleware('access:course_class_member_manage');

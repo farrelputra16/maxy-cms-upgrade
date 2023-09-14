@@ -60,6 +60,11 @@
                                         @else
                                             <a class="dropdown-item disabled" href="{{ route('getCourseClassModule') }}">Course Class Module <i class="lock icon"></i></a>
                                         @endif
+                                        @if ($broGotAccessMaster->contains('name', 'course_class_member_history_manage'))
+                                            <a class="dropdown-item" href="{{ route('getCCMH') }}">Course Class Member History</a>
+                                        @else
+                                            <a class="dropdown-item disabled" href="{{ route('getCourseClassModule') }}">Course Class Module <i class="lock icon"></i></a>
+                                        @endif
                                         <div class="dropdown-divider"></div>
                                         @if ($broGotAccessMaster->contains('name', 'course_package_manage'))
                                             <a class="dropdown-item" href="{{ route('getCoursePackage') }}">Course Package</a>

@@ -37,6 +37,7 @@
                             <td>{{ $item->discount }}</td>
                             <td>{{ $item->max_discount }}</td>
                             <td>{{ $item->description }}</td>
+                            <th>Action</th>
                             <td>
                             @if ($item->status == 1)
                                     <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
