@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\AccessGroup;
+use Maatwebsite\Excel\Facades\Excel;
 use DB;
 use Illuminate\Support\Facades\Auth;
+use App\Imports\UserImport;
 
 class UserController extends Controller
 {
@@ -116,5 +118,19 @@ class UserController extends Controller
                 return app(HelperController::class)->Warning('getUser');
             }
         }
+    }
+
+    function importCSV(Request $request)
+    {
+        $request->validate([
+            'csv_file' => 'required|file|mimes:csv,txt', // Hanya menerima file CSV
+        ]);
+
+        // Proses impor file CSV
+        $import = new UserImport(); // Ganti dengan nama import yang sesuai
+        Excel::import($import, $request->file('csv_file'));
+
+        // Redirect dengan pesan sukses jika berhasil
+        return redirect()->route('getUser')->with('success', 'Data berhasil diimpor dari file CSV.');
     }
 }

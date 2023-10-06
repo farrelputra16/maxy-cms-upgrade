@@ -70,7 +70,7 @@ class GeneralController extends Controller
                 'name' => $request->name,
                 'value' => $request->value,
                 'description' => $request->description,
-               'status' => $request->status? 1 : 0,
+                'status' => $request->status? 1 : 0,
                 'updated_id' => Auth::user()->id
             ]);
 
@@ -79,6 +79,18 @@ class GeneralController extends Controller
             } else {
                 return app(HelperController::class)->Warning('getGeneral');
             } 
+        }
+    }
+
+    function deactivateGeneral(Request $request, $id) {
+        $general = General::find($id);
+        
+        if ($general) {
+            $general->status = 0; // Set status menjadi non aktif
+            $general->save();
+            return redirect()->route('getGeneral')->with('success', 'Pengaturan umum dinonaktifkan.');
+        } else {
+            return redirect()->route('getGeneral')->with('error', 'Pengaturan umum tidak ditemukan.');
         }
     }
 }

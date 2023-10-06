@@ -217,6 +217,8 @@ Route::post('/general/add', [GeneralController::class, 'postAddGeneral'])->name(
 Route::get('/general/edit', [GeneralController::class, 'getEditGeneral'])->name('getEditGeneral')->middleware('access:general_update');
 Route::post('/general/edit', [GeneralController::class, 'postEditGeneral'])->name('postEditGeneral')->middleware('access:general_update');
 
+Route::post('general/deactivate/{id}',[GeneralController::class, 'deactivateGeneral'])->name('deactivateGeneral');
+
 //                                     Testimonial
 //Testimonial Routes #########################################################################################################
 Route::get('/testimonial', [TestimonialController::class, 'getTestimonial'])->name('getTestimonial')->middleware('access:member_testimonial_manage');
@@ -241,3 +243,7 @@ Route::post('maxytalk/edit', [MaxyTalkController::class, 'postEditMaxyTalk'])->n
 Route::get('/noauthority', function () {
     return view('bad_access');
 })->name('bad_access');
+
+// Import File .csv
+Route::post('/course-class-member/import-csv', [CourseClassMemberController::class, 'importCSV'])->name('course-class-member.import-csv');
+Route::post('/user/import-csv', [UserController::class, 'importCSV'])->name('user.import-csv');

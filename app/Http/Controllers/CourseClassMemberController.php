@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\CourseClassMember;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Imports\CourseClassMemberImport; 
 
 class CourseClassMemberController extends Controller
 {
@@ -144,6 +146,27 @@ class CourseClassMemberController extends Controller
             return app(HelperController::class)->Positive('getCourseClassMember');
         } else {
             return app(HelperController::class)->Warning('getCourseClassMember');
+        }
+    }
+
+    function importCSV(Request $request)
+    {
+    
+        $request->validate([
+            'csv_file' => 'required|file|mimes:csv,txt', // Hanya menerima file CSV
+        ]);
+
+
+        try {
+            // Proses impor file CSV
+            $import = new CourseClassMemberImport(); // Ganti dengan nama import yang sesuai
+            Excel::import($import, $request->file('csv_file'));
+
+            // Redirect dengan pesan sukses jika berhasil
+            return redirect()->route('getCourseClassMember')->with('success', 'Data berhasil diimpor dari file CSV.');
+        } catch (\Exception $e) {
+            // Redirect dengan pesan kesalahan jika terjadi kesalahan
+            return redirect()->route('getCourseClassMember')->with('error', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
         }
     }
 }

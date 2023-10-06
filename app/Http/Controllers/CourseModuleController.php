@@ -7,6 +7,8 @@ use App\Models\CourseModule;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Validator;
 
 class CourseModuleController extends Controller
 {
@@ -29,21 +31,41 @@ class CourseModuleController extends Controller
     }
 
     function postAddCourseModule(Request $request){
-        $create = CourseModule::create([
-            'name' => $request->name,
-            'priority' => $request->priority,
-            'level' => 1,
-            'course_id' => $request->course,
-            'description' => $request->description,
-            'status' => $request->status ? 1 : 0,
-            'created_id' => Auth::user()->id,
-            'updated_id' => Auth::user()->id
-        ]);
-
-        if($create){
-            return app(HelperController::class)->Positive('getCourseModule');
-        } 
-        return app(HelperController::class)->Negative('getCourseModule');
+        try {
+            // Validasi input
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'priority' => 'required',
+                'course' => 'required',
+                'description' => 'required',
+            ]);
+    
+            if ($validator->fails()) {
+                // Jika validasi gagal, redirect kembali ke halaman sebelumnya dengan pesan error
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+    
+            // Proses membuat course module jika validasi berhasil
+            $create = CourseModule::create([
+                'name' => $request->name,
+                'priority' => $request->priority,
+                'level' => 1,
+                'course_id' => $request->course,
+                'description' => $request->description,
+                'status' => $request->status ? 1 : 0,
+                'created_id' => Auth::user()->id,
+                'updated_id' => Auth::user()->id
+            ]);
+    
+            if ($create) {
+                return app(HelperController::class)->Positive('getCourseModule');
+            } else {
+                return app(HelperController::class)->Negative('getCourseModule');
+            }
+        } catch (\Exception $e) {
+            // Tangani kesalahan umum di sini jika diperlukan
+            return app(HelperController::class)->Negative('getCourseModule');
+        }
     }
 
     function getEditCourseModule(Request $request){

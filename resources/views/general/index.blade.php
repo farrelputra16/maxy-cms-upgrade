@@ -41,6 +41,11 @@
                         <td>{{ $item->updated_at }}</td>
                         <td>
                             <a href="{{ route('getEditGeneral', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
+                            <form method="POST" action="{{ route('deactivateGeneral', ['id' => $item->id]) }}">
+                                @csrf
+                                @method('POST')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                         </td>
                         </tr>
                         @endforeach
