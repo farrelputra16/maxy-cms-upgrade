@@ -69,11 +69,13 @@ Route::post('/course/class/edit', [CourseClassController::class, 'postEditCourse
 
 // course class member history route ####################################################################################################
 Route::get('/course/class/member/history', [CourseClassMemberHistoryController::class, 'getCCMH'])->name('getCCMH')->middleware('access:course_class_member_history_manage');
-Route::get('/course/class/member/history/course_type', [CourseClassMemberHistoryController::class, 'gettypeCCMH'])->name('gettypeCCMH')->middleware('access:course_class_member_history_manage');
+Route::get('/course/class/member/history/course_name', [CourseClassMemberHistoryController::class, 'getnameCCMH'])->name('getnameCCMH')->middleware('access:course_class_member_history_manage');
+
+Route::get('/course/class/member/historygrade', [CourseClassMemberHistoryController::class, 'getCCMHGrade'])->name('getCCMHGrade')->middleware('access:course_class_member_history_manage');
+Route::get('/course/class/member/history/grade', [CourseClassMemberHistoryController::class, 'getGradeCCMH'])->name('getGradeCCMH')->middleware('access:course_class_member_history_manage');
 
 Route::get('/course/class/member/history/edit', [CourseClassMemberHistoryController::class, 'getEditCCMH'])->name('getEditCCMH')->middleware('access:course_class_member_history_update');
 Route::post('/course/class/member/history/edit', [CourseClassMemberHistoryController::class, 'postEditCCMH'])->name('postEditCCMH')->middleware('access:course_class_member_history_update');
-
 
 // course class member route ############################################################################################
 Route::get('/course/class/member', [CourseClassMemberController::class, 'getCourseClassMember'])->name('getCourseClassMember')->middleware('access:course_class_member_manage');

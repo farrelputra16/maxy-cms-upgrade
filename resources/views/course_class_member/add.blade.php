@@ -54,8 +54,8 @@
                     <span style="color: red;">{{ $message }}</span>
                 @enderror
             </div>
-            <button type="submit" class="right floated ui button primary" style="margin-top:-1.7%">Upload CSV</button>
+            <button type="submit" class="right floated ui button primary" style="margin-top:-1.8%;margin-right:0.4%">Upload CSV</button>
         </form>
-        <a href="{{ route('getCourseClassMember') }}"><button class="right floated ui red button" style="margin-right:22.5%;margin-top:-2.6%">Batal</button></a>
+        <a href="{{ route('getCourseClassMember') }}"><button class="right floated ui red button" style="margin-right:26%;margin-top:-2.8%">Batal</button></a>
     </div>
 @endsection

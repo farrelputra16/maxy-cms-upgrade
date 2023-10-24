@@ -12,11 +12,7 @@
                     <input type="text" name="id" value="{{ request()->query('id') }}" disabled>
                 </div>
                 <div class="field">
-                    <label for="">Course Module Name</label>
-                    <input type="text" name="course_module_name" value="{{ $currentData->course_module_name }}" disabled>
-                </div>
-                <div class="field">
-                    <label for="">User Name</label>
+                    <label for="">Member</label>
                     <input type="text" name="user_name" value="{{ $currentData->user_name }}" disabled>
                 </div>
                 <div class="field">
@@ -35,6 +31,6 @@
             </div>
             <button class="right floated ui button primary">Save & Update</button>
         </form>
-        <a href="{{ route("getCCMH") }}"><button class=" right floated ui red button">Batal</button></a>
+        <a href="{{ route("getGradeCCMH") }}"><button class=" right floated ui red button">Batal</button></a>
     </div>
 @endsection

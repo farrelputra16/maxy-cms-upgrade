@@ -8,42 +8,42 @@
     <div class="row">
         <div class="col-10">
             <div class="form-container" style="padding-top: 3%;">
-                <form method="GET" action="{{ route('getnameCCMH') }}" class="flex-container">
+                <form method="GET" action="{{ route('getGradeCCMH') }}" class="flex-container">
                     <div class="navbar-nav" style="margin-right: 10px;">
                         <label for="">Course</label>
                         @if(isset($_GET['course_name']))
-                        <select class="ui dropdown" name="course_name">
-                            <option value="all" {{ ($_GET['course_name'] == 'all') ? 'selected' : '' }}>all</option>
-                            @foreach($course_name as $name)
-                                <option value="{{ $name->name }}" {{ ($_GET['course_name'] == $name->name) ? 'selected' : '' }}>{{ $name->name }}</option>
-                            @endforeach
-                        </select>
+                            <select class="ui dropdown" name="course_name">
+                                <option value="all" {{ ($_GET['course_name'] == 'all') ? 'selected' : '' }}>all</option>
+                                @foreach($course_name as $name)
+                                    <option value="{{ $name->name }}" {{ ($_GET['course_name'] == $name->name) ? 'selected' : '' }}>{{ $name->name }}</option>
+                                @endforeach
+                            </select>
                         @else
-                        <select class="ui dropdown" name="course_name">
-                            <option value="all" selected >all</option>
-                            @foreach($course_name as $name)
-                                <option value="{{ $name->name }}" >{{ $name->name }}</option>
-                            @endforeach
-                        </select>
+                            <select class="ui dropdown" name="course_name">
+                                <option value="all" selected>all</option>
+                                @foreach($course_name as $name)
+                                    <option value="{{ $name->name }}">{{ $name->name }}</option>
+                                @endforeach
+                            </select>
                         @endif
                     </div>
 
                     <div class="navbar-nav">
-                        <label for="">Member</label>
-                        @if(isset($_GET['user_name']))
-                        <select class="ui dropdown" name="user_name">
-                            <option value="all" {{ ($_GET['user_name'] == 'all') ? 'selected' : '' }}>all</option>
-                            @foreach($user_name as $userName)
-                                <option value="{{ $userName->name }}" {{ ($_GET['user_name'] == $userName->name) ? 'selected' : '' }}>{{ $userName->name }}</option>
-                            @endforeach
-                        </select>
+                        <label for="">Day</label>
+                        @if(isset($_GET['day']))
+                            <select class="ui dropdown" name="day">
+                                <option value="all" {{ ($_GET['day'] == 'all') ? 'selected' : '' }}>all</option>
+                                @foreach($day as $day)
+                                    <option value="{{ $day->day }}" {{ ($_GET['day'] == $day->day ) ? 'selected' : '' }}>{{ $day->day }}</option>
+                                @endforeach
+                            </select>
                         @else
-                        <select class="ui dropdown" name="user_name">
-                            <option value="all" selected >all</option>
-                            @foreach($user_name as $userName)
-                                <option value="{{ $userName->name }}">{{ $userName->name }}</option>
-                            @endforeach
-                        </select>
+                            <select class="ui dropdown" name="day">
+                                <option value="all" selected>all</option>
+                                @foreach($day as $day)
+                                    <option value="{{ $day->day }}">{{ $day->day }}</option>
+                                @endforeach
+                            </select>
                         @endif
                     </div>
 
@@ -96,34 +96,38 @@
             <thead>
                 <tr>
                     <th>Member</th>
-                    <th>Day</th>
-                    <th>Course - Batch</th>
                     <th data-column="ID Course Class Member" class="hidden-column">ID Course Class Member</th>
                     <th data-column="ID Course Module" class="hidden-column">ID Course Module</th>
                     <th data-column="Description" class="hidden-column">Description</th>
                     <th data-column="Paket Soal" class="hidden-column">Paket Soal</th>
                     <th data-column="Package Type" class="hidden-column">Package Type</th>
                     <th data-column="Created At" class="hidden-column">Created At</th>
-                    <th>Course Module</th>
-                    <th>Type</th>
-                    <th>Updated At</th>
+                    <th data-column="Updated At" class="hidden-column">Updated At</th>
+                    <th>File</th>
+                    <th>Comment</th>
+                    <th>Grade</th>
+                    <th>Grade At</th>
+                    <th>Action</th> 
                 </tr>
             </thead>
             <tbody>
                 @foreach ($ccmh as $item)
                 <tr>
                     <td>{{ $item->user_name }}</td>
-                    <td>{{ $item->day }}</td>
-                    <td>{{ $item->course_name . ' - ' . $item->batch }}</td>
                     <td data-column="ID Course Class Member" class="hidden-column">{{ $item->course_class_member_id }}</td>
                     <td data-column="ID Course Module" class="hidden-column">{{ $item->course_module_id }}</td>
                     <td data-column="Description" class="hidden-column">{{ $item->description }}</td>
                     <td data-column="Paket Soal" class="hidden-column">{{ $item->paket_soal }}</td>
                     <td data-column="Package Type" class="hidden-column">{{ $item->package_type }}</td>
                     <td data-column="Created At" class="hidden-column">{{ $item->created_at }}</td>
-                    <td>{{ $item->course_module_name }}</td>
-                    <td>{{ $item->course_type }}</td>
-                    <td>{{ $item->updated_at }}</td>
+                    <td data-column="Updated At" class="hidden-column">{{ $item->updated_at }}</td>
+                    <td>{{ $item->submitted_file }}</td>
+                    <td>{{ $item->comment }}</td>
+                    <td>{{ $item->grade }}</td>
+                    <td>{{ $item->graded_at }}</td>
+                    <td>
+                        <a href="{{ route('getEditCCMH', ['id' => $item->id]) }}" style="text-decoration: none; color: blue;">Edit</a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
