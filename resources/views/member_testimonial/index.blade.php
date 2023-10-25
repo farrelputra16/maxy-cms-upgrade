@@ -17,9 +17,9 @@
                         <th>Stars</th>
                         <th>Role</th>
                         <th>Status Highlight</th>
-                        <th>Member</th>
-                        <th>Course</th>
-                        <th>Course Class</th>
+                        <th>ID Member - Member</th>
+                        <th>ID Course - Member</th>
+                        <th>ID Course - Batch</th>
                         <th>Description</th>
                         <th>Status</th>
                         <th>Created at</th>

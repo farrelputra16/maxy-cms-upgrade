@@ -16,7 +16,7 @@
                 <tr>
                     <th>ID</th>
                     <th>ID Member - Name</th>
-                    <th>ID Course Class - Batch</th>
+                    <th>Batch - Course</th>
                     <th>Description</th>
                     <th>Status</th>
                     <th>Created At</th>

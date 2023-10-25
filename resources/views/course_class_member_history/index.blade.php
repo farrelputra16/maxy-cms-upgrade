@@ -114,7 +114,7 @@
                 <tr>
                     <td>{{ $item->user_name }}</td>
                     <td>{{ $item->day }}</td>
-                    <td>{{ $item->course_name . ' - ' . $item->batch }}</td>
+                    <td>{{ $item->course_name }} - Batch {{$item->batch }}</td>
                     <td data-column="ID Course Class Member" class="hidden-column">{{ $item->course_class_member_id }}</td>
                     <td data-column="ID Course Module" class="hidden-column">{{ $item->course_module_id }}</td>
                     <td data-column="Description" class="hidden-column">{{ $item->description }}</td>

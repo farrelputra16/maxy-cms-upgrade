@@ -19,12 +19,12 @@
                         <th scope="col">Waktu Berakhir</th>
                         <th scope="col">Prioritas</th>
                         <th scope="col">ID Course Module</th>
-                        <th scope="col">ID Course Class (Batch)</th>
+                        <th scope="col">Batch - Course</th>
                         <th scope="col">Description</th>
                         <th scope="col">Status</th>
                         <th scope="col">Created At</th>
                         <th scope="col">Updated At</th>
-                        <th scope="col">More</th>
+                        <th scope="col">Action</th>
                         <!-- More buat tempat button edit -->
                     </tr>
                 </thead>

@@ -14,8 +14,8 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Code</th>
+                            <th>Voucher Name</th>
+                            <th>Voucher Code</th>
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Discount Type</th>

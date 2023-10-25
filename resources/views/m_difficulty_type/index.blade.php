@@ -20,7 +20,7 @@
                         <th scope="col">Status</th>
                         <th scope="col">Created At</th>
                         <th scope="col">Updated At</th>
-                        <th scope="col">More</th>
+                        <th scope="col">Action</th>
                         <!-- More buat tempat edit / delete -->
                     </tr>
                 </thead>

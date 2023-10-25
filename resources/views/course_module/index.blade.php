@@ -16,7 +16,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Module Name</th>
-                        <th>Course Id</th>
+                        <th>ID Course</th>
                         <th>Description</th>
                         <th>Status</th>
                         <th>Action</th>

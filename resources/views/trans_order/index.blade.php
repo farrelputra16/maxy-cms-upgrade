@@ -20,10 +20,10 @@
                             <th>Discount</th>
                             <th>After Discount</th>
                             <th>Payment Status</th>
-                            <th>ID Course</th>
-                            <th>ID Course Class (Batch)</th>
-                            <th>ID Member</th>
-                            <th>ID Course Package</th>
+                            <th>Course</th>
+                            <th>Batch</th>
+                            <th>Member</th>
+                            <th>Course Package</th>
                             <th>ID Promotion</th>
                             <th>Forced At</th>
                             <th>Forced Comment</th>

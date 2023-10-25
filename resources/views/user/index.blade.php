@@ -15,7 +15,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Username</th>
+                        <th>Member</th>
                         <th>Email</th>
                         <th>Access Group</th>
                         <th>Description</th>
