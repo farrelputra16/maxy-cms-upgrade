@@ -3,6 +3,7 @@
 @section ('title', 'Voucher')
 @section ('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2>Vouchers</h2>
         <hr style = "margin-bottom: 0px;">
             <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
                 <div class="navbar-nav" >
@@ -23,6 +24,7 @@
                             <th>Max Discount</th>
                             <th>Description</th>
                             <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,7 +39,6 @@
                             <td>{{ $item->discount }}</td>
                             <td>{{ $item->max_discount }}</td>
                             <td>{{ $item->description }}</td>
-                            <th>Action</th>
                             <td>
                             @if ($item->status == 1)
                                     <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>

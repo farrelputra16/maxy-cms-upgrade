@@ -3,8 +3,8 @@
 @section ('title', 'Voucher')
 @section ('content')
 <div style="padding: 0px 12px 0px 12px;">
+    <h2>CCMH Grading</h2>
     <hr style="margin-bottom: 0px;">
-
     <div class="row">
         <div class="col-10">
             <div class="form-container" style="padding-top: 3%;">

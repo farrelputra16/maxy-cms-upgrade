@@ -9,7 +9,7 @@
             <div class="field">
                 <div class="field">
                     <label for="">Access Master Name</label>
-                    <input type="text" name="name">
+                    <input type="text" name="name" placeholder="Masukkan Nama Access Master">
                     @if ($errors->has('name'))
                         @foreach ($errors->get('name') as $error)
                             <span style="color: red;">{{$error}}</span>

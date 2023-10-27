@@ -7,13 +7,15 @@
         <form class="ui form" action="{{ route('postEditAccessMaster', ['id' => request()->query('id')]) }}" method="post">
             @csrf
             <div class="field">
-                <div class="field">
-                    <label for="">ID Access Master</label>
-                    <input type="text" value="{{ $accessmasters->id }}" disabled>
-                </div>
-                <div class="field">
-                    <label for="">Access Master Name</label>
-                    <input type="text" name="name" value="{{ $accessmasters->name }}">
+                <div class="two fields">
+                    <div class="field">
+                        <label for="">ID Access Master</label>
+                        <input type="text" value="{{ $accessmasters->id }}" disabled>
+                    </div>
+                    <div class="field">
+                        <label for="">Access Master Name</label>
+                        <input type="text" name="name" value="{{ $accessmasters->name }}">
+                    </div>
                 </div>
                 <div class="field">
                     <label for="">Description</label>

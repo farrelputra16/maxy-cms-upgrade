@@ -7,16 +7,17 @@
         <form class="ui form" action="{{ route('postAddCourseClass') }}" method="post">
             @csrf
             <div class="field">
-                <div class="field">
-                    <label for="">Batch</label>
-                    <input type="text" name="batch">
-                    @if ($errors->has('batch'))
-                        @foreach ($errors->get('batch') as $error)
-                            <span style="color: red;">{{$error}}</span>
-                        @endforeach
-                    @endif
-                </div>
-                <div class="three fields">
+                
+                <div class="five fields">
+                    <div class="field">
+                        <label for="">Batch</label>
+                        <input type="text" name="batch" placeholder="Masukkan Batch">
+                        @if ($errors->has('batch'))
+                            @foreach ($errors->get('batch') as $error)
+                                <span style="color: red;">{{$error}}</span>
+                            @endforeach
+                        @endif
+                    </div>
                     <div class="field">
                         <label for="">Waktu Mulai</label>
                         <input type="date" id="date" name="start">
@@ -44,19 +45,19 @@
                             @endforeach
                         @endif
                     </div>
-                </div>
-                <div class="field">
-                    <label for="">ID Course</label>
-                    <select name="courseid" class="ui dropdown">
-                        @foreach ($allCourses as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                        @endforeach
-                    </select>
-                    @if ($errors->has('courseid'))
-                        @foreach ($errors->get('courseid') as $error)
-                            <span style="color: red;">{{$error}}</span>
-                        @endforeach
-                    @endif
+                    <div class="field">
+                        <label for="">ID Course</label>
+                        <select name="courseid" class="ui dropdown">
+                            @foreach ($allCourses as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('courseid'))
+                            @foreach ($errors->get('courseid') as $error)
+                                <span style="color: red;">{{$error}}</span>
+                            @endforeach
+                        @endif
+                    </div>
                 </div>
                 <div class="field">
                     <label for="">Course Class Description</label>

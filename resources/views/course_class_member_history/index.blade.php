@@ -3,6 +3,7 @@
 @section ('title', 'Voucher')
 @section ('content')
 <div style="padding: 0px 12px 0px 12px;">
+    <h2>CCHM Tracking</h2>
     <hr style="margin-bottom: 0px;">
 
     <div class="row">

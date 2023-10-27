@@ -9,7 +9,7 @@
             <div class="field">
                 <div class="field">
                     <label for="">Name</label>
-                    <input type="text" name="name">
+                    <input type="text" name="name" placeholder="Masukkan Nama Difficulty">
                     @if ($errors->has('name'))
                         @foreach ($errors->get('name') as $error)
                             <span style="color: red;">{{$error}}</span>

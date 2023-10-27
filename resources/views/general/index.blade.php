@@ -3,6 +3,7 @@
 @section ('title', 'General Settings')
 @section ('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2>General</h2>
         <hr style = "margin-bottom: 0px;">
             <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
                 <div class="navbar-nav" >
@@ -28,7 +29,7 @@
                         <tr>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->name }}</td>
-                        <td>{{ $item->value }}</td>
+                        <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis;">{{ $item->value }}</td>
                         <td>{{ $item->description }}</td>
                         <td>    
                                 @if ($item->status == 1)

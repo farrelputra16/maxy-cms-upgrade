@@ -7,22 +7,18 @@
         <form class="ui form" action="{{ route('postEditTestimonial', ['id' => request()->query('id')]) }}" method="post">
             @csrf
             <div class="field">
-                <div class="ten fields">
+                <div class="three fields">
                     <div class="field">
                         <label for="">Rating (in stars)</label>
                         <input type="number" min="1" max="5" name="stars" value="{{ $testimonials->stars }}">
                     </div>
-                </div>
-                <div class="three fields">
                     <div class="field">
                         <label for="">Role</label>
                         <input type="text" name="role" value="{{ $testimonials->role }}">
                     </div>
-                </div>
-                <div class="field">
-                    <div class="ui checkbox">
+                    <div class="ui checkbox" style="margin-top:2.5%;margin-left:1%">
                         <input class="form-check-input" type="checkbox" value="1" {{ $testimonials->status_highlight == 1 ? 'checked' : ''}} name="status_highlight" >
-                        <label>Status Highlight</label>
+                        <label>Highlight</label>
                     </div>
                 </div>
                 <div class="three fields">
@@ -37,8 +33,6 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
-                <div class="three fields">
                     <div class="field">
                         <label for="">User</label>
                         <select name="user_id" class="ui dropdown">
@@ -50,8 +44,6 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
-                <div class="three fields">
                     <div class="field">
                         <label for="">Course Class Batch</label>
                         <select name="course_class_id" class="ui dropdown"> 
@@ -63,8 +55,6 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
-                    
                 </div>
                 <div class="field">
                     <label for="">Description</label>

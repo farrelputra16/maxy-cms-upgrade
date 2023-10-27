@@ -7,26 +7,27 @@
         <form class="ui form" action="{{ route('postAddGeneral') }}" method="post">
             @csrf
             <div class="field">
-                <div class="three fields">
+                <div class="two fields">
                     <div class="field">
                         <label for="">Name</label>
-                        <input type="text" name="name">
+                        <input type="text" name="name" placeholder="Masukkan Nama">
                         @if ($errors->has('name'))
                             @foreach ($errors->get('name') as $error)
                                 <span style="color: red;">{{$error}}</span>
                             @endforeach
                         @endif
                     </div>
+                    <div class="field">
+                        <label for="">Value</label>
+                        <input type="text" name="value" placeholder="Masukkan Value">
+                        @if ($errors->has('value'))
+                            @foreach ($errors->get('value') as $error)
+                                <span style="color: red;">{{$error}}</span>
+                            @endforeach
+                        @endif
+                    </div>
                 </div>
-                <div class="field">
-                    <label for="">Value</label>
-                    <input type="text" name="value">
-                    @if ($errors->has('value'))
-                        @foreach ($errors->get('value') as $error)
-                            <span style="color: red;">{{$error}}</span>
-                        @endforeach
-                    @endif
-                </div>
+
                 <div class="field">
                     <label for="">Description</label>
                     <textarea name="description"></textarea>

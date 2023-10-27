@@ -7,19 +7,32 @@
         <form class="ui form" method="post">
             @csrf
             <div class="field">
-                <div class="field">
-                    <label for="">ID Users</label>
-                    <input type="text" name="name" value="{{ request()->query('id') }}" disabled>
+                <div class="three fields">
+                    <div class="field">
+                        <label for="">ID Users</label>
+                        <input type="text" name="name" value="{{ request()->query('id') }}" disabled>
+                    </div>
+                    <div class="field">
+                        <label for="">Username</label>
+                        <input type="text" name="name" value="{{ $currentData->name }}">
+                    </div>
+                    @if ($errors->has('username'))
+                        @foreach ($errors->get('username') as $error)
+                            <span style="color: red;">{{$error}}</span>
+                        @endforeach
+                    @endif
+                    <div class="field">
+                        <div class="field" style="margin-top: 12px;">
+                            <label for="">Access Group</label>
+                            <select name="access_group" class="ui dropdown" >
+                                <option selected value="{{ $currentData->access_group_id }}">{{ $currentData->access_group_name }}</option>
+                                @foreach ($allAccessGroups as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div class="field">
-                    <label for="">Username</label>
-                    <input type="text" name="name" value="{{ $currentData->name }}">
-                </div>
-                @if ($errors->has('username'))
-                    @foreach ($errors->get('username') as $error)
-                        <span style="color: red;">{{$error}}</span>
-                    @endforeach
-                @endif
                 <div class="field">
                     <label for="">Email</label>
                     <input type="email" name="email" value="{{ $currentData->email }}">
@@ -39,35 +52,13 @@
                         <span style="color: red;">{{$error}}</span>
                     @endforeach
                 @endif
-                <div class="two fields">
-                    <div class="field">
-                        <div class="field">
-                            <label for="">User Type</label>
-                            <select class="ui dropdown" name="type" id="">
-                                @if ($currentData->type == 'admin')
-                                    <option selected value="{{ $currentData->type }}">{{ $currentData->type }}</option>
-                                    <option value="tutor">Tutor</option>
-                                @else
-                                    <option selected value="{{ $currentData->type }}">{{ $currentData->type }}</option>
-                                    <option value="admin">Admin</option>
-                                @endif
-                            </select>
-                        </div>
-                        <div class="field" style="margin-top: 12px;">
-                            <label for="">Access Group</label>
-                            <select name="access_group" class="ui dropdown" >
-                                <option selected value="{{ $currentData->access_group_id }}">{{ $currentData->access_group_name }}</option>
-                                @foreach ($allAccessGroups as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="">Users Description (Optional)</label>
-                        <textarea selected value="{{ $currentData->description }}" name="description" id="" rows="5">{{ $currentData->description }}</textarea>
-                    </div>
+                
+                
+                <div class="field">
+                    <label for="">Users Description (Optional)</label>
+                    <textarea selected value="{{ $currentData->description }}" name="description" id="" rows="5">{{ $currentData->description }}</textarea>
                 </div>
+                
                 <div class="field">
                     <div class="ui checkbox">
                         <input class="form-check-input" type="checkbox" value="1" {{ $currentData->status == 1 ? 'checked' : '' }} name="status" >

@@ -10,7 +10,7 @@
                 <div class="three fields">
                     <div class="field">
                         <label for="">Partners Name</label>
-                        <input type="text" name="name">
+                        <input type="text" name="name" placeholder="Masukkan Nama Partner">
                         @if ($errors->has('name'))
                             @foreach ($errors->get('name') as $error)
                                 <span style="color: red;">{{$error}}</span>
@@ -18,13 +18,12 @@
                         @endif
                     </div>
                     <div class="field">
-                        <label for="">Partners Type</label>
-                        <input type="text" name="type">
-                        @if ($errors->has('type'))
-                            @foreach ($errors->get('type') as $error)
-                                <span style="color: red;">{{$error}}</span>
+                        <label for="type">Partners Type</label>
+                        <select class="ui dropdown" name="type">
+                            @foreach ($partnerTypes as $partnerType)
+                                <option value="{{ $partnerType->type }}">{{ $partnerType->type }}</option>
                             @endforeach
-                        @endif
+                        </select>
                     </div>
                     <div class="field">
                         <label for="">Partners Logo</label>
@@ -33,7 +32,7 @@
                 </div>
                 <div class="field">
                     <label for="">Partners URL</label>
-                    <input type="text" name="url">
+                    <input type="text" name="url" placeholder="Masukkan Link URL">
                     @if ($errors->has('url'))
                         @foreach ($errors->get('url') as $error)
                             <span style="color: red;">{{$error}}</span>
@@ -47,7 +46,7 @@
                 <div class="three fields">
                     <div class="field">
                         <label for="">Partners Email</label>
-                        <input type="text" name="email">
+                        <input type="text" name="email" placeholder="Masukkan Email Partner">
                         @if ($errors->has('email'))
                             @foreach ($errors->get('email') as $error)
                                 <span style="color: red;">{{$error}}</span>
@@ -56,7 +55,7 @@
                     </div>
                     <div class="field">
                         <label for="">Partners Phone</label>
-                        <input type="number" name="phone">
+                        <input type="number" name="phone" placeholder="Masukkan Nomor Telepon Partner">
                         @if ($errors->has('phone'))
                             @foreach ($errors->get('phone') as $error)
                                 <span style="color: red;">{{$error}}</span>
@@ -65,7 +64,7 @@
                     </div>
                     <div class="field">
                         <label for="">Partners Contact Person</label>
-                        <input type="number" name="contact_person">
+                        <input type="number" name="contact_person" placeholder="Masukkan Contact Person">
                         @if ($errors->has('contact_person'))
                             @foreach ($errors->get('contact_person') as $error)
                                 <span style="color: red;">{{$error}}</span>
@@ -80,7 +79,7 @@
                 <div class="field">
                     <div class="ui checkbox">
                         <input class="form-check-input" type="checkbox" value="1" name="status_highlight" >
-                        <label>Aktif (Status Highlight)</label>
+                        <label>Highlight</label>
                     </div>
                 </div>
                 <div class="field">

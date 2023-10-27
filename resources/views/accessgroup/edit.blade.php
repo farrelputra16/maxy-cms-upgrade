@@ -7,13 +7,15 @@
         <form class="ui form" action="{{ route('postEditAccessGroup', ['id' => request()->query('id')]) }}" method="post">
             @csrf
             <div class="field">
-                <div class="field">
-                    <label for="">ID Access Group</label>
-                    <input type="text" value="{{ $accessgroups->id }}" disabled>
-                </div>
-                <div class="field">
-                    <label for="">Access Group Name</label>
-                    <input type="text" name="name" value="{{ $accessgroups->name }}">
+                <div class="two fields">
+                    <div class="field">
+                        <label for="">ID Access Group</label>
+                        <input type="text" value="{{ $accessgroups->id }}" disabled>
+                    </div>
+                    <div class="field">
+                        <label for="">Access Group Name</label>
+                        <input type="text" name="name" value="{{ $accessgroups->name }}">
+                    </div>
                 </div>
                 <div class="two fields">
                     <div class="field">

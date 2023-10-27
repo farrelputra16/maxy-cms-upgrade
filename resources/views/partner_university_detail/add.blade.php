@@ -10,7 +10,7 @@
                 <div class="three fields">
                     <div class="field">
                         <label for="">University Details Name</label>
-                        <input type="text" name="name">
+                        <input type="text" name="name" placeholder="Masukkan Detail Universitas">
                         @if ($errors->has('name'))
                             @foreach ($errors->get('name') as $error)
                                 <span style="color: red;">{{$error}}</span>

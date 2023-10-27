@@ -4,6 +4,7 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2>User</h2>
         <hr style="margin-bottom: 0px;">
         <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
             <div class="navbar-nav">

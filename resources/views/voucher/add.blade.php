@@ -7,13 +7,15 @@
         <form class="ui form" action="{{ route('postAddVoucher') }}" method="post">
         @csrf
             <div class="field">
-                <div class="field">
-                    <label for="">Voucher Name</label>
-                    <input type="text" name="name">
-                </div>
-                <div class="field">
-                    <label for="">Voucher Code</label>
-                    <input type="text" name="code">
+                <div class="two fields">
+                    <div class="field">
+                        <label for="">Voucher Name</label>
+                        <input type="text" name="name" placeholder="Masukkan Nama Voucher">
+                    </div>
+                    <div class="field">
+                        <label for="">Voucher Code</label>
+                        <input type="text" name="code" placeholder="Masukkan Kode Voucher">
+                    </div>
                 </div>
 
                 <div class="two fields">

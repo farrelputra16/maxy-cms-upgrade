@@ -7,18 +7,20 @@
         <form class="ui form" action="{{ route('postEditCoursePackage', ['id' => request()->query('id')]) }}" method="post">
             @csrf
             <div class="field">
-                <div class="field">
-                    <label for="">ID Course Package</label>
-                    <input type="text" value="{{ $coursePackages->id }}" disabled>
-                </div>
-                <div class="field">
-                    <label for="">Package Name</label>
-                    <input type="text" name="name" value="{{ $coursePackages->name }}">
-                    @if ($errors->has('name'))
-                        @foreach ($errors->get('name') as $error)
-                            <span style="color: red;">{{$error}}</span>
-                        @endforeach
-                    @endif
+                <div class="two fields">
+                    <div class="field">
+                        <label for="">ID Course Package</label>
+                        <input type="text" value="{{ $coursePackages->id }}" disabled>
+                    </div>
+                    <div class="field">
+                        <label for="">Package Name</label>
+                        <input type="text" name="name" value="{{ $coursePackages->name }}">
+                        @if ($errors->has('name'))
+                            @foreach ($errors->get('name') as $error)
+                                <span style="color: red;">{{$error}}</span>
+                            @endforeach
+                        @endif
+                    </div>
                 </div>
                 <div class="two fields">
                     <div class="field">

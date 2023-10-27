@@ -7,23 +7,25 @@
         <form class="ui form" action="{{ route('postAddCourse') }}" method="post">
             @csrf
             <div class="field">
-                <div class="field">
-                    <label for="">Course Name</label>
-                    <input type="text" name="name">
-                    @if ($errors->has('name'))
-                        @foreach ($errors->get('name') as $error)
-                            <span style="color: red;">{{$error}}</span>
-                        @endforeach
-                    @endif
-                </div>
-                <div class="field">
-                    <label for="">Course Slug</label>
-                    <input type="text" name="slug">
-                    @if ($errors->has('slug'))
-                        @foreach ($errors->get('slug') as $error)
-                            <span style="color: red;">{{$error}}</span>
-                        @endforeach
-                    @endif
+                <div class="two fields">
+                    <div class="field">
+                        <label for="">Course Name</label>
+                        <input type="text" name="name" placeholder="Masukkan Nama Course">
+                        @if ($errors->has('name'))
+                            @foreach ($errors->get('name') as $error)
+                                <span style="color: red;">{{$error}}</span>
+                            @endforeach
+                        @endif
+                    </div>
+                    <div class="field">
+                        <label for="">Course Slug</label>
+                        <input type="text" name="slug">
+                        @if ($errors->has('slug'))
+                            @foreach ($errors->get('slug') as $error)
+                                <span style="color: red;">{{$error}}</span>
+                            @endforeach
+                        @endif
+                    </div>
                 </div>
                 <div class="field">
                     <label for="">Course Description</label>

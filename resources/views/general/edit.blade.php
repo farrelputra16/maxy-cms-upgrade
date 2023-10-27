@@ -7,22 +7,21 @@
         <form class="ui form" action="{{ route('postEditGeneral', ['id' => request()->query('id')]) }}" method="post">
             @csrf
             <div class="field">
-                <div class="twelve fields">
+                <div class="three fields">
                     <div class="field">
                         <label for="">ID Data</label>
                         <input type="text" value="{{ $generals->id }}" disabled>
                     </div>
-                </div>
-                <div class="three fields">
                     <div class="field">
                         <label for="">Name</label>
                         <input type="text" name="name" value="{{ $generals->name }}">
                     </div>
-                </div>
                     <div class="field">
                         <label for="">Value</label>
                         <input type="text" name="value" value="{{ $generals->value }}">
                     </div>
+                </div>
+                    
                 <div class="field">
                     <label for="">Description</label>
                     <textarea name="description">{{ $generals->description }}</textarea>

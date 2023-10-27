@@ -7,13 +7,15 @@
         <form class="ui form" action="{{ route('postEditCourseClass', ['id' => request()->query('id')]) }}" method="post">
             @csrf
             <div class="field">
-                <div class="field">
-                    <label for="">ID Course Class (Batch)</label>
-                    <input type="text" value="{{ $courseclasses->id }}" disabled>
-                </div>
-                <div class="field">
-                    <label for="">Batch</label>
-                    <input type="text" name="batch" value="{{ $courseclasses->batch }}">
+                <div class="two fields">
+                    <div class="field">
+                        <label for="">ID Course Class (Batch)</label>
+                        <input type="text" value="{{ $courseclasses->id }}" disabled>
+                    </div>
+                    <div class="field">
+                        <label for="">Batch</label>
+                        <input type="text" name="batch" value="{{ $courseclasses->batch }}">
+                    </div>
                 </div>
                 <div class="three fields">
                     <div class="field">

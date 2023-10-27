@@ -7,28 +7,31 @@
         <form class="ui form" action="{{ route('postAddTestimonial') }}" method="post">
             @csrf
             <div class="field">
-                <div class="ten fields">
+                <div class="two fields">
+                    
                     <div class="field">
                         <label for="">Rating (in stars)</label>
                         <input type="number" min="1" max="5" name="stars">
                     </div>
-                </div>
-                <div class="three fields">
-                    <div class="field">
-                        <label for="">Role</label>
-                        <input type="text" name="role">
-                        @if ($errors->has('role'))
-                            @foreach ($errors->get('role') as $error)
-                                <span style="color: red;">{{$error}}</span>
-                            @endforeach
-                        @endif
+                    
+                    <div class="two fields">
+                        <div class="field">
+                            <label for="">Role</label>
+                            <input type="text" name="role" placeholder="Ex : Alumni Bootcamp Rapid UI/UX Batch 3">
+                            @if ($errors->has('role'))
+                                @foreach ($errors->get('role') as $error)
+                                    <span style="color: red;">{{$error}}</span>
+                                @endforeach
+                            @endif
+                        </div>
+                        <div class="field" style="margin-top:4.5%">
+                            <div class="ui checkbox">
+                                <input class="form-check-input" type="checkbox" value="1" name="status_highlight" >
+                                <label>Highlight</label>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="field">
-                    <div class="ui checkbox">
-                        <input class="form-check-input" type="checkbox" value="1" name="status_highlight" >
-                        <label>Status Highlight</label>
-                    </div>
+                    
                 </div>
                 <div class="three fields">
                     <div class="field">
@@ -45,8 +48,6 @@
                             @endforeach
                         @endif
                     </div>
-                </div>
-                <div class="three fields">
                     <div class="field">
                         <label for="">User</label>
                         <select name="user_id" class="ui dropdown"> 
@@ -61,8 +62,6 @@
                             @endforeach
                         @endif
                     </div>
-                </div>
-                <div class="three fields">
                     <div class="field">
                         <label for="">Course Class Batch</label>
                         <select name="course_class_id" class="ui dropdown"> 
@@ -77,8 +76,6 @@
                             @endforeach
                         @endif
                     </div>
-                </div>
-                    
                 </div>
                 <div class="field">
                     <label for="">Description</label>

@@ -4,6 +4,7 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2>Course Module</h2>
         <hr style="margin-bottom: 0px;">
         <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
             <div class="navbar-nav">
@@ -37,8 +38,10 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('getEditCourseModule', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
-                                <a href="{{ route('getCourseChildModule', ['id' => $item->id]) }}" style="text-decoration: none; color:teal;">Child</a>
+                            <div class="btn-group">
+                                <a href="{{ route('getEditCourseModule', ['id' => $item->id]) }}" class="btn btn-primary">Edit</a>
+                                <a href="{{ route('getCourseChildModule', ['id' => $item->id]) }}" class="btn btn-info">Child</a>
+                            </div>
                             </td>
                         </tr>
                     @endforeach

@@ -15,8 +15,13 @@ class PartnerController extends Controller
         return view('partner.index', ['partners' => $partners]);
     }
 
-    function getAddPartner(){
-        return view('partner.add');
+    function getAddPartner() {
+        $partnerTypes = Partner::select('type')
+            ->whereNotNull('type')
+            ->Where('type', '!=', '')
+            ->groupBy('type')
+            ->get();
+        return view('partner.add', ['partnerTypes' => $partnerTypes]);
     }
 
     function postAddPartner(Request $request){

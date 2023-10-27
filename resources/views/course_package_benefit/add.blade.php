@@ -7,27 +7,29 @@
         <form class="ui form" action="{{ route('postAddCoursePackageBenefit') }}" method="post">
             @csrf
             <div class="field">
-                <div class="field">
-                    <label for="">Name</label>
-                    <input type="text" name="name">
-                    @if ($errors->has('name'))
-                        @foreach ($errors->get('name') as $error)
-                            <span style="color: red;">{{$error}}</span>
-                        @endforeach
-                    @endif
-                </div>
-                <div class="field">
-                    <label for="">ID Course Package</label>
-                    <select name="course_package_id" class="ui dropdown">
-                        @foreach ($allCoursePackages as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                        @endforeach
-                    </select>
-                    @if ($errors->has('course_package_id'))
-                        @foreach ($errors->get('course_package_id') as $error)
-                            <span style="color: red;">{{$error}}</span>
-                        @endforeach
-                    @endif
+                <div class="two fields">
+                    <div class="field">
+                        <label for="">Name</label>
+                        <input type="text" name="name" placeholder="Masukkan Package Benefit">
+                        @if ($errors->has('name'))
+                            @foreach ($errors->get('name') as $error)
+                                <span style="color: red;">{{$error}}</span>
+                            @endforeach
+                        @endif
+                    </div>
+                    <div class="field">
+                        <label for="">ID Course Package</label>
+                        <select name="course_package_id" class="ui dropdown">
+                            @foreach ($allCoursePackages as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('course_package_id'))
+                            @foreach ($errors->get('course_package_id') as $error)
+                                <span style="color: red;">{{$error}}</span>
+                            @endforeach
+                        @endif
+                    </div>
                 </div>
                 <div class="field">
                     <label for="">Course Package Benefit Description</label>

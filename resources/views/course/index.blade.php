@@ -4,6 +4,7 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2>Course</h2>
         <hr style="margin-bottom: 0px;">
         <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
             <div class="navbar-nav">
@@ -24,17 +25,17 @@
                 <tbody>
                     @foreach ($courses as $item)
                         <tr>
-                            <td>{{ $item->id }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td id="description">{{ $item->description }}</td>
-                            <td>
+                            <td style="width: 3%;">{{ $item->id}}</td>
+                            <td style="width: 10%;">{{ $item->name }}</td>
+                            <td style="width: 40%;" id="description">{{ $item->description }}</td>
+                            <td style="width: 5%;">
                                 @if ($item->status == 1)
                                     <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
                                 @else
                                     <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
                                 @endif
                             </td>
-                            <td>
+                            <td style="width: 5%;">
                                 <a href="{{ route('getEditCourse', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
                             </td>
                         </tr>

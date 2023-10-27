@@ -6,12 +6,11 @@
     <div style="padding: 0px 12px 0px 12px;">
         <form class="ui form" action="{{ route('postEditCourseClassMember', ['id' => request()->query('id') ])}}" method="post">
             @csrf
-            <div class="field">
-                <label for="">ID Course Class Member</label>
-                <input type="text" value="{{ request()->query('id') }}" disabled>
-            </div>
-
-            <div class="two fields">
+            <div class="three fields">
+                <div class="field">
+                    <label for="">ID Course Class Member</label>
+                    <input type="text" value="{{ request()->query('id') }}" disabled>
+                </div>
                 <div class="three wide field">
                     <label for="">ID Member</label>
                     <select class="ui dropdown" name="user_id" id="">

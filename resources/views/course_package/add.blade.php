@@ -7,19 +7,20 @@
         <form class="ui form" action="{{ route('postAddCoursePackage') }}" method="post">
             @csrf
             <div class="field">
-                <div class="field">
-                    <label for="">Package Name</label>
-                    <input type="text" name="name">
-                    @if ($errors->has('name'))
-                        @foreach ($errors->get('name') as $error)
-                            <span style="color: red;">{{$error}}</span>
-                        @endforeach
-                    @endif
-                </div>
-                <div class="two fields">
+                <div class="three fields">
+                    <div class="field">
+                        <label for="">Package Name</label>
+                        <input type="text" name="name" placeholder="Masukkan Nama Package">
+                        @if ($errors->has('name'))
+                            @foreach ($errors->get('name') as $error)
+                                <span style="color: red;">{{$error}}</span>
+                            @endforeach
+                        @endif
+                    </div>
+                    
                     <div class="field">
                         <label for="">Fake Price</label>
-                        <input type="text" name="fake" id="fake_price">
+                        <input type="text" name="fake" id="fake_price" placeholder="Masukkan Fake Price">
                         @if ($errors->has('fake'))
                             @foreach ($errors->get('fake') as $error)
                                 <span style="color: red;">{{$error}}</span>
@@ -28,7 +29,7 @@
                     </div>
                     <div class="field">
                         <label for="">Price</label>
-                        <input type="text" name="price" id="price">
+                        <input type="text" name="price" id="price" placeholder="Masukkan Price">
                         @if ($errors->has('price'))
                             @foreach ($errors->get('price') as $error)
                                 <span style="color: red;">{{$error}}</span>
@@ -36,6 +37,7 @@
                         @endif
                     </div>
                 </div>
+                    
                 <div class="field">
                     <label for="">Course Package Description</label>
                     <textarea name="description"></textarea>

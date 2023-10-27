@@ -85,7 +85,7 @@
                 <div class="field">
                     <div class="ui checkbox">
                         <input class="form-check-input" type="checkbox" value="1" {{ $partners->status_highlight == 1 ? "checked" : "" }} name="status_highlight" >
-                        <label>Aktif (Status Highlight)</label>
+                        <label>Highlight</label>
                     </div>
                 </div>
                 <div class="field">

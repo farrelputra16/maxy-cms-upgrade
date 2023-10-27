@@ -7,17 +7,19 @@
         <form class="ui form" action="{{ route('postEditCourse', ['id' => request()->query('id')]) }}" method="post">
             @csrf
             <div class="field">
-                <div class="field">
-                    <label for="">ID Course</label>
-                    <input type="text" value="{{ $courses->id }}" disabled>
-                </div>
-                <div class="field">
-                    <label for="">Course Name</label>
-                    <input type="text" name="name" value="{{ $courses->name }}">
-                </div>
-                <div class="field">
-                    <label for="">Course Slug</label>
-                    <input type="text" name="slug" value="{{ $courses->slug }}">
+                <div class="three fields">
+                    <div class="field">
+                        <label for="">ID Course</label>
+                        <input type="text" value="{{ $courses->id }}" disabled>
+                    </div>
+                    <div class="field">
+                        <label for="">Course Name</label>
+                        <input type="text" name="name" value="{{ $courses->name }}">
+                    </div>
+                    <div class="field">
+                        <label for="">Course Slug</label>
+                        <input type="text" name="slug" value="{{ $courses->slug }}">
+                    </div>
                 </div>
                 <div class="field">
                     <label for="">Course Description</label>
