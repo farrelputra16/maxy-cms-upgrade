@@ -4,6 +4,7 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Add Orders</h2>
         <form class="ui form" action="{{ route('postAddTransOrder') }}" method="post">
             @csrf
             <h4 class="ui dividing header">Order Information</h4>

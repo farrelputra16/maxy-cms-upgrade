@@ -4,11 +4,12 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Add Access Group</h2>
         <form class="ui form" action="{{ route('postAddAccessGroup') }}" method="post">
             @csrf
             <div class="field">
                 <div class="field">
-                    <label for="">Access Group Name</label>
+                    <label for="">Name</label>
                     <input type="text" name="name" placeholder="Masukkan Nama Access Group">
                     @if ($errors->has('name'))
                         @foreach ($errors->get('name') as $error)

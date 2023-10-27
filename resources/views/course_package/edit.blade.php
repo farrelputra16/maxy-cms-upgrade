@@ -4,16 +4,17 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Edit Course Package</h2>
         <form class="ui form" action="{{ route('postEditCoursePackage', ['id' => request()->query('id')]) }}" method="post">
             @csrf
             <div class="field">
                 <div class="two fields">
                     <div class="field">
-                        <label for="">ID Course Package</label>
+                        <label for="">ID</label>
                         <input type="text" value="{{ $coursePackages->id }}" disabled>
                     </div>
                     <div class="field">
-                        <label for="">Package Name</label>
+                        <label for="">Name</label>
                         <input type="text" name="name" value="{{ $coursePackages->name }}">
                         @if ($errors->has('name'))
                             @foreach ($errors->get('name') as $error)
@@ -43,7 +44,7 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label for="">Course Description</label>
+                    <label for="">Description</label>
                     <textarea name="description">{{ $coursePackages->description }}</textarea>
                 </div>
                

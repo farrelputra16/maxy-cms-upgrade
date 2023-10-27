@@ -4,12 +4,13 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Add Course Package</h2>
         <form class="ui form" action="{{ route('postAddCoursePackage') }}" method="post">
             @csrf
             <div class="field">
                 <div class="three fields">
                     <div class="field">
-                        <label for="">Package Name</label>
+                        <label for="">Name</label>
                         <input type="text" name="name" placeholder="Masukkan Nama Package">
                         @if ($errors->has('name'))
                             @foreach ($errors->get('name') as $error)
@@ -39,7 +40,7 @@
                 </div>
                     
                 <div class="field">
-                    <label for="">Course Package Description</label>
+                    <label for="">Description</label>
                     <textarea name="description"></textarea>
                 </div>
                 <div class="two fields">

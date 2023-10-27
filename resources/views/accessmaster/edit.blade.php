@@ -4,16 +4,17 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Edit Access Master</h2>
         <form class="ui form" action="{{ route('postEditAccessMaster', ['id' => request()->query('id')]) }}" method="post">
             @csrf
             <div class="field">
                 <div class="two fields">
                     <div class="field">
-                        <label for="">ID Access Master</label>
+                        <label for="">ID</label>
                         <input type="text" value="{{ $accessmasters->id }}" disabled>
                     </div>
                     <div class="field">
-                        <label for="">Access Master Name</label>
+                        <label for="">Name</label>
                         <input type="text" name="name" value="{{ $accessmasters->name }}">
                     </div>
                 </div>

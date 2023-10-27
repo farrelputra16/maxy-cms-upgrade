@@ -4,16 +4,17 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Edit Partner</h2>
         <form class="ui form" action="{{ route('postEditPartner', ['id' => request()->query('id'), 'logo_dump' => $partners->logo ]) }}" method="post">
             @csrf
             <div class="field">
                 <div class="field">
-                    <label for="">ID Partners</label>
+                    <label for="">ID</label>
                     <input type="text" value="{{ $partners->id }}" disabled>
                 </div>
                 <div class="three fields">
                     <div class="field">
-                        <label for="">Partners Name</label>
+                        <label for="">Name</label>
                         <input type="text" name="name" value="{{ $partners->name }}">
                         @if ($errors->has('name'))
                             @foreach ($errors->get('name') as $error)
@@ -22,7 +23,7 @@
                         @endif
                     </div>
                     <div class="field">
-                        <label for="">Partners Type</label>
+                        <label for="">Type</label>
                         <input type="text" name="type"  value="{{ $partners->type}}">
                         @if ($errors->has('type'))
                             @foreach ($errors->get('type') as $error)
@@ -31,13 +32,13 @@
                         @endif
                     </div>
                     <div class="field">
-                        <label for="">Partners Logo</label>
+                        <label for="">Logo</label>
                         <input type="file" name="logo">
                         <small>Current logo: {{ $partners->logo }}</small>
                     </div>
                 </div>
                 <div class="field">
-                    <label for="">Partners URL</label>
+                    <label for="">URL</label>
                     <input type="text" name="url" value="{{ $partners->url }}">
                     @if ($errors->has('url'))
                         @foreach ($errors->get('url') as $error)
@@ -51,7 +52,7 @@
                 </div>
                 <div class="three fields">
                     <div class="field">
-                        <label for="">Partners Email</label>
+                        <label for="">Email</label>
                         <input type="text" name="email" value="{{ $partners->email }}">
                         @if ($errors->has('email'))
                             @foreach ($errors->get('email') as $error)
@@ -60,7 +61,7 @@
                         @endif
                     </div>
                     <div class="field">
-                        <label for="">Partners Phone</label>
+                        <label for="">Phone</label>
                         <input type="number" name="phone" value="{{ $partners->phone }}">
                         @if ($errors->has('phone'))
                             @foreach ($errors->get('phone') as $error)
@@ -69,7 +70,7 @@
                         @endif
                     </div>
                     <div class="field">
-                        <label for="">Partners Contact Person</label>
+                        <label for="">Contact Person</label>
                         <input type="number" name="contact_person" value="{{ $partners->contact_person }}">
                         @if ($errors->has('contact_person'))
                             @foreach ($errors->get('contact_person') as $error)

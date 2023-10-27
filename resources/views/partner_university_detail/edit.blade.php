@@ -4,16 +4,17 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Edit Partner University Detail</h2>
         <form class="ui form" action="{{ route('postEditPartnerUniversityDetail', ['id' => request()->query('id')]) }}" method="post">
             @csrf
             <div class="field">
                 <div class="field">
-                    <label for="">ID University Details</label>
+                    <label for="">ID</label>
                     <input type="text" disabled value="{{ $currentData->pud_id }}">
                 </div>
                 <div class="three fields">
                     <div class="field">
-                        <label for="">University Details Name</label>
+                        <label for="">Name</label>
                         <input type="text" name="name" value="{{ $currentData->pud_name }}">
                         @if ($errors->has('name'))
                             @foreach ($errors->get('name') as $error)
@@ -22,7 +23,7 @@
                         @endif
                     </div>
                     <div class="field">
-                        <label for="">University Details Type</label>
+                        <label for="">Type</label>
                         <select name="type" id="">
                             @if ($currentData->pud_type == "faculty")
                                 <option selected value="faculty">Faculty</option>
@@ -34,7 +35,7 @@
                         </select>
                     </div>
                     <div class="field">
-                        <label for="">University Details Ref (Parent)</label>
+                        <label for="">Ref (Parent)</label>
                         <input type="text" name="ref" placeholder="set null or ignore if this parent" value="{{ $currentData->pud_ref }}">
                         @if ($errors->has('ref'))
                             @foreach ($errors->get('ref') as $error)

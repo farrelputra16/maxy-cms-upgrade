@@ -4,6 +4,7 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Add Course Package Benefit</h2>
         <form class="ui form" action="{{ route('postAddCoursePackageBenefit') }}" method="post">
             @csrf
             <div class="field">
@@ -32,7 +33,7 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label for="">Course Package Benefit Description</label>
+                    <label for="">Description</label>
                     <textarea name="description"></textarea>
                 </div>
                 <div class="field">

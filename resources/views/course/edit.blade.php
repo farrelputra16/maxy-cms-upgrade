@@ -4,30 +4,31 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Edit Course</h2>
         <form class="ui form" action="{{ route('postEditCourse', ['id' => request()->query('id')]) }}" method="post">
             @csrf
             <div class="field">
                 <div class="three fields">
                     <div class="field">
-                        <label for="">ID Course</label>
+                        <label for="">ID</label>
                         <input type="text" value="{{ $courses->id }}" disabled>
                     </div>
                     <div class="field">
-                        <label for="">Course Name</label>
+                        <label for="">Name</label>
                         <input type="text" name="name" value="{{ $courses->name }}">
                     </div>
                     <div class="field">
-                        <label for="">Course Slug</label>
+                        <label for="">Slug</label>
                         <input type="text" name="slug" value="{{ $courses->slug }}">
                     </div>
                 </div>
                 <div class="field">
-                    <label for="">Course Description</label>
+                    <label for="">Description</label>
                     <textarea name="description">{{ $courses->description }}</textarea>
                 </div>
                 <div class="two fields">
                     <div class="field">
-                        <label for="">Course Type</label>
+                        <label for="">Type</label>
                         <select name="type" class="ui dropdown" id="type_selector">
                         @if ($currentDataCourse)
                             <option selected value="{{ $currentDataCourse->m_course_type_id }}">{{ $currentDataCourse->course_type_name }}</option>
@@ -38,7 +39,7 @@
                         </select>
                     </div>
                     <div class="field" id="course_package">
-                        <label for="">Course Package</label>
+                        <label for="">Package</label>
                         <select name="package">
                         @if ($currentCoursePackages)
                             <option selected value="{{ $item->course_package_id }}">{{ $item->course_package_name }} - Rp. {{ $item->course_package_price }}</option> 
@@ -63,7 +64,7 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label for="">Course Difficulty</label>
+                    <label for="">Difficulty</label>
                     <select name="level" class="ui dropdown">
                         @if ($currentDataCourse)
                             <option selected value="{{ $currentDataCourse->m_difficulty_type_id }}">{{ $currentDataCourse->course_difficulty }}</option>

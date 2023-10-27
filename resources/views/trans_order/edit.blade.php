@@ -4,6 +4,7 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:2%">Edit Order</h2>
         <form class="ui form" action="{{ route('postEditTransOrder', ['id' => request()->query('id')]) }}" method="post">
             @csrf
             <h4 class="ui dividing header">Order Information</h4>

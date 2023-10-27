@@ -4,12 +4,13 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Add Partner University Detail</h2>
         <form class="ui form" action="" method="post">
             @csrf
             <div class="field">
                 <div class="three fields">
                     <div class="field">
-                        <label for="">University Details Name</label>
+                        <label for="">Name</label>
                         <input type="text" name="name" placeholder="Masukkan Detail Universitas">
                         @if ($errors->has('name'))
                             @foreach ($errors->get('name') as $error)
@@ -18,7 +19,7 @@
                         @endif
                     </div>
                     <div class="field">
-                        <label for="">University Details Type</label>
+                        <label for="">Type</label>
                         <select name="type" id="">
                             <option value="">-- Silakan pilih tipe detail --</option>
                             <option value="faculty">Faculty</option>
@@ -31,7 +32,7 @@
                         @endif
                     </div>
                     <div class="field">
-                        <label for="">University Details Ref (Parent)</label>
+                        <label for="">Ref (Parent)</label>
                         <input type="text" name="ref" placeholder="set null or ignore if this parent">
                         @if ($errors->has('ref'))
                             @foreach ($errors->get('ref') as $error)

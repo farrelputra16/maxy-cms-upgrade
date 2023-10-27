@@ -4,6 +4,7 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Edit CCMH Grading</h2>
         <form class="ui form" action="{{ route('postEditCCMH', ['id' => request()->query('id')]) }}" method="post">
             @csrf
             <div class="field">

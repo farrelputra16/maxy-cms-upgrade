@@ -4,21 +4,22 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Edit Course Module</h2>
         <form class="ui form" action="{{ route('postEditCourseModule', ['id' => $courseModule->id]) }}" method="post">
             @csrf
             <div class="field">
                 <div class="two fields">
                     <div class="field">
-                        <label for="">Course Module Name</label>
+                        <label for="">Name</label>
                         <input type="text" name="name" value="{{ $courseModule->name }}">
                     </div>
                     <div class="field">
-                        <label for="">Course Module Priority</label>
+                        <label for="">Priority</label>
                         <input type="number" name="priority" value="{{ $courseModule->priority }}">
                     </div>
                 </div>
                 <div class="field">
-                    <label for="">Course Module Description</label>
+                    <label for="">Description</label>
                     <textarea name="description">{{ $courseModule->description }}</textarea>
                 </div>
                 <div class="field">

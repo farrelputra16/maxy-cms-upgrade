@@ -4,6 +4,7 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Add Course Difficulty</h2>
         <form class="ui form" action="" method="post">
             @csrf
             <div class="field">
@@ -17,7 +18,7 @@
                     @endif
                 </div>
                 <div class="field">
-                    <label for="">Difficulty Description</label>
+                    <label for="">Description</label>
                     <textarea name="description"></textarea>
                 </div>
                 <div class="field">

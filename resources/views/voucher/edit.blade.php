@@ -4,15 +4,16 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Edit Vouchers</h2>
         <form class="ui form" action="{{ route('postEditVoucher', ['id' => request()->query('id')]) }}" method="post">
         @csrf
             <div class="field">
                 <div class="field">
-                    <label for="">Voucher Name</label>
+                    <label for="">Name</label>
                     <input type="text" name="name" value="{{ $currentData->name }}">
                 </div>
                 <div class="field">
-                    <label for="">Voucher Code</label>
+                    <label for="">Code</label>
                     <input type="text" name="code" value="{{ $currentData->code }}">
                 </div>
 
@@ -54,7 +55,7 @@
                 </div>
 
                 <div class="field">
-                    <label for="">Voucher Description</label>
+                    <label for="">Description</label>
                     <textarea name="description" value="{{ $currentData->description }}"></textarea>
                 </div>
                 <div class="field">

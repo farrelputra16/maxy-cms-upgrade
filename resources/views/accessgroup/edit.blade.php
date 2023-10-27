@@ -4,16 +4,17 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Edit Access Group</h2>
         <form class="ui form" action="{{ route('postEditAccessGroup', ['id' => request()->query('id')]) }}" method="post">
             @csrf
             <div class="field">
                 <div class="two fields">
                     <div class="field">
-                        <label for="">ID Access Group</label>
+                        <label for="">ID</label>
                         <input type="text" value="{{ $accessgroups->id }}" disabled>
                     </div>
                     <div class="field">
-                        <label for="">Access Group Name</label>
+                        <label for="">Name</label>
                         <input type="text" name="name" value="{{ $accessgroups->name }}">
                     </div>
                 </div>

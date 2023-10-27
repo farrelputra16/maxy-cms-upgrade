@@ -4,11 +4,12 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Add Class Member</h2>
         <form class="ui form" action="{{ route('postAddCourseClassMember') }}" method="post">
             @csrf
             <div class="two fields">
                 <div class="three wide field">
-                    <label for="users">ID Member</label>
+                    <label for="users">ID</label>
                     <select class="ui dropdown" name="users" id="users">
                         <option value="">-- Silakan Pilih Member --</option>
                         @foreach ($users as $item)

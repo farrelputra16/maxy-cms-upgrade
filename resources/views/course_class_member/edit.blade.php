@@ -4,6 +4,7 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Edit Class Member</h2>
         <form class="ui form" action="{{ route('postEditCourseClassMember', ['id' => request()->query('id') ])}}" method="post">
             @csrf
             <div class="three fields">
@@ -12,7 +13,7 @@
                     <input type="text" value="{{ request()->query('id') }}" disabled>
                 </div>
                 <div class="three wide field">
-                    <label for="">ID Member</label>
+                    <label for="">ID</label>
                     <select class="ui dropdown" name="user_id" id="">
                     <option value="{{ $currentData[0]->ccm_member_id }}" selected>{{ $currentData[0]->ccm_member_id }} - {{ $currentData[0]->user_name }}</option>
                         @foreach ($allMembers as $item)

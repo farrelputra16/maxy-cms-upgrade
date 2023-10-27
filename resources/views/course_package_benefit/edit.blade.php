@@ -4,12 +4,13 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Edit Course Package Benefit</h2>
         <form class="ui form" action="{{ route('postEditCoursePackageBenefit', ['id' => request()->query('id')]) }}" method="post">
             @csrf
             <div class="field">
                 <div class="three fields">
                     <div class="field">
-                        <label for="">ID Course Package Benefit</label>
+                        <label for="">ID</label>
                         <input type="text" value="{{ $currentData->id }}" disabled>
                     </div>
                     <div class="field">
@@ -39,7 +40,7 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label for="">Course Package Benefit Description</label>
+                    <label for="">Description</label>
                     <textarea name="description">{{ $currentData->description }}</textarea>
                 </div>
                 <div class="field">

@@ -4,12 +4,13 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Edit Users</h2>
         <form class="ui form" method="post">
             @csrf
             <div class="field">
                 <div class="three fields">
                     <div class="field">
-                        <label for="">ID Users</label>
+                        <label for="">ID</label>
                         <input type="text" name="name" value="{{ request()->query('id') }}" disabled>
                     </div>
                     <div class="field">

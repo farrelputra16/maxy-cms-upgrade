@@ -4,6 +4,7 @@
 
 @section('content') 
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Add Users</h2>
         <form class="ui form" method="post" action="{{ route('postAddUser') }}">
             @csrf
             <div class="two fields">

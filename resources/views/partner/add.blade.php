@@ -4,12 +4,13 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Add Partner</h2>    
         <form class="ui form" action="" method="post">
             @csrf
             <div class="field">
                 <div class="three fields">
                     <div class="field">
-                        <label for="">Partners Name</label>
+                        <label for="">Name</label>
                         <input type="text" name="name" placeholder="Masukkan Nama Partner">
                         @if ($errors->has('name'))
                             @foreach ($errors->get('name') as $error)
@@ -18,7 +19,7 @@
                         @endif
                     </div>
                     <div class="field">
-                        <label for="type">Partners Type</label>
+                        <label for="type">Type</label>
                         <select class="ui dropdown" name="type">
                             @foreach ($partnerTypes as $partnerType)
                                 <option value="{{ $partnerType->type }}">{{ $partnerType->type }}</option>
@@ -26,12 +27,12 @@
                         </select>
                     </div>
                     <div class="field">
-                        <label for="">Partners Logo</label>
+                        <label for="">Logo</label>
                         <input type="file" name="logo">
                     </div>
                 </div>
                 <div class="field">
-                    <label for="">Partners URL</label>
+                    <label for="">URL</label>
                     <input type="text" name="url" placeholder="Masukkan Link URL">
                     @if ($errors->has('url'))
                         @foreach ($errors->get('url') as $error)
@@ -45,7 +46,7 @@
                 </div>
                 <div class="three fields">
                     <div class="field">
-                        <label for="">Partners Email</label>
+                        <label for="">Email</label>
                         <input type="text" name="email" placeholder="Masukkan Email Partner">
                         @if ($errors->has('email'))
                             @foreach ($errors->get('email') as $error)
@@ -54,7 +55,7 @@
                         @endif
                     </div>
                     <div class="field">
-                        <label for="">Partners Phone</label>
+                        <label for="">Phone</label>
                         <input type="number" name="phone" placeholder="Masukkan Nomor Telepon Partner">
                         @if ($errors->has('phone'))
                             @foreach ($errors->get('phone') as $error)
@@ -63,7 +64,7 @@
                         @endif
                     </div>
                     <div class="field">
-                        <label for="">Partners Contact Person</label>
+                        <label for="">Contact Person</label>
                         <input type="number" name="contact_person" placeholder="Masukkan Contact Person">
                         @if ($errors->has('contact_person'))
                             @foreach ($errors->get('contact_person') as $error)

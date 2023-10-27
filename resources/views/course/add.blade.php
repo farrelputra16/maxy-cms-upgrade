@@ -4,12 +4,13 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Add Course</h2>
         <form class="ui form" action="{{ route('postAddCourse') }}" method="post">
             @csrf
             <div class="field">
                 <div class="two fields">
                     <div class="field">
-                        <label for="">Course Name</label>
+                        <label for="">Name</label>
                         <input type="text" name="name" placeholder="Masukkan Nama Course">
                         @if ($errors->has('name'))
                             @foreach ($errors->get('name') as $error)
@@ -18,7 +19,7 @@
                         @endif
                     </div>
                     <div class="field">
-                        <label for="">Course Slug</label>
+                        <label for="">Slug</label>
                         <input type="text" name="slug">
                         @if ($errors->has('slug'))
                             @foreach ($errors->get('slug') as $error)
@@ -28,12 +29,12 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label for="">Course Description</label>
+                    <label for="">Description</label>
                     <textarea name="description"></textarea>
                 </div>
                 <div class="two fields">
                     <div class="field">
-                        <label for="">Course Type</label>
+                        <label for="">Type</label>
                         <select name="type" class="ui dropdown" id="type_selector"> 
                             <option selected value="">-- Pilih Tipe Course --</option>
                             @foreach ($allCourseTypes as $item)
@@ -47,7 +48,7 @@
                         @endif
                     </div>
                     <div class="field" id="show_course_package">
-                        <label for="">Course Price Package</label>
+                        <label for="">Price Package</label>
                         <select name="package_price" class="ui dropdown"> 
                             @foreach ($allPackagePrices as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }} - Rp. {{ $item->price }}</option>
@@ -55,16 +56,16 @@
                         </select>
                     </div>
                     <div class="field" id="show_course_mini_fake_price">
-                        <label for="">Course Mini Bootcamp Fake Price</label>
+                        <label for="">Mini Bootcamp Fake Price</label>
                         <input type="text" name="mini_fake_price" id="fake_price">
                     </div>
                     <div class="field" id="show_course_mini_price">
-                        <label for="">Course Mini Bootcamp Price</label>
+                        <label for="">Mini Bootcamp Price</label>
                         <input type="text" name="mini_price" id="mini_price">
                     </div>
                 </div>
                 <div class="field">
-                    <label for="">Course Difficulty</label>
+                    <label for="">Difficulty</label>
                     <select name="level" class="ui dropdown">
                         @foreach ($allCourseDifficulty as $item)
                             <option value="{{ $item->id }}">{{ $item->name }}</option>

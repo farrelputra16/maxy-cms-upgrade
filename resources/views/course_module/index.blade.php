@@ -40,7 +40,7 @@
                             <td>
                             <div class="btn-group">
                                 <a href="{{ route('getEditCourseModule', ['id' => $item->id]) }}" class="btn btn-primary">Edit</a>
-                                <a href="{{ route('getCourseChildModule', ['id' => $item->id]) }}" class="btn btn-info">Child</a>
+                                <a href="{{ route('getCourseChildModule', ['id' => $item->id]) }}" class="btn btn-info">Content</a>
                             </div>
                             </td>
                         </tr>

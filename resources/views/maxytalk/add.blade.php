@@ -4,6 +4,7 @@
 
 @section('content')
 <div style="padding: 0px 12px 0px 12px;">
+    <h2 style="padding-bottom:3%">Add Maxy Talks</h2>
         <form class="ui form" action="{{ route('postAddMaxyTalk') }}" method="post">
             @csrf
                 <div class="three fields">

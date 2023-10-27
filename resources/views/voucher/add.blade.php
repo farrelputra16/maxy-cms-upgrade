@@ -4,16 +4,17 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Add Vouchers</h2>
         <form class="ui form" action="{{ route('postAddVoucher') }}" method="post">
         @csrf
             <div class="field">
                 <div class="two fields">
                     <div class="field">
-                        <label for="">Voucher Name</label>
+                        <label for="">Name</label>
                         <input type="text" name="name" placeholder="Masukkan Nama Voucher">
                     </div>
                     <div class="field">
-                        <label for="">Voucher Code</label>
+                        <label for="">Code</label>
                         <input type="text" name="code" placeholder="Masukkan Kode Voucher">
                     </div>
                 </div>
@@ -50,7 +51,7 @@
                 </div>
 
                 <div class="field">
-                    <label for="">Voucher Description</label>
+                    <label for="">Description</label>
                     <textarea name="description"></textarea>
                 </div>
                 <div class="field">
