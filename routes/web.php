@@ -60,6 +60,9 @@ Route::post('/course/edit', [CourseController::class, 'postEditCourse'])->name('
 // course class route ####################################################################################################
 Route::get('/course/class', [CourseClassController::class, 'getCourseClass'])->name('getCourseClass')->middleware('access:course_class_manage');
 
+Route::get('/course/class/duplicate', [CourseClassController::class, 'getDuplicateCourseClass'])->name('getDuplicateCourseClass')->middleware('access:course_class_create');
+Route::post('/course/class/duplicate', [CourseClassController::class, 'postDuplicateCourseClass'])->name('postDuplicateCourseClass')->middleware('access:course_class_create');
+
 Route::get('/course/class/add', [CourseClassController::class, 'getAddCourseClass'])->name('getAddCourseClass')->middleware('access:course_class_create');
 Route::post('/course/class/add', [CourseClassController::class, 'postAddCourseClass'])->name('postAddCourseClass')->middleware('access:course_class_create');
 
