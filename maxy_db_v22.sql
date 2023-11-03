@@ -1,4 +1,5 @@
 -- SECTION: ACCESS
+
 -- START ACCESS_GROUP
 -- access_group: Table
 CREATE TABLE `access_group` (
@@ -422,9 +423,9 @@ INSERT INTO `access_master` VALUES (1,'access_group_manage',NULL,0,'2022-09-20 0
 (184,'m_faq_update',NULL,0,'2023-01-31 09:31:46',1,'2023-01-31 09:31:46',1),
 (185,'m_faq_delete',NULL,0,'2023-01-31 09:31:46',1,'2023-01-31 09:31:46',1),
 (186,'course_package_manage',NULL,0,'2023-06-07 04:56:07',1,'2023-06-07 11:57:28',1),
-(187,'partner_manage',NULL,0,'2023-06-21 02:37:02',1,'2023-06-21 02:37:02',1),
-(188,'partner_create',NULL,0,'2023-06-21 02:37:13',1,'2023-06-21 02:37:13',1),
-(189,'partner_update',NULL,0,'2023-06-21 02:37:19',1,'2023-06-21 02:37:19',1),
+(187,'m_partner_manage',NULL,0,'2023-06-21 02:37:02',1,'2023-06-21 02:37:02',1),
+(188,'m_partner_create',NULL,0,'2023-06-21 02:37:13',1,'2023-06-21 02:37:13',1),
+(189,'m_partner_update',NULL,0,'2023-06-21 02:37:19',1,'2023-06-21 02:37:19',1),
 (190,'partner_university_detail_manage',NULL,0,'2023-06-21 02:37:30',1,'2023-06-21 02:37:30',1),
 (191,'partner_university_detail_create',NULL,0,'2023-06-21 02:37:39',1,'2023-06-21 02:37:39',1),
 (192,'partner_university_detail_update',NULL,0,'2023-06-21 02:37:45',1,'2023-06-21 02:37:45',1),
@@ -432,9 +433,10 @@ INSERT INTO `access_master` VALUES (1,'access_group_manage',NULL,0,'2022-09-20 0
 (194,'maxy_talk_create',NULL,0,'2023-07-06 08:49:57',1,'2023-07-06 08:49:57',1),
 (195,'maxy_talk_update',NULL,0,'2023-07-06 08:50:04',1,'2023-07-06 08:50:04',1);
 -- END ACCESS_MASTER
---
+-- END SECTION
+
 -- SECTION: COURSE
---
+
 -- START COURSE
 -- course: Table
 CREATE TABLE `course` (
@@ -1332,9 +1334,9 @@ CREATE TABLE `course_package` (
 );
 
 -- course_package: Data
-INSERT INTO `course_package` VALUES (1,'Paket 1',0,2000000,NULL,'',0,'2022-09-26 11:02:01',1,'2023-08-28 15:07:36',1),
-(2,'Paket 1',9000000,4900000,'https://invoice-staging.xendit.co/od/test01-bcp-p01','',1,'2022-09-26 11:02:35',1,'2023-09-19 09:08:07',1),
-(3,'Paket 2',0,25000000,'https://invoice.xendit.co/od/bcp-p02','',1,'2022-09-26 11:03:22',1,'2023-08-28 15:07:44',1);
+INSERT INTO `course_package` VALUES (1, 'Paket 1', 0, 2000000, NULL, '', 0, '2022-09-26 11:02:01', 1, '2023-08-28 15:07:36', 1),
+(2, 'Paket 1', 9000000, 5000000, 'https://invoice-staging.xendit.co/od/bcp-01', '', 1, '2022-09-26 11:02:35', 1, '2023-10-30 15:30:43', 1),
+(3, 'Paket 2', 0, 25000000, 'https://invoice.xendit.co/od/bcp-p02', '', 1, '2022-09-26 11:03:22', 1, '2023-08-28 15:07:44', 1);
 -- END COURSE_PACKAGE
 
 -- START COURSE_PACKAGE_BENEFIT
@@ -2356,8 +2358,8 @@ CREATE TABLE `m_promo` (
   `updated_id` int(11) NOT NULL
 );
 
-INSERT INTO `m_promo` VALUES (1,'test','t','2023-09-18 06:53:34','2023-09-20 06:53:34','PERCENTAGE','20',60000,'frwg',1,'2023-09-18 11:54:49',1,'2023-09-19 14:05:01',1),
-(2,'testing2','y','2023-09-19 11:28:57','2023-09-30 16:28:57','PERCENTAGE','50',100000,NULL,1,'2023-09-19 16:30:27',1,'2023-09-19 16:30:27',1);
+INSERT INTO `m_promo` VALUES (1, 'SYDNEY500', 'SYDNEY500', '2023-09-18 06:53:34', '2023-11-30 06:53:34', 'FIXED', '50', 500000, 'frwg', 1, '2023-09-18 11:54:49', 1, '2023-10-24 14:03:17', 1),
+(2, 'MAXYANNIV10', 'MAXYANNIV10', '2023-09-19 11:28:57', '2023-11-30 16:28:57', 'FIXED', '10', 100000, NULL, 1, '2023-09-19 16:30:27', 1, '2023-10-24 14:03:01', 1);
 -- END M_PROMO
 
 -- START PROMO_COURSE
@@ -2367,8 +2369,8 @@ CREATE TABLE `promo_course` (
   `payment_link` varchar(255) DEFAULT NULL
 );
 
-INSERT INTO `promo_course` VALUES (14,1,'https://invoice-staging.xendit.co/od/discount'),
-(14,2,'https://invoice-staging.xendit.co/od/testing voucher');
+INSERT INTO `promo_course` VALUES (14, 1, 'https://invoice-staging.xendit.co/od/ddm02'),
+(14, 2, 'https://invoice-staging.xendit.co/od/ddm01');
 -- END PROMO_COURSE
 
 -- START TRANS_ORDER
