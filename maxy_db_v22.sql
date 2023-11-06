@@ -444,7 +444,7 @@ CREATE TABLE `course` (
   `name` varchar(255) NOT NULL,
   `fake_price` int(11) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
-  `short_description` text NOT NULL,
+  `short_description` text NOT NULL COMMENT 'description shown at cards (course list)',
   `image` varchar(255) NOT NULL,
   `preview` varchar(255) NOT NULL,
   `target` text NOT NULL COMMENT 'split with ;;',
@@ -453,6 +453,7 @@ CREATE TABLE `course` (
   `m_course_type_id` int(11) NOT NULL,
   `course_package_id` int(11) DEFAULT NULL,
   `m_difficulty_type_id` int(11) NOT NULL,
+  `content` text DEFAULT NULL,
   `description` text DEFAULT NULL,
   `status` int(11) NOT NULL COMMENT '0 = not active, 1 = active',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
@@ -462,7 +463,7 @@ CREATE TABLE `course` (
 );
 
 -- course: Data
-INSERT INTO `course` (`id`, `name`, `fake_price`, `price`, `short_description`, `image`, `preview`, `target`, `payment_link`, `slug`, `m_course_type_id`, `course_package_id`, `m_difficulty_type_id`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
+INSERT INTO `course` (`id`, `name`, `fake_price`, `price`, `short_description`, `image`, `preview`, `target`, `payment_link`, `slug`, `m_course_type_id`, `course_package_id`, `m_difficulty_type_id`, `content`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
 (1, 'Backend', NULL, NULL, '', 'backend.png', '', '', '', 'backend', 1, NULL, 1, '<p>Kami dapat membantumu mendapatkan pekerjaan impian sebagai Backend Developer Expert dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', 1, '2022-09-26 10:56:03', 1, '2023-07-04 14:57:30', 1),
 (2, 'Frontend', NULL, NULL, '', 'frontend.png', '', '', '', 'frontend', 1, NULL, 1, '<p>Kami dapat membantumu mendapatkan pekerjaan impian sebagai Frontend Developer Expert dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', 1, '2022-09-26 10:56:27', 1, '2023-07-04 14:57:30', 1),
 (3, 'UI/UX', NULL, NULL, '', 'uiux.png', '', '', '', 'ui-ux', 1, NULL, 1, '<p>Kami dapat membantumu mendapatkan pekerjaan impian sebagai UI/UX Expert dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', 1, '2022-09-26 10:56:54', 1, '2023-07-04 14:57:30', 1),
@@ -617,6 +618,7 @@ CREATE TABLE `course_module` (
   `type` varchar(255) DEFAULT NULL,
   `material` varchar(255) DEFAULT NULL,
   `duration` int(11) DEFAULT NULL,
+  `content` text DEFAULT NULL,
   `description` text DEFAULT NULL,
   `status` int(11) NOT NULL COMMENT '0 = not active, 1 = active',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
@@ -626,7 +628,8 @@ CREATE TABLE `course_module` (
 );
 
 -- course_module: Data
-INSERT INTO `course_module` VALUES (1,'Database Overview and Clean Database Making Using PHPMyAdmin',NULL,NULL,1,1,1,NULL,NULL,'company_profile',NULL,NULL,'Pada pembelajaran individu, peserta akan mengikuti pembelajaran\r\nsynchronus, asynchronus, dan praktikum. Pada project akhir, setiap tim\r\nakan berdiskusi dengan mentor, dan mempelajari dari berbagai dokumen\r\ndan studi kasus yang disediakan oleh mitra proyek akhir. Dalam kegiatan-kegiatan tersebut, langkah yang dilakukan dalam pembelajaran terkait: -\r\nMemahami kebutuhan client dan kebutuhan pihak Backend dan Frontend -\r\nMembuat struktur tabel umum (general purpose) sesuai best practices -\r\nMembuat struktur tabel master data - Membuat struktur tabel transaction\r\ntype - Membuat struktur tabel penunjang ataupun view table yang\r\nmembantu dalam reporting dan kegiatan penunjang lainnya.',1,'2022-09-26 11:05:09',1,'2023-09-20 08:35:07',1),
+INSERT INTO `course_module` (`id`, `name`, `html`, `js`, `priority`, `level`, `course_id`, `course_module_parent_id`, `day`, `type`, `material`, `duration`, `content`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`), VALUES 
+(1,'Database Overview and Clean Database Making Using PHPMyAdmin',NULL,NULL,1,1,1,NULL,NULL,'company_profile',NULL,NULL,'Pada pembelajaran individu, peserta akan mengikuti pembelajaran\r\nsynchronus, asynchronus, dan praktikum. Pada project akhir, setiap tim\r\nakan berdiskusi dengan mentor, dan mempelajari dari berbagai dokumen\r\ndan studi kasus yang disediakan oleh mitra proyek akhir. Dalam kegiatan-kegiatan tersebut, langkah yang dilakukan dalam pembelajaran terkait: -\r\nMemahami kebutuhan client dan kebutuhan pihak Backend dan Frontend -\r\nMembuat struktur tabel umum (general purpose) sesuai best practices -\r\nMembuat struktur tabel master data - Membuat struktur tabel transaction\r\ntype - Membuat struktur tabel penunjang ataupun view table yang\r\nmembantu dalam reporting dan kegiatan penunjang lainnya.',1,'2022-09-26 11:05:09',1,'2023-09-20 08:35:07',1),
 (2,'Rapid Application Development using Laravel on Master Data',NULL,NULL,2,1,1,NULL,NULL,'company_profile',NULL,NULL,'Pada pembelajaran individu, peserta akan mengikuti pembelajaran\r\nsynchronus, asynchronus, dan praktikum. Pada project akhir, setiap tim\r\nakan berdiskusi dengan mentor, dan mempelajari dari berbagai dokumen\r\ndan studi kasus yang disediakan oleh mitra proyek akhir. Dalam kegiatan-kegiatan tersebut, langkah yang dilakukan dalam pembelajaran terkait: -\r\nPengintegrasian Template HTML Backend ke dalam Laravel - Pembuatan\r\nauthentication, user management, dan permission management - Pembuatan CRUD Management untuk Master Data dan proses validasi data yang dimasukkan dalam database.',1,'2022-09-26 11:05:48',1,'2023-09-15 15:41:44',1),
 (3,'Rapid Application Development using Laravel on Transaction Data',NULL,NULL,3,1,1,NULL,NULL,'company_profile',NULL,NULL,'Pada pembelajaran individu, peserta akan mengikuti pembelajaran\r\nsynchronus, asynchronus, dan praktikum. Pada project akhir, setiap tim\r\nakan berdiskusi dengan mentor, dan mempelajari dari berbagai dokumen\r\ndan studi kasus yang disediakan oleh mitra proyek akhir. Dalam kegiatan-kegiatan tersebut, langkah yang dilakukan dalam pembelajaran terkait: -\r\nPembuatan CRUD Management untuk Transaction Data dan proses\r\nvalidasi data yang dimasukkan dalam database - Pembuatan try-catch\r\ntransaction dan try-catch database serta rollback/commit process -\r\nPembuatan Read (View) yang printable.',1,'2022-09-26 11:06:16',1,'2023-09-15 15:41:44',1),
 (4,'Bootstrap 4 and SemanticUI',NULL,NULL,4,1,1,NULL,NULL,'company_profile',NULL,NULL,'Pada pembelajaran individu, peserta akan mengikuti pembelajaran\r\nsynchronus, asynchronus, dan praktikum. Pada project akhir, setiap tim\r\nakan berdiskusi dengan mentor, dan mempelajari dari berbagai dokumen\r\ndan studi kasus yang disediakan oleh mitra proyek akhir. Dalam kegiatan-kegiatan tersebut, langkah yang dilakukan dalam pembelajaran terkait: -\r\nPembuatan Form menggunakan Bootstrap 4 untuk responsive form -\r\nPenggunaan komponen pendukung Bootstrap 4 seperti Button, Button\r\nBackend Syllabus 4\r\nGroup, Close Button, Modal, dll untuk mendukung pembuatan Backend -\r\nPenggunaan Statistic, Feed, Card, dsb pada SemanticUI yang dapat\r\nmembantu beautification form dan report',1,'2022-09-26 11:06:32',1,'2023-09-15 15:41:44',1),
@@ -1643,6 +1646,7 @@ CREATE TABLE `course_module_discussion` (
   `level` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `course_module_id` int(11) NOT NULL,
+  `content` text DEFAULT NULL,
   `description` text DEFAULT NULL,
   `status` int(11) NOT NULL COMMENT '0 = not active, 1 = active',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
@@ -1862,6 +1866,7 @@ CREATE TABLE `m_content_page` (
   `type` varchar(255) NOT NULL,
   `meta_keyword` text DEFAULT NULL,
   `meta_description` text DEFAULT NULL,
+  `content` text DEFAULT NULL,
   `description` text DEFAULT NULL,
   `status` int(11) NOT NULL COMMENT '0 = not active, 1 = active',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
@@ -1870,7 +1875,8 @@ CREATE TABLE `m_content_page` (
   `updated_id` int(11) NOT NULL
 );
 -- m_content_page: Data
-INSERT INTO `m_content_page` VALUES (1,'featured_class','Kelas Unggulan',NULL,NULL,'SECTION',NULL,NULL,'<p>Cek program kami yang telah terbukti membantu siswa dalam mendapatkan pekerjaan impian</p>',1,'2023-01-19 15:49:00',1,'2023-01-19 15:49:00',1),
+INSERT INTO `m_content_page` (`id`, `name`, `heading`, `title`, `slug`, `type`, `meta_keyword`, `meta_description`, `content`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`, ) VALUES
+(1,'featured_class','Kelas Unggulan',NULL,NULL,'SECTION',NULL,NULL,'<p>Cek program kami yang telah terbukti membantu siswa dalam mendapatkan pekerjaan impian</p>',1,'2023-01-19 15:49:00',1,'2023-01-19 15:49:00',1),
 (2,'why','Kenapa harus Maxy Academy?',NULL,NULL,'SECTION',NULL,NULL,'<p>Praktek magang melalui Maxy Academy tidak hanya sekedar untuk memenuhi tuntutan kuliah, namun dirancang untuk menjadi gerbang menuju karir impian. Melalui fitur Online Bootcamp Academy, calon intern akan mendapatkan pelatihan dengan mentor profesional sebelum praktek magang. Selama magang, kamu juga akan dibimbing untuk menjadikan pengalaman kamu sebagai portfolio kamu dalam mendapatkan karir impian.</p>',1,'2023-01-19 15:49:00',1,'2023-01-19 15:49:00',1),
 (3,'company','',NULL,NULL,'SECTION',NULL,NULL,'<p>Kami menjamin posisi magang di berbagai perusahaan ternama seperti:</p>',1,'2023-01-20 09:37:25',1,'2023-01-20 09:37:25',1),
 (4,'partner',' ',NULL,NULL,'SECTION',NULL,NULL,'<p>Maxy Academy juga berpartner dengan beberapa organisasi pemerintah, pendidikan, dan teknologi untuk menyediakan mentor profesional:</p>',1,'2023-01-20 09:39:06',1,'2023-01-20 09:39:06',1),
@@ -1889,6 +1895,7 @@ CREATE TABLE `m_content_program_step` (
   `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(255) NOT NULL,
   `style` text NOT NULL,
+  `content` text DEFAULT NULL,
   `description` text DEFAULT NULL,
   `status` int(11) NOT NULL COMMENT '0 = not active, 1 = active',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
@@ -1896,7 +1903,8 @@ CREATE TABLE `m_content_program_step` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_id` int(11) NOT NULL
 );
-INSERT INTO `m_content_program_step` VALUES (1,'Ikuti training intensif selama 1 bulan bersama mentor profesional','step','<p>Pilih bidang yang ingin kamu ikuti</p>',1,'2023-01-19 15:49:00',1,'2023-01-31 04:07:45',1),
+INSERT INTO `m_content_program_step` (`id`, `name`, `style`, `content`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
+(1,'Ikuti training intensif selama 1 bulan bersama mentor profesional','step','<p>Pilih bidang yang ingin kamu ikuti</p>',1,'2023-01-19 15:49:00',1,'2023-01-31 04:07:45',1),
 (2,'Jalani program magang selama 3 bulan di perusahaan partner Maxy Academy','step','',1,'2023-01-19 15:49:00',1,'2023-01-19 15:49:00',1),
 (3,'Jaminan mendapat pekerjaan melalui konseling karir dan jaringan partner bisnis Maxy Academy','step','',1,'2023-01-20 10:03:20',1,'2023-01-20 10:03:20',1),
 (4,'Di akhir periode magang, Maxy Academy membantu kamu untuk kembali ke<br>jalur skripsi dan <span class=\"highlight\">langsung mendapatkan pekerjaan</span> sesuai bidang kamu pasca lulus.','footer','',1,'2023-01-20 10:15:41',1,'2023-01-20 10:15:41',1);
@@ -1969,6 +1977,7 @@ CREATE TABLE `maxy_talk` (
   `priority` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
   `maxy_talk_parent_id` int(11) DEFAULT NULL,
+  `content` text DEFAULT NULL,
   `description` text DEFAULT NULL,
   `status` int(11) NOT NULL COMMENT '0 = not active, 1 = active',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
@@ -2101,7 +2110,8 @@ CREATE TABLE `user_testimonial` (
   `user_id` int(11) NOT NULL,
   `course_id` int(11) NOT NULL,
   `course_class_id` int(11) NOT NULL,
-  `description` text NOT NULL,
+  `content` text NOT NULL,
+  `description` text DEFAULT NULL,
   `status` int(11) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `created_id` int(11) NOT NULL,
@@ -2109,7 +2119,7 @@ CREATE TABLE `user_testimonial` (
   `updated_id` int(11) NOT NULL
 );
 
-INSERT INTO `user_testimonial` (`id`, `stars`, `role`, `status_highlight`, `user_id`, `course_id`, `course_class_id`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
+INSERT INTO `user_testimonial` (`id`, `stars`, `role`, `status_highlight`, `user_id`, `course_id`, `course_class_id`, `content`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
 (7, 5, 'Alumni Bootcamp Rapid UI/UX Batch 4', 1, 44, 3, 1, 'Overall saya suka selama mengikuti program UI/UX dan banyak insight baru yang aku tau terkait UI/UX. Pokoknya terima kasih banyak untuk MinMax dan mentor yang selalu respon ketika dihubungi via chat. Video pembelajarannya menarik dan materinya kepake banget saat aku magang sekarang. Walaupun durasi videonya cukup panjang tapi penjelasan step by-stepnya mudah dipahami.', 1, '2023-07-03 15:40:32', 1, '2023-07-03 15:42:28', 1),
 (8, 5, 'Alumni Bootcamp Rapid UI/UX Batch 4', 1, 45, 3, 1, 'Awalnya aku gatau tentang UI/UX sama sekali, aku terbantu setelah mengikuti Bootcamp UI/UX di maxy academy karena jadi tau progress membuat website sampai membuat aplikasi menggunakan Figma.', 1, '2023-07-03 15:40:32', 1, '2023-07-03 15:42:28', 1),
 (9, 5, 'Alumni Bootcamp Rapid UI/UX Batch 4', 1, 46, 3, 1, 'Kebetulan dari dulu aku udah pengen belajar UI/UX. Awalnya aku gatau tentang UI/UX,tapi banyak pengetahuan yang bisa aku ambil melalui bootcamp maxy academy. Pokonya seru banget selama 12 hari itu, kita juga dapet Internship jadi belajar real case langsung.', 1, '2023-07-03 15:40:32', 1, '2023-07-03 16:26:00', 1);
