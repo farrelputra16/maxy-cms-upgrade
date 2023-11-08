@@ -10,12 +10,12 @@ class CourseClassMemberImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
+        // dd($row);
 
         // Sesuaikan dengan kolom dalam file CSV dan model CourseClassMember
         return new CourseClassMember([
             'user_id' => $row['user_id'], // Sesuaikan dengan kolom dalam file CSV
             'course_class_id' => $row['course_class_id'], // Sesuaikan dengan kolom dalam file CSV
-            'trans_order_id' => $row['trans_order_id'],
             'description' => $row['description'], // Sesuaikan dengan kolom dalam file CSV
             'status' => $row['status'], // Sesuaikan dengan kolom dalam file CSV
             'created_id' => $row['created_id'],

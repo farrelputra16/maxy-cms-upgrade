@@ -17,6 +17,7 @@ class CourseModule extends Model
         'level',
         'course_id',
         'course_module_parent_id',
+        'content',
         'description',
         'status',
         'created_at',

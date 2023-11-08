@@ -26,6 +26,10 @@
                     </div>
                 </div>
                 <div class="field">
+                    <label for="">Child Module Content</label>
+                    <textarea name="content"></textarea>
+                </div>
+                <div class="field">
                     <label for="">Child Module Description</label>
                     <textarea name="description"></textarea>
                 </div>

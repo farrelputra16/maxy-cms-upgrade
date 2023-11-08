@@ -5,7 +5,7 @@
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
         <h2 style="padding-bottom:3%">Add Course</h2>
-        <form class="ui form" action="{{ route('postAddCourse') }}" method="post">
+        <form class="ui form" action="{{ route('postAddCourse') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="field">
                 <div class="two fields">
@@ -28,13 +28,40 @@
                         @endif
                     </div>
                 </div>
+                <div class="two fields">
+                    <!-- <div class="field">
+                        <label for="">Fake Price</label>
+                        <input type="number" name="fake_price" id="fake_price" placeholder="number">
+                    </div>
+                    <div class="field">
+                        <label for="">Price</label>
+                        <input type="number" name="price" id="price" placeholder="number">
+                    </div> -->
+                    <div class="field">
+                        <label for="">Short Description</label>
+                        <input type="text" id="short_description" name="short_description" placeholder="Masukkan Short Description">
+                    </div>
+                    <div class="field">
+                        <label for="">Payment Link</label>
+                        <input type="text" id="payment_link" name="payment_link" placeholder="Masukkan Payment Link">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="file">Image</label>
+                    <input type="file" name="file_image" id="file_image">
+                </div>
+
+                <div class="field">
+                    <label for="">Content</label>
+                    <textarea name="content"></textarea>
+                </div>
                 <div class="field">
                     <label for="">Description</label>
                     <textarea name="description"></textarea>
                 </div>
                 <div class="two fields">
                     <div class="field">
-                        <label for="">Type</label>
+                        <label for="">Course Type</label>
                         <select name="type" class="ui dropdown" id="type_selector"> 
                             <option selected value="">-- Pilih Tipe Course --</option>
                             @foreach ($allCourseTypes as $item)

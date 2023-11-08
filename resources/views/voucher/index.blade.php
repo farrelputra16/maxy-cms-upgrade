@@ -1,58 +1,99 @@
-@extends ('layout.master')
+@extends('layout.master')
 
-@section ('title', 'Voucher')
-@section ('content')
+@section('title', 'Voucher')
+
+@section('content')
     <div style="padding: 0px 12px 0px 12px;">
-        <h2>Vouchers</h2>
-        <hr style = "margin-bottom: 0px;">
-            <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
-                <div class="navbar-nav" >
-                    <a class="btn btn-primary" href="{{ route('getAddVoucher')}}" role="button">Tambah Voucher +</a>
-                </div>
-            </nav>
-            <div id="table_content">
-                <table class="ui tablet unstackable table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Voucher Name</th>
-                            <th>Voucher Code</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Discount Type</th>
-                            <th>Discount</th>
-                            <th>Max Discount</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($voucher as $item)
-                        <tr>
-                            <td>{{ $item->id }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ $item->code }}</td>
-                            <td>{{ $item->start_date }}</td>
-                            <td>{{ $item->end_date }}</td>
-                            <td>{{ $item->discount_type }}</td>
-                            <td>{{ $item->discount }}</td>
-                            <td>{{ $item->max_discount }}</td>
-                            <td>{{ $item->description }}</td>
-                            <td>
-                            @if ($item->status == 1)
-                                    <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
-                                @else
-                                    <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
-                                @endif
-                            </td>
-                            <td>
-                                <a href ="{{ route('getEditVoucher', ['id' => $item->id])}}" style="text-decoration: none; color:blue;">Edit</a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+    <!DOCTYPE html>
+<html>
+<head>
+    <title>Voucher</title>
+    <!-- Include CSS libraries for styling the table -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+
+</head>
+<body>
+    <h2>Voucher</h2>
+    <hr>
+    <div id="example_wrapper">
+        <div class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
+            <div class="navbar-nav">
+                <a class="btn btn-primary" href="{{ route('getAddCourse') }}" role="button">Tambah Course +</a>
             </div>
-</div>
+        </div>
+        <table id="example" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Voucher Name</th>
+                    <th>Voucher Code</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Discount Type</th>
+                    <th>Discount</th>
+                    <th>Max Discount</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($voucher as $item)
+                <tr>
+                    <td>{{ $item->id }}</td>
+                    <td>{{ $item->name }}</td>
+                    <td>{{ $item->code }}</td>
+                    <td>{{ $item->start_date }}</td>
+                    <td>{{ $item->end_date }}</td>
+                    <td>{{ $item->discount_type }}</td>
+                    <td>{{ $item->discount }}</td>
+                    <td>{{ $item->max_discount }}</td>
+                    <td>{{ $item->description }}</td>
+                    <td>
+                    @if ($item->status == 1)
+                            <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
+                        @else
+                            <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
+                        @endif
+                    </td>
+                    <td>
+                        <a href ="{{ route('getEditVoucher', ['id' => $item->id])}}" style="text-decoration: none; color:blue;">Edit</a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Include JS libraries for DataTable initialization -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            var table = $('#example').DataTable({
+                lengthChange: false,
+                buttons: ['copy', 'excel', 'pdf', 'colvis']
+            });
+            
+            table.buttons().container()
+                .appendTo('#example_wrapper .col-md-6:eq(0)');
+        });
+    </script>
+</body>
+</html>
+
+    </div>
 @endsection

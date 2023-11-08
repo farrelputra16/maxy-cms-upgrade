@@ -16,6 +16,7 @@ class CoursePackage extends Model
         'fake_price',
         'price',
         'description',
+        'payment_link',
         'status',
         'created_at',
         'created_id',

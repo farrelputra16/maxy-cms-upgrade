@@ -36,6 +36,7 @@ class CoursePackageController extends Controller
                 'fake_price' => $trim_fake_price,
                 'price' => $trim_price,
                 'description' => $request->description,
+                'payment_link' => $request->payment_link,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => Auth::user()->id,
                 'updated_id' => Auth::user()->id
@@ -76,6 +77,7 @@ class CoursePackageController extends Controller
                         'name' => $request->name,
                         'fake_price' => $trim_fake_price,
                         'price' => $trim_price,
+                        'payment_link' => $request->payment_link,
                         'description' => $request->description,
                         'status' => $request->status ? 1 : 0,
                         'created_id' => Auth::user()->id,
@@ -94,6 +96,7 @@ class CoursePackageController extends Controller
                         'fake_price' => $request->fake,
                         'price' => $request->price,
                         'description' => $request->description,
+                        'payment_link' => $request->payment_link,
                         'status' => $request->status ? 1 : 0,
                         'created_id' => Auth::user()->id,
                         'updated_id' => Auth::user()->id

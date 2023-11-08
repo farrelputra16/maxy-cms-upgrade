@@ -31,6 +31,13 @@ class CourseController extends Controller
     }
 
     public function postAddCourse(Request $request){
+        if ($request->hasFile('file_image')) {
+            $file = $request->file('file_image');
+            $fileName = $file->getClientOriginalName();
+            $file->move(public_path('course_img'), $fileName);
+        }
+
+        // return dd($request);
         $validated = $request->validate([
             'name' => 'required',
             'slug' => 'required',
@@ -45,16 +52,14 @@ class CourseController extends Controller
                 'name' => $request->name,
                 'fake_price' => (float)$trim_mini_fake_price,
                 'price' => (float)$trim_mini_price,
-                'discounted_price' => 0,
-                'short_description' => 'no desc',
-                'image' => 'no.jpg',
-                'preview' => '0',
-                'target' => '0',
-                'payment_link' => '0',
+                'short_description' => $request->short_description,
+                'image' => $fileName,
+                'payment_link' => $request->payment_link,
                 'slug' => $request->slug,
                 'm_course_type_id' => $request->type,
                 'course_package_id' => $request->type == 2 ? null : $request->package_price,
                 'm_difficulty_type_id' => $request->level,
+                'content' => $request->content,
                 'description' => $request->description,
                 'status' => $request->status == '' ? 0 : 1,
                 'created_id' => Auth::user()->id,
@@ -119,7 +124,11 @@ class CourseController extends Controller
 
     function postEditCourse(Request $request){
         $idCourse = $request->id;
-
+        if ($request->hasFile('file_image')) {
+            $file = $request->file('file_image');
+            $fileName = $file->getClientOriginalName();
+            $file->move(public_path('course_img'), $fileName);
+        }
         $trim_mini_fake_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_fake_price));
         $trim_mini_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_price));
 
@@ -132,19 +141,17 @@ class CourseController extends Controller
                     'name' => $request->name,
                     'fake_price' => null,
                     'price' => null,
-                    'discounted_price' => 0,
-                    'short_description' => 'no desc',
-                    'image' => 'no.jpg',
-                    'preview' => '0',
-                    'target' => '0',
-                    'payment_link' => '0',
+                    'short_description' => $request->short_description,
+                    'image' => $fileName,
+                    'payment_link' => $request->payment_link,
                     'slug' => $request->slug,
                     'm_course_type_id' => $request->type,
-                    'course_package_id' => $request->package == 2 ? null : $request->package,
+                    'course_package_id' => $request->type == 2 ? null : $request->package_price,
                     'm_difficulty_type_id' => $request->level,
+                    'content' => $request->content,
                     'description' => $request->description,
                     'status' => $request->status == '' ? 0 : 1,
-                    'created_created_id' => Auth::user()->id,
+                    'created_id' => Auth::user()->id,
                     'updated_id' => Auth::user()->id
             ]);
 
@@ -158,18 +165,16 @@ class CourseController extends Controller
                 ->where('id', $idCourse)
                 ->update([
                     'name' => $request->name,
-                    'fake_price' => $trim_mini_fake_price,
-                    'price' => $trim_mini_price,
-                    'discounted_price' => 0,
-                    'short_description' => 'no desc',
-                    'image' => 'no.jpg',
-                    'preview' => '0',
-                    'target' => '0',
-                    'payment_link' => '0',
+                    'fake_price' => (float)$trim_mini_fake_price,
+                    'price' => (float)$trim_mini_price,
+                    'short_description' => $request->short_description,
+                    'image' => $fileName,
+                    'payment_link' => $request->payment_link,
                     'slug' => $request->slug,
                     'm_course_type_id' => $request->type,
-                    'course_package_id' => null,
+                    'course_package_id' => $request->type == 2 ? null : $request->package_price,
                     'm_difficulty_type_id' => $request->level,
+                    'content' => $request->content,
                     'description' => $request->description,
                     'status' => $request->status == '' ? 0 : 1,
                     'created_id' => Auth::user()->id,

@@ -164,9 +164,10 @@ class CourseClassMemberController extends Controller
 
             // Redirect dengan pesan sukses jika berhasil
             return redirect()->route('getCourseClassMember')->with('success', 'Data berhasil diimpor dari file CSV.');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            dd('Validation Exception', $e->getMessage()); // Tambahkan pesan ini
         } catch (\Exception $e) {
-            // Redirect dengan pesan kesalahan jika terjadi kesalahan
-            return redirect()->route('getCourseClassMember')->with('error', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
+            dd('Exception', $e->getMessage()); // Tambahkan pesan ini
         }
     }
 }

@@ -14,7 +14,6 @@ class CourseClassMember extends Model
     protected $fillable = [
         'user_id',
         'course_class_id',
-        'trans_order_id',
         'description',
         'status',
         'created_id',

@@ -8,7 +8,7 @@
         <form class="ui form" action="{{ route('postAddCoursePackage') }}" method="post">
             @csrf
             <div class="field">
-                <div class="three fields">
+                <div class="two fields">
                     <div class="field">
                         <label for="">Name</label>
                         <input type="text" name="name" placeholder="Masukkan Nama Package">
@@ -19,6 +19,12 @@
                         @endif
                     </div>
                     
+                    <div class="field">
+                        <label for="">Payment Link</label>
+                        <input type="text" name="payment_link" placeholder="Masukkan Payment Link ">
+                    </div>
+                </div>
+                <div class="two fields">
                     <div class="field">
                         <label for="">Fake Price</label>
                         <input type="text" name="fake" id="fake_price" placeholder="Masukkan Fake Price">

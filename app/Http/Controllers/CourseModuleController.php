@@ -14,10 +14,11 @@ class CourseModuleController extends Controller
 {
     // PARENT
     function getCourseModule(){
-        $courseModuleParent = DB::select('SELECT id, name, course_id, description, status 
+        $courseModuleParent = DB::select('SELECT id, name, course_id, content, description, status, created_at , created_id, updated_at , updated_id 
             FROM course_module 
             WHERE course_module_parent_id IS NULL 
             ORDER BY id ASC, priority ASC;');
+
 
             
         return view('course_module.index', [
@@ -30,14 +31,14 @@ class CourseModuleController extends Controller
         return view('course_module.add', ['courses' => $courses]);
     }
 
-    function postAddCourseModule(Request $request){
+    function postAddCourseModule(Request $request){ 
         try {
             // Validasi input
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'priority' => 'required',
                 'course' => 'required',
-                'description' => 'required',
+                'content' => 'required',
             ]);
     
             if ($validator->fails()) {
@@ -51,6 +52,7 @@ class CourseModuleController extends Controller
                 'priority' => $request->priority,
                 'level' => 1,
                 'course_id' => $request->course,
+                'content' => $request->content,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => Auth::user()->id,
@@ -100,6 +102,7 @@ class CourseModuleController extends Controller
                 'name' => $request->name,
                 'priority' => $request->priority,
                 'course_id' => $request->course,
+                'content' => $request->content,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => Auth::user()->id,
@@ -116,9 +119,9 @@ class CourseModuleController extends Controller
     // CHILD
     function getCourseChildModule(Request $request){
         $courseParent = CourseModule::find($request->id);
-        $courseModuleChild = DB::select('SELECT id, name, description, level, status 
+        $courseModuleChild = DB::select('SELECT id, name, content ,  description, priority, level, status , created_at , created_id, updated_at , updated_id
             FROM course_module 
-            WHERE course_module_parent_id = ? ORDER BY level ASC', [$request->id]);
+            WHERE course_module_parent_id = ? ORDER BY priority ASC', [$request->id]);
 
         return view('course_module.child.index', [
             'courseParent' => $courseParent,
@@ -145,6 +148,7 @@ class CourseModuleController extends Controller
             'level' => $request->level,
             'course_id' => $parentModule->course_id,
             'course_module_parent_id' => $parentModule->id,
+            'content' => $request->content,
             'description' => $request->description,
             'status' => $request->status ? 1 : 0,
             'created_id' => Auth::user()->id,
@@ -170,6 +174,7 @@ class CourseModuleController extends Controller
             'name' => $request->name,
             'priority' => $request->priority,
             'level' => $request->level,
+            'content' => $request->content,
             'description' => $request->description,
             'status' => $request->status ? 1 : 0,
             'updated_id' => Auth::user()->id,

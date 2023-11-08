@@ -19,6 +19,10 @@
                     </div>
                 </div>
                 <div class="field">
+                    <label for="">Content</label>
+                    <textarea name="content">{{ $courseModule->content }}</textarea>
+                </div>
+                <div class="field">
                     <label for="">Description</label>
                     <textarea name="description">{{ $courseModule->description }}</textarea>
                 </div>

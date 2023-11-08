@@ -23,7 +23,11 @@
                         @endif
                     </div>
                 </div>
-                <div class="two fields">
+                <div class="three fields">
+                    <div class="field">
+                        <label for="">Payment Link</label>
+                        <input type="text" name="name" value="{{ $coursePackages->payment_link }}">
+                    </div>
                     <div class="field">
                         <label for="">Fake Price</label>
                         <input type="text" name="fake" id="fake_price" value="{{ $coursePackages->fake_price }}">

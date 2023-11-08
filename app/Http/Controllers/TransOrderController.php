@@ -28,7 +28,7 @@ class TransOrderController extends Controller
             course_class.batch AS course_class_batch,
             users.name AS users_name, 
             course_package.name AS course_package_name, 
-            promotion.name AS promotion_name,
+            m_promo.name AS promotion_name,
             trans_order.forced_at,
             trans_order.forced_comment,
             trans_order.description,
@@ -38,7 +38,7 @@ class TransOrderController extends Controller
             LEFT JOIN course_class ON trans_order.course_class_id = course_class.id
             LEFT JOIN users ON trans_order.user_id = users.id
             LEFT JOIN course_package ON trans_order.course_package_id = course_package.id
-            LEFT JOIN promotion ON trans_order.promotion_id = promotion.id
+            LEFT JOIN m_promo ON trans_order.m_promo_id = m_promo.id
         ');
 
         return view('trans_order.index', ['transOrders' => $transOrders]);

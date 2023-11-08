@@ -5,7 +5,7 @@
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
         <h2 style="padding-bottom:3%">Edit Course</h2>
-        <form class="ui form" action="{{ route('postEditCourse', ['id' => request()->query('id')]) }}" method="post">
+        <form class="ui form" action="{{ route('postEditCourse', ['id' => request()->query('id')]) }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="field">
                 <div class="three fields">
@@ -21,6 +21,24 @@
                         <label for="">Slug</label>
                         <input type="text" name="slug" value="{{ $courses->slug }}">
                     </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                            <label for="">Short Description</label>
+                            <input type="text" id="short_description" name="short_description" placeholder="Masukkan Short Description" value="{{ $courses->short_description }}">
+                        </div>
+                    <div class="field">
+                            <label for="">Payment Link</label>
+                            <input type="text" id="payment_link" name="payment_link" placeholder="Masukkan Payment Link" value="{{ $courses->payment_link }}">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="file">Image</label>
+                    <input type="file" name="file_image" id="file_image">
+                </div>
+                <div class="field">
+                    <label for="">Content</label>
+                    <textarea name="content">{{ $courses->content }}</textarea>
                 </div>
                 <div class="field">
                     <label for="">Description</label>
