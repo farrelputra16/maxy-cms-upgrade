@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\AccessGroup;
+use App\Models\MProvince;
+use App\Models\Partner;
 use Maatwebsite\Excel\Facades\Excel;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -17,37 +19,40 @@ class UserController extends Controller
         // $userlist = User::all();
         // return view('userlist.index',['userlist' => $userlist]);
 
-        $users = collect(DB::select('SELECT users.id, 
-            users.name, 
-            users.email,
-            users.description,
-            users.status, 
-            users.created_at, 
-            users.updated_at, 
-            access_group.name AS accessgroup 
-            FROM users
-            INNER JOIN access_group ON users.access_group_id = access_group.id'
-        ));
+        $users = User::getAllUserWithAccessGroup();
 
         return view('user.index',['users' => $users]);
     }
 
     function getAddUser(){
         $allAccessGroups = AccessGroup::all();
+        $allProvince = MProvince::all();
+        $allPartner = Partner::all();
+
         return view('user.add', [
-            'allAccessGroups' => $allAccessGroups
+            'allAccessGroups' => $allAccessGroups,
+            'allProvince' => $allProvince,
+            'allPartner' => $allPartner
         ]);
     }
 
     function postAddUser(Request $request){
+        // dd($request->province);
+
         // return dd($request);
         $validated = $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users,email|email',
             'password' => 'required|min:5',
-            'type' => 'required',
-            'access_group' => 'required'
+            'access_group' => 'required',
+            'phone' => 'required|int'
         ]);
+
+        if ($request->hasFile('file_image')) {
+            $file = $request->file('file_image');
+            $fileName = $file->getClientOriginalName();
+            $file->move(public_path('/uploads/user_profile_pic'), $fileName);
+        }
 
         if ($validated){
             $passwordcrpyt= bcrypt($validated['password']);
@@ -56,11 +61,26 @@ class UserController extends Controller
                 'email' => $request->email,
                 'password' => $passwordcrpyt,
                 'description' => $request->description , 
-                'type' => $request->type,
                 'access_group_id' => $request->access_group,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => Auth::user()->id,
-                'updated_id' => Auth::user()->id
+                'updated_id' => Auth::user()->id,
+                'nickname' => $request->nickname,
+                'referal' => $request->referal,
+                'date_of_birth' => $request->birth,
+                'university' => $request->university,
+                'major' => $request->major,
+                'semester' => $request->semester,
+                'city' => $request->city,
+                'country' => $request->country,
+                'postal_code' => $request->postal_code,
+                'm_province_id' => $request->province,
+                'linked_in' => $request->linkedin,
+                'request' => $request->user_request,
+                'profile_picture' => $fileName,
+                'm_partner_id' => $request->partner,
+                'phone' => $request->phone,
+                'address' => $request->address
             ]);
             if ($create){
                 return app(HelperController::class)->Positive('getUser');
@@ -70,6 +90,7 @@ class UserController extends Controller
     }
 
     function getEditUser(Request $request){
+
         $currentData = collect(DB::select('SELECT
             users.*,
             access_group.id AS access_group_id,
@@ -83,11 +104,14 @@ class UserController extends Controller
         // return dd($currentData);
 
         $allAccessGroups = AccessGroup::where('id', '<>', $currentData->access_group_id)->get();
-
+        $allProvince = MProvince::all();
+        $allPartner = Partner::all();
 
         return view('user.edit', [
             'currentData' => $currentData,
-            'allAccessGroups' => $allAccessGroups
+            'allAccessGroups' => $allAccessGroups,
+            'allProvince' => $allProvince,
+            'allPartner' => $allPartner
         ]);
     }
 
@@ -96,28 +120,82 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required',
+            'access_group' => 'required',
+            'phone' => 'required|int'
         ]);
+
         // return dd($request);
         
         if($validate){
             $users = User::where('id', $request->id)->first();
-            $update = User::where('id', $request->id)
+            if ($request->hasFile('file_image')) {
+                $file = $request->file('file_image');
+                $fileName = $file->getClientOriginalName();
+                $file->move(public_path('/uploads/user_profile_pic'), $fileName);
+
+                $update = User::where('id', $request->id)
                 ->update([
                     'name' => $request->name,
                     'email' => $request->email,
                     'password' => $request->password != $users->password ? bcrypt($request->password) : $request->password,
-                    'type' => $request->type,
                     'access_group_id' => $request->access_group,
                     'description' => $request->description,
-                    'status' => $request->status ? 1 : 0
+                    'status' => $request->status ? 1 : 0 ,
+                    'created_id' => Auth::user()->id,
+                    'updated_id' => Auth::user()->id,
+                    'nickname' => $request->nickname,
+                    'referal' => $request->referal,
+                    'date_of_birth' => $request->birth,
+                    'university' => $request->university,
+                    'major' => $request->major,
+                    'semester' => $request->semester,
+                    'city' => $request->city,
+                    'country' => $request->country,
+                    'postal_code' => $request->postal_code,
+                    'm_province_id' => $request->province,
+                    'linked_in' => $request->linkedin,
+                    'request' => $request->user_request,
+                    'profile_picture' => $fileName,
+                    'm_partner_id' => $request->partner,
+                    'phone' => $request->phone,
+                    'address' => $request->address
                 ]);
-
-            if($update){
-                return app(HelperController::class)->Positive('getUser');
             } else {
-                return app(HelperController::class)->Warning('getUser');
+                $update = User::where('id', $request->id)
+                ->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => $request->password != $users->password ? bcrypt($request->password) : $request->password,
+                    'access_group_id' => $request->access_group,
+                    'description' => $request->description,
+                    'status' => $request->status ? 1 : 0 ,
+                    'created_id' => Auth::user()->id,
+                    'updated_id' => Auth::user()->id,
+                    'nickname' => $request->nickname,
+                    'referal' => $request->referal,
+                    'date_of_birth' => $request->birth,
+                    'university' => $request->university,
+                    'major' => $request->major,
+                    'semester' => $request->semester,
+                    'city' => $request->city,
+                    'country' => $request->country,
+                    'postal_code' => $request->postal_code,
+                    'm_province_id' => $request->province,
+                    'linked_in' => $request->linkedin,
+                    'request' => $request->user_request,
+                    'm_partner_id' => $request->partner,
+                    'phone' => $request->phone,
+                    'address' => $request->address
+                ]);
             }
         }
+      
+        if($update){
+            return app(HelperController::class)->Positive('getUser');
+        } else {
+            return app(HelperController::class)->Warning('getUser');
+        }
+    
     }
 
     function importCSV(Request $request)

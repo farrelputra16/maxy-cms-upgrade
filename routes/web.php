@@ -71,14 +71,14 @@ Route::post('/course/class/edit', [CourseClassController::class, 'postEditCourse
 
 
 // course class member history route ####################################################################################################
-Route::get('/course/class/member/history', [CourseClassMemberHistoryController::class, 'getCCMH'])->name('getCCMH')->middleware('access:course_class_member_history_manage');
-Route::get('/course/class/member/history/course_name', [CourseClassMemberHistoryController::class, 'getnameCCMH'])->name('getnameCCMH')->middleware('access:course_class_member_history_manage');
+Route::get('/course/class/member/history', [CourseClassMemberHistoryController::class, 'getCCMH'])->name('getCCMH')->middleware('access:course_class_member_log_read');
+Route::get('/course/class/member/history/course_name', [CourseClassMemberHistoryController::class, 'getnameCCMH'])->name('getnameCCMH')->middleware('access:course_class_member_log_read');
 
-Route::get('/course/class/member/historygrade', [CourseClassMemberHistoryController::class, 'getCCMHGrade'])->name('getCCMHGrade')->middleware('access:course_class_member_history_manage');
-Route::get('/course/class/member/history/grade', [CourseClassMemberHistoryController::class, 'getGradeCCMH'])->name('getGradeCCMH')->middleware('access:course_class_member_history_manage');
+Route::get('/course/class/member/historygrade', [CourseClassMemberHistoryController::class, 'getCCMHGrade'])->name('getCCMHGrade')->middleware('access:course_class_member_grading_manage');
+Route::get('/course/class/member/history/grade', [CourseClassMemberHistoryController::class, 'getGradeCCMH'])->name('getGradeCCMH')->middleware('access:course_class_member_grading_manage');
 
-Route::get('/course/class/member/history/edit', [CourseClassMemberHistoryController::class, 'getEditCCMH'])->name('getEditCCMH')->middleware('access:course_class_member_history_update');
-Route::post('/course/class/member/history/edit', [CourseClassMemberHistoryController::class, 'postEditCCMH'])->name('postEditCCMH')->middleware('access:course_class_member_history_update');
+Route::get('/course/class/member/history/edit', [CourseClassMemberHistoryController::class, 'getEditCCMH'])->name('getEditCCMH')->middleware('access:course_class_member_grading_update');
+Route::post('/course/class/member/history/edit', [CourseClassMemberHistoryController::class, 'postEditCCMH'])->name('postEditCCMH')->middleware('access:course_class_member_grading_update');
 
 // course class member route ############################################################################################
 Route::get('/course/class/member', [CourseClassMemberController::class, 'getCourseClassMember'])->name('getCourseClassMember')->middleware('access:course_class_member_manage');
@@ -175,13 +175,13 @@ Route::post('/user/edit', [UserController::class, 'postEditUser'])->name('postEd
 
 //                                      PARTNER
 // partner routes
-Route::get('/partner', [PartnerController::class, 'getPartner'])->name('getPartner')->middleware('access:partner_manage');
+Route::get('/partner', [PartnerController::class, 'getPartner'])->name('getPartner')->middleware('access:m_partner_manage');
 
-Route::get('/partner/add', [PartnerController::class, 'getAddPartner'])->name('getAddPartner')->middleware('access:partner_create');
-Route::post('/partner/add', [PartnerController::class, 'postAddPartner'])->name('postAddPartner')->middleware('access:partner_create');
+Route::get('/partner/add', [PartnerController::class, 'getAddPartner'])->name('getAddPartner')->middleware('access:m_partner_create');
+Route::post('/partner/add', [PartnerController::class, 'postAddPartner'])->name('postAddPartner')->middleware('access:m_partner_create');
 
-Route::get('/partner/edit', [PartnerController::class, 'getEditPartner'])->name('getEditPartner')->middleware('access:partner_update');
-Route::post('/partner/edit', [PartnerController::class, 'postEditPartner'])->name('postEditPartner')->middleware('access:partner_update');
+Route::get('/partner/edit', [PartnerController::class, 'getEditPartner'])->name('getEditPartner')->middleware('access:m_partner_update');
+Route::post('/partner/edit', [PartnerController::class, 'postEditPartner'])->name('postEditPartner')->middleware('access:m_partner_update');
 
 // partner university detail
 Route::get('/parnter/university/detail', [PartnerUniversityDetailController::class, 'getPartnerUniversityDetail'])->name('getPartnerUniversityDetail')->middleware('access:partner_university_detail_manage');
@@ -214,25 +214,25 @@ Route::post('/voucher/edit', [VoucherController::class, 'postEditVoucher'])->nam
 
 //                                     General
 //General Routes #########################################################################################################
-Route::get('/general', [GeneralController::class, 'getGeneral'])->name('getGeneral')->middleware('access:general_manage');
+Route::get('/general', [GeneralController::class, 'getGeneral'])->name('getGeneral')->middleware('access:m_general_manage');
 
-Route::get('/general/add', [GeneralController::class, 'getAddGeneral'])->name('getAddGeneral')->middleware('access:general_create');
-Route::post('/general/add', [GeneralController::class, 'postAddGeneral'])->name('postAddGeneral')->middleware('access:general_create');
+Route::get('/general/add', [GeneralController::class, 'getAddGeneral'])->name('getAddGeneral')->middleware('access:m_general_create');
+Route::post('/general/add', [GeneralController::class, 'postAddGeneral'])->name('postAddGeneral')->middleware('access:m_general_create');
 
-Route::get('/general/edit', [GeneralController::class, 'getEditGeneral'])->name('getEditGeneral')->middleware('access:general_update');
-Route::post('/general/edit', [GeneralController::class, 'postEditGeneral'])->name('postEditGeneral')->middleware('access:general_update');
+Route::get('/general/edit', [GeneralController::class, 'getEditGeneral'])->name('getEditGeneral')->middleware('access:m_general_update');
+Route::post('/general/edit', [GeneralController::class, 'postEditGeneral'])->name('postEditGeneral')->middleware('access:m_general_update');
 
 Route::post('general/deactivate/{id}',[GeneralController::class, 'deactivateGeneral'])->name('deactivateGeneral');
 
 //                                     Testimonial
 //Testimonial Routes #########################################################################################################
-Route::get('/testimonial', [TestimonialController::class, 'getTestimonial'])->name('getTestimonial')->middleware('access:member_testimonial_manage');
+Route::get('/testimonial', [TestimonialController::class, 'getTestimonial'])->name('getTestimonial')->middleware('access:user_testimonial_manage');
 
-Route::get('/testimonial/add', [TestimonialController::class, 'getAddTestimonial'])->name('getAddTestimonial')->middleware('access:member_testimonial_create');
-Route::post('/testimonial/add', [TestimonialController::class, 'postAddTestimonial'])->name('postAddTestimonial')->middleware('access:member_testimonial_create');
+Route::get('/testimonial/add', [TestimonialController::class, 'getAddTestimonial'])->name('getAddTestimonial')->middleware('access:user_testimonial_create');
+Route::post('/testimonial/add', [TestimonialController::class, 'postAddTestimonial'])->name('postAddTestimonial')->middleware('access:user_testimonial_create');
 
-Route::get('/testimonial/edit', [TestimonialController::class, 'getEditTestimonial'])->name('getEditTestimonial')->middleware('access:member_testimonial_update');
-Route::post('/testimonial/edit', [TestimonialController::class, 'postEditTestimonial'])->name('postEditTestimonial')->middleware('access:member_testimonial_update');
+Route::get('/testimonial/edit', [TestimonialController::class, 'getEditTestimonial'])->name('getEditTestimonial')->middleware('access:user_testimonial_update');
+Route::post('/testimonial/edit', [TestimonialController::class, 'postEditTestimonial'])->name('postEditTestimonial')->middleware('access:user_testimonial_update');
 
 //                                     Maxy Talks
 //Testimonial Routes #########################################################################################################

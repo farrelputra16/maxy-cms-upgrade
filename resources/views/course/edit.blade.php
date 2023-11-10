@@ -8,6 +8,7 @@
         <form class="ui form" action="{{ route('postEditCourse', ['id' => request()->query('id')]) }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="field">
+                <input type="text" name="img_keep" value="{{ $courses->image }}" hidden>
                 <div class="three fields">
                     <div class="field">
                         <label for="">ID</label>

@@ -1,13 +1,13 @@
 @extends('layout.master')
 
-@section('title', 'Partner University Detail')
+@section('title', 'General Settings')
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
     <!DOCTYPE html>
 <html>
 <head>
-    <title>Partner University Detail</title>
+    <title>General Settings</title>
     <!-- Include CSS libraries for styling the table -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
@@ -16,53 +16,56 @@
 
 </head>
 <body>
-    <h2>Partner University Detail</h2>
+    <h2>General Settings</h2>
     <hr>
     <div id="example_wrapper">
         <div class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
             <div class="navbar-nav">
-                <a class="btn btn-primary" href="{{ route('getAddPartnerUniversityDetail') }}" role="button">Tambah Detail Partner Universitas +</a>
+                <a class="btn btn-primary" href="{{ route('getAddGeneral')}}" role="button">Tambah Data +</a>
             </div>
         </div>
         <table id="example" class="table table-striped" style="width:100%">
-        <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>ref</th>
-                        <th>Type</th>
-                        <th>ID Partner</th>
-                        <th>Description</th>
-                        <th>Status</th>
-                        <th>Created_at</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($partnerUniversitiesDetail as $item)
-                        <tr>
-                            <td>{{ $item->pud_id }}</td>
-                            <td>{{ $item->pud_name }}</td>
-                            <td>{{ $item->pud_ref }}</td>
-                            <td>{{ $item->pud_type }}</td>
-                            <td>{{ $item->partner_name }}</td>
-                            <td id="description">{{ $item->pud_description }}</td>
-                            <td>
-                                @if ($item->pud_status == 1)
-                                    <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
-                                @else
-                                    <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
-                                @endif
-                            </td>
-                            <td>{{ $item->pud_created_at }}</td>
-                            <td>{{ $item->pud_updated_at }}</td>
-                            <td>
-                                <a href="{{ route('getEditPartnerUniversityDetail', ['id' => $item->pud_id]) }}" style="text-decoration: none; color:blue;">Edit</a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
+            <thead>
+                <tr>
+                <th style="width: 2%">ID</th>
+                <th>Name</th>
+                <th>Value</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Created at</th>
+                <th>Updated at</th>
+                <th >Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($generals as $item)
+                <tr>
+                <td>{{ $item->id }}</td>
+                <td>{{ $item->name }}</td>
+                <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis;">{{ $item->value }}</td>
+                <td>{{ $item->description }}</td>
+                <td>    
+                        @if ($item->status == 1)
+                                <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
+                            @else
+                                <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
+                            @endif
+                        </td>
+                <td>{{ $item->created_at }}</td>
+                <td>{{ $item->updated_at }}</td>
+                <td> 
+                    <div style="display: flex; gap: 10px; align-items: flex-start;">
+                        <a href="{{ route('getEditGeneral', ['id' => $item->id]) }}" class="btn btn-primary" style="width: 50px;">Edit</a>
+                        <form method="POST" action="{{ route('deactivateGeneral', ['id' => $item->id]) }}">
+                            @csrf
+                            @method('POST')
+                            <button type="submit" class="btn btn-danger" style="width: 50px;">Delete</button>
+                        </form>
+                    </div>
+                </td>
+                </tr>
+                @endforeach
+            </tbody>
         </table>
     </div>
     

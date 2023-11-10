@@ -13,14 +13,14 @@ class PartnerUniversityDetailController extends Controller
     //
     function getPartnerUniversityDetail(){
         $partnerUnniversities = DB::table('partner_university_detail')
-            ->join('partner', 'partner_university_detail.partner_id', '=', 'partner.id')
+            ->join('m_partner', 'partner_university_detail.m_partner_id', '=', 'm_partner.id')
             ->select(
                 DB::raw('
                     partner_university_detail.id AS pud_id,
                     partner_university_detail.name AS pud_name,
                     partner_university_detail.ref AS pud_ref,
                     partner_university_detail.type AS pud_type,
-                    partner.name AS partner_name,
+                    m_partner.name AS partner_name,
                     partner_university_detail.description AS pud_description,
                     partner_university_detail.status AS pud_status,
                     partner_university_detail.created_at AS pud_created_at,
@@ -47,7 +47,7 @@ class PartnerUniversityDetailController extends Controller
                 'name' => $request->name,
                 'type' => $request->type,
                 'ref' => $request->ref,
-                'partner_id' => $request->partner_id,
+                'm_partner_id' => $request->partner_id,
                 'description' => $request->description,
                 'status' => $request->status == 1 ? 1 : 0,
                 'created_id' => Auth::user()->id,
@@ -64,15 +64,15 @@ class PartnerUniversityDetailController extends Controller
 
     function getEditPartnerUniversityDetail(Request $request){
         $currentData = DB::table('partner_university_detail')
-            ->join('partner', 'partner_university_detail.partner_id', '=', 'partner.id')
+            ->join('partner', 'partner_university_detail.m_partner_id', '=', 'm_partner.id')
             ->select(
                 DB::raw('
                     partner_university_detail.id AS pud_id,
                     partner_university_detail.name AS pud_name,
                     partner_university_detail.ref AS pud_ref,
                     partner_university_detail.type AS pud_type,
-                    partner.id AS partner_id,
-                    partner.name AS partner_name,
+                    m_partner.id AS partner_id,
+                    m_partner.name AS partner_name,
                     partner_university_detail.description AS pud_description,
                     partner_university_detail.status AS pud_status,
                     partner_university_detail.created_at AS pud_created_at,
@@ -97,7 +97,7 @@ class PartnerUniversityDetailController extends Controller
                 'name' => $request->name,
                 'type' => $request->type,
                 'ref' => $request->ref,
-                'partner_id' => $request->partner_id,
+                'm_partner_id' => $request->partner_id,
                 'description' => $request->description,
                 'status' => $request->status == 1 ? 1 : 0,
                 'updated_id' => Auth::user()->id

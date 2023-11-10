@@ -80,12 +80,12 @@
                                         @else
                                             <a class="dropdown-item disabled" href="{{ route('getCourseClassModule') }}">Class Module <i class="lock icon"></i></a>
                                         @endif
-                                        @if ($broGotAccessMaster->contains('name', 'course_class_member_history_manage'))
+                                        @if ($broGotAccessMaster->contains('name', 'course_class_member_log_read'))
                                             <a class="dropdown-item" href="{{ route('getCCMH') }}">Class Member History (Tracking)</a>
                                         @else
                                             <a class="dropdown-item disabled" href="{{ route('getCCMH') }}">Class Member History (Tracking) <i class="lock icon"></i></a>
                                         @endif
-                                        @if ($broGotAccessMaster->contains('name', 'course_class_member_history_manage'))
+                                        @if ($broGotAccessMaster->contains('name', 'course_class_member_grading_manage'))
                                             <a class="dropdown-item" href="{{ route('getCCMHGrade') }}">Class Member History (Grading)</a>
                                         @else
                                             <a class="dropdown-item disabled" href="{{ route('getCCMHGrade') }}">Class Member History (Grading) <i class="lock icon"></i></a>
@@ -124,7 +124,7 @@
                                         Partner
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        @if ($broGotAccessMaster->contains('name', 'partner_manage'))
+                                        @if ($broGotAccessMaster->contains('name', 'm_partner_manage'))
                                             <a class="dropdown-item" href="{{ route('getPartner') }}">Partners</a>
                                         @else
                                             <a class="dropdown-item disabled" href="{{ route('getPartner') }}">Partners <i class="lock icon"></i></a>
@@ -156,7 +156,7 @@
                                         Settings
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        @if ($broGotAccessMaster->contains('name', 'general_manage'))
+                                        @if ($broGotAccessMaster->contains('name', 'm_general_manage'))
                                             <a class="dropdown-item" href="{{ route('getGeneral') }}">General</a>
                                         @else
                                             <a class="dropdown-item disabled" href="{{ route('getGeneral') }}">General <i class="lock icon"></i></a>
@@ -173,7 +173,7 @@
                                         Members
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        @if ($broGotAccessMaster->contains('name', 'member_testimonial_manage'))
+                                        @if ($broGotAccessMaster->contains('name', 'user_testimonial_manage'))
                                             <a class="dropdown-item" href="{{ route('getTestimonial') }}">Testimonial</a>
                                         @else
                                             <a class="dropdown-item disabled" href="{{ route('getTestimonial') }}">Testimonial <i class="lock icon"></i></a>

@@ -89,12 +89,13 @@
     <script>
         $(document).ready(function() {
             var table = $('#example').DataTable({
-                lengthChange: false,
+                lengthChange: true, // Aktifkan opsi perubahan jumlah entri
+                lengthMenu: [10, 25, 50, 100], // Menentukan pilihan jumlah entri yang dapat ditampilkan
                 buttons: ['copy', 'excel', 'pdf', 'colvis']
             });
-            
-            table.buttons().container()
-                .appendTo('#example_wrapper .col-md-6:eq(0)');
+    
+        table.buttons().container()
+            .appendTo('#example_wrapper .col-md-6:eq(0)');
         });
     </script>
 </body>

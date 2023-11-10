@@ -48,7 +48,7 @@
                 </div>
                 <div class="field">
                     <label for="file">Image</label>
-                    <input type="file" name="file_image" id="file_image">
+                    <input type="file" name="file_image" id="file_image" accept="image/png, image/jpeg, image/jpg">
                 </div>
 
                 <div class="field">

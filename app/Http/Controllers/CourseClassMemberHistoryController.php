@@ -18,13 +18,14 @@ class CourseClassMemberHistoryController extends Controller
 
     //TRACKING
     function getCCMH(){
-        $ccmh = DB::table('course_class_member_history')
-            ->join('course_class_member', 'course_class_member_history.course_class_member_id', '=', 'course_class_member.id')
+        $ccmh = DB::table('course_class_member_log')
+            ->join('course_class_member', 'course_class_member_log.course_class_member_id', '=', 'course_class_member.id')
             ->join('users', 'users.id', '=', 'course_class_member.user_id')
-            ->join('course_module', 'course_module.id', '=', 'course_class_member_history.course_module_id')
+            ->join('course_class_module' , 'course_class_module.id' , '=', 'course_class_member_log.course_class_module_id')
+            ->join('course_module', 'course_module.id', '=', 'course_class_module.id')
             ->join('course', 'course.id', '=', 'course_module.course_id')
             ->join('course_class', 'course_class.id', '=', 'course_class_member.course_class_id')
-            ->select('course_class_member_history.*', 'users.name as user_name', 'course_class.batch as batch', 'course_module.type as course_type', 'course_module.day as day','course_module.name as course_module_name','course.name as course_name')
+            ->select('course_class_member_log.*', 'users.name as user_name', 'course_class.batch as batch', 'course_module.type as course_type', 'course_module.day as day','course_module.name as course_module_name','course.name as course_name')
             ->distinct() 
             ->get();
 
@@ -34,7 +35,7 @@ class CourseClassMemberHistoryController extends Controller
         $user_name = User::select('name')
             ->get();
 
-        return view('course_class_member_history.index', ['ccmh' => $ccmh , 'course_name' => $course_name, 'user_name' => $user_name  ]);
+        return view('course_class_member_log.index', ['ccmh' => $ccmh , 'course_name' => $course_name, 'user_name' => $user_name  ]);
     }
 
     function getnameCCMH(Request $request){
@@ -43,47 +44,51 @@ class CourseClassMemberHistoryController extends Controller
         $userNameValue = $request->input('user_name');
         if($courseNameValue == 'all'){
             if($userNameValue == 'all'){ // jika course all, member all
-                $ccmh = DB::table('course_class_member_history')
-            ->join('course_class_member', 'course_class_member_history.course_class_member_id', '=', 'course_class_member.id')
-            ->join('users', 'users.id', '=', 'course_class_member.user_id')
-            ->join('course_module', 'course_module.id', '=', 'course_class_member_history.course_module_id')
-            ->join('course', 'course.id', '=', 'course_module.course_id')
-            ->join('course_class', 'course_class.id', '=', 'course_class_member.course_class_id')
-            ->select('course_class_member_history.*', 'users.name as user_name', 'course_module.day as day', 'course_class.batch as batch', 'course_module.type as course_type', 'course_module.name as course_module_name','course.name as course_name')
-            ->distinct() 
-            ->get();
+                $ccmh = DB::table('course_class_member_log')
+                    ->join('course_class_member', 'course_class_member_log.course_class_member_id', '=', 'course_class_member.id')
+                    ->join('users', 'users.id', '=', 'course_class_member.user_id')
+                    ->join('course_class_module' , 'course_class_module.id' , '=', 'course_class_member_log.course_class_module_id')
+                    ->join('course_module', 'course_module.id', '=', 'course_class_module.id')
+                    ->join('course', 'course.id', '=', 'course_module.course_id')
+                    ->join('course_class', 'course_class.id', '=', 'course_class_member.course_class_id')
+                    ->select('course_class_member_log.*', 'users.name as user_name', 'course_module.day as day', 'course_class.batch as batch', 'course_module.type as course_type', 'course_module.name as course_module_name','course.name as course_name')
+                    ->distinct() 
+                    ->get();
             } else { // jika course all, select member spesifik
-                $ccmh = DB::table('course_class_member_history')
-                ->join('course_class_member', 'course_class_member_history.course_class_member_id', '=', 'course_class_member.id')
+                $ccmh = DB::table('course_class_member_log')
+                ->join('course_class_member', 'course_class_member_log.course_class_member_id', '=', 'course_class_member.id')
                 ->join('users', 'users.id', '=', 'course_class_member.user_id')
-                ->join('course_module', 'course_module.id', '=', 'course_class_member_history.course_module_id')
+                ->join('course_class_module' , 'course_class_module.id' , '=', 'course_class_member_log.course_class_module_id')
+                ->join('course_module', 'course_module.id', '=', 'course_class_module.id')
                 ->join('course', 'course.id', '=', 'course_module.course_id')
                 ->join('course_class', 'course_class.id', '=', 'course_class_member.course_class_id')
-                ->select('course_class_member_history.*', 'users.name as user_name',  'course_module.day as day', 'course_class.batch as batch', 'course_module.type as course_type', 'course_module.name as course_module_name','course.name as course_name')
+                ->select('course_class_member_log.*', 'users.name as user_name',  'course_module.day as day', 'course_class.batch as batch', 'course_module.type as course_type', 'course_module.name as course_module_name','course.name as course_name')
                 ->distinct() 
                 ->where('users.name', $userNameValue) 
                 ->get();
             }            
         } else { // jika course spesifik
             if($userNameValue == 'all'){ // jika course spesifik, member all
-                $ccmh = DB::table('course_class_member_history')
-                    ->join('course_class_member', 'course_class_member_history.course_class_member_id', '=', 'course_class_member.id')
+                $ccmh = DB::table('course_class_member_log')
+                    ->join('course_class_member', 'course_class_member_log.course_class_member_id', '=', 'course_class_member.id')
                     ->join('users', 'users.id', '=', 'course_class_member.user_id')
-                    ->join('course_module', 'course_module.id', '=', 'course_class_member_history.course_module_id')
+                    ->join('course_class_module' , 'course_class_module.id' , '=', 'course_class_member_log.course_class_module_id')
+                    ->join('course_module', 'course_module.id', '=', 'course_class_module.id')
                     ->join('course', 'course.id', '=', 'course_module.course_id')
                     ->join('course_class', 'course_class.id', '=', 'course_class_member.course_class_id')
-                    ->select('course_class_member_history.*', 'users.name as user_name', 'course_module.day as day', 'course_class.batch as batch', 'course_module.type as course_type', 'course_module.name as course_module_name','course.name as course_name')
+                    ->select('course_class_member_log.*', 'users.name as user_name', 'course_module.day as day', 'course_class.batch as batch', 'course_module.type as course_type', 'course_module.name as course_module_name','course.name as course_name')
                     ->distinct() 
                     ->where('course.name', $courseNameValue)
                     ->get();
             } else { // jika course spesifik, member spesifik
-                $ccmh = DB::table('course_class_member_history')
-                    ->join('course_class_member', 'course_class_member_history.course_class_member_id', '=', 'course_class_member.id')
+                $ccmh = DB::table('course_class_member_log')
+                    ->join('course_class_member', 'course_class_member_log.course_class_member_id', '=', 'course_class_member.id')
                     ->join('users', 'users.id', '=', 'course_class_member.user_id')
-                    ->join('course_module', 'course_module.id', '=', 'course_class_member_history.course_module_id')
+                    ->join('course_class_module' , 'course_class_module.id' , '=', 'course_class_member_log.course_class_module_id')
+                    ->join('course_module', 'course_module.id', '=', 'course_class_module.id')
                     ->join('course', 'course.id', '=', 'course_module.course_id')
                     ->join('course_class', 'course_class.id', '=', 'course_class_member.course_class_id')
-                    ->select('course_class_member_history.*', 'users.name as user_name', 'course_module.day as day', 'course_class.batch as batch', 'course_module.type as course_type', 'course_module.name as course_module_name','course.name as course_name')
+                    ->select('course_class_member_log.*', 'users.name as user_name', 'course_module.day as day', 'course_class.batch as batch', 'course_module.type as course_type', 'course_module.name as course_module_name','course.name as course_name')
                     ->distinct() 
                     ->where('course.name', $courseNameValue)
                     ->where('users.name', $userNameValue) 
@@ -96,19 +101,19 @@ class CourseClassMemberHistoryController extends Controller
         $user_name = User::select('name')
             ->get();
 
-        return view('course_class_member_history.index', ['ccmh' => $ccmh , 'course_name' => $course_name , 'user_name' => $user_name, 'courseNameValue' => $courseNameValue,'userNameValue' => $userNameValue]);
+        return view('course_class_member_log.index', ['ccmh' => $ccmh , 'course_name' => $course_name , 'user_name' => $user_name, 'courseNameValue' => $courseNameValue,'userNameValue' => $userNameValue]);
         
     }
 
     //GRADING
     function getCCMHGrade(){
-        $ccmh = DB::table('course_class_member_history')
-            ->join('course_class_member', 'course_class_member_history.course_class_member_id', '=', 'course_class_member.id')
+        $ccmh = DB::table('course_class_member_grading')
+            ->join('course_class_member', 'course_class_member_grading.course_class_member_id', '=', 'course_class_member.id')
             ->join('users', 'users.id', '=', 'course_class_member.user_id')
-            ->join('course_module', 'course_module.id', '=', 'course_class_member_history.course_module_id')
+            ->join('course_module', 'course_module.id', '=', 'course_class_member_grading.course_class_module_id')
             ->join('course', 'course.id', '=', 'course_module.course_id')
             ->join('course_class', 'course_class.id', '=', 'course_class_member.course_class_id')
-            ->select('course_class_member_history.*', 'users.name as user_name')
+            ->select('course_class_member_grading.*', 'users.name as user_name')
             ->distinct() 
             ->get();
 
@@ -123,7 +128,7 @@ class CourseClassMemberHistoryController extends Controller
 
 
         // return dd($ccmh1);
-        return view('course_class_member_history.indexgrade', ['ccmh' => $ccmh , 'course_name' => $course_name, 'day' => $day  ]);
+        return view('course_class_member_grading.index', ['ccmh' => $ccmh , 'course_name' => $course_name, 'day' => $day  ]);
     }
 
     function getGradeCCMH(Request $request){
@@ -131,47 +136,47 @@ class CourseClassMemberHistoryController extends Controller
         $dayValue = $request->input('day');
         if ($courseNameValue == 'all') {
             if ($dayValue == 'all') { // jika course all, day all
-                $ccmh = DB::table('course_class_member_history')
-                    ->join('course_class_member', 'course_class_member_history.course_class_member_id', '=', 'course_class_member.id')
+                $ccmh = DB::table('course_class_member_grading')
+                    ->join('course_class_member', 'course_class_member_grading.course_class_member_id', '=', 'course_class_member.id')
                     ->join('users', 'users.id', '=', 'course_class_member.user_id')
-                    ->join('course_module', 'course_module.id', '=', 'course_class_member_history.course_module_id')
+                    ->join('course_module', 'course_module.id', '=', 'course_class_member_grading.course_class_module_id')
                     ->join('course', 'course.id', '=', 'course_module.course_id')
                     ->join('course_class', 'course_class.id', '=', 'course_class_member.course_class_id')
-                    ->select('course_class_member_history.*', 'users.name as user_name')
+                    ->select('course_class_member_grading.*', 'users.name as user_name')
                     ->distinct()
                     ->get();
             } else { // jika course all, select day spesifik
-                $ccmh = DB::table('course_class_member_history')
-                    ->join('course_class_member', 'course_class_member_history.course_class_member_id', '=', 'course_class_member.id')
+                $ccmh = DB::table('course_class_member_grading')
+                    ->join('course_class_member', 'course_class_member_grading.course_class_member_id', '=', 'course_class_member.id')
                     ->join('users', 'users.id', '=', 'course_class_member.user_id')
-                    ->join('course_module', 'course_module.id', '=', 'course_class_member_history.course_module_id')
+                    ->join('course_module', 'course_module.id', '=', 'course_class_member_grading.course_class_module_id')
                     ->join('course', 'course.id', '=', 'course_module.course_id')
                     ->join('course_class', 'course_class.id', '=', 'course_class_member.course_class_id')
-                    ->select('course_class_member_history.*', 'users.name as user_name')
+                    ->select('course_class_member_grading.*', 'users.name as user_name')
                     ->where('course_module.day', $dayValue)
                     ->distinct()
                     ->get();
             }
         } else { // jika course spesifik
             if ($dayValue == 'all') { // jika course spesifik, day all
-                $ccmh = DB::table('course_class_member_history')
-                    ->join('course_class_member', 'course_class_member_history.course_class_member_id', '=', 'course_class_member.id')
+                $ccmh = DB::table('course_class_member_grading')
+                    ->join('course_class_member', 'course_class_member_grading.course_class_member_id', '=', 'course_class_member.id')
                     ->join('users', 'users.id', '=', 'course_class_member.user_id')
-                    ->join('course_module', 'course_module.id', '=', 'course_class_member_history.course_module_id')
+                    ->join('course_module', 'course_module.id', '=', 'course_class_member_grading.course_class_module_id')
                     ->join('course', 'course.id', '=', 'course_module.course_id')
                     ->join('course_class', 'course_class.id', '=', 'course_class_member.course_class_id')
-                    ->select('course_class_member_history.*', 'users.name as user_name')
+                    ->select('course_class_member_grading.*', 'users.name as user_name')
                     ->where('course.name', $courseNameValue)
                     ->distinct()
                     ->get();
             } else { // jika course spesifik, day spesifik
-                $ccmh = DB::table('course_class_member_history')
-                    ->join('course_class_member', 'course_class_member_history.course_class_member_id', '=', 'course_class_member.id')
+                $ccmh = DB::table('course_class_member_grading')
+                    ->join('course_class_member', 'course_class_member_grading.course_class_member_id', '=', 'course_class_member.id')
                     ->join('users', 'users.id', '=', 'course_class_member.user_id')
-                    ->join('course_module', 'course_module.id', '=', 'course_class_member_history.course_module_id')
+                    ->join('course_module', 'course_module.id', '=', 'course_class_member_grading.course_class_module_id')
                     ->join('course', 'course.id', '=', 'course_module.course_id')
                     ->join('course_class', 'course_class.id', '=', 'course_class_member.course_class_id')
-                    ->select('course_class_member_history.*', 'users.name as user_name')
+                    ->select('course_class_member_grading.*', 'users.name as user_name')
                     ->where('course.name', $courseNameValue)
                     ->where('course_module.day', $dayValue)
                     ->distinct()
@@ -188,7 +193,7 @@ class CourseClassMemberHistoryController extends Controller
             ->groupBy('day')
             ->get();
 
-        return view('course_class_member_history.indexgrade', ['ccmh' => $ccmh , 'course_name' => $course_name , 'day' => $day, 'courseNameValue' => $courseNameValue,'dayValue' => $dayValue]);
+        return view('course_class_member_grading.index', ['ccmh' => $ccmh , 'course_name' => $course_name , 'day' => $day, 'courseNameValue' => $courseNameValue,'dayValue' => $dayValue]);
         
     }
 
@@ -207,19 +212,19 @@ class CourseClassMemberHistoryController extends Controller
         //     FROM course_class_member_history
         //     WHERE course_class_member_history.id = ?; ',[$idCCMH]))->first();
 
-        $currentData = DB::table('course_class_member_history')
-            ->join('course_class_member', 'course_class_member_history.course_class_member_id', '=', 'course_class_member.id')
+        $currentData = DB::table('course_class_member_grading')
+            ->join('course_class_member', 'course_class_member_grading.course_class_member_id', '=', 'course_class_member.id')
             ->join('users', 'users.id', '=', 'course_class_member.user_id')
-            ->join('course_module', 'course_module.id', '=', 'course_class_member_history.course_module_id')
-            ->select('course_class_member_history.*', 'users.name as user_name', 'course_module.name as course_module_name')
-            ->where('course_class_member_history.id', $idCCMH)
+            ->join('course_module', 'course_module.id', '=', 'course_class_member_grading.course_class_module_id')
+            ->select('course_class_member_grading.*', 'users.name as user_name', 'course_module.name as course_module_name')
+            ->where('course_class_member_grading.id', $idCCMH)
             ->first();
 
         // return dd($currentData);
 
         // $allPromotion = Promotion::where('id', '!=', $currentData->id)->get();
         // return dd($allPromotion);
-        return view('course_class_member_history.edit', [
+        return view('course_class_member_grading.edit', [
             'currentData' => $currentData
         ]);
     }
@@ -235,7 +240,7 @@ class CourseClassMemberHistoryController extends Controller
 
         // return dd($jamDiZonaWaktuAnda);
     
-        $updateData = DB::table('course_class_member_history')
+        $updateData = DB::table('course_class_member_grading')
             ->where('id', $idccmh)
             ->update([
                 'grade' => $request->grade,

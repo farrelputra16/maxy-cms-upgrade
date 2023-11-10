@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use DB;
 
 class User extends Authenticatable
 {
@@ -28,7 +29,25 @@ class User extends Authenticatable
         'access_group_id',
         'status',
         'created_id',
-        'updated_id'
+        'updated_id',
+        'nickname',
+        'referal' ,
+        'date_of_birth',
+        'university',
+        'major',
+        'semester',
+        'city',
+        'country',
+        'postal_code',
+        'm_province_id',
+        'linked_in',
+        'request' ,
+        'profile_picture' ,
+        'm_partner_id' ,
+        'phone',
+        'address' ,
+        'email_verified' ,
+        'email_verified_at'
     ];
 
 
@@ -50,4 +69,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public static function getAllUserWithAccessGroup(){
+        $users = collect(DB::select('SELECT users.id, 
+            users.name, 
+            users.email,
+            users.description,
+            users.status, 
+            users.created_at, 
+            users.updated_at, 
+            access_group.name AS accessgroup 
+            FROM users
+            INNER JOIN access_group ON users.access_group_id = access_group.id'
+        ));
+        return $users;
+    }
+
+    public static function createNewUser($name){
+
+    }
 }

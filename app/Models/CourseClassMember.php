@@ -19,4 +19,11 @@ class CourseClassMember extends Model
         'created_id',
         'updated_id'
     ];
+
+        // public static function getIdCCMapapun(){
+        //     //query msk sini
+
+        //     //ini di controller:
+        //     $var = CourseClassMember::getIdCCMapapun();
+        // }
 }

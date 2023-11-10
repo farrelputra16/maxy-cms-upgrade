@@ -34,7 +34,7 @@ class CourseController extends Controller
         if ($request->hasFile('file_image')) {
             $file = $request->file('file_image');
             $fileName = $file->getClientOriginalName();
-            $file->move(public_path('course_img'), $fileName);
+            $file->move(public_path('/uploads/course_img'), $fileName);
         }
 
         // return dd($request);
@@ -129,6 +129,9 @@ class CourseController extends Controller
             $fileName = $file->getClientOriginalName();
             $file->move(public_path('course_img'), $fileName);
         }
+        else{
+            $fileName = $request->img_keep;
+        }
         $trim_mini_fake_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_fake_price));
         $trim_mini_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_price));
 
@@ -193,12 +196,9 @@ class CourseController extends Controller
                     'name' => $request->name,
                     'fake_price' => $request->mini_fake_price ? $trim_mini_fake_price : null,
                     'price' => $request->mini_price ? $trim_mini_price : null,
-                    'discounted_price' => 0,
-                    'short_description' => 'no desc',
-                    'image' => 'no.jpg',
-                    'preview' => '0',
-                    'target' => '0',
-                    'payment_link' => '0',
+                    'short_description' => $request->short_description,
+                    'image' => $fileName,
+                    'payment_link' => $request->payment_link,
                     'slug' => $request->slug,
                     'm_course_type_id' => $request->type,
                     'course_package_id' => $request->package ? $request->package : null,

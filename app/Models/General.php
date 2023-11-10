@@ -9,7 +9,7 @@ class General extends Model
 {
     use HasFactory;
 
-    protected $table = 'general';
+    protected $table = 'm_general';
 
     protected $fillable = [
             'name',

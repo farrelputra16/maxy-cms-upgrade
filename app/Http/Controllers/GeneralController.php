@@ -13,12 +13,12 @@ class GeneralController extends Controller
     function getGeneral(){
         $generals = General::all();
         
-        return view('general.index', ['generals' => $generals]);
+        return view('m_general.index', ['generals' => $generals]);
     }
     
     function getAddGeneral(){
 
-        return view('general.add');
+        return view('m_general.add');
     }
 
     function postAddGeneral(Request $request){
@@ -50,7 +50,7 @@ class GeneralController extends Controller
         $idgeneral = $request->id;
         $generals = General::find($idgeneral);
 
-        return view('general.edit', [
+        return view('m_general.edit', [
             'generals' => $generals
         ]);
     }

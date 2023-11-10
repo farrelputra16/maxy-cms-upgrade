@@ -115,7 +115,7 @@
                 <tr>
                     <td>{{ $item->user_name }}</td>
                     <td data-column="ID Course Class Member" class="hidden-column">{{ $item->course_class_member_id }}</td>
-                    <td data-column="ID Course Module" class="hidden-column">{{ $item->course_module_id }}</td>
+                    <td data-column="ID Course Class Module" class="hidden-column">{{ $item->course_class_module_id }}</td>
                     <td data-column="Description" class="hidden-column">{{ $item->description }}</td>
                     <td data-column="Paket Soal" class="hidden-column">{{ $item->paket_soal }}</td>
                     <td data-column="Package Type" class="hidden-column">{{ $item->package_type }}</td>
