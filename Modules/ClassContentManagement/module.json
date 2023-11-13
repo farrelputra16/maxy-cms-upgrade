@@ -1,0 +1,13 @@
+{
+    "name": "ClassContentManagement",
+    "alias": "classcontentmanagement",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\ClassContentManagement\\Providers\\ClassContentManagementServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
