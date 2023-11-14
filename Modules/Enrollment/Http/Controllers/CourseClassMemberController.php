@@ -1,18 +1,26 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Modules\Enrollment\Http\Controllers;
 
-use App\Models\CourseClassMember;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+
+use Modules\Enrollment\Entities\CourseClassMember;
+
+use App\Http\Controllers\HelperController;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Imports\CourseClassMemberImport; 
-
+use Modules\Enrollment\Imports\CourseClassMemberImport;
 class CourseClassMemberController extends Controller
 {
-    //
+    /**
+     * Display a listing of the resource.
+     * @return Renderable
+     */
+
     function getCourseClassMember(){
         $courseClassMembers = collect(DB::select('SELECT 
             course_class_member.id AS id,
@@ -33,7 +41,7 @@ class CourseClassMemberController extends Controller
             AND course_class.course_id = course.id;
         '));
 
-        return view('course_class_member.index', ['courseClassMembers' => $courseClassMembers]);
+        return view('enrollment::course_class_member.index', ['courseClassMembers' => $courseClassMembers]);
     }
 
     function getAddCourseClassMember(){
@@ -48,7 +56,7 @@ class CourseClassMemberController extends Controller
 
         $users = User::all();
 
-        return view('course_class_member.add', [
+        return view('enrollment::course_class_member.add', [
             'users' => $users,
             'courseClasses' => $courseClasses
         ]);
@@ -122,7 +130,7 @@ class CourseClassMemberController extends Controller
 
             $allMembers = User::where('id', '!=', $ccmMemberId)->get();
 
-            return view('course_class_member.edit', [
+            return view('enrollment::course_class_member.edit', [
                 'currentData' => $currentData,
                 'currentDataCourse' => $currentDataCourse,
                 'allCourseClasses' => $allCourseClasses,
@@ -169,5 +177,70 @@ class CourseClassMemberController extends Controller
         } catch (\Exception $e) {
             dd('Exception', $e->getMessage()); // Tambahkan pesan ini
         }
+    }
+
+    public function index()
+    {
+        return view('enrollment::index');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     * @return Renderable
+     */
+    public function create()
+    {
+        return view('enrollment::create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     * @param Request $request
+     * @return Renderable
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Show the specified resource.
+     * @param int $id
+     * @return Renderable
+     */
+    public function show($id)
+    {
+        return view('enrollment::show');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     * @param int $id
+     * @return Renderable
+     */
+    public function edit($id)
+    {
+        return view('enrollment::edit');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     * @param Request $request
+     * @param int $id
+     * @return Renderable
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     * @param int $id
+     * @return Renderable
+     */
+    public function destroy($id)
+    {
+        //
     }
 }

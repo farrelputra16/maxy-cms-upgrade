@@ -1,0 +1,13 @@
+{
+    "name": "Enrollment",
+    "alias": "enrollment",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Enrollment\\Providers\\EnrollmentServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

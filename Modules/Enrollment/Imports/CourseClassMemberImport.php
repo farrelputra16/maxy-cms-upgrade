@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Imports;
+namespace Modules\Enrollment\Imports;
 
-use App\Models\CourseClassMember;
+
+use Modules\Enrollment\Entities\CourseClassMember;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 

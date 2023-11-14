@@ -1,0 +1,13 @@
+{
+    "name": "TrackandGrade",
+    "alias": "trackandgrade",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\TrackandGrade\\Providers\\TrackandGradeServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

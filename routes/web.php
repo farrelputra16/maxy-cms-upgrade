@@ -72,32 +72,32 @@ Route::post('/course/edit', [CourseController::class, 'postEditCourse'])->name('
 
 
 // course class member history route ####################################################################################################
-Route::get('/course/class/member/history', [CourseClassMemberHistoryController::class, 'getCCMH'])->name('getCCMH')->middleware('access:course_class_member_log_read');
-Route::get('/course/class/member/history/course_name', [CourseClassMemberHistoryController::class, 'getnameCCMH'])->name('getnameCCMH')->middleware('access:course_class_member_log_read');
+// Route::get('/course/class/member/history', [CourseClassMemberHistoryController::class, 'getCCMH'])->name('getCCMH')->middleware('access:course_class_member_log_read');
+// Route::get('/course/class/member/history/course_name', [CourseClassMemberHistoryController::class, 'getnameCCMH'])->name('getnameCCMH')->middleware('access:course_class_member_log_read');
 
-Route::get('/course/class/member/historygrade', [CourseClassMemberHistoryController::class, 'getCCMHGrade'])->name('getCCMHGrade')->middleware('access:course_class_member_grading_manage');
-Route::get('/course/class/member/history/grade', [CourseClassMemberHistoryController::class, 'getGradeCCMH'])->name('getGradeCCMH')->middleware('access:course_class_member_grading_manage');
+// Route::get('/course/class/member/historygrade', [CourseClassMemberHistoryController::class, 'getCCMHGrade'])->name('getCCMHGrade')->middleware('access:course_class_member_grading_manage');
+// Route::get('/course/class/member/history/grade', [CourseClassMemberHistoryController::class, 'getGradeCCMH'])->name('getGradeCCMH')->middleware('access:course_class_member_grading_manage');
 
-Route::get('/course/class/member/history/edit', [CourseClassMemberHistoryController::class, 'getEditCCMH'])->name('getEditCCMH')->middleware('access:course_class_member_grading_update');
-Route::post('/course/class/member/history/edit', [CourseClassMemberHistoryController::class, 'postEditCCMH'])->name('postEditCCMH')->middleware('access:course_class_member_grading_update');
+// Route::get('/course/class/member/history/edit', [CourseClassMemberHistoryController::class, 'getEditCCMH'])->name('getEditCCMH')->middleware('access:course_class_member_grading_update');
+// Route::post('/course/class/member/history/edit', [CourseClassMemberHistoryController::class, 'postEditCCMH'])->name('postEditCCMH')->middleware('access:course_class_member_grading_update');
 
 // course class member route ############################################################################################
-Route::get('/course/class/member', [CourseClassMemberController::class, 'getCourseClassMember'])->name('getCourseClassMember')->middleware('access:course_class_member_manage');
+// Route::get('/course/class/member', [CourseClassMemberController::class, 'getCourseClassMember'])->name('getCourseClassMember')->middleware('access:course_class_member_manage');
 
-Route::get('/course/class/member/add', [CourseClassMemberController::class, 'getAddCourseClassMember'])->name('getAddCourseClassMember')->middleware('access:course_class_member_create');
-Route::post('/course/class/member/add', [CourseClassMemberController::class, 'postAddCourseClassMember'])->name('postAddCourseClassMember')->middleware('access:course_class_member_create');
+// Route::get('/course/class/member/add', [CourseClassMemberController::class, 'getAddCourseClassMember'])->name('getAddCourseClassMember')->middleware('access:course_class_member_create');
+// Route::post('/course/class/member/add', [CourseClassMemberController::class, 'postAddCourseClassMember'])->name('postAddCourseClassMember')->middleware('access:course_class_member_create');
 
-Route::get('/course/class/member/edit', [CourseClassMemberController::class, 'getEditCourseClassMember'])->name('getEditCourseClassMember')->middleware('access:course_class_member_update');
-Route::post('/course/class/member/edit', [CourseClassMemberController::class, 'postEditCourseClassMember'])->name('postEditCourseClassMember')->middleware('access:course_class_member_update');
+// Route::get('/course/class/member/edit', [CourseClassMemberController::class, 'getEditCourseClassMember'])->name('getEditCourseClassMember')->middleware('access:course_class_member_update');
+// Route::post('/course/class/member/edit', [CourseClassMemberController::class, 'postEditCourseClassMember'])->name('postEditCourseClassMember')->middleware('access:course_class_member_update');
 
 //Course Class Module route ###############################################################################################
-Route::get('/courseclassmodule', [CourseClassModuleController::class, 'getCourseClassModule'])->name('getCourseClassModule')->middleware('access:course_class_module_manage');
+// Route::get('/courseclassmodule', [CourseClassModuleController::class, 'getCourseClassModule'])->name('getCourseClassModule')->middleware('access:course_class_module_manage');
 
-Route::get('/courseclassmodule/add', [CourseClassModuleController::class, 'getAddCourseClassModule'])->name('getAddCourseClassModule')->middleware('access:course_class_module_create');
-Route::post('/courseclassmodule/add', [CourseClassModuleController::class, 'postAddCourseClassModule'])->name('postAddCourseClassModule')->middleware('access:course_class_module_create');
+// Route::get('/courseclassmodule/add', [CourseClassModuleController::class, 'getAddCourseClassModule'])->name('getAddCourseClassModule')->middleware('access:course_class_module_create');
+// Route::post('/courseclassmodule/add', [CourseClassModuleController::class, 'postAddCourseClassModule'])->name('postAddCourseClassModule')->middleware('access:course_class_module_create');
 
-Route::get('/courseclassmodule/edit', [CourseClassModuleController::class, 'getEditCourseClassModule'])->name('getEditCourseClassModule')->middleware('access:course_class_module_update');
-Route::post('/courseclassmodule/edit', [CourseClassModuleController::class, 'postEditCourseClassModule'])->name('postEditCourseClassModule')->middleware('access:course_class_module_update');
+// Route::get('/courseclassmodule/edit', [CourseClassModuleController::class, 'getEditCourseClassModule'])->name('getEditCourseClassModule')->middleware('access:course_class_module_update');
+// Route::post('/courseclassmodule/edit', [CourseClassModuleController::class, 'postEditCourseClassModule'])->name('postEditCourseClassModule')->middleware('access:course_class_module_update');
 
 //course package route ###################################################################################################
 Route::get('/course/package', [CoursePackageController::class, 'getCoursePackage'])->name('getCoursePackage')->middleware('access:course_package_manage');
@@ -250,6 +250,6 @@ Route::get('/noauthority', function () {
     return view('bad_access');
 })->name('bad_access');
 
-// Import File .csv
-Route::post('/course-class-member/import-csv', [CourseClassMemberController::class, 'importCSV'])->name('course-class-member.import-csv');
-Route::post('/user/import-csv', [UserController::class, 'importCSV'])->name('user.import-csv');
+// // Import File .csv
+// Route::post('/course-class-member/import-csv', [CourseClassMemberController::class, 'importCSV'])->name('course-class-member.import-csv');
+// Route::post('/user/import-csv', [UserController::class, 'importCSV'])->name('user.import-csv');

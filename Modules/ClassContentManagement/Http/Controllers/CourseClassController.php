@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 
 use Modules\ClassContentManagement\Entities\CourseClassModule;
 use Modules\ClassContentManagement\Entities\CourseClass;
+use App\Http\Controllers\HelperController;
 
 
 
