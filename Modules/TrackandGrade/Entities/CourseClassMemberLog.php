@@ -9,7 +9,7 @@ class CourseClassMemberLog extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $table = 'course_class_member_log';
     
     protected static function newFactory()
     {

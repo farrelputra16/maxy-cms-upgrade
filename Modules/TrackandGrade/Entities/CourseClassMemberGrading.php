@@ -9,7 +9,11 @@ class CourseClassMemberGrading extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $table = 'course_class_member_grading';
+    protected $fillable = [
+        'grade',
+        'grade_at'
+    ];
     
     protected static function newFactory()
     {

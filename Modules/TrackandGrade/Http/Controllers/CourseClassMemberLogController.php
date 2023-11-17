@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-
+use Modules\TrackandGrade\Entities\CourseClassMemberLog;
 use App\Http\Controllers\HelperController;
 use App\Models\CourseClassMemberHistory;
 use App\Models\CourseModule;
@@ -35,15 +35,14 @@ class CourseClassMemberLogController extends Controller
         //     ->distinct() 
         //     ->get();
 
-        $ccmh = DB::table('course_class_member_log')
-            ->join('users', 'users.id', '=', 'course_class_member_log.user_id')
+        $ccmh = CourseClassMemberLog::join('users', 'users.id', '=', 'course_class_member_log.user_id')
             ->leftJoin('course_class_module', 'course_class_module.id', '=', 'course_class_member_log.course_class_module_id')
             ->leftJoin('course_module', 'course_module.id', '=', 'course_class_module.course_module_id')
             ->leftJoin('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
             ->leftJoin('course', 'course.id', '=', 'course_class.course_id')
             ->select('course_class_member_log.*', 'users.name as user_name', 'course_module.type as course_type', 'course_module.day as day','course_module.name as course_module_name','course.name as course_name' , 'course_class.batch as batch')
-            // ->select('course_class_module.id as CCM_ID' , 'course_module.id as CM_ID', 'course_class.id as CC_ID', 'course.id as C_ID')
             ->get();
+
         
         // return dd($ccmh);
 
@@ -62,55 +61,50 @@ class CourseClassMemberLogController extends Controller
         $userNameValue = $request->input('user_name');
         if($courseNameValue == 'all'){
             if($userNameValue == 'all'){ // jika course all, member all
-                $ccmh = DB::table('course_class_member_log')
-                    ->join('course_class_member', 'course_class_member_log.course_class_member_id', '=', 'course_class_member.id')
-                    ->join('users', 'users.id', '=', 'course_class_member.user_id')
-                    ->join('course_class_module' , 'course_class_module.id' , '=', 'course_class_member_log.course_class_module_id')
+                $ccmh = CourseClassMemberLog::join('users', 'users.id', '=', 'course_class_member_log.user_id')
+                    ->join('course_class_module', 'course_class_module.id', '=', 'course_class_member_log.course_class_module_id')
                     ->join('course_module', 'course_module.id', '=', 'course_class_module.id')
                     ->join('course', 'course.id', '=', 'course_module.course_id')
-                    ->join('course_class', 'course_class.id', '=', 'course_class_member.course_class_id')
+                    ->join('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
                     ->select('course_class_member_log.*', 'users.name as user_name', 'course_module.day as day', 'course_class.batch as batch', 'course_module.type as course_type', 'course_module.name as course_module_name','course.name as course_name')
-                    ->distinct() 
+                    ->distinct()
                     ->get();
             } else { // jika course all, select member spesifik
-                $ccmh = DB::table('course_class_member_log')
-                ->join('course_class_member', 'course_class_member_log.course_class_member_id', '=', 'course_class_member.id')
-                ->join('users', 'users.id', '=', 'course_class_member.user_id')
-                ->join('course_class_module' , 'course_class_module.id' , '=', 'course_class_member_log.course_class_module_id')
-                ->join('course_module', 'course_module.id', '=', 'course_class_module.id')
-                ->join('course', 'course.id', '=', 'course_module.course_id')
-                ->join('course_class', 'course_class.id', '=', 'course_class_member.course_class_id')
-                ->select('course_class_member_log.*', 'users.name as user_name',  'course_module.day as day', 'course_class.batch as batch', 'course_module.type as course_type', 'course_module.name as course_module_name','course.name as course_name')
-                ->distinct() 
-                ->where('users.name', $userNameValue) 
-                ->get();
+                $ccmh = CourseClassMemberLog::join('users', 'users.id', '=', 'course_class_member_log.user_id')
+                    ->join('course_class_module', 'course_class_module.id', '=', 'course_class_member_log.course_class_module_id')
+                    ->join('course_module', 'course_module.id', '=', 'course_class_module.id')
+                    ->join('course', 'course.id', '=', 'course_module.course_id')
+                    ->join('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
+                    ->select('course_class_member_log.*', 'users.name as user_name', 'course_module.day as day', 'course_class.batch as batch', 'course_module.type as course_type', 'course_module.name as course_module_name', 'course.name as course_name')
+                    ->where('users.name', $userNameValue)
+                    ->distinct()
+                    ->get();
+
             }            
         } else { // jika course spesifik
             if($userNameValue == 'all'){ // jika course spesifik, member all
-                $ccmh = DB::table('course_class_member_log')
-                    ->join('course_class_member', 'course_class_member_log.course_class_member_id', '=', 'course_class_member.id')
-                    ->join('users', 'users.id', '=', 'course_class_member.user_id')
-                    ->join('course_class_module' , 'course_class_module.id' , '=', 'course_class_member_log.course_class_module_id')
+                $ccmh = CourseClassMemberLog::join('users', 'users.id', '=', 'course_class_member_log.user_id')
+                    ->join('course_class_module', 'course_class_module.id', '=', 'course_class_member_log.course_class_module_id')
                     ->join('course_module', 'course_module.id', '=', 'course_class_module.id')
                     ->join('course', 'course.id', '=', 'course_module.course_id')
-                    ->join('course_class', 'course_class.id', '=', 'course_class_member.course_class_id')
-                    ->select('course_class_member_log.*', 'users.name as user_name', 'course_module.day as day', 'course_class.batch as batch', 'course_module.type as course_type', 'course_module.name as course_module_name','course.name as course_name')
-                    ->distinct() 
+                    ->join('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
+                    ->select('course_class_member_log.*', 'users.name as user_name', 'course_module.day as day', 'course_class.batch as batch', 'course_module.type as course_type', 'course_module.name as course_module_name', 'course.name as course_name')
                     ->where('course.name', $courseNameValue)
+                    ->distinct()
                     ->get();
+
             } else { // jika course spesifik, member spesifik
-                $ccmh = DB::table('course_class_member_log')
-                    ->join('course_class_member', 'course_class_member_log.course_class_member_id', '=', 'course_class_member.id')
-                    ->join('users', 'users.id', '=', 'course_class_member.user_id')
-                    ->join('course_class_module' , 'course_class_module.id' , '=', 'course_class_member_log.course_class_module_id')
+                $ccmh = CourseClassMemberLog::join('users', 'users.id', '=', 'course_class_member_log.user_id')
+                    ->join('course_class_module', 'course_class_module.id', '=', 'course_class_member_log.course_class_module_id')
                     ->join('course_module', 'course_module.id', '=', 'course_class_module.id')
                     ->join('course', 'course.id', '=', 'course_module.course_id')
-                    ->join('course_class', 'course_class.id', '=', 'course_class_member.course_class_id')
-                    ->select('course_class_member_log.*', 'users.name as user_name', 'course_module.day as day', 'course_class.batch as batch', 'course_module.type as course_type', 'course_module.name as course_module_name','course.name as course_name')
-                    ->distinct() 
+                    ->join('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
+                    ->select('course_class_member_log.*', 'users.name as user_name', 'course_module.day as day', 'course_class.batch as batch', 'course_module.type as course_type', 'course_module.name as course_module_name', 'course.name as course_name')
                     ->where('course.name', $courseNameValue)
-                    ->where('users.name', $userNameValue) 
+                    ->where('users.name', $userNameValue)
+                    ->distinct()
                     ->get();
+
             }
         }
         // return dd($ccmh);

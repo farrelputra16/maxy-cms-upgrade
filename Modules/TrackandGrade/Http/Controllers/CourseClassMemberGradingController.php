@@ -5,6 +5,7 @@ namespace Modules\TrackandGrade\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\TrackandGrade\Entities\CourseClassMemberGrading;
 
 use App\Http\Controllers\HelperController;
 use App\Models\CourseClassMemberHistory;
@@ -24,15 +25,15 @@ class CourseClassMemberGradingController extends Controller
      * @return Renderable
      */
     function getCCMHGrade(){
-        $ccmh = DB::table('course_class_member_grading')
-            ->join('course_class_member', 'course_class_member_grading.course_class_member_id', '=', 'course_class_member.id')
+        $ccmh = CourseClassMemberGrading::join('course_class_member', 'course_class_member_grading.course_class_member_id', '=', 'course_class_member.id')
             ->join('users', 'users.id', '=', 'course_class_member.user_id')
             ->join('course_module', 'course_module.id', '=', 'course_class_member_grading.course_class_module_id')
             ->join('course', 'course.id', '=', 'course_module.course_id')
             ->join('course_class', 'course_class.id', '=', 'course_class_member.course_class_id')
             ->select('course_class_member_grading.*', 'users.name as user_name')
-            ->distinct() 
+            ->distinct()
             ->get();
+
 
 
         $course_name = Course::select('name')
@@ -53,8 +54,7 @@ class CourseClassMemberGradingController extends Controller
         $dayValue = $request->input('day');
         if ($courseNameValue == 'all') {
             if ($dayValue == 'all') { // jika course all, day all
-                $ccmh = DB::table('course_class_member_grading')
-                    ->join('course_class_member', 'course_class_member_grading.course_class_member_id', '=', 'course_class_member.id')
+                $ccmh = CourseClassMemberGrading::join('course_class_member', 'course_class_member_grading.course_class_member_id', '=', 'course_class_member.id')
                     ->join('users', 'users.id', '=', 'course_class_member.user_id')
                     ->join('course_module', 'course_module.id', '=', 'course_class_member_grading.course_class_module_id')
                     ->join('course', 'course.id', '=', 'course_module.course_id')
@@ -62,9 +62,9 @@ class CourseClassMemberGradingController extends Controller
                     ->select('course_class_member_grading.*', 'users.name as user_name')
                     ->distinct()
                     ->get();
+
             } else { // jika course all, select day spesifik
-                $ccmh = DB::table('course_class_member_grading')
-                    ->join('course_class_member', 'course_class_member_grading.course_class_member_id', '=', 'course_class_member.id')
+                $ccmh = CourseClassMemberGrading::join('course_class_member', 'course_class_member_grading.course_class_member_id', '=', 'course_class_member.id')
                     ->join('users', 'users.id', '=', 'course_class_member.user_id')
                     ->join('course_module', 'course_module.id', '=', 'course_class_member_grading.course_class_module_id')
                     ->join('course', 'course.id', '=', 'course_module.course_id')
@@ -73,11 +73,11 @@ class CourseClassMemberGradingController extends Controller
                     ->where('course_module.day', $dayValue)
                     ->distinct()
                     ->get();
+
             }
         } else { // jika course spesifik
             if ($dayValue == 'all') { // jika course spesifik, day all
-                $ccmh = DB::table('course_class_member_grading')
-                    ->join('course_class_member', 'course_class_member_grading.course_class_member_id', '=', 'course_class_member.id')
+                $ccmh = CourseClassMemberGrading::join('course_class_member', 'course_class_member_grading.course_class_member_id', '=', 'course_class_member.id')
                     ->join('users', 'users.id', '=', 'course_class_member.user_id')
                     ->join('course_module', 'course_module.id', '=', 'course_class_member_grading.course_class_module_id')
                     ->join('course', 'course.id', '=', 'course_module.course_id')
@@ -86,9 +86,9 @@ class CourseClassMemberGradingController extends Controller
                     ->where('course.name', $courseNameValue)
                     ->distinct()
                     ->get();
+
             } else { // jika course spesifik, day spesifik
-                $ccmh = DB::table('course_class_member_grading')
-                    ->join('course_class_member', 'course_class_member_grading.course_class_member_id', '=', 'course_class_member.id')
+                $ccmh = CourseClassMemberGrading::join('course_class_member', 'course_class_member_grading.course_class_member_id', '=', 'course_class_member.id')
                     ->join('users', 'users.id', '=', 'course_class_member.user_id')
                     ->join('course_module', 'course_module.id', '=', 'course_class_member_grading.course_class_module_id')
                     ->join('course', 'course.id', '=', 'course_module.course_id')
@@ -98,6 +98,7 @@ class CourseClassMemberGradingController extends Controller
                     ->where('course_module.day', $dayValue)
                     ->distinct()
                     ->get();
+
             }
         }
         
@@ -129,13 +130,13 @@ class CourseClassMemberGradingController extends Controller
         //     FROM course_class_member_history
         //     WHERE course_class_member_history.id = ?; ',[$idCCMH]))->first();
 
-        $currentData = DB::table('course_class_member_grading')
-            ->join('course_class_member', 'course_class_member_grading.course_class_member_id', '=', 'course_class_member.id')
+        $currentData = CourseClassMemberGrading::join('course_class_member', 'course_class_member_grading.course_class_member_id', '=', 'course_class_member.id')
             ->join('users', 'users.id', '=', 'course_class_member.user_id')
             ->join('course_module', 'course_module.id', '=', 'course_class_member_grading.course_class_module_id')
             ->select('course_class_member_grading.*', 'users.name as user_name', 'course_module.name as course_module_name')
             ->where('course_class_member_grading.id', $idCCMH)
             ->first();
+
 
         // return dd($currentData);
 
@@ -157,8 +158,7 @@ class CourseClassMemberGradingController extends Controller
 
         // return dd($jamDiZonaWaktuAnda);
     
-        $updateData = DB::table('course_class_member_grading')
-            ->where('id', $idccmh)
+        $updateData = CourseClassMemberGrading::where('id', $idccmh)
             ->update([
                 'grade' => $request->grade,
                 'graded_at' => $jamDiZonaWaktuAnda
