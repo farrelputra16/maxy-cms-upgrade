@@ -75,26 +75,9 @@ class CourseController extends Controller
     function getEditCourse(Request $request){
         $idCourse = $request->id;
         $courses = Course::find($idCourse);
-    
-        $currentDataCourse = collect(DB::select('SELECT course.id AS course_id, 
-            course.m_course_type_id AS m_course_type_id,
-            course.fake_price AS fake_price,
-            course.price AS price,
-            course.m_difficulty_type_id AS m_difficulty_type_id,
-            m_course_type.name AS course_type_name,
-            m_difficulty_type.name AS course_difficulty
-            FROM course 
-            INNER JOIN m_course_type ON course.m_course_type_id = m_course_type.id
-            INNER JOIN m_difficulty_type ON course.m_difficulty_type_id = m_difficulty_type.id 
-            WHERE course.id = ?;', [$idCourse]))->first();
-    
-        $currentCoursePackages = collect(DB::select('SELECT course_package.id AS course_package_id, course_package.name AS course_package_name,
-            course_package.price AS course_package_price
-            FROM course
-            JOIN course_package
-            WHERE course_package.id = course.course_package_id AND course.id = ?
-        ', [$idCourse]))->first();
 
+        $currentDataCourse = Course::CurrentDataCourse($idCourse);
+        $currentCoursePackages = Course::CurrentCoursePackages($idCourse);
         
         // return dd($currentDataCourse);
 
@@ -108,9 +91,6 @@ class CourseController extends Controller
             $allCoursePackages = CoursePackage::where('id', '!=', $currentCoursePackages->course_package_id)->get();
         }
         
-
-        
-    
         return view('course.edit', [
             'courses' => $courses,
             'currentDataCourse' => $currentDataCourse,

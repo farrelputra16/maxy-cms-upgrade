@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AccessMaster;
 use Illuminate\Http\Request;
 use App\Models\AccessGroup;
+use App\Models\AccessGroupDetail;
 use DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,11 +52,9 @@ class AccessGroupController extends Controller
         $idaccessgroup = $request->id;
         $accessgroups = AccessGroup::find($idaccessgroup);
 
-        $currentData = array_column(json_decode(DB::table('access_group_detail')
-            ->join('access_master', 'access_group_detail.access_master_id', '=', 'access_master.id')
-            ->select('access_master.id', 'access_master.name')
-            ->where('access_group_detail.access_group_id', '=', $idaccessgroup)
-            ->get(), true), 'name', 'id');
+        $currentData = array_column(json_decode(AccessGroupDetail::CurrentAccessGroupDetail($idaccessgroup)), 'name', 'id');
+
+        
 
         $allAccessMaster = array_column(json_decode(DB::table('access_master')
             ->select('id','name')
