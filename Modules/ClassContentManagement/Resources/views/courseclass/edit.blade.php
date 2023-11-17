@@ -55,6 +55,7 @@
             </div>
             <button class="right floated ui button primary">Save & Update</button>
         </form>
+        <a href="{{ route('getAddCourseClassModule', ['id' => $courseclasses->id]) }}"><button class=" right floated ui button primary">Tambah Course Module</button></a>
         <a href="{{ route("getCourseClass") }}"><button class=" right floated ui red button">Batal</button></a>
     </div>
 @endsection

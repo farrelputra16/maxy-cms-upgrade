@@ -28,11 +28,16 @@
                 </div>
                 <div class="field">
                     <label for="">Course</label>
-                    <select name="course" class="ui dropdown">
-                        @foreach ($courses as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                        @endforeach
-                    </select>
+                    @if ($courseID !== null)    
+                    <input type="text" name="course_name" value="{{ $courseNAME->name }}" readonly>
+                        <input type="hidden" name="course" value="{{ $courseID }}">
+                    @else
+                        <select name="course" class="ui dropdown">
+                            @foreach ($courses as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    @endif
                 </div>
                 <div class="field">
                     <div class="ui checkbox">

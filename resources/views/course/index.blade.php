@@ -32,7 +32,6 @@
                     <th>Fake Price</th>
                     <th>Price</th>
                     <th>m_course_type_id</th>
-                    <th>Content</th>
                     <th>Description</th>
                     <th>Created At</th>
                     <th>Created Id</th>
@@ -45,12 +44,28 @@
             <tbody>
                 @foreach ($courses as $item)
                     <tr>
-                        <td  style="width: 1%;">{{ $item->id }}</td>
-                        <td style="width: 5%;">{{ $item->name }}</td>
-                        <td style="width: 5%;">{{ $item->fake_price }}</td>
-                        <td style="width: 5%;">{{ $item->price }}</td>
-                        <td style="width: 5%;">{{ $item->m_course_type_id }}</td>
-                        <td style="width: 19%;">{{ $item->content }}</td>
+                        <td  style="width: 3%;">{{ $item->id }}</td>
+                        <td style="width: 7%;">{{ $item->name }}</td>
+                        <td style="width: 7%;">{{ $item->fake_price }}</td>
+                        <td style="width: 7%;">{{ $item->price }}</td>
+                        <td style="width: 9%;">
+                            @if ($item->m_course_type_id == 1)
+                                {{ 'Bootcamp' }}
+                            @elseif ($item->m_course_type_id == 2)
+                                {{ 'Rapid Onboarding' }}
+                            @elseif ($item->m_course_type_id == 3)
+                                {{ 'Mini Bootcamp' }}
+                            @elseif ($item->m_course_type_id == 4)
+                                {{ 'Hackathon' }}
+                            @elseif ($item->m_course_type_id == 5)
+                                {{ 'Prakerja' }}
+                            @elseif ($item->m_course_type_id == 6)
+                                {{ 'MSIB' }}
+                            @else
+                                {{ 'Rulesnya blm di tambah,caranya: ke index.blade(course) lalu cari @if untuk $item->m_course_type_id' }}
+                            @endif
+
+                        </td>
                         <td style="width: 19%;" id="description">{{ $item->description }}</td>
                         <td style="width: 10%;">{{ $item->created_at }}</td>
                         <td style="width: 6%;">{{ $item->created_id }}</td>
@@ -63,9 +78,14 @@
                                 <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
                             @endif
                         </td>
-                        <td style="width: 5%;">
-                            <a href="{{ route('getEditCourse', ['id' => $item->id]) }}" style="text-decoration: none; color: blue;">Edit</a>
+                        
+                        <td style="width: 8%;">
+                            <div class="btn-group">
+                                <a href="{{ route('getEditCourse', ['id' => $item->id]) }}" class="btn btn-primary">Edit</a>
+                                <a href="{{ route('getCourseModule', ['id' => $item->id]) }}" class="btn btn-info">CM List</a>
+                            </div>
                         </td>
+                       
                     </tr>
                 @endforeach
             </tbody>

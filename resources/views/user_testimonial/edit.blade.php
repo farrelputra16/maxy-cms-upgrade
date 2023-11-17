@@ -24,21 +24,10 @@
                 </div>
                 <div class="three fields">
                     <div class="field">
-                        <label for="">Course</label>
-                        <select name="course_id" class="ui dropdown">
-                            @if ($currentData != NULL)
-                            <option selected value="{{ $currentData->course_id }}">-- {{ $currentData->coursename }} --</option>
-                            @endif
-                            @foreach ($allcourse as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="field">
                         <label for="">User</label>
                         <select name="user_id" class="ui dropdown">
                             @if ($currentData != NULL) 
-                            <option selected value="{{ $currentData->user_id }}">-- {{ $currentData->membername }} --</option>
+                            <option selected value="{{ $currentData->user_id }}"> {{ $currentData->membername }} </option>
                             @endif
                             @foreach ($allmember as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -49,13 +38,17 @@
                         <label for="">Course Class Batch</label>
                         <select name="course_class_id" class="ui dropdown"> 
                             @if ($currentData != NULL)
-                            <option selected value="{{ $currentData->course_class_id }}">-- {{ $currentData->coursebatch }} --</option>
+                            <option selected value="{{ $currentData->course_class_id }}"> {{ $currentData->coursebatch }} </option>
                             @endif
                             @foreach ($allcourseclass as $item)
                                 <option value="{{ $item->id }}">{{ $item->batch }}</option>
                             @endforeach
                         </select>
                     </div>
+                </div>
+                <div class="field">
+                    <label for="">Content</label>
+                    <textarea name="content">{{ $testimonials->content }}</textarea>
                 </div>
                 <div class="field">
                     <label for="">Description</label>

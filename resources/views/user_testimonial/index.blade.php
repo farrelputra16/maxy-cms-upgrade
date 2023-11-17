@@ -33,7 +33,7 @@
                         <th>Status Highlight</th>
                         <th>ID Member - Member</th>
                         <th>ID Course - Member</th>
-                        <th>ID Course - Batch</th>
+                        <th>Content</th>
                         <th>Description</th>
                         <th>Status</th>
                         <th>Created at</th>
@@ -49,17 +49,16 @@
                         <td>{{ $item->role }}</td>
                         <td>{{ $item->status_highlight }}</td>
                         <td>{{ $item->user_id}} - {{ $item->membername}}</td>
-                        <td>{{ $item->course_id}} - {{ $item->coursename}}</td>
                         <td>{{ $item->course_class_id}} - Batch {{ $item->coursebatch}}</td>
-
+                        <td>{{ $item->content }}</td>
                         <td>{{ $item->description }}</td>
                         <td>    
-                                @if ($item->status == 1)
-                                        <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
-                                    @else
-                                        <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
-                                    @endif
-                                </td>
+                            @if ($item->status == 1)
+                                <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
+                            @else
+                                <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
+                            @endif
+                        </td>
                         <td>{{ $item->created_at }}</td>
                         <td>{{ $item->updated_at }}</td>
                         <td>

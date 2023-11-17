@@ -21,7 +21,6 @@ class TestimonialController extends Controller
         course_class.batch AS coursebatch 
         FROM user_testimonial
         JOIN users ON user_testimonial.user_id = users.id
-        JOIN course ON user_testimonial.course_id = course.id
         JOIN course_class ON user_testimonial.course_class_id = course_class.id');
 
         return view('user_testimonial.index',[
@@ -47,10 +46,9 @@ class TestimonialController extends Controller
         $validated= $request->validate([
             'stars' => 'required',
             'role' => 'required',
-            'course_id' => 'required',
             'user_id' => 'required',
             'course_class_id' => 'required',
-            'description' => 'required',
+            'content' => 'required',
         ]);
 
         if ($validated){
@@ -58,11 +56,13 @@ class TestimonialController extends Controller
                 'stars' => $request->stars,
                 'role' => $request->role,
                 'status_highlight' => $request->status_highlight ? 1 : 0,
-                'course_id' => $request->course_id,
                 'user_id' => $request->user_id,
                 'course_class_id' => $request->course_class_id,
+                'content' => $request->content,
                 'description' => $request->description,
-                'status' => $request->status ? 1 : 0
+                'status' => $request->status ? 1 : 0,
+                'created_id' => Auth::user()->id,
+                'updated_id' => Auth::user()->id,
             ]);
             if ($create){
                 return app(HelperController::class)->Positive('getTestimonial');
@@ -75,20 +75,16 @@ class TestimonialController extends Controller
         $idtestimonial = $request->id;
         $testimonials = Testimonial::find($idtestimonial);
 
-        $currentData = collect(DB::select('SELECT 
-        user_testimonial.course_id, 
+        $currentData = collect(DB::select('SELECT
         user_testimonial.user_id,
         user_testimonial.course_class_id,
-        users.name AS membername, 
-        course.name AS coursename, 
+        users.name AS membername,
         course_class.batch AS coursebatch 
         FROM user_testimonial
         JOIN users ON user_testimonial.user_id = users.id
-        JOIN course ON user_testimonial.course_id = course.id
         JOIN course_class ON user_testimonial.course_class_id = course_class.id
         WHERE user_testimonial.id = ?;',[$idtestimonial]))->first();
 
-        $allcourse = Course::where('id', '!=', $currentData->course_id)->get();
         $allmember = User::where('id', '!=', $currentData->user_id)->get();
         $allcourseclass = CourseClass::where('id', '!=', $currentData->course_class_id)->get();
 
@@ -97,7 +93,6 @@ class TestimonialController extends Controller
         return view('user_testimonial.edit',[
             'testimonials' => $testimonials,
             'currentData' => $currentData,
-            'allcourse' => $allcourse,
             'allmember' => $allmember,
             'allcourseclass' => $allcourseclass
         ]);
@@ -112,9 +107,9 @@ class TestimonialController extends Controller
             'stars' => $request->stars,
                 'role' => $request->role,
                 'status_highlight' => $request->status_highlight ? 1 : 0,
-                'course_id' => $request->course_id,
                 'user_id' => $request->user_id,
                 'course_class_id' => $request->course_class_id,
+                'content' => $request->content,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0
         ]);

@@ -23,12 +23,45 @@ class CourseClassModuleController extends Controller
      * @return Renderable
      */
 
-    function getCourseClassModule(){
-        $courseClassModules = DB::select('SELECT 
+    function getCourseClassModule(Request $request){
+        $idCourse = $request->id; 
+
+        if ($idCourse !== null) {
+            $courseClassModules = DB::select('
+            SELECT 
+                course_class_module.id AS id,
+                course_class_module.start_date AS start_date,
+                course_class_module.end_date AS end_date,
+                course_class_module.priority AS priority,
+                course_class_module.level AS level,
+                course_module.name AS course_module_name,
+                course_class.batch AS course_class_batch,
+                course_class_module.description AS description,
+                course_class_module.status AS status,
+                course_class_module.created_at AS created_at,
+                course_class_module.updated_at AS updated_at,
+                course.name AS course_name
+            FROM 
+                course_class_module
+            JOIN 
+                course_class ON course_class_module.course_class_id = course_class.id
+            JOIN 
+                course_module ON course_class_module.course_module_id = course_module.id
+            JOIN 
+                course ON course_class.course_id = course.id
+            WHERE 
+                course_class_module.course_class_id = :idCourse
+                AND course_class_module.course_class_id = course_class.id 
+                AND course_class_module.course_module_id = course_module.id
+                AND course_class.course_id = course.id
+        ', ['idCourse' => $idCourse]);
+        }else{
+            $courseClassModules = DB::select('SELECT 
             course_class_module.id AS id,
             course_class_module.start_date AS start_date,
             course_class_module.end_date AS end_date,
             course_class_module.priority AS priority,
+            course_class_module.level AS level,
             course_module.name AS course_module_name,
             course_class.batch AS course_class_batch,
             course_class_module.description AS description,
@@ -44,20 +77,43 @@ class CourseClassModuleController extends Controller
             AND course_class_module.course_module_id = course_module.id
             AND course_class.course_id = course.id;
         ');
-        
-        return view('classcontentmanagement::course_class_module.index', ['courseclassmodules' => $courseClassModules]);
+        }
+        return view('classcontentmanagement::course_class_module.index', [
+            'courseclassmodules' => $courseClassModules,
+            'course_id' => $idCourse
+        ]);
     }
 
-    function getAddCourseClassModule(){
+    function getAddCourseClassModule(Request $request){
+
+        $idCourse = $request->id;
+
         $allModules = CourseModule::all();
 
-        $allClass = DB::select('SELECT course_class.id AS course_class_id,
+        if ($idCourse !== null) {
+            $allClass = DB::select('
+            SELECT 
+                course_class.id AS course_class_id,
+                course_class.batch AS batch,
+                course.name AS course_name
+            FROM 
+                course_class
+            JOIN 
+                course ON course_class.course_id = course.id
+            WHERE 
+                course_class.id = :idCourse
+        ', ['idCourse' => $idCourse]);
+        }else{
+            $allClass = DB::select('SELECT course_class.id AS course_class_id,
             course_class.batch AS batch,
             course.name AS course_name
             FROM course_class
             JOIN course
             WHERE course_class.course_id = course.id;
         ');
+        }
+
+        
 
         return view('classcontentmanagement::course_class_module.add', [
             'allModules' => $allModules,
@@ -69,7 +125,8 @@ class CourseClassModuleController extends Controller
         $validated = $request->validate([
             'start' => 'required',
             'end' => 'required',
-            'priority' => 'required|integer'
+            'priority' => 'required|integer',
+            'level' => 'required|integer'
         ]);
 
         if ($validated){
@@ -77,6 +134,7 @@ class CourseClassModuleController extends Controller
                 'start_date' => $request->start,
                 'end_date' => $request->end,
                 'priority' => $request->priority,
+                'level' => $request->level,
                 'course_module_id' => $request->coursemoduleid,
                 'course_class_id' => $request->courseclassid,
                 'description' => $request->description,
@@ -144,6 +202,7 @@ class CourseClassModuleController extends Controller
                 'start_date' => $request->start,
                 'end_date' => $request->end,
                 'priority' => $request->priority,
+                'level' => $request->level,
                 'course_module_id' => $request->coursemodulesid,
                 'course_class_id' => $request->courseclassid,
                 'description' => $request->description,

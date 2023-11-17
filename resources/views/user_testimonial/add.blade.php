@@ -36,20 +36,6 @@
                 </div>
                 <div class="three fields">
                     <div class="field">
-                        <label for="">Course</label>
-                        <select name="course_id" class="ui dropdown"> 
-                            <option selected value="">-- Pilih Course --</option>
-                            @foreach ($allcourse as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                        @if ($errors->has('course'))
-                            @foreach ($errors->get('course') as $error)
-                                <span style="color: red;">{{$error}}</span>
-                            @endforeach
-                        @endif
-                    </div>
-                    <div class="field">
                         <label for="">User</label>
                         <select name="user_id" class="ui dropdown"> 
                             <option selected value="">-- Pilih User --</option>
@@ -77,6 +63,10 @@
                             @endforeach
                         @endif
                     </div>
+                </div>
+                <div class="field">
+                    <label for="">Content</label>
+                    <textarea name="content"></textarea>
                 </div>
                 <div class="field">
                     <label for="">Description</label>

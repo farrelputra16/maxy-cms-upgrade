@@ -13,22 +13,49 @@ use Illuminate\Support\Facades\Validator;
 class CourseModuleController extends Controller
 {
     // PARENT
-    function getCourseModule(){
-        $courseModuleParent = DB::select('SELECT id, name, course_id, content, description, status, created_at , created_id, updated_at , updated_id 
+    function getCourseModule(Request $request){
+        $idCourse = $request->id;   
+
+        if ($idCourse !== null) {
+            $courseModuleParent = DB::select('
+                SELECT 
+                    id, name, course_id, content, description, status, created_at, created_id, updated_at, updated_id 
+                FROM 
+                    course_module 
+                WHERE 
+                    course_module_parent_id IS NULL 
+                    AND course_id = :idCourse
+                ORDER BY 
+                    id ASC, priority ASC;
+            ', ['idCourse' => $idCourse]);
+        }else{
+            $courseModuleParent = DB::select('SELECT id, name, course_id, content, description, status, created_at , created_id, updated_at , updated_id 
             FROM course_module 
             WHERE course_module_parent_id IS NULL 
             ORDER BY id ASC, priority ASC;');
-
-
-            
+        }
+        
+        
         return view('course_module.index', [
-            'courseModules' => $courseModuleParent
+            'courseModules' => $courseModuleParent,
+            'course_id' => $idCourse
         ]);
     }
 
-    function getAddCourseModule(){
+    function getAddCourseModule(Request $request){
+        $idCourse = $request->id;   
+
+        if ($idCourse !== null) {
+            $coursenama = Course::select('name')->where('id', $idCourse)->first();
+        }else{
+            $coursenama = 'NULL';
+        }
         $courses = Course::select('id', 'name')->get();
-        return view('course_module.add', ['courses' => $courses]);
+        return view('course_module.add', [
+            'courses' => $courses,
+            'courseID' => $idCourse ,
+            'courseNAME' => $coursenama
+        ]);
     }
 
     function postAddCourseModule(Request $request){ 
@@ -59,9 +86,12 @@ class CourseModuleController extends Controller
                 'updated_id' => Auth::user()->id
             ]);
     
-            if ($create) {
+            if ($create && $request->course_name != NULL ) {
+                return app(HelperController::class)->Positive('getCourse');;
+            } elseif($create && $request->course_name == NULL){
                 return app(HelperController::class)->Positive('getCourseModule');
-            } else {
+            }
+            else {
                 return app(HelperController::class)->Negative('getCourseModule');
             }
         } catch (\Exception $e) {

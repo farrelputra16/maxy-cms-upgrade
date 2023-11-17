@@ -102,6 +102,7 @@
             </div>
             <button class="right floated ui button primary">Save & Update</button>
         </form>
+        <a href="{{ route('getAddCourseModule', ['id' => $courses->id]) }}"><button class=" right floated ui button primary">Tambah Course Module</button></a>
         <a href="{{ route("getCourse") }}"><button class=" right floated ui red button">Batal</button></a>
     </div>
     <script>

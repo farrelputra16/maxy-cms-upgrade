@@ -21,7 +21,11 @@
     <div id="example_wrapper">
         <div class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
             <div class="navbar-nav">
-                <a class="btn btn-primary" href="{{ route('getAddCourseClassModule') }}" role="button">Tambah Class Module +</a>
+                @if($course_id != NULL)
+                    <a href="{{ route('getAddCourseClassModule', ['id' => $course_id]) }}"><button class=" right floated ui button primary">Tambah Course +</button></a>
+                @else
+                <a class="btn btn-primary" href="{{ route('getAddCourseClassModule', ['id' => $course_id]) }}" role="button">Tambah Class Module +</a>
+                @endif
             </div>
         </div>
         <table id="example" class="table table-striped" style="width:100%">
@@ -31,6 +35,7 @@
                     <th scope="col">Waktu Mulai</th>
                     <th scope="col">Waktu Berakhir</th>
                     <th scope="col">Prioritas</th>
+                    <th scope="col">Level</th>
                     <th scope="col">ID Course Module</th>
                     <th scope="col">Batch - Course</th>
                     <th scope="col">Description</th>
@@ -48,6 +53,7 @@
                     <td>{{ $item->start_date }}</td>
                     <td>{{ $item->end_date }}</td>
                     <td>{{ $item->priority }}</td>
+                    <td>{{ $item->level }}</td>
                     <td>{{ $item->course_module_name }}</td>
                     <td>Batch {{ $item->course_class_batch }} - {{ $item->course_name }}</td>
                     <td id="description">{{ $item->description }}</td>

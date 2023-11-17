@@ -21,7 +21,12 @@
     <div id="example_wrapper">
         <div class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
             <div class="navbar-nav">
-                <a class="btn btn-primary" href="{{ route('getAddCourseModule') }}" role="button">Tambah Course +</a>
+                @if($course_id != NULL)
+                    <a href="{{ route('getAddCourseModule', ['id' => $course_id]) }}"><button class=" right floated ui button primary">Tambah Course +</button></a>
+                @else
+                    <a class="btn btn-primary" href="{{ route('getAddCourseModule') }}" role="button">Tambah Course +</a>
+                @endif
+                
             </div>
         </div>
         <table id="example" class="table table-striped" style="width:100%">
