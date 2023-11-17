@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,5 +27,15 @@ class AccessGroupDetail extends Model
         ->get();
 
         return $currentaccessgroupdetail;
+    }
+
+    public static function RemoveUpdate($request){
+        $idAccessGroup = $request->id;
+        $removeUpdate = DB::table('access_group_detail')
+                ->where('access_group_id', '=', $idAccessGroup)
+                ->whereIn('access_master_id', $request->get('access_master_old'))
+                ->delete();
+
+        return $removeUpdate;
     }
 }

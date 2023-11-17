@@ -53,12 +53,7 @@ class AccessGroupController extends Controller
         $accessgroups = AccessGroup::find($idaccessgroup);
 
         $currentData = array_column(json_decode(AccessGroupDetail::CurrentAccessGroupDetail($idaccessgroup)), 'name', 'id');
-
-        
-
-        $allAccessMaster = array_column(json_decode(DB::table('access_master')
-            ->select('id','name')
-            ->get(), true), 'name', 'id');
+        $allAccessMaster = array_column(json_decode(AccessMaster::AllAccessMaster()), 'name', 'id');
 
         return view('accessgroup.edit', [
             'accessgroups' => $accessgroups,
@@ -71,22 +66,13 @@ class AccessGroupController extends Controller
         $idAccessGroup = $request->id;
 
         if ($request->access_master_old && $request->access_master_available){
-            $removeUpdate = DB::table('access_group_detail')
-                ->where('access_group_id', '=', $idAccessGroup)
-                ->whereIn('access_master_id', $request->get('access_master_old'))
-                ->delete();
+            $removeUpdate = AccessGroupDetail::RemoveUpdate($request);
 
             $access_master = $request->get('access_master_available');
         
             $access_group = AccessGroup::find($idAccessGroup);
 
-            DB::table('access_group')->where('id', '=', $idAccessGroup)
-                ->update([
-                    'name' => $request->name,
-                    'description' => $request->description,
-                    'status' => $request->status ? 1 : 0,
-                    'updated_id' => Auth::user()->id
-                ]);
+            AccessGroupDetail::postEditAccessGroup($request);
             
             if ($access_group && $removeUpdate){
                 $access_group->AccessMaster()->attach($access_master);
@@ -95,18 +81,9 @@ class AccessGroupController extends Controller
                 return app(HelperController::class)->Negative('getAccessGroup');
             }
         } else if ($request->access_master_old){
-            $removeUpdate = DB::table('access_group_detail')
-                ->where('access_group_id', '=', $idAccessGroup)
-                ->whereIn('access_master_id', $request->get('access_master_old'))
-                ->delete();
+            $removeUpdate = AccessGroupDetail::RemoveUpdate($request);
 
-            DB::table('access_group')->where('id', '=', $idAccessGroup)
-                ->update([
-                    'name' => $request->name,
-                    'description' => $request->description,
-                    'status' => $request->status ? 1 : 0,
-                    'updated_id' => Auth::user()->id
-                ]);
+            AccessGroupDetail::postEditAccessGroup($request);
 
             if ($removeUpdate){
                 return app(HelperController::class)->Positive('getAccessGroup');
@@ -118,13 +95,7 @@ class AccessGroupController extends Controller
             
             $access_group = AccessGroup::find($idAccessGroup);
 
-            DB::table('access_group')->where('id', '=', $idAccessGroup)
-                ->update([
-                    'name' => $request->name,
-                    'description' => $request->description,
-                    'status' => $request->status ? 1 : 0,
-                    'updated_id' => Auth::user()->id
-                ]);
+            AccessGroupDetail::postEditAccessGroup($request);
             
             if ($access_group){
                 $access_group->AccessMaster()->attach($access_master);
@@ -133,13 +104,7 @@ class AccessGroupController extends Controller
                 return app(HelperController::class)->Negative('getAccessGroup');
             }
         } else {
-            $updateOther = DB::table('access_group')->where('id', '=', $idAccessGroup)
-            ->update([
-                'name' => $request->name,
-                'description' => $request->description,
-                'status' => $request->status ? 1 : 0,
-                'updated_id' => Auth::user()->id
-            ]);
+            $updateOther = AccessGroupDetail::postEditAccessGroup($request);
 
             if ($updateOther){
                 return app(HelperController::class)->Positive('getAccessGroup');

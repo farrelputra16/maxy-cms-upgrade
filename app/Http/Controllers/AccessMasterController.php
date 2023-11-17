@@ -56,15 +56,7 @@ class AccessMasterController extends Controller
     function postEditAccessMaster(Request $request){
         $idaccessmaster = $request->id;
         
-        $updateData = DB::table('access_master')
-            ->where('id', '=', $idaccessmaster)
-            ->update([
-                'name' => $request->name,
-                'description' => $request->description,
-                'status' => $request->status ? 1 : 0,
-                'created_id' => Auth::user()->id,
-                'updated_id' => Auth::user()->id
-            ]);
+        $updateData = AccessMaster::postEditAccessMaster($request);
 
         if ($updateData){
             return app(HelperController::class)->Positive('getAccessMaster');
