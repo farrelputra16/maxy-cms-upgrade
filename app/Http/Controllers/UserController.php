@@ -91,15 +91,14 @@ class UserController extends Controller
 
     function getEditUser(Request $request){
 
-        $currentData = collect(DB::select('SELECT
-            users.*,
-            access_group.id AS access_group_id,
-            access_group.name AS access_group_name
-            FROM users
-            JOIN access_group
-            WHERE users.access_group_id = access_group.id
-            AND users.id = ?;
-        ', [$request->id]))->first();
+        $currentData = User::select(
+            'users.*',
+            'access_group.id AS access_group_id',
+            'access_group.name AS access_group_name'
+        )
+            ->join('access_group', 'users.access_group_id', '=', 'access_group.id')
+            ->where('users.id', $request->id)
+            ->first();
 
         // return dd($currentData);
 

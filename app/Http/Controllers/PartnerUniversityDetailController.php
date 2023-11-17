@@ -12,20 +12,18 @@ class PartnerUniversityDetailController extends Controller
 {
     //
     function getPartnerUniversityDetail(){
-        $partnerUnniversities = DB::table('partner_university_detail')
-            ->join('m_partner', 'partner_university_detail.m_partner_id', '=', 'm_partner.id')
-            ->select(
-                DB::raw('
-                    partner_university_detail.id AS pud_id,
-                    partner_university_detail.name AS pud_name,
-                    partner_university_detail.ref AS pud_ref,
-                    partner_university_detail.type AS pud_type,
-                    m_partner.name AS partner_name,
-                    partner_university_detail.description AS pud_description,
-                    partner_university_detail.status AS pud_status,
-                    partner_university_detail.created_at AS pud_created_at,
-                    partner_university_detail.updated_at AS pud_updated_at
-                '))->get();
+        $partnerUnniversities = PartnerUniversityDetail::join('m_partner', 'partner_university_detail.m_partner_id', '=', 'm_partner.id')
+        ->select(
+            'partner_university_detail.id as pud_id',
+            'partner_university_detail.name as pud_name',
+            'partner_university_detail.ref as pud_ref',
+            'partner_university_detail.type as pud_type',
+            'm_partner.name as partner_name',
+            'partner_university_detail.description as pud_description',
+            'partner_university_detail.status as pud_status',
+            'partner_university_detail.created_at as pud_created_at',
+            'partner_university_detail.updated_at as pud_updated_at'
+        )->get();
 
         return view('partner_university_detail.index', ['partnerUniversitiesDetail' => $partnerUnniversities]);
     }
@@ -63,22 +61,20 @@ class PartnerUniversityDetailController extends Controller
     }
 
     function getEditPartnerUniversityDetail(Request $request){
-        $currentData = DB::table('partner_university_detail')
-            ->join('partner', 'partner_university_detail.m_partner_id', '=', 'm_partner.id')
+        $currentData = PartnerUniversityDetail::join('partner', 'partner_university_detail.m_partner_id', '=', 'm_partner.id')
             ->select(
-                DB::raw('
-                    partner_university_detail.id AS pud_id,
-                    partner_university_detail.name AS pud_name,
-                    partner_university_detail.ref AS pud_ref,
-                    partner_university_detail.type AS pud_type,
-                    m_partner.id AS partner_id,
-                    m_partner.name AS partner_name,
-                    partner_university_detail.description AS pud_description,
-                    partner_university_detail.status AS pud_status,
-                    partner_university_detail.created_at AS pud_created_at,
-                    partner_university_detail.updated_at AS pud_updated_at
-                '))
-            ->where('partner_university_detail.id', '=', $request->id)
+                'partner_university_detail.id as pud_id',
+                'partner_university_detail.name as pud_name',
+                'partner_university_detail.ref as pud_ref',
+                'partner_university_detail.type as pud_type',
+                'm_partner.id as partner_id',
+                'm_partner.name as partner_name',
+                'partner_university_detail.description as pud_description',
+                'partner_university_detail.status as pud_status',
+                'partner_university_detail.created_at as pud_created_at',
+                'partner_university_detail.updated_at as pud_updated_at'
+            )
+            ->where('partner_university_detail.id', $request->id)
             ->first();
         
             // return dd($currentData);
@@ -92,7 +88,7 @@ class PartnerUniversityDetailController extends Controller
     }
 
     function postEditPartnerUniversityDetail(Request $request){
-        $update = DB::table('partner_university_detail')->where('id', $request->id)
+        $update = PartnerUniversityDetail::where('id', $request->id)
             ->update([
                 'name' => $request->name,
                 'type' => $request->type,
@@ -100,7 +96,7 @@ class PartnerUniversityDetailController extends Controller
                 'm_partner_id' => $request->partner_id,
                 'description' => $request->description,
                 'status' => $request->status == 1 ? 1 : 0,
-                'updated_id' => Auth::user()->id
+                'updated_id' => auth()->user()->id
             ]);
         
         if ($update){

@@ -16,31 +16,7 @@ class TransOrderController extends Controller
 {
     //
     function getTransOrder(){
-        $transOrders = DB::select('SELECT 
-            trans_order.id, 
-            trans_order.order_number, 
-            trans_order.date, 
-            trans_order.total, 
-            trans_order.discount, 
-            trans_order.total_after_discount, 
-            trans_order.payment_status, 
-            course.name AS course_name, 
-            course_class.batch AS course_class_batch,
-            users.name AS users_name, 
-            course_package.name AS course_package_name, 
-            m_promo.name AS promotion_name,
-            trans_order.forced_at,
-            trans_order.forced_comment,
-            trans_order.description,
-            trans_order.status
-            FROM trans_order
-            LEFT JOIN course ON trans_order.course_id = course.id
-            LEFT JOIN course_class ON trans_order.course_class_id = course_class.id
-            LEFT JOIN users ON trans_order.user_id = users.id
-            LEFT JOIN course_package ON trans_order.course_package_id = course_package.id
-            LEFT JOIN m_promo ON trans_order.m_promo_id = m_promo.id
-        ');
-
+        $transOrders = TransOrder::getTransOrder();
         return view('trans_order.index', ['transOrders' => $transOrders]);
     }
 
@@ -89,7 +65,7 @@ class TransOrderController extends Controller
                 'course_class_id' => $request->course_class_id,
                 'user_id' => $request->user_id,
                 'course_package_id' => $request->course_package_id,
-                'promotion_id' => $request->promotion_id,
+                'm_promo_id' => $request->m_promo_id,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => Auth::user()->id,
@@ -109,39 +85,13 @@ class TransOrderController extends Controller
         $transorders = TransOrder::find($idtransorder);
         // return dd($idtransorder);
 
-        $currentData = collect(DB::select('SELECT 
-            trans_order.id, 
-            trans_order.order_number, 
-            trans_order.date AS dates, 
-            trans_order.total, 
-            trans_order.discount, 
-            trans_order.total_after_discount, 
-            trans_order.payment_status, 
-            trans_order.course_id,
-            course.name AS course_name,
-            trans_order.course_class_id,
-            course_class.batch AS course_class_batch,
-            trans_order.user_id,
-            users.name AS member_name,
-            trans_order.course_package_id,
-            course_package.name AS course_package_name,
-            trans_order.promotion_id,
-            promotion.name AS promotion_name,
-            trans_order.description,
-            trans_order.status
-            FROM trans_order
-            LEFT JOIN course ON trans_order.course_id = course.id
-            LEFT JOIN course_class ON trans_order.course_class_id = course_class.id
-            LEFT JOIN users ON trans_order.user_id = users.id
-            LEFT JOIN course_package ON trans_order.course_package_id = course_package.id
-            LEFT JOIN promotion ON trans_order.promotion_id = promotion.id
-            WHERE trans_order.id = ?; ',[$idtransorder]))->first();
+        $currentData = TransOrder::getCurrentDataEDIT($request);
 
         $allCourse = Course::where('id', '!=', $currentData->course_id)->get();
         $allCourseClass = CourseClass::where('id', '!=', $currentData->course_class_id)->get();
         $allMember = User::where('id', '!=', $currentData->user_id)->get();
         $allCoursePackage = CoursePackage::where('id', '!=', $currentData->course_package_id)->get();
-        $allPromotion = Promotion::where('id', '!=', $currentData->promotion_id)->get();
+        $allPromotion = Promotion::where('id', '!=', $currentData->m_promo_id)->get();
 
         return view('trans_order.edit', [
             'transorders' => $transorders,
@@ -160,8 +110,7 @@ class TransOrderController extends Controller
         $trim_total = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->total));
         $trim_total_after_discount = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->total_after_discount));
 
-        $updateData = DB::table('trans_order')
-            ->where('id', $idTransOrder)
+        $updateData = TransOrder::where('id', $idTransOrder)
             ->update([
                 'order_number' => $request->order_number,
                 'date' => $request->date,
@@ -173,11 +122,11 @@ class TransOrderController extends Controller
                 'course_class_id' => $request->course_class_id,
                 'user_id' => $request->user_id,
                 'course_package_id' => $request->course_package_id,
-                'promotion_id' => $request->promotion_id,
+                'm_promo_id' => $request->m_promo_id,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
-                'created_id' => Auth::user()->id,
-                'updated_id' => Auth::user()->id
+                'created_id' => auth()->user()->id,
+                'updated_id' => auth()->user()->id
             ]);
             if ($updateData){
                 return app(HelperController::class)->Positive('getTransOrder');

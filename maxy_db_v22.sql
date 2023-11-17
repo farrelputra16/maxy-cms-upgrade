@@ -2766,7 +2766,7 @@ ADD CONSTRAINT fk_course_id_promo_course
 FOREIGN KEY (course_id)
 REFERENCES course(id);
 
--- Foreign key untuk promotion_id
+-- Foreign key untuk m_promo_id
 ALTER TABLE promo_course
 ADD CONSTRAINT fk_m_promo_id_promo_course
 FOREIGN KEY (m_promo_id)
@@ -2796,7 +2796,7 @@ ADD CONSTRAINT fk_trans_order_course_package_trans_order
 FOREIGN KEY (course_package_id)
 REFERENCES course_package(id);
 
--- Foreign key untuk promotion_id
+-- Foreign key untuk m_promo_id
 ALTER TABLE trans_order
 ADD CONSTRAINT fk_trans_order_m_promo_trans_order
 FOREIGN KEY (m_promo_id)

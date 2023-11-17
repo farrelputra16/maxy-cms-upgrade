@@ -38,7 +38,7 @@ class AccessMaster extends Model
 
     public static function postEditAccessMaster($request){
         $idaccessmaster = $request->id;
-        DB::table('access_master')
+        return (DB::table('access_master')
             ->where('id', '=', $idaccessmaster)
             ->update([
                 'name' => $request->name,
@@ -46,6 +46,6 @@ class AccessMaster extends Model
                 'status' => $request->status ? 1 : 0,
                 'created_id' => Auth::user()->id,
                 'updated_id' => Auth::user()->id
-            ]);
+            ]));
     }
 }

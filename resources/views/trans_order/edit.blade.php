@@ -143,9 +143,9 @@
                     </div>
                     <div class="field">
                         <label for="">Promotion (Optional)</label>
-                        <select class="ui dropdown" name="promotion_id" id="">
-                            @if ($currentData->promotion_id)
-                                <option value="{{ $currentData->promotion_id }}" selected>{{ $currentData->promotion_name }}</option>
+                        <select class="ui dropdown" name="m_promo_id" id="">
+                            @if ($currentData->m_promo_id)
+                                <option value="{{ $currentData->m_promo_id }}" selected>{{ $currentData->promotion_name }}</option>
                                 @foreach ($allPromotion as $item)
                                     <option value="{{ $item->id }}">{{ $item->id }} - {{ $item->name }}</option>
                                 @endforeach

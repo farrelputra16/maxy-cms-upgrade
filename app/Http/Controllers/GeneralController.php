@@ -64,15 +64,14 @@ class GeneralController extends Controller
         ]);
 
         if ($validate){
-            $update = DB::table('general')
-            ->where('id', $idgeneral)
-            ->update([
-                'name' => $request->name,
-                'value' => $request->value,
-                'description' => $request->description,
-                'status' => $request->status? 1 : 0,
-                'updated_id' => Auth::user()->id
-            ]);
+            $update = General::where('id', $idgeneral)
+                ->update([
+                    'name' => $request->name,
+                    'value' => $request->value,
+                    'description' => $request->description,
+                    'status' => $request->status ? 1 : 0,
+                    'updated_id' => Auth::user()->id
+                ]);
 
             if($update){
                 return app(HelperController::class)->Positive('getGeneral');

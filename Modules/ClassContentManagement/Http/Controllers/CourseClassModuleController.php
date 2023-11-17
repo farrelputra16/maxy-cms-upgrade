@@ -26,58 +26,8 @@ class CourseClassModuleController extends Controller
     function getCourseClassModule(Request $request){
         $idCourse = $request->id; 
 
-        if ($idCourse !== null) {
-            $courseClassModules = DB::select('
-            SELECT 
-                course_class_module.id AS id,
-                course_class_module.start_date AS start_date,
-                course_class_module.end_date AS end_date,
-                course_class_module.priority AS priority,
-                course_class_module.level AS level,
-                course_module.name AS course_module_name,
-                course_class.batch AS course_class_batch,
-                course_class_module.description AS description,
-                course_class_module.status AS status,
-                course_class_module.created_at AS created_at,
-                course_class_module.updated_at AS updated_at,
-                course.name AS course_name
-            FROM 
-                course_class_module
-            JOIN 
-                course_class ON course_class_module.course_class_id = course_class.id
-            JOIN 
-                course_module ON course_class_module.course_module_id = course_module.id
-            JOIN 
-                course ON course_class.course_id = course.id
-            WHERE 
-                course_class_module.course_class_id = :idCourse
-                AND course_class_module.course_class_id = course_class.id 
-                AND course_class_module.course_module_id = course_module.id
-                AND course_class.course_id = course.id
-        ', ['idCourse' => $idCourse]);
-        }else{
-            $courseClassModules = DB::select('SELECT 
-            course_class_module.id AS id,
-            course_class_module.start_date AS start_date,
-            course_class_module.end_date AS end_date,
-            course_class_module.priority AS priority,
-            course_class_module.level AS level,
-            course_module.name AS course_module_name,
-            course_class.batch AS course_class_batch,
-            course_class_module.description AS description,
-            course_class_module.status AS status,
-            course_class_module.created_at AS created_at,
-            course_class_module.updated_at AS updated_at,
-            course.name AS course_name
-            FROM course_class_module
-            JOIN course_class
-            JOIN course_module
-            JOIN course
-            WHERE course_class_module.course_class_id = course_class.id 
-            AND course_class_module.course_module_id = course_module.id
-            AND course_class.course_id = course.id;
-        ');
-        }
+        $courseClassModules = CourseClassModule::getCourseClassModule($request);
+
         return view('classcontentmanagement::course_class_module.index', [
             'courseclassmodules' => $courseClassModules,
             'course_id' => $idCourse
@@ -90,31 +40,8 @@ class CourseClassModuleController extends Controller
 
         $allModules = CourseModule::all();
 
-        if ($idCourse !== null) {
-            $allClass = DB::select('
-            SELECT 
-                course_class.id AS course_class_id,
-                course_class.batch AS batch,
-                course.name AS course_name
-            FROM 
-                course_class
-            JOIN 
-                course ON course_class.course_id = course.id
-            WHERE 
-                course_class.id = :idCourse
-        ', ['idCourse' => $idCourse]);
-        }else{
-            $allClass = DB::select('SELECT course_class.id AS course_class_id,
-            course_class.batch AS batch,
-            course.name AS course_name
-            FROM course_class
-            JOIN course
-            WHERE course_class.course_id = course.id;
-        ');
-        }
-
+        $allClass = CourseClassModule::getAddCourseClassModule($request);
         
-
         return view('classcontentmanagement::course_class_module.add', [
             'allModules' => $allModules,
             'allClass' => $allClass,
@@ -153,36 +80,20 @@ class CourseClassModuleController extends Controller
         $idCourseClassModule = $request->id;
         $courseclassmodules = CourseClassModule::find($idCourseClassModule);
 
-        $currentData = collect(DB::select('SELECT 
-            course_class_module.id, 
-            course_class_module.course_module_id, 
-            course_class_module.course_class_id, 
-            course_module.name AS module_name, 
-            course_class.batch AS class_batch,
-            course.name AS course_name
-            FROM course_class
-            INNER JOIN	course_class_module 
-            ON course_class_module.course_class_id = course_class.id
-            INNER JOIN course_module 
-            ON course_class_module.course_module_id = course_module.id
-            INNER JOIN course 
-            ON course_class.course_id = course.id
-            WHERE course_class_module.id = ?;', [$idCourseClassModule]))->first();
-
+        $currentData = CourseClassModule::getEditCourseClassModule($request);
+        
         $courseModuleId = $currentData->course_module_id;
-
-
         $allModules = CourseModule::where('id', '!=', $currentData->course_module_id)->get();
 
 
-        $allClasses = DB::select('SELECT 
-            course_class.id AS course_class_id,
-            course_class.batch AS batch,
-            course.name AS course_name
-            FROM course_class
-            JOIN course
-            WHERE course_class.course_id = course.id AND course_class.id != ?;
-        ', [$currentData->course_class_id]);
+        $allClasses = CourseClass::select(
+            'course_class.id AS course_class_id',
+            'course_class.batch AS batch',
+            'course.name AS course_name'
+        )
+            ->join('course', 'course_class.course_id', '=', 'course.id')
+            ->where('course_class.id', '!=', $currentData->course_class_id)
+            ->get();
 
 
         return view('classcontentmanagement::course_class_module.edit', [
@@ -196,8 +107,7 @@ class CourseClassModuleController extends Controller
     function postEditCourseClassModule(Request $request){
         $idCourseClassModule = $request->id;
         
-        $updateData = DB::table('course_class_module')
-            ->where('id', $idCourseClassModule)
+        $updateData = CourseClassModule::where('id', $idCourseClassModule)
             ->update([
                 'start_date' => $request->start,
                 'end_date' => $request->end,
@@ -207,8 +117,8 @@ class CourseClassModuleController extends Controller
                 'course_class_id' => $request->courseclassid,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
-                'created_id' => Auth::user()->id,
-                'updated_id' => Auth::user()->id
+                'created_id' => auth()->user()->id,
+                'updated_id' => auth()->user()->id
             ]);
 
         if ($updateData){

@@ -24,7 +24,7 @@ class TransOrder extends Model
         'course_class_id',
         'user_id',
         'course_package_id',
-        'promotion_id',
+        'm_promo_id',
         'forced_at',
         'forced_comment',
         'user_forced_id',
@@ -35,4 +35,67 @@ class TransOrder extends Model
         'updated_at',
         'updated_id'
     ];
+
+
+    public static function getTransOrder(){  
+        $transOrders = DB::select('SELECT 
+            trans_order.id, 
+            trans_order.order_number, 
+            trans_order.date, 
+            trans_order.total, 
+            trans_order.discount, 
+            trans_order.total_after_discount, 
+            trans_order.payment_status, 
+            course.name AS course_name, 
+            course_class.batch AS course_class_batch,
+            users.name AS users_name, 
+            course_package.name AS course_package_name, 
+            m_promo.name AS promotion_name,
+            trans_order.forced_at,
+            trans_order.forced_comment,
+            trans_order.description,
+            trans_order.status
+            FROM trans_order
+            LEFT JOIN course ON trans_order.course_id = course.id
+            LEFT JOIN course_class ON trans_order.course_class_id = course_class.id
+            LEFT JOIN users ON trans_order.user_id = users.id
+            LEFT JOIN course_package ON trans_order.course_package_id = course_package.id
+            LEFT JOIN m_promo ON trans_order.m_promo_id = m_promo.id
+        ');
+
+        return $transOrders;
+    }
+
+    public static function getCurrentDataEDIT($request){  
+        $idtransorder = $request->id;
+        $currentData = collect(DB::select('SELECT 
+            trans_order.id, 
+            trans_order.order_number, 
+            trans_order.date AS dates, 
+            trans_order.total, 
+            trans_order.discount, 
+            trans_order.total_after_discount, 
+            trans_order.payment_status, 
+            trans_order.course_id,
+            course.name AS course_name,
+            trans_order.course_class_id,
+            course_class.batch AS course_class_batch,
+            trans_order.user_id,
+            users.name AS member_name,
+            trans_order.course_package_id,
+            course_package.name AS course_package_name,
+            trans_order.m_promo_id,
+            m_promo.name AS promotion_name,
+            trans_order.description,
+            trans_order.status
+            FROM trans_order
+            LEFT JOIN course ON trans_order.course_id = course.id
+            LEFT JOIN course_class ON trans_order.course_class_id = course_class.id
+            LEFT JOIN users ON trans_order.user_id = users.id
+            LEFT JOIN course_package ON trans_order.course_package_id = course_package.id
+            LEFT JOIN m_promo ON trans_order.m_promo_id = m_promo.id
+            WHERE trans_order.id = ?; ',[$idtransorder]))->first();
+
+        return $currentData;
+    }
 }

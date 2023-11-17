@@ -12,14 +12,7 @@ class CoursePackageBenefitController extends Controller
 {
     //
     function getCoursePackageBenefit(){
-        $coursePackageBenefits = DB::select('SELECT
-            course_package_benefit.*,
-            course_package.name AS course_package_name,
-            course_package.price AS course_package_price
-            FROM course_package_benefit
-            JOIN course_package
-            WHERE course_package_benefit.course_package_id = course_package.id;
-        ');
+        $coursePackageBenefits = CoursePackageBenefit::getCoursePackageBenefit();
 
         return view('course_package_benefit.index', ['coursePackageBenefits' => $coursePackageBenefits]);
     }
@@ -55,17 +48,7 @@ class CoursePackageBenefitController extends Controller
 
     function getEditCoursePackageBenefit(Request $request){
         $idCoursePackageBenefit = $request->id;
-        $currentData = collect(DB::select('SELECT course_package.name AS course_package_name, 
-            course_package.id AS course_package_id,
-            course_package_benefit.id,
-            course_package_benefit.name,
-            course_package_benefit.description,
-            course_package_benefit.status
-            FROM course_package_benefit
-            JOIN course_package
-            WHERE course_package_benefit.course_package_id = course_package.id
-            AND course_package_benefit.id = ?
-            ', [$idCoursePackageBenefit]))->first();
+        $currentData = CoursePackageBenefit::getEditCoursePackageBenefit($request);
 
         // return dd($currentData);
         $allCoursePackages = CoursePackage::where('id', '!=', $currentData->course_package_id)->get();

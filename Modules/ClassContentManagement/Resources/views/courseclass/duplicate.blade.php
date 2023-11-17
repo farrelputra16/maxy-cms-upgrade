@@ -16,7 +16,7 @@
                         <label for="">ID Course Class</label>
                         <select name="courseClassId" class="ui dropdown">
                             @foreach ($allCourseClasses as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }} batch {{ $item->batch }}</option>
+                                <option value="{{ $item->course_class_id }}">{{ $item->course_name }} batch {{ $item->course_class_batch }}</option>
                             @endforeach
                         </select>
                         @if ($errors->has('courseid'))

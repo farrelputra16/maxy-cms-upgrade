@@ -12,8 +12,12 @@ use App\Http\Controllers\HelperController;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use DB;
 use Modules\Enrollment\Imports\CourseClassMemberImport;
+
+
+use Modules\ClassContentManagement\Entities\CourseClass;
+
 class CourseClassMemberController extends Controller
 {
     /**
@@ -22,38 +26,15 @@ class CourseClassMemberController extends Controller
      */
 
     function getCourseClassMember(){
-        $courseClassMembers = collect(DB::select('SELECT 
-            course_class_member.id AS id,
-            course_class_member.description AS description,
-            course_class_member.status AS status,
-            course_class_member.created_at AS created_at,
-            course_class_member.updated_at AS updated_at,
-            users.id AS user_id,
-            users.name AS user_name,
-            course_class.batch AS course_class_batch,
-            course.name AS course_name
-            FROM course_class_member
-            JOIN users
-            JOIN course_class
-            JOIN course
-            WHERE course_class_member.user_id = users.id 
-            AND course_class_member.course_class_id = course_class.id
-            AND course_class.course_id = course.id;
-        '));
+
+        $courseClassMembers = CourseClassMember::getCourseClassMember();
 
         return view('enrollment::course_class_member.index', ['courseClassMembers' => $courseClassMembers]);
     }
 
     function getAddCourseClassMember(){
-        $courseClasses = DB::select('SELECT course_class.id AS course_class_id,
-            course_class.batch AS course_class_batch,
-            course.id AS course_id,
-            course.name AS course_name
-            FROM course_class
-            JOIN course
-            WHERE course_class.course_id = course.id;
-        ');
-
+        $courseClasses = CourseClass::getDuplicateCourseClass();
+        
         $users = User::all();
 
         return view('enrollment::course_class_member.add', [
@@ -90,41 +71,15 @@ class CourseClassMemberController extends Controller
     }
 
         function getEditCourseClassMember(Request $request){
-            $currentData = collect(DB::select('SELECT 
-                course_class_member.user_id AS ccm_member_id,
-                course_class_member.course_class_id AS ccm_course_class_id,
-                course_class_member.description AS ccm_description,
-                course_class_member.status AS ccm_status,
-                users.name AS user_name,
-                course_class.batch AS course_class_batch
-                FROM course_class_member
-                JOIN users
-                JOIN course_class
-                WHERE course_class_member.user_id = users.id 
-                AND course_class_member.course_class_id = course_class.id
-                AND course_class_member.id = ?;
-            ', [$request->id]));
 
-            // return dd($currentData[0]);
-            
+            $currentData = CourseClassMember::getEditCourseClassMember($request);
 
-            $currentDataCourse = DB::select('SELECT course.name AS course_name
-                FROM course_class
-                JOIN course ON course_class.course_id = course.id
-                WHERE course_class.id = ?;
-            ', [$currentData[0]->ccm_course_class_id])[0];
+            // return dd($currentData);
 
-            $allCourseClasses = DB::select('SELECT course_class.id AS course_class_id,
-            course_class.batch AS course_class_batch,
-            course.id AS course_id,
-            course.name AS course_name
-            FROM course_class
-            JOIN course
-            WHERE course_class.course_id = course.id AND NOT course_class.id = ?;
-            ', [$currentData[0]->ccm_course_class_id]);
+            $result = CourseClass::getEditCourseClassMemberCOURSEandCLASSES($currentData);
 
-
-            // return dd($allCourseClasses);
+            $currentDataCourse = $result['currentDataCourse'];
+            $allCourseClasses = $result['allCourseClasses'];
 
             $ccmMemberId = $currentData[0]->ccm_member_id;
 

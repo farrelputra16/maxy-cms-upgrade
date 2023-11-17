@@ -77,7 +77,7 @@ class PartnerController extends Controller
         ]);
 
         if ($validate){
-            $update = DB::table('partner')->where('id', $request->id)
+            $update = Partner::where('id', $request->id)
                 ->update([
                     'name' => $request->name,
                     'type' => $request->type,
@@ -90,7 +90,7 @@ class PartnerController extends Controller
                     'status_highlight' => $request->status_highlight ? 1 : 0,
                     'description' => $request->description,
                     'status' => $request->status ? 1 : 0,
-                    'updated_id' => Auth::user()->id
+                    'updated_id' => auth()->user()->id
                 ]);
 
             if ($update){

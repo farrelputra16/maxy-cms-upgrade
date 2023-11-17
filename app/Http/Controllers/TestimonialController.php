@@ -14,14 +14,14 @@ class TestimonialController extends Controller
 {
     //
     function getTestimonial(){
-        $testimonials = DB::select('SELECT 
-        user_testimonial.*, 
-        users.name AS membername, 
-        users.name AS coursename, 
-        course_class.batch AS coursebatch 
-        FROM user_testimonial
-        JOIN users ON user_testimonial.user_id = users.id
-        JOIN course_class ON user_testimonial.course_class_id = course_class.id');
+        $testimonials = Testimonial::select(
+            'user_testimonial.*',
+            'users.name AS membername',
+            'users.name AS coursename',
+            'course_class.batch AS coursebatch')
+            ->join('users', 'user_testimonial.user_id', '=', 'users.id')
+            ->join('course_class', 'user_testimonial.course_class_id', '=', 'course_class.id')
+            ->get();
 
         return view('user_testimonial.index',[
             'testimonials' => $testimonials
@@ -75,15 +75,16 @@ class TestimonialController extends Controller
         $idtestimonial = $request->id;
         $testimonials = Testimonial::find($idtestimonial);
 
-        $currentData = collect(DB::select('SELECT
-        user_testimonial.user_id,
-        user_testimonial.course_class_id,
-        users.name AS membername,
-        course_class.batch AS coursebatch 
-        FROM user_testimonial
-        JOIN users ON user_testimonial.user_id = users.id
-        JOIN course_class ON user_testimonial.course_class_id = course_class.id
-        WHERE user_testimonial.id = ?;',[$idtestimonial]))->first();
+        $currentData = Testimonial::select(
+            'user_testimonial.user_id',
+            'user_testimonial.course_class_id',
+            'users.name AS membername',
+            'course_class.batch AS coursebatch'
+        )
+            ->join('users', 'user_testimonial.user_id', '=', 'users.id')
+            ->join('course_class', 'user_testimonial.course_class_id', '=', 'course_class.id')
+            ->where('user_testimonial.id', $idtestimonial)
+            ->first();
 
         $allmember = User::where('id', '!=', $currentData->user_id)->get();
         $allcourseclass = CourseClass::where('id', '!=', $currentData->course_class_id)->get();
@@ -101,10 +102,9 @@ class TestimonialController extends Controller
     function postEditTestimonial(Request $request){
         $idtestimonial = $request->id;
 
-        $updateData = DB::table('user_testimonial')
-        ->where('id', '=', $idtestimonial)
-        ->update([
-            'stars' => $request->stars,
+        $updateData = Testimonial::where('id', $idtestimonial)
+            ->update([
+                'stars' => $request->stars,
                 'role' => $request->role,
                 'status_highlight' => $request->status_highlight ? 1 : 0,
                 'user_id' => $request->user_id,
@@ -112,7 +112,7 @@ class TestimonialController extends Controller
                 'content' => $request->content,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0
-        ]);
+            ]);
 
         if ($updateData){
             return app(HelperController::class)->Positive('getTestimonial');

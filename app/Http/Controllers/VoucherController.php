@@ -62,19 +62,12 @@ class VoucherController extends Controller
 
         $idvoucher = $request->id;
 
-        $currentData = collect(DB::select('SELECT 
-            promotion.id, 
-            promotion.name, 
-            promotion.code, 
-            promotion.start_date, 
-            promotion.end_date, 
-            promotion.discount_type, 
-            promotion.discount, 
-            promotion.max_discount,
-            promotion.description,
-            promotion.status
-            FROM promotion
-            WHERE promotion.id = ?; ',[$idvoucher]))->first();
+        $currentData = Promotion::select(
+            'id', 'name', 'code', 'start_date', 'end_date', 'discount_type',
+            'discount', 'max_discount', 'description', 'status'
+        )
+            ->where('id', $idvoucher)
+            ->first();
 
         $allPromotion = Promotion::where('id', '!=', $currentData->id)->get();
         // return dd($allPromotion);
@@ -88,8 +81,7 @@ class VoucherController extends Controller
     function postEditVoucher(Request $request){
         $idvoucher = $request->id;
     
-        $updateData = DB::table('promotion')
-            ->where('id', $idvoucher)
+        $updateData = Promotion::where('id', $idvoucher)
             ->update([
                 'name' => $request->name,
                 'code' => $request->code,
@@ -100,8 +92,8 @@ class VoucherController extends Controller
                 'max_discount' => $request->maxdiscount,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
-                'created_id' => Auth::user()->id,
-                'updated_id' => Auth::user()->id
+                'created_id' => auth()->user()->id,
+                'updated_id' => auth()->user()->id
             ]);
             if ($updateData){
                 return app(HelperController::class)->Positive('getVoucher');

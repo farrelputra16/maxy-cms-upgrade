@@ -129,7 +129,7 @@
                     </div>
                     <div class="field">
                         <label for="">Promotion (Optional)</label>
-                        <select class="ui dropdown" name="promotion_id" id="">
+                        <select class="ui dropdown" name="m_promo_id" id="">
                             <option value="">-- Pilih Promotion --</option>
                             @foreach ($idpromotions as $item)
                                 <option value="{{ $item->id }}">{{ $item->id }} - {{ $item->name }}</option>

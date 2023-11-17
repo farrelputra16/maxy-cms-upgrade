@@ -26,20 +26,7 @@ class CourseClassController extends Controller
      */
 
     function getCourseClass(){
-        $courseClasses = DB::select('SELECT course.name AS course_name, 
-            course_class.id AS id,
-            course_class.batch AS batch,
-            course_class.quota AS quota,
-            course_class.start_date AS start_date,
-            course_class.end_date AS end_date,
-            course_class.description AS description,
-            course_class.status AS status,
-            course_class.created_at AS created_at,
-            course_class.updated_at AS updated_at
-            FROM course_class
-            JOIN course
-            WHERE course_class.course_id = course.id;
-        ');
+        $courseClasses = CourseClass::getCourseClass();
         return view('classcontentmanagement::courseclass.index', ['courseClasses' => $courseClasses]);
     }
 
@@ -52,14 +39,7 @@ class CourseClassController extends Controller
     }
 
     function getDuplicateCourseClass(){
-        $allCourseClasses = DB::select('SELECT course_class.id, 
-        course_class.batch, 
-        course_class.course_id, 
-        course.name
-            FROM course_class
-            JOIN course
-            WHERE course_class.course_id = course.id;
-        ');
+        $allCourseClasses = CourseClass::getDuplicateCourseClass();
         
         $allCourses = Course::all();
 
@@ -163,12 +143,7 @@ class CourseClassController extends Controller
         $idCourseClass = $request->id;
         $courseclasses = CourseClass::find($idCourseClass);
     
-        $currentData = collect(DB::select('SELECT course.name AS course_name, 
-            course_class.course_id AS course_id
-            FROM course_class 
-            INNER JOIN course 
-            ON course_class.course_id = course.id 
-            WHERE course_class.id = ?;', [$idCourseClass]))->first(); // Use first() to get the first item in the collection
+        $currentData = CourseClass::getCurrentDataCourseClass($request);
     
         $allCourses = Course::where('id', '!=', $currentData->course_id)->get(); // Access the attribute directly
     
@@ -183,8 +158,7 @@ class CourseClassController extends Controller
     function postEditCourseClass(Request $request){
         $idCourseClass = $request->id;
         
-        $updateData = DB::table('course_class')
-            ->where('id', $idCourseClass)
+        $updateData = CourseClass::where('id', $idCourseClass)
             ->update([
                 'batch' => $request->batch,
                 'start_date' => $request->start,
@@ -193,8 +167,8 @@ class CourseClassController extends Controller
                 'course_id' => $request->courseid,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
-                'created_id' => Auth::user()->id,
-                'updated_id' => Auth::user()->id
+                'created_id' => auth()->user()->id,
+                'updated_id' => auth()->user()->id
             ]);
 
         if ($updateData){

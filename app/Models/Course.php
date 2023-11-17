@@ -1,8 +1,13 @@
 <?php
 
 namespace App\Models;
+use App\Models\Course;
+use App\Models\CoursePackage;
+use App\Models\MCourseType;
+use App\Models\MDifficultyType;
 use DB;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HelperController;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -65,5 +70,86 @@ class Course extends Model
         ', [$idCourse]))->first();
 
         return $currentCoursePackages;
+    }
+
+
+    public static function postEditCourse($request){
+        $idCourse = $request->id;
+        if ($request->hasFile('file_image')) {
+            $file = $request->file('file_image');
+            $fileName = $file->getClientOriginalName();
+            $file->move(public_path('course_img'), $fileName);
+        }
+        else{
+            $fileName = $request->img_keep;
+        }
+        $trim_mini_fake_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_fake_price));
+        $trim_mini_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_price));
+
+        $courses = Course::find($idCourse);
+
+        if ($request->package && $courses->fake_price && $courses->price){
+            return ($updateData = DB::table('course')
+                ->where('id', $idCourse)
+                ->update([
+                    'name' => $request->name,
+                    'fake_price' => null,
+                    'price' => null,
+                    'short_description' => $request->short_description,
+                    'image' => $fileName,
+                    'payment_link' => $request->payment_link,
+                    'slug' => $request->slug,
+                    'm_course_type_id' => $request->type,
+                    'course_package_id' => $request->type == 2 ? null : $request->package_price,
+                    'm_difficulty_type_id' => $request->level,
+                    'content' => $request->content,
+                    'description' => $request->description,
+                    'status' => $request->status == '' ? 0 : 1,
+                    'created_id' => Auth::user()->id,
+                    'updated_id' => Auth::user()->id
+            ]));
+
+        } else if ($request->mini_fake_price && $request->mini_price && $courses->course_package_id){
+            return ($updateData = DB::table('course')
+                ->where('id', $idCourse)
+                ->update([
+                    'name' => $request->name,
+                    'fake_price' => (float)$trim_mini_fake_price,
+                    'price' => (float)$trim_mini_price,
+                    'short_description' => $request->short_description,
+                    'image' => $fileName,
+                    'payment_link' => $request->payment_link,
+                    'slug' => $request->slug,
+                    'm_course_type_id' => $request->type,
+                    'course_package_id' => $request->type == 2 ? null : $request->package_price,
+                    'm_difficulty_type_id' => $request->level,
+                    'content' => $request->content,
+                    'description' => $request->description,
+                    'status' => $request->status == '' ? 0 : 1,
+                    'created_id' => Auth::user()->id,
+                    'updated_id' => Auth::user()->id
+            ]));
+
+        } else {
+            return ($updateData = DB::table('course')
+                ->where('id', $idCourse)
+                ->update([
+                    'name' => $request->name,
+                    'fake_price' => $request->mini_fake_price ? $trim_mini_fake_price : null,
+                    'price' => $request->mini_price ? $trim_mini_price : null,
+                    'short_description' => $request->short_description,
+                    'image' => $fileName,
+                    'payment_link' => $request->payment_link,
+                    'slug' => $request->slug,
+                    'm_course_type_id' => $request->type,
+                    'course_package_id' => $request->package ? $request->package : null,
+                    'm_difficulty_type_id' => $request->level,
+                    'description' => $request->description,
+                    'status' => $request->status == '' ? 0 : 1,
+                    'created_id' => Auth::user()->id,
+                    'updated_id' => Auth::user()->id
+            ]));
+        }
+        
     }
 }
