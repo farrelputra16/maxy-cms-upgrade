@@ -14,6 +14,7 @@ class CourseClassModule extends Model
         'start_date',
         'end_date',
         'priority',
+        'level',
         'course_module_id',
         'course_class_id',
         'description',

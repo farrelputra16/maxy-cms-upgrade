@@ -12,7 +12,7 @@
                     <label for="">ID Course Class Module</label>
                     <input type="text" value="{{ $courseclassmodules->id }}" disabled>
                 </div>
-                <div class="three fields">
+                <div class="four fields">
                     <div class="field">
                         <label for="">Waktu Mulai</label>
                         <input type="date" name="start" value="{{ $courseclassmodules->start_date }}">
@@ -20,6 +20,10 @@
                     <div class="field">
                         <label for="">Waktu Berakhir</label>
                         <input type="date" name="end" value="{{ $courseclassmodules->end_date }}">
+                    </div>
+                    <div class="field">
+                        <label for="">Level</label>
+                        <input type="number" name="level" value="{{ $courseclassmodules->level }}">
                     </div>
                     <div class="field">
                         <label for="">Prioritas</label>

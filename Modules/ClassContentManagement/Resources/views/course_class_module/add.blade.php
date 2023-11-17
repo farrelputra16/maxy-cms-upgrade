@@ -7,7 +7,7 @@
         <h2 style="padding-bottom:3%">Add Class Module</h2>    
         <form class="ui form" action="{{ route('postAddCourseClassModule') }}" method="post">
             @csrf
-            <div class="four fields">
+            <div class="five fields">
                 <div class="field">
                     <label for="">Waktu Mulai</label>
                     <input type="date" id="date" name="start">
@@ -31,6 +31,15 @@
                     <input type="number" name="priority">
                     @if ($errors->has('priority'))
                         @foreach ($errors->get('priority') as $error)
+                            <span style="color: red;">{{$error}}</span>
+                        @endforeach
+                    @endif
+                </div>
+                <div class="field">
+                    <label for="">Level</label>
+                    <input type="number" name="level">
+                    @if ($errors->has('level'))
+                        @foreach ($errors->get('level') as $error)
                             <span style="color: red;">{{$error}}</span>
                         @endforeach
                     @endif
