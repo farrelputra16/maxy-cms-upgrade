@@ -178,6 +178,8 @@
                                         @else
                                             <a class="dropdown-item disabled" href="{{ route('getTestimonial') }}">Testimonial <i class="lock icon"></i></a>
                                         @endif
+
+                                        <a class="dropdown-item" href="{{ route('getRedeemCode') }}">Redeem Code</a>
                                     </div>
                                 </li>
                             </li>
