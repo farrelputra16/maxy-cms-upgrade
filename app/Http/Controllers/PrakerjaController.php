@@ -9,7 +9,7 @@ use App\Models\PrakerjaRedeemCode;
 class PrakerjaController extends Controller
 {
     function getRedeemCode(){
-        $redeemcode = PrakerjaRedeemCode::all();
+        $redeemcode = PrakerjaRedeemCode::getRedeemCode();
         // return dd($redeemcode);
         return view('redeem_code.index', ['redeemcode' => $redeemcode]);
     }

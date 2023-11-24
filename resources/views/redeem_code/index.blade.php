@@ -27,9 +27,9 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Member</th>
                     <th>redeem_code</th>
                     <th>course_class_id</th>
-                    <th>course_class_member_id </th>
                     <th>Description</th>
                     <th>Created At</th>
                     <th>Created Id</th>
@@ -43,9 +43,9 @@
                 @foreach ($redeemcode as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
+                        <td>{{ $item->user_name }}</td>
                         <td>{{ $item->redeem_code }}</td>
-                        <td>{{ $item->course_class_id }}</td>
-                        <td>{{ $item->course_class_member_id }}</td>
+                        <td>{{ $item->cc_id}}</td>
                         <td id="description">{{ $item->description }}</td>
                         <td>{{ $item->created_at }}</td>
                         <td>{{ $item->created_id }}</td>
