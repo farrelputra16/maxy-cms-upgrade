@@ -26,25 +26,48 @@ class CourseClassMember extends Model
         return \Modules\Enrollment\Database\factories\CourseClassMemberFactory::new();
     }
 
-    public static function getCourseClassMember(){
-        $courseClassMembers = collect(DB::select('SELECT 
-            course_class_member.id AS id,
-            course_class_member.description AS description,
-            course_class_member.status AS status,
-            course_class_member.created_at AS created_at,
-            course_class_member.updated_at AS updated_at,
-            users.id AS user_id,
-            users.name AS user_name,
-            course_class.batch AS course_class_batch,
-            course.name AS course_name
-            FROM course_class_member
-            JOIN users
-            JOIN course_class
-            JOIN course
-            WHERE course_class_member.user_id = users.id 
-            AND course_class_member.course_class_id = course_class.id
-            AND course_class.course_id = course.id;
-        '));
+    public static function getCourseClassMember($request){
+        $idCourse = $request->id;
+        // return dd($idCourse);
+        if ($idCourse !== null) {
+            $courseClassMembers = DB::table('course_class_member')
+                ->select(
+                    'course_class_member.id AS id',
+                    'course_class_member.description AS description',
+                    'course_class_member.status AS status',
+                    'course_class_member.created_at AS created_at',
+                    'course_class_member.updated_at AS updated_at',
+                    'users.id AS user_id',
+                    'users.name AS user_name',
+                    'course_class.batch AS course_class_batch',
+                    'course.name AS course_name'
+                )
+                ->join('users', 'course_class_member.user_id', '=', 'users.id')
+                ->join('course_class', 'course_class_member.course_class_id', '=', 'course_class.id')
+                ->join('course', 'course_class.course_id', '=', 'course.id')
+                ->where('course_class_member.course_class_id', $idCourse)
+                ->get();
+
+        }else{
+            $courseClassMembers = collect(DB::select('SELECT 
+                course_class_member.id AS id,
+                course_class_member.description AS description,
+                course_class_member.status AS status,
+                course_class_member.created_at AS created_at,
+                course_class_member.updated_at AS updated_at,
+                users.id AS user_id,
+                users.name AS user_name,
+                course_class.batch AS course_class_batch,
+                course.name AS course_name
+                FROM course_class_member
+                JOIN users
+                JOIN course_class
+                JOIN course
+                WHERE course_class_member.user_id = users.id 
+                AND course_class_member.course_class_id = course_class.id
+                AND course_class.course_id = course.id;
+            '));
+        }
 
         return $courseClassMembers;
     }
@@ -58,10 +81,12 @@ class CourseClassMember extends Model
                 course_class_member.description AS ccm_description,
                 course_class_member.status AS ccm_status,
                 users.name AS user_name,
+                course.name AS course_name,
                 course_class.batch AS course_class_batch
                 FROM course_class_member
                 JOIN users
                 JOIN course_class
+                JOIN course
                 WHERE course_class_member.user_id = users.id 
                 AND course_class_member.course_class_id = course_class.id
                 AND course_class_member.id = ?;

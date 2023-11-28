@@ -24,13 +24,13 @@ class CourseClassModuleController extends Controller
      */
 
     function getCourseClassModule(Request $request){
-        $idCourse = $request->id; 
+        $idCourseClass = $request->id; 
 
         $courseClassModules = CourseClassModule::getCourseClassModule($request);
 
         return view('classcontentmanagement::course_class_module.index', [
             'courseclassmodules' => $courseClassModules,
-            'course_id' => $idCourse
+            'course_class_id' => $idCourseClass
         ]);
     }
 

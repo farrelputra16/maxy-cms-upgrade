@@ -29,7 +29,7 @@
                 <div class="three wide field">
                     <label for="">ID Course Class (Batch)</label>
                     <select class="ui dropdown" name="course_class" id="">
-                    <option value="{{ $currentData[0]->ccm_course_class_id }}" selected>{{ $currentData[0]->course_class_batch }} - {{ $currentData[0]->user_name }}</option>
+                    <option value="{{ $currentData[0]->ccm_course_class_id }}" selected>{{ $currentData[0]->course_class_batch }} - {{ $currentData[0]->course_name }}</option>
 
                     @foreach ($allCourseClasses as $item)
                         <option value="{{ $item->course_class_id }}">{{ $item->course_class_batch }} - {{ $item->course_name }}</option>

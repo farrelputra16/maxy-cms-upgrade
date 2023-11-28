@@ -14,6 +14,7 @@ class CourseController extends Controller
 {
     //
     function getCourse(){
+        // return dd("AKDNLA DAKD JKNDA DNA ");
         $courses = Course::all();
         return view('course.index', ['courses' => $courses]);
     }

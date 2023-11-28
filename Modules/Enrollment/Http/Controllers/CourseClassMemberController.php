@@ -25,15 +25,20 @@ class CourseClassMemberController extends Controller
      * @return Renderable
      */
 
-    function getCourseClassMember(){
+    function getCourseClassMember(Request $request){
+        $idCourseClass = $request->id; 
 
-        $courseClassMembers = CourseClassMember::getCourseClassMember();
+        $courseClassMembers = CourseClassMember::getCourseClassMember($request);
 
-        return view('enrollment::course_class_member.index', ['courseClassMembers' => $courseClassMembers]);
+        return view('enrollment::course_class_member.index', [
+            'courseClassMembers' => $courseClassMembers,
+            'course_class_id' => $idCourseClass
+        ]);
     }
 
-    function getAddCourseClassMember(){
-        $courseClasses = CourseClass::getDuplicateCourseClass();
+    function getAddCourseClassMember(Request $request){
+        $idCourseClass = $request->id;
+        $courseClasses = CourseClass::getDuplicateCourseClass($request);
         
         $users = User::all();
 

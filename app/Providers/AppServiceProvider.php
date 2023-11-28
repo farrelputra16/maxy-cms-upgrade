@@ -35,6 +35,8 @@ class AppServiceProvider extends ServiceProvider
                     ->select('access_master.name')
                     ->where('access_group.id', '=', Auth::user()->access_group_id)
                     ->get();
+
+                // return dd($broGotAccessMaster);
             
                 $view->with('broGotAccessMaster', $broGotAccessMaster );    
             }

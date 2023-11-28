@@ -53,16 +53,31 @@ class CourseClass extends Model
         return $courseClasses;
     }
 
-    public static function getDuplicateCourseClass(){
-        $allCourseClasses = DB::select('SELECT course_class.id AS course_class_id,
-        course_class.batch AS course_class_batch,
-        course.id AS course_id,
-        course.name AS course_name
+    public static function getDuplicateCourseClass($request){
+        $idCourseClass = $request->id;
+        if ($idCourseClass !== null) {
+            $allCourseClasses = DB::table('course_class')
+            ->select(
+                'course_class.id AS course_class_id',
+                'course_class.batch AS course_class_batch',
+                'course.id AS course_id',
+                'course.name AS course_name'
+            )
+            ->join('course', 'course_class.course_id', '=', 'course.id')
+            ->where('course_class.id', $idCourseClass)
+            ->get();
+
+        }else{
+            $allCourseClasses = DB::select('SELECT course_class.id AS course_class_id,
+            course_class.batch AS course_class_batch,
+            course.id AS course_id,
+            course.name AS course_name
             FROM course_class
             JOIN course
             WHERE course_class.course_id = course.id;
         ');
-
+        }
+        
         return $allCourseClasses;
     }
 

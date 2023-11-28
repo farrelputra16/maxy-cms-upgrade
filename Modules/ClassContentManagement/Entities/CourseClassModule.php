@@ -35,8 +35,8 @@ class CourseClassModule extends Model
 
 
     public static function getCourseClassModule($request){
-        $idCourse = $request->id;
-        if ($idCourse !== null) {
+        $idCourseClass = $request->id;
+        if ($idCourseClass !== null) {
             $courseClassModules = DB::select('
             SELECT 
                 course_class_module.id AS id,
@@ -60,11 +60,11 @@ class CourseClassModule extends Model
             JOIN 
                 course ON course_class.course_id = course.id
             WHERE 
-                course_class_module.course_class_id = :idCourse
+                course_class_module.course_class_id = :idCourseClass
                 AND course_class_module.course_class_id = course_class.id 
                 AND course_class_module.course_module_id = course_module.id
                 AND course_class.course_id = course.id
-        ', ['idCourse' => $idCourse]);
+        ', ['idCourseClass' => $idCourseClass]);
         }else{
             $courseClassModules = DB::select('SELECT 
             course_class_module.id AS id,

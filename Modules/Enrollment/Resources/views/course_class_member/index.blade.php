@@ -21,7 +21,12 @@
         <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
             <div class="row">
                 <div class="col">
+                @if($course_class_id != NULL)
+                    <a class="btn btn-primary" href="{{ route('getAddCourseClassMember' , ['id' => $course_class_id]) }}" role="button">Tambah Class Member +</a>
+                @else
                     <a class="btn btn-primary" href="{{ route('getAddCourseClassMember') }}" role="button">Tambah Class Member +</a>
+                @endif
+                    
                 </div>
             </div>    
         </nav>
