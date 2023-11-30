@@ -10,7 +10,7 @@ use Modules\TrackandGrade\Entities\CourseClassMemberGrading;
 use App\Http\Controllers\HelperController;
 use App\Models\CourseClassMemberHistory;
 use App\Models\CourseModule;
-use App\Models\CourseClass;
+use Modules\ClassContentManagement\Entities\CourseClass;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;

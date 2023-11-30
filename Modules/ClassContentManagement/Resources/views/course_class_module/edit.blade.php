@@ -15,11 +15,11 @@
                 <div class="four fields">
                     <div class="field">
                         <label for="">Waktu Mulai</label>
-                        <input type="date" name="start" value="{{ $courseclassmodules->start_date }}">
+                        <input type="date" name="start" value="{{ \Carbon\Carbon::parse($courseclassmodules->start_date)->format('Y-m-d') }}">
                     </div>
                     <div class="field">
                         <label for="">Waktu Berakhir</label>
-                        <input type="date" name="end" value="{{ $courseclassmodules->end_date }}">
+                        <input type="date" name="end" value="{{ \Carbon\Carbon::parse($courseclassmodules->end_date)->format('Y-m-d') }}">
                     </div>
                     <div class="field">
                         <label for="">Level</label>

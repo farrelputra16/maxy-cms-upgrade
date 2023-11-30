@@ -5,7 +5,7 @@
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
         <h2 style="padding-bottom:3%">Add Partner</h2>    
-        <form class="ui form" action="" method="post">
+        <form class="ui form" action="" method="post" enctype="multipart/form-data">
             @csrf
             <div class="field">
                 <div class="three fields">
@@ -26,9 +26,16 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="field">
+                    <!-- <div class="field">
                         <label for="">Logo</label>
                         <input type="file" name="logo">
+                    </div> -->
+
+                    <div class="field">
+                        <label>Logo</label>
+                        <input type="file" id="formFile" name="logo" onchange="preview()">
+                        <br>
+                        <img id="frame" src="" class="img-fluid" />
                     </div>
                 </div>
                 <div class="field">
@@ -95,3 +102,8 @@
         <a href="{{ route("getPartner") }}"><button class=" right floated ui red button">Batal</button></a>
     </div>
 @endsection
+<script>
+        function preview() {
+            frame.src = URL.createObjectURL(event.target.files[0]);
+        }
+</script>

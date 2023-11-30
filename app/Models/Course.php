@@ -78,7 +78,7 @@ class Course extends Model
         if ($request->hasFile('file_image')) {
             $file = $request->file('file_image');
             $fileName = $file->getClientOriginalName();
-            $file->move(public_path('course_img'), $fileName);
+            $file->move(public_path('/uploads/course_img'), $fileName);
         }
         else{
             $fileName = $request->img_keep;

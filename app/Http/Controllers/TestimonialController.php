@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Testimonial;
 use App\Models\Course;
 use App\Models\User;
-use App\Models\CourseClass;
+use Modules\ClassContentManagement\Entities\CourseClass;
 
 class TestimonialController extends Controller
 {

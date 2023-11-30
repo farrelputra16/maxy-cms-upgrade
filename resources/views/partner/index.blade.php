@@ -48,7 +48,10 @@
                     @foreach ($partners as $item)
                         <tr>
                             <td>{{ $item->id }}</td>
-                            <td><img src="/img/partner/{{ $item->logo }}" alt="Image" style="max-width: 200px; max-height: 150px;"></td>
+                            <td>
+                                <img src="{{ asset('uploads/partner/' . $item->logo) }}" alt="Image" style="max-width: 200px; max-height: 150px;">
+                            </td>
+
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->type }}</td>
                             <td>{{ $item->url }}</td>

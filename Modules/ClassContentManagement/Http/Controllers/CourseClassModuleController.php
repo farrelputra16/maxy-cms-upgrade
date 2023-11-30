@@ -80,6 +80,8 @@ class CourseClassModuleController extends Controller
         $idCourseClassModule = $request->id;
         $courseclassmodules = CourseClassModule::find($idCourseClassModule);
 
+        // return dd($courseclassmodules);
+
         $currentData = CourseClassModule::getEditCourseClassModule($request);
         
         $courseModuleId = $currentData->course_module_id;

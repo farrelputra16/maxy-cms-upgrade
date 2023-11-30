@@ -32,6 +32,7 @@ class CourseController extends Controller
     }
 
     public function postAddCourse(Request $request){
+        $fileName = null;
         if ($request->hasFile('file_image')) {
             $file = $request->file('file_image');
             $fileName = $file->getClientOriginalName();

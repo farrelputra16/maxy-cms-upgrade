@@ -22,7 +22,7 @@
     <div id="example_wrapper">
         <div class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
             <div class="navbar-nav">
-                <a class="btn btn-primary" href="{{ route('getAddCourse') }}" role="button">Tambah Course +</a>
+                <a class="btn btn-primary" href="{{ route('getAddTransOrder') }}" role="button">Tambah Transaksi Order +</a>
             </div>
         </div>
         <table id="example" class="table table-striped" style="width:100%">

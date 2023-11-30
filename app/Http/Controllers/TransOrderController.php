@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\TransOrder;
 use illuminate\Support\Facades\Auth;
 use App\Models\Course;
-use App\Models\CourseClass;
+use Modules\ClassContentManagement\Entities\CourseClass;
 use App\Models\User;
 use App\Models\CoursePackage;
 use App\Models\Promotion;

@@ -25,6 +25,15 @@ class PartnerController extends Controller
     }
 
     function postAddPartner(Request $request){
+
+        $fileName = null;
+        if ($request->hasFile('logo')) {
+            $file = $request->file('logo');
+            $fileName = $file->getClientOriginalName();
+            $file->move(public_path('/uploads/partner'), $fileName);
+        }
+
+
         $validate = $request->validate([
             'name' => 'required',
             'type' => 'required',
@@ -39,7 +48,7 @@ class PartnerController extends Controller
             $create = Partner::create([
                 'name' => $request->name,
                 'type' => $request->type,
-                'logo' => $request->logo,
+                'logo' => $fileName,
                 'url' => $request->url,
                 'address' => $request->address,
                 'email' => $request->email,
@@ -66,6 +75,17 @@ class PartnerController extends Controller
     }
 
     function postEditPartner(Request $request){
+
+        
+        if ($request->hasFile('logo')) {
+            $file = $request->file('logo');
+            $fileName = $file->getClientOriginalName();
+            $file->move(public_path('/uploads/partner'), $fileName);
+        }
+        else{
+            $fileName = $request->img_keep;
+        }
+
         $validate = $request->validate([
             'name' => 'required',
             'type' => 'required',
@@ -81,7 +101,7 @@ class PartnerController extends Controller
                 ->update([
                     'name' => $request->name,
                     'type' => $request->type,
-                    'logo' => $request->logo ? $request->logo : $request->logo_dump,
+                    'logo' => $fileName,
                     'url' => $request->url,
                     'address' => $request->address,
                     'email' => $request->email,

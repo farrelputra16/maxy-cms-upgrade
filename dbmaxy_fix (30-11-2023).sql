@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2023 at 09:25 AM
+-- Generation Time: Nov 30, 2023 at 10:53 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `maxy_v2_new`
+-- Database: `dbmaxy_fix`
 --
 
 -- --------------------------------------------------------
@@ -43,9 +43,9 @@ CREATE TABLE `access_group` (
 --
 
 INSERT INTO `access_group` (`id`, `name`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
-(1, 'super', 'fixed', 1, '2022-09-20 09:01:02', 1, '2023-07-06 15:47:42', 1),
-(2, 'member', 'fixed, for members', 1, '2023-11-06 13:37:57', 1, '2023-11-06 13:37:57', 1),
-(3, 'mentor', 'fixed, for mentors', 1, '2023-11-06 13:37:57', 1, '2023-11-06 13:37:57', 1);
+(1, 'super', 'fixed', 1, '2022-09-20 09:01:02', 1, '2023-11-17 11:24:41', 1),
+(2, 'member', 'fixed, for members', 1, '2023-11-09 13:58:58', 1, '2023-11-09 13:58:58', 1),
+(3, 'mentor', 'fixed, for mentors', 1, '2023-11-09 13:58:58', 1, '2023-11-09 13:58:58', 1);
 
 -- --------------------------------------------------------
 
@@ -256,7 +256,10 @@ INSERT INTO `access_group_detail` (`access_group_id`, `access_master_id`) VALUES
 (1, 185),
 (1, 193),
 (1, 194),
-(1, 195);
+(1, 195),
+(1, 196),
+(1, 197),
+(1, 198);
 
 -- --------------------------------------------------------
 
@@ -280,7 +283,7 @@ CREATE TABLE `access_master` (
 --
 
 INSERT INTO `access_master` (`id`, `name`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
-(1, 'access_group_manage', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
+(1, 'access_group_manage', NULL, 0, '2022-09-20 09:01:08', 1, '2023-11-17 13:26:39', 1),
 (2, 'access_group_create', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
 (3, 'access_group_read', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
 (4, 'access_group_update', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
@@ -310,11 +313,11 @@ INSERT INTO `access_master` (`id`, `name`, `description`, `status`, `created_at`
 (28, 'course_class_member_read', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
 (29, 'course_class_member_update', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
 (30, 'course_class_member_delete', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
-(31,'course_class_member_grading_manage',NULL,0,'2022-09-20 09:01:08',1,'2022-09-20 09:01:08',1),
-(32,'course_class_member_grading_update',NULL,0,'2022-09-20 09:01:08',1,'2022-09-20 09:01:08',1),
-(33,'course_class_member_grading_delete',NULL,0,'2022-09-20 09:01:08',1,'2022-09-20 09:01:08',1),
-(34,'course_class_member_log_read',NULL,0,'2022-09-20 09:01:08',1,'2022-09-20 09:01:08',1),
-(35,'course_class_member_log_delete',NULL,0,'2022-09-20 09:01:08',1,'2022-09-20 09:01:08',1),
+(31, 'course_class_member_grading_manage', NULL, 0, '2022-09-20 09:01:08', 1, '2023-11-09 10:41:24', 1),
+(32, 'course_class_member_grading_update', NULL, 0, '2022-09-20 09:01:08', 1, '2023-11-09 13:48:58', 1),
+(33, 'course_class_member_grading_delete', NULL, 0, '2022-09-20 09:01:08', 1, '2023-11-09 13:49:25', 1),
+(34, 'course_class_member_log_read', NULL, 0, '2022-09-20 09:01:08', 1, '2023-11-09 13:49:59', 1),
+(35, 'course_class_member_log_delete', NULL, 0, '2022-09-20 09:01:08', 1, '2023-11-09 13:50:10', 1),
 (36, 'course_module_manage', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
 (37, 'course_module_create', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
 (38, 'course_module_read', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
@@ -335,21 +338,21 @@ INSERT INTO `access_master` (`id`, `name`, `description`, `status`, `created_at`
 (53, 'course_tutor_read', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
 (54, 'course_tutor_update', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
 (55, 'course_tutor_delete', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
-(56, 'm_general_manage', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
-(57, 'm_general_create', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
-(58, 'm_general_read', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
-(59, 'm_general_update', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
-(60, 'm_general_delete', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
+(56, 'm_general_manage', NULL, 0, '2022-09-20 09:01:08', 1, '2023-11-08 23:48:00', 1),
+(57, 'm_general_create', NULL, 0, '2022-09-20 09:01:08', 1, '2023-11-08 23:48:06', 1),
+(58, 'm_general_read', NULL, 0, '2022-09-20 09:01:08', 1, '2023-11-08 23:48:11', 1),
+(59, 'm_general_update', NULL, 0, '2022-09-20 09:01:08', 1, '2023-11-08 23:48:16', 1),
+(60, 'm_general_delete', NULL, 0, '2022-09-20 09:01:08', 1, '2023-11-08 23:48:20', 1),
 (61, 'member_manage', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
 (62, 'member_create', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
 (63, 'member_read', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
 (64, 'member_update', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
 (65, 'member_delete', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
-(66, 'user_testimonial_manage', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
-(67, 'user_testimonial_create', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
-(68, 'user_testimonial_read', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
-(69, 'user_testimonial_update', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
-(70, 'user_testimonial_delete', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
+(66, 'user_testimonial_manage', NULL, 0, '2022-09-20 09:01:08', 1, '2023-11-08 23:22:00', 1),
+(67, 'user_testimonial_create', NULL, 0, '2022-09-20 09:01:08', 1, '2023-11-08 23:22:12', 1),
+(68, 'user_testimonial_read', NULL, 0, '2022-09-20 09:01:08', 1, '2023-11-08 23:22:17', 1),
+(69, 'user_testimonial_update', NULL, 0, '2022-09-20 09:01:08', 1, '2023-11-08 23:22:23', 1),
+(70, 'user_testimonial_delete', NULL, 0, '2022-09-20 09:01:08', 1, '2023-11-08 23:22:30', 1),
 (71, 'message_manage', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
 (72, 'message_create', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
 (73, 'message_read', NULL, 0, '2022-09-20 09:01:08', 1, '2022-09-20 09:01:08', 1),
@@ -474,7 +477,10 @@ INSERT INTO `access_master` (`id`, `name`, `description`, `status`, `created_at`
 (192, 'partner_university_detail_update', NULL, 0, '2023-06-21 02:37:45', 1, '2023-06-21 02:37:45', 1),
 (193, 'maxy_talk_manage', NULL, 0, '2023-07-06 08:49:50', 1, '2023-07-06 08:49:50', 1),
 (194, 'maxy_talk_create', NULL, 0, '2023-07-06 08:49:57', 1, '2023-07-06 08:49:57', 1),
-(195, 'maxy_talk_update', NULL, 0, '2023-07-06 08:50:04', 1, '2023-07-06 08:50:04', 1);
+(195, 'maxy_talk_update', NULL, 0, '2023-07-06 08:50:04', 1, '2023-07-06 08:50:04', 1),
+(196, 'trans_voucher_manage', NULL, 1, '2023-11-06 16:00:18', 1, '2023-11-06 16:00:18', 1),
+(197, 'trans_voucher_create', NULL, 1, '2023-11-06 16:00:56', 1, '2023-11-06 16:00:56', 1),
+(198, 'trans_voucher_update', NULL, 1, '2023-11-06 16:00:56', 1, '2023-11-06 16:00:56', 1);
 
 -- --------------------------------------------------------
 
@@ -488,7 +494,9 @@ CREATE TABLE `course` (
   `fake_price` int(11) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   `short_description` text NOT NULL COMMENT 'description shown at cards (course list)',
-  `image` varchar(255) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `preview` varchar(255) DEFAULT NULL,
+  `target` text DEFAULT NULL COMMENT 'split with ;;',
   `payment_link` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `m_course_type_id` int(11) NOT NULL,
@@ -507,37 +515,37 @@ CREATE TABLE `course` (
 -- Dumping data for table `course`
 --
 
-INSERT INTO `course` (`id`, `name`, `fake_price`, `price`, `short_description`, `image`, `payment_link`, `slug`, `m_course_type_id`, `course_package_id`, `m_difficulty_type_id`, `content`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
-(1, 'Backend', NULL, NULL, '', 'backend.png', '', 'backend', 1, NULL, 1, '<p>Kami dapat membantumu mendapatkan pekerjaan impian sebagai Backend Developer Expert dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', '', 1, '2022-09-26 10:56:03', 1, '2023-11-06 13:43:00', 1),
-(2, 'Frontend', NULL, NULL, '', 'frontend.png', '', 'frontend', 1, NULL, 1, '<p>Kami dapat membantumu mendapatkan pekerjaan impian sebagai Frontend Developer Expert dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', NULL, 1, '2022-09-26 10:56:27', 1, '2023-07-04 14:57:30', 1),
-(3, 'UI/UX', NULL, NULL, '', 'uiux.png', '', 'ui-ux', 1, NULL, 1, '<p>Kami dapat membantumu mendapatkan pekerjaan impian sebagai UI/UX Expert dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', NULL, 1, '2022-09-26 10:56:54', 1, '2023-07-04 14:57:30', 1),
-(4, 'Entrepreneur', NULL, NULL, '', '', '', 'entrepreneur', 1, NULL, 1, '<p>Kami dapat membantumu mendapatkan pekerjaan impian sebagai Entrepreneur dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', NULL, 0, '2022-09-26 10:57:28', 1, '2023-01-27 04:09:59', 1),
-(5, 'Knockout JS', NULL, NULL, '', 'k.jpg', '', 'knockout-js', 2, NULL, 1, '<p>Knockout is a JavaScript library that helps you to create rich, responsive display and editor user interfaces with a clean underlying data model. Any time you have sections of UI that update dynamically (e.g., changing depending on the user’s actions or when an external data source changes), KO can help you implement it more simply and maintainably.</p>', NULL, 1, '2022-09-26 10:58:16', 1, '2023-08-15 16:11:08', 1),
-(6, 'PHP', NULL, NULL, '', 'php.jpg', '', 'php', 2, NULL, 1, '<p>PHP is an HTML-embedded scripting language. Much of its syntax is borrowed from C, Java and Perl with a couple of unique PHP-specific features thrown in. The goal of the language is to allow web developers to write dynamically generated pages quickly.</p>', NULL, 1, '2022-09-28 16:42:00', 1, '2023-08-15 16:10:58', 1),
-(7, 'Javascript', NULL, NULL, '', 'js.jpg', '', 'javascript', 2, NULL, 1, '<p><strong>JavaScript,</strong> often abbreviated to <strong>JS</strong>, is a programming language that is one of the core technologies of the World Wide Web, alongside HTML and CSS. As of 2022, 98% of websites use JavaScript on the client side for webpage behavior, often incorporating third-party libraries. All major web browsers have a dedicated JavaScript engine to execute the code on users\' devices.</p>\n<p>JavaScript is a high-level, often just-in-time compiled language that conforms to the ECMAScript standard. It has dynamic typing, prototype-based object-orientation, and first-class functions. It is multi-paradigm, supporting event-driven, functional, and imperative programming styles. It has application programming interfaces (APIs) for working with text, dates, regular expressions, standard data structures, and the Document Object Model (DOM).</p>\n<p>The ECMAScript standard does not include any input/output (I/O), such as networking, storage, or graphics facilities. In practice, the web browser or other runtime system provides JavaScript APIs for I/O.</p>', NULL, 1, '2022-10-03 12:58:33', 1, '2023-08-15 16:11:13', 1),
-(8, 'Phyton', NULL, NULL, '', 'python.png', '', 'phyton', 2, NULL, 1, '<p>Python is an interpreted, interactive, object-oriented programming language. It incorporates modules, exceptions, dynamic typing, very high level dynamic data types, and classes. It supports multiple programming paradigms beyond object-oriented programming, such as procedural and functional programming. Python combines remarkable power with very clear syntax. It has interfaces to many system calls and libraries, as well as to various window systems, and is extensible in C or C++. It is also usable as an extension language for applications that need a programmable interface. Finally, Python is portable: it runs on many Unix variants including Linux and macOS, and on Windows.</p>', NULL, 1, '2022-10-03 15:50:14', 1, '2023-08-15 16:11:20', 1),
-(9, 'Digital Content Creator', 3000000, 299000, '<p>Sekarang semua bisa berkarir menjadi Tiktok Content Creator!</p>', 'digital_content_creator.jpg', 'https://invoice.xendit.co/od/mbcp-cc-b04', 'digital-content-creator-mbc', 3, NULL, 1, 'Mau jadi Tiktok Content Creator tapi bingung mulai dari mana dan followers masih sedikit?\nJoin Mini Bootcamp Digital Content Creator Academy sekarang!\n\nTimeline:\n- 2 weeks Coaching', NULL, 1, '2023-02-24 11:43:52', 1, '2023-08-25 15:46:48', 1),
-(10, 'Hybrid Apps', NULL, 1200000, '<p>Belajar membuat website dan aplikasi dengan Framework 7 - 8 jam pembelajaran</p>', 'Prakerja-Hybrid_1.jpg', 'https://invoice.xendit.co/od/hybrid-apps', 'hybrid-apps', 3, NULL, 1, NULL, NULL, 0, '2023-03-24 08:42:03', 1, '2023-07-04 14:08:12', 1),
-(11, 'Laravel Web Application Framework', NULL, 1500000, '<p>Belajar Laravel Web Application Framework dalam mengembangkan website selama 10 jam pembelajaran</p>', 'Prakerja-Hybrid_1.jpg', 'https://invoice.xendit.co/od/laravel-web', 'laravel-web-application-framework', 3, NULL, 1, NULL, NULL, 0, '2023-03-24 08:42:03', 1, '2023-07-04 14:19:28', 1),
-(12, 'UI/UX Design With Figma', NULL, 1500000, '<p>Belajar mendesign UI/UX website design dengan Figma dalam 12jam</p>', 'Prakerja-Hybrid_1.jpg', 'https://invoice.xendit.co/od/miniBootcamp-UIUX', 'ui-ux-design-with-figma', 3, NULL, 1, NULL, NULL, 0, '2023-03-24 08:42:03', 1, '2023-07-04 14:19:14', 1),
-(13, 'Hackathon - Improve Sales for Medium to High International Cosmetic Brand', NULL, NULL, '', '', '', 'improve-sales-jennyhouse', 4, NULL, 1, 'Jenny House, with the largest number of top makeup artists in Korea, Jenny House Cosmetics is an all-Green grade natural derma cosmetic brand. All products are\r\nformulated with the finest natural ingredients and designed to give innovative dermatologic efficacies. Natural yet dermatologic, the two key concepts, are Maximized for Jenny House Cosmetics. Currently, Jenny House has existed in Indonesia to make it easier for our loyal customers to get our best products.', NULL, 1, '2023-03-29 13:16:50', 1, '2023-03-29 13:16:50', 1),
-(14, 'Digital Marketing', NULL, NULL, '', 'digital_marketing.png', '', 'digital-marketing', 1, NULL, 1, '<p>Kami dapat membantumu mendapatkan pekerjaan impian sebagai Digital Marketing dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', NULL, 1, '2023-05-11 09:38:43', 0, '2023-07-04 14:57:30', 0),
-(15, 'Rapid Backend Development Bootcamp', NULL, 9000000, 'MSIB Bootcamp - Rapid Backend Development Bootcamp', 'MSIB.png', '', 'msib-backend', 6, NULL, 1, '<p>Kami dapat membantumu mendapatkan pekerjaan impian sebagai Backend Developer Expert dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', NULL, 1, '2023-05-29 08:38:11', 1, '2023-07-05 15:08:57', 1),
-(16, 'Rapid Frontend Development Bootcamp', NULL, 9000000, 'MSIB Bootcamp - Rapid Frontend Development Bootcamp', 'MSIB.png', '', 'msib-frontend', 6, NULL, 1, '<p>Kami dapat membantumu mendapatkan pekerjaan impian sebagai Frontend Developer Expert dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', NULL, 1, '2023-05-29 08:38:11', 1, '2023-07-05 15:08:57', 1),
-(17, 'Rapid UI/UX Development Bootcamp', NULL, 9000000, 'MSIB UI/UX - Rapid UI/UX Development Bootcamp', 'MSIB.png', '', 'msib-uiux', 6, NULL, 1, '<p>Kami dapat membantumu mendapatkan pekerjaan impian sebagai UI/UX Developer Expert dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', NULL, 1, '2023-05-29 08:44:59', 1, '2023-07-05 15:08:57', 1),
-(18, 'Speak Japanese Like a Local', 2000000, 299000, 'Mau ke Jepang? Belajar bahasanya dulu, yuk!', 'speak_japanese_like_local.jpg', '-', 'speak_japanese_like_a_local', 3, NULL, 1, '<p>Kami dapat membantumu mendapatkan keahlian Berbahasa Jepang seperti Warga Lokal dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', NULL, 1, '2023-06-28 11:59:53', 1, '2023-07-05 15:39:25', 1),
-(19, 'Cyber Security', 0, 0, 'no desc', 'no.jpg', '0', 'cyber_security', 1, 1, 2, NULL, NULL, 0, '2023-07-03 06:54:47', 1, '2023-07-03 06:54:47', 1),
-(20, 'Hacking is not Cracking', 2000000, 299000, 'Belajar hacking dalam waktu hitungan bulan!', 'hacking_not_cracking.jpg', 'https://invoice.xendit.co/od/mbcp-cs-b03', 'hacking_is_not_cracking', 3, NULL, 1, '<p>Hacking dan cracking adalah dua hal yang berbeda.<p> Hacking adalah proses mencari celah keamanan dalam sistem komputer atau jaringan komputer dengan tujuan untuk meningkatkan keamanan sistem tersebut.</p><p>Sedangkan cracking adalah proses mencari celah keamanan dalam sistem komputer atau jaringan komputer dengan tujuan untuk merusak atau mengambil alih sistem tersebut.</p></p>', NULL, 1, '2023-07-04 14:18:46', 1, '2023-07-05 15:49:57', 1),
-(21, 'Digital Marketing', 2000000, 299000, 'Kami dapat membantumu digital marketing Expert dalam hitungan bulan!', 'digital_marketing.jpg', 'https://invoice.xendit.co/od/mbcp-dm-b01', 'min_digital_marketing', 3, NULL, 1, 'Belajar digital marketing dapat membantu Anda memahami bagaimana cara memasarkan produk atau layanan Anda secara online. Dalam era digital saat ini, belajar digital marketing sangat penting untuk meningkatkan penjualan dan menjangkau pasar yang lebih luas. Selain itu, Anda juga dapat mempelajari cara membuat konten yang menarik dan efektif untuk menarik perhatian pelanggan potensial.', NULL, 1, '2023-07-04 14:18:46', 1, '2023-07-05 16:08:26', 1),
-(23, 'Desain UI/UX website Tingkat Dasar', NULL, 1500000, '', 'lowongan1.png', 'https://pintar.co/desain-ui-ux-website-dengan-figma-tingkat-dasar ', 'Desain UI/UX website Tingkat Menengah', 5, NULL, 2, 'Desain UI/UX website Tingkat Menengah', NULL, 1, '2023-09-12 11:48:23', 1, '2023-09-22 13:53:48', 1),
-(25, 'Teknik Memasarkan Produk untuk Spesialis Pemasaran', NULL, 1500000, '', 'lowongan2.png', '', 'Teknik Memasarkan Produk untuk Spesialis Pemasaran', 5, NULL, 1, 'Teknik Memasarkan Produk untuk Spesialis Pemasaran', NULL, 1, '2023-09-13 16:17:44', 1, '2023-09-18 11:50:56', 1),
-(26, 'Mengenal Media Digital Marketing bagi Spesialis Pemasaran', NULL, 1500000, '', 'lowongan3.png', '', 'Mengenal Media Digital Marketing bagi Spesialis Pemasaran', 5, NULL, 1, 'Mengenal Media Digital Marketing bagi Spesialis Pemasaran', NULL, 1, '2023-09-13 16:17:44', 1, '2023-09-18 11:50:59', 1),
-(27, 'Digital Marketing 101: Sosial Media Marketing', NULL, 1500000, '', 'lowongan4.png', '', 'Digital Marketing 101: Sosial Media Marketing', 5, NULL, 1, 'Digital Marketing 101: Sosial Media Marketing', NULL, 1, '2023-09-13 16:17:44', 1, '2023-09-18 11:51:01', 1),
-(28, 'Menguasai Marketing Sosial Media untuk Social Media Specialist', NULL, 1500000, '', 'lowongan5.png', '', 'Menguasai Marketing Sosial Media untuk Social Media Specialist', 5, NULL, 1, 'Menguasai Marketing Sosial Media untuk Social Media Specialist', NULL, 1, '2023-09-13 16:17:44', 1, '2023-09-18 11:51:05', 1),
-(29, 'Desain UI/UX Webiste dengan Tingkat Menengah', NULL, 1500000, '', 'lowongan6.png', 'https://pintar.co/desain-ui-ux-website-dengan-figma-tingkat-menengah', 'Desain UI/UX Webiste dengan Tingkat Dasar', 5, NULL, 1, 'Desain UI/UX Webiste dengan Tingkat Dasar', NULL, 1, '2023-09-13 16:17:44', 1, '2023-09-22 13:54:15', 1),
-(35, 'Web Administrasi Tingkat Dasar Menggunakan PHP Laravel', NULL, 1500000, '', 'lowongan2.png', '', 'Web Administrasi Tingkat Dasar Menggunakan PHP Laravel', 5, NULL, 1, 'Web Administrasi Tingkat Dasar Menggunakan PHP Laravel', NULL, 1, '2023-09-14 10:57:45', 1, '2023-09-18 11:51:10', 1),
-(37, 'Hybrid Apps Menggunakan Framework7', NULL, 1500000, '', 'lowongan3.png', '', 'Hybrid Apps Menggunakan Framework7', 5, NULL, 1, 'Hybrid Apps Menggunakan Framework7', NULL, 1, '2023-09-14 10:57:45', 1, '2023-09-18 11:51:12', 1),
-(39, 'Membuat Website untuk Pemula', NULL, 1500000, '', 'lowongan7.png', '', 'Membuat Website untuk Pemula', 5, NULL, 1, 'Membuat Website untuk Pemula', NULL, 1, '2023-09-14 10:58:08', 1, '2023-09-18 11:51:14', 1);
+INSERT INTO `course` (`id`, `name`, `fake_price`, `price`, `short_description`, `image`, `preview`, `target`, `payment_link`, `slug`, `m_course_type_id`, `course_package_id`, `m_difficulty_type_id`, `content`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
+(1, 'Backend', NULL, NULL, '1', 'backend.png', '', '', '1', 'backend', 1, NULL, 1, '<p>Kami dapat membantumu mendapatkan pekerjaan impian sebagai Backend Developer Expert dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', NULL, 1, '2022-09-26 10:56:03', 1, '2023-11-30 14:33:11', 1),
+(2, 'Frontend', NULL, NULL, '', 'frontend.png', '', '', '', 'frontend', 1, NULL, 1, '<p>Kami dapat membantumu mendapatkan pekerjaan impian sebagai Frontend Developer Expert dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', NULL, 1, '2022-09-26 10:56:27', 1, '2023-07-04 14:57:30', 1),
+(3, 'UI/UX', NULL, NULL, '', 'uiux.png', '', '', '', 'ui-ux', 1, NULL, 1, '<p>Kami dapat membantumu mendapatkan pekerjaan impian sebagai UI/UX Expert dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', NULL, 1, '2022-09-26 10:56:54', 1, '2023-07-04 14:57:30', 1),
+(4, 'Entrepreneur', NULL, NULL, '', '', '', '', '', 'entrepreneur', 1, NULL, 1, '<p>Kami dapat membantumu mendapatkan pekerjaan impian sebagai Entrepreneur dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', NULL, 0, '2022-09-26 10:57:28', 1, '2023-01-27 04:09:59', 1),
+(5, 'Knockout JS', NULL, NULL, '', 'k.jpg', '', '', '', 'knockout-js', 2, NULL, 1, '<p>Knockout is a JavaScript library that helps you to create rich, responsive display and editor user interfaces with a clean underlying data model. Any time you have sections of UI that update dynamically (e.g., changing depending on the user’s actions or when an external data source changes), KO can help you implement it more simply and maintainably.</p>', NULL, 1, '2022-09-26 10:58:16', 1, '2023-08-15 16:11:08', 1),
+(6, 'PHP', NULL, NULL, '', 'php.jpg', '', '', '', 'php', 2, NULL, 1, '<p>PHP is an HTML-embedded scripting language. Much of its syntax is borrowed from C, Java and Perl with a couple of unique PHP-specific features thrown in. The goal of the language is to allow web developers to write dynamically generated pages quickly.</p>', NULL, 1, '2022-09-28 16:42:00', 1, '2023-08-15 16:10:58', 1),
+(7, 'Javascript', NULL, NULL, '', 'js.jpg', '', '', '', 'javascript', 2, NULL, 1, '<p><strong>JavaScript,</strong> often abbreviated to <strong>JS</strong>, is a programming language that is one of the core technologies of the World Wide Web, alongside HTML and CSS. As of 2022, 98% of websites use JavaScript on the client side for webpage behavior, often incorporating third-party libraries. All major web browsers have a dedicated JavaScript engine to execute the code on users\' devices.</p>\n<p>JavaScript is a high-level, often just-in-time compiled language that conforms to the ECMAScript standard. It has dynamic typing, prototype-based object-orientation, and first-class functions. It is multi-paradigm, supporting event-driven, functional, and imperative programming styles. It has application programming interfaces (APIs) for working with text, dates, regular expressions, standard data structures, and the Document Object Model (DOM).</p>\n<p>The ECMAScript standard does not include any input/output (I/O), such as networking, storage, or graphics facilities. In practice, the web browser or other runtime system provides JavaScript APIs for I/O.</p>', NULL, 1, '2022-10-03 12:58:33', 1, '2023-08-15 16:11:13', 1),
+(8, 'Phyton', NULL, NULL, '', 'python.png', '', '', '', 'phyton', 2, NULL, 1, '<p>Python is an interpreted, interactive, object-oriented programming language. It incorporates modules, exceptions, dynamic typing, very high level dynamic data types, and classes. It supports multiple programming paradigms beyond object-oriented programming, such as procedural and functional programming. Python combines remarkable power with very clear syntax. It has interfaces to many system calls and libraries, as well as to various window systems, and is extensible in C or C++. It is also usable as an extension language for applications that need a programmable interface. Finally, Python is portable: it runs on many Unix variants including Linux and macOS, and on Windows.</p>', NULL, 1, '2022-10-03 15:50:14', 1, '2023-08-15 16:11:20', 1),
+(9, 'Digital Content Creator', 3000000, 299000, '<p>Sekarang semua bisa berkarir menjadi Tiktok Content Creator!</p>', 'digital_content_creator.jpg', '', '', 'https://invoice.xendit.co/od/mbcp-cc-b04', 'digital-content-creator-mbc', 3, NULL, 1, 'Mau jadi Tiktok Content Creator tapi bingung mulai dari mana dan followers masih sedikit?\nJoin Mini Bootcamp Digital Content Creator Academy sekarang!\n\nTimeline:\n- 2 weeks Coaching', NULL, 1, '2023-02-24 11:43:52', 1, '2023-08-25 15:46:48', 1),
+(10, 'Hybrid Apps', NULL, 1200000, '<p>Belajar membuat website dan aplikasi dengan Framework 7 - 8 jam pembelajaran</p>', 'Prakerja-Hybrid_1.jpg', '', '', 'https://invoice.xendit.co/od/hybrid-apps', 'hybrid-apps', 3, NULL, 1, NULL, NULL, 0, '2023-03-24 08:42:03', 1, '2023-07-04 14:08:12', 1),
+(11, 'Laravel Web Application Framework', NULL, 1500000, '<p>Belajar Laravel Web Application Framework dalam mengembangkan website selama 10 jam pembelajaran</p>', 'Prakerja-Hybrid_1.jpg', '', '', 'https://invoice.xendit.co/od/laravel-web', 'laravel-web-application-framework', 3, NULL, 1, NULL, NULL, 0, '2023-03-24 08:42:03', 1, '2023-07-04 14:19:28', 1),
+(12, 'UI/UX Design With Figma', NULL, 1500000, '<p>Belajar mendesign UI/UX website design dengan Figma dalam 12jam</p>', 'Prakerja-Hybrid_1.jpg', '', '', 'https://invoice.xendit.co/od/miniBootcamp-UIUX', 'ui-ux-design-with-figma', 3, NULL, 1, NULL, NULL, 0, '2023-03-24 08:42:03', 1, '2023-07-04 14:19:14', 1),
+(13, 'Hackathon - Improve Sales for Medium to High International Cosmetic Brand', NULL, NULL, '', '', '', '', '', 'improve-sales-jennyhouse', 4, NULL, 1, 'Jenny House, with the largest number of top makeup artists in Korea, Jenny House Cosmetics is an all-Green grade natural derma cosmetic brand. All products are\r\nformulated with the finest natural ingredients and designed to give innovative dermatologic efficacies. Natural yet dermatologic, the two key concepts, are Maximized for Jenny House Cosmetics. Currently, Jenny House has existed in Indonesia to make it easier for our loyal customers to get our best products.', NULL, 1, '2023-03-29 13:16:50', 1, '2023-03-29 13:16:50', 1),
+(14, 'Digital Marketing', NULL, NULL, '', 'digital_marketing.png', '', '', '', 'digital-marketing', 1, NULL, 1, '<p>Kami dapat membantumu mendapatkan pekerjaan impian sebagai Digital Marketing dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', NULL, 1, '2023-05-11 09:38:43', 0, '2023-07-04 14:57:30', 0),
+(15, 'Rapid Backend Development Bootcamp', NULL, 9000000, 'MSIB Bootcamp - Rapid Backend Development Bootcamp', 'MSIB.png', '', '', '', 'msib-backend', 6, NULL, 1, '<p>Kami dapat membantumu mendapatkan pekerjaan impian sebagai Backend Developer Expert dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', NULL, 1, '2023-05-29 08:38:11', 1, '2023-07-05 15:08:57', 1),
+(16, 'Rapid Frontend Development Bootcamp', NULL, 9000000, 'MSIB Bootcamp - Rapid Frontend Development Bootcamp', 'MSIB.png', '', '', '', 'msib-frontend', 6, NULL, 1, '<p>Kami dapat membantumu mendapatkan pekerjaan impian sebagai Frontend Developer Expert dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', NULL, 1, '2023-05-29 08:38:11', 1, '2023-07-05 15:08:57', 1),
+(17, 'Rapid UI/UX Development Bootcamp', NULL, 9000000, 'MSIB UI/UX - Rapid UI/UX Development Bootcamp', 'MSIB.png', '', '', '', 'msib-uiux', 6, NULL, 1, '<p>Kami dapat membantumu mendapatkan pekerjaan impian sebagai UI/UX Developer Expert dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', NULL, 1, '2023-05-29 08:44:59', 1, '2023-07-05 15:08:57', 1),
+(18, 'Speak Japanese Like a Local', 2000000, 299000, 'Mau ke Jepang? Belajar bahasanya dulu, yuk!', 'speak_japanese_like_local.jpg', '-', '-', '-', 'speak_japanese_like_a_local', 3, NULL, 1, '<p>Kami dapat membantumu mendapatkan keahlian Berbahasa Jepang seperti Warga Lokal dalam hitungan bulan, dengan jaminan uang kembali 100%</p>', NULL, 1, '2023-06-28 11:59:53', 1, '2023-07-05 15:39:25', 1),
+(19, 'Cyber Security', 0, 0, 'no desc', 'no.jpg', '0', '0', '0', 'cyber_security', 1, 1, 2, NULL, NULL, 0, '2023-07-03 06:54:47', 1, '2023-07-03 06:54:47', 1),
+(20, 'Hacking is not Cracking', 2000000, 299000, 'Belajar hacking dalam waktu hitungan bulan!', 'hacking_not_cracking.jpg', '-', '-', 'https://invoice.xendit.co/od/mbcp-cs-b03', 'hacking_is_not_cracking', 3, NULL, 1, '<p>Hacking dan cracking adalah dua hal yang berbeda.<p> Hacking adalah proses mencari celah keamanan dalam sistem komputer atau jaringan komputer dengan tujuan untuk meningkatkan keamanan sistem tersebut.</p><p>Sedangkan cracking adalah proses mencari celah keamanan dalam sistem komputer atau jaringan komputer dengan tujuan untuk merusak atau mengambil alih sistem tersebut.</p></p>', NULL, 1, '2023-07-04 14:18:46', 1, '2023-07-05 15:49:57', 1),
+(21, 'Digital Marketing', 2000000, 299000, 'Kami dapat membantumu digital marketing Expert dalam hitungan bulan!', 'digital_marketing.jpg', '-', '-', 'https://invoice.xendit.co/od/mbcp-dm-b01', 'min_digital_marketing', 3, NULL, 1, 'Belajar digital marketing dapat membantu Anda memahami bagaimana cara memasarkan produk atau layanan Anda secara online. Dalam era digital saat ini, belajar digital marketing sangat penting untuk meningkatkan penjualan dan menjangkau pasar yang lebih luas. Selain itu, Anda juga dapat mempelajari cara membuat konten yang menarik dan efektif untuk menarik perhatian pelanggan potensial.', NULL, 1, '2023-07-04 14:18:46', 1, '2023-07-05 16:08:26', 1),
+(23, 'Desain UI/UX website Tingkat Dasar', NULL, 1500000, '', 'lowongan1.png', '', '', 'https://pintar.co/desain-ui-ux-website-dengan-figma-tingkat-dasar ', 'Desain UI/UX website Tingkat Menengah', 5, NULL, 2, 'Desain UI/UX website Tingkat Menengah', NULL, 1, '2023-09-12 11:48:23', 1, '2023-09-22 13:53:48', 1),
+(25, 'Teknik Memasarkan Produk untuk Spesialis Pemasaran', NULL, 1500000, '', 'lowongan2.png', '', '', '', 'Teknik Memasarkan Produk untuk Spesialis Pemasaran', 5, NULL, 1, 'Teknik Memasarkan Produk untuk Spesialis Pemasaran', NULL, 1, '2023-09-13 16:17:44', 1, '2023-09-18 11:50:56', 1),
+(26, 'Mengenal Media Digital Marketing bagi Spesialis Pemasaran', NULL, 1500000, '', 'lowongan3.png', '', '', '', 'Mengenal Media Digital Marketing bagi Spesialis Pemasaran', 5, NULL, 1, 'Mengenal Media Digital Marketing bagi Spesialis Pemasaran', NULL, 1, '2023-09-13 16:17:44', 1, '2023-09-18 11:50:59', 1),
+(27, 'Digital Marketing 101: Sosial Media Marketing', NULL, 1500000, '', 'lowongan4.png', '', '', '', 'Digital Marketing 101: Sosial Media Marketing', 5, NULL, 1, 'Digital Marketing 101: Sosial Media Marketing', NULL, 1, '2023-09-13 16:17:44', 1, '2023-09-18 11:51:01', 1),
+(28, 'Menguasai Marketing Sosial Media untuk Social Media Specialist', NULL, 1500000, '', 'lowongan5.png', '', '', '', 'Menguasai Marketing Sosial Media untuk Social Media Specialist', 5, NULL, 1, 'Menguasai Marketing Sosial Media untuk Social Media Specialist', NULL, 1, '2023-09-13 16:17:44', 1, '2023-09-18 11:51:05', 1),
+(29, 'Desain UI/UX Webiste dengan Tingkat Menengah', NULL, 1500000, '', 'lowongan6.png', '', '', 'https://pintar.co/desain-ui-ux-website-dengan-figma-tingkat-menengah', 'Desain UI/UX Webiste dengan Tingkat Dasar', 5, NULL, 1, 'Desain UI/UX Webiste dengan Tingkat Dasar', NULL, 1, '2023-09-13 16:17:44', 1, '2023-09-22 13:54:15', 1),
+(35, 'Web Administrasi Tingkat Dasar Menggunakan PHP Laravel', NULL, 1500000, '', 'lowongan2.png', '', '', '', 'Web Administrasi Tingkat Dasar Menggunakan PHP Laravel', 5, NULL, 1, 'Web Administrasi Tingkat Dasar Menggunakan PHP Laravel', NULL, 1, '2023-09-14 10:57:45', 1, '2023-09-18 11:51:10', 1),
+(37, 'Hybrid Apps Menggunakan Framework7', NULL, 1500000, '', 'lowongan3.png', '', '', '', 'Hybrid Apps Menggunakan Framework7', 5, NULL, 1, 'Hybrid Apps Menggunakan Framework7', NULL, 1, '2023-09-14 10:57:45', 1, '2023-09-18 11:51:12', 1),
+(39, 'Membuat Website untuk Pemula', NULL, 1500000, '', 'lowongan7.png', '', '', '', 'Membuat Website untuk Pemula', 5, NULL, 1, 'Membuat Website untuk Pemula', NULL, 1, '2023-09-14 10:58:08', 1, '2023-09-18 11:51:14', 1);
 
 -- --------------------------------------------------------
 
@@ -553,6 +561,7 @@ CREATE TABLE `course_class` (
   `quota` int(11) NOT NULL DEFAULT 0 COMMENT '0 = Unlimited',
   `course_id` int(11) NOT NULL,
   `announcement` varchar(255) DEFAULT NULL,
+  `content` text DEFAULT NULL,
   `description` text DEFAULT NULL,
   `status` int(11) NOT NULL COMMENT '0 = not active, 1 = active',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
@@ -565,8 +574,38 @@ CREATE TABLE `course_class` (
 -- Dumping data for table `course_class`
 --
 
-INSERT INTO `course_class` (`id`, `batch`, `start_date`, `end_date`, `quota`, `course_id`, `announcement`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
-(1, 1, '0000-00-00', '0000-00-00', 0, 1, NULL, 'fixed, default course_class', 1, '2023-11-06 13:37:58', 1, '2023-11-06 13:37:58', 1);
+INSERT INTO `course_class` (`id`, `batch`, `start_date`, `end_date`, `quota`, `course_id`, `announcement`, `content`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
+(1, 1, '0000-00-00', '0000-00-00', 0, 1, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', 'fixed, default course_class', 1, '2023-11-09 13:58:58', 1, '2023-11-20 14:28:53', 1),
+(2, 1, '2022-09-26', '2022-12-29', 0, 20, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', '', 1, '2023-11-07 08:58:32', 1, '2023-11-20 14:28:55', 1),
+(3, 1, '2022-09-26', '2022-12-29', 0, 5, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', '', 1, '2023-11-07 09:03:49', 1, '2023-11-20 14:28:57', 1),
+(4, 1, '2022-09-26', '2022-12-29', 0, 6, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', '', 1, '2023-11-07 09:15:07', 1, '2023-11-20 14:28:58', 1),
+(5, 1, '2022-09-26', '2022-12-29', 0, 7, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', '', 1, '2023-11-07 09:15:07', 1, '2023-11-20 14:29:00', 1),
+(6, 1, '2022-09-26', '2022-12-29', 0, 8, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', '', 1, '2023-11-07 09:15:07', 1, '2023-11-20 14:29:02', 1),
+(7, 1, '2022-09-26', '2022-12-29', 0, 23, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', '', 1, '2023-11-07 11:34:18', 1, '2023-11-20 14:29:04', 1),
+(8, 1, '0000-00-00', '0000-00-00', 0, 3, 'Jangan Lupa Mengerjakan Assignment\r\n', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Hacking. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 14:31:51', 1, '2023-11-20 15:01:16', 1),
+(9, 1, '0000-00-00', '0000-00-00', 0, 4, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:02:20', 1, '2023-11-20 15:02:20', 1),
+(10, 1, '0000-00-00', '0000-00-00', 0, 9, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:05:03', 1, '2023-11-20 15:05:03', 1),
+(11, 1, '0000-00-00', '0000-00-00', 0, 10, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:05:03', 1, '2023-11-20 15:05:03', 1),
+(12, 1, '0000-00-00', '0000-00-00', 0, 11, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:09:01', 1, '2023-11-20 15:09:01', 1),
+(13, 1, '0000-00-00', '0000-00-00', 0, 12, 'Jangan Lupa Mengerjakan Assignment', '\r\nHere we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:09:01', 1, '2023-11-20 15:09:01', 1),
+(14, 1, '0000-00-00', '0000-00-00', 0, 13, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:09:01', 1, '2023-11-20 15:09:01', 1),
+(15, 1, '0000-00-00', '0000-00-00', 0, 14, 'Jangan Lupa Mengerjakan Assignment\r\n', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:09:01', 1, '2023-11-20 15:09:01', 1),
+(16, 1, '0000-00-00', '0000-00-00', 0, 15, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:09:01', 1, '2023-11-20 15:09:01', 1),
+(17, 1, '0000-00-00', '0000-00-00', 0, 2, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:12:20', 1, '2023-11-20 16:25:57', 1),
+(18, 1, '0000-00-00', '0000-00-00', 0, 16, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:14:35', 1, '2023-11-20 15:14:35', 1),
+(19, 1, '0000-00-00', '0000-00-00', 0, 17, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:14:35', 1, '2023-11-20 15:14:35', 1),
+(20, 1, '0000-00-00', '0000-00-00', 0, 18, '\r\nJangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:14:35', 1, '2023-11-20 15:14:35', 1),
+(21, 1, '0000-00-00', '0000-00-00', 0, 19, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:14:35', 1, '2023-11-20 15:14:35', 1),
+(22, 1, '0000-00-00', '0000-00-00', 0, 21, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:21:17', 1, '2023-11-20 15:21:17', 1),
+(23, 1, '0000-00-00', '0000-00-00', 0, 25, 'Jangan Lupa Mengerjakan Assignment\r\n', '\r\nHere we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:21:17', 1, '2023-11-20 15:21:17', 1),
+(24, 1, '0000-00-00', '0000-00-00', 0, 26, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:21:17', 1, '2023-11-20 15:21:17', 1),
+(25, 1, '0000-00-00', '0000-00-00', 0, 27, 'Jangan Lupa Mengerjakan Assignment', '\r\nHere we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:21:17', 1, '2023-11-20 15:21:17', 1),
+(26, 1, '0000-00-00', '0000-00-00', 0, 28, 'Jangan Lupa Mengerjakan Assignment', '\r\nHere we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.\r\n', NULL, 1, '2023-11-20 15:21:17', 1, '2023-11-20 15:21:17', 1),
+(27, 1, '0000-00-00', '0000-00-00', 0, 29, 'Jangan Lupa Mengerjakan Assignment', '\r\nHere we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:21:17', 1, '2023-11-20 15:21:17', 1),
+(28, 1, '0000-00-00', '0000-00-00', 0, 35, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:21:17', 1, '2023-11-20 15:21:17', 1),
+(29, 1, '0000-00-00', '0000-00-00', 0, 37, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.\r\n', NULL, 1, '2023-11-20 15:21:17', 1, '2023-11-20 15:21:17', 1),
+(30, 1, '0000-00-00', '0000-00-00', 0, 39, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', NULL, 1, '2023-11-20 15:21:17', 1, '2023-11-20 15:21:17', 1),
+(31, 2, '2023-11-24', '2023-11-24', 0, 1, 'Jangan Lupa Mengerjakan Assignment', 'Here we provide you with a structured course that will teach you all you need to know to be an expert in Backend. Work through each section, learning new skills (or improving existing ones) as you go along. Each section includes exercises and assessments to test your understanding before you move forward.', 'fixed, default course_class', 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1);
 
 -- --------------------------------------------------------
 
@@ -586,6 +625,43 @@ CREATE TABLE `course_class_member` (
   `updated_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `course_class_member`
+--
+
+INSERT INTO `course_class_member` (`id`, `user_id`, `course_class_id`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
+(1, 66, 1, NULL, 1, '2023-11-06 16:23:04', 1, '2023-11-06 16:23:04', 1),
+(2, 66, 2, NULL, 1, '2023-11-07 08:59:20', 1, '2023-11-07 08:59:20', 1),
+(3, 66, 3, NULL, 1, '2023-11-07 09:04:20', 1, '2023-11-07 09:04:20', 1),
+(4, 66, 4, NULL, 1, '2023-11-07 09:17:25', 1, '2023-11-07 09:17:25', 1),
+(5, 66, 5, NULL, 1, '2023-11-07 09:17:25', 1, '2023-11-07 09:17:25', 1),
+(6, 66, 6, NULL, 1, '2023-11-07 09:17:25', 1, '2023-11-07 09:17:25', 1),
+(7, 66, 7, NULL, 1, '2023-11-07 11:34:36', 1, '2023-11-07 11:34:36', 1),
+(8, 66, 8, NULL, 1, '2023-11-20 15:28:36', 1, '2023-11-20 16:19:17', 1),
+(9, 66, 9, NULL, 1, '2023-11-20 15:28:36', 1, '2023-11-20 16:19:17', 1),
+(10, 66, 10, NULL, 1, '2023-11-20 15:28:36', 1, '2023-11-20 16:19:17', 1),
+(11, 66, 11, NULL, 1, '2023-11-20 15:28:36', 1, '2023-11-20 16:19:17', 1),
+(12, 66, 12, NULL, 1, '2023-11-20 15:28:36', 1, '2023-11-20 16:19:17', 1),
+(13, 66, 13, NULL, 1, '2023-11-20 15:28:36', 1, '2023-11-20 16:19:17', 1),
+(14, 66, 14, NULL, 1, '2023-11-20 15:28:36', 1, '2023-11-20 16:19:17', 1),
+(15, 66, 15, NULL, 1, '2023-11-20 15:28:36', 1, '2023-11-20 16:19:17', 1),
+(16, 66, 16, NULL, 1, '2023-11-20 15:28:36', 1, '2023-11-20 16:19:17', 1),
+(17, 66, 17, NULL, 1, '2023-11-20 15:28:36', 1, '2023-11-20 16:53:49', 1),
+(18, 66, 18, NULL, 1, '2023-11-20 15:34:47', 1, '2023-11-20 16:19:17', 1),
+(19, 66, 19, NULL, 1, '2023-11-20 15:34:47', 1, '2023-11-20 16:19:17', 1),
+(20, 66, 20, NULL, 1, '2023-11-20 15:34:47', 1, '2023-11-20 16:19:17', 1),
+(21, 66, 21, NULL, 1, '2023-11-20 15:34:47', 1, '2023-11-20 16:19:17', 1),
+(22, 66, 22, NULL, 1, '2023-11-20 15:34:47', 1, '2023-11-20 16:19:17', 1),
+(23, 66, 23, NULL, 1, '2023-11-20 15:34:47', 1, '2023-11-20 16:19:17', 1),
+(24, 66, 24, NULL, 1, '2023-11-20 15:34:47', 1, '2023-11-20 16:19:17', 1),
+(25, 66, 25, NULL, 1, '2023-11-20 15:34:47', 1, '2023-11-20 16:19:17', 1),
+(26, 66, 26, NULL, 1, '2023-11-20 15:34:47', 1, '2023-11-20 16:19:17', 1),
+(27, 66, 27, NULL, 1, '2023-11-20 15:34:47', 1, '2023-11-20 16:19:17', 1),
+(28, 66, 28, NULL, 1, '2023-11-20 15:35:39', 1, '2023-11-20 16:19:17', 1),
+(29, 66, 29, NULL, 1, '2023-11-20 15:35:39', 1, '2023-11-20 16:19:17', 1),
+(30, 66, 30, NULL, 1, '2023-11-20 15:35:39', 1, '2023-11-20 16:19:17', 1),
+(31, 66, 31, NULL, 1, '2023-11-24 02:16:21', 1, '2023-11-24 02:16:21', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -604,11 +680,88 @@ CREATE TABLE `course_class_member_grading` (
   `course_class_member_id` int(11) NOT NULL,
   `course_class_module_id` int(11) NOT NULL,
   `description` text DEFAULT NULL,
+  `package_type` varchar(255) DEFAULT NULL,
+  `paket_soal` varchar(255) DEFAULT NULL,
   `grade` int(20) DEFAULT NULL,
   `graded_at` datetime DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `course_class_member_grading`
+--
+
+INSERT INTO `course_class_member_grading` (`id`, `submitted_file`, `js`, `html`, `python`, `python_input`, `php`, `comment`, `course_class_member_id`, `course_class_module_id`, `description`, `package_type`, `paket_soal`, `grade`, `graded_at`, `created_at`, `updated_at`) VALUES
+(111, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 38, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:49:20', '2023-11-30 08:58:38'),
+(112, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 39, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:49:22', '2023-11-27 15:49:22'),
+(113, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 40, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:49:26', '2023-11-27 15:49:26'),
+(114, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 41, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:49:28', '2023-11-27 15:49:28'),
+(115, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 42, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:49:29', '2023-11-27 15:49:32'),
+(116, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 43, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:49:33', '2023-11-27 16:26:35'),
+(117, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 48, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:49:39', '2023-11-27 16:26:43'),
+(118, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 52, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:49:45', '2023-11-27 16:26:45'),
+(119, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 53, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:49:49', '2023-11-27 15:50:15'),
+(120, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 54, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:49:50', '2023-11-27 15:50:16'),
+(121, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 55, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:49:51', '2023-11-27 15:49:51'),
+(122, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 56, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:49:52', '2023-11-27 15:49:53'),
+(123, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 44, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:50:00', '2023-11-27 15:51:21'),
+(124, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 45, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:50:01', '2023-11-27 15:50:01'),
+(125, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 46, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:50:02', '2023-11-27 15:50:02'),
+(126, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 47, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:50:03', '2023-11-27 15:50:05'),
+(127, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 49, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:50:06', '2023-11-27 15:50:06'),
+(128, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 50, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:50:08', '2023-11-27 15:50:08'),
+(129, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 51, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:50:08', '2023-11-27 15:50:10'),
+(130, NULL, 'dsad', 'asdad', NULL, NULL, NULL, NULL, 5, 13, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:50:21', '2023-11-27 15:50:44'),
+(131, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 15, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:50:27', '2023-11-27 15:50:27'),
+(132, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 16, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:50:31', '2023-11-27 15:50:31'),
+(133, NULL, 'function ReservationsViewModel() {\n                                // ... leave all the rest unchanged ...\n                            \n                                // Operations\n                                self.addSeat = function() {\n                                    self.seats.push(new SeatReservation(\"\", self.availableMeals[0]));\n                                }\n                            }', '<tbody data-bind=\"foreach: seats\">\n                                <tr>\n                                    <td data-bind=\"text: name\"></td>\n                                    <td data-bind=\"text: meal().mealName\"></td>\n                                    <td data-bind=\"text: meal().price\"></td>\n                                </tr>    \n                            </tbody>\n<button data-bind=\"click: addSeat\">Reserve another seat</button>', NULL, NULL, NULL, NULL, 5, 14, NULL, NULL, NULL, NULL, NULL, '2023-11-27 08:51:16', '2023-11-27 15:52:22'),
+(134, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 6, 33, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:01:36', '2023-11-29 07:50:19'),
+(135, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 6, 31, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:01:46', '2023-11-27 16:01:46'),
+(136, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 6, 32, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:01:54', '2023-11-27 16:01:56'),
+(137, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 6, 34, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:01:56', '2023-11-27 16:01:56'),
+(138, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 6, 35, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:02:05', '2023-11-27 16:02:05'),
+(139, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 6, 36, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:02:07', '2023-11-27 16:06:29'),
+(140, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 6, 37, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:02:09', '2023-11-27 16:06:30'),
+(141, NULL, NULL, NULL, 'print (\"Hello ini Fungsi\")', NULL, NULL, NULL, 8, 30, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:02:13', '2023-11-27 16:05:01'),
+(142, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 8, 29, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:05:07', '2023-11-27 16:05:07'),
+(143, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 3, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:27:46', '2023-11-27 09:27:46'),
+(144, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:27:49', '2023-11-27 09:27:49'),
+(145, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 66, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:27:52', '2023-11-27 09:27:52'),
+(146, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 5, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:27:53', '2023-11-27 09:27:53'),
+(147, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 69, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:27:56', '2023-11-27 09:27:56'),
+(148, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 4, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:27:57', '2023-11-27 09:27:57'),
+(149, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 72, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:27:59', '2023-11-27 09:27:59'),
+(150, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 6, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:01', '2023-11-27 09:28:01'),
+(151, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 75, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:03', '2023-11-27 09:28:03'),
+(152, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 76, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:04', '2023-11-27 09:28:04'),
+(153, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 77, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:05', '2023-11-27 09:28:05'),
+(154, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 79, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:08', '2023-11-27 09:28:08'),
+(155, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 80, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:09', '2023-11-27 09:28:09'),
+(156, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 81, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:12', '2023-11-27 09:28:12'),
+(157, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 83, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:14', '2023-11-27 09:28:14'),
+(158, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 84, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:16', '2023-11-27 09:28:16'),
+(159, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 85, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:18', '2023-11-27 09:28:18'),
+(160, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 87, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:20', '2023-11-27 09:28:20'),
+(161, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 88, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:22', '2023-11-27 09:28:22'),
+(162, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 89, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:24', '2023-11-27 09:28:24'),
+(163, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 91, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:26', '2023-11-27 09:28:26'),
+(164, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 92, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:28', '2023-11-27 09:28:28'),
+(165, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 94, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:30', '2023-11-27 09:28:30'),
+(166, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 95, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:31', '2023-11-27 09:28:31'),
+(167, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 97, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:33', '2023-11-27 09:28:33'),
+(168, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 98, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:35', '2023-11-27 09:28:35'),
+(169, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 100, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:37', '2023-11-27 09:28:37'),
+(170, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 101, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:39', '2023-11-27 09:28:39'),
+(171, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 103, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:41', '2023-11-27 09:28:41'),
+(172, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 104, NULL, NULL, NULL, NULL, NULL, '2023-11-27 09:28:42', '2023-11-27 09:28:42'),
+(173, NULL, NULL, NULL, 'print(\"Hello World\")', NULL, NULL, NULL, 8, 25, NULL, NULL, NULL, NULL, NULL, '2023-11-29 00:50:39', '2023-11-29 07:50:39'),
+(174, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 31, 3, NULL, NULL, NULL, NULL, NULL, '2023-11-30 01:33:54', '2023-11-30 01:33:54'),
+(175, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 20, NULL, NULL, NULL, NULL, NULL, '2023-11-30 01:58:41', '2023-11-30 08:58:41'),
+(176, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 31, 1, NULL, NULL, NULL, NULL, NULL, '2023-11-30 02:33:59', '2023-11-30 02:33:59'),
+(177, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 31, 66, NULL, NULL, NULL, NULL, NULL, '2023-11-30 02:34:04', '2023-11-30 02:34:04'),
+(178, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 31, 5, NULL, NULL, NULL, NULL, NULL, '2023-11-30 02:34:30', '2023-11-30 02:34:30'),
+(179, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 31, 69, NULL, NULL, NULL, NULL, NULL, '2023-11-30 02:34:35', '2023-11-30 02:34:35');
 
 -- --------------------------------------------------------
 
@@ -618,12 +771,353 @@ CREATE TABLE `course_class_member_grading` (
 
 CREATE TABLE `course_class_member_log` (
   `id` int(11) NOT NULL,
-  `course_class_member_id` int(11) NOT NULL,
-  `course_class_module_id` int(11) NOT NULL,
-  `status_log` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  `course_class_module_id` int(11) DEFAULT NULL,
+  `log_type` varchar(255) NOT NULL COMMENT 'course_class, profile',
+  `status_log` int(11) DEFAULT NULL COMMENT '1 : Create, 2 : Read, 3 : Update, 4 :Delete',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `course_class_member_log`
+--
+
+INSERT INTO `course_class_member_log` (`id`, `user_id`, `course_class_module_id`, `log_type`, `status_log`, `created_at`, `updated_at`) VALUES
+(59, 66, 27, 'course_class', 2, '2023-11-09 09:43:57', '2023-11-09 09:43:57'),
+(60, 66, 27, 'course_class', 2, '2023-11-09 09:43:57', '2023-11-09 09:43:57'),
+(61, 66, 22, 'course_class', 2, '2023-11-10 00:35:00', '2023-11-10 00:35:00'),
+(62, 66, 23, 'course_class', 2, '2023-11-10 00:35:59', '2023-11-10 00:35:59'),
+(63, 66, NULL, 'profile', 2, '2023-11-12 08:46:36', '2023-11-12 08:46:36'),
+(64, 66, 13, 'course_class', 2, '2023-11-15 05:01:00', '2023-11-15 05:01:00'),
+(65, 66, 14, 'course_class', 2, '2023-11-15 05:01:11', '2023-11-15 05:01:11'),
+(66, 66, 14, 'course_class', 2, '2023-11-15 05:01:11', '2023-11-15 05:01:11'),
+(67, 66, 14, 'course_class', 2, '2023-11-15 05:01:12', '2023-11-15 05:01:12'),
+(68, 66, 14, 'course_class', 2, '2023-11-15 05:01:13', '2023-11-15 05:01:13'),
+(69, 66, 13, 'course_class', 2, '2023-11-15 05:01:23', '2023-11-15 05:01:23'),
+(70, 66, 1, 'course_class', 2, '2023-11-20 07:28:34', '2023-11-20 07:28:34'),
+(71, 66, 1, 'course_class', 2, '2023-11-20 08:42:56', '2023-11-20 08:42:56'),
+(72, 66, 1, 'course_class', 2, '2023-11-20 08:43:25', '2023-11-20 08:43:25'),
+(73, 66, 1, 'course_class', 2, '2023-11-20 08:52:27', '2023-11-20 08:52:27'),
+(74, 66, 66, 'course_class', 2, '2023-11-20 08:52:29', '2023-11-20 08:52:29'),
+(75, 66, 5, 'course_class', 2, '2023-11-20 08:52:31', '2023-11-20 08:52:31'),
+(76, 66, 69, 'course_class', 2, '2023-11-20 08:54:54', '2023-11-20 08:54:54'),
+(77, 66, 4, 'course_class', 2, '2023-11-20 08:54:57', '2023-11-20 08:54:57'),
+(78, 66, 4, 'course_class', 2, '2023-11-20 08:56:15', '2023-11-20 08:56:15'),
+(79, 66, 72, 'course_class', 2, '2023-11-20 08:58:19', '2023-11-20 08:58:19'),
+(80, 66, 6, 'course_class', 2, '2023-11-20 08:58:20', '2023-11-20 08:58:20'),
+(81, 66, 75, 'course_class', 2, '2023-11-20 09:11:21', '2023-11-20 09:11:21'),
+(82, 66, 76, 'course_class', 2, '2023-11-20 09:11:22', '2023-11-20 09:11:22'),
+(83, 66, 77, 'course_class', 2, '2023-11-20 09:11:23', '2023-11-20 09:11:23'),
+(84, 66, 79, 'course_class', 2, '2023-11-20 09:11:26', '2023-11-20 09:11:26'),
+(85, 66, 80, 'course_class', 2, '2023-11-20 09:11:27', '2023-11-20 09:11:27'),
+(86, 66, 81, 'course_class', 2, '2023-11-20 09:11:28', '2023-11-20 09:11:28'),
+(87, 66, 83, 'course_class', 2, '2023-11-20 09:11:31', '2023-11-20 09:11:31'),
+(88, 66, 84, 'course_class', 2, '2023-11-20 09:11:32', '2023-11-20 09:11:32'),
+(89, 66, 85, 'course_class', 2, '2023-11-20 09:11:33', '2023-11-20 09:11:33'),
+(90, 66, 87, 'course_class', 2, '2023-11-20 09:11:36', '2023-11-20 09:11:36'),
+(91, 66, 88, 'course_class', 2, '2023-11-20 09:11:37', '2023-11-20 09:11:37'),
+(92, 66, 88, 'course_class', 2, '2023-11-20 09:11:37', '2023-11-20 09:11:37'),
+(93, 66, 89, 'course_class', 2, '2023-11-20 09:11:38', '2023-11-20 09:11:38'),
+(94, 66, 91, 'course_class', 2, '2023-11-20 09:11:40', '2023-11-20 09:11:40'),
+(95, 66, 92, 'course_class', 2, '2023-11-20 09:11:41', '2023-11-20 09:11:41'),
+(96, 66, 94, 'course_class', 2, '2023-11-20 09:11:44', '2023-11-20 09:11:44'),
+(97, 66, 95, 'course_class', 2, '2023-11-20 09:11:45', '2023-11-20 09:11:45'),
+(98, 66, 97, 'course_class', 2, '2023-11-20 09:11:48', '2023-11-20 09:11:48'),
+(99, 66, 98, 'course_class', 2, '2023-11-20 09:14:01', '2023-11-20 09:14:01'),
+(100, 66, 100, 'course_class', 2, '2023-11-20 09:14:05', '2023-11-20 09:14:05'),
+(101, 66, 101, 'course_class', 2, '2023-11-20 09:14:06', '2023-11-20 09:14:06'),
+(102, 66, 101, 'course_class', 2, '2023-11-20 09:14:06', '2023-11-20 09:14:06'),
+(103, 66, 101, 'course_class', 2, '2023-11-20 09:14:17', '2023-11-20 09:14:17'),
+(104, 66, 103, 'course_class', 2, '2023-11-20 09:14:23', '2023-11-20 09:14:23'),
+(105, 66, 104, 'course_class', 2, '2023-11-20 09:14:25', '2023-11-20 09:14:25'),
+(106, 66, 106, 'course_class', 2, '2023-11-20 09:35:49', '2023-11-20 09:35:49'),
+(107, 66, 107, 'course_class', 2, '2023-11-20 09:35:50', '2023-11-20 09:35:50'),
+(108, 66, 109, 'course_class', 2, '2023-11-20 09:39:04', '2023-11-20 09:39:04'),
+(109, 66, 110, 'course_class', 2, '2023-11-20 09:39:06', '2023-11-20 09:39:06'),
+(110, 66, 111, 'course_class', 2, '2023-11-20 09:39:07', '2023-11-20 09:39:07'),
+(111, 66, 112, 'course_class', 2, '2023-11-20 09:39:09', '2023-11-20 09:39:09'),
+(112, 66, 112, 'course_class', 2, '2023-11-20 09:42:17', '2023-11-20 09:42:17'),
+(113, 66, 7, 'course_class', 2, '2023-11-20 09:42:19', '2023-11-20 09:42:19'),
+(114, 66, 115, 'course_class', 2, '2023-11-20 09:42:21', '2023-11-20 09:42:21'),
+(115, 66, 116, 'course_class', 2, '2023-11-20 09:42:22', '2023-11-20 09:42:22'),
+(116, 66, 118, 'course_class', 2, '2023-11-20 09:42:24', '2023-11-20 09:42:24'),
+(117, 66, 119, 'course_class', 2, '2023-11-20 09:42:26', '2023-11-20 09:42:26'),
+(118, 66, 13, 'course_class', 2, '2023-11-20 09:42:32', '2023-11-20 09:42:32'),
+(119, 66, 8, 'course_class', 2, '2023-11-20 09:42:35', '2023-11-20 09:42:35'),
+(120, 66, 122, 'course_class', 2, '2023-11-20 09:45:33', '2023-11-20 09:45:33'),
+(121, 66, 123, 'course_class', 2, '2023-11-20 09:45:35', '2023-11-20 09:45:35'),
+(122, 66, 124, 'course_class', 2, '2023-11-20 09:45:36', '2023-11-20 09:45:36'),
+(123, 66, 125, 'course_class', 2, '2023-11-20 09:45:38', '2023-11-20 09:45:38'),
+(124, 66, 125, 'course_class', 2, '2023-11-20 09:47:15', '2023-11-20 09:47:15'),
+(125, 66, 125, 'course_class', 2, '2023-11-20 09:47:19', '2023-11-20 09:47:19'),
+(126, 66, 125, 'course_class', 2, '2023-11-20 09:57:27', '2023-11-20 09:57:27'),
+(127, 66, 122, 'course_class', 2, '2023-11-20 09:57:29', '2023-11-20 09:57:29'),
+(128, 66, 122, 'course_class', 2, '2023-11-20 09:59:14', '2023-11-20 09:59:14'),
+(129, 66, 122, 'course_class', 2, '2023-11-20 09:59:15', '2023-11-20 09:59:15'),
+(130, 66, 104, 'course_class', 2, '2023-11-20 14:26:43', '2023-11-20 14:26:43'),
+(131, 66, 125, 'course_class', 2, '2023-11-23 03:38:19', '2023-11-23 03:38:19'),
+(132, 66, 125, 'course_class', 2, '2023-11-23 03:38:54', '2023-11-23 03:38:54'),
+(133, 66, 125, 'course_class', 2, '2023-11-23 03:57:18', '2023-11-23 03:57:18'),
+(134, 66, 3, 'course_class', 2, '2023-11-24 02:19:43', '2023-11-24 02:19:43'),
+(135, 66, 3, 'course_class', 2, '2023-11-24 02:20:09', '2023-11-24 02:20:09'),
+(136, 66, 83, 'course_class', 2, '2023-11-24 02:20:16', '2023-11-24 02:20:16'),
+(137, 66, 98, 'course_class', 2, '2023-11-24 02:20:22', '2023-11-24 02:20:22'),
+(138, 66, 98, 'course_class', 2, '2023-11-24 02:20:23', '2023-11-24 02:20:23'),
+(139, 66, 100, 'course_class', 2, '2023-11-24 02:20:28', '2023-11-24 02:20:28'),
+(140, 66, 101, 'course_class', 2, '2023-11-24 02:20:32', '2023-11-24 02:20:32'),
+(141, 66, 101, 'course_class', 2, '2023-11-24 02:20:34', '2023-11-24 02:20:34'),
+(142, 66, 104, 'course_class', 2, '2023-11-27 03:05:34', '2023-11-27 03:05:34'),
+(143, 66, 104, 'course_class', 2, '2023-11-27 03:07:38', '2023-11-27 03:07:38'),
+(144, 66, 104, 'course_class', 2, '2023-11-27 03:08:17', '2023-11-27 03:08:17'),
+(145, 66, 104, 'course_class', 2, '2023-11-27 03:09:09', '2023-11-27 03:09:09'),
+(146, 66, 104, 'course_class', 2, '2023-11-27 03:11:53', '2023-11-27 03:11:53'),
+(147, 66, 104, 'course_class', 2, '2023-11-27 03:12:05', '2023-11-27 03:12:05'),
+(148, 66, 66, 'course_class', 2, '2023-11-27 03:12:09', '2023-11-27 03:12:09'),
+(149, 66, 5, 'course_class', 2, '2023-11-27 03:12:12', '2023-11-27 03:12:12'),
+(150, 66, 66, 'course_class', 2, '2023-11-27 03:12:17', '2023-11-27 03:12:17'),
+(151, 66, 5, 'course_class', 2, '2023-11-27 03:12:19', '2023-11-27 03:12:19'),
+(152, 66, 69, 'course_class', 2, '2023-11-27 03:12:22', '2023-11-27 03:12:22'),
+(153, 66, 4, 'course_class', 2, '2023-11-27 03:12:25', '2023-11-27 03:12:25'),
+(154, 66, 72, 'course_class', 2, '2023-11-27 03:12:27', '2023-11-27 03:12:27'),
+(155, 66, 6, 'course_class', 2, '2023-11-27 03:12:31', '2023-11-27 03:12:31'),
+(156, 66, 75, 'course_class', 2, '2023-11-27 03:12:35', '2023-11-27 03:12:35'),
+(157, 66, 76, 'course_class', 2, '2023-11-27 03:12:37', '2023-11-27 03:12:37'),
+(158, 66, 77, 'course_class', 2, '2023-11-27 03:12:39', '2023-11-27 03:12:39'),
+(159, 66, 79, 'course_class', 2, '2023-11-27 03:12:43', '2023-11-27 03:12:43'),
+(160, 66, 80, 'course_class', 2, '2023-11-27 03:12:47', '2023-11-27 03:12:47'),
+(161, 66, 80, 'course_class', 2, '2023-11-27 03:12:55', '2023-11-27 03:12:55'),
+(162, 66, 79, 'course_class', 2, '2023-11-27 03:12:57', '2023-11-27 03:12:57'),
+(163, 66, 80, 'course_class', 2, '2023-11-27 03:12:59', '2023-11-27 03:12:59'),
+(164, 66, 81, 'course_class', 2, '2023-11-27 03:13:00', '2023-11-27 03:13:00'),
+(165, 66, 79, 'course_class', 2, '2023-11-27 03:13:01', '2023-11-27 03:13:01'),
+(166, 66, 81, 'course_class', 2, '2023-11-27 03:13:30', '2023-11-27 03:13:30'),
+(167, 66, 81, 'course_class', 2, '2023-11-27 03:13:38', '2023-11-27 03:13:38'),
+(168, 66, 1, 'course_class', 2, '2023-11-27 03:14:18', '2023-11-27 03:14:18'),
+(169, 66, 1, 'course_class', 2, '2023-11-27 03:14:32', '2023-11-27 03:14:32'),
+(170, 66, 1, 'course_class', 2, '2023-11-27 03:14:41', '2023-11-27 03:14:41'),
+(171, 66, 1, 'course_class', 2, '2023-11-27 03:14:45', '2023-11-27 03:14:45'),
+(172, 66, 1, 'course_class', 2, '2023-11-27 04:27:02', '2023-11-27 04:27:02'),
+(173, 66, 13, 'course_class', 2, '2023-11-27 04:27:17', '2023-11-27 04:27:17'),
+(174, 66, 18, 'course_class', 2, '2023-11-27 04:27:20', '2023-11-27 04:27:20'),
+(175, 66, 19, 'course_class', 2, '2023-11-27 04:27:22', '2023-11-27 04:27:22'),
+(176, 66, 18, 'course_class', 2, '2023-11-27 04:27:26', '2023-11-27 04:27:26'),
+(177, 66, 19, 'course_class', 2, '2023-11-27 04:27:28', '2023-11-27 04:27:28'),
+(178, 66, 18, 'course_class', 2, '2023-11-27 04:27:30', '2023-11-27 04:27:30'),
+(179, 66, 19, 'course_class', 2, '2023-11-27 04:27:32', '2023-11-27 04:27:32'),
+(180, 66, 13, 'course_class', 2, '2023-11-27 04:28:50', '2023-11-27 04:28:50'),
+(181, 66, 13, 'course_class', 2, '2023-11-27 04:29:12', '2023-11-27 04:29:12'),
+(182, 66, 8, 'course_class', 2, '2023-11-27 04:29:15', '2023-11-27 04:29:15'),
+(183, 66, 13, 'course_class', 2, '2023-11-27 04:38:56', '2023-11-27 04:38:56'),
+(184, 66, 18, 'course_class', 2, '2023-11-27 04:38:59', '2023-11-27 04:38:59'),
+(185, 66, 19, 'course_class', 2, '2023-11-27 04:39:01', '2023-11-27 04:39:01'),
+(186, 66, 18, 'course_class', 2, '2023-11-27 04:39:05', '2023-11-27 04:39:05'),
+(187, 66, 18, 'course_class', 2, '2023-11-27 04:39:06', '2023-11-27 04:39:06'),
+(188, 66, 18, 'course_class', 2, '2023-11-27 04:39:11', '2023-11-27 04:39:11'),
+(189, 66, 19, 'course_class', 2, '2023-11-27 04:39:13', '2023-11-27 04:39:13'),
+(190, 66, 19, 'course_class', 2, '2023-11-27 04:39:13', '2023-11-27 04:39:13'),
+(191, 66, 18, 'course_class', 2, '2023-11-27 04:39:14', '2023-11-27 04:39:14'),
+(192, 66, 19, 'course_class', 2, '2023-11-27 04:39:16', '2023-11-27 04:39:16'),
+(193, 66, 19, 'course_class', 2, '2023-11-27 04:39:17', '2023-11-27 04:39:17'),
+(194, 66, 13, 'course_class', 2, '2023-11-27 04:42:31', '2023-11-27 04:42:31'),
+(195, 66, 25, 'course_class', 2, '2023-11-27 04:43:07', '2023-11-27 04:43:07'),
+(196, 66, 17, 'course_class', 2, '2023-11-27 06:40:43', '2023-11-27 06:40:43'),
+(197, 66, 25, 'course_class', 2, '2023-11-27 06:40:49', '2023-11-27 06:40:49'),
+(198, 66, 13, 'course_class', 2, '2023-11-27 06:46:10', '2023-11-27 06:46:10'),
+(199, 66, 8, 'course_class', 2, '2023-11-27 06:46:11', '2023-11-27 06:46:11'),
+(200, 66, 17, 'course_class', 2, '2023-11-27 06:46:13', '2023-11-27 06:46:13'),
+(201, 66, 25, 'course_class', 2, '2023-11-27 06:46:14', '2023-11-27 06:46:14'),
+(202, 66, 26, 'course_class', 2, '2023-11-27 06:46:29', '2023-11-27 06:46:29'),
+(203, 66, 18, 'course_class', 2, '2023-11-27 06:46:38', '2023-11-27 06:46:38'),
+(204, 66, 13, 'course_class', 2, '2023-11-27 07:26:31', '2023-11-27 07:26:31'),
+(205, 66, 14, 'course_class', 2, '2023-11-27 07:26:34', '2023-11-27 07:26:34'),
+(206, 66, 15, 'course_class', 2, '2023-11-27 07:26:36', '2023-11-27 07:26:36'),
+(207, 66, 16, 'course_class', 2, '2023-11-27 07:26:38', '2023-11-27 07:26:38'),
+(208, 66, 8, 'course_class', 2, '2023-11-27 07:26:40', '2023-11-27 07:26:40'),
+(209, 66, 8, 'course_class', 2, '2023-11-27 07:27:51', '2023-11-27 07:27:51'),
+(210, 66, 9, 'course_class', 2, '2023-11-27 07:27:54', '2023-11-27 07:27:54'),
+(211, 66, 12, 'course_class', 2, '2023-11-27 07:27:56', '2023-11-27 07:27:56'),
+(212, 66, 8, 'course_class', 2, '2023-11-27 07:28:04', '2023-11-27 07:28:04'),
+(213, 66, 9, 'course_class', 2, '2023-11-27 07:28:23', '2023-11-27 07:28:23'),
+(214, 66, 13, 'course_class', 2, '2023-11-27 07:29:13', '2023-11-27 07:29:13'),
+(215, 66, 8, 'course_class', 2, '2023-11-27 07:29:14', '2023-11-27 07:29:14'),
+(216, 66, 17, 'course_class', 2, '2023-11-27 07:29:15', '2023-11-27 07:29:15'),
+(217, 66, 25, 'course_class', 2, '2023-11-27 07:29:16', '2023-11-27 07:29:16'),
+(218, 66, 14, 'course_class', 2, '2023-11-27 07:29:22', '2023-11-27 07:29:22'),
+(219, 66, 15, 'course_class', 2, '2023-11-27 07:29:58', '2023-11-27 07:29:58'),
+(220, 66, 16, 'course_class', 2, '2023-11-27 07:30:01', '2023-11-27 07:30:01'),
+(221, 66, 13, 'course_class', 2, '2023-11-27 07:35:43', '2023-11-27 07:35:43'),
+(222, 66, 14, 'course_class', 2, '2023-11-27 08:15:08', '2023-11-27 08:15:08'),
+(223, 66, 15, 'course_class', 2, '2023-11-27 08:15:11', '2023-11-27 08:15:11'),
+(224, 66, 15, 'course_class', 2, '2023-11-27 08:19:06', '2023-11-27 08:19:06'),
+(225, 66, 15, 'course_class', 2, '2023-11-27 08:22:32', '2023-11-27 08:22:32'),
+(226, 66, 15, 'course_class', 2, '2023-11-27 08:23:49', '2023-11-27 08:23:49'),
+(227, 66, 14, 'course_class', 2, '2023-11-27 08:23:53', '2023-11-27 08:23:53'),
+(228, 66, 15, 'course_class', 2, '2023-11-27 08:23:55', '2023-11-27 08:23:55'),
+(229, 66, 14, 'course_class', 2, '2023-11-27 08:23:57', '2023-11-27 08:23:57'),
+(230, 66, 14, 'course_class', 2, '2023-11-27 08:25:31', '2023-11-27 08:25:31'),
+(231, 66, 15, 'course_class', 2, '2023-11-27 08:25:33', '2023-11-27 08:25:33'),
+(232, 66, 15, 'course_class', 2, '2023-11-27 08:25:37', '2023-11-27 08:25:37'),
+(233, 66, 14, 'course_class', 2, '2023-11-27 08:29:50', '2023-11-27 08:29:50'),
+(234, 66, 14, 'course_class', 2, '2023-11-27 08:33:20', '2023-11-27 08:33:20'),
+(235, 66, 14, 'course_class', 2, '2023-11-27 08:35:56', '2023-11-27 08:35:56'),
+(236, 66, 14, 'course_class', 2, '2023-11-27 08:36:01', '2023-11-27 08:36:01'),
+(237, 66, 15, 'course_class', 2, '2023-11-27 08:36:06', '2023-11-27 08:36:06'),
+(238, 66, 15, 'course_class', 2, '2023-11-27 08:36:06', '2023-11-27 08:36:06'),
+(239, 66, 15, 'course_class', 2, '2023-11-27 08:36:07', '2023-11-27 08:36:07'),
+(240, 66, 15, 'course_class', 2, '2023-11-27 08:36:07', '2023-11-27 08:36:07'),
+(241, 66, 15, 'course_class', 2, '2023-11-27 08:36:08', '2023-11-27 08:36:08'),
+(242, 66, 15, 'course_class', 2, '2023-11-27 08:36:08', '2023-11-27 08:36:08'),
+(243, 66, 15, 'course_class', 2, '2023-11-27 08:36:08', '2023-11-27 08:36:08'),
+(244, 66, 15, 'course_class', 2, '2023-11-27 08:43:49', '2023-11-27 08:43:49'),
+(245, 66, 14, 'course_class', 2, '2023-11-27 08:43:52', '2023-11-27 08:43:52'),
+(246, 66, 13, 'course_class', 2, '2023-11-27 08:43:55', '2023-11-27 08:43:55'),
+(247, 66, 15, 'course_class', 2, '2023-11-27 08:43:57', '2023-11-27 08:43:57'),
+(248, 66, 16, 'course_class', 2, '2023-11-27 08:43:59', '2023-11-27 08:43:59'),
+(249, 66, 8, 'course_class', 2, '2023-11-27 08:44:23', '2023-11-27 08:44:23'),
+(250, 66, 9, 'course_class', 2, '2023-11-27 08:44:25', '2023-11-27 08:44:25'),
+(251, 66, 11, 'course_class', 2, '2023-11-27 08:44:28', '2023-11-27 08:44:28'),
+(252, 66, 8, 'course_class', 2, '2023-11-27 08:44:29', '2023-11-27 08:44:29'),
+(253, 66, 17, 'course_class', 2, '2023-11-27 08:44:31', '2023-11-27 08:44:31'),
+(254, 66, 18, 'course_class', 2, '2023-11-27 08:44:33', '2023-11-27 08:44:33'),
+(255, 66, 19, 'course_class', 2, '2023-11-27 08:44:35', '2023-11-27 08:44:35'),
+(256, 66, 25, 'course_class', 2, '2023-11-27 08:44:38', '2023-11-27 08:44:38'),
+(257, 66, 26, 'course_class', 2, '2023-11-27 08:44:39', '2023-11-27 08:44:39'),
+(258, 66, 27, 'course_class', 2, '2023-11-27 08:44:41', '2023-11-27 08:44:41'),
+(259, 66, 25, 'course_class', 2, '2023-11-27 08:44:47', '2023-11-27 08:44:47'),
+(260, 66, 26, 'course_class', 2, '2023-11-27 08:44:49', '2023-11-27 08:44:49'),
+(261, 66, 27, 'course_class', 2, '2023-11-27 08:44:51', '2023-11-27 08:44:51'),
+(262, 66, 28, 'course_class', 2, '2023-11-27 08:44:53', '2023-11-27 08:44:53'),
+(263, 66, 27, 'course_class', 2, '2023-11-27 08:44:54', '2023-11-27 08:44:54'),
+(264, 66, 28, 'course_class', 2, '2023-11-27 08:44:56', '2023-11-27 08:44:56'),
+(265, 66, 29, 'course_class', 2, '2023-11-27 08:44:57', '2023-11-27 08:44:57'),
+(266, 66, 30, 'course_class', 2, '2023-11-27 08:44:58', '2023-11-27 08:44:58'),
+(267, 66, 25, 'course_class', 2, '2023-11-27 08:45:01', '2023-11-27 08:45:01'),
+(268, 66, 26, 'course_class', 2, '2023-11-27 08:45:10', '2023-11-27 08:45:10'),
+(269, 66, 27, 'course_class', 2, '2023-11-27 08:45:11', '2023-11-27 08:45:11'),
+(270, 66, 28, 'course_class', 2, '2023-11-27 08:45:12', '2023-11-27 08:45:12'),
+(271, 66, 29, 'course_class', 2, '2023-11-27 08:45:13', '2023-11-27 08:45:13'),
+(272, 66, 30, 'course_class', 2, '2023-11-27 08:45:14', '2023-11-27 08:45:14'),
+(273, 66, 25, 'course_class', 2, '2023-11-27 08:45:18', '2023-11-27 08:45:18'),
+(274, 66, 26, 'course_class', 2, '2023-11-27 08:45:20', '2023-11-27 08:45:20'),
+(275, 66, 27, 'course_class', 2, '2023-11-27 08:45:27', '2023-11-27 08:45:27'),
+(276, 66, 28, 'course_class', 2, '2023-11-27 08:45:29', '2023-11-27 08:45:29'),
+(277, 66, 29, 'course_class', 2, '2023-11-27 08:45:31', '2023-11-27 08:45:31'),
+(278, 66, 25, 'course_class', 2, '2023-11-27 08:45:35', '2023-11-27 08:45:35'),
+(279, 66, 26, 'course_class', 2, '2023-11-27 08:45:38', '2023-11-27 08:45:38'),
+(280, 66, 28, 'course_class', 2, '2023-11-27 08:45:41', '2023-11-27 08:45:41'),
+(281, 66, 27, 'course_class', 2, '2023-11-27 08:45:45', '2023-11-27 08:45:45'),
+(282, 66, 30, 'course_class', 2, '2023-11-27 08:45:49', '2023-11-27 08:45:49'),
+(283, 66, 13, 'course_class', 2, '2023-11-27 08:48:19', '2023-11-27 08:48:19'),
+(284, 66, 14, 'course_class', 2, '2023-11-27 08:48:25', '2023-11-27 08:48:25'),
+(285, 66, 16, 'course_class', 2, '2023-11-27 08:48:28', '2023-11-27 08:48:28'),
+(286, 66, 13, 'course_class', 2, '2023-11-27 08:49:20', '2023-11-27 08:49:20'),
+(287, 66, 14, 'course_class', 2, '2023-11-27 08:49:32', '2023-11-27 08:49:32'),
+(288, 66, 15, 'course_class', 2, '2023-11-27 08:49:38', '2023-11-27 08:49:38'),
+(289, 66, 16, 'course_class', 2, '2023-11-27 08:49:44', '2023-11-27 08:49:44'),
+(290, 66, 13, 'course_class', 2, '2023-11-27 08:49:58', '2023-11-27 08:49:58'),
+(291, 66, 14, 'course_class', 2, '2023-11-27 08:50:00', '2023-11-27 08:50:00'),
+(292, 66, 15, 'course_class', 2, '2023-11-27 08:50:03', '2023-11-27 08:50:03'),
+(293, 66, 15, 'course_class', 2, '2023-11-27 08:50:05', '2023-11-27 08:50:05'),
+(294, 66, 16, 'course_class', 2, '2023-11-27 08:50:08', '2023-11-27 08:50:08'),
+(295, 66, 16, 'course_class', 2, '2023-11-27 08:50:10', '2023-11-27 08:50:10'),
+(296, 66, 13, 'course_class', 2, '2023-11-27 08:50:19', '2023-11-27 08:50:19'),
+(297, 66, 14, 'course_class', 2, '2023-11-27 08:50:22', '2023-11-27 08:50:22'),
+(298, 66, 15, 'course_class', 2, '2023-11-27 08:50:25', '2023-11-27 08:50:25'),
+(299, 66, 16, 'course_class', 2, '2023-11-27 08:50:28', '2023-11-27 08:50:28'),
+(300, 66, 13, 'course_class', 2, '2023-11-27 08:50:36', '2023-11-27 08:50:36'),
+(301, 66, 14, 'course_class', 2, '2023-11-27 08:51:02', '2023-11-27 08:51:02'),
+(302, 66, 13, 'course_class', 2, '2023-11-27 08:51:03', '2023-11-27 08:51:03'),
+(303, 66, 14, 'course_class', 2, '2023-11-27 08:51:06', '2023-11-27 08:51:06'),
+(304, 66, 25, 'course_class', 2, '2023-11-27 09:01:36', '2023-11-27 09:01:36'),
+(305, 66, 26, 'course_class', 2, '2023-11-27 09:01:45', '2023-11-27 09:01:45'),
+(306, 66, 27, 'course_class', 2, '2023-11-27 09:01:56', '2023-11-27 09:01:56'),
+(307, 66, 28, 'course_class', 2, '2023-11-27 09:02:04', '2023-11-27 09:02:04'),
+(308, 66, 29, 'course_class', 2, '2023-11-27 09:02:07', '2023-11-27 09:02:07'),
+(309, 66, 30, 'course_class', 2, '2023-11-27 09:02:08', '2023-11-27 09:02:08'),
+(310, 66, 29, 'course_class', 2, '2023-11-27 09:05:02', '2023-11-27 09:05:02'),
+(311, 66, 30, 'course_class', 2, '2023-11-27 09:05:11', '2023-11-27 09:05:11'),
+(312, 66, 30, 'course_class', 2, '2023-11-27 09:06:13', '2023-11-27 09:06:13'),
+(313, 66, 13, 'course_class', 2, '2023-11-27 09:07:01', '2023-11-27 09:07:01'),
+(314, 66, 13, 'course_class', 2, '2023-11-27 09:19:19', '2023-11-27 09:19:19'),
+(315, 66, 14, 'course_class', 2, '2023-11-27 09:19:22', '2023-11-27 09:19:22'),
+(316, 66, 15, 'course_class', 2, '2023-11-27 09:19:23', '2023-11-27 09:19:23'),
+(317, 66, 16, 'course_class', 2, '2023-11-27 09:19:25', '2023-11-27 09:19:25'),
+(318, 66, 13, 'course_class', 2, '2023-11-27 09:19:29', '2023-11-27 09:19:29'),
+(319, 66, 14, 'course_class', 2, '2023-11-27 09:19:30', '2023-11-27 09:19:30'),
+(320, 66, 13, 'course_class', 2, '2023-11-27 09:19:31', '2023-11-27 09:19:31'),
+(321, 66, 13, 'course_class', 2, '2023-11-27 09:19:46', '2023-11-27 09:19:46'),
+(322, 66, 14, 'course_class', 2, '2023-11-27 09:19:59', '2023-11-27 09:19:59'),
+(323, 66, 16, 'course_class', 2, '2023-11-27 09:20:00', '2023-11-27 09:20:00'),
+(324, 66, 15, 'course_class', 2, '2023-11-27 09:20:02', '2023-11-27 09:20:02'),
+(325, 66, 13, 'course_class', 2, '2023-11-27 09:24:21', '2023-11-27 09:24:21'),
+(326, 66, 14, 'course_class', 2, '2023-11-27 09:24:23', '2023-11-27 09:24:23'),
+(327, 66, 13, 'course_class', 2, '2023-11-27 09:26:32', '2023-11-27 09:26:32'),
+(328, 66, 14, 'course_class', 2, '2023-11-27 09:26:34', '2023-11-27 09:26:34'),
+(329, 66, 15, 'course_class', 2, '2023-11-27 09:26:42', '2023-11-27 09:26:42'),
+(330, 66, 16, 'course_class', 2, '2023-11-27 09:26:45', '2023-11-27 09:26:45'),
+(331, 66, 3, 'course_class', 2, '2023-11-27 09:27:46', '2023-11-27 09:27:46'),
+(332, 66, 1, 'course_class', 2, '2023-11-27 09:27:49', '2023-11-27 09:27:49'),
+(333, 66, 66, 'course_class', 2, '2023-11-27 09:27:52', '2023-11-27 09:27:52'),
+(334, 66, 5, 'course_class', 2, '2023-11-27 09:27:53', '2023-11-27 09:27:53'),
+(335, 66, 69, 'course_class', 2, '2023-11-27 09:27:56', '2023-11-27 09:27:56'),
+(336, 66, 4, 'course_class', 2, '2023-11-27 09:27:57', '2023-11-27 09:27:57'),
+(337, 66, 72, 'course_class', 2, '2023-11-27 09:27:59', '2023-11-27 09:27:59'),
+(338, 66, 6, 'course_class', 2, '2023-11-27 09:28:01', '2023-11-27 09:28:01'),
+(339, 66, 75, 'course_class', 2, '2023-11-27 09:28:03', '2023-11-27 09:28:03'),
+(340, 66, 76, 'course_class', 2, '2023-11-27 09:28:04', '2023-11-27 09:28:04'),
+(341, 66, 77, 'course_class', 2, '2023-11-27 09:28:06', '2023-11-27 09:28:06'),
+(342, 66, 79, 'course_class', 2, '2023-11-27 09:28:08', '2023-11-27 09:28:08'),
+(343, 66, 80, 'course_class', 2, '2023-11-27 09:28:09', '2023-11-27 09:28:09'),
+(344, 66, 81, 'course_class', 2, '2023-11-27 09:28:12', '2023-11-27 09:28:12'),
+(345, 66, 83, 'course_class', 2, '2023-11-27 09:28:14', '2023-11-27 09:28:14'),
+(346, 66, 84, 'course_class', 2, '2023-11-27 09:28:16', '2023-11-27 09:28:16'),
+(347, 66, 85, 'course_class', 2, '2023-11-27 09:28:18', '2023-11-27 09:28:18'),
+(348, 66, 87, 'course_class', 2, '2023-11-27 09:28:20', '2023-11-27 09:28:20'),
+(349, 66, 88, 'course_class', 2, '2023-11-27 09:28:22', '2023-11-27 09:28:22'),
+(350, 66, 89, 'course_class', 2, '2023-11-27 09:28:24', '2023-11-27 09:28:24'),
+(351, 66, 91, 'course_class', 2, '2023-11-27 09:28:26', '2023-11-27 09:28:26'),
+(352, 66, 92, 'course_class', 2, '2023-11-27 09:28:28', '2023-11-27 09:28:28'),
+(353, 66, 94, 'course_class', 2, '2023-11-27 09:28:30', '2023-11-27 09:28:30'),
+(354, 66, 95, 'course_class', 2, '2023-11-27 09:28:31', '2023-11-27 09:28:31'),
+(355, 66, 97, 'course_class', 2, '2023-11-27 09:28:34', '2023-11-27 09:28:34'),
+(356, 66, 98, 'course_class', 2, '2023-11-27 09:28:35', '2023-11-27 09:28:35'),
+(357, 66, 100, 'course_class', 2, '2023-11-27 09:28:37', '2023-11-27 09:28:37'),
+(358, 66, 101, 'course_class', 2, '2023-11-27 09:28:39', '2023-11-27 09:28:39'),
+(359, 66, 103, 'course_class', 2, '2023-11-27 09:28:41', '2023-11-27 09:28:41'),
+(360, 66, 104, 'course_class', 2, '2023-11-27 09:28:42', '2023-11-27 09:28:42'),
+(361, 66, 104, 'course_class', 2, '2023-11-28 02:10:08', '2023-11-28 02:10:08'),
+(362, 66, 13, 'course_class', 2, '2023-11-28 02:26:13', '2023-11-28 02:26:13'),
+(363, 66, 13, 'course_class', 2, '2023-11-28 02:31:37', '2023-11-28 02:31:37'),
+(364, 66, 13, 'course_class', 2, '2023-11-29 00:49:45', '2023-11-29 00:49:45'),
+(365, 66, 25, 'course_class', 2, '2023-11-29 00:50:18', '2023-11-29 00:50:18'),
+(366, 66, 3, 'course_class', 2, '2023-11-29 00:52:36', '2023-11-29 00:52:36'),
+(367, 66, 1, 'course_class', 2, '2023-11-29 00:54:00', '2023-11-29 00:54:00'),
+(368, 66, 3, 'course_class', 2, '2023-11-30 01:33:54', '2023-11-30 01:33:54'),
+(369, 66, 3, 'course_class', 2, '2023-11-30 01:39:46', '2023-11-30 01:39:46'),
+(370, 66, 13, 'course_class', 2, '2023-11-30 01:58:37', '2023-11-30 01:58:37'),
+(371, 66, 8, 'course_class', 2, '2023-11-30 01:58:40', '2023-11-30 01:58:40'),
+(372, 66, 3, 'course_class', 2, '2023-11-30 02:02:29', '2023-11-30 02:02:29'),
+(373, 66, 3, 'course_class', 2, '2023-11-30 02:05:24', '2023-11-30 02:05:24'),
+(374, 66, 104, 'course_class', 2, '2023-11-30 02:30:42', '2023-11-30 02:30:42'),
+(375, 66, 104, 'course_class', 2, '2023-11-30 02:31:39', '2023-11-30 02:31:39'),
+(376, 66, 104, 'course_class', 2, '2023-11-30 02:33:14', '2023-11-30 02:33:14'),
+(377, 66, 3, 'course_class', 2, '2023-11-30 02:33:19', '2023-11-30 02:33:19'),
+(378, 66, 25, 'course_class', 2, '2023-11-30 02:33:24', '2023-11-30 02:33:24'),
+(379, 66, 3, 'course_class', 2, '2023-11-30 02:33:57', '2023-11-30 02:33:57'),
+(380, 66, 1, 'course_class', 2, '2023-11-30 02:33:59', '2023-11-30 02:33:59'),
+(381, 66, 66, 'course_class', 2, '2023-11-30 02:34:04', '2023-11-30 02:34:04'),
+(382, 66, 66, 'course_class', 2, '2023-11-30 02:34:26', '2023-11-30 02:34:26'),
+(383, 66, 5, 'course_class', 2, '2023-11-30 02:34:30', '2023-11-30 02:34:30'),
+(384, 66, 69, 'course_class', 2, '2023-11-30 02:34:35', '2023-11-30 02:34:35'),
+(385, 66, 25, 'course_class', 2, '2023-11-30 02:34:39', '2023-11-30 02:34:39'),
+(386, 66, 104, 'course_class', 2, '2023-11-30 04:10:58', '2023-11-30 04:10:58'),
+(387, 66, 1, 'course_class', 2, '2023-11-30 04:11:02', '2023-11-30 04:11:02'),
+(388, 66, 1, 'course_class', 2, '2023-11-30 04:11:14', '2023-11-30 04:11:14'),
+(389, 66, 1, 'course_class', 2, '2023-11-30 04:14:39', '2023-11-30 04:14:39'),
+(390, 66, 1, 'course_class', 2, '2023-11-30 04:14:48', '2023-11-30 04:14:48'),
+(391, 66, 1, 'course_class', 2, '2023-11-30 04:14:56', '2023-11-30 04:14:56'),
+(392, 66, 69, 'course_class', 2, '2023-11-30 07:43:10', '2023-11-30 07:43:10');
 
 -- --------------------------------------------------------
 
@@ -635,7 +1129,8 @@ CREATE TABLE `course_class_module` (
   `id` int(11) NOT NULL,
   `start_date` datetime NOT NULL,
   `end_date` datetime NOT NULL,
-  `priority` int(11) NOT NULL,
+  `priority` int(11) NOT NULL COMMENT 'determine order of parent modules & child modules',
+  `level` int(11) NOT NULL COMMENT 'determine level of module (1 = parent, 2 = submodule, 3 = child of submodule, etc)',
   `course_module_id` int(11) NOT NULL,
   `course_class_id` int(11) NOT NULL,
   `description` text DEFAULT NULL,
@@ -645,6 +1140,302 @@ CREATE TABLE `course_class_module` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `course_class_module`
+--
+
+INSERT INTO `course_class_module` (`id`, `start_date`, `end_date`, `priority`, `level`, `course_module_id`, `course_class_id`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
+(1, '2023-11-06 00:00:00', '2023-11-06 00:00:00', 2, 2, 362, 1, NULL, 1, '2023-11-06 16:27:48', 1, '2023-11-30 02:56:05', 1),
+(2, '2023-11-06 10:23:39', '2023-11-06 10:23:39', 1, 1, 360, 1, NULL, 1, '2023-11-06 16:27:48', 1, '2023-11-20 15:47:11', 1),
+(3, '2023-11-06 10:23:39', '2023-11-06 10:23:39', 1, 2, 361, 1, NULL, 1, '2023-11-06 16:27:48', 1, '2023-11-20 15:47:14', 1),
+(4, '2023-11-06 10:23:39', '2023-11-06 10:23:39', 4, 0, 368, 1, NULL, 1, '2023-11-06 16:27:48', 1, '2023-11-20 15:47:16', 1),
+(5, '2023-11-06 10:23:39', '2023-11-06 10:23:39', 5, 0, 365, 1, NULL, 1, '2023-11-06 16:27:48', 1, '2023-11-20 15:47:17', 1),
+(6, '2023-11-06 10:23:39', '2023-11-06 10:23:39', 6, 0, 372, 1, NULL, 1, '2023-11-06 16:27:48', 1, '2023-11-20 15:47:19', 1),
+(7, '2023-11-06 10:23:39', '2023-11-06 10:23:39', 7, 0, 489, 1, NULL, 1, '2023-11-06 16:27:48', 1, '2023-11-20 15:47:25', 1),
+(8, '2023-11-09 07:31:58', '2023-11-09 07:31:58', 1, 1, 49, 4, NULL, 1, '2023-11-09 13:35:08', 1, '2023-11-20 15:47:46', 1),
+(9, '2023-11-09 07:58:54', '2023-11-09 07:58:54', 2, 1, 51, 4, NULL, 1, '2023-11-09 13:59:18', 1, '2023-11-20 15:47:48', 1),
+(10, '2023-11-09 07:59:54', '2023-11-09 07:59:54', 3, 1, 53, 4, NULL, 1, '2023-11-09 14:00:48', 1, '2023-11-20 15:47:50', 1),
+(11, '2023-11-09 07:59:54', '2023-11-09 07:59:54', 4, 1, 55, 4, NULL, 1, '2023-11-09 14:00:48', 1, '2023-11-20 15:47:52', 1),
+(12, '2023-11-09 07:59:54', '2023-11-09 07:59:54', 5, 1, 57, 4, NULL, 1, '2023-11-09 14:00:48', 1, '2023-11-20 15:47:54', 1),
+(13, '2023-11-09 08:37:21', '2023-11-09 08:37:21', 1, 1, 21, 3, NULL, 1, '2023-11-09 14:38:28', 1, '2023-11-20 15:47:56', 1),
+(14, '2023-11-09 08:37:21', '2023-11-09 08:37:21', 2, 1, 27, 3, NULL, 1, '2023-11-09 14:38:28', 1, '2023-11-20 15:47:59', 1),
+(15, '2023-11-09 08:37:21', '2023-11-09 08:37:21', 3, 1, 33, 3, NULL, 1, '2023-11-09 14:38:28', 1, '2023-11-20 15:48:01', 1),
+(16, '2023-11-09 08:37:21', '2023-11-09 08:37:21', 4, 1, 38, 3, NULL, 1, '2023-11-09 14:38:28', 1, '2023-11-20 15:48:02', 1),
+(17, '2023-11-09 08:59:43', '2023-11-09 08:59:43', 1, 1, 59, 5, NULL, 1, '2023-11-09 15:00:51', 1, '2023-11-20 15:48:04', 1),
+(18, '2023-11-09 08:59:43', '2023-11-09 08:59:43', 2, 1, 63, 5, NULL, 1, '2023-11-09 15:00:51', 1, '2023-11-20 15:48:06', 1),
+(19, '2023-11-09 08:59:43', '2023-11-09 08:59:43', 3, 1, 67, 5, NULL, 1, '2023-11-09 15:00:51', 1, '2023-11-20 15:48:08', 1),
+(20, '2023-11-09 10:13:54', '2024-11-27 16:14:13', 1, 2, 50, 4, NULL, 1, '2023-11-09 16:22:44', 1, '2023-11-09 16:22:44', 1),
+(21, '2023-11-09 10:13:54', '2024-12-18 16:14:13', 2, 2, 52, 4, NULL, 1, '2023-11-09 16:22:44', 1, '2023-11-09 16:22:44', 1),
+(22, '2023-11-09 10:13:54', '2024-11-13 16:14:13', 3, 2, 54, 4, NULL, 1, '2023-11-09 16:22:44', 1, '2023-11-09 16:22:44', 1),
+(23, '2023-11-09 10:13:54', '2023-11-09 10:13:54', 4, 2, 56, 4, NULL, 1, '2023-11-09 16:22:44', 1, '2023-11-09 16:22:44', 1),
+(24, '2023-11-09 10:13:54', '2024-11-13 16:14:13', 5, 2, 58, 4, NULL, 1, '2023-11-09 16:22:44', 1, '2023-11-09 16:22:44', 1),
+(25, '2023-11-13 02:40:59', '2023-11-13 02:40:59', 1, 1, 69, 6, NULL, 1, '2023-11-13 08:41:23', 1, '2023-11-13 08:41:23', 1),
+(26, '2023-11-13 02:44:20', '2023-11-13 02:44:20', 2, 1, 71, 6, NULL, 1, '2023-11-13 08:45:55', 1, '2023-11-13 08:45:55', 1),
+(27, '2023-11-13 02:44:20', '2023-11-13 02:44:20', 3, 1, 74, 6, NULL, 1, '2023-11-13 08:45:55', 1, '2023-11-13 08:45:55', 1),
+(28, '2023-11-13 02:44:20', '2023-11-13 02:44:20', 4, 1, 76, 6, NULL, 1, '2023-11-13 08:45:55', 1, '2023-11-13 08:45:55', 1),
+(29, '2023-11-13 02:44:20', '2023-11-13 02:44:20', 5, 1, 78, 6, NULL, 1, '2023-11-13 08:45:55', 1, '2023-11-13 08:45:55', 1),
+(30, '2023-11-13 02:44:20', '2023-11-13 02:44:20', 6, 1, 80, 6, NULL, 1, '2023-11-13 08:45:55', 1, '2023-11-13 08:45:55', 1),
+(31, '2023-11-13 02:59:46', '2023-11-13 02:59:46', 1, 2, 72, 6, NULL, 1, '2023-11-13 09:00:14', 1, '2023-11-13 10:07:38', 1),
+(32, '2023-11-13 02:59:46', '2023-11-13 02:59:46', 2, 2, 73, 6, NULL, 1, '2023-11-13 09:00:14', 1, '2023-11-13 10:07:40', 1),
+(33, '2023-11-13 03:08:43', '2023-11-13 03:08:43', 1, 2, 70, 6, NULL, 1, '2023-11-13 09:10:22', 1, '2023-11-13 09:10:22', 1),
+(34, '2023-11-13 03:08:43', '2023-11-13 03:08:43', 1, 2, 75, 6, NULL, 1, '2023-11-13 09:10:22', 1, '2023-11-13 10:07:58', 1),
+(35, '2023-11-13 03:08:43', '2023-11-13 03:08:43', 1, 2, 77, 6, NULL, 1, '2023-11-13 09:10:22', 1, '2023-11-13 10:08:01', 1),
+(36, '2023-11-13 03:08:43', '2023-11-13 03:08:43', 1, 2, 79, 6, NULL, 1, '2023-11-13 09:10:22', 1, '2023-11-13 10:08:07', 1),
+(37, '2023-11-13 03:08:43', '2023-11-13 03:08:43', 1, 2, 81, 6, NULL, 1, '2023-11-13 09:10:22', 1, '2023-11-13 10:08:09', 1),
+(38, '2023-11-13 04:08:26', '2023-11-13 04:08:26', 1, 2, 22, 3, NULL, 1, '2023-11-13 10:12:54', 1, '2023-11-13 10:12:54', 1),
+(39, '2023-11-13 04:08:26', '2023-11-13 04:08:26', 2, 2, 23, 3, NULL, 1, '2023-11-13 10:12:54', 1, '2023-11-13 10:12:54', 1),
+(40, '2023-11-13 04:08:26', '2023-11-13 04:08:26', 3, 2, 24, 3, NULL, 1, '2023-11-13 10:12:54', 1, '2023-11-13 10:12:54', 1),
+(41, '2023-11-13 04:08:26', '2023-11-13 04:08:26', 4, 2, 25, 3, NULL, 1, '2023-11-13 10:12:54', 1, '2023-11-13 10:12:54', 1),
+(42, '2023-11-13 04:08:26', '2023-11-13 04:08:26', 5, 2, 26, 3, NULL, 1, '2023-11-13 10:12:54', 1, '2023-11-13 10:12:54', 1),
+(43, '2023-11-13 04:08:26', '2023-11-13 04:08:26', 1, 2, 28, 3, NULL, 1, '2023-11-13 10:12:54', 1, '2023-11-13 10:12:54', 1),
+(44, '2023-11-13 04:08:26', '2023-11-13 04:08:26', 2, 2, 29, 3, NULL, 1, '2023-11-13 10:12:54', 1, '2023-11-13 10:12:54', 1),
+(45, '2023-11-13 04:08:26', '2023-11-13 04:08:26', 3, 2, 30, 3, NULL, 1, '2023-11-13 10:12:54', 1, '2023-11-13 10:12:54', 1),
+(46, '2023-11-13 04:08:26', '2023-11-13 04:08:26', 4, 2, 31, 3, NULL, 1, '2023-11-13 10:12:54', 1, '2023-11-13 10:12:54', 1),
+(47, '2023-11-13 04:08:26', '2023-11-13 04:08:26', 5, 2, 32, 3, NULL, 1, '2023-11-13 10:12:54', 1, '2023-11-13 10:12:54', 1),
+(48, '2023-11-13 04:13:56', '2023-11-13 04:13:56', 1, 2, 34, 3, NULL, 1, '2023-11-13 10:15:11', 1, '2023-11-13 10:15:11', 1),
+(49, '2023-11-13 04:13:56', '2023-11-13 04:13:56', 2, 2, 35, 3, NULL, 1, '2023-11-13 10:15:11', 1, '2023-11-13 10:15:11', 1),
+(50, '2023-11-13 04:13:56', '2023-11-13 04:13:56', 3, 2, 36, 3, NULL, 1, '2023-11-13 10:15:11', 1, '2023-11-13 10:15:11', 1),
+(51, '2023-11-13 04:13:56', '2023-11-13 04:13:56', 4, 2, 37, 3, NULL, 1, '2023-11-13 10:15:11', 1, '2023-11-13 10:15:11', 1),
+(52, '2023-11-13 04:17:57', '2023-11-13 04:17:57', 1, 2, 39, 3, NULL, 1, '2023-11-13 10:20:33', 1, '2023-11-13 10:20:33', 1),
+(53, '2023-11-13 04:17:57', '2023-11-13 04:17:57', 2, 2, 40, 3, NULL, 1, '2023-11-13 10:20:33', 1, '2023-11-13 10:20:33', 1),
+(54, '2023-11-13 04:17:57', '2023-11-13 04:17:57', 3, 2, 41, 3, NULL, 1, '2023-11-13 10:20:33', 1, '2023-11-13 10:20:33', 1),
+(55, '2023-11-13 04:17:57', '2023-11-13 04:17:57', 4, 2, 42, 3, NULL, 1, '2023-11-13 10:20:33', 1, '2023-11-13 10:20:33', 1),
+(56, '2023-11-13 04:17:57', '2023-11-13 04:17:57', 5, 2, 43, 3, NULL, 1, '2023-11-13 10:20:33', 1, '2023-11-13 10:20:33', 1),
+(57, '2023-11-13 10:16:58', '2023-11-13 10:16:58', 1, 2, 60, 5, NULL, 1, '2023-11-13 16:18:37', 1, '2023-11-13 16:18:37', 1),
+(58, '2023-11-13 10:16:58', '2023-11-13 10:16:58', 2, 2, 61, 5, NULL, 1, '2023-11-13 16:18:37', 1, '2023-11-13 16:18:37', 1),
+(59, '2023-11-13 10:16:58', '2023-11-13 10:16:58', 3, 2, 62, 5, NULL, 1, '2023-11-13 16:18:37', 1, '2023-11-13 16:18:37', 1),
+(60, '2023-11-13 10:28:20', '2023-11-13 10:28:20', 1, 2, 64, 5, NULL, 1, '2023-11-13 16:29:43', 1, '2023-11-13 16:29:43', 1),
+(61, '2023-11-13 10:28:20', '2023-11-13 10:28:20', 2, 2, 65, 5, NULL, 1, '2023-11-13 16:29:43', 1, '2023-11-13 16:29:43', 1),
+(62, '2023-11-13 10:28:20', '2023-11-13 10:28:20', 3, 2, 66, 5, NULL, 1, '2023-11-13 16:29:43', 1, '2023-11-13 16:29:43', 1),
+(63, '2023-11-13 10:28:20', '2023-11-13 10:28:20', 1, 2, 68, 5, NULL, 1, '2023-11-13 16:29:43', 1, '2023-11-13 16:29:43', 1),
+(65, '2023-11-20 09:45:16', '2023-11-20 09:45:16', 2, 1, 363, 1, NULL, 1, '2023-11-20 15:46:16', 1, '2023-11-20 15:46:16', 1),
+(66, '2023-11-20 09:48:13', '2023-11-20 09:48:13', 1, 2, 364, 1, NULL, 1, '2023-11-20 15:52:24', 1, '2023-11-20 15:52:24', 1),
+(67, '2023-11-20 09:48:13', '2023-11-20 09:48:13', 2, 2, 365, 1, NULL, 1, '2023-11-20 15:52:24', 1, '2023-11-20 15:52:24', 1),
+(68, '2023-11-20 09:53:44', '2023-11-20 09:53:44', 3, 1, 366, 1, NULL, 1, '2023-11-20 15:54:44', 1, '2023-11-20 15:54:44', 1),
+(69, '2023-11-20 09:53:44', '2023-11-20 09:53:44', 1, 2, 367, 1, NULL, 1, '2023-11-20 15:54:44', 1, '2023-11-20 15:54:44', 1),
+(70, '2023-11-20 09:53:44', '2023-11-20 09:53:44', 2, 2, 368, 1, NULL, 1, '2023-11-20 15:54:44', 1, '2023-11-20 15:54:44', 1),
+(71, '2023-11-20 09:55:21', '2023-11-20 09:55:21', 4, 1, 369, 1, NULL, 1, '2023-11-20 15:58:16', 1, '2023-11-20 15:58:16', 1),
+(72, '2023-11-20 09:55:21', '2023-11-20 09:55:21', 1, 2, 371, 1, NULL, 1, '2023-11-20 15:58:16', 1, '2023-11-20 15:58:16', 1),
+(73, '2023-11-20 09:55:21', '2023-11-20 09:55:21', 2, 2, 372, 1, NULL, 1, '2023-11-20 15:58:16', 1, '2023-11-20 15:58:16', 1),
+(74, '2023-11-20 09:58:34', '2023-11-20 09:58:34', 5, 1, 373, 1, NULL, 1, '2023-11-20 15:59:38', 1, '2023-11-20 15:59:38', 1),
+(75, '2023-11-20 09:58:34', '2023-11-20 09:58:34', 1, 2, 374, 1, NULL, 1, '2023-11-20 15:59:38', 1, '2023-11-20 15:59:38', 1),
+(76, '2023-11-20 09:58:34', '2023-11-20 09:58:34', 2, 2, 375, 1, NULL, 1, '2023-11-20 15:59:38', 1, '2023-11-20 15:59:38', 1),
+(77, '2023-11-20 09:58:34', '2023-11-20 09:58:34', 3, 2, 376, 1, NULL, 1, '2023-11-20 15:59:38', 1, '2023-11-20 15:59:38', 1),
+(78, '2023-11-20 10:00:18', '2023-11-20 10:00:18', 6, 1, 377, 1, NULL, 1, '2023-11-20 16:01:18', 1, '2023-11-20 16:01:18', 1),
+(79, '2023-11-20 10:00:18', '2023-11-20 10:00:18', 1, 2, 378, 1, NULL, 1, '2023-11-20 16:01:18', 1, '2023-11-20 16:01:18', 1),
+(80, '2023-11-20 10:00:18', '2023-11-20 10:00:18', 2, 2, 379, 1, NULL, 1, '2023-11-20 16:01:18', 1, '2023-11-20 16:01:18', 1),
+(81, '2023-11-20 10:00:18', '2023-11-20 10:00:18', 3, 2, 380, 1, NULL, 1, '2023-11-20 16:01:18', 1, '2023-11-20 16:01:18', 1),
+(82, '2023-11-20 10:01:21', '2023-11-20 10:01:21', 7, 1, 381, 1, NULL, 1, '2023-11-20 16:02:41', 1, '2023-11-20 16:02:41', 1),
+(83, '2023-11-20 10:01:21', '2023-11-20 10:01:21', 1, 2, 382, 1, NULL, 1, '2023-11-20 16:02:41', 1, '2023-11-20 16:02:41', 1),
+(84, '2023-11-20 10:01:21', '2023-11-20 10:01:21', 2, 2, 383, 1, NULL, 1, '2023-11-20 16:02:41', 1, '2023-11-20 16:02:41', 1),
+(85, '2023-11-20 10:01:21', '2023-11-20 10:01:21', 3, 2, 384, 1, NULL, 1, '2023-11-20 16:02:41', 1, '2023-11-20 16:02:41', 1),
+(86, '2023-11-20 10:03:13', '2023-11-20 10:03:13', 8, 1, 385, 1, NULL, 1, '2023-11-20 16:04:25', 1, '2023-11-20 16:04:25', 1),
+(87, '2023-11-20 10:03:13', '2023-11-20 10:03:13', 1, 2, 386, 1, NULL, 1, '2023-11-20 16:04:25', 1, '2023-11-20 16:04:25', 1),
+(88, '2023-11-20 10:03:13', '2023-11-20 10:03:13', 2, 2, 387, 1, NULL, 1, '2023-11-20 16:04:25', 1, '2023-11-20 16:04:25', 1),
+(89, '2023-11-20 10:03:13', '2023-11-20 10:03:13', 3, 2, 388, 1, NULL, 1, '2023-11-20 16:04:25', 1, '2023-11-20 16:04:25', 1),
+(90, '2023-11-20 10:04:27', '2023-11-20 10:04:27', 9, 1, 389, 1, NULL, 1, '2023-11-20 16:05:19', 1, '2023-11-20 16:05:19', 1),
+(91, '2023-11-20 10:04:27', '2023-11-20 10:04:27', 1, 2, 390, 1, NULL, 1, '2023-11-20 16:05:19', 1, '2023-11-20 16:05:19', 1),
+(92, '2023-11-20 10:04:27', '2023-11-20 10:04:27', 2, 2, 391, 1, NULL, 1, '2023-11-20 16:05:19', 1, '2023-11-20 16:05:19', 1),
+(93, '2023-11-20 10:06:14', '2023-11-20 10:06:14', 10, 1, 392, 1, NULL, 1, '2023-11-20 16:07:13', 1, '2023-11-20 16:07:13', 1),
+(94, '2023-11-20 10:06:14', '2023-11-20 10:06:14', 1, 2, 393, 1, NULL, 1, '2023-11-20 16:07:13', 1, '2023-11-20 16:07:13', 1),
+(95, '2023-11-20 10:06:14', '2023-11-20 10:06:14', 2, 2, 394, 1, NULL, 1, '2023-11-20 16:07:13', 1, '2023-11-20 16:07:13', 1),
+(96, '2023-11-20 10:07:20', '2023-11-20 10:07:20', 11, 1, 395, 1, NULL, 1, '2023-11-20 16:08:36', 1, '2023-11-20 16:08:36', 1),
+(97, '2023-11-20 10:07:20', '2023-11-20 10:07:20', 1, 2, 396, 1, NULL, 1, '2023-11-20 16:08:36', 1, '2023-11-20 16:08:36', 1),
+(98, '2023-11-20 10:07:20', '2023-11-20 10:07:20', 2, 2, 397, 1, NULL, 1, '2023-11-20 16:08:36', 1, '2023-11-20 16:13:57', 1),
+(99, '2023-11-20 10:09:00', '2023-11-20 10:09:00', 12, 1, 398, 1, NULL, 1, '2023-11-20 16:10:00', 1, '2023-11-20 16:10:00', 1),
+(100, '2023-11-20 10:09:00', '2023-11-20 10:09:00', 1, 2, 399, 1, NULL, 1, '2023-11-20 16:10:00', 1, '2023-11-20 16:10:00', 1),
+(101, '2023-11-20 10:09:00', '2023-11-20 10:09:00', 2, 2, 400, 1, NULL, 1, '2023-11-20 16:10:00', 1, '2023-11-20 16:10:00', 1),
+(102, '2023-11-20 10:10:08', '2023-11-20 10:10:08', 13, 1, 401, 1, NULL, 1, '2023-11-20 16:10:59', 1, '2023-11-20 16:10:59', 1),
+(103, '2023-11-20 10:10:08', '2023-11-20 10:10:08', 1, 2, 402, 1, NULL, 1, '2023-11-20 16:10:59', 1, '2023-11-20 16:10:59', 1),
+(104, '2023-11-20 10:10:08', '2023-11-20 10:10:08', 2, 2, 403, 1, NULL, 1, '2023-11-20 16:10:59', 1, '2023-11-20 16:10:59', 1),
+(105, '2023-11-20 10:34:37', '2023-11-20 10:34:37', 1, 1, 481, 17, NULL, 1, '2023-11-20 16:35:42', 1, '2023-11-20 16:35:42', 1),
+(106, '2023-11-20 10:34:37', '2023-11-20 10:34:37', 1, 2, 482, 17, NULL, 1, '2023-11-20 16:35:42', 1, '2023-11-20 16:35:42', 1),
+(107, '2023-11-20 10:34:37', '2023-11-20 10:34:37', 2, 2, 483, 17, NULL, 1, '2023-11-20 16:35:42', 1, '2023-11-20 16:35:42', 1),
+(108, '2023-11-20 10:37:15', '2023-11-20 10:37:15', 2, 1, 484, 17, NULL, 1, '2023-11-20 16:39:00', 1, '2023-11-20 16:39:00', 1),
+(109, '2023-11-20 10:37:15', '2023-11-20 10:37:15', 1, 2, 485, 17, NULL, 1, '2023-11-20 16:39:00', 1, '2023-11-20 16:39:00', 1),
+(110, '2023-11-20 10:37:15', '2023-11-20 10:37:15', 2, 2, 486, 17, NULL, 1, '2023-11-20 16:39:00', 1, '2023-11-20 16:39:00', 1),
+(111, '2023-11-20 10:37:15', '2023-11-20 10:37:15', 3, 2, 487, 17, NULL, 1, '2023-11-20 16:39:00', 1, '2023-11-20 16:39:00', 1),
+(112, '2023-11-20 10:37:15', '2023-11-20 10:37:15', 4, 2, 488, 17, NULL, 1, '2023-11-20 16:39:00', 1, '2023-11-20 16:39:00', 1),
+(113, '2023-11-20 10:37:15', '2023-11-20 10:37:15', 5, 2, 489, 17, NULL, 1, '2023-11-20 16:39:00', 1, '2023-11-20 16:39:00', 1),
+(114, '2023-11-20 10:39:29', '2023-11-20 10:39:29', 3, 1, 490, 17, NULL, 1, '2023-11-20 16:40:47', 1, '2023-11-20 16:40:47', 1),
+(115, '2023-11-20 10:39:29', '2023-11-20 10:39:29', 1, 2, 491, 17, NULL, 1, '2023-11-20 16:40:47', 1, '2023-11-20 16:40:47', 1),
+(116, '2023-11-20 10:39:29', '2023-11-20 10:39:29', 2, 2, 492, 17, NULL, 1, '2023-11-20 16:40:47', 1, '2023-11-20 16:40:47', 1),
+(117, '2023-11-20 10:40:50', '2023-11-20 10:40:50', 4, 1, 493, 17, NULL, 1, '2023-11-20 16:42:14', 1, '2023-11-20 16:42:14', 1),
+(118, '2023-11-20 10:40:50', '2023-11-20 10:40:50', 1, 2, 494, 17, NULL, 1, '2023-11-20 16:42:14', 1, '2023-11-20 16:42:14', 1),
+(119, '2023-11-20 10:40:50', '2023-11-20 10:40:50', 2, 2, 495, 17, NULL, 1, '2023-11-20 16:42:14', 1, '2023-11-20 16:42:14', 1),
+(120, '2023-11-20 10:40:50', '2023-11-20 10:40:50', 3, 2, 496, 17, NULL, 1, '2023-11-20 16:42:14', 1, '2023-11-20 16:42:14', 1),
+(121, '2023-11-20 10:43:48', '2023-11-20 10:43:48', 1, 1, 600, 7, NULL, 1, '2023-11-20 16:45:29', 1, '2023-11-20 16:45:29', 1),
+(122, '2023-11-20 10:43:48', '2023-11-20 10:43:48', 1, 2, 601, 7, NULL, 1, '2023-11-20 16:45:29', 1, '2023-11-20 16:45:29', 1),
+(123, '2023-11-20 10:43:48', '2023-11-20 10:43:48', 2, 2, 603, 7, NULL, 1, '2023-11-20 16:45:29', 1, '2023-11-20 16:45:29', 1),
+(124, '2023-11-20 10:43:48', '2023-11-20 10:43:48', 3, 2, 604, 7, NULL, 1, '2023-11-20 16:45:29', 1, '2023-11-20 16:45:29', 1),
+(125, '2023-11-20 10:43:48', '2023-11-20 10:43:48', 4, 2, 605, 7, NULL, 1, '2023-11-20 16:45:29', 1, '2023-11-20 16:45:29', 1),
+(126, '2023-11-20 10:45:44', '2023-11-20 10:45:44', 2, 1, 602, 7, NULL, 1, '2023-11-20 16:47:09', 1, '2023-11-20 16:47:09', 1),
+(127, '2023-11-20 10:45:44', '2023-11-20 10:45:44', 1, 2, 608, 7, NULL, 1, '2023-11-20 16:47:09', 1, '2023-11-20 16:47:09', 1),
+(128, '2023-11-20 10:45:44', '2023-11-20 10:45:44', 2, 2, 609, 7, NULL, 1, '2023-11-20 16:47:09', 1, '2023-11-20 16:47:09', 1),
+(129, '2023-11-20 10:45:44', '2023-11-20 10:45:44', 3, 2, 610, 7, NULL, 1, '2023-11-20 16:47:09', 1, '2023-11-20 16:47:09', 1),
+(130, '2023-11-20 10:45:44', '2023-11-20 10:45:44', 4, 2, 611, 7, NULL, 1, '2023-11-20 16:47:09', 1, '2023-11-20 16:47:09', 1),
+(131, '2023-11-20 10:47:24', '2023-11-20 10:47:24', 3, 1, 613, 7, NULL, 1, '2023-11-20 16:48:35', 1, '2023-11-20 16:48:35', 1),
+(132, '2023-11-20 10:47:24', '2023-11-20 10:47:24', 1, 2, 615, 7, NULL, 1, '2023-11-20 16:48:35', 1, '2023-11-20 16:48:35', 1),
+(133, '2023-11-20 10:47:24', '2023-11-20 10:47:24', 2, 2, 616, 7, NULL, 1, '2023-11-20 16:48:35', 1, '2023-11-20 16:48:35', 1),
+(134, '2023-11-20 10:48:41', '2023-11-20 10:48:41', 4, 1, 618, 7, NULL, 1, '2023-11-20 16:49:36', 1, '2023-11-20 16:49:36', 1),
+(135, '2023-11-20 10:48:41', '2023-11-20 10:48:41', 1, 2, 619, 7, NULL, 1, '2023-11-20 16:49:36', 1, '2023-11-20 16:49:36', 1),
+(136, '2023-11-20 10:48:41', '2023-11-20 10:48:41', 2, 2, 620, 7, NULL, 1, '2023-11-20 16:49:36', 1, '2023-11-20 16:49:36', 1),
+(137, '2023-11-20 10:49:38', '2023-11-20 10:49:38', 5, 1, 623, 7, NULL, 1, '2023-11-20 16:51:37', 1, '2023-11-20 16:51:37', 1),
+(138, '2023-11-20 10:49:38', '2023-11-20 10:49:38', 1, 2, 627, 7, NULL, 1, '2023-11-20 16:51:37', 1, '2023-11-20 16:51:37', 1),
+(139, '2023-11-20 10:49:38', '2023-11-20 10:49:38', 2, 2, 668, 7, NULL, 1, '2023-11-20 16:51:37', 1, '2023-11-20 16:51:37', 1),
+(140, '2023-11-20 10:49:38', '2023-11-20 10:49:38', 3, 2, 669, 7, NULL, 1, '2023-11-20 16:51:37', 1, '2023-11-20 16:51:37', 1),
+(141, '2023-11-20 10:49:38', '2023-11-20 10:49:38', 4, 2, 670, 7, NULL, 1, '2023-11-20 16:51:37', 1, '2023-11-20 16:51:37', 1),
+(142, '2023-11-06 10:23:39', '2023-11-06 10:23:39', 2, 2, 362, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(143, '2023-11-06 10:23:39', '2023-11-06 10:23:39', 1, 1, 360, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(144, '2023-11-06 10:23:39', '2023-11-06 10:23:39', 1, 2, 361, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(145, '2023-11-06 10:23:39', '2023-11-06 10:23:39', 4, 0, 368, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(146, '2023-11-06 10:23:39', '2023-11-06 10:23:39', 5, 0, 365, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(147, '2023-11-06 10:23:39', '2023-11-06 10:23:39', 6, 0, 372, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(148, '2023-11-06 10:23:39', '2023-11-06 10:23:39', 7, 0, 489, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(149, '2023-11-20 09:45:16', '2023-11-20 09:45:16', 2, 1, 363, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(150, '2023-11-20 09:48:13', '2023-11-20 09:48:13', 1, 2, 364, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(151, '2023-11-20 09:48:13', '2023-11-20 09:48:13', 2, 2, 365, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(152, '2023-11-20 09:53:44', '2023-11-20 09:53:44', 3, 1, 366, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(153, '2023-11-20 09:53:44', '2023-11-20 09:53:44', 1, 2, 367, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(154, '2023-11-20 09:53:44', '2023-11-20 09:53:44', 2, 2, 368, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(155, '2023-11-20 09:55:21', '2023-11-20 09:55:21', 4, 1, 369, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(156, '2023-11-20 09:55:21', '2023-11-20 09:55:21', 1, 2, 371, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(157, '2023-11-20 09:55:21', '2023-11-20 09:55:21', 2, 2, 372, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(158, '2023-11-20 09:58:34', '2023-11-20 09:58:34', 5, 1, 373, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(159, '2023-11-20 09:58:34', '2023-11-20 09:58:34', 1, 2, 374, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(160, '2023-11-20 09:58:34', '2023-11-20 09:58:34', 2, 2, 375, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(161, '2023-11-20 09:58:34', '2023-11-20 09:58:34', 3, 2, 376, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(162, '2023-11-20 10:00:18', '2023-11-20 10:00:18', 6, 1, 377, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(163, '2023-11-20 10:00:18', '2023-11-20 10:00:18', 1, 2, 378, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(164, '2023-11-20 10:00:18', '2023-11-20 10:00:18', 2, 2, 379, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(165, '2023-11-20 10:00:18', '2023-11-20 10:00:18', 3, 2, 380, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(166, '2023-11-20 10:01:21', '2023-11-20 10:01:21', 7, 1, 381, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(167, '2023-11-20 10:01:21', '2023-11-20 10:01:21', 1, 2, 382, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(168, '2023-11-20 10:01:21', '2023-11-20 10:01:21', 2, 2, 383, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(169, '2023-11-20 10:01:21', '2023-11-20 10:01:21', 3, 2, 384, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(170, '2023-11-20 10:03:13', '2023-11-20 10:03:13', 8, 1, 385, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(171, '2023-11-20 10:03:13', '2023-11-20 10:03:13', 1, 2, 386, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(172, '2023-11-20 10:03:13', '2023-11-20 10:03:13', 2, 2, 387, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(173, '2023-11-20 10:03:13', '2023-11-20 10:03:13', 3, 2, 388, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(174, '2023-11-20 10:04:27', '2023-11-20 10:04:27', 9, 1, 389, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(175, '2023-11-20 10:04:27', '2023-11-20 10:04:27', 1, 2, 390, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(176, '2023-11-20 10:04:27', '2023-11-20 10:04:27', 2, 2, 391, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(177, '2023-11-20 10:06:14', '2023-11-20 10:06:14', 10, 1, 392, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(178, '2023-11-20 10:06:14', '2023-11-20 10:06:14', 1, 2, 393, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(179, '2023-11-20 10:06:14', '2023-11-20 10:06:14', 2, 2, 394, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(180, '2023-11-20 10:07:20', '2023-11-20 10:07:20', 11, 1, 395, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(181, '2023-11-20 10:07:20', '2023-11-20 10:07:20', 1, 2, 396, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(182, '2023-11-20 10:07:20', '2023-11-20 10:07:20', 2, 2, 397, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(183, '2023-11-20 10:09:00', '2023-11-20 10:09:00', 12, 1, 398, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(184, '2023-11-20 10:09:00', '2023-11-20 10:09:00', 1, 2, 399, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(185, '2023-11-20 10:09:00', '2023-11-20 10:09:00', 2, 2, 400, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(186, '2023-11-20 10:10:08', '2023-11-20 10:10:08', 13, 1, 401, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(187, '2023-11-20 10:10:08', '2023-11-20 10:10:08', 1, 2, 402, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1),
+(188, '2023-11-20 10:10:08', '2023-11-20 10:10:08', 2, 2, 403, 31, NULL, 1, '2023-11-24 02:15:42', 1, '2023-11-24 02:15:42', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `course_class_module_soal`
+--
+
+CREATE TABLE `course_class_module_soal` (
+  `id` int(11) NOT NULL,
+  `m_bank_soal_id` int(11) NOT NULL,
+  `course_class_module_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `course_class_module_soal`
+--
+
+INSERT INTO `course_class_module_soal` (`id`, `m_bank_soal_id`, `course_class_module_id`) VALUES
+(1, 121, 77),
+(2, 122, 77),
+(3, 123, 77),
+(4, 124, 77),
+(5, 125, 77),
+(6, 126, 78),
+(7, 127, 78),
+(8, 128, 78),
+(9, 129, 78),
+(10, 130, 78),
+(11, 131, 81),
+(12, 132, 81),
+(13, 133, 81),
+(14, 134, 81),
+(15, 135, 81),
+(16, 136, 82),
+(17, 137, 82),
+(18, 138, 82),
+(19, 139, 82),
+(20, 140, 82),
+(21, 141, 83),
+(22, 142, 83),
+(23, 143, 83),
+(24, 144, 83),
+(25, 145, 83),
+(26, 61, 122),
+(27, 62, 122),
+(28, 63, 122),
+(29, 64, 122),
+(30, 65, 122),
+(31, 66, 122),
+(32, 67, 122),
+(33, 68, 122),
+(34, 69, 122),
+(35, 70, 122),
+(36, 71, 122),
+(37, 72, 122),
+(38, 73, 122),
+(39, 74, 122),
+(40, 75, 122),
+(41, 76, 122),
+(42, 77, 122),
+(43, 78, 122),
+(44, 79, 122),
+(45, 80, 122),
+(46, 81, 122),
+(47, 82, 122),
+(48, 83, 122),
+(49, 84, 122),
+(50, 85, 122),
+(51, 86, 122),
+(52, 87, 122),
+(53, 88, 122),
+(54, 89, 122),
+(55, 90, 122),
+(56, 91, 122),
+(57, 92, 122),
+(58, 93, 122),
+(59, 94, 122),
+(60, 95, 122),
+(61, 96, 122),
+(62, 97, 122),
+(63, 98, 122),
+(64, 99, 122),
+(65, 100, 122),
+(66, 101, 122),
+(67, 102, 122),
+(68, 103, 122),
+(69, 104, 122),
+(70, 105, 122),
+(71, 106, 122),
+(72, 107, 122),
+(73, 108, 122),
+(74, 109, 122),
+(75, 110, 122),
+(76, 111, 122),
+(77, 112, 122),
+(78, 113, 122),
+(79, 114, 122),
+(80, 115, 122),
+(81, 116, 122),
+(82, 117, 122),
+(83, 118, 122),
+(84, 119, 122),
+(85, 120, 122);
 
 -- --------------------------------------------------------
 
@@ -700,7 +1491,7 @@ INSERT INTO `course_module` (`id`, `name`, `html`, `js`, `priority`, `level`, `c
 (19, 'Flow and Wireframe', NULL, NULL, 4, 1, 3, NULL, NULL, 'company_profile', NULL, NULL, '<p>(a) Memahami nilai Storyboard, peta perjalanan, dan user flow dalam proses UX</p>\n<p>(b) Berlatih mendokumentasikan dan membuat user flow berdasarkan skenario yang relevan</p>\n<p>(c) Mampu menghubungkan userflow ke wireframes</p>\n<p>(d) Mampu menjelaskan apa itu wireframe dan fungsi dalam proses desain</p>\n<p>(e) Mentukan wireframe fidelity yang akan dijadikan dasar pada sebuah skenario</p>\n<p>(f) Mengidentifikasi jenis dan kualitas navigasi dalam mendorong user experience yang kuat</p>', NULL, 0, '2022-09-26 11:14:12', 1, '2023-09-15 15:44:21', 1),
 (20, 'Visual Design', NULL, NULL, 5, 1, 3, NULL, NULL, 'company_profile', NULL, NULL, '<p>(a) Mampu merancang mobile design berdasarkan mobile usability best practice</p>\n<p>(b) Mampu menggunakan persona dan task modelling untuk merencanakan mobile user experience</p>\n<p>(c) Memahami bagaimana konsep desain interface akan berbeda di antara platform operasi (mis. IOS vs Android)</p>\n<p>(d) Mampu mengevaluasi mobile desain dan menghindari mobile user experience yang buruk</p>\n<p>(e) Mampu menerapkan strategi mobile desain UX</p>', NULL, 0, '2022-09-26 11:14:12', 1, '2023-09-15 15:44:21', 1),
 (21, 'Introduction', NULL, NULL, 1, 1, 5, NULL, 1, '', NULL, NULL, '<p>Introduction to Knockout.js</p>', NULL, 1, '2022-09-12 15:23:36', 1, '2023-08-03 09:11:05', 1),
-(22, 'Introduction', '<!-- This is a *view* - HTML markup that defines the appearance of your UI -->\\n        <p>First name: <strong>todo</strong></p>\\n        <p>Last name: <strong>todo</strong></p>', '// This is a simple *viewmodel* - JavaScript that defines the data and behavior of your UI\\nfunction AppViewModel() {\\nthis.firstName = \\\'Bert\\\';\\nthis.lastName = \\\'Bertington\\\';\\n}\\n// Activates knockout.js\\nko.applyBindings(new AppViewModel());', 1, 2, 5, 21, 1, 'materi pembelajaran', NULL, NULL, '<h2>Selamat Datang!</h2>\r\n\r\n                            <p>pada tutorial ini anda akan belajar beberapa hal dasar dalam membangun UI website\r\n                                <em>Model-View-ViewModel</em> (MVVM) menggunakan knockout.js\r\n                            </p>\r\n\r\n                            <p>Anda akan belajar bagaimana mendefinisikan tampilan UI menggunakan <strong>views</strong> dan\r\n                                <strong>declarative bindings</strong>, ata dan perilakunya menggunakan <strong>viewmodels</strong> dan\r\n                                <strong>observables</strong>,\r\n                                dan bagaimana semuanya tetap sinkron secara otomatis dengan bantuan Knockout\'s <strong>dependency\r\n                                    tracking</strong>\r\n                            </p>\r\n\r\n                            <h3>Menggunakan bindings di view</h3>\r\n\r\n                            <p>Di sudut kanan bawah, anda dapat melihat <em>viewmodel</em> yang berisi data orang. Di sudut kanan atas, Anda memiliki <em>view</em> yang seharusnya menampilkan data orang. Saat ini hanya menampilkan \"<em>todo</em>\", jadi mari kita perbaiki itu.</p>\r\n\r\n                            <p>Ubah dua elemen <code>&lt;strong&gt;</code> dalam tampilan, tambahkan attribute <code>data-bind</code> untuk menampilkan nama orang:\r\n                            </p>\r\n\r\n                            <pre><code><span class=\"tag\">&lt;<span class=\"title\">p</span>&gt;</span>First name: <span class=\"tag\">&lt;<span class=\"title\">strong</span> <span class=\"highlight\"><span class=\"attribute\">data-bind</span>=<span class=\"value\">\"text: firstName\"</span></span>&gt;</span><span class=\"tag\">&lt;/<span class=\"title\">strong</span>&gt;</span><span class=\"tag\">&lt;/<span class=\"title\">p</span>&gt;</span>\r\n                            </code></pre>\r\n                            <pre><code><span class=\"tag\">&lt;<span class=\"title\">p</span>&gt;</span>Last name: <span class=\"tag\">&lt;<span class=\"title\">strong</span> <span class=\"highlight\"><span class=\"attribute\">data-bind</span>=<span class=\"value\">\"text: lastName\"</span></span>&gt;</span><span class=\"tag\">&lt;/<span class=\"title\">strong</span>&gt;</span><span class=\"tag\">&lt;/<span class=\"title\">p</span>&gt;</span>\r\n                            </code></pre>\r\n\r\n\r\n                            <p>attribute <code>data-bind</code> adalah bagaimana knockout memungkinkan anda secara deklaratif mengaitkan viewmodel properties dengan DOM element kamu baru saja menggunakan <code>text</code> binding untuk menetapkan text ke DOM elemen.</p>', NULL, 1, '2022-09-22 08:58:43', 1, '2023-08-03 09:11:05', 1),
+(22, 'Introduction', '<!-- This is a *view* - HTML markup that defines the appearance of your UI -->\\n        <p>First name: <strong>todo</strong></p>\\n        <p>Last name: <strong>todo</strong></p>', '// This is a simple *viewmodel* - JavaScript that defines the data and behavior of your UI\\nfunction AppViewModel() {\\nthis.firstName = \\\'Bert\\\';\\nthis.lastName = \\\'Bertington\\\';\\n}\\n// Activates knockout.js\\nko.applyBindings(new AppViewModel());', 1, 2, 5, 21, 1, 'materi pembelajaran', NULL, NULL, '<h2>Selamat Datang!</h2>\r\n\r\n                            <p>pada tutorial ini anda akan belajar beberapa hal dasar dalam membangun UI website\r\n                                <em>Model-View-ViewModel</em> (MVVM) menggunakan knockout.js\r\n                            </p>\r\n\r\n                            <p>Anda akan belajar bagaimana mendefinisikan tampilan UI menggunakan <strong>views</strong> dan\r\n                                <strong>declarative bindings</strong>, ata dan perilakunya menggunakan <strong>viewmodels</strong> dan\r\n                                <strong>observables</strong>,\r\n                                dan bagaimana semuanya tetap sinkron secara otomatis dengan bantuan Knockouts <strong>dependency\r\n                                    tracking</strong>\r\n                            </p>\r\n\r\n                            <h3>Menggunakan bindings di view</h3>\r\n\r\n                            <p>Di sudut kanan bawah, anda dapat melihat <em>viewmodel</em> yang berisi data orang. Di sudut kanan atas, Anda memiliki <em>view</em> yang seharusnya menampilkan data orang. Saat ini hanya menampilkan \"<em>todo</em>\", jadi mari kita perbaiki itu.</p>\r\n\r\n                            <p>Ubah dua elemen <code>&lt;strong&gt;</code> dalam tampilan, tambahkan attribute <code>data-bind</code> untuk menampilkan nama orang:\r\n                            </p>\r\n\r\n                            <pre><code><span class=\"tag\">&lt;<span class=\"title\">p</span>&gt;</span>First name: <span class=\"tag\">&lt;<span class=\"title\">strong</span> <span class=\"highlight\"><span class=\"attribute\">data-bind</span>=<span class=\"value\">\"text: firstName\"</span></span>&gt;</span><span class=\"tag\">&lt;/<span class=\"title\">strong</span>&gt;</span><span class=\"tag\">&lt;/<span class=\"title\">p</span>&gt;</span>\r\n                            </code></pre>\r\n                            <pre><code><span class=\"tag\">&lt;<span class=\"title\">p</span>&gt;</span>Last name: <span class=\"tag\">&lt;<span class=\"title\">strong</span> <span class=\"highlight\"><span class=\"attribute\">data-bind</span>=<span class=\"value\">\"text: lastName\"</span></span>&gt;</span><span class=\"tag\">&lt;/<span class=\"title\">strong</span>&gt;</span><span class=\"tag\">&lt;/<span class=\"title\">p</span>&gt;</span>\r\n                            </code></pre>\r\n\r\n\r\n                            <p>attribute <code>data-bind</code> adalah bagaimana knockout memungkinkan anda secara deklaratif mengaitkan viewmodel properties dengan DOM element kamu baru saja menggunakan <code>text</code> binding untuk menetapkan text ke DOM elemen.</p>', NULL, 1, '2022-09-22 08:58:43', 1, '2023-08-03 09:11:05', 1),
 (23, 'Introduction', NULL, NULL, 2, 2, 5, 21, 1, 'materi pembelajaran', NULL, NULL, '<h2>Membuat data bisa diedit</h2>\r\n\r\n                            <p>Anda tidak dibatasi untuk menampilkan data statis. Mari gunakan <code>value</code> binding,  bersama dengan beberapa  <code>&lt;input&gt;</code> HTML biasa, untuk membuat data dapat diedit.</p>\r\n\r\n                            <p>Tambahkan markup berikut ke bagian bawah tampilan Anda (biarkan markup yang ada tetap di atasnya):</p>\r\n\r\n                            <pre><code class=\"xml\" data-result=\"[object Object]\"><span class=\"tag\">&lt;<span class=\"title\">p</span>&gt;</span>First name: <span class=\"tag\">&lt;<span class=\"title\">input</span> <span class=\"attribute\">data-bind</span>=<span class=\"value\">\"value: firstName\"</span> /&gt;</span><span class=\"tag\">&lt;/<span class=\"title\">p</span>&gt;</span>\r\n                                                                                    </code></pre>\r\n                            <pre><code class=\"xml\" data-result=\"[object Object]\"><span class=\"tag\">&lt;<span class=\"title\">p</span>&gt;</span>Last name: <span class=\"tag\">&lt;<span class=\"title\">input</span> <span class=\"attribute\">data-bind</span>=<span class=\"value\">\"value: lastName\"</span>/&gt;</span><span class=\"tag\">&lt;/<span class=\"title\">p</span>&gt;</span></code></pre>\r\n\r\n\r\n                            <p>Sekarang jalankan aplikasinya. Apa yang terjadi ketika Anda mengedit teks di salah satu kotak teks?</p>\r\n\r\n                            <p>Hmm... ternyata tidak terjadi apa-apa. Mari kita perbaiki itu...</p>\r\n                            <h3>Pengenalan Observables</h3>\r\n\r\n                            <p>Sebenarnya, saat anda mengedit salah satu dari text box, itu akan memperbarui data viewmodelnya. Tetapi karena properti viewmodel hanyalah string JavaScript biasa, mereka tidak memiliki cara untuk memberi tahu siapa pun bahwa mereka telah berubah, sehingga UI tetap statis. Itu sebabnya Knockout memiliki konsep <strong>observables</strong> - ini adalah properti yang secara otomatis akan mengeluarkan pemberitahuan setiap kali nilainya berubah.</p>\r\n\r\n                            <p>Ubah viewmodel anda untuk membuat isi dari <code>firstName</code> dan <code>lastName</code> <em>observable</em> menggunakan <code>ko.observable</code>:</p>\r\n\r\n                            <pre><code class=\"javascript\" data-result=\"[object Object]\"><span class=\"function\"><span class=\"keyword\">function</span> <span class=\"title\">AppViewModel</span><span class=\"params\">()</span>{</span>\r\n    <span class=\"keyword\">this</span>.firstName = <span class=\"highlight\">ko.observable(<span class=\"string\">\"Bert\"</span>)</span>;\r\n    <span class=\"keyword\">this</span>.lastName = <span class=\"highlight\">ko.observable(<span class=\"string\">\"Bertington\"</span>)</span>;\r\n        }\r\n                                            </code></pre>\r\n\r\n                            <p>Sekarang jalankan kembali aplikasi dan edit kotak teks. Kali ini Anda tidak hanya akan melihat bahwa data model tampilan yang mendasarinya diperbarui saat Anda mengedit, tetapi semua UI terkait juga diperbarui secara sinkron dengannya. </p>', NULL, 1, '2022-09-22 09:00:09', 1, '2023-08-03 09:11:05', 1),
 (24, 'Introduction', NULL, NULL, 3, 2, 5, 21, 1, 'materi pembelajaran', NULL, NULL, '<h2>Mendefinisikan nilai yang dihitung</h2>\r\n\r\n                            <p>seringkali, anda ingin menggabungkan atau mengubah banyak observables values untuk membuat yang lain, pada contoh ini anda mungkin ingin mendefinisikan <em>full name</em> sebagain\r\n                                <em>first name</em> plus <em>space</em> plus <em>last name</em>.\r\n                            </p>\r\n\r\n                            <p>Untuk menangani ini, Knockout memiliki konsep <strong>computed properties</strong> -\r\n                                ini adalah <em>observable</em> (yaitu, mereka memberi tahu tentang perubahan) dan dihitung berdasarkan nilai dari observables lainnya.</p>\r\n\r\n                            <p>Tambahkan <code>fullName</code> ke view model anda, dengan menambahkan kode berikut di dalam AppViewModel, setelah namaDepan dan namaBelakang dideklarasikan:\r\n\r\n                                <code>AppViewModel</code>, after <code>firstName</code> and <code>lastName</code>\r\n                                are\r\n                                declared:\r\n                            </p>\r\n\r\n                            <pre><code class=\"javascript\" data-result=\"[object Object]\"><span class=\"keyword\">this</span>.fullName = ko.computed(<span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span> {</span>\r\n    <span class=\"keyword\">return</span> <span class=\"keyword\">this</span>.firstName() + <span class=\"string\">\" \"</span> + <span class=\"keyword\">this</span>.lastName();\r\n    }, <span class=\"keyword\">this</span>);\r\n                                                            </code></pre>\r\n\r\n                            <p>Seperti yang bisa anda lihat, kami meneruskan fungsi panggilan balik ke <code>ko.computed</code>\r\n                                yang menentukan bagaimana seharusnya menghitung nilainya. Selanjutnya, tampilkan nilai \r\n <code>fullName</code> di UI Anda dengan menambahkan markup di bagian bawah tampilan Anda:</p>\r\n\r\n                            <pre><code class=\"xml\" data-result=\"[object Object]\" data-second_best=\"[object Object]\"><span class=\"tag\">&lt;<span class=\"title\">p</span>&gt;</span>Full name: <span class=\"tag\">&lt;<span class=\"title\">strong</span> <span class=\"attribute\">data-bind</span>=<span class=\"value\">\"text: fullName\"</span>&gt;</span><span class=\"tag\">&lt;/<span class=\"title\">strong</span>&gt;</span><span class=\"tag\">&lt;/<span class=\"title\">p</span>&gt;</span>\r\n                                                                                    </code></pre>\r\n\r\n                            <p>Jika Anda menjalankan aplikasi sekarang dan mengedit kotak teks, Anda akan melihat bahwa semua elemen UI (termasuk tampilan nama lengkap) tetap sinkron dengan data yang mendasarinya.</p>\r\n\r\n                            <h3>Bagaimana cara kerjanya?</h3>\r\n\r\n                            <p>Segalanya tetap sinkron karena pelacakan ketergantungan otomatis:\r\n                                <code>&lt;strong&gt;</code> terakhir di sana bergantung pada <code>fullName</code>, yang bergantung pada <code>firstName</code>\r\n                                dan <code>lastName</code>, dan salah satu dari keduanya dapat diubah dengan mengedit textbox.\r\n                            </p>', NULL, 1, '2022-09-22 09:02:03', 1, '2023-08-03 09:11:05', 1),
 (25, 'Introduction', NULL, NULL, 4, 2, 5, 21, 1, 'materi pembelajaran', NULL, NULL, '<h2>Menambahkan lebih banyak behavior</h2>\r\n\r\n                            <p>Untuk menyelesaikan contoh ini, mari tambahkan satu behavior lagi. Yaitu button yang membuat value namaBelakang berubah menjadi huruf kapital.\r\n                            </p>\r\n\r\n                            <h3>Memperbarui view model</h3>\r\n\r\n                            <p>Pertama, tambahkan fungsi <code>capitalizeLastName</code>ke viewmodel untuk mengimplementasikan behavior ini:</p>\r\n\r\n                            <pre><code class=\"javascript\" data-result=\"[object Object]\"><span class=\"function\"><span class=\"keyword\">function</span> <span class=\"title\">AppViewModel</span><span class=\"params\">()</span> {</span>\r\n    <span class=\"comment\">// ... leave firstName, lastName, and fullName unchanged here ...</span>\r\n    <span class=\"keyword\">this</span>.capitalizeLastName = <span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span> {</span>\r\n        <span class=\"keyword\">var</span> currentVal = <span class=\"keyword\">this</span>.lastName();        <span class=\"comment\">// Read the current value</span>\r\n        <span class=\"keyword\">this</span>.lastName(currentVal.toUpperCase()); <span class=\"comment\">// Write back a modified value</span>\r\n    };\r\n    }\r\n                            </code></pre>\r\n\r\n                            <p>Perhatikan bahwa, untuk membaca atau menulis nilai observables, Anda memanggilnya sebagai fungsi.</p>\r\n\r\n                            <h3>Memperbarui tampilan</h3>\r\n\r\n                            <p>Selanjutnya, tambahkan tombol ke tampilan, menggunakan pengikatan klik untuk mengaitkan klik dengan fungsi model tampilan yang baru saja Anda tambahkan:</p>\r\n\r\n                            <pre><code class=\"xml\" data-result=\"[object Object]\"><span class=\"tag\">&lt;<span class=\"title\">button</span> <span class=\"attribute\">data-bind</span>=<span class=\"value\">\"click: capitalizeLastName\"</span>&gt;</span>Go caps<span class=\"tag\">&lt;/<span class=\"title\">button</span>&gt;</span>\r\n                            </code></pre>\r\n\r\n                            <p>Jika kamu menjalankan ini sekarang dan klik tombol \"Go Caps\", anda akan melihat semua bagian UI yang relevan diperbarui agar sesuai dengan status model tampilan yang diubah.</p>', NULL, 1, '2022-09-22 09:02:40', 1, '2023-08-03 09:11:05', 1),
@@ -1022,7 +1813,7 @@ INSERT INTO `course_module` (`id`, `name`, `html`, `js`, `priority`, `level`, `c
 (367, 'Purchasing Cyle', NULL, NULL, 1, 2, 1, 366, 3, 'video pembelajaran', 'https://www.youtube.com/watch?v=PiAUqNttj1g', NULL, 'Tutorial Video PHP Overview', NULL, 1, '2023-02-24 12:17:59', 0, '2023-07-31 14:49:18', 0),
 (368, 'Day 2', NULL, NULL, 2, 2, 1, 366, 3, 'assignment', NULL, NULL, 'Membuat Source code yang dihasilkan:\r\n\r\n- Penamaan Class\r\n\r\n- Pembagian View\r\n\r\n- Clean Code\r\n\r\n- Basic security melalui authentication dan permission\r\n\r\n- Proses validasi yang dilakukan disesuaikan dengan kebutuhan data', NULL, 1, '2023-02-24 12:17:59', 0, '2023-08-09 11:55:58', 0),
 (369, 'Backend Learning', NULL, NULL, 8, 1, 1, NULL, 4, '', NULL, NULL, 'Pada pembelajaran individu, peserta akan mengikuti pembelajaran synchronus, asynchronus, dan praktikum. Pada project akhir, setiap tim akan berdiskusi dengan mentor, dan mempelajari dari berbagai dokumen dan studi kasus yang disediakan oleh mitra proyek akhir. \r\n\r\nDalam kegiatan-kegiatan tersebut, langkah yang dilakukan dalam pembelajaran terkait: \r\n\r\n- Pembuatan CRUD Management untuk Transaction Data dan proses validasi data yang dimasukkan dalam database \r\n\r\n- Pembuatan try-catch transaction dan try-catch database serta rollback/commit process \r\n\r\n- Pembuatan Read (View) yang printable.', NULL, 1, '2023-02-24 12:17:59', 0, '2023-09-08 14:41:44', 0),
-(370, 'Master - Detail Relationship with Laravel', NULL, NULL, 1, 2, 4, 369, 1, 'video pembelajaran', 'https://www.youtube.com/watch?v=d0FT3IL8vrg', NULL, 'Rapid Application Development using Laravel on Transaction Data', NULL, 1, '2023-02-24 12:17:59', 0, '2023-07-31 14:49:18', 0),
+(370, 'Master - Detail Relationship with Laravel', NULL, NULL, 1, 2, 4, 369, 1, 'video pembelajaran', 'https://www.youtube.com/watch?v=d0FT3IL8vrg', NULL, 'Rapid Application Development using Laravel on Transaction Data', NULL, 1, '2023-02-24 12:17:59', 0, '2023-11-20 15:56:52', 0),
 (371, 'Source Code', NULL, NULL, 2, 2, 1, 369, 4, 'materi pembelajaran', 'Day 4 Source Code.pdf', NULL, NULL, NULL, 1, '2023-02-24 12:17:59', 0, '2023-07-31 14:49:18', 0),
 (372, 'Rapid Development Using Laravel on Transaction Data', NULL, NULL, 2, 2, 1, 369, 4, 'assignment', NULL, NULL, 'Untuk pembelajaran individu, hackathon, dan proyek akhir, penialain dilakukan melalui source code yang dihasilkan:\r\n\r\n- Penamaan Class\r\n\r\n- Clean Code\r\n\r\n- Basic security melalui authentication dan permission\r\n\r\n- Proses validasi (multi validation) yang dilakukan disesuaikan dengan kebutuhan data', NULL, 1, '2023-02-24 12:17:59', 0, '2023-08-09 11:55:58', 0),
 (373, 'Backend Learning', NULL, NULL, 9, 1, 1, NULL, 5, '', NULL, NULL, 'Pada pembelajaran individu, peserta akan mengikuti pembelajaran synchronus, asynchronus, dan praktikum.\r\n\r\nPada project akhir, setiap tim akan berdiskusi dengan mentor, dan mempelajari dari berbagai dokumen dan studi kasus yang disediakan oleh mitra proyek akhir.\r\n\r\nDalam kegiatan-kegiatan tersebut, langkah yang dilakukan dalam pembelajaran terkait:\r\n- Pembuatan Form menggunakan Bootstrap 4 untuk responsive form\r\n- Penggunaan komponen pendukung Bootstrap 4 seperti Button, Button Group, Close Button, Modal, dll untuk mendukung pembuatan Backend\r\n- Penggunaan Statistic, Feed, Card, dsb pada SemanticUI yang dapat membantu beautification form dan report.', NULL, 1, '2023-02-24 12:17:59', 0, '2023-09-08 14:41:44', 0),
@@ -1370,8 +2161,8 @@ INSERT INTO `course_module` (`id`, `name`, `html`, `js`, `priority`, `level`, `c
 (739, 'D4', NULL, NULL, 4, 1, 37, NULL, 4, '', NULL, NULL, NULL, NULL, 1, '2023-09-18 11:21:00', 0, '2023-09-18 11:21:00', 0),
 (740, 'Konversi Framework7 ke Aplikasi Android', NULL, NULL, 1, 2, 37, 739, 4, 'materi pembelajaran', NULL, 180, NULL, NULL, 1, '2023-09-18 11:21:00', 0, '2023-09-18 11:21:00', 0),
 (741, 'Kuis 4', NULL, NULL, 2, 2, 37, 739, 4, 'quiz', NULL, NULL, NULL, NULL, 1, '2023-09-18 11:21:00', 0, '2023-09-18 11:21:00', 0),
-(742, 'D5', NULL, NULL, 5, 1, 37, NULL, 5, '', NULL, NULL, NULL, NULL, 1, '2023-09-18 11:26:59', 0, '2023-09-18 11:26:59', 0),
-(743, 'Penggunaan ChartJS dan Library Luar', NULL, NULL, 1, 2, 37, 742, 5, 'materi pembelajaran', NULL, 180, NULL, NULL, 1, '2023-09-18 11:26:59', 0, '2023-09-18 11:26:59', 0),
+(742, 'D5', NULL, NULL, 6, 1, 37, NULL, 5, '', NULL, NULL, NULL, NULL, 1, '2023-09-18 11:26:59', 1, '2023-11-17 06:50:25', 1),
+(743, 'Penggunaan ChartJS dan Library Luar', NULL, NULL, 1, 2, 37, 742, 5, 'materi pembelajaran', NULL, 180, NULL, NULL, 1, '2023-09-18 11:26:59', 0, '2023-11-17 06:50:48', 1),
 (744, 'Kuis 5', NULL, NULL, 2, 2, 37, 742, 5, 'quiz', NULL, NULL, NULL, NULL, 1, '2023-09-18 11:26:59', 0, '2023-09-18 11:26:59', 0),
 (745, 'Post Test', NULL, NULL, 3, 2, 37, 742, 5, 'posttest', NULL, NULL, NULL, NULL, 1, '2023-09-18 11:26:59', 0, '2023-09-18 11:26:59', 0),
 (746, 'Unjuk Keterampilan: Membuat Aplikasi Android dan Web Apps untuk E-Commerce', NULL, NULL, 4, 2, 37, 742, 5, 'unjukketerampilan', NULL, NULL, NULL, NULL, 1, '2023-09-18 11:26:59', 0, '2023-09-18 11:26:59', 0);
@@ -1423,7 +2214,7 @@ CREATE TABLE `course_package` (
 
 INSERT INTO `course_package` (`id`, `name`, `fake_price`, `price`, `payment_link`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
 (1, 'Paket 1', 0, 2000000, NULL, '', 0, '2022-09-26 11:02:01', 1, '2023-08-28 15:07:36', 1),
-(2, 'Paket 1', 9000000, 5000000, 'https://invoice-staging.xendit.co/od/bcp-01', '', 1, '2022-09-26 11:02:35', 1, '2023-10-30 15:30:43', 1),
+(2, 'Paket 1', 9000000, 5000000, 'https://invoice-staging.xendit.co/od/bcp01-new', '', 1, '2022-09-26 11:02:35', 1, '2023-11-13 14:18:24', 1),
 (3, 'Paket 2', 0, 25000000, 'https://invoice.xendit.co/od/bcp-p02', '', 1, '2022-09-26 11:03:22', 1, '2023-08-28 15:07:44', 1);
 
 -- --------------------------------------------------------
@@ -1499,6 +2290,20 @@ CREATE TABLE `course_tutor` (
 --
 
 INSERT INTO `course_tutor` (`course_id`, `users_id`) VALUES
+(1, 20),
+(1, 20),
+(3, 15),
+(3, 15),
+(3, 21),
+(3, 21),
+(14, 16),
+(14, 16),
+(18, 17),
+(18, 17),
+(19, 14),
+(19, 14),
+(19, 18),
+(19, 18),
 (1, 20),
 (1, 20),
 (3, 15),
@@ -1996,7 +2801,7 @@ INSERT INTO `m_content_page` (`id`, `name`, `heading`, `title`, `slug`, `type`, 
 (7, 'package', 'Paket yang bisa kamu pilih', NULL, NULL, 'SECTION', NULL, NULL, NULL, NULL, 1, '2023-01-20 09:41:09', 1, '2023-01-20 09:41:09', 1),
 (8, 'university', ' ', NULL, NULL, 'SECTION', NULL, NULL, '<p>Lewat kerjasama dengan beberapa universitas unggulan berikut, posisi magang di perusahaan terpilih terjamin bagi para mahasiswa</p>', NULL, 1, '2023-01-20 09:41:31', 1, '2023-02-03 05:50:58', 1),
 (9, 'testimonial', 'Apa Kata Alumni Maxy Academy?', NULL, NULL, 'SECTION', NULL, NULL, NULL, NULL, 1, '2023-01-20 09:42:08', 1, '2023-01-20 09:42:08', 1),
-(10, 'section_testing', 'Heading Testing', NULL, 'page-testing', 'SECTION', NULL, NULL, '<div class=\"row text-danger\">\n<div class=\"col-md-12\">aaaa</div>\n</div>', NULL, 1, '2023-02-01 08:46:29', 1, '2023-02-01 08:46:29', 1),
+(10, 'section_testing', 'Heading Testing', NULL, NULL, 'SECTION', NULL, NULL, '<div class=\"row text-danger\">\n<div class=\"col-md-12\">aaaa</div>\n</div>', NULL, 1, '2023-02-01 08:46:29', 1, '2023-02-01 08:46:29', 1),
 (11, 'page_testing', NULL, 'Page Testing', 'page-testing', 'PAGE', 'Page Testing', 'Ini adalah page testing', '<p>Tesss</p>', NULL, 1, '2023-02-01 08:47:45', 1, '2023-02-01 08:47:45', 1),
 (12, 'faq_testing', NULL, 'FAQ', 'faq-testing', 'PAGE', 'FaQ', 'FaQ seputar Maxy Academy', '<div class=\"row justify-content-between\">\n<div class=\"col-12\">\n<h2 class=\"mb-5 color-primary fw-bold\">FAQ</h2>\n</div>\n<div class=\"col-md-12\">\n<div id=\"accordionFaq\" class=\"accordion\">\n<div class=\"accordion-item\">\n<h2 id=\"heading-1\" class=\"accordion-header\"><a class=\"mb-0 color-black fw-bold h5 accordion-button  collapsed \" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapse-1\" aria-expanded=\"true\" aria-controls=\"collapse-1\"> Bootcamp </a></h2>\n<div id=\"collapse-1\" class=\"accordion-collapse collapse  show \" aria-labelledby=\"heading-1\" data-bs-parent=\"#accordionFaq\">\n<div class=\"accordion-body\">\n<div id=\"accordion-1\" class=\"accordion\">\n<div class=\"accordion-item\">\n<p>Apa itu bootcamp Maxy Academy?</p>\n<div id=\"collapse-1-1\" class=\"accordion-collapse collapse  show \" aria-labelledby=\"heading-1-1\" data-bs-parent=\"#accordion-1\">\n<div class=\"accordion-body\">\n<p>Program pelatihan technology dan digital yang dilakukan secara intensif selama 1 bulan untuk mempersiapkan mahasiswa yang mampu menjawab kebutuhan industri.</p>\n</div>\n</div>\n</div>\n<div class=\"accordion-item\">\n<p>Siapa yang bisa ikut Maxy Academy?</p>\n<div id=\"collapse-1-2\" class=\"accordion-collapse collapse \" aria-labelledby=\"heading-1-2\" data-bs-parent=\"#accordion-1\">\n<div class=\"accordion-body\">\n<p>Mahasiswa semester 5 hingga fresh graduate.</p>\n</div>\n</div>\n</div>\n<div class=\"accordion-item\">\n<p>Apa saja yang dipelajari di bootcamp Maxy Academy ini?</p>\n<div id=\"collapse-1-3\" class=\"accordion-collapse collapse \" aria-labelledby=\"heading-1-3\" data-bs-parent=\"#accordion-1\">\n<div class=\"accordion-body\">\n<p>Mahasiswa bisa belajar Backend, Frontend, UI/UX, Digital Marketing, Product Management, dan Data Science di Maxy Academy.</p>\n</div>\n</div>\n</div>\n<div class=\"accordion-item\">\n<p>Bagaimana tahapan bootcamp di Maxy Academy?</p>\n<div id=\"collapse-1-4\" class=\"accordion-collapse collapse \" aria-labelledby=\"heading-1-4\" data-bs-parent=\"#accordion-1\">\n<div class=\"accordion-body\">\n<p>Mahasiswa akan mengikuti bootcamp selama 1 bulan dengan durasi 2 jam setiap harinya pada hari Senin hingga Jumat. Setiap akhir materi pembelajaran, mahasiswa akan diberikan assessment untuk mempraktekkan ilmu yang diperoleh. Pada 2 minggu pertama bootcamp, mahasiswa akan melakukan matchmaking dengan perusahaan. Kemudian pada minggu ke-3, mahasiswa telah mendapat list perusahaan mana yang cocok dan ingin menjadikan intern. Setelah menyelesaikan bootcamp di minggu ke-4, mahasiswa dapat memulai magang di perusahaan.</p>\n</div>\n</div>\n</div>\n<div class=\"accordion-item\">\n<p>Apakah saya harus punya latar belakang IT?</p>\n<div id=\"collapse-1-5\" class=\"accordion-collapse collapse \" aria-labelledby=\"heading-1-5\" data-bs-parent=\"#accordion-1\">\n<div class=\"accordion-body\">\n<p>Untuk kelas Backend dan Frontend disarankan memiliki latar belakang IT.</p>\n</div>\n</div>\n</div>\n<div class=\"accordion-item\">\n<p>Berapa lama bootcamp di Maxy Academy?</p>\n<div id=\"collapse-1-6\" class=\"accordion-collapse collapse \" aria-labelledby=\"heading-1-6\" data-bs-parent=\"#accordion-1\">\n<div class=\"accordion-body\">\n<p>Mahasiswa akan mengikuti bootcamp secara intensif selama 1 bulan.</p>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<div class=\"accordion-item\">\n<h2 id=\"heading-2\" class=\"accordion-header\"><a class=\"mb-0 color-black fw-bold h5 accordion-button \" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapse-2\" aria-expanded=\"true\" aria-controls=\"collapse-2\"> Magang </a></h2>\n<div id=\"collapse-2\" class=\"accordion-collapse collapse \" aria-labelledby=\"heading-2\" data-bs-parent=\"#accordionFaq\">\n<div class=\"accordion-body\">\n<div id=\"accordion-2\" class=\"accordion\">\n<div class=\"accordion-item\">\n<p>Setelah menyelesaikan bootcamp, apakah saya akan dibantu mendapatkan magang?</p>\n<div id=\"collapse-2-1\" class=\"accordion-collapse collapse  show \" aria-labelledby=\"heading-2-1\" data-bs-parent=\"#accordion-2\">\n<div class=\"accordion-body\">\n<p>Ya, kamu akan dibantu mendapatkan magang di perusahaan partner Maxy Academy apabila mengambil paket bootcamp Coaching atau Mentoring.</p>\n</div>\n</div>\n</div>\n<div class=\"accordion-item\">\n<p>Apakah saya bisa memilih magang secara onsite atau online?</p>\n<div id=\"collapse-2-2\" class=\"accordion-collapse collapse \" aria-labelledby=\"heading-2-2\" data-bs-parent=\"#accordion-2\">\n<div class=\"accordion-body\">\n<p>Pelaksanaan magang secara onsite atau online tergantung pada kebijakan masing-masing perusahaan.</p>\n</div>\n</div>\n</div>\n<div class=\"accordion-item\">\n<p>Apakah saya bisa memilih perusahaan partner Maxy Academy untuk magang?</p>\n<div id=\"collapse-2-3\" class=\"accordion-collapse collapse \" aria-labelledby=\"heading-2-3\" data-bs-parent=\"#accordion-2\">\n<div class=\"accordion-body\">\n<p>Mahasiswa harus mengikuti proses matchmaking terlebih dahulu yang akan dilakukan dalam proses bootcamp.</p>\n</div>\n</div>\n</div>\n<div class=\"accordion-item\">\n<p>Setelah menyelesaikan magang, apakah saya akan dibantu mendapatkan full time job?</p>\n<div id=\"collapse-2-4\" class=\"accordion-collapse collapse \" aria-labelledby=\"heading-2-4\" data-bs-parent=\"#accordion-2\">\n<div class=\"accordion-body\">\n<p>Iya, namun terdapat biaya tambahan. Untuk detail lebih lanjut silahkan hubungi kami.</p>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<div class=\"accordion-item\">\n<h2 id=\"heading-3\" class=\"accordion-header\"><a class=\"mb-0 color-black fw-bold h5 accordion-button \" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapse-3\" aria-expanded=\"true\" aria-controls=\"collapse-3\"> Pendaftaran </a></h2>\n<div id=\"collapse-3\" class=\"accordion-collapse collapse \" aria-labelledby=\"heading-3\" data-bs-parent=\"#accordionFaq\">\n<div class=\"accordion-body\">\n<div id=\"accordion-3\" class=\"accordion\">\n<div class=\"accordion-item\">\n<p>Bagaimana cara mendaftar bootcamp di Maxy Academy?</p>\n<div id=\"collapse-3-1\" class=\"accordion-collapse collapse  show \" aria-labelledby=\"heading-3-1\" data-bs-parent=\"#accordion-3\">\n<div class=\"accordion-body\">\n<p>Registrasi melalui website https://maxy.academy atau Whatsapp Maxy Academy (https://wa.me/628113955599) dan isi form pendaftaran kami. Selanjutnya, team Maxy Academy akan menghubungi lebih lanjut untuk proses setelah pendaftaran,</p>\n</div>\n</div>\n</div>\n<div class=\"accordion-item\">\n<p>Bagaimana caranya saya bisa mendapatkan scholarship up to 100%?</p>\n<div id=\"collapse-3-2\" class=\"accordion-collapse collapse \" aria-labelledby=\"heading-3-2\" data-bs-parent=\"#accordion-3\">\n<div class=\"accordion-body\">\n<p>Kamu bisa mengikuti placement test secara online terlebih dahulu, waktu pengerjaan 60 menit. Hubungi Whatsapp Maxy Academy (https://wa.me/628113955599) untuk mengikuti placement test.</p>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<div class=\"accordion-item\">\n<h2 id=\"heading-4\" class=\"accordion-header\"><a class=\"mb-0 color-black fw-bold h5 accordion-button \" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapse-4\" aria-expanded=\"true\" aria-controls=\"collapse-4\"> Pembayaran </a></h2>\n<div id=\"collapse-4\" class=\"accordion-collapse collapse \" aria-labelledby=\"heading-4\" data-bs-parent=\"#accordionFaq\"> </div>\n</div>\n</div>\n</div>\n</div>', NULL, 1, '2023-02-02 01:53:10', 1, '2023-02-06 09:59:30', 1);
 
@@ -2158,7 +2963,7 @@ INSERT INTO `m_general` (`id`, `name`, `value`, `description`, `status`, `create
 (19, 'linkedin', 'https://www.linkedin.com/company/maxyacademy/', NULL, 1, '2023-05-11 15:01:54', 1, '2023-02-10 09:36:00', 1),
 (20, 'nama_badan_usaha', 'PT Linkdataku Solusi Indonesia', NULL, 0, '2023-05-11 15:01:54', 1, '2023-02-10 09:36:00', 1),
 (21, 'alamat_sby', 'Surabaya HQ', NULL, 1, NULL, 1, '2023-06-26 08:59:50', 1),
-(22, 'alamat_sby_lengkap', '<br>\nCiputra World Office 15(15-16) <br>\nJl. Mayjen Sungkono Kav.89 <br>\nSurabaya, Jawa Timur 60224</p>', NULL, 1, NULL, 1, '2023-06-26 09:02:03', 1),
+(22, 'alamat_sby_lengkap', '<br>\nVieLoft SOHO Ciputra World 1220 <br>\nJl. Mayjen Sungkono Kav.89 <br>\nSurabaya, 60224</p>', NULL, 1, NULL, 1, '2023-06-26 09:02:03', 1),
 (23, 'alamat_jkt', 'Jakarta HQ', NULL, 1, NULL, 1, '2023-06-26 09:02:03', 1),
 (24, 'alamat_jkt_lengkap', '<br>\r\nPakuwon Tower 26-J\r\n<br>\r\nJl. Casablanca Raya No.88 <br>\r\nJakarta Selatan, DKI Jakarta 12960', NULL, 1, NULL, 1, '2023-06-26 09:02:03', 1),
 (25, 'maxyurl', 'https://www.maxy.academy', NULL, 1, NULL, 1, '2023-06-28 03:18:52', 1);
@@ -2193,7 +2998,7 @@ CREATE TABLE `m_partner` (
 --
 
 INSERT INTO `m_partner` (`id`, `name`, `type`, `url`, `address`, `phone`, `email`, `contact_person`, `logo`, `description`, `status`, `status_highlight`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
-(9, 'Universitas Brawijaya', 'UNIVERSITY', 'google.com', '-', '-', 'test@mail.com', '', 'ub.png', '', 1, 1, '2023-01-30 06:31:09', 1, '2023-07-17 16:34:31', 1),
+(9, 'Universitas Brawijaya', 'UNIVERSITY', 'google.com', '-', '1', 'test@mail.com', '1', 'ub.png', NULL, 1, 1, '2023-01-30 06:31:09', 1, '2023-11-30 09:39:10', 1),
 (10, 'Institut Pertanian Bogor', 'UNIVERSITY', '#', '-', '-', 'test@mail.com', '', 'ipb.png', '', 0, 1, '2023-01-30 06:31:51', 1, '2023-09-01 15:14:06', 1),
 (11, 'Institut Teknologi Bandung', 'UNIVERSITY', '#', '-', '-', 'test@mail.com', '', 'itb.png', '', 0, 1, '2023-01-30 06:32:38', 1, '2023-09-01 15:13:10', 1),
 (12, 'Universitas Udayana', 'UNIVERSITY', '#', '-', '-', 'test@mail.com', '', 'udayana.png', '', 0, 1, '2023-01-30 06:33:15', 1, '2023-09-01 15:13:52', 1),
@@ -2353,7 +3158,7 @@ CREATE TABLE `m_promo` (
 --
 
 INSERT INTO `m_promo` (`id`, `name`, `code`, `start_date`, `end_date`, `discount_type`, `discount`, `max_discount`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
-(1, 'SYDNEY500', 'SYDNEY500', '2023-09-18 06:53:34', '2023-11-30 06:53:34', 'FIXED', '50', 500000, 'frwg', 1, '2023-09-18 11:54:49', 1, '2023-10-24 14:03:17', 1),
+(1, 'SYDNEY500', 'SYDNEY500', '2023-09-18 06:53:34', '2023-11-30 06:53:34', 'FIXED', '51', 500000, NULL, 1, '2023-09-18 11:54:49', 1, '2023-11-17 07:37:35', 1),
 (2, 'MAXYANNIV10', 'MAXYANNIV10', '2023-09-19 11:28:57', '2023-11-30 16:28:57', 'FIXED', '10', 100000, NULL, 1, '2023-09-19 16:30:27', 1, '2023-10-24 14:03:01', 1);
 
 -- --------------------------------------------------------
@@ -2480,6 +3285,33 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `prakerja_redeem_code`
+--
+
+CREATE TABLE `prakerja_redeem_code` (
+  `id` int(11) NOT NULL,
+  `redeem_code` varchar(255) NOT NULL,
+  `course_class_id` int(11) NOT NULL,
+  `course_class_member_id` int(11) NOT NULL,
+  `description` text DEFAULT NULL,
+  `status` int(11) NOT NULL COMMENT '0 = Not Available, 1 = Available',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `created_id` int(11) NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `prakerja_redeem_code`
+--
+
+INSERT INTO `prakerja_redeem_code` (`id`, `redeem_code`, `course_class_id`, `course_class_member_id`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
+(1, 'a', 7, 7, 'btedh', 1, '2023-11-23 16:15:54', 0, '2023-11-23 16:15:54', 0),
+(3, 'PRAT-625VK0', 23, 23, NULL, 1, '2023-11-28 04:34:42', 66, '2023-11-28 04:34:42', 66);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `promo_course`
 --
 
@@ -2506,11 +3338,11 @@ INSERT INTO `promo_course` (`course_id`, `m_promo_id`, `payment_link`) VALUES
 CREATE TABLE `trans_invoice` (
   `id` int(11) NOT NULL,
   `external_id` varchar(45) DEFAULT NULL,
-  `method` varchar(45) DEFAULT NULL,
-  `channel` varchar(45) DEFAULT NULL,
+  `payment_method` varchar(45) DEFAULT NULL,
+  `payment_channel` varchar(45) DEFAULT NULL,
   `merchant_name` varchar(45) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
-  `net_amount` int(11) DEFAULT NULL,
+  `paid_amount` int(11) DEFAULT NULL,
   `currency` varchar(45) DEFAULT NULL,
   `payer_email` varchar(45) DEFAULT NULL,
   `payment_destination` varchar(45) DEFAULT NULL,
@@ -2527,9 +3359,10 @@ CREATE TABLE `trans_invoice` (
 -- Dumping data for table `trans_invoice`
 --
 
-INSERT INTO `trans_invoice` (`id`, `external_id`, `method`, `channel`, `merchant_name`, `amount`, `net_amount`, `currency`, `payer_email`, `payment_destination`, `paid_at`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
+INSERT INTO `trans_invoice` (`id`, `external_id`, `payment_method`, `payment_channel`, `merchant_name`, `amount`, `paid_amount`, `currency`, `payer_email`, `payment_destination`, `paid_at`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
 (6436, 'maxyac-eb89c066e77544ad-b5058937f19ee02e-1681', 'QR_CODE', 'QRIS', 'Maxy Academy', 99000, 99000, 'IDR', 'elvynawelda04@gmail.com', '-', '2023-04-12 02:05:00', NULL, 1, '2023-05-16 20:36:17', 1, NULL, 1),
-(6437, 'maxyac-eb89c066e77544ad-b5058937f19ee02e-1681', 'BANK_TRANSFER', 'BNI', 'Maxy Academy', 99000, 99000, 'IDR', 'gaapgwayan@gmail.com', '8930323489556145', '2023-04-12 16:59:16', NULL, 1, '2023-05-16 20:36:17', 1, NULL, 1);
+(6437, 'maxyac-eb89c066e77544ad-b5058937f19ee02e-1681', 'BANK_TRANSFER', 'BNI', 'Maxy Academy', 99000, 99000, 'IDR', 'gaapgwayan@gmail.com', '8930323489556145', '2023-04-12 16:59:16', NULL, 1, '2023-05-16 20:36:17', 1, NULL, 1),
+(6438, 'invoice_123124123', 'BANK_TRANSFER', 'PERMATA', 'Xendit', 50000, 50000, 'IDR', 'wildan@xendit.co', '888888888888', '2016-10-12 01:15:03', 'This is a description', 1, '2023-11-13 00:00:58', 1, '2023-11-13 00:00:58', 1);
 
 -- --------------------------------------------------------
 
@@ -2560,6 +3393,13 @@ CREATE TABLE `trans_order` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `trans_order`
+--
+
+INSERT INTO `trans_order` (`id`, `order_number`, `date`, `total`, `discount`, `total_after_discount`, `payment_status`, `course_id`, `course_class_id`, `user_id`, `course_package_id`, `m_promo_id`, `forced_at`, `forced_comment`, `user_forced_id`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
+(1, '1', '2023-11-17 08:26:46', 1, NULL, 1, 1, 1, 2, 58, 1, 1, NULL, NULL, NULL, NULL, 1, '2023-11-17 14:27:11', 1, '2023-11-17 07:34:15', 1);
 
 -- --------------------------------------------------------
 
@@ -2603,7 +3443,8 @@ CREATE TABLE `users` (
   `nickname` varchar(255) DEFAULT NULL,
   `referal` varchar(50) DEFAULT NULL,
   `date_of_birth` date DEFAULT NULL,
-  `telp_number` varchar(20) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
   `university` varchar(100) DEFAULT NULL,
   `major` varchar(100) DEFAULT NULL,
   `semester` int(11) DEFAULT NULL,
@@ -2613,76 +3454,72 @@ CREATE TABLE `users` (
   `m_province_id` int(11) DEFAULT NULL,
   `linked_in` varchar(100) DEFAULT NULL,
   `request` varchar(100) DEFAULT NULL,
-  `signature` text DEFAULT NULL,
-  `course_price` int(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `profile_picture` text DEFAULT NULL,
   `type` enum('admin','tutor','member') DEFAULT NULL,
   `m_partner_id` int(11) DEFAULT NULL,
   `access_group_id` int(11) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `status` int(11) NOT NULL,
   `exp` int(11) NOT NULL DEFAULT 0,
   `level` int(11) NOT NULL DEFAULT 1,
+  `email_verified` int(11) NOT NULL DEFAULT 0,
+  `partner_university_detail_id` int(11) DEFAULT NULL,
+  `email_verified_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `remember_token` varchar(100) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `status` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `created_id` int(11) NOT NULL,
   `updated_at` datetime NOT NULL,
-  `updated_id` int(11) NOT NULL,
-  `phone` varchar(255) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `provider` varchar(255) DEFAULT NULL,
-  `email_verified` int(11) NOT NULL DEFAULT 0,
-  `partner_university_detail_id` int(11) DEFAULT NULL,
-  `provider_id` text DEFAULT NULL,
-  `email_verified_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `remember_token` varchar(100) DEFAULT NULL
+  `updated_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `nickname`, `referal`, `date_of_birth`, `telp_number`, `university`, `major`, `semester`, `city`, `country`, `postal_code`, `m_province_id`, `linked_in`, `request`, `signature`, `course_price`, `email`, `password`, `profile_picture`, `type`, `m_partner_id`, `access_group_id`, `description`, `status`, `exp`, `level`, `created_at`, `created_id`, `updated_at`, `updated_id`, `phone`, `address`, `provider`, `email_verified`, `partner_university_detail_id`, `provider_id`, `email_verified_at`, `remember_token`) VALUES
-(1, 'toro', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'toro@mail.com', '$2y$10$bADbRS70xYSWFUM8eF.LCu1s3rY/HDNYybH3siwPdH7/LEzHj0HIG', NULL, 'admin', 34, 1, NULL, 0, 0, 1, '2022-09-09 07:46:26', 1, '2022-09-09 07:46:26', 1, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:33:02', NULL),
-(4, 'akbar', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'akbar@mail.com', '$2y$10$csNiP2KxUw1WGNyjxQMq0eLY0Cyp8m7T9J2bmHxw9CZTUUB8OJTG.', NULL, NULL, NULL, 1, NULL, 1, 0, 1, '2023-06-09 02:36:42', 1, '2023-06-09 02:36:42', 1, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:33:02', NULL),
-(14, 'William Christoper', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'anonim@mail.com', '$2y$10$eJkoxsg/rac1s3XUjFjKtunkFkLWzuDB8ZYGDle6T8ATvymR5O/JG', 'william.png', 'tutor', NULL, 1, 'Full-stack Developer Maxy Academy', 1, 0, 1, '2023-07-03 06:40:43', 1, '2023-07-03 06:40:43', 1, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:33:02', NULL),
-(15, 'Daniel', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'daniel@mail.com', '$2y$10$ZwGPVjikXqWg/HVYI5ZM8OslJgcyku7MhAUnxpOVWNSBsntc2KWhe', 'daniel.png', 'tutor', NULL, 1, 'Product Designer Ruparupa', 1, 0, 1, '2023-07-03 06:41:54', 1, '2023-07-03 06:41:54', 1, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:33:02', NULL),
-(16, 'Florencia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'florencia@mail.com', '$2y$10$QvMJGgLx7FkbxEiZU4.HguqO9ksoRpm7iRq6Opg2GUz5FN6XLoaCq', 'florencia.png', 'tutor', NULL, 1, 'Digital Marketer Djoeragan Sego', 1, 0, 1, '2023-07-03 06:42:15', 1, '2023-07-03 06:42:15', 1, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:33:02', NULL),
-(17, 'Selvia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'selvia@mail.com', '$2y$10$PZGpbWAO5XLCDd1HNE9Mw.2QkQgf8rHsIPN27F.sYKXoBapjDOW..', 'selvia.jpg', 'tutor', NULL, 1, 'Mentor Maxy Academy', 0, 0, 1, '2023-07-03 06:43:07', 1, '2023-07-03 06:43:07', 1, NULL, NULL, NULL, 0, NULL, NULL, '2023-08-29 19:37:10', NULL),
-(18, 'Andy Febrico Bintoro', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'toro1@mail.com', '$2y$10$yh8nzzKt6LJpCzfwxOEh8ewQmcs8DqqIpCOjMtyrrZekRRTKEXg4i', 'toro.png', 'tutor', NULL, 1, 'CTO Maxy Academy', 1, 0, 1, '2023-07-03 06:46:28', 1, '2023-07-03 06:46:28', 1, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:33:02', NULL),
-(19, 'Widy', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'widy@mail.com', '$2y$10$D6sfDKWtiWFKTykhweO2OefpfV9DW9wWhpl/lIBzGcPWxPrnEzTmG', NULL, 'tutor', NULL, 1, NULL, 0, 0, 1, '2023-07-03 06:48:22', 1, '2023-07-03 06:48:22', 1, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:33:02', NULL),
-(20, 'Khoerurrizal', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'rizal@mail.com', '$2y$10$IYUlWzTo33GGp6NR/B7f5uONGmjbJa96D8JMs.GtXPIH6T/YHBuQa', 'rizal.png', 'tutor', NULL, 1, 'Senior Fullstack Engineer SourceSage Holding, Pte Ltd', 0, 0, 1, '2023-07-03 06:49:17', 1, '2023-07-03 06:49:17', 1, NULL, NULL, NULL, 0, NULL, NULL, '2023-08-29 19:37:42', NULL),
-(21, 'Arabi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'arabi@mail.com', '$2y$10$nxhfLEYHT7LBRZFFd8tMIecNMA3o/H4wMUuemE9rfifib2KnONWMi', 'arabi.png', 'tutor', NULL, 1, 'Mentor Maxy Academy', 0, 0, 1, '2023-07-03 06:49:43', 1, '2023-07-03 06:49:43', 1, NULL, NULL, NULL, 0, NULL, NULL, '2023-08-29 19:37:57', NULL),
-(22, 'Marcel', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'marcel@mail.com', '$2y$10$8dXna3uajYsRX9Ai7frvHOgtLl6/uwHe7vWKn8ZXF3c.yApaHi7le', NULL, 'tutor', NULL, 1, NULL, 0, 0, 1, '2023-07-03 06:50:01', 1, '2023-07-03 06:50:01', 1, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:33:02', NULL),
-(23, 'Budi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'budi@mail.com', '$2y$10$aUFJ6wrXFB7PE3Sc5yiYA.n.upAhU3lLGDy.OCKbYY/deifEpQocS', '335dab35b98c84693e844963fafe5dff.jpg', 'member', NULL, 2, NULL, 1, 0, 1, '2022-09-26 04:21:34', 0, '2022-09-30 07:46:01', 0, NULL, 'Jl. Rumah Budi 321', NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(24, 'Hendra', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'hendra@mail.com', '$2y$10$fzRM8rnt4sxdobABBaafZemD4YbClQlsWVb15EnqcmLcgjDye8HnK', NULL, 'member', NULL, 2, NULL, 1, 0, 1, '2022-09-26 04:27:02', 0, '2022-09-26 04:27:02', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(25, 'Jess', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'jess@mail.com', '$2y$10$1O1jN.14dAc/KXwakFtnaOUohX6IaXx7qHe./jtyIbkjGo2YxLgoq', NULL, 'member', NULL, 2, NULL, 1, 0, 1, '2022-09-26 04:27:21', 0, '2022-09-26 04:27:21', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(40, 'Safira', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'safira@mail.com', '$2y$10$BQ.P5Qr.lR8YR0obC2G9xeP0BWIw9Cgcfx.N0sOA.umy.OoZLuUgu', NULL, 'member', NULL, 2, NULL, 1, 0, 1, '2023-01-27 04:19:11', 0, '2023-01-27 04:19:11', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(41, 'Qowiyyu Adzkar', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'qowi.test@mail.com', '$2y$10$MuVa5XMt65ozmRlXZCdZHuEIflNRIn74zGQa6YxF1S8q2Mt9tER.2', NULL, 'member', NULL, 2, NULL, 1, 0, 1, '2023-02-09 08:40:19', 0, '2023-02-09 08:41:22', 0, '088217711609', 'Surabaya', NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(42, 'Sofi Aisya', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'sofi.aisya01@gmail.com', '$2y$10$lIBlq1KwrLmEyIGw58MPXuGnFka8/pIOQizkfMkcd/FHtKkwO0R8G', NULL, 'member', NULL, 2, NULL, 1, 0, 1, '2023-02-11 18:33:21', 0, '2023-02-11 18:33:21', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(43, 'Aditya Kurnia Pratama', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'adityacaspo@gmail.com', '$2y$10$MaVSZM6oSowVrFL5DbaYT.oms4hE7RH6zCA4T/pKOW/8fGzm04DoC', NULL, 'member', NULL, 2, NULL, 1, 0, 1, '2023-02-12 00:00:43', 0, '2023-02-12 00:00:43', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(44, 'Andhi Nursahara', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'archane8853@gmail.com', '', 'andhi.png', 'member', NULL, 2, 'utk testimonial', 1, 0, 1, '2023-02-14 07:52:22', 0, '2023-02-14 07:52:22', 0, NULL, NULL, 'google', 0, NULL, '105445141736736745221', '2023-08-31 18:18:16', NULL),
-(45, 'Mirhan Sahira', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'mirhansahira1@gmail.com', '$2y$10$ImkgM6mFLgK7UI6phg6bDeZF9cW1yiBXUATNXXi.oRqXCRxeGJRIi', 'cecylia.jpg', 'member', NULL, 2, 'utk testimonial', 1, 0, 1, '2023-02-17 02:55:20', 0, '2023-02-17 02:55:20', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-08-31 18:18:23', NULL),
-(46, 'Nur Almahdi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '20102108@ittelkom-pwt.ac.id', '$2y$10$n6IIOMTZdtgxPjXUI9vV5uKw4.yuvHpQb/Qj3V.cLFf5xN7.YVNda', 'nadhira.jpg', 'member', NULL, 2, 'utk testimonial', 1, 0, 1, '2023-02-17 02:56:54', 0, '2023-02-17 02:56:54', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-08-29 19:30:11', NULL),
-(47, 'Azril Bagas Erlangga', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '20102286@ittelkom-pwt.ac.id', '$2y$10$1Q9IK88.fi9eKxcmH5YpC.fF2knJeTEtGabr9rLTxthzOeSvLwA9.', NULL, 'member', NULL, 2, NULL, 1, 0, 1, '2023-02-17 02:59:37', 0, '2023-02-17 02:59:37', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(48, 'Nur Mufrih', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'nurmufrih@gmail.com', '$2y$10$UB.pbzfW7JqxvnlGeGOtZu6w/4aI2Y3213ZEx46IUS2mO3pcVvFzy', NULL, 'member', NULL, 2, NULL, 1, 0, 1, '2023-03-02 03:36:23', 0, '2023-03-02 03:36:23', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(49, 'ww', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'ww@gmail.com', '$2y$10$U3M0lvM2JtE6JqXF/ecwju5LpZwcswQ1d5EjndU3pyPa8JoXvmFDe', NULL, 'member', NULL, 2, NULL, 1, 0, 1, '2023-03-02 03:50:51', 0, '2023-03-02 03:50:51', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(50, 'diponh', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'dipo.nabhan@gmail.com', '$2y$10$id.LL0VgbZlQHSQ5hpy0.u/bJ00i0btwMPM36B5kbpgGWNsJm04j6', NULL, 'member', NULL, 2, NULL, 1, 0, 1, '2023-03-09 07:58:15', 0, '2023-03-09 07:58:15', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(51, 'Hansen', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'lukitohansen0123@gmail.com', '$2y$10$xL5Gq8GH6b4Xm8UvQR4lkOLtQY0JFQ8PixqDID9ZhhlU56XR0AnM2', NULL, 'member', NULL, 2, NULL, 1, 0, 1, '2023-03-16 02:15:41', 0, '2023-03-16 02:15:41', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(52, 'yandri ikwan huavis', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'yandriikwan@gmail.com', '$2y$10$z1Il/bNEyiYQ1yoiT9pbp.bna4eFeDK6f7fOOfwHMO7jAgIpGGL9S', 'c1dc12f2590426598e747fe3047c1bca.jpeg', 'member', NULL, 2, NULL, 1, 0, 1, '2023-03-24 06:20:25', 0, '2023-03-24 06:20:46', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(53, 'Aditya Puspita S', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'adityapuspitasari0@gmail.com', '$2y$10$1aliAV13lu99TfFs.qm1CO44xvkU5ntE0l3ZmCfhW7HGWXC90p6V6', NULL, 'member', NULL, 2, NULL, 1, 0, 1, '2023-03-31 06:05:00', 0, '2023-03-31 06:05:00', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(54, 'Kuncoro Ariadi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'kuncoroariadi@gmail.com', '$2y$10$nyxp4eaBbVauodVefE0Z1uPv4WLmJxf3WHsoUc3h1p4XmXrSl4fKO', NULL, 'member', NULL, 2, NULL, 1, 0, 1, '2023-04-08 07:56:57', 0, '2023-04-08 07:56:57', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(55, 'Dara Jewutha Nuramalin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'darajewutha2002@gmail.com', '$2y$10$EvEacVltKBnyJHG6.qqOouvsCh6uSbSnOJ6yQktkRIy1nk3NI07aa', '5491000bf4737fdc4d663b0eaf90742f.jpg', 'member', NULL, 2, NULL, 1, 0, 1, '2023-05-10 01:19:10', 0, '2023-05-10 01:22:28', 0, '(+62) 88802941382', 'Jalan benda barat 15 blok B 17 nomor 9, Pamulang 2  Kec. Pamulang, Kota/Kab. Tangerang Selatan  Banten, 15416', NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(56, 'Sulamit Manullang', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'sulamit.manullang@gmail.com', '$2y$10$F7Y5F3qOuFl3MGPHHjgVTuZsrZorOyyZpfb9Qd9HrxUlY2/NIW9Ra', NULL, 'member', NULL, 2, NULL, 1, 0, 1, '2023-05-17 06:41:54', 0, '2023-05-17 06:41:54', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(58, 'Aditya Dewa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'adityadewa386@gmail.com', '$2y$10$SXg1HWZXCPoyS9Nn0zz9iOf6VIvJUJuBEPnx5N0Hm8yd5NuuY65ue', NULL, 'member', NULL, 2, NULL, 1, 0, 1, '2023-05-25 08:09:40', 0, '2023-05-25 08:10:37', 0, NULL, 'Perumahan Kalirejo Permai Blok F-8, Rt02/Rw04, Desa Kalirejo, kecamatan Dringu, Kab. Probolinggo', NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(59, 'Andhi Nursahara', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'andhi@mail.com', '', 'andhi.png', 'member', NULL, 2, '', 1, 0, 1, '2023-07-03 15:34:48', 1, '2023-07-03 15:34:48', 1, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(60, 'Nadhira Salsabilla', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'nadhira@mail.com', '', 'nadhira.jpg', 'member', NULL, 2, NULL, 1, 0, 1, '2023-07-03 15:34:48', 1, '2023-07-03 15:34:48', 1, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(61, 'Cecylia Putri Gianti', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'cecylia@mail.com', '', 'cecylia.jpg', 'member', NULL, 2, NULL, 1, 0, 1, '2023-07-03 15:34:48', 1, '2023-07-03 16:25:41', 1, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(64, 'Ardimas', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'ardims@maxyacademy.com', '$2y$10$v0XIgwIDUYm/LNi88nnvxO1vJPsmJKiSUa4XYAmocCiSIw6xeETdW', NULL, 'member', NULL, 2, NULL, 1, 0, 1, '2023-07-06 07:29:17', 0, '2023-07-06 07:29:17', 0, NULL, NULL, NULL, 0, NULL, NULL, '2023-07-19 14:50:50', NULL),
-(66, 'CB', NULL, 'TikTok', NULL, NULL, 'UKP', 'Tech Industry', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'coba@gmail.com', '$2y$10$Ca0mq8MlwrBGOrkuD0Y8xeRlSR/qQYQPuPUdrcGi7qffAL9N68/gW', NULL, 'member', NULL, 2, 'halo\r\n', 1, 300, 51, '2023-07-18 01:34:53', 0, '2023-09-20 02:55:53', 0, NULL, 'ada deh', NULL, 0, NULL, NULL, '2023-09-19 12:55:53', NULL),
-(87, 'Jovan Thezar', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'jovan.maxy.academy@gmail.com', '$2y$10$Y8y21r4BFzMl7t6Bnxeu7uo/nF9osPn2oKe0naP5Skf6xe9g6NzJ6', NULL, 'member', NULL, 2, NULL, 1, 0, 1, '2023-08-08 02:17:29', 1, '2023-08-08 02:17:29', 1, NULL, NULL, NULL, 0, NULL, NULL, '2023-08-07 12:17:29', NULL),
-(88, 'N A L', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'nabellleo@gmail.com', '$2y$10$NYGR8VF7.k7iT3MDFwrqd.cVA163xZZG4DNtvDLxBXIvHS1B.iApK', NULL, 'member', NULL, 2, NULL, 1, 0, 1, '2023-08-15 02:04:57', 1, '2023-08-15 02:04:57', 1, NULL, NULL, NULL, 0, NULL, NULL, '2023-08-14 12:04:57', NULL);
+INSERT INTO `users` (`id`, `name`, `nickname`, `referal`, `date_of_birth`, `phone`, `address`, `university`, `major`, `semester`, `city`, `country`, `postal_code`, `m_province_id`, `linked_in`, `request`, `email`, `password`, `profile_picture`, `type`, `m_partner_id`, `access_group_id`, `exp`, `level`, `email_verified`, `partner_university_detail_id`, `email_verified_at`, `remember_token`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
+(1, 'toro', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'toro@mail.com', '$2y$10$bADbRS70xYSWFUM8eF.LCu1s3rY/HDNYybH3siwPdH7/LEzHj0HIG', NULL, 'admin', 34, 1, 0, 1, 0, NULL, '2023-07-19 14:33:02', NULL, NULL, 0, '2022-09-09 07:46:26', 1, '2022-09-09 07:46:26', 1),
+(4, 'akbar', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'akbar@mail.com', '$2y$10$csNiP2KxUw1WGNyjxQMq0eLY0Cyp8m7T9J2bmHxw9CZTUUB8OJTG.', NULL, NULL, NULL, 1, 0, 1, 0, NULL, '2023-07-19 14:33:02', NULL, NULL, 1, '2023-06-09 02:36:42', 1, '2023-06-09 02:36:42', 1),
+(14, 'William Christoper', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'anonim@mail.com', '$2y$10$eJkoxsg/rac1s3XUjFjKtunkFkLWzuDB8ZYGDle6T8ATvymR5O/JG', 'william.png', 'tutor', NULL, 1, 0, 1, 0, NULL, '2023-07-19 14:33:02', NULL, 'Full-stack Developer Maxy Academy', 1, '2023-07-03 06:40:43', 1, '2023-07-03 06:40:43', 1),
+(15, 'Daniel', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'daniel@mail.com', '$2y$10$ZwGPVjikXqWg/HVYI5ZM8OslJgcyku7MhAUnxpOVWNSBsntc2KWhe', 'daniel.png', 'tutor', NULL, 1, 0, 1, 0, NULL, '2023-07-19 14:33:02', NULL, 'Product Designer Ruparupa', 1, '2023-07-03 06:41:54', 1, '2023-07-03 06:41:54', 1),
+(16, 'Florencia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'florencia@mail.com', '$2y$10$QvMJGgLx7FkbxEiZU4.HguqO9ksoRpm7iRq6Opg2GUz5FN6XLoaCq', 'florencia.png', 'tutor', NULL, 1, 0, 1, 0, NULL, '2023-07-19 14:33:02', NULL, 'Digital Marketer Djoeragan Sego', 1, '2023-07-03 06:42:15', 1, '2023-07-03 06:42:15', 1),
+(17, 'Selvia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'selvia@mail.com', '$2y$10$PZGpbWAO5XLCDd1HNE9Mw.2QkQgf8rHsIPN27F.sYKXoBapjDOW..', 'selvia.jpg', 'tutor', NULL, 1, 0, 1, 0, NULL, '2023-08-29 19:37:10', NULL, 'Mentor Maxy Academy', 0, '2023-07-03 06:43:07', 1, '2023-07-03 06:43:07', 1),
+(18, 'Andy Febrico Bintoro', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'toro1@mail.com', '$2y$10$yh8nzzKt6LJpCzfwxOEh8ewQmcs8DqqIpCOjMtyrrZekRRTKEXg4i', 'toro.png', 'tutor', NULL, 1, 0, 1, 0, NULL, '2023-07-19 14:33:02', NULL, 'CTO Maxy Academy', 1, '2023-07-03 06:46:28', 1, '2023-07-03 06:46:28', 1),
+(19, 'Widy', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'widy@mail.com', '$2y$10$D6sfDKWtiWFKTykhweO2OefpfV9DW9wWhpl/lIBzGcPWxPrnEzTmG', NULL, 'tutor', NULL, 1, 0, 1, 0, NULL, '2023-07-19 14:33:02', NULL, NULL, 0, '2023-07-03 06:48:22', 1, '2023-07-03 06:48:22', 1),
+(20, 'Khoerurrizal', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'rizal@mail.com', '$2y$10$IYUlWzTo33GGp6NR/B7f5uONGmjbJa96D8JMs.GtXPIH6T/YHBuQa', 'rizal.png', 'tutor', NULL, 1, 0, 1, 0, NULL, '2023-08-29 19:37:42', NULL, 'Senior Fullstack Engineer SourceSage Holding, Pte Ltd', 0, '2023-07-03 06:49:17', 1, '2023-07-03 06:49:17', 1),
+(21, 'Arabi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'arabi@mail.com', '$2y$10$nxhfLEYHT7LBRZFFd8tMIecNMA3o/H4wMUuemE9rfifib2KnONWMi', 'arabi.png', 'tutor', NULL, 1, 0, 1, 0, NULL, '2023-08-29 19:37:57', NULL, 'Mentor Maxy Academy', 0, '2023-07-03 06:49:43', 1, '2023-07-03 06:49:43', 1),
+(22, 'Marcel', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'marcel@mail.com', '$2y$10$8dXna3uajYsRX9Ai7frvHOgtLl6/uwHe7vWKn8ZXF3c.yApaHi7le', NULL, 'tutor', NULL, 1, 0, 1, 0, NULL, '2023-07-19 14:33:02', NULL, NULL, 0, '2023-07-03 06:50:01', 1, '2023-07-03 06:50:01', 1),
+(23, 'Budi', NULL, NULL, NULL, NULL, 'Jl. Rumah Budi 321', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'budi@mail.com', '$2y$10$aUFJ6wrXFB7PE3Sc5yiYA.n.upAhU3lLGDy.OCKbYY/deifEpQocS', '335dab35b98c84693e844963fafe5dff.jpg', 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2022-09-26 04:21:34', 0, '2022-09-30 07:46:01', 0),
+(24, 'Hendra', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'hendra@mail.com', '$2y$10$fzRM8rnt4sxdobABBaafZemD4YbClQlsWVb15EnqcmLcgjDye8HnK', NULL, 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2022-09-26 04:27:02', 0, '2022-09-26 04:27:02', 0),
+(25, 'Jess', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'jess@mail.com', '$2y$10$1O1jN.14dAc/KXwakFtnaOUohX6IaXx7qHe./jtyIbkjGo2YxLgoq', NULL, 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2022-09-26 04:27:21', 0, '2022-09-26 04:27:21', 0),
+(40, 'Safira', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'safira@mail.com', '$2y$10$BQ.P5Qr.lR8YR0obC2G9xeP0BWIw9Cgcfx.N0sOA.umy.OoZLuUgu', NULL, 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2023-01-27 04:19:11', 0, '2023-01-27 04:19:11', 0),
+(41, 'Qowiyyu Adzkar', NULL, NULL, NULL, '088217711609', 'Surabaya', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'qowi.test@mail.com', '$2y$10$MuVa5XMt65ozmRlXZCdZHuEIflNRIn74zGQa6YxF1S8q2Mt9tER.2', NULL, 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2023-02-09 08:40:19', 0, '2023-02-09 08:41:22', 0),
+(42, 'Sofi Aisya', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sofi.aisya01@gmail.com', '$2y$10$lIBlq1KwrLmEyIGw58MPXuGnFka8/pIOQizkfMkcd/FHtKkwO0R8G', NULL, 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2023-02-11 18:33:21', 0, '2023-02-11 18:33:21', 0),
+(43, 'Aditya Kurnia Pratama', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'adityacaspo@gmail.com', '$2y$10$MaVSZM6oSowVrFL5DbaYT.oms4hE7RH6zCA4T/pKOW/8fGzm04DoC', NULL, 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2023-02-12 00:00:43', 0, '2023-02-12 00:00:43', 0),
+(44, 'Andhi Nursahara', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'archane8853@gmail.com', '', 'andhi.png', 'member', NULL, 2, 0, 1, 0, NULL, '2023-08-31 18:18:16', NULL, 'utk testimonial', 1, '2023-02-14 07:52:22', 0, '2023-02-14 07:52:22', 0),
+(45, 'Mirhan Sahira', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'mirhansahira1@gmail.com', '$2y$10$ImkgM6mFLgK7UI6phg6bDeZF9cW1yiBXUATNXXi.oRqXCRxeGJRIi', 'cecylia.jpg', 'member', NULL, 2, 0, 1, 0, NULL, '2023-08-31 18:18:23', NULL, 'utk testimonial', 1, '2023-02-17 02:55:20', 0, '2023-02-17 02:55:20', 0),
+(46, 'Nur Almahdi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20102108@ittelkom-pwt.ac.id', '$2y$10$n6IIOMTZdtgxPjXUI9vV5uKw4.yuvHpQb/Qj3V.cLFf5xN7.YVNda', 'nadhira.jpg', 'member', NULL, 2, 0, 1, 0, NULL, '2023-08-29 19:30:11', NULL, 'utk testimonial', 1, '2023-02-17 02:56:54', 0, '2023-02-17 02:56:54', 0),
+(47, 'Azril Bagas Erlangga', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20102286@ittelkom-pwt.ac.id', '$2y$10$1Q9IK88.fi9eKxcmH5YpC.fF2knJeTEtGabr9rLTxthzOeSvLwA9.', NULL, 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2023-02-17 02:59:37', 0, '2023-02-17 02:59:37', 0),
+(48, 'Nur Mufrih', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'nurmufrih@gmail.com', '$2y$10$UB.pbzfW7JqxvnlGeGOtZu6w/4aI2Y3213ZEx46IUS2mO3pcVvFzy', NULL, 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2023-03-02 03:36:23', 0, '2023-03-02 03:36:23', 0),
+(49, 'ww', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ww@gmail.com', '$2y$10$U3M0lvM2JtE6JqXF/ecwju5LpZwcswQ1d5EjndU3pyPa8JoXvmFDe', NULL, 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2023-03-02 03:50:51', 0, '2023-03-02 03:50:51', 0),
+(50, 'diponh', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'dipo.nabhan@gmail.com', '$2y$10$id.LL0VgbZlQHSQ5hpy0.u/bJ00i0btwMPM36B5kbpgGWNsJm04j6', NULL, 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2023-03-09 07:58:15', 0, '2023-03-09 07:58:15', 0),
+(51, 'Hansen', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'lukitohansen0123@gmail.com', '$2y$10$xL5Gq8GH6b4Xm8UvQR4lkOLtQY0JFQ8PixqDID9ZhhlU56XR0AnM2', NULL, 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2023-03-16 02:15:41', 0, '2023-03-16 02:15:41', 0),
+(52, 'yandri ikwan huavis', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'yandriikwan@gmail.com', '$2y$10$z1Il/bNEyiYQ1yoiT9pbp.bna4eFeDK6f7fOOfwHMO7jAgIpGGL9S', 'c1dc12f2590426598e747fe3047c1bca.jpeg', 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2023-03-24 06:20:25', 0, '2023-03-24 06:20:46', 0),
+(53, 'Aditya Puspita S', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'adityapuspitasari0@gmail.com', '$2y$10$1aliAV13lu99TfFs.qm1CO44xvkU5ntE0l3ZmCfhW7HGWXC90p6V6', NULL, 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2023-03-31 06:05:00', 0, '2023-03-31 06:05:00', 0),
+(54, 'Kuncoro Ariadi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'kuncoroariadi@gmail.com', '$2y$10$nyxp4eaBbVauodVefE0Z1uPv4WLmJxf3WHsoUc3h1p4XmXrSl4fKO', NULL, 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2023-04-08 07:56:57', 0, '2023-04-08 07:56:57', 0),
+(55, 'Dara Jewutha Nuramalin', NULL, NULL, NULL, '(+62) 88802941382', 'Jalan benda barat 15 blok B 17 nomor 9, Pamulang 2  Kec. Pamulang, Kota/Kab. Tangerang Selatan  Banten, 15416', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'darajewutha2002@gmail.com', '$2y$10$EvEacVltKBnyJHG6.qqOouvsCh6uSbSnOJ6yQktkRIy1nk3NI07aa', '5491000bf4737fdc4d663b0eaf90742f.jpg', 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2023-05-10 01:19:10', 0, '2023-05-10 01:22:28', 0),
+(56, 'Sulamit Manullang', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sulamit.manullang@gmail.com', '$2y$10$F7Y5F3qOuFl3MGPHHjgVTuZsrZorOyyZpfb9Qd9HrxUlY2/NIW9Ra', NULL, 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2023-05-17 06:41:54', 0, '2023-05-17 06:41:54', 0),
+(58, 'Aditya Dewa', NULL, NULL, NULL, NULL, 'Perumahan Kalirejo Permai Blok F-8, Rt02/Rw04, Desa Kalirejo, kecamatan Dringu, Kab. Probolinggo', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'adityadewa386@gmail.com', '$2y$10$SXg1HWZXCPoyS9Nn0zz9iOf6VIvJUJuBEPnx5N0Hm8yd5NuuY65ue', NULL, 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2023-05-25 08:09:40', 0, '2023-05-25 08:10:37', 0),
+(59, 'Andhi Nursahara', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'andhi@mail.com', '', 'andhi.png', 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, '', 1, '2023-07-03 15:34:48', 1, '2023-07-03 15:34:48', 1),
+(60, 'Nadhira Salsabilla', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'nadhira@mail.com', '', 'nadhira.jpg', 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2023-07-03 15:34:48', 1, '2023-07-03 15:34:48', 1),
+(61, 'Cecylia Putri Gianti', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'cecylia@mail.com', '', 'cecylia.jpg', 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2023-07-03 15:34:48', 1, '2023-07-03 16:25:41', 1),
+(64, 'Ardimas', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ardims@maxyacademy.com', '$2y$10$v0XIgwIDUYm/LNi88nnvxO1vJPsmJKiSUa4XYAmocCiSIw6xeETdW', NULL, 'member', NULL, 2, 0, 1, 0, NULL, '2023-07-19 14:50:50', NULL, NULL, 1, '2023-07-06 07:29:17', 0, '2023-07-06 07:29:17', 0),
+(66, 'CB', NULL, 'TikTok', NULL, '08121498148', 'vergverg', 'UKP', 'b', NULL, 'gverg', 'g5eg', 1313, 52, 'b', NULL, 'coba@gmail.com', '$2y$10$Ca0mq8MlwrBGOrkuD0Y8xeRlSR/qQYQPuPUdrcGi7qffAL9N68/gW', NULL, 'member', NULL, 2, 500, 70, 0, NULL, '2023-11-30 02:34:35', NULL, 'halo\r\n', 1, '2023-07-18 01:34:53', 0, '2023-11-30 02:34:35', 0),
+(87, 'Jovan Thezar', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'jovan.maxy.academy@gmail.com', '$2y$10$Y8y21r4BFzMl7t6Bnxeu7uo/nF9osPn2oKe0naP5Skf6xe9g6NzJ6', NULL, 'member', NULL, 2, 0, 1, 0, NULL, '2023-08-07 12:17:29', NULL, NULL, 1, '2023-08-08 02:17:29', 1, '2023-08-08 02:17:29', 1),
+(88, 'N A L', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'nabellleo@gmail.com', '$2y$10$NYGR8VF7.k7iT3MDFwrqd.cVA163xZZG4DNtvDLxBXIvHS1B.iApK', NULL, 'member', NULL, 2, 0, 1, 0, NULL, '2023-08-14 12:04:57', NULL, NULL, 1, '2023-08-15 02:04:57', 1, '2023-08-15 02:04:57', 1),
+(89, 'tes', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'tes@t.t', '$2y$10$otfDR5kCBrwOmS4xj4auR.3RV5ex2QTNn92WCqBrlK0TuX98JGrEq', NULL, NULL, NULL, 2, 0, 1, 0, NULL, '2023-11-13 01:42:40', NULL, NULL, 1, '2023-11-13 01:42:40', 0, '2023-11-13 01:42:40', 0),
+(90, 'SeeMeCV', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'seemecv@mail.com', '$2y$10$oN5dC9wfLOvhIQ8D2DU67O3DDHFvhdw3aigV0.eCvCTk6rZOnioSa', NULL, NULL, NULL, 2, 0, 1, 0, NULL, '2023-11-24 02:22:46', NULL, NULL, 1, '2023-11-24 02:22:46', 0, '2023-11-24 02:22:46', 0);
 
 -- --------------------------------------------------------
 
@@ -2837,7 +3674,6 @@ CREATE TABLE `user_testimonial` (
   `role` varchar(255) DEFAULT NULL,
   `status_highlight` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `course_id` int(11) NOT NULL,
   `course_class_id` int(11) NOT NULL,
   `content` text NOT NULL,
   `description` text DEFAULT NULL,
@@ -2852,10 +3688,11 @@ CREATE TABLE `user_testimonial` (
 -- Dumping data for table `user_testimonial`
 --
 
-INSERT INTO `user_testimonial` (`id`, `stars`, `role`, `status_highlight`, `user_id`, `course_id`, `course_class_id`, `content`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
-(7, 5, 'Alumni Bootcamp Rapid UI/UX Batch 4', 1, 44, 3, 1, 'Overall saya suka selama mengikuti program UI/UX dan banyak insight baru yang aku tau terkait UI/UX. Pokoknya terima kasih banyak untuk MinMax dan mentor yang selalu respon ketika dihubungi via chat. Video pembelajarannya menarik dan materinya kepake banget saat aku magang sekarang. Walaupun durasi videonya cukup panjang tapi penjelasan step by-stepnya mudah dipahami.', NULL, 1, '2023-07-03 15:40:32', 1, '2023-07-03 15:42:28', 1),
-(8, 5, 'Alumni Bootcamp Rapid UI/UX Batch 4', 1, 45, 3, 1, 'Awalnya aku gatau tentang UI/UX sama sekali, aku terbantu setelah mengikuti Bootcamp UI/UX di maxy academy karena jadi tau progress membuat website sampai membuat aplikasi menggunakan Figma.', NULL, 1, '2023-07-03 15:40:32', 1, '2023-07-03 15:42:28', 1),
-(9, 5, 'Alumni Bootcamp Rapid UI/UX Batch 4', 1, 46, 3, 1, 'Kebetulan dari dulu aku udah pengen belajar UI/UX. Awalnya aku gatau tentang UI/UX,tapi banyak pengetahuan yang bisa aku ambil melalui bootcamp maxy academy. Pokonya seru banget selama 12 hari itu, kita juga dapet Internship jadi belajar real case langsung.', NULL, 1, '2023-07-03 15:40:32', 1, '2023-07-03 16:26:00', 1);
+INSERT INTO `user_testimonial` (`id`, `stars`, `role`, `status_highlight`, `user_id`, `course_class_id`, `content`, `description`, `status`, `created_at`, `created_id`, `updated_at`, `updated_id`) VALUES
+(7, 5, 'Alumni Bootcamp Rapid UI/UX Batch 4', 1, 44, 1, 'Overall saya suka selama mengikuti program UI/UX dan banyak insight baru yang aku tau terkait UI/UX. Pokoknya terima kasih banyak untuk MinMax dan mentor yang selalu respon ketika dihubungi via chat. Video pembelajarannya menarik dan materinya kepake banget saat aku magang sekarang. Walaupun durasi videonya cukup panjang tapi penjelasan step by-stepnya mudah dipahami.', NULL, 1, '2023-07-03 15:40:32', 1, '2023-07-03 15:42:28', 1),
+(8, 5, 'Alumni Bootcamp Rapid UI/UX Batch 4', 1, 45, 1, 'Awalnya aku gatau tentang UI/UX sama sekali, aku terbantu setelah mengikuti Bootcamp UI/UX di maxy academy karena jadi tau progress membuat website sampai membuat aplikasi menggunakan Figma.', NULL, 1, '2023-07-03 15:40:32', 1, '2023-07-03 15:42:28', 1),
+(9, 5, 'Alumni Bootcamp Rapid UI/UX Batch 4', 1, 46, 1, 'Kebetulan dari dulu aku udah pengen belajar UI/UX. Awalnya aku gatau tentang UI/UX,tapi banyak pengetahuan yang bisa aku ambil melalui bootcamp maxy academy. Pokonya seru banget selama 12 hari itu, kita juga dapet Internship jadi belajar real case langsung.', NULL, 1, '2023-07-03 15:40:32', 1, '2023-07-03 16:26:00', 1),
+(10, 1, 'aadadadadadad', 0, 4, 1, 'aa;,dadadad', 'am lsmc;sdalmd', 0, '2023-11-16 08:16:35', 1, '2023-11-16 15:22:13', 1);
 
 -- --------------------------------------------------------
 
@@ -2935,7 +3772,9 @@ ALTER TABLE `course_class_member_grading`
 -- Indexes for table `course_class_member_log`
 --
 ALTER TABLE `course_class_member_log`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_user_id` (`user_id`),
+  ADD KEY `fk_course_class_module_id` (`course_class_module_id`);
 
 --
 -- Indexes for table `course_class_module`
@@ -2944,6 +3783,12 @@ ALTER TABLE `course_class_module`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_course_module_id_course_class_module` (`course_module_id`),
   ADD KEY `fk_course_class_id_course_class_module` (`course_class_id`);
+
+--
+-- Indexes for table `course_class_module_soal`
+--
+ALTER TABLE `course_class_module_soal`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `course_module`
@@ -3099,6 +3944,14 @@ ALTER TABLE `partner_university_detail`
   ADD KEY `fk_m_partner_id_partner_university_detail` (`m_partner_id`);
 
 --
+-- Indexes for table `prakerja_redeem_code`
+--
+ALTER TABLE `prakerja_redeem_code`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_course_class_id` (`course_class_id`),
+  ADD KEY `fk_course_class_member_id` (`course_class_member_id`);
+
+--
 -- Indexes for table `promo_course`
 --
 ALTER TABLE `promo_course`
@@ -3193,7 +4046,6 @@ ALTER TABLE `user_skill`
 ALTER TABLE `user_testimonial`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_users_id_user_testimonial` (`user_id`),
-  ADD KEY `fk_course_id_user_testimonial` (`course_id`),
   ADD KEY `fk_course_class_id_user_testimonial` (`course_class_id`);
 
 --
@@ -3217,43 +4069,49 @@ ALTER TABLE `access_group`
 -- AUTO_INCREMENT for table `access_master`
 --
 ALTER TABLE `access_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=196;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=199;
 
 --
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `course_class`
 --
 ALTER TABLE `course_class`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `course_class_member`
 --
 ALTER TABLE `course_class_member`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `course_class_member_grading`
 --
 ALTER TABLE `course_class_member_grading`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
 
 --
 -- AUTO_INCREMENT for table `course_class_member_log`
 --
 ALTER TABLE `course_class_member_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=393;
 
 --
 -- AUTO_INCREMENT for table `course_class_module`
 --
 ALTER TABLE `course_class_module`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
+
+--
+-- AUTO_INCREMENT for table `course_class_module_soal`
+--
+ALTER TABLE `course_class_module_soal`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `course_module`
@@ -3388,16 +4246,22 @@ ALTER TABLE `partner_university_detail`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `prakerja_redeem_code`
+--
+ALTER TABLE `prakerja_redeem_code`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `trans_invoice`
 --
 ALTER TABLE `trans_invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6438;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6439;
 
 --
 -- AUTO_INCREMENT for table `trans_order`
 --
 ALTER TABLE `trans_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `trans_order_confirm`
@@ -3409,7 +4273,7 @@ ALTER TABLE `trans_order_confirm`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT for table `user_certification`
@@ -3445,7 +4309,7 @@ ALTER TABLE `user_portfolio`
 -- AUTO_INCREMENT for table `user_testimonial`
 --
 ALTER TABLE `user_testimonial`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user_transcript`
@@ -3491,6 +4355,13 @@ ALTER TABLE `course_class_member`
 ALTER TABLE `course_class_member_grading`
   ADD CONSTRAINT `fk_course_class_member_id_course_class_member_grading` FOREIGN KEY (`course_class_member_id`) REFERENCES `course_class_member` (`id`),
   ADD CONSTRAINT `fk_course_class_module_id_course_class_member_grading` FOREIGN KEY (`course_class_module_id`) REFERENCES `course_class_module` (`id`);
+
+--
+-- Constraints for table `course_class_member_log`
+--
+ALTER TABLE `course_class_member_log`
+  ADD CONSTRAINT `fk_course_class_module_id` FOREIGN KEY (`course_class_module_id`) REFERENCES `course_class_module` (`id`),
+  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `course_class_module`
@@ -3554,6 +4425,13 @@ ALTER TABLE `m_content_carousel_button`
 --
 ALTER TABLE `partner_university_detail`
   ADD CONSTRAINT `fk_m_partner_id_partner_university_detail` FOREIGN KEY (`m_partner_id`) REFERENCES `m_partner` (`id`);
+
+--
+-- Constraints for table `prakerja_redeem_code`
+--
+ALTER TABLE `prakerja_redeem_code`
+  ADD CONSTRAINT `fk_course_class_id` FOREIGN KEY (`course_class_id`) REFERENCES `course_class` (`id`),
+  ADD CONSTRAINT `fk_course_class_member_id` FOREIGN KEY (`course_class_member_id`) REFERENCES `course_class_member` (`id`);
 
 --
 -- Constraints for table `promo_course`
@@ -3635,7 +4513,6 @@ ALTER TABLE `user_skill`
 --
 ALTER TABLE `user_testimonial`
   ADD CONSTRAINT `fk_course_class_id_user_testimonial` FOREIGN KEY (`course_class_id`) REFERENCES `course_class` (`id`),
-  ADD CONSTRAINT `fk_course_id_user_testimonial` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`),
   ADD CONSTRAINT `fk_users_id_user_testimonial` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --

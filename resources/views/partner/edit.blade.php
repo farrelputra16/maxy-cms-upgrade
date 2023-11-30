@@ -5,14 +5,16 @@
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
         <h2 style="padding-bottom:3%">Edit Partner</h2>
-        <form class="ui form" action="{{ route('postEditPartner', ['id' => request()->query('id'), 'logo_dump' => $partners->logo ]) }}" method="post">
+        <form class="ui form" action="{{ route('postEditPartner', ['id' => request()->query('id'), 'logo_dump' => $partners->logo ]) }}" method="post" enctype="multipart/form-data">
             @csrf
+            <input type="text" name="img_keep" value="{{ $partners->logo }}" hidden>
             <div class="field">
-                <div class="field">
-                    <label for="">ID</label>
-                    <input type="text" value="{{ $partners->id }}" disabled>
-                </div>
+                
                 <div class="three fields">
+                    <div class="field">
+                        <label for="">ID</label>
+                        <input type="text" value="{{ $partners->id }}" disabled>
+                    </div>
                     <div class="field">
                         <label for="">Name</label>
                         <input type="text" name="name" value="{{ $partners->name }}">
@@ -31,12 +33,18 @@
                             @endforeach
                         @endif
                     </div>
-                    <div class="field">
+                    <!-- <div class="field">
                         <label for="">Logo</label>
                         <input type="file" name="logo">
                         <small>Current logo: {{ $partners->logo }}</small>
-                    </div>
+                    </div> -->
                 </div>
+                <div class="field">
+                        <label for="">Logo</label>
+                        <input type="file" id="formFile" name="logo" onchange="preview()">
+                        <br>
+                        <img id="frame" src="{{ asset('uploads/partner/' . $partners->logo) }}" class="img-fluid" />
+                    </div>
                 <div class="field">
                     <label for="">URL</label>
                     <input type="text" name="url" value="{{ $partners->url }}">
@@ -101,3 +109,9 @@
         <a href="{{ route("getPartner") }}"><button class=" right floated ui red button">Batal</button></a>
     </div>
 @endsection
+
+<script>
+        function preview() {
+            frame.src = URL.createObjectURL(event.target.files[0]);
+        }
+</script>

@@ -21,6 +21,7 @@
                     <div class="field">
                         <label for="">Waktu Mulai</label>
                         <input type="datetime-local" name="start_date" value="{{ $currentData->start_date }}">
+                        
                     </div>
                     <div class="field">
                         <label for="">Waktu Berakhir</label>

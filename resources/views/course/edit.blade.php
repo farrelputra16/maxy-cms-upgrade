@@ -33,10 +33,24 @@
                             <input type="text" id="payment_link" name="payment_link" placeholder="Masukkan Payment Link" value="{{ $courses->payment_link }}">
                     </div>
                 </div>
+
                 <div class="field">
-                    <label for="file">Image</label>
-                    <input type="file" name="file_image" id="file_image">
+                    <label for="Image" class="form-label">Image</label>
+                    <input class="form-control" type="file" id="formFile" name="file_image" onchange="preview()">
+                    <br>
+                    <img id="frame" src="{{ asset('uploads/course_img/' . $courses->image) }}" class="img-fluid" />
                 </div>
+
+                <!-- <div class="field">
+                    <label for="file">Image</label>
+                    <input type="file" name="file_image" id="file_image" accept="image/*" value="{{ $courses->payment_link }}">
+
+                    @if($courses->image)
+                        <p>Current Image:</p>
+                        <img src="{{ asset('uploads/course_img/' . $courses->image) }}" alt="Current Image">
+                    @endif
+                </div> -->
+
                 <div class="field">
                     <label for="">Content</label>
                     <textarea name="content">{{ $courses->content }}</textarea>
@@ -106,6 +120,11 @@
         <a href="{{ route("getCourse") }}"><button class=" right floated ui red button">Batal</button></a>
     </div>
     <script>
+
+        function preview() {
+            frame.src = URL.createObjectURL(event.target.files[0]);
+        }
+
         if($('#type_selector').val() == 1){
             console.log("Bootcamp");
             $('#mini_fake_price').hide();
