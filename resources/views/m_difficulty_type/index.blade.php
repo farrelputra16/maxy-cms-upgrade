@@ -16,7 +16,7 @@
 
 </head>
 <body>
-    <h2>Course</h2>
+    
     <hr>
     <div id="example_wrapper">
         <div class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">

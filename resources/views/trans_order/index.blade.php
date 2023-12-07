@@ -73,7 +73,13 @@
                         @endif
                     </td>
                     <td>
-                        <a href ="{{ route('getEditTransOrder', ['id' => $item->id])}}" style="text-decoration: none; color:blue;">Edit</a>
+                        <!-- <a href ="{{ route('getEditTransOrder', ['id' => $item->id])}}" style="text-decoration: none; color:blue;">Edit</a>
+                        <a href ="{{ route('getEditTransOrder', ['id' => $item->id])}}" style="text-decoration: none; color:blue;">TransOrder Confirm</a> -->
+
+                        <div class="btn-group">
+                            <a href="{{ route('getEditTransOrder', ['id' => $item->id]) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('getTransOrderConfirm', ['id' => $item->id]) }}" class="btn btn-info">TransOrder Confirm</a>
+                        </div>
                     </td>
                 </tr>
                 @endforeach

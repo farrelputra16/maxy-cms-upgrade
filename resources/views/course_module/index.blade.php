@@ -24,7 +24,7 @@
                 @if($course_id != NULL)
                     <a href="{{ route('getAddCourseModule', ['id' => $course_id]) }}"><button class=" right floated ui button primary">Tambah Course +</button></a>
                 @else
-                    <a class="btn btn-primary" href="{{ route('getAddCourseModule') }}" role="button">Tambah Course +</a>
+                    <a class="btn btn-primary" href="{{ route('getAddCourseModule') }}" role="button">Tambah Course Module +</a>
                 @endif
                 
             </div>

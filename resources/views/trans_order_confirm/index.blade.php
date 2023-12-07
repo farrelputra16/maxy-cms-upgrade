@@ -1,13 +1,14 @@
+
 @extends('layout.master')
 
-@section('title', 'Course Package')
+@section('title', 'Trans Order')
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
     <!DOCTYPE html>
 <html>
 <head>
-<h2>Course Package</h2>
+    <title>Trans Order Confirm</title>
     <!-- Include CSS libraries for styling the table -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
@@ -16,59 +17,68 @@
 
 </head>
 <body>
+    <h2>Trans Order Confirm</h2>
     <hr>
     <div id="example_wrapper">
         <div class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
-        <div class="navbar-nav">
-                <a class="btn btn-primary" href="{{ route('getAddCoursePackage') }}" role="button">Tambah Course Package +</a>
+            <div class="navbar-nav">
+                <a class="btn btn-primary" href="{{ route('getAddTransOrderConfirm', ['id' => $idtransorder]) }}" role="button">
+                    Tambah Transaksi Order Confirm +
+                </a>
             </div>
+
         </div>
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Package Name</th>
-                    <th scope="col">Fake Price</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Payment Link</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Created At</th>
-                    <th scope="col">Updated At</th>
-                    <th scope="col">Action</th>
-                    <!-- More buat tempat edit / delete -->
+                    <th>ID</th>
+                    <th>Order Confirm Number</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>sender_account_name</th>
+                    <th>sender_account_number</th>
+                    <th>sender_bank</th>
+                    <th>trans_order_id</th>
+                    <th>m_bank_account_id</th>
+                    <th>Created At</th>
+                    <th>Created Id</th>
+                    <th>Updated At</th>
+                    <th>Updated Id</th>
+                    <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($coursePackages as $item)
-                    <tr>
-                        <td scope="row">{{ $item->id }}</td>
-                        <td>{{ $item->name }}</td>
-                        <td id="fake_price">Rp. {{ number_format($item->fake_price, 2,',','.') }}</td>
-                        <td id="price">Rp. {{ number_format($item->price, 2,',','.') }}</td>
-                        <td id="payment_link">{{ $item->payment_link }}</td>
-                        <td id="description">{{ $item->description }}</td>
-                        <td>
-                            @if ($item->status == 1)
-                                <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
-                            @else
-                                <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
-                            @endif
-                        </td>
-                        <td>{{ $item->created_at }}</td>
-                        <td>{{ $item->updated_at }}</td>
-                        <!-- <td>
-                            <a href="{{ route('getEditCoursePackage', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
-                        </td> -->
-                        <td>
-                            <div class="btn-group">
-                                <a href="{{ route('getEditCoursePackage', ['id' => $item->id]) }}" class="btn btn-primary">Edit</a>
-                                <a href="{{ route('getCoursePackageBenefit', ['id' => $item->id]) }}" class="btn btn-info">Benefit List</a>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
+                @foreach ($transordersconfirm as $item)
+                <tr>
+                    <td>{{ $item->id }}</td>
+                    <td>{{ $item->order_confirm_number }}</td>
+                    <td>{{ $item->date }}</td>
+                    <td>{{ $item->amount }}</td>
+                    <td>{{ $item->sender_account_name }}</td>
+                    <td>{{ $item->sender_account_number }}</td>
+                    <td>{{ $item->sender_bank }}</td>
+                    <td>{{ $item->trans_order_id }}</td>
+                    <td>{{ $item->m_bank_account_id }}</td>
+                    <td>{{ $item->created_at }}</td>
+                    <td>{{ $item->created_id }}</td>
+                    <td>{{ $item->updated_at }}</td>
+                    <td>{{ $item->updated_id }}</td>
+                    <td>
+                    @if ($item->status == 1)
+                            <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
+                        @else
+                            <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
+                        @endif
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="{{ route('getEditTransOrderConfirm', ['id' => $item->id]) }}" class="btn btn-primary">Edit</a>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
         </table>
     </div>
     

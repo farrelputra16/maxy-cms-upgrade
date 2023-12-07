@@ -7,6 +7,11 @@
         <h2 style="padding-bottom:3%">Edit Course Package Benefit</h2>
         <form class="ui form" action="{{ route('postEditCoursePackageBenefit', ['id' => request()->query('id')]) }}" method="post">
             @csrf
+            @isset($idCPB)
+                <div class="field">
+                    <input type="text" name="idCPB" value="{{ $idCPB }}" hidden>
+                </div>
+            @endisset
             <div class="field">
                 <div class="three fields">
                     <div class="field">

@@ -16,12 +16,20 @@
 
 </head>
 <body>
-    <h2>Course</h2>
     <hr>
     <div id="example_wrapper">
         <div class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
         <div class="navbar-nav">
+            
+        @if(isset($idCPB))
+            <a class="btn btn-primary" href="{{ route('getAddCoursePackageBenefit', ['idCPB' => $idCPB]) }}" role="button">Tambah Course Package Benefit +</a>
+        @else
             <a class="btn btn-primary" href="{{ route('getAddCoursePackageBenefit') }}" role="button">Tambah Course Package Benefit +</a>
+        @endif
+
+            
+
+            
             </div>
         </div>
         <table id="example" class="table table-striped" style="width:100%">
@@ -54,7 +62,11 @@
                         <td>{{ $item->created_at }}</td>
                         <td>{{ $item->updated_at }}</td>
                         <td>
-                            <a href="{{ route('getEditCoursePackageBenefit', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
+                            @if (isset($idCPB))
+                                <a href="{{ route('getEditCoursePackageBenefit', ['id' => $item->id, 'idCPB' => $idCPB]) }}" style="text-decoration: none; color:blue;">Edit</a>
+                            @else
+                                <a href="{{ route('getEditCoursePackageBenefit', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

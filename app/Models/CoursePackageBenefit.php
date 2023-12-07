@@ -24,15 +24,33 @@ class CoursePackageBenefit extends Model
         'updated_id'
     ];
 
-    public static function getCoursePackageBenefit(){  
-        $coursePackageBenefits = DB::select('SELECT
-            course_package_benefit.*,
-            course_package.name AS course_package_name,
-            course_package.price AS course_package_price
-            FROM course_package_benefit
-            JOIN course_package
-            WHERE course_package_benefit.course_package_id = course_package.id;
-        ');
+    public static function getCoursePackageBenefit($idCPB = null){  
+        // dd($idCPB);
+        if($idCPB){
+            $coursePackageBenefits = DB::select('
+                SELECT
+                course_package_benefit.*,
+                course_package.name AS course_package_name,
+                course_package.price AS course_package_price
+                FROM course_package_benefit
+                JOIN course_package ON course_package_benefit.course_package_id = course_package.id
+                WHERE course_package_benefit.course_package_id = :idCPB
+            ', ['idCPB' => $idCPB]);
+
+            // dd($coursePackageBenefits);
+        }
+        else{
+            $coursePackageBenefits = DB::select('SELECT
+                course_package_benefit.*,
+                course_package.name AS course_package_name,
+                course_package.price AS course_package_price
+                FROM course_package_benefit
+                JOIN course_package
+                WHERE course_package_benefit.course_package_id = course_package.id;
+            ');
+            // dd($coursePackageBenefits);
+        }
+        
 
         return $coursePackageBenefits;
     }
@@ -46,7 +64,7 @@ class CoursePackageBenefit extends Model
             course_package_benefit.name,
             course_package_benefit.description,
             course_package_benefit.status
-            FROM course_package_benefit
+            FROM course_package_benefit 
             JOIN course_package
             WHERE course_package_benefit.course_package_id = course_package.id
             AND course_package_benefit.id = ?

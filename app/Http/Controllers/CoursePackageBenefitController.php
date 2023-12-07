@@ -11,18 +11,38 @@ use Illuminate\Support\Facades\Auth;
 class CoursePackageBenefitController extends Controller
 {
     //
-    function getCoursePackageBenefit(){
-        $coursePackageBenefits = CoursePackageBenefit::getCoursePackageBenefit();
-
-        return view('course_package_benefit.index', ['coursePackageBenefits' => $coursePackageBenefits]);
+    function getCoursePackageBenefit(Request $request){
+        if (!$request->filled('id')) {
+            $coursePackageBenefits = CoursePackageBenefit::getCoursePackageBenefit();
+            return view('course_package_benefit.index', ['coursePackageBenefits' => $coursePackageBenefits]);
+        }
+        else{
+            $idCPB = $request->id;
+            // $coursePackageBenefits = CoursePackageBenefit::where('course_package_id', $idCPB)->get();
+            $coursePackageBenefits = CoursePackageBenefit::getCoursePackageBenefit($idCPB);
+            return view('course_package_benefit.index', ['coursePackageBenefits' => $coursePackageBenefits , 'idCPB' => $idCPB]);
+        }
+        
     }
 
-    function getAddCoursePackageBenefit(){
-        $coursePackage = CoursePackage::all();
-        return view('course_package_benefit.add', ['allCoursePackages' => $coursePackage]);
+    function getAddCoursePackageBenefit(Request $request){
+
+        if (!$request->filled('idCPB')) {
+            $coursePackage = CoursePackage::all();
+            return view('course_package_benefit.add', ['allCoursePackages' => $coursePackage]);
+        }
+        else{
+            $idCPB = $request->idCPB;
+            $coursePackage = CoursePackage::where('id', $idCPB)->get();
+
+            return view('course_package_benefit.add', ['allCoursePackages' => $coursePackage , 'idCPB' => $idCPB]);
+        }
+        
     }
 
     function postAddCoursePackageBenefit(Request $request){
+        // dd($request);
+
         $validated = $request->validate([
             'name' => 'required',
             'course_package_id' => 'required',
@@ -41,13 +61,33 @@ class CoursePackageBenefitController extends Controller
         }
 
         if ($created) {
-            return app(HelperController::class)->Positive('getCoursePackageBenefit');
-            } 
-                return app(HelperController::class)->Negative('getCoursePackageBenefit');
+
+            if ($request->filled('idCPB')) {
+                app(HelperController::class)->Positive('getCoursePackageBenefit', $request->idCPB);
+                return redirect()->route('getCoursePackageBenefit', ['id' => $request->idCPB]);
+            }
+            else{
+                return app(HelperController::class)->Positive('getCoursePackageBenefit');
+            }
+            
         }
+        else{
+            if ($request->filled('idCPB')) {
+                app(HelperController::class)->Negative('getCoursePackageBenefit', $request->idCPB);
+                return redirect()->route('getCoursePackageBenefit', ['id' => $request->idCPB]);
+            }
+            else{
+                return app(HelperController::class)->Negative('getCoursePackageBenefit');
+            }
+        }
+            
+    }
 
     function getEditCoursePackageBenefit(Request $request){
+        
         $idCoursePackageBenefit = $request->id;
+        $idCPB = $request->idCPB;
+        // dd($idCPB);
         $currentData = CoursePackageBenefit::getEditCoursePackageBenefit($request);
 
         // return dd($currentData);
@@ -55,11 +95,13 @@ class CoursePackageBenefitController extends Controller
         
         return view('course_package_benefit.edit', [
             'currentData' => $currentData,
-            'allCoursePackages' => $allCoursePackages
+            'allCoursePackages' => $allCoursePackages,
+            'idCPB' => $idCPB,
         ]);
     }
 
     function postEditCoursePackageBenefit(Request $request){
+        // dd($request);
         $validated = $request->validate([
             'name' => 'required',
             'course_package_id' => 'required'
@@ -75,10 +117,31 @@ class CoursePackageBenefitController extends Controller
                     'updated_id' => Auth::user()->id
                 ]);
 
-            if ($updated){
-                return app(HelperController::class)->Positive('getCoursePackageBenefit');
-            } else {
-            return app(HelperController::class)->Warning('getCoursePackageBenefit');
+            // if ($updated){
+            //     return app(HelperController::class)->Positive('getCoursePackageBenefit');
+            // } else {
+            // return app(HelperController::class)->Warning('getCoursePackageBenefit');
+            // }
+
+            if ($updated) {
+
+                if ($request->filled('idCPB')) {
+                    app(HelperController::class)->Positive('getCoursePackageBenefit', $request->idCPB);
+                    return redirect()->route('getCoursePackageBenefit', ['id' => $request->idCPB]);
+                }
+                else{
+                    return app(HelperController::class)->Positive('getCoursePackageBenefit');
+                }
+                
+            }
+            else{
+                if ($request->filled('idCPB')) {
+                    app(HelperController::class)->Negative('getCoursePackageBenefit', $request->idCPB);
+                    return redirect()->route('getCoursePackageBenefit', ['id' => $request->idCPB]);
+                }
+                else{
+                    return app(HelperController::class)->Negative('getCoursePackageBenefit');
+                }
             }
         }
             
