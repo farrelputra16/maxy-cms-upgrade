@@ -2,6 +2,7 @@
 
 namespace Modules\Enrollment\Http\Controllers;
 
+use App\Http\Middleware\Users;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -26,38 +27,39 @@ class CourseClassMemberController extends Controller
      */
 
     function getCourseClassMember(Request $request){
-        $idCourseClass = $request->id; 
+        $idCourseClass = $request->id;
+        $course_class_detail = CourseClass::getClassDetailByClassId($idCourseClass);
+        // dd($course_class_detail);
 
         $courseClassMembers = CourseClassMember::getCourseClassMember($request);
 
         return view('enrollment::course_class_member.index', [
             'courseClassMembers' => $courseClassMembers,
-            'course_class_id' => $idCourseClass
+            'course_class_detail' => $course_class_detail
         ]);
     }
 
     function getAddCourseClassMember(Request $request){
-        $idCourseClass = $request->id;
-        $courseClasses = CourseClass::getDuplicateCourseClass($request);
-        
+        $course_class_id = $request->id;
+        $course_class_detail = CourseClass::getClassDetailByClassId($course_class_id);
+        // dd($course_class_detail);
+        // $courseClasses = CourseClass::getDuplicateCourseClass($request);
+        // dd($courseClasses);
         $users = User::all();
 
         return view('enrollment::course_class_member.add', [
             'users' => $users,
-            'courseClasses' => $courseClasses
+            'course_class_detail' => $course_class_detail
         ]);
     }
 
     function postAddCourseClassMember(Request $request){
-        // return dd($request);
-
-        $validate = $request->validate([
-            'users' => 'required',
-            'course_class' => 'required',
-        ]);
-
-        // return dd($request);
-        if ($validate){
+        // dd($request->all());
+        $existingUser = CourseClassMember::checkExistingCCM($request->users, $request->course_class);
+        // dd($existingUser);
+        if($existingUser){
+            return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('error', 'Failed to Enroll Member, user already exists');
+        } else {
             $created = CourseClassMember::create([
                 'user_id' => $request->users,
                 'course_class_id' => $request->course_class,
@@ -68,9 +70,9 @@ class CourseClassMemberController extends Controller
             ]);
 
             if ($created){
-                return app(HelperController::class)->Positive('getCourseClassMember');
+                return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('success', 'Enroll Member Success');
             } else {
-                return app(HelperController::class)->Negative('getCourseClassMember');
+                return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('error', 'Failed to Enroll Member, please try again');
             }
         }
     }
@@ -99,8 +101,6 @@ class CourseClassMemberController extends Controller
         }
 
     function postEditCourseClassMember(Request $request){
-        // dd($request->user_id);
-
         $update = CourseClassMember::where('id', '=', $request->id)
             ->update([
                 'user_id' => $request->user_id,
@@ -111,9 +111,9 @@ class CourseClassMemberController extends Controller
             ]);
 
         if ($update){
-            return app(HelperController::class)->Positive('getCourseClassMember');
+            return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('success', 'Update Class Member Success');
         } else {
-            return app(HelperController::class)->Warning('getCourseClassMember');
+            return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('error', 'Failed to Enroll Member, please try again');
         }
     }
 

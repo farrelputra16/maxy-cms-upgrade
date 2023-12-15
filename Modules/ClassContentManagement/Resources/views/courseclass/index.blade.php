@@ -21,7 +21,7 @@
         <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
             <div class="row">
                 <div class="col">
-                    <a class="btn btn-primary" href="{{ route('getAddCourseClass') }}" role="button">Tambah Class +</a>
+                    <a class="btn btn-primary" href="{{ route('getAddCourseClass') }}" role="button">Add Class +</a>
                 </div>
                 <div class="col">
                     <a class="btn btn-primary" href="{{ route('getDuplicateCourseClass') }}" role="button" style="width: 130px;">Duplicate Class +</a> 
@@ -31,12 +31,12 @@
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Batch</th>
-                    <th scope="col">ID Course</th>
-                    <th scope="col">Waktu Mulai</th>
-                    <th scope="col">Waktu Berakhir</th>
-                    <th scope="col">Kuota</th>
+                    <th scope="col">Course Class</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">Quota</th>
+                    <th scope="col">Announcement</th>
+                    <th scope="col">Content</th>
                     <th scope="col">Description</th>
                     <th scope="col">Status</th>
                     <th scope="col">Created At</th>
@@ -46,14 +46,21 @@
                 </tr>
                 </thead>
             <tbody>
-                    @foreach ($courseClasses as $item)
+                    @foreach ($course_list as $item)
                     <tr>
-                        <td scope="row">{{ $item->id }}</td>
+                        <!-- <td scope="row">{{ $item->id }}</td>
                         <td class="active">{{ $item->batch }}</td>
                         <td>{{ $item->course_name }}</td>
                         <td>{{ $item->start_date }}</td>
                         <td>{{ $item->end_date }}</td>
+                        <td>{{ $item->quota }}</td> -->
+
+                        <td scope="row">{{ $item->course_name }} Batch {{ $item->batch }}</td>
+                        <td>{{ $item->start_date }}</td>
+                        <td>{{ $item->end_date }}</td>  
                         <td>{{ $item->quota }}</td>
+                        <td>{{ $item->announcement }}</td>
+                        <td>{{ $item->content }}</td>
                         <td id="description">{{ $item->description }}</td>
                         <td>
                         @if ($item->status == 1)
@@ -67,8 +74,8 @@
                         <td>
                             <div class="btn-group">
                                 <a href="{{ route('getEditCourseClass', ['id' => $item->id]) }}" class="btn btn-primary">Edit</a>
-                                <a href="{{ route('getCourseClassModule', ['id' => $item->id]) }}" class="btn btn-info">CCmodule List</a>
-                                <a href="{{ route('getCourseClassMember', ['id' => $item->id]) }}" class="btn btn-info">CCmember List</a>
+                                <a href="{{ route('getCourseClassModule', ['id' => $item->id]) }}" class="btn btn-info">Module List</a>
+                                <a href="{{ route('getCourseClassMember', ['id' => $item->id]) }}" class="btn btn-info">Member List</a>
                             </div>
                         </td>
                     </tr>

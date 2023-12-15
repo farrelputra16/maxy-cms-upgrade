@@ -3,8 +3,13 @@
 @section('title', 'Add Course Class')
 
 @section('content')
-    <div style="padding: 0px 12px 0px 12px;">
-        <h2 style="padding-bottom:3%">Duplicate Class</h2>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <div style="padding: 12px 12px 0px 12px;">
+        <h2>Duplicate Class</h2>
+        <hr>
         <form class="ui form" action="{{ route('postDuplicateCourseClass') }}" method="post">
             @csrf
             <div class="field">
@@ -13,10 +18,10 @@
                 </div>
                 <div class="five fields">
                     <div class="field" style="width: 100%;">
-                        <label for="">ID Course Class</label>
-                        <select name="courseClassId" class="ui dropdown">
-                            @foreach ($allCourseClasses as $item)
-                                <option value="{{ $item->course_class_id }}">{{ $item->course_name }} batch {{ $item->course_class_batch }}</option>
+                        <label for="">Class</label>
+                        <select name="course_class_id" class="ui dropdown">
+                            @foreach ($class_list as $item)
+                                <option value="{{ $item->id }}">{{ $item->course_name }} Batch {{ $item->batch }}</option>
                             @endforeach
                         </select>
                         @if ($errors->has('courseid'))
@@ -33,18 +38,9 @@
                 </div>
                 <div class="five fields">
                     <div class="field" style="width: 50%;">
-                        <label for="">Batch</label>
-                        <input type="text" name="batch" placeholder="Masukkan Batch">
-                        @if ($errors->has('batch'))
-                            @foreach ($errors->get('batch') as $error)
-                                <span style="color: red;">{{$error}}</span>
-                            @endforeach
-                        @endif
-                    </div>
-                    <div class="field" style="width: 50%;">
-                        <label for="">ID Course</label>
-                        <select name="courseId" class="ui dropdown">
-                            @foreach ($allCourses as $item)
+                        <label for="">Course</label>
+                        <select name="course_id" class="ui dropdown">
+                            @foreach ($course_list as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
@@ -54,6 +50,16 @@
                             @endforeach
                         @endif
                     </div>
+                    <div class="field" style="width: 50%;">
+                        <label for="">Batch</label>
+                        <input type="number" name="batch" placeholder="Masukkan Batch">
+                        @if ($errors->has('batch'))
+                            @foreach ($errors->get('batch') as $error)
+                                <span style="color: red;">{{$error}}</span>
+                            @endforeach
+                        @endif
+                    </div>
+                    
                 </div>
                 <div class="field">
                     <div class="ui checkbox">

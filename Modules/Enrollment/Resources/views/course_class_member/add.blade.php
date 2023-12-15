@@ -3,8 +3,13 @@
 @section('title', 'Add Course Class Member')
 
 @section('content')
-    <div style="padding: 0px 12px 0px 12px;">
-        <h2 style="padding-bottom:3%">Add Class Member</h2>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <div style="padding: 12px 12px 0px 12px;">
+        <h2 style="">Add Member for Class: {{ $course_class_detail->course_name }} Batch {{ $course_class_detail->batch }}</h2>
+        <hr>
         <form class="ui form" action="{{ route('postAddCourseClassMember') }}" method="post">
             @csrf
             <div class="two fields">
@@ -20,18 +25,7 @@
                         <span style="color: red;">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="three wide field">
-                    <label for="course_class">ID Course Class (Batch)</label>
-                    <select class="ui dropdown" name="course_class" id="course_class">
-                        <option value="">-- Silakan Pilih Batch --</option>
-                        @foreach ($courseClasses as $item)
-                            <option value="{{ $item->course_class_id }}">{{ $item->course_class_batch }} - {{ $item->course_name }}</option>
-                        @endforeach
-                    </select>
-                    @error('course_class')
-                        <span style="color: red;">{{ $message }}</span>
-                    @enderror
-                </div>
+                <input type="hidden" name="course_class" value="{{ $course_class_detail->id }}">
             </div>
             <div class="field">
                 <label for="">Course Class Description</label>
@@ -45,7 +39,11 @@
             </div>
             <button type="submit" class="right floated ui button primary">Tambah Course Class Member</button>
         </form>
-
+        <a href="{{ route('getCourseClassMember') }}"><button class="right floated ui red button" style="margin-right:2%;">Batal</button></a>
+        <br><br>
+        <hr>
+        <h2>Bulk Upload</h2>
+        <hr>
         <form method="post" action="{{ route('course-class-member.import-csv') }}" enctype="multipart/form-data">
             @csrf
             <div class="field">
@@ -57,6 +55,6 @@
             </div>
             <button type="submit" class="right floated ui button primary" style="margin-top:-1.8%;margin-right:0.4%">Upload CSV</button>
         </form>
-        <a href="{{ route('getCourseClassMember') }}"><button class="right floated ui red button" style="margin-right:26%;margin-top:-2.8%">Batal</button></a>
+        
     </div>
 @endsection

@@ -94,4 +94,14 @@ class CourseClassMember extends Model
             
         return $currentData;
     }
+
+    //new, check existing ccm
+    public static function checkExistingCCM($user_id, $course_class_id){
+        $result = DB::table('course_class_member')
+            ->select('*')
+            ->where('user_id', $user_id)
+            ->where('course_class_id', $course_class_id)
+            ->first();
+        return $result;
+    }
 }

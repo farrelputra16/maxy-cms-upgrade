@@ -14,7 +14,7 @@ use Modules\ClassContentManagement\Http\Controllers\CourseClassModuleController;
 |
 */
 
-Route::get('/test-module', [ClassContentManagementController::class, 'index']);
+// Route::get('/test-module', [ClassContentManagementController::class, 'index']);
 
 Route::get('/course/class', [CourseClassController::class, 'getCourseClass'])->name('getCourseClass')->middleware('access:course_class_manage');
 

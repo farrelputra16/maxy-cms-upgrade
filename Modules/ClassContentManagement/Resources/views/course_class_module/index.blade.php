@@ -16,24 +16,36 @@
 
 </head>
 <body>
-    <h2>Course Class Module</h2>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+    <h2>Class Module: Batch {{ $course_detail->batch }} - {{ $course_detail->name }}</h2>
     <hr>
     <div id="example_wrapper">
         <div class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
             <div class="navbar-nav">
-                    <a href="{{ route('getAddCourseClassModule', ['id' => $course_class_id]) }}"><button class=" right floated ui button primary">Tambah Course +</button></a>
+                    <a href="{{ route('getAddCourseClassModule', ['id' => $course_class_id]) }}"><button class=" right floated ui button primary">Add Class Module +</button></a>
             </div>
         </div>
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Waktu Mulai</th>
-                    <th scope="col">Waktu Berakhir</th>
-                    <th scope="col">Prioritas</th>
-                    <th scope="col">Level</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">Day/Owner</th>
+                    <th scope="col">Order</th>
                     <th scope="col">ID Course Module</th>
                     <th scope="col">Batch - Course</th>
+                    <th scope="col">Content</th>
                     <th scope="col">Description</th>
                     <th scope="col">Status</th>
                     <th scope="col">Created At</th>
@@ -48,10 +60,17 @@
                     <td scope="row">{{ $item->id }}</td>
                     <td>{{ $item->start_date }}</td>
                     <td>{{ $item->end_date }}</td>
-                    <td>{{ $item->priority }}</td>
+
+                    @if($item->level == 1)
+                    <td>Day {{ $item->priority }}</td>
+                    @else
+                    <td>Owned: {{ $item->parent_name }}</td>
+                    @endif
+
                     <td>{{ $item->level }}</td>
                     <td>{{ $item->course_module_name }}</td>
                     <td>Batch {{ $item->course_class_batch }} - {{ $item->course_name }}</td>
+                    <td id="description">{{ $item->content }}</td>
                     <td id="description">{{ $item->description }}</td>
                     <td>
                         @if ($item->status == 1)

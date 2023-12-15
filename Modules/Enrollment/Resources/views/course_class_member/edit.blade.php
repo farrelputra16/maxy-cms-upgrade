@@ -3,48 +3,23 @@
 @section('title', 'Add Course Class Member')
 
 @section('content')
-    <div style="padding: 0px 12px 0px 12px;">
-        <h2 style="padding-bottom:3%">Edit Class Member</h2>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <div style="padding: 12px 12px 0px 12px;">
+        <h2>Edit Class Member: {{ $currentData[0]->ccm_member_id }} - {{ $currentData[0]->user_name }} ON Class: {{ $currentData[0]->course_name }} Batch {{ $currentData[0]->course_class_batch }}</h2>
+        <hr>
         <form class="ui form" action="{{ route('postEditCourseClassMember', ['id' => request()->query('id') ])}}" method="post">
             @csrf
             <div class="three fields">
-                <div class="field">
-                    <label for="">ID Course Class Member</label>
-                    <input type="text" value="{{ request()->query('id') }}" disabled>
-                </div>
-                <div class="three wide field">
-                    <label for="">ID</label>
-                    <select class="ui dropdown" name="user_id" id="">
-                    <option value="{{ $currentData[0]->ccm_member_id }}" selected>{{ $currentData[0]->ccm_member_id }} - {{ $currentData[0]->user_name }}</option>
-                        @foreach ($allMembers as $item)
-                            <option value="{{ $item->id }}">{{ $item->id }} - {{ $item->name }}</option>
-                        @endforeach
-                    </select>
-                    @if ($errors->has('member'))
-                        @foreach ($errors->get('member') as $error)
-                            <span style="color: red;">{{$error}}</span>
-                        @endforeach
-                    @endif
-                </div>
-                <div class="three wide field">
-                    <label for="">ID Course Class (Batch)</label>
-                    <select class="ui dropdown" name="course_class" id="">
-                    <option value="{{ $currentData[0]->ccm_course_class_id }}" selected>{{ $currentData[0]->course_class_batch }} - {{ $currentData[0]->course_name }}</option>
-
-                    @foreach ($allCourseClasses as $item)
-                        <option value="{{ $item->course_class_id }}">{{ $item->course_class_batch }} - {{ $item->course_name }}</option>
-                    @endforeach
-
-                    </select>
-                    @if ($errors->has('course_class'))
-                        @foreach ($errors->get('course_class') as $error)
-                            <span style="color: red;">{{$error}}</span>
-                        @endforeach
-                    @endif
-                </div>
+                <input type="hidden" value="{{ request()->query('id') }}" disabled>
+                <input type="hidden" name="user_id" value="{{ $currentData[0]->ccm_member_id }}">
+                <input type="hidden" name="course_class" value="{{ $currentData[0]->ccm_course_class_id }}">
+                
             </div>
             <div class="field">
-                <label for="">Course Class Description</label>
+                <label for="">Description</label>
                 @if ($currentData->isNotEmpty())
                     <textarea name="description">{{ $currentData[0]->ccm_description }}</textarea>
                 @endif

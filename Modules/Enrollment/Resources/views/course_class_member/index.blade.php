@@ -16,13 +16,24 @@
 
 </head>
 <body>
-    <h2>Course Class Member</h2>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+    <h2>Class Member on Class: {{ $course_class_detail->course_name }} Batch {{ $course_class_detail->batch }}</h2>
     <hr style="margin-bottom: 0px;">
         <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
             <div class="row">
                 <div class="col">
-                @if($course_class_id != NULL)
-                    <a class="btn btn-primary" href="{{ route('getAddCourseClassMember' , ['id' => $course_class_id]) }}" role="button">Tambah Class Member +</a>
+                @if($course_class_detail->id != NULL)
+                    <a class="btn btn-primary" href="{{ route('getAddCourseClassMember' , ['id' => $course_class_detail->id]) }}" role="button">Tambah Class Member +</a>
                 @else
                     <a class="btn btn-primary" href="{{ route('getAddCourseClassMember') }}" role="button">Tambah Class Member +</a>
                 @endif
@@ -33,9 +44,9 @@
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>ID Member - Name</th>
-                    <th>Batch - Course</th>
+                    <th>No.</th>
+                    <th>ID - Name</th>
+                    <!-- <th>Batch - Course</th> -->
                     <th>Description</th>
                     <th>Status</th>
                     <th>Created At</th>
@@ -48,7 +59,7 @@
                     <tr>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->user_id }} - {{ $item->user_name }}</td>
-                        <td>Batch {{ $item->course_class_batch }} - {{ $item->course_name }}</td>
+                        <!-- <td>Batch {{ $item->course_class_batch }} - {{ $item->course_name }}</td> -->
                         <td id="description">{{ $item->description }}</td>
                         <td>
                             @if ($item->status == 1)

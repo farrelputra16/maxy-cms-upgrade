@@ -18,8 +18,8 @@ class Users
      */
     public function handle(Request $request, Closure $next, string $access)
     {
-
-        $broGotAccess = collect(DB::select('SELECT 
+        if(Auth::check()){
+            $broGotAccess = collect(DB::select('SELECT 
             access_master.name as access_master_name, 
             access_group.name, 
             access_group_detail.access_group_id, 
@@ -29,12 +29,15 @@ class Users
             INNER JOIN access_group ON access_group_detail.access_group_id = access_group.id 
             WHERE access_group.id = ? AND access_master.name = ?;', [Auth::user()->access_group_id, $access]));
 
-        // return dd($broGotAccess);
+            // return dd($broGotAccess);
 
-        if (Auth::check() && count($broGotAccess) == 1){
-            return $next($request);
+            if (count($broGotAccess) == 1){
+                return $next($request);
+            } else {
+                return redirect('/noauthority');
+            }
+        } else {
+            return redirect('/login');
         }
-
-        return redirect('/noauthority');
     }
 }

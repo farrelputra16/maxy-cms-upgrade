@@ -70,16 +70,16 @@
                                         @else
                                             <a class="dropdown-item disabled" href="{{ route('getCourseClass') }}">Class <i class="lock icon"></i></a>
                                         @endif
-                                        @if ($broGotAccessMaster->contains('name', 'course_class_member_manage'))
+                                        <!-- @if ($broGotAccessMaster->contains('name', 'course_class_member_manage'))
                                             <a class="dropdown-item" href="{{ route('getCourseClassMember') }}">Class Member</a>
                                         @else
                                             <a class="dropdown-item disabled" href="{{ route('getCourseClassMember') }}">Class Member <i class="lock icon"></i></a>
-                                        @endif
-                                        @if ($broGotAccessMaster->contains('name', 'course_class_module_manage'))
+                                        @endif -->
+                                        <!-- @if ($broGotAccessMaster->contains('name', 'course_class_module_manage'))
                                             <a class="dropdown-item" href="{{ route('getCourseClassModule') }}">Class Module</a>
                                         @else
                                             <a class="dropdown-item disabled" href="{{ route('getCourseClassModule') }}">Class Module <i class="lock icon"></i></a>
-                                        @endif
+                                        @endif -->
                                         @if ($broGotAccessMaster->contains('name', 'course_class_member_log_read'))
                                             <a class="dropdown-item" href="{{ route('getCCMH') }}">Class Member History (Tracking)</a>
                                         @else

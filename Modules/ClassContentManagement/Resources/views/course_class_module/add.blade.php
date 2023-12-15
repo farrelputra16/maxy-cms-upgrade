@@ -3,10 +3,16 @@
 @section('title', 'Add Course Class Module')
 
 @section('content')
-    <div style="padding: 0px 12px 0px 12px;">
-        <h2 style="padding-bottom:3%">Add Class Module</h2>    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <div style="padding: 12px 12px 0px 12px;">
+        <h2>Add Module:</h2>
+        <hr>  
         <form class="ui form" action="{{ route('postAddCourseClassModule') }}" method="post">
             @csrf
+            <input type="hidden" name="course_class_id" value="{{ $course_class_id }}">
             <div class="five fields">
                 <div class="field">
                     <label for="">Waktu Mulai</label>
@@ -48,7 +54,11 @@
                     <label for="">Course Module</label>
                     <select name="coursemoduleid" class="ui dropdown">
                         @foreach ($allModules as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @if ($item->type == '')
+                            <option value="{{ $item->id }}">Day {{ $item->day }}: {{ $item->name }}</option>
+                            @else
+                            <option value="{{ $item->id }}">[{{ $item->type }}]{{ $item->name }}</option>
+                            @endif
                         @endforeach
                     </select>
                     @if ($errors->has('coursemoduleid'))
@@ -59,10 +69,8 @@
                 </div>
                 <div class="field">
                     <label for="">Course Class (Batch) - Course</label>
-                    <select name="courseclassid" class="ui dropdown">
-                        @foreach ($allClass as $item)
-                            <option value="{{ $item->course_class_id }}">{{ $item->batch}} - {{ $item->course_name }}</option>
-                        @endforeach
+                    <select name="courseclassid" class="ui dropdown" disabled>
+                        <option value="{{ $classDetail->course_class_id }}">Batch {{ $classDetail->batch}} - {{ $classDetail->course_name }}</option>
                     </select>
                     @if ($errors->has('courseclassid'))
                         @foreach ($errors->get('courseclassid') as $error)
@@ -70,6 +78,10 @@
                         @endforeach
                     @endif
                 </div>    
+            </div>
+            <div class="field">
+                <label for="">Course Class Module Content</label>
+                <textarea name="content"></textarea>
             </div>
             <div class="field">
                 <label for="">Course Class Module Description</label>

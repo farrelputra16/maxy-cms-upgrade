@@ -24,110 +24,123 @@ class CourseClassModuleController extends Controller
      */
 
     function getCourseClassModule(Request $request){
-        $idCourseClass = $request->id; 
+        $course_class_id = $request->id;
+        $course_detail = CourseClass::getCourseDetailByClassId($course_class_id);
 
-        $courseClassModules = CourseClassModule::getCourseClassModule($request);
+        $courseClassModules = CourseClassModule::getCourseClassModule($course_class_id);
+        // dd($courseClassModules);
 
         return view('classcontentmanagement::course_class_module.index', [
             'courseclassmodules' => $courseClassModules,
-            'course_class_id' => $idCourseClass
+            'course_class_id' => $course_class_id,
+            'course_detail' => $course_detail,
         ]);
     }
 
     function getAddCourseClassModule(Request $request){
+        $course_class_id = $request->id;
+        $course_detail = CourseClass::getCourseDetailByClassId($course_class_id);
+        $allModules = CourseClass::getAllCourseModuleByCourseId($course_detail->id);
+        $classDetail = CourseClass::getCurrentDataCourseClass($course_class_id);
 
-        $idCourse = $request->id;
-
-        $allModules = CourseModule::all();
-
-        $allClass = CourseClassModule::getAddCourseClassModule($request);
+        // dd($classDetail);
         
         return view('classcontentmanagement::course_class_module.add', [
             'allModules' => $allModules,
-            'allClass' => $allClass,
+            'classDetail' => $classDetail,
+            'course_detail' => $course_detail,
+            'course_class_id' => $course_class_id,
         ]);
     }
 
     public function postAddCourseClassModule(Request $request){
-        $validated = $request->validate([
-            'start' => 'required',
-            'end' => 'required',
-            'priority' => 'required|integer',
-            'level' => 'required|integer'
+        // dd($request->all());
+        // $validated = $request->validate([
+        //     'start' => 'required',
+        //     'end' => 'required',
+        //     'priority' => 'required|integer',
+        //     'level' => 'required|integer'
+        // ]);
+
+        // if ($validated){
+        $create = CourseClassModule::create([
+            'start_date' => $request->start,
+            'end_date' => $request->end,
+            'priority' => $request->priority,
+            'level' => $request->level,
+            'course_module_id' => $request->coursemoduleid,
+            'course_class_id' => $request->course_class_id,
+            'content' => $request->content,
+            'description' => $request->description,
+            'status' => $request->status ? 1 : 0,
+            'created_id' => Auth::user()->id,
+            'updated_id' => Auth::user()->id
         ]);
 
-        if ($validated){
-            $create = CourseClassModule::create([
-                'start_date' => $request->start,
-                'end_date' => $request->end,
-                'priority' => $request->priority,
-                'level' => $request->level,
-                'course_module_id' => $request->coursemoduleid,
-                'course_class_id' => $request->courseclassid,
-                'description' => $request->description,
-                'status' => $request->status ? 1 : 0,
-                'created_id' => Auth::user()->id,
-                'updated_id' => Auth::user()->id
-            ]);
-
-            if ($create){
-                return app(HelperController::class)->Positive('getCourseClassModule');
-            }
+        if ($create){
+            return redirect()->route('getCourseClassModule', ['id' => $request->course_class_id])->with('success', 'Sukses Menambahkan Modul');
+            // return app(HelperController::class)->Positive('getCourseClassModule', $request->course_class_id);
+        } else {
+            return redirect()->route('getCourseClassModule', ['id' => $request->course_class_id])->with('failed', 'Gagal Menambahkan Modul, silahkan coba lagi');
         }
+        // }
     }
 
     function getEditCourseClassModule(Request $request){
-        $idCourseClassModule = $request->id;
-        $courseclassmodules = CourseClassModule::find($idCourseClassModule);
-
-        // return dd($courseclassmodules);
-
-        $currentData = CourseClassModule::getEditCourseClassModule($request);
+        // dd($request->all());
+        $course_class_module_id = $request->id;
+        $class_module_detail = CourseClassModule::getClassModuleDetail($course_class_module_id);
+        // dd($class_module_detail);
+        $course_class_detail = CourseClass::getClassDetailByClassModuleId($course_class_module_id);
         
-        $courseModuleId = $currentData->course_module_id;
-        $allModules = CourseModule::where('id', '!=', $currentData->course_module_id)->get();
+        $course_class_id = $course_class_detail->id;
+        $course_detail = CourseClass::getCourseDetailByClassId($course_class_id);
+        $allModules = CourseClass::getAllCourseModuleByCourseId($course_detail->id);
+        // dd($allModules);
+        $classDetail = CourseClass::getCurrentDataCourseClass($course_class_id);
 
-
-        $allClasses = CourseClass::select(
-            'course_class.id AS course_class_id',
-            'course_class.batch AS batch',
-            'course.name AS course_name'
-        )
-            ->join('course', 'course_class.course_id', '=', 'course.id')
-            ->where('course_class.id', '!=', $currentData->course_class_id)
-            ->get();
-
-
+        // dd($course_class_id);
         return view('classcontentmanagement::course_class_module.edit', [
-            'courseclassmodules' => $courseclassmodules,
-            'currentData' => $currentData,
+            'course_class_module' => $class_module_detail,
             'allModules' => $allModules,
-            'allClasses' => $allClasses,
+            'classDetail' => $classDetail,
+            'course_detail' => $course_detail,
+            'course_class_id' => $course_class_id,
         ]);
     }
 
     function postEditCourseClassModule(Request $request){
-        $idCourseClassModule = $request->id;
+        // dd($request->all());
+        $course_class_module_id = $request->id;
+        // dd($course_class_module_id);
         
-        $updateData = CourseClassModule::where('id', $idCourseClassModule)
+        $updateData = CourseClassModule::where('id', $course_class_module_id)
             ->update([
                 'start_date' => $request->start,
                 'end_date' => $request->end,
                 'priority' => $request->priority,
                 'level' => $request->level,
                 'course_module_id' => $request->coursemodulesid,
-                'course_class_id' => $request->courseclassid,
+                'course_class_id' => $request->course_class_id,
+                'content' => $request->content,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => auth()->user()->id,
                 'updated_id' => auth()->user()->id
             ]);
+            // dd($updateData);
 
         if ($updateData){
-            return app(HelperController::class)->Positive('getCourseClassModule');
+            return redirect()->route('getCourseClassModule', ['id' => $request->course_class_id])->with('success', 'Update Module Success');
         } else {
-            return app(HelperController::class)->Warning('getCourseClassModule');
+            return redirect()->route('getCourseClassModule', ['id' => $request->course_class_id])->with('failed', 'Failed to Update Module, please try again    ');
         }
+
+        // if ($updateData){
+        //     return app(HelperController::class)->Positive('getCourseClassModule');
+        // } else {
+        //     return app(HelperController::class)->Warning('getCourseClassModule');
+        // }
         
     }
 
