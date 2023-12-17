@@ -37,7 +37,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if(Auth::user()){
+        return redirect()->route('getDashboard');
+    } else {
+        return redirect()->route('login');
+    }
 })->name('welcome');
 
 Route::get('/login', [AuthController::class, 'getLogin'])->name('login');
