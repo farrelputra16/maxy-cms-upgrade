@@ -72,7 +72,7 @@ class AccessGroupController extends Controller
         
             $access_group = AccessGroup::find($idAccessGroup);
 
-            AccessGroupDetail::postEditAccessGroup($request);
+            AccessGroup::postEditAccessGroup($request);
             
             if ($access_group && $removeUpdate){
                 $access_group->AccessMaster()->attach($access_master);
@@ -83,7 +83,7 @@ class AccessGroupController extends Controller
         } else if ($request->access_master_old){
             $removeUpdate = AccessGroupDetail::RemoveUpdate($request);
 
-            AccessGroupDetail::postEditAccessGroup($request);
+            AccessGroup::postEditAccessGroup($request);
 
             if ($removeUpdate){
                 return app(HelperController::class)->Positive('getAccessGroup');
@@ -95,7 +95,7 @@ class AccessGroupController extends Controller
             
             $access_group = AccessGroup::find($idAccessGroup);
 
-            AccessGroupDetail::postEditAccessGroup($request);
+            AccessGroup::postEditAccessGroup($request);
             
             if ($access_group){
                 $access_group->AccessMaster()->attach($access_master);
