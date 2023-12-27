@@ -3,6 +3,7 @@
 /public/storage
 /public/fe
 /public/laravel-maxy-frontendv2
+/public/uploads/profile
 /storage/*.key
 .env
 .env.backup
