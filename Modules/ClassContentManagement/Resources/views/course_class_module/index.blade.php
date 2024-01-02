@@ -45,7 +45,6 @@
                     <th scope="col">Order</th>
                     <th scope="col">ID Course Module</th>
                     <th scope="col">Batch - Course</th>
-                    <th scope="col">Content</th>
                     <th scope="col">Description</th>
                     <th scope="col">Status</th>
                     <th scope="col">Created At</th>
@@ -70,7 +69,6 @@
                     <td>{{ $item->level }}</td>
                     <td>{{ $item->course_module_name }}</td>
                     <td>Batch {{ $item->course_class_batch }} - {{ $item->course_name }}</td>
-                    <td id="description">{{ $item->content }}</td>
                     <td id="description">{{ $item->description }}</td>
                     <td>
                         @if ($item->status == 1)

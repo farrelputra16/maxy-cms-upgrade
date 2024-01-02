@@ -79,10 +79,10 @@
                     @endif
                 </div>    
             </div>
-            <div class="field">
+            {{-- <div class="field">
                 <label for="">Course Class Module Content</label>
                 <textarea name="content"></textarea>
-            </div>
+            </div> --}}
             <div class="field">
                 <label for="">Course Class Module Description</label>
                 <textarea name="description"></textarea>

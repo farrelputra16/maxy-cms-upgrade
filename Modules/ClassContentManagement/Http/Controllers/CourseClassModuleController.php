@@ -122,7 +122,6 @@ class CourseClassModuleController extends Controller
                 'level' => $request->level,
                 'course_module_id' => $request->coursemodulesid,
                 'course_class_id' => $request->course_class_id,
-                'content' => $request->content,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => auth()->user()->id,
