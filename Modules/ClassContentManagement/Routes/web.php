@@ -27,7 +27,7 @@ Route::post('/course/class/add', [CourseClassController::class, 'postAddCourseCl
 Route::get('/course/class/edit', [CourseClassController::class, 'getEditCourseClass'])->name('getEditCourseClass')->middleware('access:course_class_update');
 Route::post('/course/class/edit', [CourseClassController::class, 'postEditCourseClass'])->name('postEditCourseClass')->middleware('access:course_class_update');
 
-// Course class module
+// Course class module //
 Route::get('/courseclassmodule', [CourseClassModuleController::class, 'getCourseClassModule'])->name('getCourseClassModule')->middleware('access:course_class_module_manage');
 
 Route::get('/courseclassmodule/add', [CourseClassModuleController::class, 'getAddCourseClassModule'])->name('getAddCourseClassModule')->middleware('access:course_class_module_create');

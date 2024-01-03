@@ -20,7 +20,6 @@ class CourseClassModule extends Model
         'level',
         'course_module_id',
         'course_class_id',
-        'content',
         'description',
         'status',
         'created_at',
@@ -48,7 +47,6 @@ class CourseClassModule extends Model
                     'cm.day as course_module_day',
                     'cc.batch AS course_class_batch',
                     'ccmod.description AS description',
-                    'ccmod.content AS content',
                     'cm.course_module_parent_id as parent_id',
                     'ccmod.status AS status',
                     'ccmod.created_at AS created_at',
@@ -73,6 +71,31 @@ class CourseClassModule extends Model
             
         return $ccmod;
     }
+    
+    // public static function getCourseClassModule($course_class_id){
+        
+    //     if($course_class_id !== null){
+    //         $course_class_module = DB::select('SELECT
+    //             id, start_date, end_date, priority, level, course_module_id, course_class_id, description, status, created_at, created_id, updated_at, updated_id 
+    //         FROM
+    //             course_class_module
+    //         WHERE
+    //             course_class_id = :idCourseClass
+    //         ORDER BY
+    //             id ASC, priority ASC;
+    //         ', ['idCourseClass' => $course_class_id]);
+    //     }else{
+    //         $course_class_module = DB::select('SELECT
+    //             id, start_date, end_date, priority, level, course_module_id, course_class_id, description, status, created_at, created_id, updated_at, updated_id 
+    //         FROM
+    //             course_class_module
+    //         WHERE
+    //             course_class_id IS NULL
+    //         ORDER BY 
+    //             id ASC, priority ASC;');
+    //     }
+    //     return $course_class_module;
+    // }
 
 
     public static function getAddCourseClassModule($idCourse){
