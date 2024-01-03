@@ -1,38 +1,39 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>MA | @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/bootstrap-multiselect.css" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-multiselect.css') }}" type="text/css">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+
+    @yield('styles')
 </head>
 
 <body>
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
         crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
-    <script type="text/javascript" src="/js/bootstrap-multiselect.js"></script>
+    <script type="text/javascript" src="{{ asset('js/bootstrap-multiselect.js') }}"></script>
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 
-
-    @if (Auth::user())
-        <div style="padding: 12px;">
+    @auth
+        <div class="p-3">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <a class="navbar-brand" href="#">
                     <img src="{{ asset('img/maxy_logo.jpg') }}" width="30" height="30" alt=""
                         style="margin-left: 12px;">
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -47,7 +48,7 @@
                         <li class="nav-item">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 All Course
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -95,16 +96,6 @@
                                     <a class="dropdown-item disabled" href="{{ route('getCourseClass') }}">Class <i
                                             class="lock icon"></i></a>
                                 @endif
-                                <!-- @if ($broGotAccessMaster->contains('name', 'course_class_member_manage'))
-<a class="dropdown-item" href="{{ route('getCourseClassMember') }}">Class Member</a>
-@else
-<a class="dropdown-item disabled" href="{{ route('getCourseClassMember') }}">Class Member <i class="lock icon"></i></a>
-@endif -->
-                                <!-- @if ($broGotAccessMaster->contains('name', 'course_class_module_manage'))
-<a class="dropdown-item" href="{{ route('getCourseClassModule') }}">Class Module</a>
-@else
-<a class="dropdown-item disabled" href="{{ route('getCourseClassModule') }}">Class Module <i class="lock icon"></i></a>
-@endif -->
                                 @if ($broGotAccessMaster->contains('name', 'course_class_member_log_read'))
                                     <a class="dropdown-item" href="{{ route('getCCMH') }}">Class Member History
                                         (Tracking)</a>
@@ -119,14 +110,11 @@
                                     <a class="dropdown-item disabled" href="{{ route('getCCMHGrade') }}">Class Member
                                         History (Grading) <i class="lock icon"></i></a>
                                 @endif
-
-                                <!-- <div class="dropdown-divider"></div> -->
-                                <!-- <a class="dropdown-item" href="#">Need Help?</a> -->
                             </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 User & Access
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -154,7 +142,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Partner
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -176,7 +164,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Order
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -194,7 +182,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Settings
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -214,7 +202,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Members
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -265,8 +253,11 @@
                 </div>
             @endif
         </div>
-    @endif
+    @endauth
+
     @yield('content')
+
+    @yield('scripts')
     <script>
         $('.message .close')
             .on('click', function() {

@@ -928,11 +928,11 @@
 
         /**
          * Create a checkbox container with input and label based on given values
-         * @param {JQuery} $item 
-         * @param {String} label 
-         * @param {String} name 
-         * @param {String} value 
-         * @param {String} inputType 
+         * @param {JQuery} $item
+         * @param {String} label
+         * @param {String} name
+         * @param {String} value
+         * @param {String} inputType
          * @returns {JQuery}
          */
         createCheckbox: function ($item, labelContent, name, value, title, inputType) {
@@ -1157,7 +1157,7 @@
                     this.$filter = $(this.options.templates.filter);
                     $('input', this.$filter).attr('placeholder', this.options.filterPlaceholder);
 
-                    // Handles optional filter clear button                        
+                    // Handles optional filter clear button
                     if (!this.options.includeFilterClearBtn) {
                         this.$filter.find(".multiselect-search").attr("type", "text");
 
@@ -1308,7 +1308,7 @@
                 this.$buttonGroupReset = $(this.options.templates.buttonGroupReset).text(this.options.resetButtonText);
                 $buttonGroup.append(this.$buttonGroupReset);
                 this.$popupContainer.prepend($buttonGroup);
-                
+
                 // We save all options that were previously selected.
                 this.defaultSelection = {};
                 $('option', this.$select).each($.proxy(function(index, element) {

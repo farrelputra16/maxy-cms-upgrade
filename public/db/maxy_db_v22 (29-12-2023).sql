@@ -3330,7 +3330,7 @@ CREATE TABLE `users` (
   `description` varchar(255) DEFAULT NULL,
   `no_ktp` varchar(16) DEFAULT NULL,
   `parents_name` varchar(255) DEFAULT NULL,
-  `ipk` decimal(4,2) DEFAULT NULL,
+  `ipk` decimal(1,2) DEFAULT NULL,
   `status` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `created_id` int(11) NOT NULL,

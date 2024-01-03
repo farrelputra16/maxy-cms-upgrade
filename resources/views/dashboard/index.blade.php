@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <div style="padding: 0px 12px 0px 12px;">
+    <div class="px-3 pb-3">
         <div class="ui message">
             <div class="header">
                 Sugeng Rawuh, {{ Auth::user()->name }}

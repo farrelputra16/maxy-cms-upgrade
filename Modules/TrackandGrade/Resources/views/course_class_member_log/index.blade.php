@@ -66,7 +66,7 @@
         <div class="col-2" style="padding-top: 3.7%">
             <div class="settings-container" style="margin-top: 2%; text-align: right">
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="addColumnDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="addColumnDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Show/Hide Column
                     </button>
                     <div class="dropdown-menu" aria-labelledby="addColumnDropdown">
@@ -130,7 +130,7 @@
                         @elseif($item->status_log == 3)
                             {{ $item->user_name }} Mengubah Profilenya
                         @elseif($item->status_log == 4)
-                            
+
                             @if($item->log_type == "profile")
                                 {{ $item->user_name }} Mengubah Foto Profilenya
                             @else
@@ -192,7 +192,7 @@
                 lengthMenu: [10, 25, 50, 100], // Menentukan pilihan jumlah entri yang dapat ditampilkan
                 buttons: ['copy', 'excel', 'pdf', 'colvis']
             });
-    
+
         table.buttons().container()
             .appendTo('#example_wrapper .col-md-6:eq(0)');
         });

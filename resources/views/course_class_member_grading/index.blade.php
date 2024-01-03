@@ -56,7 +56,7 @@
         <div class="col-2" style="padding-top: 3.7%">
             <div class="settings-container" style="margin-top: 2%; text-align: right">
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="addColumnDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="addColumnDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Show/Hide Column
                     </button>
                     <div class="dropdown-menu" aria-labelledby="addColumnDropdown">
@@ -107,7 +107,7 @@
                     <th>Comment</th>
                     <th>Grade</th>
                     <th>Grade At</th>
-                    <th>Action</th> 
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>

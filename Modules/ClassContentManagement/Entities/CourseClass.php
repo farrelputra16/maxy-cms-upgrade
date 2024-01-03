@@ -2,6 +2,7 @@
 
 namespace Modules\ClassContentManagement\Entities;
 
+use App\Models\Course;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -27,15 +28,19 @@ class CourseClass extends Model
         'updated_at',
         'updated_id'
     ];
-    
+
     protected static function newFactory()
     {
         return \Modules\ClassContentManagement\Database\factories\CourseClassFactory::new();
     }
 
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'course_id', 'id');
+    }
 
     public static function getCourseClass(){
-        // $class_list = DB::select('SELECT course.name AS course_name, 
+        // $class_list = DB::select('SELECT course.name AS course_name,
         //     course_class.id AS id,
         //     course_class.batch AS batch,
         //     course_class.quota AS quota,
@@ -80,16 +85,16 @@ class CourseClass extends Model
             WHERE course_class.course_id = course.id;
         ');
         }
-        
+
         return $allCourseClasses;
     }
 
     public static function getCurrentDataCourseClass($course_class_id){
-        $currentData = collect(DB::select('SELECT course.name AS course_name, 
+        $currentData = collect(DB::select('SELECT course.name AS course_name,
             course_class.course_id AS course_id, course_class.id as course_class_id, course_class.batch as batch
-            FROM course_class 
-            INNER JOIN course 
-            ON course_class.course_id = course.id 
+            FROM course_class
+            INNER JOIN course
+            ON course_class.course_id = course.id
             WHERE course_class.id = ?;', [$course_class_id]))->first();
 
         return $currentData;
@@ -106,11 +111,11 @@ class CourseClass extends Model
 
     public static function getEditCourseClassMemberCurrentData($request){
         $idCourseClass = $request->id;
-        $currentData = collect(DB::select('SELECT course.name AS course_name, 
+        $currentData = collect(DB::select('SELECT course.name AS course_name,
             course_class.course_id AS course_id
-            FROM course_class 
-            INNER JOIN course 
-            ON course_class.course_id = course.id 
+            FROM course_class
+            INNER JOIN course
+            ON course_class.course_id = course.id
             WHERE course_class.id = ?;', [$idCourseClass]))->first();
 
         $currentDataCourse = DB::select('SELECT course.name AS course_name
@@ -158,7 +163,7 @@ class CourseClass extends Model
             'allCourseClasses' => $allCourseClasses
         ];
     }
-  
+
     // new
     public static function getAllCourseModuleByCourseId($course_id){
         $allModule = DB::table('course_module as cm')
