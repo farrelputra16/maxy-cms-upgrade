@@ -209,8 +209,6 @@ Route::post('/order/add', [TransOrderController::class, 'postAddTransOrder'])->n
 Route::get('/order/edit', [TransOrderController::class, 'getEditTransOrder'])->name('getEditTransOrder')->middleware('access:trans_order_update');
 Route::post('/order/edit', [TransOrderController::class, 'postEditTransOrder'])->name('postEditTransOrder')->middleware('access:trans_order_update');
 
-
-
 Route::get('/confirm/order', [TransOrderController::class, 'getTransOrderConfirm'])->name('getTransOrderConfirm')->middleware('access:trans_order_manage');
 
 Route::get('/confirm/order/add', [TransOrderController::class, 'getAddTransOrderConfirm'])->name('getAddTransOrderConfirm')->middleware('access:trans_order_create');
@@ -218,8 +216,6 @@ Route::post('/confirm/order/add', [TransOrderController::class, 'postAddTransOrd
 
 Route::get('/confirm/order/edit', [TransOrderController::class, 'getEditTransOrderConfirm'])->name('getEditTransOrderConfirm')->middleware('access:trans_order_update');
 Route::post('/confirm/order/edit', [TransOrderController::class, 'postEditTransOrderConfirm'])->name('postEditTransOrderConfirm')->middleware('access:trans_order_update');
-
-
 
 // voucher routes ##########################################################################################################
 Route::get('/voucher', [VoucherController::class, 'getVoucher'])->name('getVoucher')->middleware('access:trans_voucher_manage');
