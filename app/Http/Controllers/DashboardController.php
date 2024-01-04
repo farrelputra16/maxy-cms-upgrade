@@ -7,7 +7,6 @@ use Illuminate\Foundation\Auth\User;
 
 class DashboardController extends Controller
 {
-    //
     function getDashboard(){
         $accessMaster = AccessMaster::count();
         $user = User::count();

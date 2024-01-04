@@ -12,26 +12,27 @@ use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
-    //
-    function getCourse(){
-        // return dd("AKDNLA DAKD JKNDA DNA ");
+    function getCourse()
+    {
         $courses = Course::all();
         return view('course.index', ['courses' => $courses]);
     }
 
-    function getAddCourse(){
+    function getAddCourse()
+    {
         $allPackagePrices = CoursePackage::all();
         $allCourseTypes = MCourseType::all();
         $allCourseDifficulty = MDifficultyType::all();
 
         return view('course.add', [
             'allPackagePrices' => $allPackagePrices,
-            'allCourseTypes' => $allCourseTypes, 
-            'allCourseDifficulty'=> $allCourseDifficulty
+            'allCourseTypes' => $allCourseTypes,
+            'allCourseDifficulty' => $allCourseDifficulty
         ]);
     }
 
-    public function postAddCourse(Request $request){
+    public function postAddCourse(Request $request)
+    {
         $fileName = null;
         if ($request->hasFile('file_image')) {
             $file = $request->file('file_image');
@@ -39,7 +40,6 @@ class CourseController extends Controller
             $file->move(public_path('/uploads/course_img'), $fileName);
         }
 
-        // return dd($request);
         $validated = $request->validate([
             'name' => 'required',
             'slug' => 'required',
@@ -49,7 +49,7 @@ class CourseController extends Controller
         $trim_mini_fake_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_fake_price));
         $trim_mini_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_price));
 
-        if ($validated){
+        if ($validated) {
             $create = Course::create([
                 'name' => $request->name,
                 'fake_price' => (float)$trim_mini_fake_price,
@@ -68,31 +68,29 @@ class CourseController extends Controller
                 'updated_id' => Auth::user()->id
             ]);
 
-            if ($create){
+            if ($create) {
                 return app(HelperController::class)->Positive('getCourse');
             }
-        } 
+        }
     }
 
-    function getEditCourse(Request $request){
+    function getEditCourse(Request $request)
+    {
         $idCourse = $request->id;
         $courses = Course::find($idCourse);
 
         $currentDataCourse = Course::CurrentDataCourse($idCourse);
         $currentCoursePackages = Course::CurrentCoursePackages($idCourse);
-        
-        // return dd($currentDataCourse);
 
         $allCourseTypes = MCourseType::where('id', '!=', $currentDataCourse->m_course_type_id)->get();
         $allDifficultyTypes = MDifficultyType::where('id', '!=', $currentDataCourse->m_difficulty_type_id)->get();
-        if($currentCoursePackages == NULL){
-            $allCoursePackages = CoursePackage::all();
 
-        }
-        else{
+        if ($currentCoursePackages == NULL) {
+            $allCoursePackages = CoursePackage::all();
+        } else {
             $allCoursePackages = CoursePackage::where('id', '!=', $currentCoursePackages->course_package_id)->get();
         }
-        
+
         return view('course.edit', [
             'courses' => $courses,
             'currentDataCourse' => $currentDataCourse,
@@ -102,12 +100,13 @@ class CourseController extends Controller
             'allDifficultyTypes' => $allDifficultyTypes,
         ]);
     }
-    
 
-    function postEditCourse(Request $request){
+
+    function postEditCourse(Request $request)
+    {
         $updateData = Course::postEditCourse($request);
-        
-        if ($updateData){
+
+        if ($updateData) {
             return app(HelperController::class)->Positive('getCourse');;
         } else {
             return app(HelperController::class)->Warning('getCourse');;

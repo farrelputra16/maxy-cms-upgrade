@@ -13,35 +13,40 @@ use Illuminate\Support\Facades\Validator;
 class CourseModuleController extends Controller
 {
     // PARENT
-    function getCourseModule(Request $request){
-        $idCourse = $request->id;   
+    function getCourseModule(Request $request)
+    {
+        $idCourse = $request->id;
 
         $courseModuleParent = CourseModule::getCourseModuleParent($request);
-        
-        
+
+
         return view('course_module.index', [
             'courseModules' => $courseModuleParent,
             'course_id' => $idCourse
         ]);
     }
 
-    function getAddCourseModule(Request $request){
-        $idCourse = $request->id;   
+    function getAddCourseModule(Request $request)
+    {
+        $idCourse = $request->id;
 
         if ($idCourse !== null) {
             $coursenama = Course::select('name')->where('id', $idCourse)->first();
-        }else{
+        } else {
             $coursenama = 'NULL';
         }
+
         $courses = Course::select('id', 'name')->get();
+
         return view('course_module.add', [
             'courses' => $courses,
-            'courseID' => $idCourse ,
+            'courseID' => $idCourse,
             'courseNAME' => $coursenama
         ]);
     }
 
-    function postAddCourseModule(Request $request){ 
+    function postAddCourseModule(Request $request)
+    {
         try {
             // Validasi input
             $validator = Validator::make($request->all(), [
@@ -50,12 +55,12 @@ class CourseModuleController extends Controller
                 'course' => 'required',
                 'content' => 'required',
             ]);
-    
+
             if ($validator->fails()) {
                 // Jika validasi gagal, redirect kembali ke halaman sebelumnya dengan pesan error
                 return redirect()->back()->withErrors($validator)->withInput();
             }
-    
+
             // Proses membuat course module jika validasi berhasil
             $create = CourseModule::create([
                 'name' => $request->name,
@@ -68,13 +73,12 @@ class CourseModuleController extends Controller
                 'created_id' => Auth::user()->id,
                 'updated_id' => Auth::user()->id
             ]);
-    
-            if ($create && $request->course_name != NULL ) {
-                return app(HelperController::class)->Positive('getCourse');;
-            } elseif($create && $request->course_name == NULL){
+
+            if ($create && $request->course_name != NULL) {
+                return app(HelperController::class)->Positive('getCourse');
+            } elseif ($create && $request->course_name == NULL) {
                 return app(HelperController::class)->Positive('getCourseModule');
-            }
-            else {
+            } else {
                 return app(HelperController::class)->Negative('getCourseModule');
             }
         } catch (\Exception $e) {
@@ -83,15 +87,16 @@ class CourseModuleController extends Controller
         }
     }
 
-    function getEditCourseModule(Request $request){
+    function getEditCourseModule(Request $request)
+    {
         $courseModule = CourseModule::find($request->id);
-    
+
         $currentCourse = CourseModule::getCurrentCourse($request);
-    
+
         $allCourses = Course::where('id', '!=', $currentCourse->pluck('course_id')->first())->get();
 
         // return dd($allCourses);
-    
+
         return view('course_module.edit', [
             'courseModule' => $courseModule,
             'allCourses' => $allCourses,
@@ -99,12 +104,12 @@ class CourseModuleController extends Controller
                 'course_id' => $currentCourse->pluck('course_id')->first(),
                 'course_name' => $currentCourse->pluck('course_name')->first()
             ]
-            
         ]);
     }
-    
 
-    function postEditCourseModule(Request $request){
+
+    function postEditCourseModule(Request $request)
+    {
         $update = CourseModule::where('id', $request->id)
             ->update([
                 'name' => $request->name,
@@ -116,8 +121,8 @@ class CourseModuleController extends Controller
                 'created_id' => Auth::user()->id,
                 'updated_id' => Auth::user()->id
             ]);
-        
-        if($update){
+
+        if ($update) {
             return app(HelperController::class)->Positive('getCourseModule');
         } else {
             return app(HelperController::class)->Warning('getCourseModule');
@@ -125,7 +130,8 @@ class CourseModuleController extends Controller
     }
 
     // CHILD
-    function getCourseChildModule(Request $request){
+    function getCourseChildModule(Request $request)
+    {
         $courseParent = CourseModule::find($request->id);
         $courseModuleChild = CourseModule::CourseModuleChild($request);
 
@@ -135,7 +141,8 @@ class CourseModuleController extends Controller
         ]);
     }
 
-    function getAddChildModule(Request $request){
+    function getAddChildModule(Request $request)
+    {
         $parent = CourseModule::find($request->id);
         $childModules = CourseModule::where('course_module_parent_id', '=', $parent->id)->get();
 
@@ -145,7 +152,8 @@ class CourseModuleController extends Controller
         ]);
     }
 
-    function postAddChildModule(Request $request){
+    function postAddChildModule(Request $request)
+    {
         $parentModule = CourseModule::find($request->parentId);
 
         $create = CourseModule::create([
@@ -161,32 +169,34 @@ class CourseModuleController extends Controller
             'updated_id' => Auth::user()->id,
         ]);
 
-        if ($create){
+        if ($create) {
             return app(HelperController::class)->Positive('getCourseModule');
         }
         return app(HelperController::class)->Negative('getCourseModule');
     }
 
-    function getEditChildModule(Request $request){
+    function getEditChildModule(Request $request)
+    {
         $childModule = CourseModule::find($request->id);
         return view('course_module.child.edit', [
             'childModules' => $childModule,
         ]);
     }
 
-    function postEditChildModule(Request $request){
+    function postEditChildModule(Request $request)
+    {
         $updated = CourseModule::where('id', '=', $request->id)
-        ->update([
-            'name' => $request->name,
-            'priority' => $request->priority,
-            'level' => $request->level,
-            'content' => $request->content,
-            'description' => $request->description,
-            'status' => $request->status ? 1 : 0,
-            'updated_id' => Auth::user()->id,
-        ]);
+            ->update([
+                'name' => $request->name,
+                'priority' => $request->priority,
+                'level' => $request->level,
+                'content' => $request->content,
+                'description' => $request->description,
+                'status' => $request->status ? 1 : 0,
+                'updated_id' => Auth::user()->id,
+            ]);
 
-        if ($updated){
+        if ($updated) {
             return app(HelperController::class)->Positive('getCourseModule');
         } else {
             return app(HelperController::class)->Warning('getCourseModule');

@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 
 class HelperController extends Controller
 {
-    //
-
     public function Positive(string $routeNames){
         return redirect()->route($routeNames)->with('messageP', 'Table updated successfully.');
     }
