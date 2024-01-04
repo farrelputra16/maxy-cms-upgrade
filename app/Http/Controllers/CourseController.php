@@ -114,14 +114,6 @@ class CourseController extends Controller
 
     function postEditCourse(Request $request)
     {
-        $updateData = Course::postEditCourse($request);
-
-        if ($updateData) {
-            return app(HelperController::class)->Positive('getCourse');;
-        } else {
-            return app(HelperController::class)->Warning('getCourse');;
-        }
-
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
@@ -136,18 +128,13 @@ class CourseController extends Controller
             'level' => 'nullable|numeric',
             'status' => 'nullable|boolean',
         ]);
-    
-        // Jika validasi berhasil
-        if ($validated) {
-            $updateData = Course::postEditCourse($request);
-            
-            if ($updateData) {
-                return app(HelperController::class)->Positive('getCourse');
-            } else {
-                return app(HelperController::class)->Warning('getCourse');
-            }
+
+        $updateData = Course::postEditCourse($request);
+
+        if ($updateData) {
+            return app(HelperController::class)->Positive('getCourse');
         } else {
-            return redirect()->back()->withErrors($validated)->with('error', 'Ada kesalahan dalam penginputan data.');
+            return app(HelperController::class)->Warning('getCourse');
         }
     }
 }
