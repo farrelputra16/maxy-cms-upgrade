@@ -11,12 +11,13 @@
         </h2>
         <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
             <div class="navbar-nav">
-                <a class="btn btn-primary" href="{{ route('getAddChildModule', ['id' => $courseParent->id]) }}" role="button">Tambah Child Module +</a>
+                <a class="btn btn-primary" href="{{ route('getAddChildModule', ['id' => $courseParent->id]) }}"
+                    role="button">Tambah Child Module +</a>
             </div>
         </nav>
         <div id="table_content">
             <table class="ui tablet unstackable table">
-                <thead  style="text-align: center; vertical-align: middle;">
+                <thead style="text-align: center; vertical-align: middle;">
                     <tr>
                         <th>ID</th>
                         <th>Child Module Name</th>
@@ -39,11 +40,11 @@
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->priority }}</td>
                             <td>{{ $item->level }}</td>
-                            <td>{{ $item->content }}</td>
-                            <td id="description">{{ $item->description }}</td>
-                            <td >{{ $item->created_at }}</td>
+                            <td>{{ $item->content ?? '-' }}</td>
+                            <td id="description">{!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}</td>
+                            <td>{{ $item->created_at }}</td>
                             <td>{{ $item->created_id }}</td>
-                            <td >{{ $item->updated_at }}</td>
+                            <td>{{ $item->updated_at }}</td>
                             <td>{{ $item->updated_id }}</td>
                             <td>
                                 @if ($item->status == 1)
@@ -53,7 +54,8 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('getEditChildModule', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
+                                <a href="{{ route('getEditChildModule', ['id' => $item->id]) }}"
+                                    style="text-decoration: none; color:blue;">Edit</a>
                             </td>
                         </tr>
                     @endforeach

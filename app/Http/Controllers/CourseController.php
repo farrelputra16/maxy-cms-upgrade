@@ -44,6 +44,16 @@ class CourseController extends Controller
             'name' => 'required',
             'slug' => 'required',
             'type' => 'required',
+            'mini_fake_price' => 'nullable|numeric',
+            'mini_price' => 'nullable|numeric',
+            'short_description' => 'nullable|string|max:500',
+            'file_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'payment_link' => 'nullable|url',
+            'level' => 'nullable|numeric',
+            'content' => 'nullable|string',
+            'description' => 'nullable|string',
+            'status' => 'nullable|boolean',
+
         ]);
 
         $trim_mini_fake_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_fake_price));
@@ -105,13 +115,41 @@ class CourseController extends Controller
     
 
     function postEditCourse(Request $request){
-        $updateData = Course::postEditCourse($request);
+        // $updateData = Course::postEditCourse($request);
         
-        if ($updateData){
-            return app(HelperController::class)->Positive('getCourse');;
-        } else {
-            return app(HelperController::class)->Warning('getCourse');;
-        }
 
+
+        // if ($updateData){
+        //     return app(HelperController::class)->Positive('getCourse');;
+        // } else {
+        //     return app(HelperController::class)->Warning('getCourse');;
+        // }
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
+            'type' => 'required|numeric',
+            'mini_fake_price' => 'nullable|numeric',
+            'mini_price' => 'nullable|numeric',
+            'short_description' => 'nullable|string|max:500',
+            'content' => 'nullable|string',
+            'description' => 'nullable|string',
+            'file_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'payment_link' => 'required|url',
+            'level' => 'nullable|numeric',
+            'status' => 'nullable|boolean',
+        ]);
+    
+        // Jika validasi berhasil
+        if ($validated) {
+            $updateData = Course::postEditCourse($request);
+            
+            if ($updateData) {
+                return app(HelperController::class)->Positive('getCourse');
+            } else {
+                return app(HelperController::class)->Warning('getCourse');
+            }
+        } else {
+            return redirect()->back()->withErrors($validated)->with('error', 'Ada kesalahan dalam penginputan data.');
+        }
     }
 }

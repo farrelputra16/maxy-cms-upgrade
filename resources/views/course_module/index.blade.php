@@ -57,8 +57,8 @@
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->course_id }}</td>
-                                <td>{!! $item->content ?? '-' !!}</td>
-                                <td id="description">{!! $item->description ?? '-' !!}</td>
+                                <td>{!! \Str::limit($item->content, 50) !!}</td>
+                                <td id="description">{!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}</td>
                                 <td>{{ $item->created_at }}</td>
                                 <td>{{ $item->created_id }}</td>
                                 <td>{{ $item->updated_at }}</td>

@@ -3,10 +3,15 @@
 @section('title', 'Edit Course')
 
 @section('content')
-    <div style="padding: 0px 12px 0px 12px;">
+    <div style="padding: 0px 30px 0px 30px;">
         <h2 style="padding-bottom:3%">Edit Course</h2>
         <form class="ui form" action="{{ route('postEditCourse', ['id' => request()->query('id')]) }}" method="post"
             enctype="multipart/form-data">
+            @csrf
+            {{-- <div class="ui container" style="padding-top: 20px;">
+        <h2 class="ui header">Edit Course</h2>
+        <form class="ui form" action="{{ route('postEditCourse', ['id' => request()->query('id')]) }}" method="post"
+            enctype="multipart/form-data"> --}}
             @csrf
             <div class="field">
                 <input type="text" name="img_keep" value="{{ $courses->image }}" hidden>
@@ -25,50 +30,24 @@
                     </div>
                 </div>
                 <div class="two fields">
-                    {{-- <div class="field" id="short_description">
-                        <label for="">Short Description</label>
-                        <input type="text" id="short_description" name="short_description"
-                            placeholder="Masukkan Short Description" value="{{ $courses->short_description }}">
-                    </div> --}}
-
-                    <div class="field" id="short_description">
-                        <label for="short_description">Short Description</label>
-                        <textarea name="short_description" id="short_description" placeholder="Masukkan Short Description">{{ $courses->short_description }}</textarea>
-                    </div>
-
                     <div class="field">
-                        <label for="">Payment Link</label>
+                        <label for="">Difficulty</label>
+                        <select name="level" class="ui dropdown">
+                            @if ($currentDataCourse)
+                                <option selected value="{{ $currentDataCourse->m_difficulty_type_id }}">
+                                    {{ $currentDataCourse->course_difficulty }}</option>
+                            @endif
+                            @foreach ($allDifficultyTypes as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <!-- Payment Link -->
+                    <div class="field">
+                        <label>Payment Link</label>
                         <input type="url" id="payment_link" name="payment_link" placeholder="https://example.com"
                             value="{{ $courses->payment_link }}">
                     </div>
-                </div>
-
-                <div class="field">
-                    <label for="Image" class="form-label">Image</label>
-                    <input class="form-control" type="file" id="formFile" name="file_image" onchange="preview()">
-                    <br>
-                    <img id="frame" src="{{ asset('uploads/course_img/' . $courses->image) }}" class="img-fluid" />
-                </div>
-
-                <!-- <div class="field">
-                                                                                                                                                                        <label for="file">Image</label>
-                                                                                                                                                                        <input type="file" name="file_image" id="file_image" accept="image/*" value="{{ $courses->payment_link }}">
-
-                                                                                                                                                                        @if ($courses->image)
-    <p>Current Image:</p>
-                                                                                                                                                                            <img src="{{ asset('uploads/course_img/' . $courses->image) }}" alt="Current Image">
-    @endif
-                                                                                                                                                                    </div> -->
-
-                <div class="field" id="content">
-                    <label for="">Content</label>
-                    {{-- <textarea name="content">{{ $courses->content }}</textarea> --}}
-                    <textarea name="content" id="content" placeholder="Masukkan Content">{{ $courses->content }}</textarea>
-                </div>
-                <div class="field" id="description">
-                    <label for="">Description</label>
-                    {{-- <textarea name="description">{{ $courses->description }}</textarea> --}}
-                    <textarea name="description" id="description" placeholder="Masukkan description">{{ $courses->description }}</textarea>
                 </div>
                 <div class="two fields">
                     <div class="field">
@@ -111,18 +90,44 @@
 
                     </div>
                 </div>
+
                 <div class="field">
-                    <label for="">Difficulty</label>
-                    <select name="level" class="ui dropdown">
-                        @if ($currentDataCourse)
-                            <option selected value="{{ $currentDataCourse->m_difficulty_type_id }}">
-                                {{ $currentDataCourse->course_difficulty }}</option>
-                        @endif
-                        @foreach ($allDifficultyTypes as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                        @endforeach
-                    </select>
+                    <label for="Image" class="form-label">Image</label>
+                    <input class="form-control" type="file" id="formFile" name="file_image" onchange="preview()">
+                    <br>
+                    <div class="ui centered large image">
+                        <img id="frame" src="{{ asset('uploads/course_img/' . $courses->image) }}" class="img-fluid" />
+                    </div>
                 </div>
+
+                <!-- <div class="field">
+                                                                                                                                                                                                                                                                                                                                <label for="file">Image</label>
+                                                                                                                                                                                                                                                                                                                                <input type="file" name="file_image" id="file_image" accept="image/*" value="{{ $courses->payment_link }}">
+
+                                                                                                                                                                                                                                                                                                                                @if ($courses->image)
+    <p>Current Image:</p>
+                                                                                                                                                                                                                                                                                                                                    <img src="{{ asset('uploads/course_img/' . $courses->image) }}" alt="Current Image">
+    @endif
+                                                                                                                                                                                                                                                                                                                            </div> -->
+
+                <!-- Content -->
+                <div class="field">
+                    <label>Content</label>
+                    <textarea name="content" id="content" placeholder="Enter Content">{{ $courses->content }}</textarea>
+                </div>
+
+                <!-- Description -->
+                <div class="field">
+                    <label>Description</label>
+                    <textarea name="description" id="description" placeholder="Enter Description">{{ $courses->description }}</textarea>
+                </div>
+
+                <!-- Short Description -->
+                <div class="field">
+                    <label>Short Description</label>
+                    <textarea name="short_description" id="short_description" placeholder="Enter Short Description">{{ $courses->short_description }}</textarea>
+                </div>
+
                 <div class="field">
                     <div class="ui checkbox">
                         <input class="form-check-input" type="checkbox" value="1"
