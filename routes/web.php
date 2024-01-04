@@ -22,7 +22,7 @@ use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\MaxyTalkController;
 use App\Http\Controllers\VoucherController;
-use App\Http\Controllers\PrakerjaController;
+use App\Http\Controllers\RedeemCodeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -250,7 +250,7 @@ Route::post('/testimonial/edit', [TestimonialController::class, 'postEditTestimo
 
 //                                     Redeem Code
 //Redeem Code Routes #########################################################################################################
-Route::get('/redeemcode', [PrakerjaController::class, 'getRedeemCode'])->name('getRedeemCode');
+Route::get('/redeemcode', [RedeemCodeController::class, 'getRedeemCode'])->name('getRedeemCode');
 
 //                                     Maxy Talks
 //Testimonial Routes #########################################################################################################
