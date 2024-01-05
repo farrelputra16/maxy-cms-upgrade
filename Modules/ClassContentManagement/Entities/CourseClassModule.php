@@ -5,13 +5,14 @@ namespace Modules\ClassContentManagement\Entities;
 use App\Models\CourseModule;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class CourseClassModule extends Model
 {
     use HasFactory;
 
-    protected $table ='course_class_module';
+    protected $table = 'course_class_module';
     protected $fillable = [
         'start_date',
         'end_date',
@@ -45,40 +46,41 @@ class CourseClassModule extends Model
     }
 
 
-    public static function getCourseClassModule($course_class_id){
+    public static function getCourseClassModule($course_class_id)
+    {
         // if ($course_class_id !== null) {
-            $ccmod = DB::table('course_class_module as ccmod')
-                ->select(
-                    'ccmod.id AS id',
-                    'ccmod.start_date AS start_date',
-                    'ccmod.end_date AS end_date',
-                    'ccmod.priority AS priority',
-                    'ccmod.level AS level',
-                    'cm.name AS course_module_name',
-                    'cm.day as course_module_day',
-                    'cc.batch AS course_class_batch',
-                    'ccmod.description AS description',
-                    'cm.course_module_parent_id as parent_id',
-                    'ccmod.status AS status',
-                    'ccmod.created_at AS created_at',
-                    'ccmod.updated_at AS updated_at',
-                    'c.name AS course_name'
-                )
-                ->join('course_module as cm', 'cm.id', '=', 'ccmod.course_module_id')
-                ->join('course_class as cc', 'cc.id', '=', 'ccmod.course_class_id')
-                ->join('course as c', 'c.id', '=', 'cm.course_id')
-                ->where('ccmod.course_class_id', $course_class_id)
-                ->get();
+        $ccmod = DB::table('course_class_module as ccmod')
+            ->select(
+                'ccmod.id AS id',
+                'ccmod.start_date AS start_date',
+                'ccmod.end_date AS end_date',
+                'ccmod.priority AS priority',
+                'ccmod.level AS level',
+                'cm.name AS course_module_name',
+                'cm.day as course_module_day',
+                'cc.batch AS course_class_batch',
+                'ccmod.description AS description',
+                'cm.course_module_parent_id as parent_id',
+                'ccmod.status AS status',
+                'ccmod.created_at AS created_at',
+                'ccmod.updated_at AS updated_at',
+                'c.name AS course_name'
+            )
+            ->join('course_module as cm', 'cm.id', '=', 'ccmod.course_module_id')
+            ->join('course_class as cc', 'cc.id', '=', 'ccmod.course_class_id')
+            ->join('course as c', 'c.id', '=', 'cm.course_id')
+            ->where('ccmod.course_class_id', $course_class_id)
+            ->get();
 
-            foreach($ccmod as $module){
-                if($module->parent_id){
-                    $ccmod_parent_name = DB::table('course_module as cm')
-                        ->select('cm.name')
-                        ->where('cm.id', $module->parent_id)
-                        ->first();
-                    $module->parent_name = $ccmod_parent_name->name;
-                }
+        foreach ($ccmod as $module) {
+            if ($module->parent_id) {
+                $ccmod_parent_name = DB::table('course_module as cm')
+                    ->select('cm.name')
+                    ->where('cm.id', $module->parent_id)
+                    ->first();
+                $module->parent_name = $ccmod_parent_name->name;
             }
+        }
 
         return $ccmod;
     }
@@ -109,7 +111,8 @@ class CourseClassModule extends Model
     // }
 
 
-    public static function getAddCourseClassModule($idCourse){
+    public static function getAddCourseClassModule($idCourse)
+    {
         if ($idCourse !== null) {
             $allClass = DB::select('
             SELECT
@@ -123,7 +126,7 @@ class CourseClassModule extends Model
             WHERE
                 course_class.id = :idCourse
         ', ['idCourse' => $idCourse]);
-        }else{
+        } else {
             $allClass = DB::select('SELECT course_class.id AS course_class_id,
             course_class.batch AS batch,
             course.name AS course_name
@@ -136,7 +139,8 @@ class CourseClassModule extends Model
     }
 
 
-    public static function getEditCourseClassModule($request){
+    public static function getEditCourseClassModule($request)
+    {
         $idCourseClassModule = $request->id;
         $currentData = collect(DB::select('SELECT
             course_class_module.id,
@@ -158,31 +162,50 @@ class CourseClassModule extends Model
     }
 
     // new
-    public static function getAllModuleLMSByCourseClassId($course_class_id){
-        if($course_class_id){
+    public static function getAllModuleLMSByCourseClassId($course_class_id)
+    {
+        if ($course_class_id) {
             $allModule = DB::table('course_class_module as ccmod')
-            ->select('*')
-            ->join('course_module as cm', 'cm.id', '=', 'ccmod.course_module_id')
-            ->where('ccmod.id', $course_class_id)
-            ->where('type','!=','company_profile')
-            ->get();
+                ->select('*')
+                ->join('course_module as cm', 'cm.id', '=', 'ccmod.course_module_id')
+                ->where('ccmod.id', $course_class_id)
+                ->where('type', '!=', 'company_profile')
+                ->get();
         } else {
             $allModule = DB::table('course_class_module')
-            ->select('*')
-            ->join('course_module cm', 'cm.id', '=', 'ccmod.course_module_id')
-            ->where('type','!=','company_profile')
-            ->get();
+                ->select('*')
+                ->join('course_module cm', 'cm.id', '=', 'ccmod.course_module_id')
+                ->where('type', '!=', 'company_profile')
+                ->get();
         }
 
         return $allModule;
     }
 
-    public static function getClassModuleDetail($course_class_module_id){
+    public static function getClassModuleDetail($course_class_module_id)
+    {
         $module_detail = DB::table('course_class_module as ccmodule')
             ->select('ccmodule.*', 'cm.name as course_module_name', 'cm.type as course_module_type')
             ->join('course_module as cm', 'cm.id', '=', 'ccmodule.course_module_id')
             ->where('ccmodule.id', $course_class_module_id)
             ->first();
         return $module_detail;
+    }
+
+    public static function getParentModules(Request $request)
+    {
+        return CourseClassModule::where('course_class_id', $request->id)
+            ->whereHas('courseModule', function ($query) {
+                $query->whereNull('course_module_parent_id');
+            })
+            ->orderBy('priority')->get();
+    }
+
+    public static function getChildModules($id)
+    {
+        return CourseClassModule::whereHas('courseModule', function ($query) use ($id) {
+            $query->where('course_module_parent_id', $id);
+        })
+            ->orderBy('priority')->get();
     }
 }

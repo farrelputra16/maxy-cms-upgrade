@@ -28,6 +28,7 @@ class CourseClassModuleController extends Controller
         $course_detail = CourseClass::getCourseDetailByClassId($course_class_id);
 
         $courseClassModules = CourseClassModule::getCourseClassModule($course_class_id);
+        $courseClassModules = CourseClassModule::getParentModules($request);
 
         return view('classcontentmanagement::course_class_module.index', [
             'courseclassmodules' => $courseClassModules,
@@ -117,6 +118,19 @@ class CourseClassModuleController extends Controller
         } else {
             return redirect()->route('getCourseClassModule', ['id' => $request->course_class_id])->with('failed', 'Failed to Update Module, please try again    ');
         }
+    }
+
+    public function getCourseClassChildModule(Request $request)
+    {
+        $courseClassModuleId = $request->id;
+        $courseParent = CourseClassModule::find($courseClassModuleId);
+        $courseClassChildModule = CourseClassModule::getChildModules($courseParent->courseModule->id);
+        // dd($courseClassChildModule);
+
+        return view('classcontentmanagement::course_class_module.child.index', [
+            'courseParent' => $courseParent,
+            'courseClassChildModule' => $courseClassChildModule
+        ]);
     }
 
     public function index()
