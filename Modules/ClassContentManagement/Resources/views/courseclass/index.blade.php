@@ -2,36 +2,30 @@
 
 @section('title', 'Course Class')
 
-@section('content')
-    <div style="padding: 0px 12px 0px 12px;">
-    <!DOCTYPE html>
-<html>
-<head>
-<title>Course Class</title>
-    <!-- Include CSS libraries for styling the table -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+@push('styles')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-
-</head>
-<body>
-    <h2>Course Class</h2>
-    <hr style="margin-bottom: 0px;">
-        <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
+@endpush
+@section('content')
+    <div class="container-fluid">
+        <h2>Course Class</h2>
+        <hr class="mb-0">
+        <nav class="navbar bg-body-tertiary py-3">
             <div class="row">
                 <div class="col">
                     <a class="btn btn-primary" href="{{ route('getAddCourseClass') }}" role="button">Add Class +</a>
                 </div>
                 <div class="col">
-                    <a class="btn btn-primary" href="{{ route('getDuplicateCourseClass') }}" role="button" style="width: 130px;">Duplicate Class +</a> 
+                    <a class="btn btn-primary" href="{{ route('getDuplicateCourseClass') }}" role="button"
+                        style="width: 130px;">Duplicate Class +</a>
                 </div>
-            </div>    
+            </div>
         </nav>
-        <table id="example" class="table table-striped" style="width:100%">
+
+        <table id="example" class="table table-striped w-100">
             <thead>
                 <tr>
-                    <th scope="col">Course Class</th>
+                    <th scope="col">Batch</th>
                     <th scope="col">Start Date</th>
                     <th scope="col">End Date</th>
                     <th scope="col">Quota</th>
@@ -42,50 +36,46 @@
                     <th scope="col">Created At</th>
                     <th scope="col">Updated At</th>
                     <th scope="col">Action</th>
-                    <!-- More buat tempat edit / delete -->
                 </tr>
-                </thead>
+            </thead>
             <tbody>
-                    @foreach ($course_list as $item)
+                @foreach ($course_list as $item)
                     <tr>
-                        <!-- <td scope="row">{{ $item->id }}</td>
-                        <td class="active">{{ $item->batch }}</td>
-                        <td>{{ $item->course_name }}</td>
+                        <td scope="row">{{ $item->course->name }} Batch {{ $item->batch }}</td>
                         <td>{{ $item->start_date }}</td>
                         <td>{{ $item->end_date }}</td>
-                        <td>{{ $item->quota }}</td> -->
-
-                        <td scope="row">{{ $item->course_name }} Batch {{ $item->batch }}</td>
-                        <td>{{ $item->start_date }}</td>
-                        <td>{{ $item->end_date }}</td>  
                         <td>{{ $item->quota }}</td>
-                        <td>{{ $item->announcement }}</td>
-                        <td>{{ $item->content }}</td>
-                        <td id="description">{{ $item->description }}</td>
+                        <td>{{ $item->announcement ?? '-' }}</td>
+                        <td>{!! !empty($item->content) ? \Str::limit($item->content, 30) : '-' !!}</td>
+                        <td id="description">{!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}</td>
                         <td>
-                        @if ($item->status == 1)
-                            <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
-                        @else
-                            <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
-                        @endif
+                            @if ($item->status == 1)
+                                <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
+                            @else
+                                <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
+                            @endif
                         </td>
                         <td>{{ $item->created_at }}</td>
                         <td>{{ $item->updated_at }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('getEditCourseClass', ['id' => $item->id]) }}" class="btn btn-primary">Edit</a>
-                                <a href="{{ route('getCourseClassModule', ['id' => $item->id]) }}" class="btn btn-info">Module List</a>
-                                <a href="{{ route('getCourseClassMember', ['id' => $item->id]) }}" class="btn btn-info">Member List</a>
+                                <a href="{{ route('getEditCourseClass', $item->id) }}" class="btn btn-primary">Edit</a>
+                                <a href="{{ route('getCourseClassModule', ['id' => $item->id]) }}"
+                                    class="btn btn-info">Module
+                                    List</a>
+                                <a href="{{ route('getCourseClassMember', ['id' => $item->id]) }}"
+                                    class="btn btn-info">Member
+                                    List</a>
                             </div>
                         </td>
                     </tr>
-                    @endforeach
-                </tbody>
+                @endforeach
+            </tbody>
         </table>
     </div>
-    
-    <!-- Include JS libraries for DataTable initialization -->
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+@endsection
+
+@push('scripts')
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
@@ -96,21 +86,17 @@
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
-    
+
     <script>
         $(document).ready(function() {
-            var table = $('#example').DataTable({
+            let table = $('#example').DataTable({
                 lengthChange: true, // Aktifkan opsi perubahan jumlah entri
                 lengthMenu: [10, 25, 50, 100], // Menentukan pilihan jumlah entri yang dapat ditampilkan
                 buttons: ['copy', 'excel', 'pdf', 'colvis']
             });
-    
-        table.buttons().container()
-            .appendTo('#example_wrapper .col-md-6:eq(0)');
+
+            table.buttons().container()
+                .appendTo('#example_wrapper .col-md-6:eq(0)');
         });
     </script>
-</body>
-</html>
-
-    </div>
-@endsection
+@endpush

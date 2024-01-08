@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Models;
-use DB;
-use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,32 +27,39 @@ class CourseModule extends Model
         'updated_id'
     ];
 
-    public static function getCourseModuleParent($request){
-        $idCourse = $request->id;   
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'course_id');
+    }
+
+    public static function getCourseModuleParent($request)
+    {
+        $idCourse = $request->id;
 
         if ($idCourse !== null) {
             $courseModuleParent = DB::select('
-                SELECT 
-                    id, name, course_id, content, description, status, created_at, created_id, updated_at, updated_id 
-                FROM 
-                    course_module 
-                WHERE 
-                    course_module_parent_id IS NULL 
+                SELECT
+                   *
+                FROM
+                    course_module
+                WHERE
+                    course_module_parent_id IS NULL
                     AND course_id = :idCourse
-                ORDER BY 
+                ORDER BY
                     id ASC, priority ASC;
             ', ['idCourse' => $idCourse]);
-        }else{
-            $courseModuleParent = DB::select('SELECT id, name, course_id, content, description, status, created_at , created_id, updated_at , updated_id 
-            FROM course_module 
-            WHERE course_module_parent_id IS NULL 
+        } else {
+            $courseModuleParent = DB::select('SELECT id, name, course_id, content, description, status, created_at , created_id, updated_at , updated_id
+            FROM course_module
+            WHERE course_module_parent_id IS NULL
             ORDER BY id ASC, priority ASC;');
         }
 
         return $courseModuleParent;
     }
 
-    public static function getCurrentCourse($request){  
+    public static function getCurrentCourse($request)
+    {
         $currentCourse = collect(DB::select('SELECT course.id as course_id, course.name as course_name
             FROM course_module
             JOIN course
@@ -64,9 +70,10 @@ class CourseModule extends Model
         return $currentCourse;
     }
 
-    public static function CourseModuleChild($request){  
+    public static function CourseModuleChild($request)
+    {
         $courseModuleChild = DB::select('SELECT id, name, content ,  description, priority, level, status , created_at , created_id, updated_at , updated_id
-            FROM course_module 
+            FROM course_module
             WHERE course_module_parent_id = ? ORDER BY priority ASC', [$request->id]);
 
         return $courseModuleChild;

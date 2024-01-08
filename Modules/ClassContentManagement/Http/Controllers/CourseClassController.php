@@ -6,16 +6,11 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-
 use Modules\ClassContentManagement\Entities\CourseClassModule;
 use Modules\ClassContentManagement\Entities\CourseClass;
 use App\Http\Controllers\HelperController;
-
-
-
 use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
-use DB;
 
 
 class CourseClassController extends Controller
@@ -25,12 +20,14 @@ class CourseClassController extends Controller
      * @return Renderable
      */
 
-    function getCourseClass(){
-        $course_list = CourseClass::getCourseClass();
+    function getCourseClass()
+    {
+        $course_list = CourseClass::with('course')->get();
         return view('classcontentmanagement::courseclass.index', ['course_list' => $course_list]);
     }
 
-    function getAddCourseClass(){
+    function getAddCourseClass()
+    {
         $allCourses = Course::all();
 
         return view('classcontentmanagement::courseclass.add', [
@@ -38,10 +35,11 @@ class CourseClassController extends Controller
         ]);
     }
 
-    function getDuplicateCourseClass(){
+    function getDuplicateCourseClass()
+    {
         $classes = CourseClass::all();
         $class_list = [];
-        foreach($classes as $c){
+        foreach ($classes as $c) {
             $class_detail = CourseClass::getClassDetailByClassId($c->id);
             $class_list[] = $class_detail;
         }
@@ -55,7 +53,8 @@ class CourseClassController extends Controller
         ]);
     }
 
-    public function postAddCourseClass(Request $request){
+    public function postAddCourseClass(Request $request)
+    {
         $validated = $request->validate([
             'batch' => 'required',
             'start' => 'required',
@@ -63,7 +62,7 @@ class CourseClassController extends Controller
             'quota' => 'required|integer|gte:1'
         ]);
 
-        if ($validated){
+        if ($validated) {
             $create = CourseClass::create([
                 'batch' => $request->batch,
                 'start_date' => $request->start,
@@ -78,13 +77,14 @@ class CourseClassController extends Controller
                 'updated_id' => Auth::user()->id
             ]);
 
-            if ($create){
+            if ($create) {
                 return app(HelperController::class)->Positive('getCourseClass');
             }
         }
     }
 
-    public function postDuplicateCourseClass(Request $request){
+    public function postDuplicateCourseClass(Request $request)
+    {
         // dd($request->all());
         $course_class = CourseClass::where('id', $request->course_class_id)->first();
         $course_class->batch = $request->batch;
@@ -137,25 +137,27 @@ class CourseClassController extends Controller
         return app(HelperController::class)->Positive('getCourseClass');
     }
 
-    function getEditCourseClass(Request $request){
+    function getEditCourseClass(Request $request)
+    {
         $course_class_id = $request->id;
         $course_class_detail = CourseClass::getClassDetailByClassId($course_class_id);
-    
+
         // $currentData = CourseClass::getCurrentDataCourseClass($request);
         // dd($course_class_detail);
 
         $course_list = Course::get(); // Access the attribute directly
-    
+
         return view('classcontentmanagement::courseclass.edit', [
             'course_class_detail' => $course_class_detail,
             'course_list' => $course_list
         ]);
     }
-    
 
-    function postEditCourseClass(Request $request){
+
+    function postEditCourseClass(Request $request)
+    {
         $course_class_id = $request->id;
-        
+
         $updateData = CourseClass::where('id', $course_class_id)
             ->update([
                 'batch' => $request->batch,
@@ -171,17 +173,13 @@ class CourseClassController extends Controller
                 'updated_id' => auth()->user()->id
             ]);
 
-        if ($updateData){
+        if ($updateData) {
             return app(HelperController::class)->Positive('getCourseClass');
         } else {
             return app(HelperController::class)->Warning('getCourseClass');
         }
-        
+
     }
-
-
-
-
 
     public function index()
     {

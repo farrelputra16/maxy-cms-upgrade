@@ -70,23 +70,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
     public static function getAllUserWithAccessGroup(){
-        $users = collect(DB::select('SELECT users.id, 
-            users.name, 
+        $users = collect(DB::select('SELECT users.id,
+            users.name,
             users.email,
             users.description,
-            users.status, 
-            users.created_at, 
-            users.updated_at, 
-            access_group.name AS accessgroup 
+            users.status,
+            users.created_at,
+            users.updated_at,
+            access_group.name AS accessgroup
             FROM users
             INNER JOIN access_group ON users.access_group_id = access_group.id'
         ));
         return $users;
-    }
-
-    public static function createNewUser($name){
-
     }
 }

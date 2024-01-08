@@ -5,6 +5,7 @@ namespace App\Providers;
 use Auth;
 use DB;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        Blade::directive('rupiah', function ($amount) {
+            if (is_numeric($amount)) {
+                return "Rp " . "<?php echo number_format($amount, 0, ',', '.'); ?>";
+            } else {
+                return "-";
+            }
+        });
 
         view()->composer('*', function ($view){
             if (Auth::check()){

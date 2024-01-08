@@ -3,9 +3,15 @@
 @section('title', 'Edit Course')
 
 @section('content')
-    <div style="padding: 0px 12px 0px 12px;">
+    <div style="padding: 0px 30px 0px 30px;">
         <h2 style="padding-bottom:3%">Edit Course</h2>
-        <form class="ui form" action="{{ route('postEditCourse', ['id' => request()->query('id')]) }}" method="post" enctype="multipart/form-data">
+        <form class="ui form" action="{{ route('postEditCourse', ['id' => request()->query('id')]) }}" method="post"
+            enctype="multipart/form-data">
+            @csrf
+            {{-- <div class="ui container" style="padding-top: 20px;">
+        <h2 class="ui header">Edit Course</h2>
+        <form class="ui form" action="{{ route('postEditCourse', ['id' => request()->query('id')]) }}" method="post"
+            enctype="multipart/form-data"> --}}
             @csrf
             <div class="field">
                 <input type="text" name="img_keep" value="{{ $courses->image }}" hidden>
@@ -16,7 +22,7 @@
                     </div>
                     <div class="field">
                         <label for="">Name</label>
-                        <input type="text" name="name" value="{{ $courses->name }}">
+                        <input type="text" name="name" id="name" value="{{ $courses->name }}">
                     </div>
                     <div class="field">
                         <label for="">Slug</label>
@@ -25,47 +31,32 @@
                 </div>
                 <div class="two fields">
                     <div class="field">
-                            <label for="">Short Description</label>
-                            <input type="text" id="short_description" name="short_description" placeholder="Masukkan Short Description" value="{{ $courses->short_description }}">
-                        </div>
-                    <div class="field">
-                            <label for="">Payment Link</label>
-                            <input type="text" id="payment_link" name="payment_link" placeholder="Masukkan Payment Link" value="{{ $courses->payment_link }}">
+                        <label for="">Difficulty</label>
+                        <select name="level" class="ui dropdown">
+                            @if ($currentDataCourse)
+                                <option selected value="{{ $currentDataCourse->m_difficulty_type_id }}">
+                                    {{ $currentDataCourse->course_difficulty }}</option>
+                            @endif
+                            @foreach ($allDifficultyTypes as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                </div>
-
-                <div class="field">
-                    <label for="Image" class="form-label">Image</label>
-                    <input class="form-control" type="file" id="formFile" name="file_image" onchange="preview()">
-                    <br>
-                    <img id="frame" src="{{ asset('uploads/course_img/' . $courses->image) }}" class="img-fluid" />
-                </div>
-
-                <!-- <div class="field">
-                    <label for="file">Image</label>
-                    <input type="file" name="file_image" id="file_image" accept="image/*" value="{{ $courses->payment_link }}">
-
-                    @if($courses->image)
-                        <p>Current Image:</p>
-                        <img src="{{ asset('uploads/course_img/' . $courses->image) }}" alt="Current Image">
-                    @endif
-                </div> -->
-
-                <div class="field">
-                    <label for="">Content</label>
-                    <textarea name="content">{{ $courses->content }}</textarea>
-                </div>
-                <div class="field">
-                    <label for="">Description</label>
-                    <textarea name="description">{{ $courses->description }}</textarea>
+                    <!-- Payment Link -->
+                    <div class="field">
+                        <label>Payment Link</label>
+                        <input type="url" id="payment_link" name="payment_link" placeholder="https://example.com"
+                            value="{{ $courses->payment_link }}">
+                    </div>
                 </div>
                 <div class="two fields">
                     <div class="field">
                         <label for="">Type</label>
                         <select name="type" class="ui dropdown" id="type_selector">
-                        @if ($currentDataCourse)
-                            <option selected value="{{ $currentDataCourse->m_course_type_id }}">{{ $currentDataCourse->course_type_name }}</option>
-                        @endif
+                            @if ($currentDataCourse)
+                                <option selected value="{{ $currentDataCourse->m_course_type_id }}">
+                                    {{ $currentDataCourse->course_type_name }}</option>
+                            @endif
                             @foreach ($allCourseTypes as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
@@ -74,63 +65,94 @@
                     <div class="field" id="course_package">
                         <label for="">Package</label>
                         <select name="package">
-                        @if ($currentCoursePackages)
-                            <option selected value="{{ $item->course_package_id }}">{{ $item->course_package_name }} - Rp. {{ $item->course_package_price }}</option> 
-                            
-                        @elseif ($currentCoursePackages  == NULL)
-                            <option selected value="">NULL</option> 
-                        @endif
+                            @if ($currentCoursePackages)
+                                <option selected value="{{ $item->course_package_id }}">{{ $item->course_package_name }} -
+                                    Rp. {{ $item->course_package_price }}</option>
+                            @elseif ($currentCoursePackages == null)
+                                <option selected value="">Tidak ada paket yang dipilih</option>
+                            @endif
                             @foreach ($allCoursePackages as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }} - Rp. {{ $item->price }}</option>
+                                <option value="{{ $item->id }}">{{ $item->name }} - Rp. {{ $item->price }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="field" id="mini_fake_price">
                         <label for="">Mini Bootcamp Fake Price</label>
-                        <input type="text" name="mini_fake_price" id="fake_price" value="{{ $currentDataCourse ? $currentDataCourse->fake_price : '' }}">
+                        <input type="text" name="mini_fake_price" id="fake_price"
+                            value="{{ $currentDataCourse ? $currentDataCourse->fake_price : '' }}">
 
                     </div>
                     <div class="field" id="mini_price">
                         <label for="">Mini Bootcamp Price</label>
-                        <input type="text" name="mini_price" id="price" value="{{ $currentDataCourse ? $currentDataCourse->price : '' }}">
+                        <input type="text" name="mini_price" id="price"
+                            value="{{ $currentDataCourse ? $currentDataCourse->price : '' }}">
 
                     </div>
                 </div>
+
                 <div class="field">
-                    <label for="">Difficulty</label>
-                    <select name="level" class="ui dropdown">
-                        @if ($currentDataCourse)
-                            <option selected value="{{ $currentDataCourse->m_difficulty_type_id }}">{{ $currentDataCourse->course_difficulty }}</option>
-                        @endif
-                        @foreach ($allDifficultyTypes as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                        @endforeach
-                    </select>
+                    <label for="Image" class="form-label">Image</label>
+                    <input class="form-control" type="file" id="formFile" name="file_image" onchange="preview()">
+                    <br>
+                    <div class="ui centered large image">
+                        <img id="frame" src="{{ asset('uploads/course_img/' . $courses->image) }}" class="img-fluid" />
+                    </div>
                 </div>
+
+                <!-- <div class="field">
+                                                                                                                                                                                                                                                                                                                                <label for="file">Image</label>
+                                                                                                                                                                                                                                                                                                                                <input type="file" name="file_image" id="file_image" accept="image/*" value="{{ $courses->payment_link }}">
+
+                                                                                                                                                                                                                                                                                                                                @if ($courses->image)
+    <p>Current Image:</p>
+                                                                                                                                                                                                                                                                                                                                    <img src="{{ asset('uploads/course_img/' . $courses->image) }}" alt="Current Image">
+    @endif
+                                                                                                                                                                                                                                                                                                                            </div> -->
+
+                <!-- Content -->
+                <div class="field">
+                    <label>Content</label>
+                    <textarea name="content" id="content" placeholder="Enter Content">{{ $courses->content }}</textarea>
+                </div>
+
+                <!-- Description -->
+                <div class="field">
+                    <label>Description</label>
+                    <textarea name="description" id="description" placeholder="Enter Description">{{ $courses->description }}</textarea>
+                </div>
+
+                <!-- Short Description -->
+                <div class="field">
+                    <label>Short Description</label>
+                    <textarea name="short_description" id="short_description" placeholder="Enter Short Description">{{ $courses->short_description }}</textarea>
+                </div>
+
                 <div class="field">
                     <div class="ui checkbox">
-                        <input class="form-check-input" type="checkbox" value="1" {{ $courses->status == 1 ? 'checked' : ''}} name="status" >
+                        <input class="form-check-input" type="checkbox" value="1"
+                            {{ $courses->status == 1 ? 'checked' : '' }} name="status">
                         <label>Aktif</label>
                     </div>
-                  </div>
+                </div>
             </div>
             <button class="right floated ui button primary">Save & Update</button>
         </form>
-        <a href="{{ route('getAddCourseModule', ['id' => $courses->id]) }}"><button class=" right floated ui button primary">Tambah Course Module</button></a>
-        <a href="{{ route("getCourse") }}"><button class=" right floated ui red button">Batal</button></a>
+        <a href="{{ route('getAddCourseModule', ['id' => $courses->id]) }}"><button
+                class=" right floated ui button primary">Tambah Course Module</button></a>
+        <a href="{{ route('getCourse') }}"><button class=" right floated ui red button">Batal</button></a>
     </div>
     <script>
-
         function preview() {
             frame.src = URL.createObjectURL(event.target.files[0]);
         }
 
-        if($('#type_selector').val() == 1){
+        if ($('#type_selector').val() == 1) {
             console.log("Bootcamp");
             $('#mini_fake_price').hide();
             $('#mini_price').hide();
             $('#course_package').show();
-        } else if ($('#type_selector').val() == 3){
+        } else if ($('#type_selector').val() == 3) {
             console.log("Mini Bootcamp");
             $('#course_package').hide();
             $('#mini_fake_price').show();
@@ -142,13 +164,13 @@
             $('#course_package').hide();
         }
 
-        $('#type_selector').change(function(){
+        $('#type_selector').change(function() {
             let val = $(this).val();
-            if(val == 1){
-              $('#mini_fake_price').hide();
-              $('#mini_price').hide();
-              $('#course_package').show();
-            } else if (val == 3){
+            if (val == 1) {
+                $('#mini_fake_price').hide();
+                $('#mini_price').hide();
+                $('#course_package').show();
+            } else if (val == 3) {
                 $('#course_package').hide();
                 $('#mini_fake_price').show();
                 $('#mini_price').show();
@@ -160,45 +182,74 @@
         })
 
         var rupiah = document.getElementById('fake_price');
-		rupiah.addEventListener('keyup', function(e){
-			rupiah.value = formatRupiah(this.value, 'Rp. ');
-		});
- 
-		function formatRupiah(angka, prefix){
-			var number_string = angka.replace(/[^,\d]/g, '').toString(),
-			split   		= number_string.split(','),
-			sisa     		= split[0].length % 3,
-			rupiah     		= split[0].substr(0, sisa),
-			ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
- 
-			if(ribuan){
-				separator = sisa ? '.' : '';
-				rupiah += separator + ribuan.join('.');
-			}
- 
-			rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-			return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-		}
+        rupiah.addEventListener('keyup', function(e) {
+            rupiah.value = formatRupiah(this.value, 'Rp. ');
+        });
+
+        function formatRupiah(angka, prefix) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+        }
 
         var rupiah1 = document.getElementById('price');
-		rupiah1.addEventListener('keyup', function(e){
-			rupiah1.value = formatRupiah(this.value, 'Rp. ');
-		});
- 
-		function formatRupiah(angka, prefix){
-			var number_string = angka.replace(/[^,\d]/g, '').toString(),
-			split   		= number_string.split(','),
-			sisa     		= split[0].length % 3,
-			rupiah1     		= split[0].substr(0, sisa),
-			ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
- 
-			if(ribuan){
-				separator = sisa ? '.' : '';
-				rupiah1 += separator + ribuan.join('.');
-			}
- 
-			rupiah1 = split[1] != undefined ? rupiah1 + ',' + split[1] : rupiah1;
-			return prefix == undefined ? rupiah1 : (rupiah1 ? 'Rp. ' + rupiah1 : '');
-		}
+        rupiah1.addEventListener('keyup', function(e) {
+            rupiah1.value = formatRupiah(this.value, 'Rp. ');
+        });
+
+        function formatRupiah(angka, prefix) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah1 = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah1 += separator + ribuan.join('.');
+            }
+
+            rupiah1 = split[1] != undefined ? rupiah1 + ',' + split[1] : rupiah1;
+            return prefix == undefined ? rupiah1 : (rupiah1 ? 'Rp. ' + rupiah1 : '');
+        }
     </script>
+    <script>
+        CKEDITOR.replace('short_description');
+        CKEDITOR.replace('content');
+        CKEDITOR.replace('description');
+    </script>
+    <script>
+        // Fungsi untuk membuat slug berdasarkan nama yang diberikan
+        function slugify(text) {
+            return text.toString().toLowerCase()
+                .replace(/\s+/g, '-')
+                .replace(/[^\w\-]+/g, '')
+                .replace(/\-\-+/g, '-')
+                .replace(/^-+/, '')
+                .replace(/-+$/, '');
+        }
+
+        // Event listener untuk input nama
+        document.getElementById('name').addEventListener('input', function() {
+            // Ambil nilai dari input nama
+            const nameValue = this.value;
+
+            // Buat slug berdasarkan nilai nama
+            const slugValue = slugify(nameValue);
+
+            // Set nilai slug ke input slug
+            document.getElementsByName('slug')[0].value = slugValue;
+        });
+    </script>
+
 @endsection

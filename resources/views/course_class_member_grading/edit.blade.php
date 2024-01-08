@@ -3,38 +3,57 @@
 @section('title', 'Edit User')
 
 @section('content')
-    <div style="padding: 0px 12px 0px 12px;">
-        <h2 style="padding-bottom:3%">Edit CCMH Grading</h2>
-        <form class="ui form" action="{{ route('postEditCCMH', ['id' => request()->query('id')]) }}" method="post">
-            @csrf
-            <div class="field">
-                <div class="two fields">
-                    <div class="field">
-                        <label for="">ID Users</label>
-                        <input type="text" name="id" value="{{ request()->query('id') }}" disabled>
+    <div class="container" style="max-width: 1000px;">
+        <h2 class="mb-3">Edit CCMH Grading</h2>
+        <div class="card shadow shadow-sm">
+            <div class="card-body">
+                <form class="row g-3" action="{{ route('postEditCCMH', $courseClassMemberGrading->id) }}" method="POST">
+                    @csrf
+                    <div class="col-md-6">
+                        <label for="idUser" class="form-label fw-bold">ID User</label>
+                        <input type="text" class="form-control" id="idUser" value="{{ $courseClassMemberGrading->user->id }}" readonly>
                     </div>
-                    <div class="field">
-                        <label for="">Member</label>
-                        <input type="text" name="user_name" value="{{ $currentData->user_name }}" disabled>
+
+                    <div class="col-md-6">
+                        <label for="studentName" class="form-label fw-bold">Student Name</label>
+                        <input type="text" class="form-control" id="studentName" value="{{ $courseClassMemberGrading->user->name }}" readonly>
                     </div>
-                </div>
-                <div class="three fields">
-                    <div class="field">
-                        <label for="">Submitted File</label>
-                        <input type="text" name="submitted_file" value="{{ $currentData->submitted_file }}" disabled>
+
+                    <div class="col-md-6">
+                        <label for="submittedFile" class="form-label fw-bold">Submitted File</label>
+                        <div>
+                            <a href="{{
+                                asset('uploads/course_class_member_grading/' .
+                                    \Str::snake(\Str::lower($courseClassMemberGrading->courseClassModule->courseModule->course->name)) . "/" .
+                                    \Str::snake(\Str::lower($courseClassMemberGrading->user->name)) . "/" .
+                                    \Str::snake(\Str::lower($courseClassMemberGrading->courseClassModule->courseModule->name)) . "/" .
+                                    $courseClassMemberGrading->submitted_file
+                                )
+                            }}">{{ $courseClassMemberGrading->submitted_file }}</a>
+                        </div>
                     </div>
-                    <div class="field">
-                        <label for="">Comment</label>
-                        <input type="text" name="comment" value="{{ $currentData->comment }}" disabled>
+
+                    <div class="col-md-6">
+                        <label for="studentComment" class="form-label fw-bold">Student Comment</label>
+                        {!! $courseClassMemberGrading->comment !!}
                     </div>
-                    <div class="field">
-                        <label for="grade">Grade (min 0 ,max 100)</label>
-                        <input type="number" name="grade" id="grade" value="{{ $currentData->grade }}" min="0" max="100">   
+
+                    <div class="col-md-12">
+                        <label for="grade" class="form-label fw-bold">Grade (min: 0, max: 100)</label>
+                        <input type="number" class="form-control" id="grade" name="grade" value="{{ $courseClassMemberGrading->grade }}" min="0" max="100">
                     </div>
-                </div>
+
+                    <div class="col-12">
+                        <label for="tutorComment" class="form-label fw-bold">Tutor Comment</label>
+                        <textarea class="form-control" id="tutorComment" name="tutor_comment">{!! $courseClassMemberGrading->tutor_comment !!}</textarea>
+                    </div>
+
+                    <div class="col-12 text-end">
+                        <a href="{{ route("getGradeCCMH") }}" class="btn btn-danger">Batal</a>
+                        <button class="btn btn-primary">Save & Update</button>
+                    </div>
+                </form>
             </div>
-            <button class="right floated ui button primary">Save & Update</button>
-        </form>
-        <a href="{{ route("getGradeCCMH") }}"><button class=" right floated ui red button">Batal</button></a>
+        </div>
     </div>
 @endsection
