@@ -37,7 +37,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    if(Auth::user()){
+    if (Auth::user()) {
         return redirect()->route('getDashboard');
     } else {
         return redirect()->route('login');
@@ -211,6 +211,10 @@ Route::post('/order/edit', [TransOrderController::class, 'postEditTransOrder'])-
 
 Route::get('/confirm/order', [TransOrderController::class, 'getTransOrderConfirm'])->name('getTransOrderConfirm')->middleware('access:trans_order_manage');
 
+// Route::get('/order/detail', [TransOrderController::class, 'getTransOrderDetail'])->name('getTransOrderDetail')->middleware('access:trans_order_manage');
+Route::get('/order/detail/{id}', [TransOrderController::class, 'showTransOrderDetail'])->name('showTransOrderDetail')->middleware('access:trans_order_manage');
+// Route::get('/detail/order', [TransOrderController::class, 'getTransOrderDetail'])->name('getTransOrderDetail')->middleware('access:trans_order_manage');
+
 Route::get('/confirm/order/add', [TransOrderController::class, 'getAddTransOrderConfirm'])->name('getAddTransOrderConfirm')->middleware('access:trans_order_create');
 Route::post('/confirm/order/add', [TransOrderController::class, 'postAddTransOrderConfirm'])->name('postAddTransOrderConfirm')->middleware('access:trans_order_create');
 
@@ -236,7 +240,7 @@ Route::post('/general/add', [GeneralController::class, 'postAddGeneral'])->name(
 Route::get('/general/edit', [GeneralController::class, 'getEditGeneral'])->name('getEditGeneral')->middleware('access:m_general_update');
 Route::post('/general/edit', [GeneralController::class, 'postEditGeneral'])->name('postEditGeneral')->middleware('access:m_general_update');
 
-Route::post('general/deactivate/{id}',[GeneralController::class, 'deactivateGeneral'])->name('deactivateGeneral');
+Route::post('general/deactivate/{id}', [GeneralController::class, 'deactivateGeneral'])->name('deactivateGeneral');
 
 //                                     Testimonial
 //Testimonial Routes #########################################################################################################

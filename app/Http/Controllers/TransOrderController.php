@@ -11,17 +11,71 @@ use Modules\ClassContentManagement\Entities\CourseClass;
 use App\Models\User;
 use App\Models\CoursePackage;
 use App\Models\Promotion;
-use DB; 
+use DB;
 
 class TransOrderController extends Controller
 {
     //
-    function getTransOrder(){
+    function getTransOrder()
+    {
         $transOrders = TransOrder::getTransOrder();
         return view('trans_order.index', ['transOrders' => $transOrders]);
     }
 
-    function getAddTransOrder(Request $request){
+    // Detail function
+
+    // public function showTransorderDetail($id)
+    // {
+    //     $transOrdersDetail = TransOrder::showTransorderDetail();
+
+    //     return view('trans_order.detail', ['transOrdersDetail' => $transOrdersDetail]);
+    // }
+//     public function showTransorderDetail($id)
+// {
+//     // Call the showTransorderDetail method with the provided ID
+//     $transOrdersDetail = TransOrder::showTransorderDetail($id);
+
+    //     return view('trans_order.detail', ['transOrdersDetail' => $transOrdersDetail]);
+// }
+    public function showTransorderDetail($id)
+    {
+        // Call the showTransorderDetail method with the provided ID
+        $transOrderDetail = TransOrder::showTransorderDetail($id);
+
+        return view('trans_order.detail', ['transOrderDetail' => $transOrderDetail]);
+    }
+
+    // public function showTransorderDetail($id)
+    // {
+    //     // Call the showTransorderDetail method with the provided ID
+    //     $transOrderDetail = TransOrder::showTransorderDetail($id);
+
+    //     // Retrieve confirmation data for the given trans_order_id
+    //     $transOrderConfirm = TransOrderConfirm::where('trans_order_id', $id)->first();
+
+    //     return view('trans_order.detail', [
+    //         'transOrderDetail' => $transOrderDetail,
+    //         'transOrderConfirm' => $transOrderConfirm, // Pass confirmation data to the view
+    //     ]);
+    // }
+
+//     public function showTransorderDetail($id)
+// {
+//     // Call the showTransorderDetail method with the provided ID
+//     $transOrderDetail = TransOrder::showTransorderDetail($id);
+
+//     // Fetch the TransOrderConfirm data for the given ID
+//     $transordersconfirm = TransOrderConfirm::where('trans_order_id', $id)->get();
+
+//     return view('trans_order.detail', ['transOrderDetail' => $transOrderDetail, 'transordersconfirm' => $transordersconfirm]);
+// }
+
+
+
+
+
+    function getAddTransOrder(Request $request)
+    {
         $idcourses = Course::all();
         $idcourseclasses = CourseClass::all();
         $idmembers = User::all();
@@ -36,29 +90,30 @@ class TransOrderController extends Controller
             'idpromotions' => $idpromotions
         ]);
     }
-    
-    public function postAddTransOrder(Request $request){
+
+    public function postAddTransOrder(Request $request)
+    {
         // return dd($request);
         $validate = $request->validate([
             'order_number' => 'required',
             'date' => 'required',
-            'user_id' =>'required',
+            'user_id' => 'required',
             'total' => 'required',
             'total_after_discount' => 'required',
             'payment_status' => 'required',
             'course_id' => 'required',
-            'course_class_id' =>'required',
-            'course_package_id' =>'required',
+            'course_class_id' => 'required',
+            'course_package_id' => 'required',
         ]);
 
         $trim_total = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->total));
         $trim_total_after_discount = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->total_after_discount));
-        
-        if($validate){
+
+        if ($validate) {
             $create = TransOrder::create([
                 'order_number' => $request->order_number,
                 'date' => $request->date,
-                'total' => (float)$trim_total,
+                'total' => (float) $trim_total,
                 'discount' => $request->discount,
                 'total_after_discount' => $request->discount ? (float) $trim_total_after_discount : (float) $trim_total,
                 'payment_status' => $request->payment_status,
@@ -73,7 +128,7 @@ class TransOrderController extends Controller
                 'updated_id' => Auth::user()->id
             ]);
 
-            if($create){
+            if ($create) {
                 return app(HelperController::class)->Positive('getTransOrder');
             } else {
                 return app(HelperController::class)->Negative('getTransOrder');
@@ -81,7 +136,8 @@ class TransOrderController extends Controller
         }
     }
 
-    function getEditTransOrder(Request $request){
+    function getEditTransOrder(Request $request)
+    {
         $idtransorder = $request->id;
         $transorders = TransOrder::find($idtransorder);
         // return dd($idtransorder);
@@ -105,7 +161,8 @@ class TransOrderController extends Controller
         ]);
     }
 
-    function postEditTransOrder(Request $request){
+    function postEditTransOrder(Request $request)
+    {
         $idTransOrder = $request->id;
 
         $trim_total = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->total));
@@ -115,7 +172,7 @@ class TransOrderController extends Controller
             ->update([
                 'order_number' => $request->order_number,
                 'date' => $request->date,
-                'total' => (float)$trim_total,
+                'total' => (float) $trim_total,
                 'discount' => $request->discount,
                 'total_after_discount' => $request->discount ? (float) $trim_total_after_discount : (float) $trim_total,
                 'payment_status' => $request->payment_status,
@@ -129,23 +186,15 @@ class TransOrderController extends Controller
                 'created_id' => auth()->user()->id,
                 'updated_id' => auth()->user()->id
             ]);
-            if ($updateData){
-                return app(HelperController::class)->Positive('getTransOrder');
-            } else {
-                return app(HelperController::class)->Warning('getTransOrder');
-            }
+        if ($updateData) {
+            return app(HelperController::class)->Positive('getTransOrder');
+        } else {
+            return app(HelperController::class)->Warning('getTransOrder');
+        }
     }
 
-
-
-
-
-
-
-
-
-
-    function getTransOrderConfirm(Request $request){
+    function getTransOrderConfirm(Request $request)
+    {
         $idtransorder = $request->id;
 
         $transordersconfirm = TransOrderConfirm::where('trans_order_id', $idtransorder)->get();
@@ -153,10 +202,11 @@ class TransOrderController extends Controller
         // return dd($transorders);
 
         // $transOrdersConfrim = TransOrderConfirm::getTransOrder();
-        return view('trans_order_confirm.index', ['transordersconfirm' => $transordersconfirm , 'idtransorder' => $idtransorder]);
+        return view('trans_order_confirm.index', ['transordersconfirm' => $transordersconfirm, 'idtransorder' => $idtransorder]);
     }
 
-    function getAddTransOrderConfirm(Request $request){
+    function getAddTransOrderConfirm(Request $request)
+    {
         $idtransorder = $request->id;
         $transorders = TransOrder::find($idtransorder);
         // return dd($idtransorder);
@@ -164,7 +214,7 @@ class TransOrderController extends Controller
         $m_bank_account = DB::table('m_bank_account')
             ->get();
 
-        $m_bank= DB::table('m_bank')
+        $m_bank = DB::table('m_bank')
             ->get();
         // dd($m_bank_account);
 
@@ -185,8 +235,11 @@ class TransOrderController extends Controller
             'idtransorder' => $idtransorder
         ]);
     }
-    
-    public function postAddTransOrderConfirm(Request $request){
+
+
+
+    public function postAddTransOrderConfirm(Request $request)
+    {
         // return dd($request);
 
         $selectedValue = request('bank_account_id');
@@ -210,13 +263,13 @@ class TransOrderController extends Controller
         ]);
 
         $trim_total = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->amount));
-        
-        if($validate){
+
+        if ($validate) {
             $create = TransOrderConfirm::create([
                 'order_confirm_number' => $request->order_number,
                 'date' => $request->date,
                 'image' => $fileName,
-                'amount' => (float)$trim_total,
+                'amount' => (float) $trim_total,
                 'sender_account_name' => $request->sender_account_name,
                 'sender_account_number' => $request->sender_account_number,
                 'course_id' => $request->course_id,
@@ -230,7 +283,7 @@ class TransOrderController extends Controller
                 'updated_id' => Auth::user()->id
             ]);
 
-            if($create){
+            if ($create) {
                 // return app(HelperController::class)->Positive('getTransOrder');
                 app(HelperController::class)->Positive('getTransOrderConfirm', $request->trans_order_id);
                 return redirect()->route('getTransOrderConfirm', ['id' => $request->trans_order_id]);
@@ -242,9 +295,10 @@ class TransOrderController extends Controller
         }
     }
 
-    function getEditTransOrderConfirm(Request $request){
+    function getEditTransOrderConfirm(Request $request)
+    {
         $idtransorderconfirm = $request->id;
-        
+
         $transordersconfirm = TransOrderConfirm::find($idtransorderconfirm);
 
         $idtransorder = $transordersconfirm->trans_order_id;
@@ -292,20 +346,20 @@ class TransOrderController extends Controller
         ]);
     }
 
-    function postEditTransOrderConfirm(Request $request){
+    function postEditTransOrderConfirm(Request $request)
+    {
         // dd($request->idtransorder);
         $idTransOrderConfirm = $request->id;
 
         $selectedValue = request('bank_account_id');
         // dd($idTransOrder);
         list($bank_account_id, $mBankId) = explode('|', $selectedValue);
-        
+
         if ($request->hasFile('file_image')) {
             $file = $request->file('file_image');
             $fileName = $file->getClientOriginalName();
             $file->move(public_path('/uploads/course_img'), $fileName);
-        }
-        else{
+        } else {
             $fileName = $request->img_keep;
         }
 
@@ -316,7 +370,7 @@ class TransOrderController extends Controller
                 'order_confirm_number' => $request->order_number,
                 'date' => $request->date,
                 'image' => $fileName,
-                'amount' => (float)$trim_total,
+                'amount' => (float) $trim_total,
                 'sender_account_name' => $request->sender_account_name,
                 'sender_account_number' => $request->sender_account_number,
                 'sender_bank' => $mBankId,
@@ -326,14 +380,14 @@ class TransOrderController extends Controller
                 'created_id' => Auth::user()->id,
                 'updated_id' => Auth::user()->id
             ]);
-            if ($updateData){
-                // return app(HelperController::class)->Positive('getTransOrder');
-                app(HelperController::class)->Positive('getTransOrderConfirm', $request->idtransorder);
-                return redirect()->route('getTransOrderConfirm', ['id' => $request->idtransorder]);
-            } else {
-                // return app(HelperController::class)->Warning('getTransOrder');
-                app(HelperController::class)->Warning('getTransOrderConfirm', $request->idtransorder);
-                return redirect()->route('getTransOrderConfirm', ['id' => $request->idtransorder]);
-            }
+        if ($updateData) {
+            // return app(HelperController::class)->Positive('getTransOrder');
+            app(HelperController::class)->Positive('getTransOrderConfirm', $request->idtransorder);
+            return redirect()->route('getTransOrderConfirm', ['id' => $request->idtransorder]);
+        } else {
+            // return app(HelperController::class)->Warning('getTransOrder');
+            app(HelperController::class)->Warning('getTransOrderConfirm', $request->idtransorder);
+            return redirect()->route('getTransOrderConfirm', ['id' => $request->idtransorder]);
+        }
     }
 }
