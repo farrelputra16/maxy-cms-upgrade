@@ -6,15 +6,11 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-
 use Modules\ClassContentManagement\Entities\CourseClassModule;
 use Modules\ClassContentManagement\Entities\CourseClass;
 use App\Http\Controllers\HelperController;
-
-
 use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
-use DB;
 
 
 class CourseClassController extends Controller
@@ -184,7 +180,6 @@ class CourseClassController extends Controller
         }
 
     }
-
 
     public function index()
     {

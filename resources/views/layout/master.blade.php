@@ -259,12 +259,25 @@
 
     @yield('scripts')
     <script>
-        $('.message .close')
-            .on('click', function() {
-                $(this)
-                    .closest('.message')
-                    .transition('fade');
+        // $('.message .close')
+        //     .on('click', function() {
+        //         $(this)
+        //             .closest('.message')
+        //             .transition('fade');
+        //     });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cari semua ikon 'close' dan tambahkan event listener
+            const closeIcons = document.querySelectorAll('.message .close.icon');
+
+            closeIcons.forEach(function(icon) {
+                icon.addEventListener('click', function() {
+                    // Ambil parent dari ikon dan hapus elemen tersebut
+                    this.closest('.message').remove();
+                });
             });
+        });
     </script>
 </body>
 

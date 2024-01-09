@@ -71,7 +71,7 @@
                                     @endif
 
                                 </td>
-                                <td style="width: 19%;" id="description">{!! \Str::limit($item->description, 30) !!}</td>
+                                <td style="width: 19%;" id="description">{!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}</td>
                                 <td style="width: 10%;">{{ $item->created_at }}</td>
                                 <td style="width: 10%;">{{ $item->updated_at }}</td>
                                 <td style="width: 3%;">
