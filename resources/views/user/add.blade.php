@@ -218,7 +218,7 @@
                     <label for="status">Aktif</label>
                 </div>
             </div>
-            <button class="ui button primary" style="float: right;">Tambah User</button>
+            
         </form>
         <form method="post" action="{{ route('user.import-csv') }}" enctype="multipart/form-data">
             @csrf
@@ -229,10 +229,14 @@
                     <span style="color: red;">{{ $message }}</span>
                 @enderror
             </div>
-            <button type="submit" class="ui button primary" style="float: right; margin-top: -1.9%;">Upload CSV</button>
+            
         </form>
 
+    </div>
+    <div class="btn-groupx">
+        <button type="submit" class="ui button primary">Upload CSV</button>
         <a href="{{ route('getUser') }}"><button class="ui button red" style="float: right;">Batal</button></a>
+        <button class="ui button primary" style="float: right;">Tambah User</button>
     </div>
     <script>
         CKEDITOR.replace('description');
