@@ -24,10 +24,12 @@
             <hr>
             <div id="example_wrapper">
                 <div class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
-                    <div class="navbar-nav">
+                    {{-- <div class="navbar-nav">
                         <a class="btn btn-primary" href="{{ route('getAddTransOrder') }}" role="button">Tambah Transaksi
                             Order +</a>
-                    </div>
+                    </div> --}}
+                    <h2>ID Transaksi: {{ $transOrderDetail->id }}</h2>
+
                 </div>
                 <table id="example" class="table table-striped" style="width:100%">
                     <thead>
@@ -40,85 +42,79 @@
                             <th>After Discount</th>
                             <th>Payment Status</th>
                             <th>Course</th>
-                            {{-- <th>Batch</th> --}}
+                            <th>Batch</th>
                             <th>Member</th>
                             <th>Course Package</th>
                             <th>ID Promotion</th>
-                            {{-- <th>Forced At</th>
-                    <th>Forced Comment</th> --}}
+                            <th>Forced At</th>
+                            <th>Forced Comment</th>
                             <th>Description</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            {{-- <th>Action</th> --}}
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($transOrders as $item)
-                            <tr>
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->order_number }}</td>
-                                <td>{{ $item->date }}</td>
-                                {{-- <td>{{ $item->total }}</td> --}}
-                                <td>{{ 'Rp ' . number_format($item->total, 0, ',', '.') }}</td>
-                                <td>{{ $item->discount }}%</td>
-                                {{-- <td>{{ $item->total_after_discount }}</td> --}}
-                                <td>{{ 'Rp' . number_format($item->total_after_discount) }}</td>
-                                {{-- <td>{{ $item->payment_status }}</td> --}}
-                                <td>
-                                    @if ($item->payment_status == 0)
-                                        <a class="ui tiny black label" style="text-decoration: none;">Not Completed</a>
-                                        {{-- <a href="">Not Completed</a> --}}
-                                    @elseif ($item->payment_status == 1)
-                                    <a class="ui tiny green label" style="text-decoration: none;">Completed</a>
-                                        {{-- Completed --}}
-                                    @elseif ($item->payment_status == 2)
-                                    <a class="ui tiny yellow label" style="text-decoration: none;">Partial</a>
+                        {{-- @foreach ($transOrders as $item) --}}
+                        <tr>
+                            <td>{{ $transOrderDetail->id }}</td>
+                            <td>{{ $transOrderDetail->order_number }}</td>
+                            <td>{{ $transOrderDetail->date }}</td>
+                            {{-- <td>{{ $item->total }}</td> --}}
+                            <td>{{ 'Rp ' . number_format($transOrderDetail->total, 0, ',', '.') }}</td>
+                            <td>{{ $transOrderDetail->discount }}%</td>
+                            {{-- <td>{{ $$transOrderDetail->total_after_discount }}</td> --}}
+                            <td>{{ 'Rp' . number_format($transOrderDetail->total_after_discount) }}</td>
+                            {{-- <td>{{ $$transOrderDetail->payment_status }}</td> --}}
+                            <td>
+                                @if ($transOrderDetail->payment_status == 0)
+                                    Not Completed
+                                @elseif ($transOrderDetail->payment_status == 1)
+                                    Completed
+                                @elseif ($transOrderDetail->payment_status == 2)
+                                    Partial
+                                @elseif ($transOrderDetail->payment_status == 3)
+                                    Cancelled
+                                @else
+                                    Unknown Status
+                                @endif
+                            </td>
+                            <td>{{ $transOrderDetail->course_name }}</td>
+                            <td>{{ $transOrderDetail->course_class_batch }}</td>
+                            <td>{{ $transOrderDetail->users_name }}</td>
+                            <td>{{ $transOrderDetail->course_package_name }}</td>
+                            {{-- <td>{{ $transOrderDetail->promotion_name }}</td> --}}
+                            <td>
+                                @if ($transOrderDetail->promotion_name !== null)
+                                    {{ $transOrderDetail->promotion_name }}
+                                @else
+                                    Tidak ada
+                                @endif
+                            </td>
+                            <td>{{ $transOrderDetail->forced_at }}</td>
+                            <td>{{ $transOrderDetail->forced_comment }}</td>
+                            <td>{!! $transOrderDetail->description !!}</td>
+                            <td>
+                                @if ($transOrderDetail->status == 1)
+                                    <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
+                                @else
+                                    <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
+                                @endif
+                            </td>
+                            {{-- <td> --}}
+                            <!-- <a href ="{{ route('getEditTransOrder', ['id' => $transOrderDetail->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
+                                            <a href ="{{ route('getEditTransOrder', ['id' => $transOrderDetail->id]) }}" style="text-decoration: none; color:blue;">TransOrder Confirm</a> -->
 
-                                        {{-- Partial --}}
-                                    @elseif ($item->payment_status == 3)
-                                    <a class="ui tiny red label" style="text-decoration: none;">Cancelled</a>
-                                  
-                                        {{-- Cancelled --}}
-                                    @else
-                                        Unknown Status
-                                    @endif
-                                </td>
-                                <td>{{ $item->course_name }}</td>
-                                {{-- <td>{{ $item->course_class_batch }}</td> --}}
-                                <td>{{ $item->users_name }}</td>
-                                <td>{{ $item->course_package_name }}</td>
-                                {{-- <td>{{ $item->promotion_name }}</td> --}}
-                                <td>
-                                    @if ($item->promotion_name !== null)
-                                        {{ $item->promotion_name }}
-                                    @else
-                                        Tidak ada
-                                    @endif
-                                </td>
-                                {{-- <td>{{ $item->forced_at }}</td>
-                    <td>{{ $item->forced_comment }}</td> --}}
-                                <td>{!! $item->description !!}</td>
-                                <td>
-                                    @if ($item->status == 1)
-                                        <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
-                                    @else
-                                        <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
-                                    @endif
-                                </td>
-                                <td>
-                                    <!-- <a href ="{{ route('getEditTransOrder', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
-                                    <a href ="{{ route('getEditTransOrder', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">TransOrder Confirm</a> -->
-
-                                    <div class="btn-group">
+                            {{-- <div class="btn-group">
                                         <a href="{{ route('getEditTransOrder', ['id' => $item->id]) }}"
                                             class="btn btn-primary">Edit</a>
                                         <a href="{{ route('getTransOrderConfirm', ['id' => $item->id]) }}"
                                             class="btn btn-info">TransOrder Confirm</a>
                                         <a href="{{ route('showTransOrderDetail', ['id' => $item->id]) }}"
                                             class="btn btn-info">Detail</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
+                                    </div> --}}
+                            {{-- </td> --}}
+                        </tr>
+                        {{-- @endforeach --}}
                     </tbody>
                 </table>
             </div>

@@ -15,7 +15,7 @@
                     </div>
                     <div class="field">
                         <label for="">Name</label>
-                        <input type="text" name="name" value="{{ $coursePackages->name }}">
+                        <input type="text" name="name" id="name" value="{{ $coursePackages->name }}">
                         @if ($errors->has('name'))
                             @foreach ($errors->get('name') as $error)
                                 <span style="color: red;">{{$error}}</span>
@@ -26,13 +26,18 @@
                 <div class="three fields">
                     <div class="field">
                         <label for="">Payment Link</label>
-                        <input type="text" name="name" value="{{ $coursePackages->payment_link }}">
+                        <input type="text" name="payment_link" id="payment_link" value="{{ $coursePackages->payment_link }}">
+                        @if ($errors->has('payment_link'))
+                            @foreach ($errors->get('payment_link') as $error)
+                                <span style="color: red;">{{$error}}</span>
+                            @endforeach
+                        @endif
                     </div>
                     <div class="field">
                         <label for="">Fake Price</label>
                         <input type="text" name="fake" id="fake_price" value="{{ $coursePackages->fake_price }}">
-                        @if ($errors->has('fake'))
-                            @foreach ($errors->get('fake') as $error)
+                        @if ($errors->has('fake_price'))
+                            @foreach ($errors->get('fake_price') as $error)
                                 <span style="color: red;">{{$error}}</span>
                             @endforeach
                         @endif
