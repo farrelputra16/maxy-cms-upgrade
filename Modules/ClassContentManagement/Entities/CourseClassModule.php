@@ -3,6 +3,7 @@
 namespace Modules\ClassContentManagement\Entities;
 
 use App\Models\CourseModule;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\DB;
@@ -38,6 +39,16 @@ class CourseClassModule extends Model
     public function courseClass()
     {
         return $this->belongsTo(CourseClass::class, 'course_class_id');
+    }
+
+    public function userCreated()
+    {
+        return $this->belongsTo(User::class, 'created_id');
+    }
+
+    public function userUpdated()
+    {
+        return $this->belongsTo(User::class, 'updated_id');
     }
 
     protected static function newFactory()

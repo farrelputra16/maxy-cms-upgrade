@@ -28,9 +28,9 @@
                         <th>Content</th>
                         <th>Description</th>
                         <th>Created At</th>
-                        <th>Created Id</th>
+                        <th>Created By</th>
                         <th>Updated At</th>
-                        <th>Updated Id</th>
+                        <th>Updated By</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -42,14 +42,14 @@
                             <td>{{ $item->start_date }}</td>
                             <td>{{ $item->end_date }}</td>
                             <td>{{ $item->courseModule->name }}</td>
-                            <td>{{ $item->priority }}</td>
-                            <td>{{ $item->level }}</td>
-                            <td>{{ $item->content ?? '-' }}</td>
-                            <td id="description">{!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}</td>
-                            <td>{{ $item->created_at }}</td>
-                            <td>{{ $item->created_id }}</td>
-                            <td>{{ $item->updated_at }}</td>
-                            <td>{{ $item->updated_id }}</td>
+                            <td>{{ $item->courseModule->priority }}</td>
+                            <td>{{ $item->courseModule->level }}</td>
+                            <td>{{ $item->courseModule->content ?? '-' }}</td>
+                            <td id="description">{!! !empty($item->courseModule->description) ? \Str::limit($item->courseModule->description, 30) : '-' !!}</td>
+                            <td>{{ $item->courseModule->created_at }}</td>
+                            <td>{{ $item->userCreated->name }}</td>
+                            <td>{{ $item->courseModule->updated_at }}</td>
+                            <td>{{ $item->userUpdated->name }}</td>
                             <td>
                                 @if ($item->status == 1)
                                     <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
