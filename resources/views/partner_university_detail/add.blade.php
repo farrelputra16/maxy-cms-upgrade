@@ -14,7 +14,7 @@
                         <input type="text" name="name" placeholder="Masukkan Detail Universitas">
                         @if ($errors->has('name'))
                             @foreach ($errors->get('name') as $error)
-                                <span style="color: red;">{{$error}}</span>
+                                <span style="color: red;">{{ $error }}</span>
                             @endforeach
                         @endif
                     </div>
@@ -27,7 +27,7 @@
                         </select>
                         @if ($errors->has('type'))
                             @foreach ($errors->get('type') as $error)
-                                <span style="color: red;">{{$error}}</span>
+                                <span style="color: red;">{{ $error }}</span>
                             @endforeach
                         @endif
                     </div>
@@ -36,7 +36,7 @@
                         <input type="text" name="ref" placeholder="set null or ignore if this parent">
                         @if ($errors->has('ref'))
                             @foreach ($errors->get('ref') as $error)
-                                <span style="color: red;">{{$error}}</span>
+                                <span style="color: red;">{{ $error }}</span>
                             @endforeach
                         @endif
                     </div>
@@ -51,23 +51,26 @@
                     </select>
                     @if ($errors->has('partner_id'))
                         @foreach ($errors->get('partner_id') as $error)
-                            <span style="color: red;">{{$error}}</span>
+                            <span style="color: red;">{{ $error }}</span>
                         @endforeach
                     @endif
                 </div>
                 <div class="field">
-                    <label for="">Description</label>
-                    <textarea name="description"></textarea>
+                    <label>Description</label>
+                    <textarea name="description" id="description" placeholder="Enter Description"></textarea>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input class="form-check-input" type="checkbox" value="1" name="status" >
+                        <input class="form-check-input" type="checkbox" value="1" name="status">
                         <label>Aktif</label>
                     </div>
                 </div>
             </div>
             <button class="right floated ui button primary">Tambah Detail Partner Universitas</button>
         </form>
-        <a href="{{ route("getPartnerUniversityDetail") }}"><button class=" right floated ui red button">Batal</button></a>
+        <a href="{{ route('getPartnerUniversityDetail') }}"><button class=" right floated ui red button">Batal</button></a>
     </div>
+    <script>
+        CKEDITOR.replace('description');
+    </script>
 @endsection

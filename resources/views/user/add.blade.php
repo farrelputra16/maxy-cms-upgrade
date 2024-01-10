@@ -234,4 +234,7 @@
 
         <a href="{{ route('getUser') }}"><button class="ui button red" style="float: right;">Batal</button></a>
     </div>
+    <script>
+        CKEDITOR.replace('description');
+    </script>
 @endsection

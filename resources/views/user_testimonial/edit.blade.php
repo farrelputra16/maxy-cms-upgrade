@@ -3,22 +3,24 @@
 @section('title', 'Add General Data')
 
 @section('content')
-<div style="padding: 0px 12px 0px 12px;">
-    <h2 style="padding-bottom:3%">Edit Testimonial</h2>
+    <div style="padding: 0px 12px 0px 12px;">
+        <h2 style="padding-bottom:3%">Edit Testimonial</h2>
         <form class="ui form" action="{{ route('postEditTestimonial', ['id' => request()->query('id')]) }}" method="post">
             @csrf
             <div class="field">
                 <div class="three fields">
                     <div class="field">
                         <label for="">Rating (in stars)</label>
-                        <input type="number" min="1" max="5" name="stars" value="{{ $testimonials->stars }}">
+                        <input type="number" min="1" max="5" name="stars"
+                            value="{{ $testimonials->stars }}">
                     </div>
                     <div class="field">
                         <label for="">Role</label>
                         <input type="text" name="role" value="{{ $testimonials->role }}">
                     </div>
                     <div class="ui checkbox" style="margin-top:2.5%;margin-left:1%">
-                        <input class="form-check-input" type="checkbox" value="1" {{ $testimonials->status_highlight == 1 ? 'checked' : ''}} name="status_highlight" >
+                        <input class="form-check-input" type="checkbox" value="1"
+                            {{ $testimonials->status_highlight == 1 ? 'checked' : '' }} name="status_highlight">
                         <label>Highlight</label>
                     </div>
                 </div>
@@ -26,8 +28,9 @@
                     <div class="field">
                         <label for="">User</label>
                         <select name="user_id" class="ui dropdown">
-                            @if ($currentData != NULL) 
-                            <option selected value="{{ $currentData->user_id }}"> {{ $currentData->membername }} </option>
+                            @if ($currentData != null)
+                                <option selected value="{{ $currentData->user_id }}"> {{ $currentData->membername }}
+                                </option>
                             @endif
                             @foreach ($allmember as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -36,9 +39,10 @@
                     </div>
                     <div class="field">
                         <label for="">Course Class Batch</label>
-                        <select name="course_class_id" class="ui dropdown"> 
-                            @if ($currentData != NULL)
-                            <option selected value="{{ $currentData->course_class_id }}"> {{ $currentData->coursebatch }} </option>
+                        <select name="course_class_id" class="ui dropdown">
+                            @if ($currentData != null)
+                                <option selected value="{{ $currentData->course_class_id }}">
+                                    {{ $currentData->coursebatch }} </option>
                             @endif
                             @foreach ($allcourseclass as $item)
                                 <option value="{{ $item->id }}">{{ $item->batch }}</option>
@@ -48,15 +52,16 @@
                 </div>
                 <div class="field">
                     <label for="">Content</label>
-                    <textarea name="content">{{ $testimonials->content }}</textarea>
+                    <textarea name="content" id="content">{{ $testimonials->content }}</textarea>
                 </div>
                 <div class="field">
                     <label for="">Description</label>
-                    <textarea name="description">{{ $testimonials->description }}</textarea>
+                    <textarea name="description" id="description">{{ $testimonials->description }}</textarea>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input class="form-check-input" type="checkbox" value="1" {{ $testimonials->status == 1 ? 'checked' : ''}} name="status" >
+                        <input class="form-check-input" type="checkbox" value="1"
+                            {{ $testimonials->status == 1 ? 'checked' : '' }} name="status">
                         <label>Aktif</label>
                     </div>
                 </div>
@@ -65,4 +70,8 @@
         </form>
         <a href="{{ route('getTestimonial') }}"><button class=" right floated ui red button">Batal</button></a>
     </div>
+    <script>
+        CKEDITOR.replace('description');
+        CKEDITOR.replace('content');
+    </script>
 @endsection

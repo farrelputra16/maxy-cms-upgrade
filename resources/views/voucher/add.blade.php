@@ -6,7 +6,7 @@
     <div style="padding: 0px 12px 0px 12px;">
         <h2 style="padding-bottom:3%">Add Vouchers</h2>
         <form class="ui form" action="{{ route('postAddVoucher') }}" method="post">
-        @csrf
+            @csrf
             <div class="field">
                 <div class="two fields">
                     <div class="field">
@@ -51,18 +51,22 @@
                 </div>
 
                 <div class="field">
-                    <label for="">Description</label>
-                    <textarea name="description"></textarea>
+                    <label>Description</label>
+                    <textarea name="description" id="description" placeholder="Enter Description"></textarea>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input class="form-check-input" type="checkbox" value="1" name="status" >
+                        <input class="form-check-input" type="checkbox" value="1" name="status">
                         <label>Aktif</label>
                     </div>
                 </div>
             </div>
             <button class="right floated ui button primary">Tambah Voucher</button>
         </form>
-        <a href="{{ route("getVoucher") }}"><button class=" right floated ui red button">Batal</button></a>
+        <a href="{{ route('getVoucher') }}"><button class=" right floated ui red button">Batal</button></a>
     </div>
+
+    <script>
+        CKEDITOR.replace('description');
+    </script>
 @endsection
