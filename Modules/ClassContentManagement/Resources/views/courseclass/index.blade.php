@@ -59,7 +59,8 @@
                         <td>{{ $item->updated_at }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('getEditCourseClass', $item->id) }}" class="btn btn-primary">Edit</a>
+                                <a href="{{ route('getEditCourseClass', ['id' => $item->id]) }}"
+                                    class="btn btn-primary">Edit</a>
                                 <a href="{{ route('getCourseClassModule', ['id' => $item->id]) }}"
                                     class="btn btn-info">Module
                                     List</a>

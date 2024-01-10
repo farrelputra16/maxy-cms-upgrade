@@ -50,7 +50,6 @@
                             <th scope="col">Order</th>
                             <th scope="col">Course Module Name</th>
                             <th scope="col">Course - Batch </th>
-                            <th scope="col">Description</th>
                             <th scope="col">Status</th>
                             <th scope="col">Created At</th>
                             <th scope="col">Updated At</th>
@@ -75,7 +74,6 @@
                                 <td>{{ $item->courseModule->name }}</td>
                                 <td>{{ $item->courseClass->course->name }} - Batch {{ $item->courseClass->batch }}
                                 </td>
-                                <td id="description">{!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}</td>
                                 <td>
                                     @if ($item->status == 1)
                                         <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
@@ -86,7 +84,11 @@
                                 <td>{{ $item->created_at }}</td>
                                 <td>{{ $item->updated_at }}</td>
                                 <td>
-                                    <a href="{{ route('getEditCourse', ['id' => $item->id]) }}"
+                                    {{-- <a href="{{ route('getEditCourseClassModule', ['id' => $item->id]) }}"
+                                        class="btn btn-primary">Edit</a>
+                                    <a href="{{ route('getCourseClassChildModule', ['id' => $item->id]) }}"
+                                        class="btn btn-info">Content</a> --}}
+                                    <a href="{{ route('getEditCourseClassModule', ['id' => $item->id]) }}"
                                         class="btn btn-primary">Edit</a>
                                     <a href="{{ route('getCourseClassChildModule', ['id' => $item->id]) }}"
                                         class="btn btn-info">Content</a>

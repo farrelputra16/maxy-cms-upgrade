@@ -208,4 +208,52 @@ class CourseClassModule extends Model
         })
             ->orderBy('priority')->get();
     }
+
+    public static function getAddCourseClassChildModule($idCourseClassChild)
+    {
+        if ($idCourseClassChild !== null) {
+            $allClass = DB::select('
+                SELECT
+                    course_class.id AS course_class_id,
+                    course_class.batch AS batch,
+                    course.name AS course_name
+                FROM
+                    course_class
+                JOIN
+                    course ON course_class.course_id = course.id
+                WHERE
+                    course_class.id = :idCourse
+            ', ['idCourseClassChild' => $idCourseClassChild]);
+        } else {
+            $allClass = DB::select('
+                SELECT 
+                    course_class.id AS course_class_id,
+                    course_class.batch AS batch,
+                    course.name AS course_name
+                FROM 
+                    course_class
+                JOIN 
+                    course ON course_class.course_id = course.id
+            ');
+        }
+        return $allClass;
+    }
+
+    public static function getEditCourseClassChildModule($idCourseClassChild)
+    {
+        $editClass = DB::select('
+        SELECT
+            course_class.id AS course_class_id,
+            course_class.batch AS batch,
+            course.name AS course_name
+        FROM
+            course_class
+        JOIN
+            course ON course_class.course_id = course.id
+        WHERE
+            course_class.id = :idCourse
+    ', ['idCourseClassChild' => $idCourseClassChild]);
+
+        return $editClass;
+    }
 }

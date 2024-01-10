@@ -11,7 +11,7 @@
         </h2>
         <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
             <div class="navbar-nav">
-                <a class="btn btn-primary" href="{{ route('getAddChildModule', ['id' => $courseParent->id]) }}"
+                <a class="btn btn-primary" href="{{ route('getAddCourseClassChildModule', ['id' => $courseParent->id]) }}"
                     role="button">Tambah Child Module +</a>
             </div>
         </nav>
@@ -37,11 +37,11 @@
                     @foreach ($courseClassChildModule as $item)
                         <tr>
                             <td>{{ $item->id }}</td>
-                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->courseModule->name }}</td>
                             <td>{{ $item->priority }}</td>
                             <td>{{ $item->level }}</td>
                             <td>{{ $item->content ?? '-' }}</td>
-                            <td id="description">{!! !empty($item->escription) ? \Str::limit($item->description, 30) : '-' !!}</td>
+                            <td id="description">{!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}</td>
                             <td>{{ $item->created_at }}</td>
                             <td>{{ $item->created_id }}</td>
                             <td>{{ $item->updated_at }}</td>
@@ -54,7 +54,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('getEditChildModule', ['id' => $item->id]) }}"
+                                <a href="{{ route('getEditCourseClassChildModule', ['id' => $item->id, 'parent_id' => $courseParent->id]) }}"
                                     style="text-decoration: none; color:blue;">Edit</a>
                             </td>
                         </tr>

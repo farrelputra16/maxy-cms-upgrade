@@ -38,6 +38,12 @@ Route::post('/courseclassmodule/edit', [CourseClassModuleController::class, 'pos
 
 Route::get('/courseclassmodule/child', [CourseClassModuleController::class, 'getCourseClassChildModule'])->name('getCourseClassChildModule')->middleware('access:course_class_module_manage');
 
+Route::get('/courseclassmodule/child/add', [CourseClassModuleController::class, 'getAddCourseClassChildModule'])->name('getAddCourseClassChildModule')->middleware('access:course_class_module_create');
+Route::post('/courseclassmodule/child/add', [CourseClassModuleController::class, 'postAddCourseClassChildModule'])->name('postAddCourseClassChildModule')->middleware('access:course_class_module_create');
+
+Route::get('/courseclassmodule/child/edit', [CourseClassModuleController::class, 'getEditCourseClassChildModule'])->name('getEditCourseClassChildModule')->middleware('access:course_class_module_update');
+Route::post('/courseclassmodule/child/edit', [CourseClassModuleController::class, 'postEditCourseClassChildModule'])->name('postEditCourseClassChildModule')->middleware('access:course_class_module_update');
+
 Route::prefix('ClassContentManagement')->group(function () {
     Route::get('/', 'ClassContentManagementController@index');
 });
