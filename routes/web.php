@@ -273,4 +273,4 @@ Route::get('/noauthority', function () {
 
 // // Import File .csv
 // Route::post('/course-class-member/import-csv', [CourseClassMemberController::class, 'importCSV'])->name('course-class-member.import-csv');
-// Route::post('/user/import-csv', [UserController::class, 'importCSV'])->name('user.import-csv');
+Route::post('/user/import-csv', [UserController::class, 'importCSV'])->name('user.import-csv');
