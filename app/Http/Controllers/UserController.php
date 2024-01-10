@@ -38,6 +38,7 @@ class UserController extends Controller
 
     function postAddUser(Request $request){
         // dd($request->province);
+        $fileName = ''; // Inisialisasi variabel $fileName
 
         // return dd($request);
         $validated = $request->validate([
