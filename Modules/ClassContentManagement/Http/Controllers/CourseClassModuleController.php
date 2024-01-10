@@ -127,6 +127,7 @@ class CourseClassModuleController extends Controller
         $courseParent = CourseClassModule::find($courseClassModuleId);
         $courseClassChildModule = CourseClassModule::getChildModules($courseParent->courseModule->id);
         // dd($courseClassChildModule);
+        // dd($courseParent);
 
         return view('classcontentmanagement::course_class_module.child.index', [
             'courseParent' => $courseParent,
@@ -145,13 +146,14 @@ class CourseClassModuleController extends Controller
 
     function postAddCourseClassChildModule(Request $request)
     {
-        $parentModule = CourseClassModule::find($request->parent_id);
+        $parentModule = CourseClassModule::find($request->courseParentId);
+        // dd($parentModule->courseModule->course_id);
         $courseClassChildModuleId = $request->id;
-        $courseClassChildModule = CourseModule::create([
+        $courseChildModule = CourseModule::create([
             'name' => $request->name,
             'priority' => $request->priority,
             'level' => $request->level,
-            'course_id' => $parentModule->course_id,
+            'course_id' => $parentModule->courseModule->course_id,
             'course_module_parent_id' => $parentModule->id,
             'content' => $request->content,
             'description' => $request->description,
@@ -160,10 +162,24 @@ class CourseClassModuleController extends Controller
             'updated_id' => Auth::user()->id,
         ]);
 
+        $courseClassChildModule = CourseClassModule::create([
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'priority' => $request->priority,
+            'level' => $request->level,
+            'course_module_id' => $courseChildModule->id,
+            'course_class_id' => $parentModule->course_class_id,
+            'description' => $request->description,
+            'status' => $request->status ? 1 : 0,
+            'created_id' => Auth::user()->id,
+            'updated_id' => Auth::user()->id,
+        ]);
+        
+
         if ($courseClassChildModule) {
-            return redirect()->route('getCourseClassChildModule', ['id' => $request->parent_id])->with('success', 'Update Module Child Success');
+            return redirect()->route('getCourseClassChildModule', ['id' => $request->courseParentId])->with('success', 'Update Module Child Success');
         } else {
-            return redirect()->route('getCourseClassChildModule', ['id' => $request->parent_id])->with('failed', 'Failed to Update Child Module, please try again');
+            return redirect()->route('getCourseClassChildModule', ['id' => $request->courseParentId])->with('failed', 'Failed to Update Child Module, please try again');
         }
     }
 

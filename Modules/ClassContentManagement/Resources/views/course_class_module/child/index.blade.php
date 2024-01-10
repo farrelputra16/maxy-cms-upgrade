@@ -20,9 +20,11 @@
                 <thead style="text-align: center; vertical-align: middle;">
                     <tr>
                         <th>ID</th>
-                        <th>Child Module Name</th>
-                        <th>Child Module Priority</th>
-                        <th>Child Module Level</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Module Name</th>
+                        <th>Module Priority</th>
+                        <th>Module Level</th>
                         <th>Content</th>
                         <th>Description</th>
                         <th>Created At</th>
@@ -37,6 +39,8 @@
                     @foreach ($courseClassChildModule as $item)
                         <tr>
                             <td>{{ $item->id }}</td>
+                            <td>{{ $item->start_date }}</td>
+                            <td>{{ $item->end_date }}</td>
                             <td>{{ $item->courseModule->name }}</td>
                             <td>{{ $item->priority }}</td>
                             <td>{{ $item->level }}</td>

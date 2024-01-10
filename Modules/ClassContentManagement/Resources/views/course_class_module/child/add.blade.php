@@ -14,6 +14,14 @@
                 </div>
                 <div class="three fields">
                     <div class="field">
+                        <label for="">start date</label>
+                        <input type="date" name="start_date" value="{{ date('Y-m-d',strtotime($courseParent->start_date)) }}">
+                    </div>
+                    <div class="field">
+                        <label for="">end date</label>
+                        <input type="date" name="end_date" value="{{ date('Y-m-d',strtotime($courseParent->end_date)) }}">
+                    </div>
+                    <div class="field">
                         <label for="">Child Module Name</label>
                         <input type="text" name="name">
                     </div>
