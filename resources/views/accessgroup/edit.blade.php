@@ -40,18 +40,19 @@
                 </div>
                 <div class="field">
                     <label for="">Description</label>
-                    <textarea name="description">{{ $accessgroups->description }}</textarea>
-                </div>  
+                    <textarea name="description" id="description">{{ $accessgroups->description }}</textarea>
+                </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input class="form-check-input" type="checkbox" value="1" {{ $accessgroups->status == 1 ? 'checked' : ''}} name="status" >
+                        <input class="form-check-input" type="checkbox" value="1"
+                            {{ $accessgroups->status == 1 ? 'checked' : '' }} name="status">
                         <label>Aktif</label>
                     </div>
-                  </div>
+                </div>
             </div>
             <button class="right floated ui button primary">Save & Update</button>
         </form>
-        <a href="{{ route("getAccessGroup") }}"><button class=" right floated ui red button">Batal</button></a>
+        <a href="{{ route('getAccessGroup') }}"><button class=" right floated ui red button">Batal</button></a>
     </div>
     <script>
         $('#hapus, #tambah').multiselect({
@@ -59,5 +60,8 @@
             includeSelectAllOption: true,
             enableFiltering: true,
         });
+    </script>
+    <script>
+        CKEDITOR.replace('description');
     </script>
 @endsection

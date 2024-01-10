@@ -39,7 +39,8 @@ class CourseClass extends Model
         return $this->belongsTo(Course::class, 'course_id', 'id');
     }
 
-    public static function getCourseClass(){
+    public static function getCourseClass()
+    {
         // $class_list = DB::select('SELECT course.name AS course_name,
         //     course_class.id AS id,
         //     course_class.batch AS batch,
@@ -61,21 +62,21 @@ class CourseClass extends Model
         return $class_list;
     }
 
-    public static function getDuplicateCourseClass($request){
+    public static function getDuplicateCourseClass($request)
+    {
         $idCourseClass = $request->id;
         if ($idCourseClass !== null) {
             $allCourseClasses = DB::table('course_class')
-            ->select(
-                'course_class.id AS course_class_id',
-                'course_class.batch AS course_class_batch',
-                'course.id AS course_id',
-                'course.name AS course_name'
-            )
-            ->join('course', 'course_class.course_id', '=', 'course.id')
-            ->where('course_class.id', $idCourseClass)
-            ->get();
-
-        }else{
+                ->select(
+                    'course_class.id AS course_class_id',
+                    'course_class.batch AS course_class_batch',
+                    'course.id AS course_id',
+                    'course.name AS course_name'
+                )
+                ->join('course', 'course_class.course_id', '=', 'course.id')
+                ->where('course_class.id', $idCourseClass)
+                ->get();
+        } else {
             $allCourseClasses = DB::select('SELECT course_class.id AS course_class_id,
             course_class.batch AS course_class_batch,
             course.id AS course_id,
@@ -89,7 +90,8 @@ class CourseClass extends Model
         return $allCourseClasses;
     }
 
-    public static function getCurrentDataCourseClass($course_class_id){
+    public static function getCurrentDataCourseClass($course_class_id)
+    {
         $currentData = collect(DB::select('SELECT course.name AS course_name,
             course_class.course_id AS course_id, course_class.id as course_class_id, course_class.batch as batch
             FROM course_class
@@ -99,17 +101,19 @@ class CourseClass extends Model
 
         return $currentData;
     }
-    public static function getCourseDetailByClassId($course_class_id){
+    public static function getCourseDetailByClassId($course_class_id)
+    {
         $currentDataCourse = DB::table('course_class as cc')
-        ->select('c.id', 'c.name', 'cc.batch')
-        ->join('course as c', 'c.id', '=', 'cc.course_id')
-        ->where('cc.id', $course_class_id)
-        ->first();
+            ->select('c.id', 'c.name', 'cc.batch')
+            ->join('course as c', 'c.id', '=', 'cc.course_id')
+            ->where('cc.id', $course_class_id)
+            ->first();
 
         return $currentDataCourse;
     }
 
-    public static function getEditCourseClassMemberCurrentData($request){
+    public static function getEditCourseClassMemberCurrentData($request)
+    {
         $idCourseClass = $request->id;
         $currentData = collect(DB::select('SELECT course.name AS course_name,
             course_class.course_id AS course_id
@@ -141,7 +145,8 @@ class CourseClass extends Model
     }
 
 
-    public static function getEditCourseClassMemberCOURSEandCLASSES($currentData){
+    public static function getEditCourseClassMemberCOURSEandCLASSES($currentData)
+    {
 
         $currentDataCourse = DB::select('SELECT course.name AS course_name
         FROM course_class
@@ -165,21 +170,23 @@ class CourseClass extends Model
     }
 
     // new
-    public static function getAllCourseModuleByCourseId($course_id){
+    public static function getAllCourseModuleByCourseId($course_id)
+    {
         $allModule = DB::table('course_module as cm')
             ->select('*')
             ->where('cm.course_id', $course_id)
-            ->where('type','!=','company_profile')
+            ->where('type', '!=', 'company_profile')
             ->where('status', 1)
             ->where('day', '!=', null)
             ->get();
-            // dd($allModule);
+        // dd($allModule);
 
         return $allModule;
     }
 
     // new
-    public static function getClassDetailByClassModuleId($course_class_module_id){
+    public static function getClassDetailByClassModuleId($course_class_module_id)
+    {
         $class_detail = DB::table('course_class as cc')
             ->select('cc.*')
             ->join('course_class_module as ccmodule', 'ccmodule.course_class_id', '=', 'cc.id')
@@ -188,7 +195,8 @@ class CourseClass extends Model
         return $class_detail;
     }
     // new
-    public static function getClassDetailByClassId($course_class_id){
+    public static function getClassDetailByClassId($course_class_id)
+    {
         $class_detail = DB::table('course_class as cc')
             ->select('cc.*', 'c.name as course_name')
             ->join('course as c', 'c.id', '=', 'cc.course_id')

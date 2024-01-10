@@ -29,7 +29,7 @@ class CourseClassModuleController extends Controller
 
         $courseClassModules = CourseClassModule::getCourseClassModule($course_class_id);
         $courseClassModules = CourseClassModule::getParentModules($request);
-
+        // dd($courseClassModules);
         return view('classcontentmanagement::course_class_module.index', [
             'courseclassmodules' => $courseClassModules,
             'course_class_id' => $course_class_id,
@@ -54,6 +54,7 @@ class CourseClassModuleController extends Controller
 
     public function postAddCourseClassModule(Request $request)
     {
+        // dd($request->all());
         $create = CourseClassModule::create([
             'start_date' => $request->start,
             'end_date' => $request->end,
@@ -61,7 +62,7 @@ class CourseClassModuleController extends Controller
             'level' => $request->level,
             'course_module_id' => $request->coursemoduleid,
             'course_class_id' => $request->course_class_id,
-            'content' => $request->content,
+            // 'content' => $request->content,
             'description' => $request->description,
             'status' => $request->status ? 1 : 0,
             'created_id' => Auth::user()->id,
@@ -69,9 +70,9 @@ class CourseClassModuleController extends Controller
         ]);
 
         if ($create) {
-            return redirect()->route('getCourseClassModule', ['id' => $request->course_class_id])->with('success', 'Sukses Menambahkan Modul');
+            return redirect()->route('getCourseClassModule', ['id' => $request->course_class_id])->with('success', 'Sukses Menambahkan Class Modul');
         } else {
-            return redirect()->route('getCourseClassModule', ['id' => $request->course_class_id])->with('failed', 'Gagal Menambahkan Modul, silahkan coba lagi');
+            return redirect()->route('getCourseClassModule', ['id' => $request->course_class_id])->with('failed', 'Gagal Menambahkan Class Modul, silahkan coba lagi');
         }
     }
 
@@ -126,12 +127,94 @@ class CourseClassModuleController extends Controller
         $courseParent = CourseClassModule::find($courseClassModuleId);
         $courseClassChildModule = CourseClassModule::getChildModules($courseParent->courseModule->id);
         // dd($courseClassChildModule);
+        // dd($courseParent);
 
         return view('classcontentmanagement::course_class_module.child.index', [
             'courseParent' => $courseParent,
             'courseClassChildModule' => $courseClassChildModule
         ]);
     }
+
+    function getAddCourseClassChildModule(Request $request)
+    {
+        $courseParent = CourseClassModule::find($request->id);
+
+        return view('classcontentmanagement::course_class_module.child.add', [
+            'courseParent' => $courseParent
+        ]);
+    }
+
+    function postAddCourseClassChildModule(Request $request)
+    {
+        $parentModule = CourseClassModule::find($request->courseParentId);
+        // dd($parentModule->courseModule->course_id);
+        $courseClassChildModuleId = $request->id;
+        $courseChildModule = CourseModule::create([
+            'name' => $request->name,
+            'priority' => $request->priority,
+            'level' => $request->level,
+            'course_id' => $parentModule->courseModule->course_id,
+            'course_module_parent_id' => $parentModule->id,
+            'content' => $request->content,
+            'description' => $request->description,
+            'status' => $request->status ? 1 : 0,
+            'created_id' => Auth::user()->id,
+            'updated_id' => Auth::user()->id,
+        ]);
+
+        $courseClassChildModule = CourseClassModule::create([
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'priority' => $request->priority,
+            'level' => $request->level,
+            'course_module_id' => $courseChildModule->id,
+            'course_class_id' => $parentModule->course_class_id,
+            'description' => $request->description,
+            'status' => $request->status ? 1 : 0,
+            'created_id' => Auth::user()->id,
+            'updated_id' => Auth::user()->id,
+        ]);
+        
+
+        if ($courseClassChildModule) {
+            return redirect()->route('getCourseClassChildModule', ['id' => $request->courseParentId])->with('success', 'Update Module Child Success');
+        } else {
+            return redirect()->route('getCourseClassChildModule', ['id' => $request->courseParentId])->with('failed', 'Failed to Update Child Module, please try again');
+        }
+    }
+
+    function getEditCourseClassChildModule(Request $request)
+    {
+        $courseChild = CourseClassModule::find($request->id);
+
+        return view('classcontentmanagement::course_class_module.child.edit', [
+            'courseChild' => $courseChild,
+            'parentId' => $request->parent_id
+        ]);
+    }
+
+    function postEditCourseClassChildModule(Request $request)
+    {
+        $courseClassChildModuleId = $request->id;
+        $courseClassModule = CourseClassModule::find($courseClassChildModuleId)
+            ->courseModule()
+            ->update([
+                'name' => $request->name,
+                'priority' => $request->priority,
+                'level' => $request->level,
+                'content' => $request->content,
+                'description' => $request->description,
+                'status' => $request->status ? 1 : 0,
+                'updated_id' => Auth::user()->id,
+            ]);
+
+        if ($courseClassModule) {
+            return redirect()->route('getCourseClassChildModule', ['id' => $request->parent_id])->with('success', 'Update Module Child Success');
+        } else {
+            return redirect()->route('getCourseClassChildModule', ['id' => $request->parent_id])->with('failed', 'Failed to Update Child Module, please try again');
+        }
+    }
+
 
     public function index()
     {

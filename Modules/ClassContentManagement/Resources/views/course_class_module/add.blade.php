@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <div style="padding: 12px 12px 0px 12px;">
         <h2>Add Module:</h2>
-        <hr>  
+        <hr>
         <form class="ui form" action="{{ route('postAddCourseClassModule') }}" method="post">
             @csrf
             <input type="hidden" name="course_class_id" value="{{ $course_class_id }}">
@@ -19,7 +19,7 @@
                     <input type="date" id="date" name="start">
                     @if ($errors->has('start'))
                         @foreach ($errors->get('start') as $error)
-                            <span style="color: red;">{{$error}}</span>
+                            <span style="color: red;">{{ $error }}</span>
                         @endforeach
                     @endif
                 </div>
@@ -28,7 +28,7 @@
                     <input type="date" id="date" name="end">
                     @if ($errors->has('end'))
                         @foreach ($errors->get('end') as $error)
-                            <span style="color: red;">{{$error}}</span>
+                            <span style="color: red;">{{ $error }}</span>
                         @endforeach
                     @endif
                 </div>
@@ -37,7 +37,7 @@
                     <input type="number" name="priority">
                     @if ($errors->has('priority'))
                         @foreach ($errors->get('priority') as $error)
-                            <span style="color: red;">{{$error}}</span>
+                            <span style="color: red;">{{ $error }}</span>
                         @endforeach
                     @endif
                 </div>
@@ -46,7 +46,7 @@
                     <input type="number" name="level">
                     @if ($errors->has('level'))
                         @foreach ($errors->get('level') as $error)
-                            <span style="color: red;">{{$error}}</span>
+                            <span style="color: red;">{{ $error }}</span>
                         @endforeach
                     @endif
                 </div>
@@ -55,29 +55,30 @@
                     <select name="coursemoduleid" class="ui dropdown">
                         @foreach ($allModules as $item)
                             @if ($item->type == '')
-                            <option value="{{ $item->id }}">Day {{ $item->day }}: {{ $item->name }}</option>
+                                <option value="{{ $item->id }}">Day {{ $item->day }}: {{ $item->name }}</option>
                             @else
-                            <option value="{{ $item->id }}">[{{ $item->type }}]{{ $item->name }}</option>
+                                <option value="{{ $item->id }}">[{{ $item->type }}]{{ $item->name }}</option>
                             @endif
                         @endforeach
                     </select>
                     @if ($errors->has('coursemoduleid'))
                         @foreach ($errors->get('coursemoduleid') as $error)
-                            <span style="color: red;">{{$error}}</span>
+                            <span style="color: red;">{{ $error }}</span>
                         @endforeach
                     @endif
                 </div>
                 <div class="field">
                     <label for="">Course Class (Batch) - Course</label>
-                    <select name="courseclassid" class="ui dropdown" disabled>
-                        <option value="{{ $classDetail->course_class_id }}">Batch {{ $classDetail->batch}} - {{ $classDetail->course_name }}</option>
+                    <select name="course_class_id" class="ui dropdown" disabled>
+                        <option value="{{ $classDetail->course_class_id }}">Batch {{ $classDetail->batch }} -
+                            {{ $classDetail->course_name }}</option>
                     </select>
                     @if ($errors->has('courseclassid'))
                         @foreach ($errors->get('courseclassid') as $error)
-                            <span style="color: red;">{{$error}}</span>
+                            <span style="color: red;">{{ $error }}</span>
                         @endforeach
                     @endif
-                </div>    
+                </div>
             </div>
             {{-- <div class="field">
                 <label for="">Course Class Module Content</label>
@@ -89,7 +90,7 @@
             </div>
             <div class="field">
                 <div class="ui checkbox">
-                    <input class="form-check-input" type="checkbox" value="1" name="status" >
+                    <input class="form-check-input" type="checkbox" value="1" name="status">
                     <label>Aktif</label>
                 </div>
             </div>

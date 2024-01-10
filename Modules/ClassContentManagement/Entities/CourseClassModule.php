@@ -3,6 +3,7 @@
 namespace Modules\ClassContentManagement\Entities;
 
 use App\Models\CourseModule;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\DB;
@@ -38,6 +39,16 @@ class CourseClassModule extends Model
     public function courseClass()
     {
         return $this->belongsTo(CourseClass::class, 'course_class_id');
+    }
+
+    public function userCreated()
+    {
+        return $this->belongsTo(User::class, 'created_id');
+    }
+
+    public function userUpdated()
+    {
+        return $this->belongsTo(User::class, 'updated_id');
     }
 
     protected static function newFactory()
@@ -207,5 +218,53 @@ class CourseClassModule extends Model
             $query->where('course_module_parent_id', $id);
         })
             ->orderBy('priority')->get();
+    }
+
+    public static function getAddCourseClassChildModule($idCourseClassChild)
+    {
+        if ($idCourseClassChild !== null) {
+            $allClass = DB::select('
+                SELECT
+                    course_class.id AS course_class_id,
+                    course_class.batch AS batch,
+                    course.name AS course_name
+                FROM
+                    course_class
+                JOIN
+                    course ON course_class.course_id = course.id
+                WHERE
+                    course_class.id = :idCourse
+            ', ['idCourseClassChild' => $idCourseClassChild]);
+        } else {
+            $allClass = DB::select('
+                SELECT 
+                    course_class.id AS course_class_id,
+                    course_class.batch AS batch,
+                    course.name AS course_name
+                FROM 
+                    course_class
+                JOIN 
+                    course ON course_class.course_id = course.id
+            ');
+        }
+        return $allClass;
+    }
+
+    public static function getEditCourseClassChildModule($idCourseClassChild)
+    {
+        $editClass = DB::select('
+        SELECT
+            course_class.id AS course_class_id,
+            course_class.batch AS batch,
+            course.name AS course_name
+        FROM
+            course_class
+        JOIN
+            course ON course_class.course_id = course.id
+        WHERE
+            course_class.id = :idCourse
+    ', ['idCourseClassChild' => $idCourseClassChild]);
+
+        return $editClass;
     }
 }

@@ -141,7 +141,7 @@ class CourseClassController extends Controller
     {
         $course_class_id = $request->id;
         $course_class_detail = CourseClass::getClassDetailByClassId($course_class_id);
-
+        // dd($course_class_detail);
         // $currentData = CourseClass::getCurrentDataCourseClass($request);
         // dd($course_class_detail);
 
@@ -178,7 +178,6 @@ class CourseClassController extends Controller
         } else {
             return app(HelperController::class)->Warning('getCourseClass');
         }
-
     }
 
     public function index()

@@ -3,7 +3,7 @@
 @section('title', 'Edit Course Class')
 
 @section('content')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
@@ -33,13 +33,14 @@
                         <label for="">End Date</label>
                         <input type="date" name="end" value="{{ $course_class_detail->end_date }}">
                     </div>
-                    
+
                 </div>
                 <div class="field">
                     <label for="">Course</label>
                     <select name="course_id" class="ui dropdown">
                         @foreach ($course_list as $items)
-                            <option value="{{ $items->id }}" @if($items->id == $course_class_detail->course_id) selected @endif>{{ $items->name }}</option>
+                            <option value="{{ $items->id }}" @if ($items->id == $course_class_detail->course_id) selected @endif>
+                                {{ $items->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -55,17 +56,19 @@
                     <label for="">Description</label>
                     <textarea name="description">{{ $course_class_detail->description }}</textarea>
                 </div>
-               
+
                 <div class="field">
                     <div class="ui checkbox">
-                        <input class="form-check-input" type="checkbox" value="1" {{ $course_class_detail->status == 1 ? 'checked' : ''}} name="status" >
+                        <input class="form-check-input" type="checkbox" value="1"
+                            {{ $course_class_detail->status == 1 ? 'checked' : '' }} name="status">
                         <label>Aktif</label>
                     </div>
-                  </div>
+                </div>
             </div>
             <button class="right floated ui button primary">Save & Update</button>
         </form>
-        <a href="{{ route('getAddCourseClassModule', ['id' => $course_class_detail->id]) }}"><button class=" right floated ui button primary">Tambah Course Module</button></a>
+        <a href="{{ route('getAddCourseClassModule', ['id' => $course_class_detail->id]) }}"><button
+                class=" right floated ui button primary">Tambah Course Module</button></a>
         <a href="{{ route('getCourseClass') }}"><button class=" right floated ui red button">Batal</button></a>
     </div>
 @endsection

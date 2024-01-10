@@ -19,7 +19,7 @@
                 </div>
                 <div class="field">
                     <label for="">Description</label>
-                    <textarea name="description"></textarea>
+                    <textarea name="description" id="description"></textarea>
                 </div>
                 <div class="field">
                     <label for="access_master">Pilih Access Master:</label>
@@ -51,5 +51,8 @@
             includeSelectAllOption: true,
             enableFiltering: true,
         });
+    </script>
+    <script>
+        CKEDITOR.replace('description');
     </script>
 @endsection

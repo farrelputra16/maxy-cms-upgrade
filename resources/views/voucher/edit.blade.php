@@ -6,7 +6,7 @@
     <div style="padding: 0px 12px 0px 12px;">
         <h2 style="padding-bottom:3%">Edit Vouchers</h2>
         <form class="ui form" action="{{ route('postEditVoucher', ['id' => request()->query('id')]) }}" method="post">
-        @csrf
+            @csrf
             <div class="field">
                 <div class="field">
                     <label for="">Name</label>
@@ -21,7 +21,7 @@
                     <div class="field">
                         <label for="">Waktu Mulai</label>
                         <input type="datetime-local" name="start_date" value="{{ $currentData->start_date }}">
-                        
+
                     </div>
                     <div class="field">
                         <label for="">Waktu Berakhir</label>
@@ -31,16 +31,15 @@
                 <div class="three fields">
                     <div class="field">
                         <label for="">Discount Type</label>
-                        <select class="ui dropdown" name="discount_type" >
-                            @if ($currentData->discount_type == "PERCENTAGE")
+                        <select class="ui dropdown" name="discount_type">
+                            @if ($currentData->discount_type == 'PERCENTAGE')
                                 <option value="PERCENTAGE" selected>PERCENTAGE</option>
                                 <option value="FIXED">FIXED</option>
-
-                            @elseif ($currentData->discount_type == "FIXED")
+                            @elseif ($currentData->discount_type == 'FIXED')
                                 <option value="PERCENTAGE" selected>PERCENTAGE</option>
                                 <option value="FIXED" selected>FIXED</option>
                             @endif
-                            
+
                         </select>
                     </div>
 
@@ -51,23 +50,27 @@
 
                     <div class="field">
                         <label for="">Max Discount</label>
-                        <input type="number" name="maxdiscount" id="maxdiscount" placeholder="e.g. 5" value="{{ $currentData->max_discount }}">
+                        <input type="number" name="maxdiscount" id="maxdiscount" placeholder="e.g. 5"
+                            value="{{ $currentData->max_discount }}">
                     </div>
                 </div>
-
                 <div class="field">
                     <label for="">Description</label>
-                    <textarea name="description" value="{{ $currentData->description }}"></textarea>
+                    <textarea name="description" id="description">{{ $currentData->description }}</textarea>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input class="form-check-input" type="checkbox" value="1" {{ $currentData->status == 1 ? "checked" : "" }} name="status" >
+                        <input class="form-check-input" type="checkbox" value="1"
+                            {{ $currentData->status == 1 ? 'checked' : '' }} name="status">
                         <label>Aktif</label>
                     </div>
                 </div>
             </div>
             <button class="right floated ui button primary">Save & Update</button>
         </form>
-        <a href="{{ route("getVoucher") }}"><button class=" right floated ui red button">Batal</button></a>
+        <a href="{{ route('getVoucher') }}"><button class=" right floated ui red button">Batal</button></a>
     </div>
+    <script>
+        CKEDITOR.replace('description');
+    </script>
 @endsection
