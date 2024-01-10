@@ -1655,7 +1655,7 @@ CREATE TABLE `user_redeem_code` (
   KEY `user_redeem_code_users_id_fk` (`user_id`),
   CONSTRAINT `user_redeem_code_course_class_redeem_code_id_fk` FOREIGN KEY (`redeem_code_id`) REFERENCES `redeem_code` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `user_redeem_code_users_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
