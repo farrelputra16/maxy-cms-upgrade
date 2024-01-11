@@ -43,9 +43,9 @@ class CoursePackageController extends Controller
             ]);
     
             if ($create){
-                return app(HelperController::class)->Positive('getAccessGroup');
+                return app(HelperController::class)->Positive('getCoursePackage');
             }
-            return app(HelperController::class)->Negative('getAccessGroup');
+            return app(HelperController::class)->Negative('getAddCoursePackage');
         }
     }
 

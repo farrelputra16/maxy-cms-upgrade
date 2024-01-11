@@ -185,5 +185,8 @@
 			rupiah1 = split[1] != undefined ? rupiah1 + ',' + split[1] : rupiah1;
 			return prefix == undefined ? rupiah1 : (rupiah1 ? 'Rp. ' + rupiah1 : '');
 		}
+        
+        CKEDITOR.replace('content');
+        CKEDITOR.replace('description');
     </script>
 @endsection

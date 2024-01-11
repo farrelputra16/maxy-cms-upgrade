@@ -50,4 +50,8 @@
         </form>
         <a href="{{ route("getCourseModule") }}"><button class=" right floated ui red button">Batal</button></a>
     </div>
+    <script>
+        CKEDITOR.replace('content');
+        CKEDITOR.replace('description');
+    </script>
 @endsection

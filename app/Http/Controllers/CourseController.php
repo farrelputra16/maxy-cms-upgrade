@@ -33,6 +33,7 @@ class CourseController extends Controller
 
     public function postAddCourse(Request $request)
     {
+        try{
         $fileName = null;
         if ($request->hasFile('file_image')) {
             $file = $request->file('file_image');
@@ -82,6 +83,9 @@ class CourseController extends Controller
                 return app(HelperController::class)->Positive('getCourse');
             }
         }
+    } catch (\Exception $e) {
+        return app(HelperController::class)->Negative('getCourse');
+    }
     }
 
     function getEditCourse(Request $request)

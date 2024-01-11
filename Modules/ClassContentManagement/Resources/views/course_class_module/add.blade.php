@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <div style="padding: 12px 12px 0px 12px;">
-        <h2>Add Module:</h2>
+        <h2>Add Class Module:</h2>
         <hr>
         <form class="ui form" action="{{ route('postAddCourseClassModule') }}" method="post">
             @csrf
@@ -56,8 +56,8 @@
                         @foreach ($allModules as $item)
                             @if ($item->type == '')
                                 <option value="{{ $item->id }}">Day {{ $item->day }}: {{ $item->name }}</option>
-                            @else
-                                <option value="{{ $item->id }}">[{{ $item->type }}]{{ $item->name }}</option>
+                            {{-- @else
+                                <option value="{{ $item->id }}">[{{ $item->type }}]{{ $item->name }}</option> --}}
                             @endif
                         @endforeach
                     </select>
@@ -97,5 +97,10 @@
             <button class="right floated ui button primary">Tambah Course Class Module</button>
         </form>
         <a href="{{ route('getCourseClassModule') }}"><button class=" right floated ui red button">Batal</button></a>
+        <a href="{{ route('getAddCourseModule') }}"><button class="left floated ui button primary">Add Course Module +</button></a>
     </div>
+    <script>
+        // CKEDITOR.replace('content');
+        CKEDITOR.replace('description');
+    </script>
 @endsection

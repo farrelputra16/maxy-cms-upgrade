@@ -72,6 +72,19 @@
                 @endforeach
             </tbody>
         </table>
+        {{-- <div class="navbar-nav">
+            @if(isset($idCPB))
+                <a class="btn btn-primary" href="{{ route('getAddCoursePackageBenefit', ['idCPB' => $idCPB]) }}" role="button">Tambah Course Package Benefit +</a>
+            @endif
+            <a class="btn btn-secondary" href="{{ url()->previous() }}" role="button">Back</a>
+        </div> --}}
+        <div class="navbar-nav">
+            @if(isset($idCPB))
+                <a class="btn btn-primary" href="{{ route('getCoursePackage')}}" role="button">BACK</a>
+            @endif
+            {{-- <a class="btn btn-secondary" href="{{ url()->previous() }}" role="button">Back</a> --}}
+        </div>
+
     </div>
     
     <!-- Include JS libraries for DataTable initialization -->

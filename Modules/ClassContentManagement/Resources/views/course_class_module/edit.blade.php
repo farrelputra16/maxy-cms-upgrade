@@ -75,4 +75,8 @@
         </form>
         <a href="{{ route('getCourseClassModule', ['id' => $course_class_id]) }}"><button class=" right floated ui red button">Batal</button></a>
     </div>
+    <script>
+        // CKEDITOR.replace('content');
+        CKEDITOR.replace('description');
+    </script>
 @endsection
