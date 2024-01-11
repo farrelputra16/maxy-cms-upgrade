@@ -126,8 +126,6 @@ class CourseClassModuleController extends Controller
         $courseClassModuleId = $request->id;
         $courseParent = CourseClassModule::find($courseClassModuleId);
         $courseClassChildModule = CourseClassModule::getChildModules($courseParent->courseModule->id);
-        // dd($courseClassChildModule);
-        // dd($courseParent);
 
         return view('classcontentmanagement::course_class_module.child.index', [
             'courseParent' => $courseParent,
@@ -137,18 +135,20 @@ class CourseClassModuleController extends Controller
 
     function getAddCourseClassChildModule(Request $request)
     {
+        $courseClassId = $request->course_class_id;
+
         $courseParent = CourseClassModule::find($request->id);
+        $allModules = CourseClass::getAllCourseModuleByCourseId($courseClassId);
 
         return view('classcontentmanagement::course_class_module.child.add', [
-            'courseParent' => $courseParent
+            'courseParent' => $courseParent,
+            'allModules' => $allModules
         ]);
     }
 
     function postAddCourseClassChildModule(Request $request)
     {
         $parentModule = CourseClassModule::find($request->courseParentId);
-        // dd($parentModule->courseModule->course_id);
-        $courseClassChildModuleId = $request->id;
         $courseChildModule = CourseModule::create([
             'name' => $request->name,
             'priority' => $request->priority,
@@ -174,7 +174,7 @@ class CourseClassModuleController extends Controller
             'created_id' => Auth::user()->id,
             'updated_id' => Auth::user()->id,
         ]);
-        
+
 
         if ($courseClassChildModule) {
             return redirect()->route('getCourseClassChildModule', ['id' => $request->courseParentId])->with('success', 'Update Module Child Success');

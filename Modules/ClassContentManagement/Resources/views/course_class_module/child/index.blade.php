@@ -11,7 +11,8 @@
         </h2>
         <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
             <div class="navbar-nav">
-                <a class="btn btn-primary" href="{{ route('getAddCourseClassChildModule', ['id' => $courseParent->id]) }}"
+                <a class="btn btn-primary"
+                    href="{{ route('getAddCourseClassChildModule', ['id' => $courseParent->id, 'course_class_id' => $courseParent->course_class_id]) }}"
                     role="button">Tambah Child Module +</a>
             </div>
         </nav>
