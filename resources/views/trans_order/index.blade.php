@@ -29,7 +29,7 @@
                             Order +</a>
                     </div>
                 </div>
-                <table id="example" class="table table-striped" style="width:100%">
+                <table id="example" class="table table-striped w-100">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -45,7 +45,7 @@
                             <th>Course Package</th>
                             <th>ID Promotion</th>
                             {{-- <th>Forced At</th>
-                    <th>Forced Comment</th> --}}
+                            <th>Forced Comment</th> --}}
                             <th>Description</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -59,7 +59,7 @@
                                 <td>{{ $item->date }}</td>
                                 {{-- <td>{{ $item->total }}</td> --}}
                                 <td>{{ 'Rp ' . number_format($item->total, 0, ',', '.') }}</td>
-                                <td>{{ $item->discount }}%</td>
+                                <td>{{ $item->discount ?? 0 }}%</td>
                                 {{-- <td>{{ $item->total_after_discount }}</td> --}}
                                 <td>{{ 'Rp' . number_format($item->total_after_discount) }}</td>
                                 {{-- <td>{{ $item->payment_status }}</td> --}}
@@ -76,7 +76,7 @@
                                         {{-- Partial --}}
                                     @elseif ($item->payment_status == 3)
                                     <a class="ui tiny red label" style="text-decoration: none;">Cancelled</a>
-                                  
+
                                         {{-- Cancelled --}}
                                     @else
                                         Unknown Status

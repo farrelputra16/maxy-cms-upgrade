@@ -1,14 +1,9 @@
 <?php
 
 namespace App\Models;
-use App\Models\Course;
-use App\Models\CoursePackage;
-use App\Models\MCourseType;
-use App\Models\MDifficultyType;
+
 use DB;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\HelperController;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,50 +13,72 @@ class Course extends Model
 
     protected $table = 'course';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'fake_price',
-        'price',
-        'discounted_price',
-        'short_description',
-        'image',
-        'preview',
-        'target',
-        'payment_link',
-        'slug',
-        'm_course_type_id',
-        'course_package_id',
-        'm_difficulty_type_id',
-        'description',
-        'status',
-        'content',
-        'created_at',
-        'created_id',
-        'updated_at',
-        'updated_id'
-    ];
+    protected $guarded = [];
+
+    protected $appends = ['issuer', 'total_learners', 'total_duration'];
+
+    public $issuer = 'maxy-academy';
+
+    // ini buat upskilling
+    public $total_learners = 0;
+    public $total_duration = 0;
+
+    public function modules()
+    {
+        return $this->hasMany(CourseModule::class, 'course_id')->where('status', 1);
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(MCourseType::class, 'm_course_type_id')->where('status', 1);
+    }
+
+    public function courseClasses()
+    {
+        return $this->hasMany(CourseClass::class, 'course_id')->where('status', 1);
+    }
+
+    public function coursePackage()
+    {
+        return $this->belongsTo(CoursePackage::class, 'course_package_id')->where('status', 1);
+    }
+
+    public function difficulty()
+    {
+        return $this->belongsTo(MDifficultyType::class, 'm_difficulty_type_id')->where('status', 1);
+    }
+
+    public function getIssuerAttribute()
+    {
+        return $this->issuer;
+    }
+
+    public function getTotalLearnersAttribute()
+    {
+        return $this->total_learners;
+    }
+
+    public function getTotalDurationAttribute()
+    {
+        return $this->total_duration;
+    }
 
     public static function CurrentDataCourse($idCourse){
-        $currentDataCourse = collect(DB::select('SELECT course.id AS course_id, 
+        $currentDataCourse = collect(DB::select('SELECT course.id AS course_id,
             course.m_course_type_id AS m_course_type_id,
             course.fake_price AS fake_price,
             course.price AS price,
             course.m_difficulty_type_id AS m_difficulty_type_id,
             m_course_type.name AS course_type_name,
             m_difficulty_type.name AS course_difficulty
-            FROM course 
+            FROM course
             INNER JOIN m_course_type ON course.m_course_type_id = m_course_type.id
-            INNER JOIN m_difficulty_type ON course.m_difficulty_type_id = m_difficulty_type.id 
+            INNER JOIN m_difficulty_type ON course.m_difficulty_type_id = m_difficulty_type.id
             WHERE course.id = ?;', [$idCourse]))->first();
 
         return $currentDataCourse;
     }
-    
+
     public static function CurrentCoursePackages($idCourse){
         $currentCoursePackages = collect(DB::select('SELECT course_package.id AS course_package_id, course_package.name AS course_package_name,
             course_package.price AS course_package_price
@@ -152,6 +169,6 @@ class Course extends Model
                     'updated_id' => Auth::user()->id
             ]));
         }
-        
+
     }
 }
