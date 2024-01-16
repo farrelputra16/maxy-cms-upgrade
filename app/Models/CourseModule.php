@@ -12,24 +12,53 @@ class CourseModule extends Model
 
     protected $table = 'course_module';
 
-    protected $fillable = [
-        'name',
-        'priority',
-        'level',
-        'course_id',
-        'course_module_parent_id',
-        'content',
-        'description',
-        'status',
-        'created_at',
-        'created_id',
-        'updated_at',
-        'updated_id'
-    ];
+    protected $guarded = [];
+
+    // untuk upskilling
+    protected $appends = ['videoType'];
+
+    public $videoType = 'Video';
+    public $imgCover = '';
+    protected $with = ['children'];
 
     public function course()
     {
-        return $this->belongsTo(Course::class, 'course_id');
+        return $this->belongsTo(Course::class, 'course_id')->where('status', 1);
+    }
+
+    public function courseClassModules()
+    {
+        return $this->hasMany(CourseClassModule::class, 'course_module_id');
+    }
+
+    public function allParents()
+    {
+        return $this->where('level', 1)->where('status', 1)->orderBy('priority', 'ASC');
+    }
+
+    public function parents()
+    {
+        return $this->belongsTo(CourseModule::class, 'course_module_parent_id')->where('status', 1);
+    }
+
+    public function children()
+    {
+        return $this->hasMany(CourseModule::class, 'course_module_parent_id')
+            ->where('status', 1)
+            ->where('type', '!=', 'company_profile')
+            ->whereNotNull('day')
+            ->orderBy('day')
+            ->orderBy('priority');
+    }
+
+    public function getVideoTypeAttribute()
+    {
+        return $this->videoType;
+    }
+
+    public function getImgCoverAttribute()
+    {
+        return $this->imgCover;
     }
 
     public static function getCourseModuleParent($request)
@@ -37,22 +66,16 @@ class CourseModule extends Model
         $idCourse = $request->id;
 
         if ($idCourse !== null) {
-            $courseModuleParent = DB::select('
-                SELECT
-                   *
-                FROM
-                    course_module
-                WHERE
-                    course_module_parent_id IS NULL
-                    AND course_id = :idCourse
-                ORDER BY
-                    id ASC, priority ASC;
-            ', ['idCourse' => $idCourse]);
+            $courseModuleParent = CourseModule::where('course_module_parent_id', null)
+                ->where('course_id', $idCourse)
+                ->orderBy('id', 'ASC')
+                ->orderBy('priority', 'ASC')
+                ->get();
         } else {
-            $courseModuleParent = DB::select('SELECT id, name, course_id, content, description, status, created_at , created_id, updated_at , updated_id
-            FROM course_module
-            WHERE course_module_parent_id IS NULL
-            ORDER BY id ASC, priority ASC;');
+            $courseModuleParent = CourseModule::where('course_module_parent_id', null)
+                ->orderBy('id', 'ASC')
+                ->orderBy('priority', 'ASC')
+                ->get();
         }
 
         return $courseModuleParent;
@@ -60,21 +83,19 @@ class CourseModule extends Model
 
     public static function getCurrentCourse($request)
     {
-        $currentCourse = collect(DB::select('SELECT course.id as course_id, course.name as course_name
-            FROM course_module
-            JOIN course
-            WHERE course_module.course_id = course.id
-            AND course_module.id = ?;
-        ', [$request->id]));
+        $currentCourse = CourseModule::join('course', 'course_module.course_id', '=', 'course.id')
+            ->where('course_module.id', $request->id)
+            ->select('course.id as course_id', 'course.name as course_name')
+            ->get();
 
         return $currentCourse;
     }
 
-    public static function CourseModuleChild($request)
+    public static function courseModuleChild($request)
     {
-        $courseModuleChild = DB::select('SELECT id, name, content ,  description, priority, level, status , created_at , created_id, updated_at , updated_id
-            FROM course_module
-            WHERE course_module_parent_id = ? ORDER BY priority ASC', [$request->id]);
+        $courseModuleChild = CourseModule::where('course_module_parent_id', $request->id)
+            ->orderBy('priority', 'ASC')
+            ->get();
 
         return $courseModuleChild;
     }

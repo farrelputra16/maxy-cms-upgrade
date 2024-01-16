@@ -16,9 +16,7 @@ class CourseModuleController extends Controller
     function getCourseModule(Request $request)
     {
         $idCourse = $request->id;
-
         $courseModuleParent = CourseModule::getCourseModuleParent($request);
-
 
         return view('course_module.index', [
             'courseModules' => $courseModuleParent,
@@ -133,7 +131,7 @@ class CourseModuleController extends Controller
     function getCourseChildModule(Request $request)
     {
         $courseParent = CourseModule::find($request->id);
-        $courseModuleChild = CourseModule::CourseModuleChild($request);
+        $courseModuleChild = CourseModule::courseModuleChild($request);
 
         return view('course_module.child.index', [
             'courseParent' => $courseParent,

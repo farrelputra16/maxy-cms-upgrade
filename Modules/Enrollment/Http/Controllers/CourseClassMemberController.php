@@ -83,7 +83,7 @@ class CourseClassMemberController extends Controller
 
             // return dd($currentData);
 
-            $result = CourseClass::getEditCourseClassMemberCOURSEandCLASSES($currentData);
+            $result = CourseClass::getEditCourseClassMemberCourseandClasses($currentData);
 
             $currentDataCourse = $result['currentDataCourse'];
             $allCourseClasses = $result['allCourseClasses'];
@@ -119,7 +119,7 @@ class CourseClassMemberController extends Controller
 
     function importCSV(Request $request)
     {
-    
+
         $request->validate([
             'csv_file' => 'required|file|mimes:csv,txt', // Hanya menerima file CSV
         ]);

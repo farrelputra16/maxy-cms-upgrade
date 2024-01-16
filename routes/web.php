@@ -45,13 +45,11 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::get('/login', [AuthController::class, 'getLogin'])->name('login');
-
 Route::post('/login', [AuthController::class, 'postLogin'])->name('postLogin');
-
 Route::post('/logout', [AuthController::class, 'postLogout'])->name('logout');
 
-// dashboard route
 Route::get('/dashboard', [DashboardController::class, 'getDashboard'])->name('getDashboard');
+Route::get('/dashboard/synchronize', [DashboardController::class, 'synchronizeData'])->name('synchronizeData');
 
 // course route ###########################################################################################################
 Route::get('/course', [CourseController::class, 'getCourse'])->name('getCourse')->middleware('access:course_manage');
