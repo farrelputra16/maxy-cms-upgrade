@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper;
 use App\Models\AccessMaster;
 use App\Models\Course;
 use App\Models\CourseModule;
@@ -25,8 +26,31 @@ class DashboardController extends Controller
         ]);
     }
 
+    public function generateToken($email, $name)
+    {
+        $secretKey = '4D6351655468576D5A7134743777217A25432A462D4A614E645267556A586E32';
+        $token = sha1($email . '|' . $secretKey);
+
+        $response = Http::post('https://athena.gokampus.com/auth/login-register', [
+            'token' => $token,
+            'email' => $email,
+            'name' => $name,
+            'referral' => 'maxy', // maxy-academy (dev), maxy (prod)
+        ]);
+
+        session()->put('token', $response->json()['token']);
+
+        return $response;
+    }
+
+    /**
+     * @throws \Exception
+     */
     public function synchronizeData()
     {
+        $user = auth()->user();
+        Helper::generateToken($user->email, $user->name);
+
         $goKampusCourses = Http::withToken(session('token'))
             ->get('https://athena.gokampus.com/tenants/maxy/courses')
             ->json();
@@ -34,19 +58,16 @@ class DashboardController extends Controller
         $goKampusCourses = $goKampusCourses['data'] ?? [];
 
         DB::beginTransaction();
-
         try {
             $courses = $this->createCourses($goKampusCourses);
             $this->createCourseClasses($courses);
 
             DB::commit();
+            return response()->json(['status' => 'success']);
         } catch (\Exception $e) {
             DB::rollBack();
-            // Handle exception (log, throw, etc.)
             throw $e;
         }
-
-        return response()->json(['status' => 'success']);
     }
 
     private function createCourses($goKampusCourses)
@@ -54,7 +75,7 @@ class DashboardController extends Controller
         $courses = [];
 
         foreach ($goKampusCourses as $goKampusCourse) {
-            $isCourseExist = Course::firstWhere('slug', $goKampusCourses['slug']);
+            $isCourseExist = Course::firstWhere('slug', $goKampusCourse['slug']);
             if ($isCourseExist) continue;
 
             $detail = Http::withToken(session('token'))
@@ -62,12 +83,16 @@ class DashboardController extends Controller
                 ->json()['data'];
 
             $course = Course::create([
-                'name' => $goKampusCourse['name'],
-                'slug' => $goKampusCourse['slug'],
-                'fake_price' => $goKampusCourse['original_price'],
-                'price' => $goKampusCourse['discounted_price'],
-                'description' => $goKampusCourse['description'],
-                'image' => $goKampusCourse['image_cover_url'],
+                'name' => $detail['name'],
+                'slug' => $detail['slug'],
+                'fake_price' => $detail['original_price'],
+                'price' => $detail['discounted_price'],
+                'short_description' => '',
+                'preview' => '',
+                'target' => '',
+                'payment_link' => '',
+                'description' => $detail['description'],
+                'image' => $detail['image_cover_url'],
                 'm_course_type_id' => 7, // upskilling
                 'm_difficulty_type_id' => 1, // Dari GoKampus, belum ada difficulty (sehingga defaultnya Beginner)
                 'status' => 1,
@@ -78,7 +103,7 @@ class DashboardController extends Controller
             ]);
 
             $course->issuer = 'gokampus';
-            $course->total_learners = $goKampusCourse['total_learners'];
+            $course->total_learners = $detail['total_learners'];
             $course->total_duration = $detail['duration'];
 
             $type = MCourseType::find(7); // upskilling
@@ -103,10 +128,11 @@ class DashboardController extends Controller
 
             // Membuat CourseClass
             $courseClass = CourseClass::create([
-                // 'batch' => 8,
+                'batch' => 9,
                 'start_date' => now()->format('Y-m-d'),
                 'end_date' => now()->addMonths(6)->format('Y-m-d'),
                 'quota' => 1000,
+                'course_id' => $course->id,
                 'announcement' => 'Jangan Lupa Mengerjakan Assignment',
                 'content' => $content,
                 'status' => 1, // active
@@ -114,8 +140,8 @@ class DashboardController extends Controller
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
                 'updated_id' => $adminId,
-                'members_count' => $course->total_learners,
-                'total_duration' => $course->total_duration,
+//                'members_count' => $course->total_learners,
+//                'total_duration' => $course->total_duration,
             ]);
 
             // Membuat Modules
@@ -132,6 +158,7 @@ class DashboardController extends Controller
     private function createCourseModules($course, $courseClass, $courseKey)
     {
         $modules = collect();
+        $adminId = User::firstWhere('type', 'admin')->id;
 
         $detail = Http::withToken(session('token'))
             ->get('https://athena.gokampus.com/courses/' . $course->slug)
@@ -147,6 +174,8 @@ class DashboardController extends Controller
                 'level' => 1,
                 'course_id' => $course->id,
                 'day' => $day + 1,
+                'created_id' => $adminId,
+                'updated_id' => $adminId,
             ]);
 
             $module->setRelation('course', $course);
@@ -176,6 +205,8 @@ class DashboardController extends Controller
                         'day' => $day + 1,
                         'material' => $lessonDetail['content_url'],
                         'content' => $lessonDetail['description'],
+                        'created_id' => $adminId,
+                        'updated_id' => $adminId,
                     ]);
 
                     $submodule->videoType = $lesson['type'];
@@ -202,8 +233,9 @@ class DashboardController extends Controller
 
     private function createCourseClassModules($module, $courseClass)
     {
+        $adminId = User::firstWhere('type', 'admin')->id;
+
         $courseClassModule = CourseClassModule::create([
-            'id' => ++$this->lastCourseClassModuleId,
             'course_module_id' => $module->id,
             'course_class_id' => $courseClass->id,
             'start_date' => now()->format('Y-m-d'),
@@ -211,6 +243,8 @@ class DashboardController extends Controller
             'priority' => $module->priority,
             'level' => $module->level,
             'status' => 1,
+            'created_id' => $adminId,
+            'updated_id' => $adminId,
         ]);
 
         $courseClassModule->setRelation('courseModule', $module);
