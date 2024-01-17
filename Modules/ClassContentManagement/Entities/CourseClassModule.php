@@ -2,32 +2,21 @@
 
 namespace Modules\ClassContentManagement\Entities;
 
-use App\Models\CourseModule;
 use App\Models\User;
+use App\Models\CourseModule;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
+use Modules\TrackandGrade\Entities\CourseClassMemberGrading;
+use Modules\TrackandGrade\Entities\CourseClassMemberLog;
 
 class CourseClassModule extends Model
 {
     use HasFactory;
 
     protected $table = 'course_class_module';
-    protected $fillable = [
-        'start_date',
-        'end_date',
-        'priority',
-        'level',
-        'course_module_id',
-        'course_class_id',
-        'description',
-        'status',
-        'created_at',
-        'created_id',
-        'updated_at',
-        'updated_id'
-    ];
+    protected $guarded = [];
 
     protected $with = ['courseModule', 'courseClass'];
 
@@ -41,6 +30,16 @@ class CourseClassModule extends Model
         return $this->belongsTo(CourseClass::class, 'course_class_id');
     }
 
+    public function gradings()
+    {
+        return $this->hasMany(CourseClassMemberGrading::class, 'course_class_module_id');
+    }
+
+    public function membersLog()
+    {
+        return $this->hasMany(CourseClassMemberLog::class, 'course_class_module_id');
+    }
+
     public function userCreated()
     {
         return $this->belongsTo(User::class, 'created_id');
@@ -50,12 +49,6 @@ class CourseClassModule extends Model
     {
         return $this->belongsTo(User::class, 'updated_id');
     }
-
-    protected static function newFactory()
-    {
-        return \Modules\ClassContentManagement\Database\factories\CourseClassModuleFactory::new();
-    }
-
 
     public static function getCourseClassModule($course_class_id)
     {
@@ -237,13 +230,13 @@ class CourseClassModule extends Model
             ', ['idCourseClassChild' => $idCourseClassChild]);
         } else {
             $allClass = DB::select('
-                SELECT 
+                SELECT
                     course_class.id AS course_class_id,
                     course_class.batch AS batch,
                     course.name AS course_name
-                FROM 
+                FROM
                     course_class
-                JOIN 
+                JOIN
                     course ON course_class.course_id = course.id
             ');
         }

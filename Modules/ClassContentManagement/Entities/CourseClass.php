@@ -3,6 +3,8 @@
 namespace Modules\ClassContentManagement\Entities;
 
 use App\Models\Course;
+use App\Models\CourseClassMember;
+use App\Models\CourseClassModule;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -15,28 +17,74 @@ class CourseClass extends Model
 
     protected $table = 'course_class';
 
-    protected $fillable = [
-        'batch',
-        'start_date',
-        'end_date',
-        'quota',
-        'course_id',
-        'description',
-        'status',
-        'created_at',
-        'created_id',
-        'updated_at',
-        'updated_id'
-    ];
-
-    protected static function newFactory()
-    {
-        return \Modules\ClassContentManagement\Database\factories\CourseClassFactory::new();
-    }
+    protected $guarded = [];
 
     public function course()
     {
-        return $this->belongsTo(Course::class, 'course_id', 'id');
+        return $this->belongsTo(Course::class, 'course_id');
+    }
+
+    public function members()
+    {
+        return $this->hasMany(CourseClassMember::class, 'course_class_id');
+    }
+
+    public function modules()
+    {
+        return $this->hasMany(CourseClassModule::class, 'course_class_id')
+            ->orderBy('priority')
+            ->where('status', 1)
+            ->where('level', '!=', 0);
+    }
+
+    public function scopeTotalDuration($query)
+    {
+        return $query->addSelect(['total_duration' => CourseClassModule::selectRaw('CAST(SUM(course_module.duration) AS SIGNED)')
+            ->whereColumn('course_class_module.course_class_id', 'course_class.id')
+            ->leftJoin('course_module', 'course_class_module.course_module_id', '=', 'course_module.id')
+        ]);
+    }
+
+    public function scopeCompleteDetails($query)
+    {
+        return $query->totalDuration()
+            ->withCount(['modules' => function ($query) {
+                $query->where('level', '>=', 2);
+            }])
+            ->withCount(['members' => function ($query) {
+                $query->where('status', 1);
+            }])
+            ->whereHas('course.type', function ($query) {
+                $query->where('id', '!=', 2);
+            })
+            ->whereHas('members', function ($query) {
+                if(auth()->check()) {
+                    $query->where('user_id', auth()->user()->id);
+                }
+            })
+            ->having('modules_count', '>', 0)
+            ->where('status', 1);
+    }
+
+    // Untuk mendapatkan parent modules
+    public function parentModules()
+    {
+        return $this->modules()->with('courseModule', 'gradings')
+            ->whereHas('courseModule', function ($query) {
+                $query->where('level', 1)->where('status', 1)->whereNotNull('day')->orderBy('priority')->orderBy('day');
+            })
+//            ->whereHas('gradings', function ($query) {
+//                $query->where('user_id', auth()->user()->id);
+//            })
+            ->get();
+    }
+
+    // Untuk mendapatkan child modules
+    public function childModules()
+    {
+        return $this->modules()->with('courseModule')->whereHas('courseModule', function ($query) {
+            $query->where('level', '>', 1)->where('status', 1)->whereNotNull('day')->orderBy('priority')->orderBy('day');
+        })->get();
     }
 
     public static function getCourseClass()
@@ -101,6 +149,7 @@ class CourseClass extends Model
 
         return $currentData;
     }
+
     public static function getCourseDetailByClassId($course_class_id)
     {
         $currentDataCourse = DB::table('course_class as cc')
@@ -144,8 +193,7 @@ class CourseClass extends Model
         ];
     }
 
-
-    public static function getEditCourseClassMemberCOURSEandCLASSES($currentData)
+    public static function getEditCourseClassMemberCourseandClasses($currentData)
     {
 
         $currentDataCourse = DB::select('SELECT course.name AS course_name
@@ -169,7 +217,6 @@ class CourseClass extends Model
         ];
     }
 
-    // new
     public static function getAllCourseModuleByCourseId($course_id)
     {
         $allModule = DB::table('course_module as cm')
@@ -184,7 +231,6 @@ class CourseClass extends Model
         return $allModule;
     }
 
-    // new
     public static function getClassDetailByClassModuleId($course_class_module_id)
     {
         $class_detail = DB::table('course_class as cc')
@@ -194,7 +240,7 @@ class CourseClass extends Model
             ->first();
         return $class_detail;
     }
-    // new
+
     public static function getClassDetailByClassId($course_class_id)
     {
         $class_detail = DB::table('course_class as cc')
@@ -202,6 +248,7 @@ class CourseClass extends Model
             ->join('course as c', 'c.id', '=', 'cc.course_id')
             ->where('cc.id', $course_class_id)
             ->first();
+
         return $class_detail;
     }
 }
