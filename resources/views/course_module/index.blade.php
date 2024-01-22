@@ -76,6 +76,8 @@
                                             class="btn btn-primary">Edit</a>
                                         <a href="{{ route('getCourseChildModule', ['id' => $item->id]) }}"
                                             class="btn btn-info">Content</a>
+                                        <a href="{{ route('deleteCourseModule', ['id' => $item->id]) }}"
+                                            class="btn btn-danger"onclick="return confirm('Are you sure you want to delete this module?')">Delete</a>   
                                     </div>
                                 </td>
                             </tr>

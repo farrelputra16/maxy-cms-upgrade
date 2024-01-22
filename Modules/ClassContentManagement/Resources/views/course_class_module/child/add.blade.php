@@ -18,22 +18,23 @@
             <div class="field">
                 <div class="field">
                     <label for="">Parent Module</label>
-                    <input type="text" value="{{ $courseParent->courseModule->name }}" disabled>
+                    <input type="text" value="{{ $courseParent->courseModule->name }}" readonly>
                 </div>
                 <div class="three fields">
                     <div class="field">
                         <label for="">start date</label>
-                        <input type="date" name="start_date" disabled
+                        <input type="date" name="start_date" readonly
                             value="{{ date('Y-m-d', strtotime($courseParent->start_date)) }}">
                     </div>
                     <div class="field">
                         <label for="">end date</label>
-                        <input type="date" name="end_date" disabled
+                        <input type="date" name="end_date" readonly
                             value="{{ date('Y-m-d', strtotime($courseParent->end_date)) }}">
                     </div>
                     <div class="field">
                         <label for="">Course Module</label>
-                        <select name="coursemoduleid" class="ui dropdown">
+                        <select name="coursemoduleid" class="ui dropdown" id="selectModule">
+                            <option value="" selected>Pilih Modul</option>
                             @foreach ($allModules as $item)
                                 @if ($item->course_module_parent_id)
                                     <option value="{{ $item->id }}">[{{ $item->type }}]{{ $item->name }}</option>
@@ -51,15 +52,15 @@
                 <div class="three fields hidden-inputs d-none">
                     <div class="field">
                         <label for="">Child Module Name</label>
-                        <input type="text" name="name">
+                        <input type="text" name="name" id="moduleName">
                     </div>
                     <div class="field">
                         <label for="">Child Priority</label>
-                        <input type="number" name="priority">
+                        <input type="number" name="priority" id="modulePriority">
                     </div>
                     <div class="field">
                         <label for="">Child Level</label>
-                        <input type="number" name="level">
+                        <input type="number" name="level" id="moduleLevel">
                     </div>
                 </div>
                 <div class="field">
@@ -89,6 +90,31 @@
 
     <script>
         $(document).ready(function() {
+            $("#selectModule").change(function() {
+                var selectedModule = $(this).children("option:selected").val();
+
+                if (selectedModule === "") {
+                    $('#moduleName').val('');
+                    $('#modulePriority').val('');
+                    $('#moduleLevel').val('');
+                    return;
+                }
+
+                $.ajax({
+                    url: "{{ route('getAddCourseClassChildModule') }}",
+                    type: "GET",
+                    data: {
+                        id: selectedModule
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        $('#moduleName').val(data.name);
+                        $('#modulePriority').val(data.priority);
+                        $('#moduleLevel').val(data.level);
+                    }
+                });
+            });
+
             $('#toggleChildInputs').click(function(e) {
                 e.preventDefault(); // Mencegah default aksi link
 

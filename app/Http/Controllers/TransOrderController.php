@@ -79,7 +79,7 @@ class TransOrderController extends Controller
         $idcourses = Course::all();
         $idcourseclasses = CourseClass::all();
         $idmembers = User::all();
-        $idcoursepackages = CoursePackage::all();
+        $idcoursepackages = CoursePackage::where('status', 1)->get();
         $idpromotions = Promotion::all();
 
         return view('trans_order.add', [
