@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\CourseModule;
 use Auth;
 use DB;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
@@ -200,4 +201,33 @@ class CourseModuleController extends Controller
             return app(HelperController::class)->Warning('getCourseModule');
         }
     }
+    function deleteCourseModule(Request $request, $id)
+    {
+        try {
+            $courseModule = CourseModule::find($id);
+
+            if (!$courseModule) {
+                return app(HelperController::class)->Negative('getCourseModule');
+            }
+
+            // Check if it's a parent or child module
+            if ($courseModule->course_module_parent_id) {
+                // It's a child module
+                $parentModule = CourseModule::find($courseModule->course_module_parent_id);
+                $courseModule->delete();
+
+                return Redirect::route('getCourseChildModule', ['id' => $parentModule->id])
+                    ->with('success', 'Child module deleted successfully.');
+            } else {
+                // It's a parent module
+                $courseModule->delete();
+
+                return app(HelperController::class)->Positive('getCourseModule');
+            }
+        } catch (\Exception $e) {
+            // Handle common errors here if needed
+            return app(HelperController::class)->Negative('getCourseModule');
+        }
+    }
+
 }

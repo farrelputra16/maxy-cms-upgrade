@@ -127,6 +127,7 @@ class CourseClassModuleController extends Controller
         $courseParent = CourseClassModule::find($courseClassModuleId);
         $courseClassChildModule = CourseClassModule::getChildModules($courseParent->courseModule->id);
 
+
         return view('classcontentmanagement::course_class_module.child.index', [
             'courseParent' => $courseParent,
             'courseClassChildModule' => $courseClassChildModule
@@ -135,6 +136,14 @@ class CourseClassModuleController extends Controller
 
     function getAddCourseClassChildModule(Request $request)
     {
+        if ($request->ajax()) {
+            if (!$request->id)
+                return;
+
+            $courseModule = CourseModule::find($request->id);
+            return response()->json($courseModule);
+        }
+
         $courseClassId = $request->course_class_id;
 
         $courseParent = CourseClassModule::find($request->id);
@@ -181,6 +190,12 @@ class CourseClassModuleController extends Controller
         } else {
             return redirect()->route('getCourseClassChildModule', ['id' => $request->courseParentId])->with('failed', 'Failed to Update Child Module, please try again');
         }
+
+        // if ($courseClassModule) {
+        //     return app(HelperController::class)->Positive('getCourseClassChildModule', ['id' => $request->courseParentId]);
+        // } else {
+        //     return app(HelperController::class)->Warning('getCourseClassChildModule', ['id' => $request->courseParentId]);
+        // }
     }
 
     function getEditCourseClassChildModule(Request $request)
@@ -209,11 +224,27 @@ class CourseClassModuleController extends Controller
             ]);
 
         if ($courseClassModule) {
-            return redirect()->route('getCourseClassChildModule', ['id' => $request->parent_id])->with('success', 'Update Module Child Success');
+            return app(HelperController::class)->Positive('getCourseClassChildModule', ['id' => $request->parent_id]);
         } else {
-            return redirect()->route('getCourseClassChildModule', ['id' => $request->parent_id])->with('failed', 'Failed to Update Child Module, please try again');
+            return app(HelperController::class)->Warning('getCourseClassChildModule', ['id' => $request->parent_id]);
         }
     }
+
+    public function deleteCourseClassModule($id)
+    {
+        $courseClassModule = CourseClassModule::find($id);
+
+        if (!$courseClassModule) {
+            return redirect()->back()->with('failed', 'Class Module not found.');
+        }
+
+        // Delete the course class module
+        $courseClassModule->delete();
+
+        return redirect()->route('getCourseClassModule', ['id' => $courseClassModule->course_class_id])
+            ->with('success', 'Class Module deleted successfully.');
+    }
+
 
 
     public function index()

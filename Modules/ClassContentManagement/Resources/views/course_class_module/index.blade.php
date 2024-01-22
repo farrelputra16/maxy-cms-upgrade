@@ -48,7 +48,8 @@
                             <th scope="col">End Date</th>
                             <th scope="col">Day</th>
                             <th scope="col">Order</th>
-                            <th scope="col">Course Module Name</th>
+                            <th scope="col">Level</th>
+                            <th scope="col">Course Module Name</th> 
                             <th scope="col">Course - Batch </th>
                             <th scope="col">Status</th>
                             <th scope="col">Created At</th>
@@ -64,11 +65,9 @@
                                 <td>{{ $item->start_date }}</td>
                                 <td>{{ $item->end_date }}</td>
 
-                                @if ($item->level == 1)
-                                    <td>Day {{ $item->priority }}</td>
-                                @else
-                                    <td>Owned: {{ $item->parent_name }}</td>
-                                @endif
+                                <td>{{ $item->courseModule->day }}</td>
+                                <td>{{ $item->priority }}</td>
+
 
                                 <td>{{ $item->level }}</td>
                                 <td>{{ $item->courseModule->name }}</td>
@@ -92,6 +91,13 @@
                                         class="btn btn-primary">Edit</a>
                                     <a href="{{ route('getCourseClassChildModule', ['id' => $item->id]) }}"
                                         class="btn btn-info">Content</a>
+                                    <form action="{{ route('deleteCourseClassModule', ['id' => $item->id]) }}"
+                                        method="post" style="display:inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"
+                                            onclick="return confirm('Are you sure?')">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
