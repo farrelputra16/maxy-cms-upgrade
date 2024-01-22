@@ -11,36 +11,37 @@ use Illuminate\Support\Facades\Auth;
 class CoursePackageBenefitController extends Controller
 {
     //
-    function getCoursePackageBenefit(Request $request){
+    function getCoursePackageBenefit(Request $request)
+    {
         if (!$request->filled('id')) {
             $coursePackageBenefits = CoursePackageBenefit::getCoursePackageBenefit();
             return view('course_package_benefit.index', ['coursePackageBenefits' => $coursePackageBenefits]);
-        }
-        else{
+        } else {
             $idCPB = $request->id;
             // $coursePackageBenefits = CoursePackageBenefit::where('course_package_id', $idCPB)->get();
             $coursePackageBenefits = CoursePackageBenefit::getCoursePackageBenefit($idCPB);
-            return view('course_package_benefit.index', ['coursePackageBenefits' => $coursePackageBenefits , 'idCPB' => $idCPB]);
+            return view('course_package_benefit.index', ['coursePackageBenefits' => $coursePackageBenefits, 'idCPB' => $idCPB]);
         }
-        
+
     }
 
-    function getAddCoursePackageBenefit(Request $request){
+    function getAddCoursePackageBenefit(Request $request)
+    {
 
         if (!$request->filled('idCPB')) {
             $coursePackage = CoursePackage::all();
             return view('course_package_benefit.add', ['allCoursePackages' => $coursePackage]);
-        }
-        else{
+        } else {
             $idCPB = $request->idCPB;
             $coursePackage = CoursePackage::where('id', $idCPB)->get();
 
-            return view('course_package_benefit.add', ['allCoursePackages' => $coursePackage , 'idCPB' => $idCPB]);
+            return view('course_package_benefit.add', ['allCoursePackages' => $coursePackage, 'idCPB' => $idCPB]);
         }
-        
+
     }
 
-    function postAddCoursePackageBenefit(Request $request){
+    function postAddCoursePackageBenefit(Request $request)
+    {
         // dd($request);
 
         $validated = $request->validate([
@@ -49,7 +50,7 @@ class CoursePackageBenefitController extends Controller
             'description' => 'nullable',
         ]);
 
-        if ($validated){
+        if ($validated) {
             $created = CoursePackageBenefit::create([
                 'name' => $request->name,
                 'course_package_id' => $request->course_package_id,
@@ -65,26 +66,24 @@ class CoursePackageBenefitController extends Controller
             if ($request->filled('idCPB')) {
                 app(HelperController::class)->Positive('getCoursePackageBenefit', $request->idCPB);
                 return redirect()->route('getCoursePackageBenefit', ['id' => $request->idCPB]);
-            }
-            else{
+            } else {
                 return app(HelperController::class)->Positive('getCoursePackageBenefit');
             }
-            
-        }
-        else{
+
+        } else {
             if ($request->filled('idCPB')) {
                 app(HelperController::class)->Negative('getCoursePackageBenefit', $request->idCPB);
                 return redirect()->route('getCoursePackageBenefit', ['id' => $request->idCPB]);
-            }
-            else{
+            } else {
                 return app(HelperController::class)->Negative('getCoursePackageBenefit');
             }
         }
-            
+
     }
 
-    function getEditCoursePackageBenefit(Request $request){
-        
+    function getEditCoursePackageBenefit(Request $request)
+    {
+
         $idCoursePackageBenefit = $request->id;
         $idCPB = $request->idCPB;
         // dd($idCPB);
@@ -92,7 +91,7 @@ class CoursePackageBenefitController extends Controller
 
         // return dd($currentData);
         $allCoursePackages = CoursePackage::where('id', '!=', $currentData->course_package_id)->get();
-        
+
         return view('course_package_benefit.edit', [
             'currentData' => $currentData,
             'allCoursePackages' => $allCoursePackages,
@@ -100,14 +99,15 @@ class CoursePackageBenefitController extends Controller
         ]);
     }
 
-    function postEditCoursePackageBenefit(Request $request){
+    function postEditCoursePackageBenefit(Request $request)
+    {
         // dd($request);
         $validated = $request->validate([
             'name' => 'required',
             'course_package_id' => 'required'
         ]);
 
-        if ($validated){
+        if ($validated) {
             $updated = CoursePackageBenefit::where('id', '=', $request->id)
                 ->update([
                     'name' => $request->name,
@@ -128,22 +128,51 @@ class CoursePackageBenefitController extends Controller
                 if ($request->filled('idCPB')) {
                     app(HelperController::class)->Positive('getCoursePackageBenefit', $request->idCPB);
                     return redirect()->route('getCoursePackageBenefit', ['id' => $request->idCPB]);
-                }
-                else{
+                } else {
                     return app(HelperController::class)->Positive('getCoursePackageBenefit');
                 }
-                
-            }
-            else{
+
+            } else {
                 if ($request->filled('idCPB')) {
                     app(HelperController::class)->Negative('getCoursePackageBenefit', $request->idCPB);
                     return redirect()->route('getCoursePackageBenefit', ['id' => $request->idCPB]);
-                }
-                else{
+                } else {
                     return app(HelperController::class)->Negative('getCoursePackageBenefit');
                 }
             }
         }
-            
+
+    }
+    function deleteCoursePackageBenefit(Request $request, $id)
+    {
+        $coursePackageBenefit = CoursePackageBenefit::find($id);
+
+        if ($coursePackageBenefit) {
+            $deleted = $coursePackageBenefit->delete();
+
+            if ($deleted) {
+                if ($request->filled('idCPB')) {
+                    app(HelperController::class)->Positive('getCoursePackageBenefit', $request->idCPB);
+                    return redirect()->route('getCoursePackageBenefit', ['id' => $request->idCPB])->with('success', 'Course Package Benefit deleted successfully.');
+                } else {
+                    return app(HelperController::class)->Positive('getCoursePackageBenefit')->with('success', 'Course Package Benefit deleted successfully.');
+                }
+            } else {
+                if ($request->filled('idCPB')) {
+                    app(HelperController::class)->Negative('getCoursePackageBenefit', $request->idCPB);
+                    return redirect()->route('getCoursePackageBenefit', ['id' => $request->idCPB])->with('error', 'Failed to delete Course Package Benefit.');
+                } else {
+                    return app(HelperController::class)->Negative('getCoursePackageBenefit')->with('error', 'Failed to delete Course Package Benefit.');
+                }
+            }
+        } else {
+            // Course Package Benefit not found
+            if ($request->filled('idCPB')) {
+                app(HelperController::class)->Negative('getCoursePackageBenefit', $request->idCPB);
+                return redirect()->route('getCoursePackageBenefit', ['id' => $request->idCPB])->with('error', 'Course Package Benefit not found.');
+            } else {
+                return app(HelperController::class)->Negative('getCoursePackageBenefit')->with('error', 'Course Package Benefit not found.');
+            }
+        }
     }
 }
