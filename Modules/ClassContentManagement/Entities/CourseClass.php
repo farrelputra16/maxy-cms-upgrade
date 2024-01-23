@@ -106,6 +106,7 @@ class CourseClass extends Model
         $class_list = DB::table('course_class as cc')
             ->select('cc.*', 'c.name as course_name')
             ->join('course as c', 'c.id', '=', 'cc.course_id')
+            ->groupBy('cc.batch')
             ->get();
         return $class_list;
     }

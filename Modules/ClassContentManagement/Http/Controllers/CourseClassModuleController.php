@@ -136,6 +136,14 @@ class CourseClassModuleController extends Controller
 
     function getAddCourseClassChildModule(Request $request)
     {
+        if ($request->ajax()) {
+            if (!$request->id)
+                return;
+
+            $courseModule = CourseModule::find($request->id);
+            return response()->json($courseModule);
+        }
+
         $courseClassId = $request->course_class_id;
 
         $courseParent = CourseClassModule::find($request->id);
@@ -221,6 +229,22 @@ class CourseClassModuleController extends Controller
             return app(HelperController::class)->Warning('getCourseClassChildModule', ['id' => $request->parent_id]);
         }
     }
+
+    public function deleteCourseClassModule($id)
+    {
+        $courseClassModule = CourseClassModule::find($id);
+
+        if (!$courseClassModule) {
+            return redirect()->back()->with('failed', 'Class Module not found.');
+        }
+
+        // Delete the course class module
+        $courseClassModule->delete();
+
+        return redirect()->route('getCourseClassModule', ['id' => $courseClassModule->course_class_id])
+            ->with('success', 'Class Module deleted successfully.');
+    }
+
 
 
     public function index()

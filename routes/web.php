@@ -48,7 +48,7 @@ Route::get('/login', [AuthController::class, 'getLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'postLogin'])->name('postLogin');
 Route::post('/logout', [AuthController::class, 'postLogout'])->name('logout');
 
-Route::get('/dashboard', [DashboardController::class, 'getDashboard'])->name('getDashboard');
+Route::get('/dashboard', [DashboardController::class, 'getDashboard'])->name('getDashboard')->middleware('auth');
 Route::get('/dashboard/synchronize', [DashboardController::class, 'synchronizeData'])->name('synchronizeData');
 
 // course route ###########################################################################################################
@@ -121,6 +121,9 @@ Route::post('/course/package/benefit/add', [CoursePackageBenefitController::clas
 Route::get('/course/package/benefit/edit', [CoursePackageBenefitController::class, 'getEditCoursePackageBenefit'])->name('getEditCoursePackageBenefit')->middleware('access:course_package_benefit_update');
 Route::post('/course/package/benefit/edit', [CoursePackageBenefitController::class, 'postEditCoursePackageBenefit'])->name('postEditCoursePackageBenefit')->middleware('access:course_package_benefit_update');
 
+Route::delete('/course/package/benefit/delete/{id}', [CoursePackageBenefitController::class, 'deleteCoursePackageBenefit'])->name('deleteCoursePackageBenefit')->middleware('access:course_package_benefit_delete');
+
+
 // course module ##########################################################################################################
 Route::get('/course/module', [CourseModuleController::class, 'getCourseModule'])->name('getCourseModule')->middleware('access:course_module_manage');
 
@@ -137,6 +140,8 @@ Route::post('/course/module/child/add', [CourseModuleController::class, 'postAdd
 
 Route::get('/course/module/child/edit', [CourseModuleController::class, 'getEditChildModule'])->name('getEditChildModule')->middleware('access:course_module_update');
 Route::post('/course/module/child/edit', [CourseModuleController::class, 'postEditChildModule'])->name('postEditChildModule')->middleware('access:course_module_update');
+
+Route::get('/course/module/delete/{id}', [CourseModuleController::class, 'deleteCourseModule'])->name('deleteCourseModule')->middleware('access:course_module_delete');
 
 // difficulty course route
 Route::get('/course/difficulty', [MDifficultyTypeController::class, 'getDifficulty'])->name('getDifficulty')->middleware('access:m_difficulty_type_manage');

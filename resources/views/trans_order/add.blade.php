@@ -4,18 +4,18 @@
 
 @section('content')
     <!-- css -->
-    <link rel="stylesheet" type="text/css"
+    {{-- <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css"
-        integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+        integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" /> --}}
 
     <!-- Javascript -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
-        integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+        integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script> --}}
 
     {{--  --}}
-    <script src="https://cdn.ckeditor.com/ckeditor5/40.2.0/classic/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/40.2.0/classic/ckeditor.js"></script> --}}
 
 
     <div style="padding: 0px 12px 0px 12px;">
@@ -141,7 +141,8 @@
                     </div>
                     <div class="field">
                         <label for="">Discount (max 100%)</label>
-                        <input type="number" name="discount" id="discount" placeholder="e.g. 5" value="{{ old('discount', 0) }}">
+                        <input type="number" name="discount" id="discount" placeholder="e.g. 5"
+                            value="{{ old('discount', 0) }}">
                         @if ($errors->has('discount'))
                             @foreach ($errors->get('discount') as $error)
                                 <span style="color: red;">{{ $error }}</span>
@@ -169,7 +170,6 @@
                         </select>
                     </div>
                 </div>
-                <div class="ui dividing header"></div>
                 <div class="field">
                     <label for="">Description</label>
                     <textarea name="description" placeholder="Description" id="editor">{{ $currentData->description ?? 'Tidak ada' }}</textarea>
@@ -177,7 +177,7 @@
 
                 <div class="field">
                     <div class="ui checkbox">
-                        <input class="form-check-input" type="checkbox" value="1" name="status">
+                        <input class="form-check-input" type="checkbox" value="1" name="status" >
                         <label>Aktif</label>
                     </div>
                 </div>
@@ -238,5 +238,9 @@
             .catch(error => {
                 console.error(error);
             });
+    </script>
+    <script>
+        CKEDITOR.replace('content');
+        CKEDITOR.replace('description');
     </script>
 @endsection
