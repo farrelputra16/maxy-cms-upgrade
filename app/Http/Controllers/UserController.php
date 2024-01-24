@@ -125,7 +125,7 @@ class UserController extends Controller
             'email' => 'required|email',
             'password' => 'required',
             'access_group' => 'required',
-            'phone' => 'required|int'
+            'phone' => 'required'
         ]);
 
         // return dd($request);
