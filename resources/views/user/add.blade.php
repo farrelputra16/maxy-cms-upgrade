@@ -30,7 +30,7 @@
             <div class="two fields">
                 <div class="field">
                     <label for="phone">Phone</label>
-                    <input type="text" name="phone" id="phone" placeholder="Masukkan Nomor Telepon">
+                    <input type="number" name="phone" id="phone" placeholder="Masukkan Nomor Telepon">
                     @if ($errors->has('phone'))
                         @foreach ($errors->get('phone') as $error)
                             <span style="color: red;">{{ $error }}</span>
@@ -154,7 +154,6 @@
                     @endif
                 </div>
             </div>
-
             <div class="two fields">
                 <div class="field">
                     <label for="linkedin">LinkedIn (Optional)</label>
@@ -165,7 +164,6 @@
                     <input type="text" name="user_request" id="user_request" placeholder="Masukkan Request">
                 </div>
             </div>
-
             <div class="two fields">
                 <div class="field">
                     <label for="access_group">Access Group</label>
@@ -196,7 +194,6 @@
                     @endif
                 </div>
             </div>
-
             <div class="field">
                 <label for="profile_picture">Photo Profile (Optional)</label>
                 <input type="file" name="fileName" id="fileName" accept="image/png, image/jpeg, image/jpg"
@@ -205,12 +202,10 @@
                     <span style="color: red;">{{ $message }}</span>
                 @enderror
             </div>
-
             <div class="field">
                 <label for="description">Users Description (Optional)</label>
                 <textarea name="description" id="description"></textarea>
             </div>
-
             <div class="field">
                 <label for="status">Aktif</label>
                 <div class="ui checkbox">
@@ -218,8 +213,11 @@
                     <label for="status">Aktif</label>
                 </div>
             </div>
-            
+            <button class="ui button primary" style="float: right;" type="submit">Tambah User</button>
         </form>
+    </div>
+    <br><br><br><br>
+    <div class="btn-groupx">
         <form method="post" action="{{ route('user.import-csv') }}" enctype="multipart/form-data">
             @csrf
             <div class="field">
@@ -229,14 +227,10 @@
                     <span style="color: red;">{{ $message }}</span>
                 @enderror
             </div>
-            
+            <button type="submit" class="ui button primary">Upload CSV</button>
+            <a href="{{ route('getUser') }}"><button class="ui button red" style="float: right;">Batal</button></a>
+            <button class="ui button primary" style="float: right;">Tambah User</button>
         </form>
-
-    </div>
-    <div class="btn-groupx">
-        <button type="submit" class="ui button primary">Upload CSV</button>
-        <a href="{{ route('getUser') }}"><button class="ui button red" style="float: right;">Batal</button></a>
-        <button class="ui button primary" style="float: right;">Tambah User</button>
     </div>
     <script>
         CKEDITOR.replace('description');
