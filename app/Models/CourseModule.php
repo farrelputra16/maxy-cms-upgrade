@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Modules\ClassContentManagement\Entities\CourseClassModule;
+
 class CourseModule extends Model
 {
     use HasFactory;
