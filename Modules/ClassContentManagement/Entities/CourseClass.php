@@ -4,9 +4,10 @@ namespace Modules\ClassContentManagement\Entities;
 
 use App\Models\Course;
 use App\Models\CourseClassMember;
-use App\Models\CourseClassModule;
+// use App\Models\CourseClassModule;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\ClassContentManagement\Entities\CourseClassModule;
 
 use Illuminate\Support\Facades\Auth;
 use DB;

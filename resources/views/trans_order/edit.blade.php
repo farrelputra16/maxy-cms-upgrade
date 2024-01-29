@@ -27,7 +27,7 @@
                 <div class="two fields">
                     <div class="field">
                         <label for="">Order Number</label>
-                        <input type="text" name="order_number" value="{{ $currentData->order_number }}">
+                        <input readonly type="text" name="order_number" value="{{ $currentData->order_number }}">
                         @if ($errors->has('order_number'))
                             @foreach ($errors->get('order_number') as $error)
                                 <span style="color: red;">{{ $error }}</span>

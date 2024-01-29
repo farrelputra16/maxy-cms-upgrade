@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use Modules\Enrollment\Entities\CourseClassMember;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -70,6 +72,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function courseClassMembers(){
+        return $this->hasMany(CourseClassMember::class, 'user_id');
+    }
 
     public static function getAllUserWithAccessGroup(){
         $users = collect(DB::select('SELECT users.id,
