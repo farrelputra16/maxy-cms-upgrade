@@ -62,7 +62,7 @@ class CourseClassModuleController extends Controller
             'level' => $request->level,
             'course_module_id' => $request->coursemoduleid,
             'course_class_id' => $request->course_class_id,
-            // 'content' => $request->content,
+            'content' => $request->content,
             'description' => $request->description,
             'status' => $request->status ? 1 : 0,
             'created_id' => Auth::user()->id,
@@ -79,8 +79,11 @@ class CourseClassModuleController extends Controller
     function getEditCourseClassModule(Request $request)
     {
         $course_class_module_id = $request->id;
-        $class_module_detail = CourseClassModule::getClassModuleDetail($course_class_module_id);
+        $class_module_detail = CourseClassModule::find($course_class_module_id);
         $course_class_detail = CourseClass::getClassDetailByClassModuleId($course_class_module_id);
+
+        // $course_module_detail = CourseModule::find($class_module_detail->course_module_id);
+        // $content = $course_module_detail->content;
 
         $course_class_id = $course_class_detail->id;
         $course_detail = CourseClass::getCourseDetailByClassId($course_class_id);
@@ -90,6 +93,7 @@ class CourseClassModuleController extends Controller
         return view('classcontentmanagement::course_class_module.edit', [
             'course_class_module' => $class_module_detail,
             'allModules' => $allModules,
+            // 'content' => $content,
             'classDetail' => $classDetail,
             'course_detail' => $course_detail,
             'course_class_id' => $course_class_id,
@@ -108,11 +112,12 @@ class CourseClassModuleController extends Controller
                 'level' => $request->level,
                 'course_module_id' => $request->coursemodulesid,
                 'course_class_id' => $request->course_class_id,
-                'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => auth()->user()->id,
                 'updated_id' => auth()->user()->id
             ]);
+        CourseClassModule::find($course_class_module_id)->courseModule()->update(['content' => $request->content, 'description' => $request->description]);
+
 
         if ($updateData) {
             return redirect()->route('getCourseClassModule', ['id' => $request->course_class_id])->with('success', 'Update Module Success');

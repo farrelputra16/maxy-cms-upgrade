@@ -28,3 +28,7 @@ Route::post('/course-class-member/import-csv', [CourseClassMemberController::cla
 Route::prefix('enrollment')->group(function() {
     Route::get('/', 'EnrollmentController@index');
 });
+
+// Generate Sertificate
+
+Route::get('/generate-certificate/{course_class_member}',[CourseClassMemberController::class, 'getCertificate'])->name('getCertificate')->middleware('access:course_class_member_manage');

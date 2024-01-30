@@ -74,9 +74,7 @@
             </tbody>
         </table>
     </div>
-@endsection
 
-@push('scripts')
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
@@ -100,4 +98,4 @@
                 .appendTo('#example_wrapper .col-md-6:eq(0)');
         });
     </script>
-@endpush
+@endsection

@@ -17,7 +17,7 @@ class CourseClassMemberGrading extends Model
     // relasi ke user student
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function tutor()
