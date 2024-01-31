@@ -2,8 +2,14 @@
 
 namespace Modules\ClassContentManagement\Entities;
 
+
+use App\Models\Course;
+use App\Models\CourseClassMember;
+// use App\Models\CourseClassModule;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\ClassContentManagement\Entities\CourseClassModule;
+
 use Illuminate\Support\Facades\Auth;
 use DB;
 
@@ -77,6 +83,7 @@ class CourseClass extends Model
                     'users.name as user_name',
                     'course_class_member_grading.submitted_file',
                     'course_class_member_grading.comment',
+                    'course_class_member_grading.tutor_comment',
                     'course_class_member_grading.grade',
                     'course_class_member_grading.id as id_grading'
                 )
@@ -96,7 +103,6 @@ class CourseClass extends Model
         }
         // Flatten the array to have a sequential index
         $final_array = array_reduce($final_array, 'array_merge', []);
-        dd($final_array);
         return $final_array;
     }
 

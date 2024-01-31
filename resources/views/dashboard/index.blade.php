@@ -52,7 +52,7 @@
                 isLoading: false,
                 syncData() {
                     this.isLoading = true
-                    axios.get('/api/sync-data')
+                    axios.get("{{ route('synchronizeData') }}")
                         .then(() => {
                             this.isLoading = false
                             alert('Sinkronisasi data berhasil!')

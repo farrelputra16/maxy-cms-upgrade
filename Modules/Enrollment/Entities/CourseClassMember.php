@@ -4,6 +4,8 @@ namespace Modules\Enrollment\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use Modules\ClassContentManagement\Entities\CourseClass;
 use DB;
 
 class CourseClassMember extends Model
@@ -21,9 +23,14 @@ class CourseClassMember extends Model
         'updated_id'
     ];
 
-    protected static function newFactory()
-    {
-        return \Modules\Enrollment\Database\factories\CourseClassMemberFactory::new();
+    protected $with = ['user', 'courseClass'];
+
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function courseClass() {
+        return $this->belongsTo(CourseClass::class, 'course_class_id');
     }
 
     public static function getCourseClassMember($request)
@@ -70,9 +77,7 @@ class CourseClassMember extends Model
         return $courseClassMembers;
     }
 
-
-    public static function getEditCourseClassMember($request)
-    {
+    public static function getEditCourseClassMember($request){
 
         $currentData = collect(DB::select('SELECT
                 course_class_member.user_id AS ccm_member_id,

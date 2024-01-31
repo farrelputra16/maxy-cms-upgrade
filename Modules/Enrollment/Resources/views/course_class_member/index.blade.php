@@ -4,23 +4,18 @@
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
-    <!DOCTYPE html>
-<html>
-<head>
-<title>Course Class Member</title>
-    <!-- Include CSS libraries for styling the table -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+        <!DOCTYPE html>
+        <html>
 
-</head>
-<body>
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+        <head>
+            <title>Course Class Member</title>
+            <!-- Include CSS libraries for styling the table -->
+            <link rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+            <link rel="stylesheet" type="text/css"
+                href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 
     @if(session('error'))
         <div class="alert alert-danger">
@@ -73,10 +68,75 @@
                         <td>
                             <a href="{{ route('getEditCourseClassMember', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
                         </td>
+        </head>
+
+        <body>
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+            <h2>Class Member on Class: {{ $course_class_detail->course_name }} Batch {{ $course_class_detail->batch }}</h2>
+            <hr style="margin-bottom: 0px;">
+            <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
+                <div class="row">
+                    <div class="col">
+                        @if ($course_class_detail->id != null)
+                            <a class="btn btn-primary"
+                                href="{{ route('getAddCourseClassMember', ['id' => $course_class_detail->id]) }}"
+                                role="button">Tambah Class Member +</a>
+                        @else
+                            <a class="btn btn-primary" href="{{ route('getAddCourseClassMember') }}" role="button">Tambah
+                                Class Member +</a>
+                        @endif
+
+                    </div>
+                </div>
+            </nav>
+            <table id="example" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>ID - Name</th>
+                        <!-- <th>Batch - Course</th> -->
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Action</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($courseClassMembers as $item)
+                        <tr>
+                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->user_id }} - {{ $item->user_name }}</td>
+                            <!-- <td>Batch {{ $item->course_class_batch }} - {{ $item->course_name }}</td> -->
+                            <td id="description">{{ $item->description }}</td>
+                            <td>
+                                @if ($item->status == 1)
+                                    <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
+                                @else
+                                    <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
+                                @endif
+                            </td>
+                            <td>{{ $item->created_at }}</td>
+                            <td>{{ $item->updated_at }}</td>
+                            <td>
+                                <a href="{{ route('getEditCourseClassMember', ['id' => $item->id]) }}"
+                                    style="text-decoration: none; color:blue;">Edit</a>
+                                <a href="{{ route('getCertificate', $item->id) }}" class="btn btn-info btn-sm">Generate Certificate</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
     </div>
 
     <!-- Include JS libraries for DataTable initialization -->
@@ -104,8 +164,9 @@
             .appendTo('#example_wrapper .col-md-6:eq(0)');
         });
     </script>
-</body>
-</html>
+    </body>
+
+    </html>
 
     </div>
 @endsection

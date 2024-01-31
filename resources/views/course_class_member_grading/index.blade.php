@@ -104,7 +104,7 @@
                     <th data-column="Created At" class="hidden-column">Created At</th>
                     <th data-column="Updated At" class="hidden-column">Updated At</th>
                     <th>File</th>
-                    <th>Comment</th>
+                    <th>Student Comment</th>
                     <th>Grade</th>
                     <th>Grade At</th>
                     <th>Action</th>

@@ -104,7 +104,9 @@
                         <th>student name</th>
                         <th>submitted file</th>
                         <th>grade</th>
-                        <th>comment</th>
+                        <th>student comment</th>
+                        <th>tutor comment</th>
+                        <th>Action</th>
                         {{-- <th data-column="ID Course Class Member" class="hidden-column">ID Course Class Member</th>
                         <th data-column="ID Course Module" class="hidden-column">ID Course Module</th>
                         <th data-column="Description" class="hidden-column">Description</th>
@@ -122,13 +124,14 @@
                 <tbody>
                     @foreach ($class_list as $item)
                         <tr>
-                            <td>{{ $item->name }}</td>
                             <td>{{ $item->course_name }} {{ $item->batch }}</td>
+                            <td>{{ $item->name }}</td>
                             <td>{{ $item->day }}</td>
                             <td>{{ $item->user_name }}</td>
                             <td>{{ $item->submitted_file ?? '-' }}</td>
                             <td>{{ $item->grade ?? '-' }}</td>
                             <td>{!! Str::limit($item->comment ?? '-') !!}</td>
+                            <td>{!! Str::limit($item->tutor_comment ?? '-') !!}</td>
                             {{-- <td data-column="ID Course Class Member" class="hidden-column">
                                 {{ $item->course_class_member_id }}</td>
                             <td data-column="ID Course Class Module" class="hidden-column">
@@ -155,8 +158,7 @@
                                 </td>
                             @else
                                 <td>
-                                    <a href="{{ route('addCCMH', [$item->user_id, $item->module]) }}"
-                                        class="btn btn-success btn-sm">Edit</a>
+                                    <button type="submit" class="btn btn-success btn-sm" disabled>-</button>
                                 </td>
                             @endif
 
@@ -171,6 +173,9 @@
 
                 </tbody>
             </table>
+            {{-- @if ($averageGrade > 75)
+                <a href="{{ route('getCertificate', $item->id) }}" class="btn btn-info btn-sm">Generate Certificate</a>
+            @endif --}}
         </div>
     </div>
 
@@ -198,20 +203,64 @@
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
 
+    <script></script>
+
     <script>
         $(document).ready(function() {
             var table = $('#example').DataTable({
-                lengthChange: true, // Aktifkan opsi perubahan jumlah entri
-                lengthMenu: [10, 25, 50, 100], // Menentukan pilihan jumlah entri yang dapat ditampilkan
-                buttons: ['copy', 'excel', 'pdf', 'colvis']
+                lengthChange: true,
+                lengthMenu: [10, 25, 50, 100],
+                buttons: ['copy', 'excel', 'pdf', 'colvis'],
+                searching: true,
             });
 
-            table.buttons().container()
-                .appendTo('#example_wrapper .col-md-6:eq(0)');
-        });
-    </script>
+            // Add individual column search inputs and titles
+            $('#example thead th').each(function() {
+                var title = $(this).text();
+                $(this).html('<div class="text-center">' + title +
+                    '</div><div class="mt-2"><input type="text" placeholder="Search ' + title +
+                    '" /></div>');
+            });
 
-    <script>
+            // Apply individual column search
+            table.columns().every(function() {
+                var that = this;
+                $('input', this.header()).on('keyup change', function() {
+                    if (that.search() !== this.value) {
+                        that.search(this.value).draw();
+                    }
+                });
+            });
+
+            table.buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
+
+            // Additional code for showing/hiding columns
+            $('#checkAllColumns').on('change', function() {
+                var checked = $(this).prop('checked');
+                $('.column-checkbox').prop('checked', checked);
+                toggleColumns();
+            });
+
+            $('.column-checkbox').on('change', function() {
+                toggleColumns();
+            });
+
+            function toggleColumns() {
+                $('.column-checkbox').each(function() {
+                    var column = $(this).data('column');
+                    if ($(this).prop('checked')) {
+                        $('th[data-column="' + column + '"]').removeClass('hidden-column');
+                        $('td[data-column="' + column + '"]').removeClass('hidden-column');
+                    } else {
+                        $('th[data-column="' + column + '"]').addClass('hidden-column');
+                        $('td[data-column="' + column + '"]').addClass('hidden-column');
+                    }
+                });
+            }
+
+            toggleColumns(); // To hide columns by default
+        });
+
         $(document).ready(function() {
             $('#checkAllColumns').on('change', function() {
                 var checked = $(this).prop('checked');
