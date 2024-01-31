@@ -20,7 +20,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $table = 'users';
-
     protected $fillable = [
         'name',
         'email',
@@ -50,8 +49,6 @@ class User extends Authenticatable
         'email_verified' ,
         'email_verified_at'
     ];
-
-
     /**
      * The attributes that should be hidden for serialization.
      *

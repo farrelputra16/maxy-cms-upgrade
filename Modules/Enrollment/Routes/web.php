@@ -25,6 +25,6 @@ Route::post('/course/class/member/edit', [CourseClassMemberController::class, 'p
 // Import File .csv
 Route::post('/course-class-member/import-csv', [CourseClassMemberController::class, 'importCSV'])->name('course-class-member.import-csv');
 
-Route::prefix('enrollment')->group(function() {
+Route::prefix('enrollment')->group(function () {
     Route::get('/', 'EnrollmentController@index');
 });

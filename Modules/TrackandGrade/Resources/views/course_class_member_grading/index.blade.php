@@ -1,15 +1,15 @@
 @extends ('layout.master')
 
-@section ('title', 'Voucher')
-@section ('content')
+@section('title', 'Voucher')
+@section('content')
+
     <head>
         <title>Course</title>
-        <link rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
         <link rel="stylesheet" type="text/css"
-              href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+            href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     </head>
 
     <div class="container-fluid">
@@ -21,30 +21,31 @@
             <div class="col-10">
                 <div class="form-container pt-5">
                     <form method="GET" action="{{ route('getGradeCCMH') }}"
-                          class="row row-cols-lg-3 g-3 align-items-center">
+                        class="row row-cols-lg-3 g-3 align-items-center">
                         <div class="col-12">
                             <label for="courses" class="form-label">Course</label>
                             <select class="form-select" id="courses" name="course_name">
-                                <option value="all" {{ (request()->course_name == 'all') ? 'selected' : '' }}>
+                                <option value="all" {{ request()->course_name == 'all' ? 'selected' : '' }}>
                                     All
                                 </option>
-                                @foreach($courseNames as $name)
-                                    <option
-                                        value="{{ $name->name }}" {{ (request()->course_name == $name->name) ? 'selected' : '' }}>{{ $name->name }}</option>
-                                @endforeach
+                                {{-- @foreach ($courseNames as $name)
+                                    <option value="{{ $name->name }}"
+                                        {{ request()->course_name == $name->name ? 'selected' : '' }}>{{ $name->name }}
+                                    </option>
+                                @endforeach --}}
                             </select>
                         </div>
 
-                        <div class="col-12">
+                        {{-- <div class="col-12">
                             <label for="days" class="form-label">Day</label>
                             <select class="form-select" id="days" name="day">
-                                <option value="all" {{ (request()->day == 'all') ? 'selected' : '' }}>All</option>
-                                @foreach($day as $item)
-                                    <option
-                                        value="{{ $item->day }}" {{ (request()->day == $item->day ) ? 'selected' : '' }}>{{ $item->day }}</option>
+                                <option value="all" {{ request()->day == 'all' ? 'selected' : '' }}>All</option>
+                                @foreach ($day as $item)
+                                    <option value="{{ $item->day }}"
+                                        {{ request()->day == $item->day ? 'selected' : '' }}>{{ $item->day }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
 
                         <div class="col-12 align-self-end">
                             <button type="submit" class="btn btn-primary">Generate</button>
@@ -56,7 +57,7 @@
                 <div class="settings-container" style="margin-top: 2%; text-align: right">
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="addColumnDropdown"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Show/Hide Column
                         </button>
                         <div class="dropdown-menu" aria-labelledby="addColumnDropdown">
@@ -96,58 +97,78 @@
         <div id="table_content">
             <table id="example" class="table table-striped w-100">
                 <thead>
-                <tr>
-                    <th>Student Name</th>
-                    <th data-column="ID Course Class Member" class="hidden-column">ID Course Class Member</th>
-                    <th data-column="ID Course Module" class="hidden-column">ID Course Module</th>
-                    <th data-column="Description" class="hidden-column">Description</th>
-                    <th data-column="Paket Soal" class="hidden-column">Paket Soal</th>
-                    <th data-column="Package Type" class="hidden-column">Package Type</th>
-                    <th data-column="Created At" class="hidden-column">Created At</th>
-                    <th data-column="Updated At" class="hidden-column">Updated At</th>
-                    <th>File</th>
-                    <th>Comment</th>
-                    <th>Grade</th>
-                    <th>Grade At</th>
-                    <th>Action</th>
-                </tr>
+                    <tr>
+                        <th>course class</th>
+                        <th>course module</th>
+                        <th>day</th>
+                        <th>student name</th>
+                        <th>submitted file</th>
+                        <th>grade</th>
+                        <th>comment</th>
+                        {{-- <th data-column="ID Course Class Member" class="hidden-column">ID Course Class Member</th>
+                        <th data-column="ID Course Module" class="hidden-column">ID Course Module</th>
+                        <th data-column="Description" class="hidden-column">Description</th>
+                        <th data-column="Paket Soal" class="hidden-column">Paket Soal</th>
+                        <th data-column="Package Type" class="hidden-column">Package Type</th>
+                        <th data-column="Created At" class="hidden-column">Created At</th>
+                        <th data-column="Updated At" class="hidden-column">Updated At</th>
+                        <th>File</th>
+                        <th>Comment</th>
+                        <th>Grade</th>
+                        <th>Grade At</th>
+                        <th>Action</th> --}}
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach ($ccmh as $item)
-                    <tr>
-                        <td>{{ $item->user->name }}</td>
-                        <td data-column="ID Course Class Member"
-                            class="hidden-column">{{ $item->course_class_member_id }}</td>
-                        <td data-column="ID Course Class Module"
-                            class="hidden-column">{{ $item->course_class_module_id }}</td>
-                        <td data-column="Description" class="hidden-column">{{ $item->description }}</td>
-                        <td data-column="Paket Soal" class="hidden-column">{{ $item->paket_soal }}</td>
-                        <td data-column="Package Type" class="hidden-column">{{ $item->package_type }}</td>
-                        <td data-column="Created At" class="hidden-column">{{ $item->created_at }}</td>
-                        <td data-column="Updated At" class="hidden-column">{{ $item->updated_at }}</td>
-                        <td>
-                            @if($item->submitted_file)
-                                <a href="{{
-                                asset('uploads/course_class_member_grading/' .
-                                    \Str::snake(\Str::lower($item->courseClassModule->courseModule->course->name)) . "/" .
-                                    \Str::snake(\Str::lower($item->user->name)) . "/" .
-                                    \Str::snake(\Str::lower($item->courseClassModule->courseModule->name)) . "/" .
-                                    $item->submitted_file
-                                )
-                                }}">{{ $item->submitted_file }}</a>
+                    @foreach ($class_list as $item)
+                        <tr>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->course_name }} {{ $item->batch }}</td>
+                            <td>{{ $item->day }}</td>
+                            <td>{{ $item->user_name }}</td>
+                            <td>{{ $item->submitted_file ?? '-' }}</td>
+                            <td>{{ $item->grade ?? '-' }}</td>
+                            <td>{!! Str::limit($item->comment ?? '-') !!}</td>
+                            {{-- <td data-column="ID Course Class Member" class="hidden-column">
+                                {{ $item->course_class_member_id }}</td>
+                            <td data-column="ID Course Class Module" class="hidden-column">
+                                {{ $item->course_class_module_id }}</td>
+                            <td data-column="Description" class="hidden-column">{{ $item->description }}</td>
+                            <td data-column="Paket Soal" class="hidden-column">{{ $item->paket_soal }}</td>
+                            <td data-column="Package Type" class="hidden-column">{{ $item->package_type }}</td>
+                            <td data-column="Created At" class="hidden-column">{{ $item->created_at }}</td>
+                            <td data-column="Updated At" class="hidden-column">{{ $item->updated_at }}</td>
+                            <td>
+                                @if ($item->submitted_file)
+                                    <a
+                                        href="{{ asset('uploads/course_class_member_grading/' . Str::snake(Str::lower($item->courseClassModule->courseModule->course->name)) . '/' . Str::snake(Str::lower($item->user->name)) . '/' . Str::snake(Str::lower($item->courseClassModule->courseModule->name)) . '/' . $item->submitted_file) }}">
+                                        {{ $item->submitted_file }}
+                                    </a>
+                                @else
+                                    -
+                                @endif
+                            </td> --}}
+                            @if ($item->id_grading !== null)
+                                <td>
+                                    <a href="{{ route('getEditCCMH', $item->id_grading) }}"
+                                        class="btn btn-success btn-sm">Edit</a>
+                                </td>
                             @else
-                                -
+                                <td>
+                                    <a href="{{ route('addCCMH', [$item->user_id, $item->module]) }}"
+                                        class="btn btn-success btn-sm">Edit</a>
+                                </td>
                             @endif
-                        </td>
-                        <td>{!! \Str::limit($item->comment) !!}</td>
-                        <td>{{ $item->grade ?? '-' }}</td>
-                        <td>{{ \Carbon\Carbon::parse($item->graded_at)->format('d-m-Y H:i:s') }}</td>
-                        <td>
-                            <a href="{{ route('getEditCCMH', $item->id) }}"
-                               class="btn btn-success btn-sm">Edit</a>
-                        </td>
-                    </tr>
-                @endforeach
+
+                            {{-- Display additional grading information --}}
+                            {{-- @if (isset($item->grading_info))
+                                @foreach ($item->grading_info as $grading)
+                                    <td>{{ $grading->submitted_file }}</td>
+                                @endforeach
+                            @endif --}}
+                        </tr>
+                    @endforeach
+
                 </tbody>
             </table>
         </div>
@@ -178,7 +199,7 @@
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             var table = $('#example').DataTable({
                 lengthChange: true, // Aktifkan opsi perubahan jumlah entri
                 lengthMenu: [10, 25, 50, 100], // Menentukan pilihan jumlah entri yang dapat ditampilkan
@@ -191,19 +212,19 @@
     </script>
 
     <script>
-        $(document).ready(function () {
-            $('#checkAllColumns').on('change', function () {
+        $(document).ready(function() {
+            $('#checkAllColumns').on('change', function() {
                 var checked = $(this).prop('checked');
                 $('.column-checkbox').prop('checked', checked);
                 toggleColumns();
             });
 
-            $('.column-checkbox').on('change', function () {
+            $('.column-checkbox').on('change', function() {
                 toggleColumns();
             });
 
             function toggleColumns() {
-                $('.column-checkbox').each(function () {
+                $('.column-checkbox').each(function() {
                     var column = $(this).data('column');
                     if ($(this).prop('checked')) {
                         $('th[data-column="' + column + '"]').removeClass('hidden-column');

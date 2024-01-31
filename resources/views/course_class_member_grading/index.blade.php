@@ -21,7 +21,7 @@
                         @else
                             <select class="ui dropdown" name="course_name">
                                 <option value="all" selected>all</option>
-                                @foreach($course_name as $name)
+                                @foreach($a  as $name)
                                     <option value="{{ $name->name }}">{{ $name->name }}</option>
                                 @endforeach
                             </select>

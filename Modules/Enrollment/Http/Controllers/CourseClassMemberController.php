@@ -26,81 +26,85 @@ class CourseClassMemberController extends Controller
      * @return Renderable
      */
 
-    function getCourseClassMember(Request $request){
+    function getCourseClassMember(Request $request)
+    {
         $idCourseClass = $request->id;
+        // dd($course_class_detail);
+        $users = User::where('access_group_id', 2)->get();
         $course_class_detail = CourseClass::getClassDetailByClassId($idCourseClass);
         // dd($course_class_detail);
-
         $courseClassMembers = CourseClassMember::getCourseClassMember($request);
-
         return view('enrollment::course_class_member.index', [
+            'users' => $users,
             'courseClassMembers' => $courseClassMembers,
             'course_class_detail' => $course_class_detail
         ]);
     }
 
-    function getAddCourseClassMember(Request $request){
+    function getAddCourseClassMember(Request $request)
+    {
+        $courseClassMembers = CourseClassMember::getCourseClassMember($request);
         $course_class_id = $request->id;
         $course_class_detail = CourseClass::getClassDetailByClassId($course_class_id);
-        // dd($course_class_detail);
-        // $courseClasses = CourseClass::getDuplicateCourseClass($request);
-        // dd($courseClasses);
-        $users = User::all();
-
+        // Get all users with access_group_id = 2
+        $users = User::where('access_group_id', 2)->get();
+        // Extract the 'id' values from $courseClassMembers
+        $courseClassMemberIds = collect($courseClassMembers)->pluck('user_id')->toArray();
+        // Filter out users with the same 'id' as in $courseClassMemberIds
+        $filteredUsers = $users->whereNotIn('id', $courseClassMemberIds);
         return view('enrollment::course_class_member.add', [
-            'users' => $users,
+            'users' => $filteredUsers,
             'course_class_detail' => $course_class_detail
         ]);
     }
 
-    function postAddCourseClassMember(Request $request){
-        // dd($request->all());
-        $existingUser = CourseClassMember::checkExistingCCM($request->users, $request->course_class);
-        // dd($existingUser);
-        if($existingUser){
-            return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('error', 'Failed to Enroll Member, user already exists');
-        } else {
+
+    function postAddCourseClassMember(Request $request)
+    {
+        $existingUsers = CourseClassMember::checkExistingCCM($request->users, $request->course_class);
+        if ($existingUsers) {
+            return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('error', 'Failed to Enroll Member, one or more users already exist');
+        }
+        $createdMembers = [];
+        foreach ($request->users as $userId) {
             $created = CourseClassMember::create([
-                'user_id' => $request->users,
+                'user_id' => $userId,
                 'course_class_id' => $request->course_class,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => Auth::user()->id,
-                'updated_id' => Auth::user()->id
+                'updated_id' => Auth::user()->id,
             ]);
-
-            if ($created){
-                return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('success', 'Enroll Member Success');
-            } else {
-                return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('error', 'Failed to Enroll Member, please try again');
+            if ($created) {
+                $createdMembers[] = $created;
             }
+        }
+        if (!empty($createdMembers)) {
+            return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('success', 'Enroll Members Success');
+        } else {
+            return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('error', 'Failed to Enroll Members, please try again');
         }
     }
 
-        function getEditCourseClassMember(Request $request){
+    function getEditCourseClassMember(Request $request)
+    {
+        $currentData = CourseClassMember::getEditCourseClassMember($request);
+        // return dd($currentData);
+        $result = CourseClass::getEditCourseClassMemberCourseandClasses($currentData);
+        $currentDataCourse = $result['currentDataCourse'];
+        $allCourseClasses = $result['allCourseClasses'];
+        $ccmMemberId = $currentData[0]->ccm_member_id;
+        $allMembers = User::where('id', '!=', $ccmMemberId)->get();
+        return view('enrollment::course_class_member.edit', [
+            'currentData' => $currentData,
+            'currentDataCourse' => $currentDataCourse,
+            'allCourseClasses' => $allCourseClasses,
+            'allMembers' => $allMembers
+        ]);
+    }
 
-            $currentData = CourseClassMember::getEditCourseClassMember($request);
-
-            // return dd($currentData);
-
-            $result = CourseClass::getEditCourseClassMemberCourseandClasses($currentData);
-
-            $currentDataCourse = $result['currentDataCourse'];
-            $allCourseClasses = $result['allCourseClasses'];
-
-            $ccmMemberId = $currentData[0]->ccm_member_id;
-
-            $allMembers = User::where('id', '!=', $ccmMemberId)->get();
-
-            return view('enrollment::course_class_member.edit', [
-                'currentData' => $currentData,
-                'currentDataCourse' => $currentDataCourse,
-                'allCourseClasses' => $allCourseClasses,
-                'allMembers' => $allMembers
-            ]);
-        }
-
-    function postEditCourseClassMember(Request $request){
+    function postEditCourseClassMember(Request $request)
+    {
         $update = CourseClassMember::where('id', '=', $request->id)
             ->update([
                 'user_id' => $request->user_id,
@@ -110,7 +114,7 @@ class CourseClassMemberController extends Controller
                 'updated_id' => Auth::user()->id
             ]);
 
-        if ($update){
+        if ($update) {
             return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('success', 'Update Class Member Success');
         } else {
             return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('error', 'Failed to Enroll Member, please try again');

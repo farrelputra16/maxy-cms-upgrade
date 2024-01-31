@@ -37,9 +37,9 @@
                 @else
                     <a class="btn btn-primary" href="{{ route('getAddCourseClassMember') }}" role="button">Tambah Class Member +</a>
                 @endif
-                    
+
                 </div>
-            </div>    
+            </div>
         </nav>
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
@@ -59,7 +59,7 @@
                     <tr>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->user_id }} - {{ $item->user_name }}</td>
-                        <!-- <td>Batch {{ $item->course_class_batch }} - {{ $item->course_name }}</td> -->
+                        <!-- <td>Batch {{ $item->course_class_batch }} - {{ $item->course_name }}\</td> -->
                         <td id="description">{{ $item->description }}</td>
                         <td>
                             @if ($item->status == 1)
@@ -78,7 +78,7 @@
             </tbody>
         </table>
     </div>
-    
+
     <!-- Include JS libraries for DataTable initialization -->
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
@@ -91,7 +91,7 @@
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
-    
+
     <script>
         $(document).ready(function() {
             var table = $('#example').DataTable({
@@ -99,7 +99,7 @@
                 lengthMenu: [10, 25, 50, 100], // Menentukan pilihan jumlah entri yang dapat ditampilkan
                 buttons: ['copy', 'excel', 'pdf', 'colvis']
             });
-    
+
         table.buttons().container()
             .appendTo('#example_wrapper .col-md-6:eq(0)');
         });
