@@ -17,11 +17,14 @@ class CourseModuleController extends Controller
     function getCourseModule(Request $request)
     {
         $idCourse = $request->id;
+        $coursenama = Course::select('name')->where('id', $idCourse)->first();
         $courseModuleParent = CourseModule::getCourseModuleParent($request);
+        // return dd($coursenama);
 
         return view('course_module.index', [
             'courseModules' => $courseModuleParent,
-            'course_id' => $idCourse
+            'course_id' => $idCourse,
+            'course_name' => $coursenama
         ]);
     }
 

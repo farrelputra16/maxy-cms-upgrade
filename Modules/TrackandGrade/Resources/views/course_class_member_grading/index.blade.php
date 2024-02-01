@@ -15,7 +15,12 @@
     <div class="container-fluid">
         <h2>CCMH Grading</h2>
 
-        <hr class="mb-0">
+        <hr>
+        <div class="ui breadcrumb pt-2 pb-4">
+            <a class="section" href="{{ url('/') }}">Dashboard</a>
+            <i class="right angle icon divider"></i>
+            <div class="active section">CCMH Grading</div>
+        </div>
 
         <div class="row">
             <div class="col-10">

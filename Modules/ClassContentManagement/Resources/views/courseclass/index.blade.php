@@ -5,11 +5,18 @@
 @push('styles')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+    
 @endpush
 @section('content')
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <div class="container-fluid">
         <h2>Course Class</h2>
-        <hr class="mb-0">
+        <hr>
+        <div class="ui breadcrumb pt-2 pb-4">
+            <a class="section" href="{{ url('/') }}">Dashboard</a>
+            <i class="right angle icon divider"></i>
+            <div class="active section">Course Class</div>
+        </div>
         <nav class="navbar bg-body-tertiary py-3">
             <div class="row">
                 <div class="col">

@@ -3,8 +3,10 @@
 @section('title', 'Add Transaction Order')
 
 @section('content')
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <div class="px-3 pb-3 mb-3">
-        <h2 class="pb-5">Add Orders Confirm</h2>
+        <h2>Add Orders Confirm</h2>
+        <hr style="padding-bottom:1%">
         <form class="ui form" action="{{ route('postAddTransOrderConfirm') }}" method="post"
               enctype="multipart/form-data">
             @csrf

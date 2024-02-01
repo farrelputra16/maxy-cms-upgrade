@@ -21,9 +21,10 @@ class TransOrderConfirmController extends Controller
     public function getTransOrderConfirm(Request $request)
     {
         $transOrderId = $request->id;
+        $transOrderName = TransOrder::select('order_number')->where('id', $transOrderId)->first();
         $transOrderConfirms = TransOrderConfirm::where('trans_order_id', $transOrderId)->get();
 
-        return view('trans_order_confirm.index', compact('transOrderConfirms', 'transOrderId'));
+        return view('trans_order_confirm.index', compact('transOrderConfirms', 'transOrderId', 'transOrderName'));
     }
 
     /**

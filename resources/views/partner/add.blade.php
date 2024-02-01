@@ -3,8 +3,10 @@
 @section('title', 'Add Partners')
 
 @section('content')
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <div style="padding: 0px 12px 0px 12px;">
-        <h2 style="padding-bottom:3%">Add Partner</h2>
+        <h2>Add Partner</h2>
+        <hr style="padding-bottom:1%">
         <form class="ui form" action="" method="post" enctype="multipart/form-data">
             @csrf
             <div class="field">

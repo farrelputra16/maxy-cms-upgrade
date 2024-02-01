@@ -3,8 +3,10 @@
 @section('title', 'Edit Course Price')
 
 @section('content')
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <div style="padding: 0px 12px 0px 12px;">
-        <h2 style="padding-bottom:3%">Edit Course Package</h2>
+        <h2>Edit Course Package</h2>
+        <hr style="padding-bottom:1%">
         <form class="ui form" action="{{ route('postEditCoursePackage', ['id' => request()->query('id')]) }}" method="post">
             @csrf
             <div class="field">

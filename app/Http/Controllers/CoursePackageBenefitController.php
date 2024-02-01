@@ -13,14 +13,19 @@ class CoursePackageBenefitController extends Controller
     //
     function getCoursePackageBenefit(Request $request)
     {
+        $idPackage = $request->id;
+        $Packagenama = CoursePackage::select('name')->where('id', $idPackage)->first();
+
+        // dd($coursenama);
+
         if (!$request->filled('id')) {
             $coursePackageBenefits = CoursePackageBenefit::getCoursePackageBenefit();
-            return view('course_package_benefit.index', ['coursePackageBenefits' => $coursePackageBenefits]);
+            return view('course_package_benefit.index', ['coursePackageBenefits' => $coursePackageBenefits , 'Packagenama' => $Packagenama]);
         } else {
             $idCPB = $request->id;
             // $coursePackageBenefits = CoursePackageBenefit::where('course_package_id', $idCPB)->get();
             $coursePackageBenefits = CoursePackageBenefit::getCoursePackageBenefit($idCPB);
-            return view('course_package_benefit.index', ['coursePackageBenefits' => $coursePackageBenefits, 'idCPB' => $idCPB]);
+            return view('course_package_benefit.index', ['coursePackageBenefits' => $coursePackageBenefits, 'idCPB' => $idCPB, 'Packagenama' => $Packagenama]);
         }
 
     }

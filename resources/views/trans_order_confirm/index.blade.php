@@ -12,8 +12,15 @@
 
 @section('content')
     <div class="px-3 pb-3">
-        <h2>Trans Order Confirm</h2>
+        <h2>Order Confirm</h2>
         <hr>
+        <div class="ui breadcrumb pt-2 pb-4">
+            <a class="section" href="{{ url('/') }}">Dashboard</a>
+            <i class="right angle icon divider"></i>
+            <a class="section" href="{{ url('/order') }}">Order</a>
+            <i class="right angle icon divider"></i>
+            <div class="active section">{{ $transOrderName->order_number }}</div>
+        </div>
         <div id="example_wrapper">
             <div class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
                 <div class="navbar-nav">

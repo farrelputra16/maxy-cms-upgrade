@@ -22,6 +22,13 @@
         <body>
             <h2>Course Module</h2>
             <hr>
+            <div class="ui breadcrumb pt-2 pb-4">
+            <a class="section" href="{{ url('/') }}">Dashboard</a>
+            <i class="right angle icon divider"></i>
+            <a class="section" href="{{ url('/course') }}">Course</a>
+            <i class="right angle icon divider"></i>
+            <div class="active section">{{ $course_name->name }}</div>
+        </div>
             <div id="example_wrapper">
                 <div class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
                     <div class="navbar-nav">

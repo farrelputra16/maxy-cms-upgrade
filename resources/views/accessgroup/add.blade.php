@@ -3,8 +3,10 @@
 @section('title', 'Add Access Group')
 
 @section('content')
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <div style="padding: 0px 12px 0px 12px;">
-        <h2 style="padding-bottom:3%">Add Access Group</h2>
+        <h2>Add Access Group</h2>
+        <hr style="padding-bottom:1%">
         <form class="ui form" action="{{ route('postAddAccessGroup') }}" method="post">
             @csrf
             <div class="field">

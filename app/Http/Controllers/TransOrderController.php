@@ -23,8 +23,10 @@ class TransOrderController extends Controller
     {
         // Call the showTransorderDetail method with the provided ID
         $transOrderDetail = TransOrder::showTransorderDetail($id);
+        $transOrderName = TransOrder::select('order_number')->where('id', $id)->first();
 
-        return view('trans_order.detail', ['transOrderDetail' => $transOrderDetail]);
+
+        return view('trans_order.detail', ['transOrderDetail' => $transOrderDetail , 'transOrderName' => $transOrderName]);
     }
 
     function getAddTransOrder(Request $request)

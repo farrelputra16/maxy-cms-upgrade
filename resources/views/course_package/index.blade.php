@@ -17,12 +17,18 @@
 </head>
 <body>
     <hr>
+    <div class="ui breadcrumb pt-2 pb-4">
+            <a class="section" href="{{ url('/') }}">Dashboard</a>
+            <i class="right angle icon divider"></i>
+            <div class="active section">Course Package</div>
+        </div>
     <div id="example_wrapper">
         <div class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
         <div class="navbar-nav">
                 <a class="btn btn-primary" href="{{ route('getAddCoursePackage') }}" role="button">Tambah Course Package +</a>
             </div>
         </div>
+        
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
                 <tr>

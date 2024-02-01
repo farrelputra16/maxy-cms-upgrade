@@ -17,9 +17,10 @@
     {{--  --}}
     {{-- <script src="https://cdn.ckeditor.com/ckeditor5/40.2.0/classic/ckeditor.js"></script> --}}
 
-
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <div style="padding: 0px 12px 0px 12px;">
-        <h2 style="padding-bottom:3%">Add Orders</h2>
+        <h2>Add Orders</h2>
+        <hr style="padding-bottom:1%">
         <form class="ui form" action="{{ route('postAddTransOrder') }}" method="post">
             @csrf
             <h4 class="ui dividing header">Order Information</h4>

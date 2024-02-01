@@ -52,11 +52,11 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                All Course
+                                Master
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <h6 class="dropdown-header">MASTER</h6>
-                                <div class="dropdown-divider"></div>
+                                <!-- <h6 class="dropdown-header">COURSE</h6>
+                                <div class="dropdown-divider"></div> -->
                                 @if ($broGotAccessMaster->contains('name', 'course_manage'))
                                     <a class="dropdown-item" href="{{ route('getCourse') }}">Course</a>
                                 @else
@@ -64,10 +64,10 @@
                                             class="lock icon"></i></a>
                                 @endif
                                 @if ($broGotAccessMaster->contains('name', 'course_module_manage'))
-                                    <a class="dropdown-item" href="{{ route('getCourseModule') }}">Course Module</a>
+                                    <!-- <a class="dropdown-item" href="{{ route('getCourseModule') }}">Course Module</a> -->
                                 @else
-                                    <a class="dropdown-item disabled" href="{{ route('getCourseModule') }}">Course
-                                        Module <i class="lock icon"></i></a>
+                                    <!-- <a class="dropdown-item disabled" href="{{ route('getCourseModule') }}">Course
+                                        Module <i class="lock icon"></i></a> -->
                                 @endif
                                 @if ($broGotAccessMaster->contains('name', 'course_package_manage'))
                                     <a class="dropdown-item" href="{{ route('getCoursePackage') }}">Course Package</a>
@@ -89,10 +89,26 @@
                                     <a class="dropdown-item disabled" href="{{ route('getDifficulty') }}">Course
                                         Difficulty <i class="lock icon"></i></a>
                                 @endif
-                                <div class="dropdown-divider"></div>
 
-                                <h6 class="dropdown-header">CLASS</h6>
-                                <div class="dropdown-divider"></div>
+                                <!-- <h6 class="dropdown-header">PARTNERS</h6>
+                                <div class="dropdown-divider"></div> -->
+                                @if ($broGotAccessMaster->contains('name', 'm_partner_manage'))
+                                    <a class="dropdown-item" href="{{ route('getPartner') }}">Partners</a>
+                                @else
+                                    <a class="dropdown-item disabled" href="{{ route('getPartner') }}">Partners <i
+                                            class="lock icon"></i></a>
+                                @endif
+                            </div>
+                            
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Class
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <!-- <h6 class="dropdown-header">CLASS</h6>
+                                <div class="dropdown-divider"></div> -->
                                 @if ($broGotAccessMaster->contains('name', 'course_class_manage'))
                                     <a class="dropdown-item" href="{{ route('getCourseClass') }}">Class</a>
                                 @else
@@ -113,7 +129,6 @@
                                     <a class="dropdown-item disabled" href="{{ route('getCCMHGrade') }}">Class Member
                                         History (Grading) <i class="lock icon"></i></a>
                                 @endif
-                            </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -143,7 +158,7 @@
                                 <a class="dropdown-item" href="#">Need Help?</a>
                             </div>
                         </li>
-                        <li class="nav-item dropdown">
+                        <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Partner
@@ -164,7 +179,7 @@
                                             class="lock icon"></i></a>
                                 @endif
                             </div>
-                        </li>
+                        </li> -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
