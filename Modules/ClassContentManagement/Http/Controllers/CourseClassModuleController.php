@@ -26,10 +26,11 @@ class CourseClassModuleController extends Controller
     {
         $course_class_id = $request->id;
         $course_detail = CourseClass::getCourseDetailByClassId($course_class_id);
+        // $courseclassNama = CourseClass::select('name')->where('id', $course_class_id)->first();
 
         $courseClassModules = CourseClassModule::getCourseClassModule($course_class_id);
         $courseClassModules = CourseClassModule::getParentModules($request);
-        // dd($courseClassModules);
+        // dd($courseclassNama);
         return view('classcontentmanagement::course_class_module.index', [
             'courseclassmodules' => $courseClassModules,
             'course_class_id' => $course_class_id,

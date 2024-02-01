@@ -75,13 +75,16 @@ class CourseClassModule extends Model
             ->join('course as c', 'c.id', '=', 'cm.course_id')
             ->where('ccmod.course_class_id', $course_class_id)
             ->get();
-
+        
+        // dd($ccmod);
         foreach ($ccmod as $module) {
-            if ($module->parent_id) {
-                $ccmod_parent_name = DB::table('course_module as cm')
-                    ->select('cm.name')
-                    ->where('cm.id', $module->parent_id)
+            if ($module->parent_id != null) {
+                // dd($module->parent_id);
+                $ccmod_parent_name = DB::table('course_module')
+                    ->select('name')
+                    ->where('id', $module->parent_id)
                     ->first();
+                    // dd($ccmod_parent_name);
                 $module->parent_name = $ccmod_parent_name->name;
             }
         }

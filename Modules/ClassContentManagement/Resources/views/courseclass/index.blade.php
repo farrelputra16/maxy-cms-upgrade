@@ -7,10 +7,37 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
     
 @endpush
+
 @section('content')
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-    <div class="container-fluid">
-        <h2>Course Class</h2>
+    <div style="padding: 0px 12px 0px 12px;">
+        <!DOCTYPE html>
+        <html>
+
+        <head>
+            <title>Course Class Module</title>
+            <!-- Include CSS libraries for styling the table -->
+            <link rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+            <link rel="stylesheet" type="text/css"
+                href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+
+        </head>
+
+        <body>
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+            <h2>Course Class</h2>
         <hr>
         <div class="ui breadcrumb pt-2 pb-4">
             <a class="section" href="{{ url('/') }}">Dashboard</a>
@@ -29,7 +56,7 @@
             </div>
         </nav>
 
-        <table id="example" class="table table-striped w-100">
+        <table id="example" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th scope="col">Batch</th>
@@ -105,4 +132,9 @@
                 .appendTo('#example_wrapper .col-md-6:eq(0)');
         });
     </script>
+        </body>
+
+        </html>
+
+    </div>
 @endsection

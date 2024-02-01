@@ -17,57 +17,7 @@
             <link rel="stylesheet" type="text/css"
                 href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 
-    @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-    <h2>Class Member on Class: {{ $course_class_detail->course_name }} Batch {{ $course_class_detail->batch }}</h2>
-    <hr style="margin-bottom: 0px;">
-        <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
-            <div class="row">
-                <div class="col">
-                @if($course_class_detail->id != NULL)
-                    <a class="btn btn-primary" href="{{ route('getAddCourseClassMember' , ['id' => $course_class_detail->id]) }}" role="button">Tambah Class Member +</a>
-                @else
-                    <a class="btn btn-primary" href="{{ route('getAddCourseClassMember') }}" role="button">Tambah Class Member +</a>
-                @endif
-
-                </div>
-            </div>
-        </nav>
-        <table id="example" class="table table-striped" style="width:100%">
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>ID - Name</th>
-                    <!-- <th>Batch - Course</th> -->
-                    <th>Description</th>
-                    <th>Status</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($courseClassMembers as $item)
-                    <tr>
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $item->user_id }} - {{ $item->user_name }}</td>
-                        <!-- <td>Batch {{ $item->course_class_batch }} - {{ $item->course_name }}\</td> -->
-                        <td id="description">{{ $item->description }}</td>
-                        <td>
-                            @if ($item->status == 1)
-                                <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
-                            @else
-                                <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
-                            @endif
-                        </td>
-                        <td>{{ $item->created_at }}</td>
-                        <td>{{ $item->updated_at }}</td>
-                        <td>
-                            <a href="{{ route('getEditCourseClassMember', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
-                        </td>
+    
         </head>
 
         <body>
@@ -84,6 +34,13 @@
             @endif
             <h2>Class Member on Class: {{ $course_class_detail->course_name }} Batch {{ $course_class_detail->batch }}</h2>
             <hr style="margin-bottom: 0px;">
+            <div class="ui breadcrumb pt-2 pb-4">
+            <a class="section" href="{{ url('/') }}">Dashboard</a>
+            <i class="right angle icon divider"></i>
+            <a class="section" href="{{ url('/course/class') }}">Course Class</a>
+            <i class="right angle icon divider"></i>
+            <div class="active section">{{ $course_class_detail->course_name }} Batch {{ $course_class_detail->batch }}</div>
+        </div>
             <nav class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
                 <div class="row">
                     <div class="col">
