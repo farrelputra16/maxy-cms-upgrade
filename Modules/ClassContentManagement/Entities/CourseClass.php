@@ -11,6 +11,7 @@ use Modules\ClassContentManagement\Entities\CourseClassModule;
 
 use Illuminate\Support\Facades\Auth;
 use DB;
+use GuzzleHttp\Psr7\Request;
 
 class CourseClass extends Model
 {
@@ -30,6 +31,13 @@ class CourseClass extends Model
         return $this->hasMany(CourseClassMember::class, 'course_class_id');
     }
 
+    // public function modules()
+    // {
+    //     return $this->hasMany(CourseClassModule::class, 'course_class_id')
+    //         ->orderBy('priority')
+    //         ->where('status', 1)
+    //         ->where('level', '!=', 0);
+    // }
     public function modules()
     {
         return $this->hasMany(CourseClassModule::class, 'course_class_id')
@@ -40,26 +48,31 @@ class CourseClass extends Model
 
     public function scopeTotalDuration($query)
     {
-        return $query->addSelect(['total_duration' => CourseClassModule::selectRaw('CAST(SUM(course_module.duration) AS SIGNED)')
-            ->whereColumn('course_class_module.course_class_id', 'course_class.id')
-            ->leftJoin('course_module', 'course_class_module.course_module_id', '=', 'course_module.id')
+        return $query->addSelect([
+            'total_duration' => CourseClassModule::selectRaw('CAST(SUM(course_module.duration) AS SIGNED)')
+                ->whereColumn('course_class_module.course_class_id', 'course_class.id')
+                ->leftJoin('course_module', 'course_class_module.course_module_id', '=', 'course_module.id')
         ]);
     }
 
     public function scopeCompleteDetails($query)
     {
         return $query->totalDuration()
-            ->withCount(['modules' => function ($query) {
-                $query->where('level', '>=', 2);
-            }])
-            ->withCount(['members' => function ($query) {
-                $query->where('status', 1);
-            }])
+            ->withCount([
+                'modules' => function ($query) {
+                    $query->where('level', '>=', 2);
+                }
+            ])
+            ->withCount([
+                'members' => function ($query) {
+                    $query->where('status', 1);
+                }
+            ])
             ->whereHas('course.type', function ($query) {
                 $query->where('id', '!=', 2);
             })
             ->whereHas('members', function ($query) {
-                if(auth()->check()) {
+                if (auth()->check()) {
                     $query->where('user_id', auth()->user()->id);
                 }
             })
@@ -74,19 +87,28 @@ class CourseClass extends Model
             ->whereHas('courseModule', function ($query) {
                 $query->where('level', 1)->where('status', 1)->whereNotNull('day')->orderBy('priority')->orderBy('day');
             })
-//            ->whereHas('gradings', function ($query) {
+            //            ->whereHas('gradings', function ($query) {
 //                $query->where('user_id', auth()->user()->id);
 //            })
             ->get();
     }
 
     // Untuk mendapatkan child modules
+    // public function childModules()
+    // {
+    //     return $this->modules()->with('courseModule')->whereHas('courseModule', function ($query) {
+    //         $query->where('level', '>', 1)->where('status', 1)->whereNotNull('day')->orderBy('priority')->orderBy('day');
+    //     })->get();
+    // }
     public function childModules()
     {
-        return $this->modules()->with('courseModule')->whereHas('courseModule', function ($query) {
-            $query->where('level', '>', 1)->where('status', 1)->whereNotNull('day')->orderBy('priority')->orderBy('day');
-        })->get();
+        return $this->modules()->with('courseModule')
+            ->whereHas('courseModule', function ($query) {
+                $query->where('level', '>', 1)->where('status', 1)->whereNotNull('day')->orderBy('priority')->orderBy('day');
+            });
     }
+
+
 
     public static function getCourseClass()
     {
@@ -246,11 +268,66 @@ class CourseClass extends Model
     public static function getClassDetailByClassId($course_class_id)
     {
         $class_detail = DB::table('course_class as cc')
-            ->select('cc.*', 'c.name as course_name')
+            ->select('cc.*', 'c.name as course_name', 'mct.name as course_type_name')
             ->join('course as c', 'c.id', '=', 'cc.course_id')
+            ->join('m_course_type as mct', 'mct.id', '=', 'c.m_course_type_id')
             ->where('cc.id', $course_class_id)
             ->first();
-
+        $class_detail->parent_modules = DB::table('course_class_module as ccmodule')
+            ->select('ccmodule.*', 'cm.name as module_name', 'cm.type as module_type', 'cm.id as module_id')
+            ->join('course_module as cm', 'cm.id', '=', 'ccmodule.course_module_id')
+            ->where('ccmodule.status', 1)
+            ->where('ccmodule.course_class_id', $course_class_id)
+            ->where('cm.type', 'parent')
+            ->orderBy('ccmodule.priority', 'asc')
+            ->get();
+        foreach ($class_detail->parent_modules as $parent) {
+            $submods = DB::table('course_class_module as ccmodule')
+                ->select('ccmodule.*', 'cm.name as module_name', 'cm.type as module_type', 'cm.material as material', 'cm.duration as duration', 'cm.course_module_parent_id as parent_id')
+                ->join('course_module as cm', 'cm.id', '=', 'ccmodule.course_module_id')
+                ->where('ccmodule.status', 1)
+                ->where('ccmodule.course_class_id', $course_class_id)
+                ->where('cm.course_module_parent_id', $parent->module_id)
+                ->where('cm.type', '!=', 'company_profile')
+                ->where('ccmodule.level', 2)
+                ->orderBy('ccmodule.priority', 'asc')
+                ->get();
+            $parent->submod = $submods;
+        }
         return $class_detail;
+    }
+
+    public static function getClassKompByClassId($userId, $idCourseClass)
+    {
+        $modulesParent = DB::table('course_class_module as ccm')
+            ->join('course_module as cm', 'cm.id', '=', 'ccm.course_module_id')
+            ->leftjoin('course_class_member_grading as ccg', 'ccg.course_class_module_id', '=', 'ccm.id')
+            ->join('course_class as cc', 'cc.id', '=', 'ccm.course_class_id')
+            ->join('course_class_member as ccmh', 'ccmh.course_class_id', '=', 'cc.id')
+            ->where('ccmh.user_id', $userId)
+            ->where('ccm.course_class_id', $idCourseClass)
+            ->where('ccm.level', '=', 1)
+            ->whereNotNull('cm.description')
+            ->select('ccm.*', 'cm.name as course_module_name', 'cm.day as course_module_day', 'cm.duration as duration', 'cm.content as content', 'cm.description as description', 'ccg.grade as grade', 'ccg.created_at as created_at', 'ccg.updated_at as updated_at', 'cc.batch as batch', 'ccm.status as status', 'ccm.created_at as created_at', 'ccm.updated_at as updated_at', 'ccmh.user_id as user_id')
+            ->get();
+
+        foreach ($modulesParent as $parent) {
+            $modulesChild = DB::table('course_class_module as ccm')
+                ->join('course_module as cm', 'cm.id', '=', 'ccm.course_module_id')
+                ->leftjoin('course_class_member_grading as ccg', 'ccg.course_class_module_id', '=', 'ccm.id')
+                ->join('course_class as cc', 'cc.id', '=', 'ccm.course_class_id')
+                ->join('course_class_member as ccmh', 'ccmh.course_class_id', '=', 'cc.id')
+                ->where('ccmh.user_id', $userId)
+                ->where('ccm.course_class_id', $idCourseClass)
+                ->where('ccm.level', '=', 2)
+                ->where('cm.course_module_parent_id', '=', $parent->course_module_id)
+                ->where('cm.type', '=', 'assignment')
+                ->select('ccm.*', 'ccg.grade as grade', 'ccg.created_at as created_at', 'ccg.updated_at as updated_at', 'cc.batch as batch', 'ccm.status as status', 'ccm.created_at as created_at', 'ccm.updated_at as updated_at', 'ccmh.user_id as user_id')
+                ->get();
+
+            $parent->modulesChild = $modulesChild;
+        }
+
+        return $modulesParent;
     }
 }

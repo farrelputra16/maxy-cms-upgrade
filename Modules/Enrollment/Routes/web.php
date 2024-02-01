@@ -1,6 +1,8 @@
 <?php
 
 use Modules\Enrollment\Http\Controllers\CourseClassMemberController;
+use Modules\Enrollment\Http\Controllers\GenerateCertificateController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,4 +33,10 @@ Route::prefix('enrollment')->group(function() {
 
 // Generate Sertificate
 
-Route::get('/generate-certificate/{course_class_member}',[CourseClassMemberController::class, 'getCertificate'])->name('getCertificate')->middleware('access:course_class_member_manage');
+// Route::get('/generate-certificate/{course_class_member}',[CourseClassMemberController::class, 'getCertificate'])->name('getCertificate')->middleware('access:course_class_member_manage');
+
+// Generate Sertificate coba
+Route::get('/generate-certificate/',[GenerateCertificateController::class,'getGenerateCertificate'])->name('getGenerateCertificate');
+
+Route::get('/class/template/', [GenerateCertificateController::class, 'getEditCertificateTemplate'])->name('getEditCertificateTemplate');
+Route::post('/class/template/', [GenerateCertificateController::class, 'postEditCertificateTemplate'])->name('postEditCertificateTemplate');
