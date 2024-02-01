@@ -28,15 +28,15 @@
                                 <option value="all" {{ request()->course_name == 'all' ? 'selected' : '' }}>
                                     All
                                 </option>
-                                @foreach ($courseNames as $name)
+                                {{-- @foreach ($courseNames as $name)
                                     <option value="{{ $name->name }}"
                                         {{ request()->course_name == $name->name ? 'selected' : '' }}>{{ $name->name }}
                                     </option>
-                                @endforeach
+                                @endforeach --}}
                             </select>
                         </div>
 
-                        <div class="col-12">
+                        {{-- <div class="col-12">
                             <label for="days" class="form-label">Day</label>
                             <select class="form-select" id="days" name="day">
                                 <option value="all" {{ request()->day == 'all' ? 'selected' : '' }}>All</option>
@@ -45,7 +45,7 @@
                                         {{ request()->day == $item->day ? 'selected' : '' }}>{{ $item->day }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
 
                         <div class="col-12 align-self-end">
                             <button type="submit" class="btn btn-primary">Generate</button>
@@ -98,8 +98,16 @@
             <table id="example" class="table table-striped w-100">
                 <thead>
                     <tr>
-                        <th>Student Name</th>
-                        <th data-column="ID Course Class Member" class="hidden-column">ID Course Class Member</th>
+                        <th>course class</th>
+                        <th>course module</th>
+                        <th>day</th>
+                        <th>student name</th>
+                        <th>submitted file</th>
+                        <th>grade</th>
+                        <th>student comment</th>
+                        <th>tutor comment</th>
+                        <th>Action</th>
+                        {{-- <th data-column="ID Course Class Member" class="hidden-column">ID Course Class Member</th>
                         <th data-column="ID Course Module" class="hidden-column">ID Course Module</th>
                         <th data-column="Description" class="hidden-column">Description</th>
                         <th data-column="Paket Soal" class="hidden-column">Paket Soal</th>
@@ -110,24 +118,21 @@
                         <th>Comment</th>
                         <th>Grade</th>
                         <th>Grade At</th>
-                        <th>Action</th>
+                        <th>Action</th> --}}
                     </tr>
                 </thead>
                 <tbody>
-                    @php
-                        $totalGrade = 0;
-                        $count = 0;
-                    @endphp
-                    @foreach ($ccmh as $item)
-                        @if ($item->grade)
-                            @php
-                                $totalGrade += $item->grade;
-                                $count++;
-                            @endphp
-                        @endif
+                    @foreach ($class_list as $item)
                         <tr>
-                            <td>{{ $item->user->name }}</td>
-                            <td data-column="ID Course Class Member" class="hidden-column">
+                            <td>{{ $item->course_name }} {{ $item->batch }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->day }}</td>
+                            <td>{{ $item->user_name }}</td>
+                            <td>{{ $item->submitted_file ?? '-' }}</td>
+                            <td>{{ $item->grade ?? '-' }}</td>
+                            <td>{!! Str::limit($item->comment ?? '-') !!}</td>
+                            <td>{!! Str::limit($item->tutor_comment ?? '-') !!}</td>
+                            {{-- <td data-column="ID Course Class Member" class="hidden-column">
                                 {{ $item->course_class_member_id }}</td>
                             <td data-column="ID Course Class Module" class="hidden-column">
                                 {{ $item->course_class_module_id }}</td>
@@ -139,37 +144,38 @@
                             <td>
                                 @if ($item->submitted_file)
                                     <a
-                                        href="{{ asset(
-                                            'uploads/course_class_member_grading/' .
-                                                \Str::snake(\Str::lower($item->courseClassModule->courseModule->course->name)) .
-                                                '/' .
-                                                \Str::snake(\Str::lower($item->user->name)) .
-                                                '/' .
-                                                \Str::snake(\Str::lower($item->courseClassModule->courseModule->name)) .
-                                                '/' .
-                                                $item->submitted_file,
-                                        ) }}">{{ $item->submitted_file }}</a>
+                                        href="{{ asset('uploads/course_class_member_grading/' . Str::snake(Str::lower($item->courseClassModule->courseModule->course->name)) . '/' . Str::snake(Str::lower($item->user->name)) . '/' . Str::snake(Str::lower($item->courseClassModule->courseModule->name)) . '/' . $item->submitted_file) }}">
+                                        {{ $item->submitted_file }}
+                                    </a>
                                 @else
                                     -
                                 @endif
-                            </td>
-                            <td>{!! \Str::limit($item->comment) !!}</td>
-                            <td>{{ $item->grade ?? '-' }}</td>
-                            <td>{{ \Carbon\Carbon::parse($item->graded_at)->format('d-m-Y H:i:s') }}</td>
-                            <td>
-                                <a href="{{ route('getEditCCMH', $item->id) }}" class="btn btn-success btn-sm">Edit</a>
-                            </td>
+                            </td> --}}
+                            @if ($item->id_grading !== null)
+                                <td>
+                                    <a href="{{ route('getEditCCMH', $item->id_grading) }}"
+                                        class="btn btn-success btn-sm">Edit</a>
+                                </td>
+                            @else
+                                <td>
+                                    <button type="submit" class="btn btn-success btn-sm" disabled>-</button>
+                                </td>
+                            @endif
+
+                            {{-- Display additional grading information --}}
+                            {{-- @if (isset($item->grading_info))
+                                @foreach ($item->grading_info as $grading)
+                                    <td>{{ $grading->submitted_file }}</td>
+                                @endforeach
+                            @endif --}}
                         </tr>
                     @endforeach
-                    @php
-                        $averageGrade = $count > 0 ? $totalGrade / $count : 0;
-                    @endphp
+
                 </tbody>
             </table>
-            @if ($averageGrade > 75)
-                <a href="{{ route('getCertificate', $item->id) }}"
-                    class="btn btn-info btn-sm">Generate Certificate</a>
-            @endif
+            {{-- @if ($averageGrade > 75)
+                <a href="{{ route('getCertificate', $item->id) }}" class="btn btn-info btn-sm">Generate Certificate</a>
+            @endif --}}
         </div>
     </div>
 
@@ -197,20 +203,64 @@
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
 
+    <script></script>
+
     <script>
         $(document).ready(function() {
             var table = $('#example').DataTable({
-                lengthChange: true, // Aktifkan opsi perubahan jumlah entri
-                lengthMenu: [10, 25, 50, 100], // Menentukan pilihan jumlah entri yang dapat ditampilkan
-                buttons: ['copy', 'excel', 'pdf', 'colvis']
+                lengthChange: true,
+                lengthMenu: [10, 25, 50, 100],
+                buttons: ['copy', 'excel', 'pdf', 'colvis'],
+                searching: true,
             });
 
-            table.buttons().container()
-                .appendTo('#example_wrapper .col-md-6:eq(0)');
-        });
-    </script>
+            // Add individual column search inputs and titles
+            $('#example thead th').each(function() {
+                var title = $(this).text();
+                $(this).html('<div class="text-center">' + title +
+                    '</div><div class="mt-2"><input type="text" placeholder="Search ' + title +
+                    '" /></div>');
+            });
 
-    <script>
+            // Apply individual column search
+            table.columns().every(function() {
+                var that = this;
+                $('input', this.header()).on('keyup change', function() {
+                    if (that.search() !== this.value) {
+                        that.search(this.value).draw();
+                    }
+                });
+            });
+
+            table.buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
+
+            // Additional code for showing/hiding columns
+            $('#checkAllColumns').on('change', function() {
+                var checked = $(this).prop('checked');
+                $('.column-checkbox').prop('checked', checked);
+                toggleColumns();
+            });
+
+            $('.column-checkbox').on('change', function() {
+                toggleColumns();
+            });
+
+            function toggleColumns() {
+                $('.column-checkbox').each(function() {
+                    var column = $(this).data('column');
+                    if ($(this).prop('checked')) {
+                        $('th[data-column="' + column + '"]').removeClass('hidden-column');
+                        $('td[data-column="' + column + '"]').removeClass('hidden-column');
+                    } else {
+                        $('th[data-column="' + column + '"]').addClass('hidden-column');
+                        $('td[data-column="' + column + '"]').addClass('hidden-column');
+                    }
+                });
+            }
+
+            toggleColumns(); // To hide columns by default
+        });
+
         $(document).ready(function() {
             $('#checkAllColumns').on('change', function() {
                 var checked = $(this).prop('checked');

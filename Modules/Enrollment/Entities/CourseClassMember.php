@@ -33,9 +33,9 @@ class CourseClassMember extends Model
         return $this->belongsTo(CourseClass::class, 'course_class_id');
     }
 
-    public static function getCourseClassMember($request){
+    public static function getCourseClassMember($request)
+    {
         $idCourse = $request->id;
-        // return dd($idCourse);
         if ($idCourse !== null) {
             $courseClassMembers = DB::table('course_class_member')
                 ->select(
@@ -54,9 +54,8 @@ class CourseClassMember extends Model
                 ->join('course', 'course_class.course_id', '=', 'course.id')
                 ->where('course_class_member.course_class_id', $idCourse)
                 ->get();
-
-        }else{
-            $courseClassMembers = collect(DB::select('SELECT 
+        } else {
+            $courseClassMembers = collect(DB::select('SELECT
                 course_class_member.id AS id,
                 course_class_member.description AS description,
                 course_class_member.status AS status,
@@ -70,18 +69,17 @@ class CourseClassMember extends Model
                 JOIN users
                 JOIN course_class
                 JOIN course
-                WHERE course_class_member.user_id = users.id 
+                WHERE course_class_member.user_id = users.id
                 AND course_class_member.course_class_id = course_class.id
                 AND course_class.course_id = course.id;
             '));
         }
-
         return $courseClassMembers;
     }
 
     public static function getEditCourseClassMember($request){
-        
-        $currentData = collect(DB::select('SELECT 
+
+        $currentData = collect(DB::select('SELECT
                 course_class_member.user_id AS ccm_member_id,
                 course_class_member.course_class_id AS ccm_course_class_id,
                 course_class_member.description AS ccm_description,
@@ -93,21 +91,32 @@ class CourseClassMember extends Model
                 JOIN users
                 JOIN course_class
                 JOIN course
-                WHERE course_class_member.user_id = users.id 
+                WHERE course_class_member.user_id = users.id
                 AND course_class_member.course_class_id = course_class.id
                 AND course_class_member.id = ?;
             ', [$request->id]));
-            
+
         return $currentData;
     }
 
     //new, check existing ccm
-    public static function checkExistingCCM($user_id, $course_class_id){
+    public static function checkExistingCCM($user_id, $course_class_id)
+    {
         $result = DB::table('course_class_member')
             ->select('*')
             ->where('user_id', $user_id)
             ->where('course_class_id', $course_class_id)
             ->first();
+        return $result;
+    }
+    public static function getCCMByCourseClassId($course_class_id)
+    {
+        $result = DB::table('course_class_member as ccm')
+            ->select('u.*')
+            ->join('users as u', 'u.id', '=', 'ccm.user_id')
+            ->where('ccm.status', 1)
+            ->where('ccm.course_class_id', $course_class_id)
+            ->get();
         return $result;
     }
 }

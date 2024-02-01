@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\ClassContentManagement\Entities\CourseClass;
 use Modules\TrackandGrade\Entities\CourseClassMemberGrading;
+use Modules\Enrollment\Entities\CourseClassMember;
 use Modules\TrackandGrade\Entities\CourseClassMemberLog;
 
 use App\Http\Controllers\HelperController;
@@ -21,23 +22,11 @@ class CourseClassMemberGradingController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    function getCCMHGrade()
+    public function getCCMHGrade()
     {
-        $ccmh = CourseClassMemberGrading::distinct()
-            ->orderByDesc('created_at')
-            ->get();
+        $class_list = CourseClass::getTutorEnrolledClass();
 
-        $courseNames = Course::select('name')->get();
-
-        dd($ccmh);
-
-        $day = CourseModule::select('day')
-            ->where('day', '!=', '')
-            ->whereNotNull('day')
-            ->groupBy('day')
-            ->get();
-
-        return view('trackandgrade::course_class_member_grading.index', compact('ccmh', 'courseNames', 'day'));
+        return view('trackandgrade::course_class_member_grading.index', ['class_list' => $class_list]);
     }
 
     function getGradeCCMH(Request $request)
@@ -49,7 +38,6 @@ class CourseClassMemberGradingController extends Controller
             // jika course all, day all
             if ($dayValue == 'all') {
                 $ccmh = CourseClassMemberGrading::distinct()->get();
-
                 // jika course all, select day spesifik
             } else {
                 $ccmh = CourseClassMemberGrading::whereHas('courseClassModule.courseModule', function ($query) use ($dayValue) {
@@ -66,7 +54,6 @@ class CourseClassMemberGradingController extends Controller
                 })
                     ->distinct()
                     ->get();
-
             } else { // jika course spesifik, day spesifik
                 $ccmh = CourseClassMemberGrading::whereHas('courseClassModule.courseModule.course', function ($query) use ($courseNameValue) {
                     $query->where('name', $courseNameValue);
@@ -88,12 +75,42 @@ class CourseClassMemberGradingController extends Controller
             ->get();
 
         return view('trackandgrade::course_class_member_grading.index', compact('ccmh', 'courseNames', 'day', 'courseNameValue', 'dayValue'));
-
     }
 
     function getEditCCMH(Request $request, CourseClassMemberGrading $courseClassMemberGrading)
     {
         return view('course_class_member_grading.edit', compact('courseClassMemberGrading'));
+    }
+    function addCCMH(Request $request, CourseClassMemberGrading $courseClassMemberGrading)
+    {
+        $user_id = $request->input('user_id');
+        $module = $request->input('module');
+        $user_name = $request->input('user_name');
+
+        // You can now use $user_id and $module as needed in your view or logic
+        return view('course_class_member_grading.add', compact('courseClassMemberGrading', 'user_id', 'module', 'user_name'));
+    }
+
+
+    function postAddCCMH(Request $request, CourseClassMemberGrading $courseClassMemberGrading)
+    {
+        $waktuSaatIni = Carbon::now();
+        $waktuSaatIni->setTimezone('Asia/Jakarta');
+        // Mengambil jam dalam zona waktu yang telah diatur di .env
+        $jamDiZonaWaktuAnda = $waktuSaatIni->format('Y-m-d H:i:s');
+        $updateData = $courseClassMemberGrading
+            ->insert([
+                
+                'grade' => $request->grade,
+                'graded_at' => $jamDiZonaWaktuAnda,
+                'tutor_comment' => $request->tutor_comment
+            ]);
+
+        if ($updateData) {
+            return app(HelperController::class)->Positive('getCCMHGrade');
+        } else {
+            return app(HelperController::class)->Warning('getCCMHGrade');
+        }
     }
 
     function postEditCCMH(Request $request, CourseClassMemberGrading $courseClassMemberGrading)

@@ -66,8 +66,10 @@
                                         {{ 'Prakerja' }}
                                     @elseif ($item->m_course_type_id == 6)
                                         {{ 'MSIB' }}
+                                    @elseif ($item->m_course_type_id == 7)
+                                        {{ 'Upskilling' }}
                                     @else
-                                        {{ 'Rulesnya blm di tambah,caranya: ke index.blade(course) lalu cari @if untuk $item->m_course_type_id' }}
+                                        -
                                     @endif
 
                                 </td>

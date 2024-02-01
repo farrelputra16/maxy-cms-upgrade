@@ -6,27 +6,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha384-btZ82u+UkZp2Hd4zDTLzLzbn/7KW8xbDQbl5cpkL6uj5L/2m8cndGmYVRJsF70UtO" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <div style="padding: 12px 12px 0px 12px;">
-        <h2 style="">Add Member for Class: {{ $course_class_detail->course_name }} Batch {{ $course_class_detail->batch }}</h2>
+        <h2 style="">Add Member for Class: {{ $course_class_detail->course_name }} Batch
+            {{ $course_class_detail->batch }}</h2>
         <hr>
         <form class="ui form" action="{{ route('postAddCourseClassMember') }}" method="post">
             @csrf
-            <div class="two fields">
-                <div class="three wide field">
-                    <label for="users">ID</label>
-                    <select class="ui dropdown" name="users" id="users">
-                        <option value="">-- Silakan Pilih Member --</option>
-                        @foreach ($users as $item)
-                            <option value="{{ $item->id }}">{{ $item->id }} - {{ $item->name }}</option>
-                        @endforeach
-                    </select>
-                    @error('users')
-                        <span style="color: red;">{{ $message }}</span>
-                    @enderror
-                </div>
-                <input type="hidden" name="course_class" value="{{ $course_class_detail->id }}">
+            <div class="field">
+                <select class="ui fluid multiple search selection dropdown" name="users[]">
+                    <option value="">Select User</option>
+                    @foreach ($users as $item)
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                    @endforeach
+                </select>
             </div>
+            <input type="hidden" name="course_class" value="{{ $course_class_detail->id }}">
             <div class="field">
                 <label for="">Course Class Description</label>
                 <textarea name="description"></textarea>
@@ -39,7 +38,10 @@
             </div>
             <button type="submit" class="right floated ui button primary">Tambah Course Class Member</button>
         </form>
-        <a href="{{ route('getCourseClassMember') }}"><button class="right floated ui red button" style="margin-right:2%;">Batal</button></a>
+        <a href="{{ route('getCourseClassMember') }}"><button class="right floated ui red button"
+                style="margin-right:2%;">Batal</button></a>
+        </form>
+
         <br><br>
         <hr>
         <h2>Bulk Upload</h2>
@@ -53,8 +55,17 @@
                     <span style="color: red;">{{ $message }}</span>
                 @enderror
             </div>
-            <button type="submit" class="right floated ui button primary" style="margin-top:-1.8%;margin-right:0.4%">Upload CSV</button>
+            <button type="submit" class="right floated ui button primary" style="margin-top:-1.8%;margin-right:0.4%">Upload
+                CSV</button>
         </form>
-        
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"
+        integrity="sha384-oBEahFNqz9AORwL3hFZO9zrZcIEJ0VlX4z/6xLc3pNRdh5iRNXFbpekwB6h5U2Pg" crossorigin="anonymous">
+    </script>
+    <script>
+        $('.ui.search.selection.dropdown')
+            .dropdown({
+                keepSearchTerm: true
+            });
+    </script>
 @endsection

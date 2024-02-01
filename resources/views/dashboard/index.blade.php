@@ -34,13 +34,13 @@
             </div>
         </div>
 
-        <button :class="isLoading ? 'ui labeled icon positive button mt-3' : 'ui positive button mt-3'"
-                @click="syncData"
+        <button :class="isLoading ? 'ui labeled icon negative button mt-3' : 'ui positive button mt-3'"
+                @click="toggle"
         >
             <template x-if="isLoading">
                 <i class="loading spinner icon"></i>
             </template>
-            Sinkronisasi Data GoKampus
+            <span x-text="isLoading ? 'Hentikan' : 'Sinkronisasi Data GoKampus'"></span>
         </button>
     </div>
 @endsection
@@ -50,10 +50,17 @@
         const dashboard = () => {
             return {
                 isLoading: false,
+                toggle() {
+                    this.isLoading = !this.isLoading;
+
+                    if (this.isLoading) {
+                        this.syncData();
+                    }
+                },
                 syncData() {
-                    this.isLoading = true
-                    axios.get('/api/sync-data')
-                        .then(() => {
+                    this.isLoading = true;
+                    axios.get("{{ route('synchronizeData') }}")
+                        .then((response) => {
                             this.isLoading = false
                             alert('Sinkronisasi data berhasil!')
                         })
