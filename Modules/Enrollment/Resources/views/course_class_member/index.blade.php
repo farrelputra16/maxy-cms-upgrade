@@ -95,7 +95,6 @@
                             <a class="btn btn-primary" href="{{ route('getAddCourseClassMember') }}" role="button">Tambah
                                 Class Member +</a>
                         @endif
-
                     </div>
                 </div>
             </nav>
@@ -131,7 +130,9 @@
                             <td>
                                 <a href="{{ route('getEditCourseClassMember', ['id' => $item->id]) }}"
                                     style="text-decoration: none; color:blue;">Edit</a>
-                                <a href="{{ route('getCertificate', $item->id) }}" class="btn btn-info btn-sm">Generate Certificate</a>
+                                {{-- <a href="{{ route('getCertificate', $item->id) }}" class="btn btn-info btn-sm">Generate Certificate</a> --}}
+                                <a href="{{ route('getGenerateCertificate', ['user_id' => $item->user_id, 'course_class_id' => $course_class_detail->id]) }}" class="btn btn-warning">Generate Certificate</a>
+                                <a href="{{ route('getEditCertificateTemplate', ['id' => $course_class_detail->id]) }}" class="btn btn-success">Edit Certificate</a>
                             </td>
                         </tr>
                     @endforeach

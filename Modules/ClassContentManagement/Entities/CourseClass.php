@@ -12,6 +12,7 @@ use Modules\ClassContentManagement\Entities\CourseClassModule;
 
 use Illuminate\Support\Facades\Auth;
 use DB;
+use GuzzleHttp\Psr7\Request;
 
 class CourseClass extends Model
 {
@@ -271,5 +272,39 @@ class CourseClass extends Model
             $parent->submod = $submods;
         }
         return $class_detail;
+    }
+
+    public static function getClassKompByClassId($userId, $idCourseClass)
+    {
+        $modulesParent = DB::table('course_class_module as ccm')
+            ->join('course_module as cm', 'cm.id', '=', 'ccm.course_module_id')
+            ->leftjoin('course_class_member_grading as ccg', 'ccg.course_class_module_id', '=', 'ccm.id')
+            ->join('course_class as cc', 'cc.id', '=', 'ccm.course_class_id')
+            ->join('course_class_member as ccmh', 'ccmh.course_class_id', '=', 'cc.id')
+            ->where('ccmh.user_id', $userId)
+            ->where('ccm.course_class_id', $idCourseClass)
+            ->where('ccm.level', '=', 1)
+            ->whereNotNull('cm.description')
+            ->select('ccm.*', 'cm.name as course_module_name', 'cm.day as course_module_day', 'cm.duration as duration', 'cm.content as content', 'cm.description as description', 'ccg.grade as grade', 'ccg.created_at as created_at', 'ccg.updated_at as updated_at', 'cc.batch as batch', 'ccm.status as status', 'ccm.created_at as created_at', 'ccm.updated_at as updated_at', 'ccmh.user_id as user_id')
+            ->get();
+
+        foreach ($modulesParent as $parent) {
+            $modulesChild = DB::table('course_class_module as ccm')
+                ->join('course_module as cm', 'cm.id', '=', 'ccm.course_module_id')
+                ->leftjoin('course_class_member_grading as ccg', 'ccg.course_class_module_id', '=', 'ccm.id')
+                ->join('course_class as cc', 'cc.id', '=', 'ccm.course_class_id')
+                ->join('course_class_member as ccmh', 'ccmh.course_class_id', '=', 'cc.id')
+                ->where('ccmh.user_id', $userId)
+                ->where('ccm.course_class_id', $idCourseClass)
+                ->where('ccm.level', '=', 2)
+                ->where('cm.course_module_parent_id', '=', $parent->course_module_id)
+                ->where('cm.type', '=', 'assignment')
+                ->select('ccm.*', 'ccg.grade as grade', 'ccg.created_at as created_at', 'ccg.updated_at as updated_at', 'cc.batch as batch', 'ccm.status as status', 'ccm.created_at as created_at', 'ccm.updated_at as updated_at', 'ccmh.user_id as user_id')
+                ->get();
+
+            $parent->modulesChild = $modulesChild;
+        }
+
+        return $modulesParent;
     }
 }

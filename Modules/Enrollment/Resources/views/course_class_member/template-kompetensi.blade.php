@@ -55,6 +55,14 @@
             text-align: left;
         }
     </style>
+    {{-- <style>
+        body {
+                background-image: url('{{ asset('sertifikat/12.png') }}');
+                /* Set the path to your image in the public directory */
+            background-size: cover;
+            /* Adjust the size as needed */
+        }
+    </style> --}}
 </head>
 
 <body>
@@ -75,25 +83,55 @@
             <tbody>
                 @php
                     $index = 1;
+                    $totalAverage = 0; // Inisialisasi nilai total rata-rata
                 @endphp
-                @foreach ($modules as $module)
-                @if ($module->level === 1)
-                    <tr>
-                        <td>{{ $index ++ }}</td>
-                        <td>{{ $module->courseModule->name }}</td>
-                        <td>{!! $module->courseModule->content !!}</td>
-                        <td>{!! $module->courseModule->duration !!}</td>
-                        <td>{{ $module->courseModule->children->find($module->courseModule->id)?->courseClassModules->first()->id }}</td>
-                        {{-- <td>Nilai</td> --}}
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, fugiat.</td>
-                    </tr>
-                @endif
-            @endforeach
+                @foreach ($classModules as $item)
+                    @if (!empty($item->course_module_name))
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->course_module_name }}</td>
+                            <td>{!! $item->content !!}</td>
+                            <td>{!! $item->duration !!}</td>
+                            {{-- <td>
+                                @if (!empty($item->modulesChild))
+                                    @foreach ($item->modulesChild as $child)
+                                       {{ $child->grade ?? 0 }}<br>
+                                    @endforeach
+                                @else
+                                    No child modules
+                                @endif
+                            </td> --}}
+                            <td>
+                                @if (!empty($item->modulesChild))
+                                    @php
+                                        $totalGrades = 0;
+                                        $numChildModules = count($item->modulesChild);
+                                    @endphp
+
+                                    @foreach ($item->modulesChild as $child)
+                                        @php
+                                            $totalGrades += $child->grade ?? 0;
+                                        @endphp
+                                        {{-- {{ $child->grade ?? 0 }}<br> --}}
+                                    @endforeach
+
+                                    @if ($numChildModules > 0)
+                                        {{ number_format($totalGrades / $numChildModules, 2) }}
+                                    @endif
+                                @else
+                                    No child modules
+                                @endif
+                            </td>
+                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, fugiat.</td>
+                        </tr>
+                    @endif
+                @endforeach
                 <tr>
                     <td colspan="4" class="table-total">Nilai Total</td>
-                    <td colspan="2">Hasil</td>
+                    <td colspan="2">{{ $totalAverage }}</td>
                 </tr>
             </tbody>
+
         </table>
     </div>
 
