@@ -21,7 +21,7 @@
                         @else
                             <select class="ui dropdown" name="course_name">
                                 <option value="all" selected>all</option>
-                                @foreach($course_name as $name)
+                                @foreach($a  as $name)
                                     <option value="{{ $name->name }}">{{ $name->name }}</option>
                                 @endforeach
                             </select>
@@ -104,7 +104,7 @@
                     <th data-column="Created At" class="hidden-column">Created At</th>
                     <th data-column="Updated At" class="hidden-column">Updated At</th>
                     <th>File</th>
-                    <th>Comment</th>
+                    <th>Student Comment</th>
                     <th>Grade</th>
                     <th>Grade At</th>
                     <th>Action</th>

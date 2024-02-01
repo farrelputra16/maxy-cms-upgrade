@@ -38,13 +38,15 @@ class CourseClassMemberController extends Controller
     function getCourseClassMember(Request $request)
     {
         $idCourseClass = $request->id;
+        // dd($course_class_detail);
+        $users = User::where('access_group_id', 2)->get();
         $course_class_detail = CourseClass::getClassDetailByClassId($idCourseClass);
         // dd($course_class_detail);
-
         $courseClassMembers = CourseClassMember::getCourseClassMember($request);
         // dd($courseClassMembers);
 
         return view('enrollment::course_class_member.index', [
+            'users' => $users,
             'courseClassMembers' => $courseClassMembers,
             'course_class_detail' => $course_class_detail
         ]);
@@ -54,13 +56,14 @@ class CourseClassMemberController extends Controller
     {
         $course_class_id = $request->id;
         $course_class_detail = CourseClass::getClassDetailByClassId($course_class_id);
-        // dd($course_class_detail);
-        // $courseClasses = CourseClass::getDuplicateCourseClass($request);
-        // dd($courseClasses);
-        $users = User::all();
-
+        // Get all users with access_group_id = 2
+        $users = User::where('access_group_id', 2)->get();
+        // Extract the 'id' values from $courseClassMembers
+        $courseClassMemberIds = collect($courseClassMembers)->pluck('user_id')->toArray();
+        // Filter out users with the same 'id' as in $courseClassMemberIds
+        $filteredUsers = $users->whereNotIn('id', $courseClassMemberIds);
         return view('enrollment::course_class_member.add', [
-            'users' => $users,
+            'users' => $filteredUsers,
             'course_class_detail' => $course_class_detail
         ]);
     }
@@ -74,12 +77,12 @@ class CourseClassMemberController extends Controller
             return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('error', 'Failed to Enroll Member, user already exists');
         } else {
             $created = CourseClassMember::create([
-                'user_id' => $request->users,
+                'user_id' => $userId,
                 'course_class_id' => $request->course_class,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => Auth::user()->id,
-                'updated_id' => Auth::user()->id
+                'updated_id' => Auth::user()->id,
             ]);
 
             if ($created) {
@@ -87,6 +90,11 @@ class CourseClassMemberController extends Controller
             } else {
                 return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('error', 'Failed to Enroll Member, please try again');
             }
+        }
+        if (!empty($createdMembers)) {
+            return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('success', 'Enroll Members Success');
+        } else {
+            return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('error', 'Failed to Enroll Members, please try again');
         }
     }
 
@@ -215,7 +223,7 @@ class CourseClassMemberController extends Controller
         $imageHeight = imagesy($templateImage);
 
         // Ukuran teks Nama
-        $textBoundingBoxName = imagettfbbox($fontSizeName, 0, $fontPathName, $userName); // Ubah 
+        $textBoundingBoxName = imagettfbbox($fontSizeName, 0, $fontPathName, $userName); // Ubah
         $textWidthName = $textBoundingBoxName[2] - $textBoundingBoxName[0];
         $textHeightName = $textBoundingBoxName[1] - $textBoundingBoxName[7];
 
