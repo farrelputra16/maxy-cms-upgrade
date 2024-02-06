@@ -28,12 +28,15 @@
 
 <body>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
-        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
     <script type="text/javascript" src="{{ asset('js/bootstrap-multiselect.js') }}"></script>
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>       
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ asset('js/bootstrap-multiselect.js') }}"></script>
 
     @auth
         <div class="p-3">
@@ -74,7 +77,7 @@
                                         Course Package <i class="lock icon"></i>
                                     </a>
                                 @endif
-                                @if ($broGotAccessMaster->contains('name', 'course_package_benefit_manage'))
+                                <!-- @if ($broGotAccessMaster->contains('name', 'course_package_benefit_manage'))
                                     <a class="dropdown-item" href="{{ route('getCoursePackageBenefit') }}">
                                         Course Package Benefit
                                     </a>
@@ -83,7 +86,7 @@
                                         href="{{ route('getCoursePackageBenefit') }}">Course Package Benefit <i
                                             class="lock icon"></i>
                                     </a>
-                                @endif
+                                @endif -->
                                 @if ($broGotAccessMaster->contains('name', 'm_difficulty_type_manage'))
                                     <a class="dropdown-item" href="{{ route('getDifficulty') }}">Course Difficulty</a>
                                 @else
@@ -237,7 +240,13 @@
                                             class="lock icon"></i></a>
                                 @endif
 
-                                <a class="dropdown-item" href="{{ route('getRedeemCode') }}">Redeem Code</a>
+                                @if ($broGotAccessMaster->contains('name', 'redeem_code_manage'))
+                                    <a class="dropdown-item" href="{{ route('getRedeemCode') }}">Redeem Code</a>
+                                @else
+                                    <a class="dropdown-item disabled"
+                                        href="{{ route('getRedeemCode') }}">Redeem Code <i
+                                            class="lock icon"></i></a>
+                                @endif
                             </div>
                         </li>
                         </li>

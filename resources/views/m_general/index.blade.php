@@ -61,11 +61,11 @@
                 <td> 
                     <div style="display: flex; gap: 10px; align-items: flex-start;">
                         <a href="{{ route('getEditGeneral', ['id' => $item->id]) }}" class="btn btn-primary" style="width: 50px;">Edit</a>
-                        <form method="POST" action="{{ route('deactivateGeneral', ['id' => $item->id]) }}">
+                        <!-- <form method="POST" action="{{ route('deactivateGeneral', ['id' => $item->id]) }}">
                             @csrf
                             @method('POST')
                             <button type="submit" class="btn btn-danger" style="width: 50px;">Delete</button>
-                        </form>
+                        </form> -->
                     </div>
                 </td>
                 </tr>

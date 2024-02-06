@@ -16,7 +16,7 @@ class CoursePackageBenefitController extends Controller
         $idPackage = $request->id;
         $Packagenama = CoursePackage::select('name')->where('id', $idPackage)->first();
 
-        // dd($coursenama);
+        // dd($request);
 
         if (!$request->filled('id')) {
             $coursePackageBenefits = CoursePackageBenefit::getCoursePackageBenefit();
@@ -129,20 +129,20 @@ class CoursePackageBenefitController extends Controller
             // }
 
             if ($updated) {
-
+                // dd($request->course_package_id);
                 if ($request->filled('idCPB')) {
-                    app(HelperController::class)->Positive('getCoursePackageBenefit', $request->idCPB);
-                    return redirect()->route('getCoursePackageBenefit', ['id' => $request->idCPB]);
+                    app(HelperController::class)->Positive('getCoursePackageBenefit', ['id' => $request->course_package_id]);
+                    return redirect()->route('getCoursePackageBenefit', ['id' => $request->course_package_id]);
                 } else {
-                    return app(HelperController::class)->Positive('getCoursePackageBenefit');
+                    return app(HelperController::class)->Positive('getCoursePackageBenefit', ['id' => $request->course_package_id]);
                 }
 
             } else {
                 if ($request->filled('idCPB')) {
-                    app(HelperController::class)->Negative('getCoursePackageBenefit', $request->idCPB);
-                    return redirect()->route('getCoursePackageBenefit', ['id' => $request->idCPB]);
+                    app(HelperController::class)->Negative('getCoursePackageBenefit', ['id' => $request->course_package_id]);
+                    return redirect()->route('getCoursePackageBenefit', ['id' => $request->course_package_id]);
                 } else {
-                    return app(HelperController::class)->Negative('getCoursePackageBenefit');
+                    return app(HelperController::class)->Negative('getCoursePackageBenefit', ['id' => $request->course_package_id]);
                 }
             }
         }

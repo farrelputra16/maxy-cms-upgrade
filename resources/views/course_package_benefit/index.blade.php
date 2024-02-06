@@ -75,6 +75,14 @@
                                 <td>{{ $item->created_at }}</td>
                                 <td>{{ $item->updated_at }}</td>
                                 <td>
+                                    <div class="btn-group">
+                                        <a href="{{ route('getEditCoursePackageBenefit', ['id' => $item->id]) }}"
+                                            class="btn btn-primary">Edit</a>
+                                        <!-- <a href="{{ route('deleteCourseModule', ['id' => $item->id]) }}"
+                                            class="btn btn-danger"onclick="return confirm('Are you sure you want to delete this module?')">Delete</a>    -->
+                                    </div>
+                                </td>
+                                <!-- <td>
                                     @if (isset($idCPB))
                                         <a href="{{ route('getEditCoursePackageBenefit', ['id' => $item->id, 'idCPB' => $idCPB]) }}"
                                             style="text-decoration: none; color:blue;">Edit</a>
@@ -99,7 +107,7 @@
                                                 style="text-decoration: none; color: red; border: none; background-color: transparent; cursor: pointer;">Delete</button>
                                         </form>
                                     @endif
-                                </td>
+                                </td> -->
 
                             </tr>
                         @endforeach

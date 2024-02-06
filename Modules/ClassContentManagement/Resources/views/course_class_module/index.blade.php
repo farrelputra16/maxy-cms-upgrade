@@ -98,13 +98,13 @@
                                         class="btn btn-primary">Edit</a>
                                     <a href="{{ route('getCourseClassChildModule', ['id' => $item->id]) }}"
                                         class="btn btn-info">Content</a>
-                                    <form action="{{ route('deleteCourseClassModule', ['id' => $item->id]) }}"
+                                    <!-- <form action="{{ route('deleteCourseClassModule', ['id' => $item->id]) }}"
                                         method="post" style="display:inline-block;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger"
                                             onclick="return confirm('Are you sure?')">Delete</button>
-                                    </form>
+                                    </form> -->
                                 </td>
                             </tr>
                         @endforeach

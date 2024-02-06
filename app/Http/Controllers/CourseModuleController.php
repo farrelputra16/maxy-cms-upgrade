@@ -16,6 +16,8 @@ class CourseModuleController extends Controller
     // PARENT
     function getCourseModule(Request $request)
     {
+
+        // dd($request);
         $idCourse = $request->id;
         $coursenama = Course::select('name')->where('id', $idCourse)->first();
         $courseModuleParent = CourseModule::getCourseModuleParent($request);
@@ -112,7 +114,8 @@ class CourseModuleController extends Controller
 
     function postEditCourseModule(Request $request)
     {
-        $update = CourseModule::where('id', $request->id)
+        // dd($request);
+        $update = CourseModule::where('id', $request->course)
             ->update([
                 'name' => $request->name,
                 'priority' => $request->priority,
@@ -125,7 +128,7 @@ class CourseModuleController extends Controller
             ]);
 
         if ($update) {
-            return app(HelperController::class)->Positive('getCourseModule');
+            return app(HelperController::class)->Positive('getCourseModule', ['id' => $request->course]);
         } else {
             return app(HelperController::class)->Warning('getCourseModule');
         }

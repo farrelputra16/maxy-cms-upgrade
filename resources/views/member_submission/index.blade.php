@@ -36,7 +36,7 @@
                         </td>
                         <td>
                             <a href="{{ route('getEditCourse', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
-                            <a href="{{ route('getDeleteCourse', ['id' => $item->id]) }}" style="text-decoration: none; color:red;">Hapus</a>
+                            <!-- <a href="{{ route('getDeleteCourse', ['id' => $item->id]) }}" style="text-decoration: none; color:red;">Hapus</a> -->
                         </td>
                     </tr>
                 @endforeach

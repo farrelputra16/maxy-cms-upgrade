@@ -6,7 +6,7 @@
     <div class="px-3 pb-3" x-data="dashboard">
         <div class="ui message">
             <div class="header">
-                Sugeng Rawuh, {{ Auth::user()->name }}
+                Selamat Datang, {{ Auth::user()->name }}
             </div>
             <p>Aplikasi ini sedang tahap pengembangan, beberapa kesalahan mungkin terjadi. Silakan hubungi <a
                     href="https://wa.me/+6281281910513/?text=Banh webnya error banh">backend team development</a>.</p>
@@ -34,14 +34,16 @@
             </div>
         </div>
 
-        <button :class="isLoading ? 'ui labeled icon negative button mt-3' : 'ui positive button mt-3'"
-                @click="toggle"
-        >
-            <template x-if="isLoading">
-                <i class="loading spinner icon"></i>
-            </template>
-            <span x-text="isLoading ? 'Hentikan' : 'Sinkronisasi Data GoKampus'"></span>
-        </button>
+        @if(Auth::check() && Auth::user()->access_group_id == 1)
+            <button :class="isLoading ? 'ui labeled icon negative button mt-3' : 'ui positive button mt-3'"
+                    @click="toggle"
+            >
+                <template x-if="isLoading">
+                    <i class="loading spinner icon"></i>
+                </template>
+                <span x-text="isLoading ? 'Hentikan' : 'Sinkronisasi Data GoKampus'"></span>
+            </button>
+        @endif
     </div>
 @endsection
 

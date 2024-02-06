@@ -56,9 +56,9 @@
                             <td>
                                 <a href="{{ route('getEditChildModule', ['id' => $item->id]) }}"
                                     style="text-decoration: none; color:blue;">Edit</a>
-                                <a href="{{ route('deleteCourseModule', ['id' => $item->id]) }}"
+                                <!-- <a href="{{ route('deleteCourseModule', ['id' => $item->id]) }}"
                                     style="text-decoration: none; color:red;"
-                                    onclick="return confirm('Are you sure you want to delete this module?')">Delete</a>
+                                    onclick="return confirm('Are you sure you want to delete this module?')">Delete</a> -->
 
                             </td>
                         </tr>
