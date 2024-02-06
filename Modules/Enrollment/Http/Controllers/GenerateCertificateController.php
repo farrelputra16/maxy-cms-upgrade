@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager;
+use Intervention\Image\ImageManagerStatic as Image;
 use Modules\CertificateTemplate\Entities\CertificateTemplate;
 use Modules\ClassContentManagement\Entities\CourseClass;
 use Modules\Enrollment\Entities\CourseClassMember;
@@ -32,10 +31,8 @@ class GenerateCertificateController extends Controller
             return redirect()->back()->with('error', 'Template sertifikat tidak ditemukan');
         }
 
-        $manager = ImageManager::withDriver(new Driver());
-
         // Baca gambar template dengan Intervention Image
-        $templateImage = $manager->read($templatePath);
+        $templateImage = Image::make($templatePath);
 
         // Ubah ukuran template ke ukuran A4 dalam piksel
         $templateImage->resize(3508, 2480);
