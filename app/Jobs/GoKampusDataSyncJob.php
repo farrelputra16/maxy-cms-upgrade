@@ -191,6 +191,7 @@ class GoKampusDataSyncJob implements ShouldQueue
                 'status' => 1,
                 'level' => 1,
                 'course_id' => $course->id,
+                'type' => 'parent',
                 'day' => $day + 1,
                 'created_id' => $this->user->id,
                 'updated_id' => $this->user->id,

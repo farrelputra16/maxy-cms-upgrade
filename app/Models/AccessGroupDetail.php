@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,23 +19,25 @@ class AccessGroupDetail extends Model
         'priority',
     ];
 
-    
-    public static function CurrentAccessGroupDetail($idaccessgroup){
+
+    public static function CurrentAccessGroupDetail($idaccessgroup)
+    {
         $currentaccessgroupdetail = DB::table('access_group_detail')
-        ->join('access_master', 'access_group_detail.access_master_id', '=', 'access_master.id')
-        ->select('access_master.id', 'access_master.name')
-        ->where('access_group_detail.access_group_id', '=', $idaccessgroup)
-        ->get();
+            ->join('access_master', 'access_group_detail.access_master_id', '=', 'access_master.id')
+            ->select('access_master.id', 'access_master.name')
+            ->where('access_group_detail.access_group_id', '=', $idaccessgroup)
+            ->get();
 
         return $currentaccessgroupdetail;
     }
 
-    public static function RemoveUpdate($request){
+    public static function RemoveUpdate($request)
+    {
         $idAccessGroup = $request->id;
         $removeUpdate = DB::table('access_group_detail')
-                ->where('access_group_id', '=', $idAccessGroup)
-                ->whereIn('access_master_id', $request->get('access_master_old'))
-                ->delete();
+            ->where('access_group_id', '=', $idAccessGroup)
+            ->whereIn('access_master_id', $request->get('access_master_old'))
+            ->delete();
 
         return $removeUpdate;
     }

@@ -12,25 +12,27 @@ use Illuminate\Support\Facades\Auth;
 
 class AccessGroupController extends Controller
 {
-
-    function getAccessGroup(){
+    function getAccessGroup()
+    {
         $accessgroups = AccessGroup::all();
         return view('accessgroup.index', ['accessgroups' => $accessgroups]);
     }
 
-    function getAddAccessGroup(){
+    function getAddAccessGroup()
+    {
         $accessMasters = AccessMaster::all();
         return view('accessgroup.add', ['accessMasters' => $accessMasters]);
     }
 
-    public function postAddAccessGroup(Request $request){
+    public function postAddAccessGroup(Request $request)
+    {
 
         $validated = $request->validate([
             'name' => 'required',
             'access_master' => 'required|array|min:1',
         ]);
 
-        if ($validated){
+        if ($validated) {
             $create = AccessGroup::create([
                 'name' => $request->name,
                 'description' => $request->description,
@@ -42,18 +44,19 @@ class AccessGroupController extends Controller
             $access_master = $request->get('access_master');
             $create->AccessMaster()->attach($access_master);
 
-            if ($create){
+            if ($create) {
                 return app(HelperController::class)->Positive('getAccessGroup');
             }
         }
     }
 
-    function getEditAccessGroup(Request $request){
+    function getEditAccessGroup(Request $request)
+    {
         $idaccessgroup = $request->id;
         $accessgroups = AccessGroup::find($idaccessgroup);
 
         $currentData = array_column(json_decode(AccessGroupDetail::CurrentAccessGroupDetail($idaccessgroup)), 'name', 'id');
-        $allAccessMaster = array_column(json_decode(AccessMaster::AllAccessMaster()), 'name', 'id');
+        $allAccessMaster = AccessMaster::AllAccessMaster();
 
         return view('accessgroup.edit', [
             'accessgroups' => $accessgroups,
@@ -62,10 +65,11 @@ class AccessGroupController extends Controller
         ]);
     }
 
-    function postEditAccessGroup(Request $request){
+    function postEditAccessGroup(Request $request)
+    {
         $idAccessGroup = $request->id;
 
-        if ($request->access_master_old && $request->access_master_available){
+        if ($request->access_master_old && $request->access_master_available) {
             $removeUpdate = AccessGroupDetail::RemoveUpdate($request);
 
             $access_master = $request->get('access_master_available');
@@ -74,27 +78,27 @@ class AccessGroupController extends Controller
 
             AccessGroup::postEditAccessGroup($request);
 
-            if ($access_group && $removeUpdate){
+            if ($access_group && $removeUpdate) {
                 $access_group->AccessMaster()->attach($access_master);
                 return app(HelperController::class)->Positive('getAccessGroup');
             } else {
                 return app(HelperController::class)->Negative('getAccessGroup');
             }
-        } else if ($request->access_master_old){
+        } else if ($request->access_master_old) {
             $removeUpdate = AccessGroupDetail::RemoveUpdate($request);
 
             AccessGroup::postEditAccessGroup($request);
 
-            if ($removeUpdate){
+            if ($removeUpdate) {
                 return app(HelperController::class)->Positive('getAccessGroup');
             } else {
                 return app(HelperController::class)->Negative('getAccessGroup');
             }
-        } else if ($request->access_master_available){
+        } else if ($request->access_master_available) {
             $access_master = $request->get('access_master_available');
             $access_group = AccessGroup::find($idAccessGroup);
             AccessGroup::postEditAccessGroup($request);
-            if ($access_group){
+            if ($access_group) {
                 $access_group->AccessMaster()->attach($access_master);
                 return app(HelperController::class)->Positive('getAccessGroup');
             } else {
@@ -102,7 +106,7 @@ class AccessGroupController extends Controller
             }
         } else {
             $updateOther = AccessGroupDetail::postEditAccessGroup($request);
-            if ($updateOther){
+            if ($updateOther) {
                 return app(HelperController::class)->Positive('getAccessGroup');
             }
             return app(HelperController::class)->Warning('getAccessGroup');

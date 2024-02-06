@@ -8,12 +8,13 @@
 
        {{-- Laravel Mix - CSS File --}}
        {{-- <link rel="stylesheet" href="{{ mix('css/enrollment.css') }}"> --}}
-
+       @stack('styles')
     </head>
     <body>
         @yield('content')
 
         {{-- Laravel Mix - JS File --}}
         {{-- <script src="{{ mix('js/enrollment.js') }}"></script> --}}
+        @stack('scripts')
     </body>
 </html>

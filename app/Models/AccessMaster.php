@@ -27,13 +27,9 @@ class AccessMaster extends Model
     {
         return $this->belongsToMany(AccessGroup::class, 'access_group_detail')->withPivot('id_access_group');
     }
-    
-    public static function AllAccessMaster(){
-        $allAccessMaster = DB::table('access_master')
-        ->select('id','name')
-        ->get();
 
-        return $allAccessMaster;
+    public static function AllAccessMaster(){
+        return self::pluck("name", "id")->toArray();
     }
 
     public static function postEditAccessMaster($request){

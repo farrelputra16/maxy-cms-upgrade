@@ -1,32 +1,42 @@
 @extends ('layout.master')
 
-@section('title', 'Voucher')
+@section('title', 'CCMH Grading')
+
+@section('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <style>
+        .form-container {
+            width: 48%;
+        }
+
+        /* CSS untuk kolom-kolom yang disembunyikan */
+        .hidden-column {
+            display: none;
+        }
+    </style>
+@endsection
+
 @section('content')
-
-    <head>
-        <title>Course</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
-        <link rel="stylesheet" type="text/css"
-            href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-    </head>
-
-    <div class="container-fluid">
+    <div class="px-3 pb-3">
         <h2>CCMH Grading</h2>
 
         <hr>
+
         <div class="ui breadcrumb pt-2 pb-4">
-            <a class="section" href="{{ url('/') }}">Dashboard</a>
+            <a class="section" href="{{ route('getDashboard') }}">Dashboard</a>
             <i class="right angle icon divider"></i>
             <div class="active section">CCMH Grading</div>
         </div>
 
         <div class="row">
             <div class="col-10">
-                <div class="form-container pt-5">
+                <div class="form-container pt-3">
                     <form method="GET" action="{{ route('getGradeCCMH') }}"
-                        class="row row-cols-lg-3 g-3 align-items-center">
+                          class="row row-cols-lg-3 g-3 align-items-center">
                         <div class="col-12">
                             <label for="courses" class="form-label">Course</label>
                             <select class="form-select" id="courses" name="course_name">
@@ -58,59 +68,20 @@
                     </form>
                 </div>
             </div>
-            <div class="col-2" style="padding-top: 3.7%">
-                <div class="settings-container" style="margin-top: 2%; text-align: right">
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="addColumnDropdown"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Show/Hide Column
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="addColumnDropdown">
-                            <label class="dropdown-item">
-                                <input type="checkbox" class="column-checkbox" data-column="ID Course Class Member"> ID
-                                Course Class Member
-                            </label>
-                            <label class="dropdown-item">
-                                <input type="checkbox" class="column-checkbox" data-column="ID Course Module"> ID Course
-                                Module
-                            </label>
-                            <label class="dropdown-item">
-                                <input type="checkbox" class="column-checkbox" data-column="Description"> Description
-                            </label>
-                            <label class="dropdown-item">
-                                <input type="checkbox" class="column-checkbox" data-column="Paket Soal"> Paket Soal
-                            </label>
-                            <label class="dropdown-item">
-                                <input type="checkbox" class="column-checkbox" data-column="Package Type"> Package Type
-                            </label>
-                            <label class="dropdown-item">
-                                <input type="checkbox" class="column-checkbox" data-column="Created At"> Created At
-                            </label>
-                            <label class="dropdown-item">
-                                <input type="checkbox" class="column-checkbox" data-column="Updated At"> Updated At
-                            </label>
-                            <div class="dropdown-divider"></div>
-                            <label class="dropdown-item">
-                                <input type="checkbox" id="checkAllColumns"> Check All
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div id="table_content">
             <table id="example" class="table table-striped w-100">
                 <thead>
                     <tr>
-                        <th>course class</th>
-                        <th>course module</th>
-                        <th>day</th>
-                        <th>student name</th>
-                        <th>submitted file</th>
-                        <th>grade</th>
-                        <th>student comment</th>
-                        <th>tutor comment</th>
+                        <th>Course Class</th>
+                        <th>Course Module</th>
+                        <th>Day</th>
+                        <th>Student Name</th>
+                        <th>Submitted File</th>
+                        <th>Grade</th>
+                        <th>Student Comment</th>
+                        <th>Tutor Comment</th>
                         <th>Action</th>
                         {{-- <th data-column="ID Course Class Member" class="hidden-column">ID Course Class Member</th>
                         <th data-column="ID Course Module" class="hidden-column">ID Course Module</th>
@@ -163,7 +134,7 @@
                                 </td>
                             @else
                                 <td>
-                                    <button type="submit" class="btn btn-success btn-sm" disabled>-</button>
+                                    -
                                 </td>
                             @endif
 
@@ -183,18 +154,9 @@
             @endif --}}
         </div>
     </div>
+@endsection
 
-    <style>
-        .form-container {
-            width: 48%;
-        }
-
-        /* CSS untuk kolom-kolom yang disembunyikan */
-        .hidden-column {
-            display: none;
-        }
-    </style>
-
+@section('scripts')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
@@ -207,12 +169,9 @@
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
-
-    <script></script>
-
     <script>
-        $(document).ready(function() {
-            var table = $('#example').DataTable({
+        $(document).ready(function () {
+            let table = $('#example').DataTable({
                 lengthChange: true,
                 lengthMenu: [10, 25, 50, 100],
                 buttons: ['copy', 'excel', 'pdf', 'colvis'],
@@ -220,17 +179,17 @@
             });
 
             // Add individual column search inputs and titles
-            $('#example thead th').each(function() {
-                var title = $(this).text();
+            $('#example thead th').each(function () {
+                let title = $(this).text();
                 $(this).html('<div class="text-center">' + title +
                     '</div><div class="mt-2"><input type="text" placeholder="Search ' + title +
                     '" /></div>');
             });
 
             // Apply individual column search
-            table.columns().every(function() {
-                var that = this;
-                $('input', this.header()).on('keyup change', function() {
+            table.columns().every(function () {
+                let that = this;
+                $('input', this.header()).on('keyup change', function () {
                     if (that.search() !== this.value) {
                         that.search(this.value).draw();
                     }
@@ -238,59 +197,6 @@
             });
 
             table.buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
-
-            // Additional code for showing/hiding columns
-            $('#checkAllColumns').on('change', function() {
-                var checked = $(this).prop('checked');
-                $('.column-checkbox').prop('checked', checked);
-                toggleColumns();
-            });
-
-            $('.column-checkbox').on('change', function() {
-                toggleColumns();
-            });
-
-            function toggleColumns() {
-                $('.column-checkbox').each(function() {
-                    var column = $(this).data('column');
-                    if ($(this).prop('checked')) {
-                        $('th[data-column="' + column + '"]').removeClass('hidden-column');
-                        $('td[data-column="' + column + '"]').removeClass('hidden-column');
-                    } else {
-                        $('th[data-column="' + column + '"]').addClass('hidden-column');
-                        $('td[data-column="' + column + '"]').addClass('hidden-column');
-                    }
-                });
-            }
-
-            toggleColumns(); // To hide columns by default
-        });
-
-        $(document).ready(function() {
-            $('#checkAllColumns').on('change', function() {
-                var checked = $(this).prop('checked');
-                $('.column-checkbox').prop('checked', checked);
-                toggleColumns();
-            });
-
-            $('.column-checkbox').on('change', function() {
-                toggleColumns();
-            });
-
-            function toggleColumns() {
-                $('.column-checkbox').each(function() {
-                    var column = $(this).data('column');
-                    if ($(this).prop('checked')) {
-                        $('th[data-column="' + column + '"]').removeClass('hidden-column');
-                        $('td[data-column="' + column + '"]').removeClass('hidden-column');
-                    } else {
-                        $('th[data-column="' + column + '"]').addClass('hidden-column');
-                        $('td[data-column="' + column + '"]').addClass('hidden-column');
-                    }
-                });
-            }
-
-            toggleColumns(); // Untuk menyembunyikan kolom secara default pada awalnya
         });
     </script>
 @endsection

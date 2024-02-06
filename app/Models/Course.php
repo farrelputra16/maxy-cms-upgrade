@@ -23,6 +23,8 @@ class Course extends Model
     public $total_learners = 0;
     public $total_duration = 0;
 
+    protected $with = ['type'];
+
     public function modules()
     {
         return $this->hasMany(CourseModule::class, 'course_id')->where('status', 1);

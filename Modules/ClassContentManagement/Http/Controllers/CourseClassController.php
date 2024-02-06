@@ -15,22 +15,17 @@ use Illuminate\Support\Facades\Auth;
 
 class CourseClassController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-
     function getCourseClass()
     {
-        $course_list = CourseClass::with('course')->get();
-        return view('classcontentmanagement::courseclass.index', ['course_list' => $course_list]);
+        $courseList = CourseClass::with('course')->get();
+        return view('classcontentmanagement::course_class.index', ['course_list' => $courseList]);
     }
 
     function getAddCourseClass()
     {
         $allCourses = Course::all();
 
-        return view('classcontentmanagement::courseclass.add', [
+        return view('classcontentmanagement::course_class.add', [
             'allCourses' => $allCourses
         ]);
     }
@@ -38,18 +33,18 @@ class CourseClassController extends Controller
     function getDuplicateCourseClass()
     {
         $classes = CourseClass::all();
-        $class_list = [];
+        $classList = [];
+
         foreach ($classes as $c) {
-            $class_detail = CourseClass::getClassDetailByClassId($c->id);
-            $class_list[] = $class_detail;
+            $classDetail = CourseClass::getClassDetailByClassId($c->id);
+            $classList[] = $classDetail;
         }
-        $course_list = Course::all();
 
-        // dd($allCourseClasses);
+        $courseList = Course::all();
 
-        return view('classcontentmanagement::courseclass.duplicate', [
-            'course_list' => $course_list,
-            'class_list' => $class_list
+        return view('classcontentmanagement::course_class.duplicate', [
+            'course_list' => $courseList,
+            'class_list' => $classList
         ]);
     }
 
@@ -85,13 +80,12 @@ class CourseClassController extends Controller
 
     public function postDuplicateCourseClass(Request $request)
     {
-        // dd($request->all());
-        $course_class = CourseClass::where('id', $request->course_class_id)->first();
-        $course_class->batch = $request->batch;
-        $course_class->course_id = $request->course_id;
+        $courseClass = CourseClass::where('id', $request->course_class_id)->first();
+        $courseClass->batch = $request->batch;
+        $courseClass->course_id = $request->course_id;
 
         // insert course class yang telah diubah
-        $newCourseClass = $course_class->replicate();
+        $newCourseClass = $courseClass->replicate();
 
         // Memeriksa jika start_date tidak valid dan menggantinya dengan tanggal hari ini
         if ($newCourseClass->start_date == '0000-00-00') {
@@ -113,15 +107,15 @@ class CourseClassController extends Controller
         $newCourseClass->save();
 
         // mengambil id course class yang barusan dibuat
-        $last_course_class_id = CourseClass::orderBy('id', 'desc')->first();
+        $lastCourseClassId = CourseClass::orderBy('id', 'desc')->first();
 
         // mengambil id course class module yang ingin di duplicate
-        $course_class_modules = CourseClassModule::where('course_class_id', $request->course_class_id)->get();
+        $courseClassModule = CourseClassModule::where('course_class_id', $request->course_class_id)->get();
 
         // Duplicate setiap course class module
-        foreach ($course_class_modules as $module) {
+        foreach ($courseClassModule as $module) {
             $newModule = $module->replicate();
-            $newModule->course_class_id = $last_course_class_id->id;
+            $newModule->course_class_id = $lastCourseClassId->id;
 
             // Memeriksa jika start_date tidak valid dan menggantinya dengan waktu hari ini
             if ($newModule->start_date == '0000-00-00 00:00:00') {
@@ -134,31 +128,29 @@ class CourseClassController extends Controller
 
             $newModule->save();
         }
+
         return app(HelperController::class)->Positive('getCourseClass');
     }
 
     function getEditCourseClass(Request $request)
     {
-        $course_class_id = $request->id;
-        $course_class_detail = CourseClass::getClassDetailByClassId($course_class_id);
-        // dd($course_class_detail);
-        // $currentData = CourseClass::getCurrentDataCourseClass($request);
-        // dd($course_class_detail);
+        $courseClassId = $request->id;
+        $courseClassDetail = CourseClass::getClassDetailByClassId($courseClassId);
 
-        $course_list = Course::get(); // Access the attribute directly
+        $courseList = Course::get();
 
-        return view('classcontentmanagement::courseclass.edit', [
-            'course_class_detail' => $course_class_detail,
-            'course_list' => $course_list
+        return view('classcontentmanagement::course_class.edit', [
+            'course_class_detail' => $courseClassDetail,
+            'course_list' => $courseList
         ]);
     }
 
 
     function postEditCourseClass(Request $request)
     {
-        $course_class_id = $request->id;
+        $courseClassId = $request->id;
 
-        $updateData = CourseClass::where('id', $course_class_id)
+        $updateData = CourseClass::where('id', $courseClassId)
             ->update([
                 'batch' => $request->batch,
                 'start_date' => $request->start,

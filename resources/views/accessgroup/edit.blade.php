@@ -4,7 +4,7 @@
 
 @section('content')
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-    <div style="padding: 0px 12px 0px 12px;">
+    <div class="px-3 pb-3">
         <h2>Edit Access Group</h2>
         <hr style="padding-bottom:1%">
         <form class="ui form" action="{{ route('postEditAccessGroup', ['id' => request()->query('id')]) }}" method="post">
@@ -24,7 +24,7 @@
                     <div class="field">
                         <label for="">Access Master saat ini:</label>
                         <small>Pilih untuk hapus Access Master</small>
-                        <select id="hapus" name="access_master_old[]" multiple="multiple">
+                        <select id="hapus" name="access_master_old[]" multiple="">
                             @foreach ($currentData as $key => $value)
                                 <option value="{{ $key }}">{{ $value }}</option>
                             @endforeach

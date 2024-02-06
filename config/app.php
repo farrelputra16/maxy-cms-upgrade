@@ -165,7 +165,9 @@ return [
         /*
          * Package Service Providers...
          */
+        Barryvdh\DomPDF\ServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
+        Webklex\PDFMerger\Providers\PDFMergerServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -231,6 +233,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'PDF' => \Barryvdh\DomPDF\Facade\Pdf::class,
+        'PDFMerger' => Webklex\PDFMerger\Facades\PDFMergerFacade::class
 
     ],
 

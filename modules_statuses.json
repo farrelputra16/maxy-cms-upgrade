@@ -3,5 +3,6 @@
     "ClassContentManagement": true,
     "Entrollment": true,
     "Enrollment": true,
-    "TrackandGrade": true
+    "TrackandGrade": true,
+    "CertificateTemplate": true
 }

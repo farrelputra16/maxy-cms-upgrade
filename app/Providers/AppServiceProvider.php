@@ -26,7 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
         Blade::directive('rupiah', function ($amount) {
             if (is_numeric($amount)) {
                 return "Rp " . "<?php echo number_format($amount, 0, ',', '.'); ?>";
@@ -35,8 +34,8 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-        view()->composer('*', function ($view){
-            if (Auth::check()){
+        view()->composer('*', function ($view) {
+            if (Auth::check()) {
                 $broGotAccessMaster = DB::table('access_group_detail')
                     ->join('access_group', 'access_group_detail.access_group_id', '=', 'access_group.id')
                     ->join('access_master', 'access_group_detail.access_master_id', '=', 'access_master.id')
@@ -44,10 +43,8 @@ class AppServiceProvider extends ServiceProvider
                     ->where('access_group.id', '=', Auth::user()->access_group_id)
                     ->get();
 
-                // return dd($broGotAccessMaster);
-            
-                $view->with('broGotAccessMaster', $broGotAccessMaster );    
+                $view->with('broGotAccessMaster', $broGotAccessMaster);
             }
-        });  
+        });
     }
 }

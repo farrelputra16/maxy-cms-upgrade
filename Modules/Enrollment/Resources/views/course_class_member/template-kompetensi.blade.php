@@ -2,8 +2,9 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ "Sertifikat $user->name" }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,8 +12,6 @@
 
         .container {
             width: 100%;
-            margin: auto;
-            padding: 20px;
         }
 
         h1 {
@@ -54,87 +53,69 @@
         .table-total {
             text-align: left;
         }
-    </style>
-    {{-- <style>
-        body {
-                background-image: url('{{ asset('sertifikat/12.png') }}');
-                /* Set the path to your image in the public directory */
-            background-size: cover;
-            /* Adjust the size as needed */
+
+        .page-break {
+            page-break-after: always;
         }
-    </style> --}}
+    </style>
 </head>
 
 <body>
-
-    <div class="container">
-        <h1 class="text-center mb-5 text-capitalize">capaian pembelajaran program</h1>
-        <table id="example">
-            <thead>
+<div class="container">
+    <h1 class="text-center mb-5 text-capitalize">Capaian Pembelajaran Program</h1>
+    <table id="competencies">
+        <thead>
+        <tr>
+            <th style="width: 0%">No.</th>
+            <th style="width: 15%;">Kompetensi</th>
+            <th style="width: 40%;">Definisi Kompetensi</th>
+            <th style="width: 5%">Jam</th>
+            <th style="width: 5%">Nilai Capaian</th>
+            <th style="width: 30%;">Deskripsi Nilai Capaian</th>
+        </tr>
+        </thead>
+        <tbody>
+        @php
+            $index = 1;
+            $totalAverage = 0; // Inisialisasi nilai total rata-rata
+        @endphp
+        @foreach ($classModules as $item)
+            @if (!empty($item->course_module_name))
                 <tr>
-                    <th style="width: 0%">No.</th>
-                    <th style="width: 15%;">Kompetensi</th>
-                    <th style="width: 40%;">Definisi Kompetensi</th>
-                    <th style="width: 5%">Jam</th>
-                    <th style="width: 5%">Nilai Capaian</th>
-                    <th style="width: 30%;">Deskripsi Nilai Capaian</th>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item->course_module_name }}</td>
+                    <td>{!! $item->content !!}</td>
+                    <td>{!! $item->duration !!}</td>
+                    <td>
+                        @if (!empty($item->modulesChild))
+                            @php
+                                $totalGrades = 0;
+                                $numChildModules = count($item->modulesChild);
+                            @endphp
+
+                            @foreach ($item->modulesChild as $child)
+                                @php
+                                    $totalGrades += $child->grade ?? 0;
+                                @endphp
+                            @endforeach
+
+                            @if ($numChildModules > 0)
+                                {{ number_format($totalGrades / $numChildModules, 2) }}
+                            @endif
+                        @else
+                            No child modules
+                        @endif
+                    </td>
+                    <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, fugiat.</td>
                 </tr>
-            </thead>
-            <tbody>
-                @php
-                    $index = 1;
-                    $totalAverage = 0; // Inisialisasi nilai total rata-rata
-                @endphp
-                @foreach ($classModules as $item)
-                    @if (!empty($item->course_module_name))
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->course_module_name }}</td>
-                            <td>{!! $item->content !!}</td>
-                            <td>{!! $item->duration !!}</td>
-                            {{-- <td>
-                                @if (!empty($item->modulesChild))
-                                    @foreach ($item->modulesChild as $child)
-                                       {{ $child->grade ?? 0 }}<br>
-                                    @endforeach
-                                @else
-                                    No child modules
-                                @endif
-                            </td> --}}
-                            <td>
-                                @if (!empty($item->modulesChild))
-                                    @php
-                                        $totalGrades = 0;
-                                        $numChildModules = count($item->modulesChild);
-                                    @endphp
-
-                                    @foreach ($item->modulesChild as $child)
-                                        @php
-                                            $totalGrades += $child->grade ?? 0;
-                                        @endphp
-                                        {{-- {{ $child->grade ?? 0 }}<br> --}}
-                                    @endforeach
-
-                                    @if ($numChildModules > 0)
-                                        {{ number_format($totalGrades / $numChildModules, 2) }}
-                                    @endif
-                                @else
-                                    No child modules
-                                @endif
-                            </td>
-                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, fugiat.</td>
-                        </tr>
-                    @endif
-                @endforeach
-                <tr>
-                    <td colspan="4" class="table-total">Nilai Total</td>
-                    <td colspan="2">{{ $totalAverage }}</td>
-                </tr>
-            </tbody>
-
-        </table>
-    </div>
-
+            @endif
+        @endforeach
+        <tr>
+            <td colspan="4" class="table-total">Nilai Total</td>
+            <td colspan="2">{{ $courseClassMember->final_score }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
-
 </html>
