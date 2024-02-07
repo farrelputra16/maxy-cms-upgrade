@@ -42,8 +42,10 @@ class CourseClassModuleController extends Controller
     {
         $course_class_id = $request->id;
         $course_detail = CourseClass::getCourseDetailByClassId($course_class_id);
-        $allModules = CourseClass::getAllCourseModuleByCourseId($course_detail->id);
+        $allModules = CourseClass::getAllParentCourseModuleByCourseId($course_detail->id);
         $classDetail = CourseClass::getCurrentDataCourseClass($course_class_id);
+
+        // dd($allModules);
 
         return view('classcontentmanagement::course_class_module.add', [
             'allModules' => $allModules,
@@ -88,7 +90,7 @@ class CourseClassModuleController extends Controller
 
         $course_class_id = $course_class_detail->id;
         $course_detail = CourseClass::getCourseDetailByClassId($course_class_id);
-        $allModules = CourseClass::getAllCourseModuleByCourseId($course_detail->id);
+        $allModules = CourseClass::getAllParentCourseModuleByCourseId($course_detail->id);
         $classDetail = CourseClass::getCurrentDataCourseClass($course_class_id);
 
         return view('classcontentmanagement::course_class_module.edit', [
@@ -153,7 +155,7 @@ class CourseClassModuleController extends Controller
         $courseClassId = $request->course_class_id;
 
         $courseParent = CourseClassModule::find($request->id);
-        $allModules = CourseClass::getAllCourseModuleByCourseId($courseClassId);
+        $allModules = CourseClass::getAllParentCourseModuleByCourseId($courseClassId);
 
         return view('classcontentmanagement::course_class_module.child.add', [
             'courseParent' => $courseParent,

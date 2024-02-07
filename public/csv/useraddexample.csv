@@ -1,0 +1,3 @@
+name,email,password,status
+name1,email1@gmail.com,secret123,1
+name2,email2@gmail.com,secret123,0

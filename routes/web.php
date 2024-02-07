@@ -24,6 +24,7 @@ use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\MaxyTalkController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\RedeemCodeController;
+use App\Http\Controllers\MCourseTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -149,6 +150,17 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/course/difficulty/edit', [MDifficultyTypeController::class, 'getEditDifficulty'])->name('getEditDifficultyType')->middleware('access:m_difficulty_type_update');
     Route::post('/course/difficulty/edit', [MDifficultyTypeController::class, 'postEditDifficulty'])->name('postEditDifficultyType')->middleware('access:m_difficulty_type_update');
+
+    // course type 
+    Route::get('/course/type', [MCourseTypeController::class, 'getCourseType'])->name('getCourseType')->middleware('access:m_Course_type_manage');
+
+    Route::get('/course/type/add', [MCourseTypeController::class, 'getAddCourseType'])->name('getAddCourseType')->middleware('access:m_Course_type_create');
+    Route::post('/course/type/add', [MCourseTypeController::class, 'postAddCourseType'])->name('postAddCourseType')->middleware('access:m_Course_type_create');
+
+    Route::get('/course/type/edit', [MCourseTypeController::class, 'getEditCourseType'])->name('getEditCourseType')->middleware('access:m_Course_type_update');
+    Route::post('/course/type/edit', [MCourseTypeController::class, 'postEditCourseType'])->name('postEditCourseType')->middleware('access:m_Course_type_update');
+
+
 
     //                                                      USER MANAGEMENT
 

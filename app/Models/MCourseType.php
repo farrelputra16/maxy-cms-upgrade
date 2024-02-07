@@ -12,4 +12,15 @@ class MCourseType extends Model
     use HasFactory;
 
     protected $table = 'm_course_type';
+
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+        'status',
+        'created_at',
+        'created_id',
+        'updated_at',
+        'updated_id'
+    ];
 }

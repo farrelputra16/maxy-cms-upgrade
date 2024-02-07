@@ -70,6 +70,15 @@
                                     <a class="dropdown-item disabled" href="{{ route('getCourse') }}">Course <i
                                             class="lock icon"></i></a>
                                 @endif
+
+                                @if ($broGotAccessMaster->contains('name', 'm_course_type_manage'))
+                                    <a class="dropdown-item" href="{{ route('getCourseType') }}">Course Type</a>
+                                @else
+                                    <a class="dropdown-item disabled" href="{{ route('getCoursetype') }}">
+                                        Course Type <i class="lock icon"></i>
+                                    </a>
+                                @endif
+                                
                                 @if ($broGotAccessMaster->contains('name', 'course_package_manage'))
                                     <a class="dropdown-item" href="{{ route('getCoursePackage') }}">Course Package</a>
                                 @else
@@ -77,6 +86,8 @@
                                         Course Package <i class="lock icon"></i>
                                     </a>
                                 @endif
+                                
+                                
                                 <!-- @if ($broGotAccessMaster->contains('name', 'course_package_benefit_manage'))
                                     <a class="dropdown-item" href="{{ route('getCoursePackageBenefit') }}">
                                         Course Package Benefit
@@ -102,6 +113,8 @@
                                         Partners <i class="lock icon"></i>
                                     </a>
                                 @endif
+
+                                
                             </div>
 
                         </li>

@@ -167,14 +167,16 @@ class CourseClass extends Model
 
     public static function getAllParentCourseModuleByCourseId($courseId)
     {
+        
         $allModule = DB::table('course_module as cm')
             ->select('*')
-            ->where('cm.course_id', $courseId)
+            ->where('cm.course_id', '=', $courseId)
             ->where('type', '!=', 'company_profile')
             ->where('status', 1)
             ->where('level', 1)
             ->get();
 
+            // dd($allModule);
         return $allModule;
     }
 

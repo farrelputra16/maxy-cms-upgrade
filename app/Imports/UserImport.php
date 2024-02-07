@@ -19,11 +19,13 @@ class UserImport implements ToModel, WithHeadingRow
             'name' => $row['name'],
             'email' => $row['email'],
             'password' => bcrypt($row['password']),
-            'type' => $row['type'],
-            'access_group_id' => $row['access_group_id'],
-            'description' => $row['description'],
+            'type' => 'member',
+            'access_group_id' => 2,
+            'description' => 'Created by Bulk Action Upload',
             'status' => isset($row['status']) ? (bool)$row['status'] : false,
+            'created_at' => now(),
             'created_id' => Auth::user()->id, // Mengisi kolom "created_id" dengan ID pengguna saat ini
+            'updated_at' => now(),
             'updated_id' => Auth::user()->id, 
         ]);
 

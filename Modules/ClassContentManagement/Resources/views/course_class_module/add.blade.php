@@ -54,15 +54,17 @@
                     <label for="">Course Module</label>
                     <select name="coursemoduleid" class="ui dropdown">
                         @foreach ($allModules as $item)
-                            @if ($item->type == '')
-                                <option value="{{ $item->id }}">Day {{ $item->day }}: {{ $item->name }}</option>
+                            <!-- <option value="{{ $item->id }}">Day {{ $item->day }}: {{ $item->name }}</option> -->
+                            @if ($item->type == 'parent')
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <!-- <option value="{{ $item->id }}">Day {{ $item->day }}: {{ $item->name }}</option> -->
                             {{-- @else
                                 <option value="{{ $item->id }}">[{{ $item->type }}]{{ $item->name }}</option> --}}
                             @endif
                         @endforeach
                     </select>
                     @if ($errors->has('coursemoduleid'))
-                        @foreach ($errors->get('coursemoduleid') as $error)
+                        @foreach ($errors->get('cours   emoduleid') as $error)
                             <span style="color: red;">{{ $error }}</span>
                         @endforeach
                     @endif
