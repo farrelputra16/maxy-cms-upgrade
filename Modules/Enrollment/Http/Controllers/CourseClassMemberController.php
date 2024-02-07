@@ -56,7 +56,7 @@ class CourseClassMemberController extends Controller
             return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('error', 'Failed to Enroll Member, user already exists');
         } else {
             $created = CourseClassMember::create([
-                'user_id' => auth()->id(),
+                'user_id' => $request['users'][0],
                 'course_class_id' => $request->course_class,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
