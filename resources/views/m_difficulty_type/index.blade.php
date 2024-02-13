@@ -57,8 +57,13 @@
                             </td>
                             <td>{{ $item->created_at }}</td>
                             <td>{{ $item->updated_at }}</td>
-                            <td>
+                            <!-- <td>
                                 <a href="{{ route('getEditDifficultyType', ['id' => $item->id, 'access' => 'm_difficulty_type_update']) }}" style="text-decoration: none; color:blue;">Edit</a>
+                            </td> -->
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{{ route('getEditDifficultyType', ['id' => $item->id, 'access' => 'm_difficulty_type_update']) }}" class="btn btn-primary">Edit</a>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -79,18 +84,38 @@
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
     
-    <script>
-        $(document).ready(function() {
-            var table = $('#example').DataTable({
-                lengthChange: true, // Aktifkan opsi perubahan jumlah entri
-                lengthMenu: [10, 25, 50, 100], // Menentukan pilihan jumlah entri yang dapat ditampilkan
-                buttons: ['copy', 'excel', 'pdf', 'colvis']
-            });
     
-        table.buttons().container()
-            .appendTo('#example_wrapper .col-md-6:eq(0)');
-        });
-    </script>
+    <script>
+                $(document).ready(function () {
+                    let table = $('#example').DataTable({
+                        lengthChange: true,
+                        lengthMenu: [10, 25, 50, 100],
+                        buttons: ['copy', 'excel', 'pdf', 'colvis'],
+                        searching: true,
+                    });
+
+                    // Add individual column search inputs and titles
+                    $('#example thead th').each(function () {
+                        let title = $(this).text();
+                        $(this).html('<div class="text-center">' + title +
+                    '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' + title +
+                    '" /></div>');
+                    });
+
+                    // Apply individual column search
+                    table.columns().every(function () {
+                        let that = this;
+                        $('input', this.header()).on('keyup change', function () {
+                            if (that.search() !== this.value) {
+                                that.search(this.value).draw();
+                            }
+                        });
+                    });
+
+                    table.buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
+                });
+            </script>
+
 </body>
 </html>
 

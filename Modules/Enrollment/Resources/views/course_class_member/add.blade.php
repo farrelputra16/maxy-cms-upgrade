@@ -18,13 +18,21 @@
         <form class="ui form" action="{{ route('postAddCourseClassMember') }}" method="post">
             @csrf
             <div class="field">
+                        <label for="">Select User:</label>
+                        <select id="hapus" name="users[]" multiple="">
+                            @foreach ($users as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+            <!-- <div class="field">
                 <select class="ui fluid multiple search selection dropdown" name="users[]">
                     <option value="">Select User</option>
                     @foreach ($users as $item)
                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                     @endforeach
                 </select>
-            </div>
+            </div> -->
             <input type="hidden" name="course_class" value="{{ $course_class_detail->id }}">
             <div class="field">
                 <label for="">Course Class Description</label>
@@ -67,5 +75,13 @@
             .dropdown({
                 keepSearchTerm: true
             });
+    </script>
+
+<script>
+        $('#hapus, #tambah').multiselect({
+            maxHeight: 300,
+            includeSelectAllOption: true,
+            enableFiltering: true,
+        });
     </script>
 @endsection

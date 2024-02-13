@@ -2,20 +2,23 @@
 
 @section('title', 'Redeem Code')
 
-@push('styles')
+@section('content')
+    <div style="padding: 0px 12px 0px 12px;">
+    <!DOCTYPE html>
+<html>
+<head>
+<h2>Redeem Code</h2>
     <!-- Include CSS libraries for styling the table -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
-    
-@endpush
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 
-@section('content')
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-    <div class="container-fluid">
-        <h2>Redeem Code</h2>
-        <hr>
-        <div class="ui breadcrumb pt-2 pb-4">
+</head>
+<body>
+    
+    <hr>
+    <div class="ui breadcrumb pt-2 pb-4">
             <a class="section" href="{{ url('/') }}">Dashboard</a>
             <i class="right angle icon divider"></i>
             <div class="active section">Redeem Code</div>
@@ -74,10 +77,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
-@endsection
-
-@push('scripts')
+    
     <!-- Include JS libraries for DataTable initialization -->
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
@@ -90,17 +90,41 @@
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
-
+    
+    
     <script>
-        $(document).ready(function () {
-            var table = $('#example').DataTable({
-                lengthChange: true, // Aktifkan opsi perubahan jumlah entri
-                lengthMenu: [10, 25, 50, 100], // Menentukan pilihan jumlah entri yang dapat ditampilkan
-                buttons: ['copy', 'excel', 'pdf', 'colvis']
-            });
+                $(document).ready(function () {
+                    let table = $('#example').DataTable({
+                        lengthChange: true,
+                        lengthMenu: [10, 25, 50, 100],
+                        buttons: ['copy', 'excel', 'pdf', 'colvis'],
+                        searching: true,
+                    });
 
-            table.buttons().container()
-                .appendTo('#example_wrapper .col-md-6:eq(0)');
-        });
-    </script>
-@endpush
+                    // Add individual column search inputs and titles
+                    $('#example thead th').each(function () {
+                        let title = $(this).text();
+                        $(this).html('<div class="text-center">' + title +
+                    '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' + title +
+                    '" /></div>');
+                    });
+
+                    // Apply individual column search
+                    table.columns().every(function () {
+                        let that = this;
+                        $('input', this.header()).on('keyup change', function () {
+                            if (that.search() !== this.value) {
+                                that.search(this.value).draw();
+                            }
+                        });
+                    });
+
+                    table.buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
+                });
+            </script>
+
+</body>
+</html>
+
+    </div>
+@endsection

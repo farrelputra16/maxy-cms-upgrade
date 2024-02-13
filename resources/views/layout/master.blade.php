@@ -74,7 +74,7 @@
                                 @if ($broGotAccessMaster->contains('name', 'm_course_type_manage'))
                                     <a class="dropdown-item" href="{{ route('getCourseType') }}">Course Type</a>
                                 @else
-                                    <a class="dropdown-item disabled" href="{{ route('getCoursetype') }}">
+                                    <a class="dropdown-item disabled" href="{{ route('getCourseType') }}">
                                         Course Type <i class="lock icon"></i>
                                     </a>
                                 @endif
@@ -137,18 +137,14 @@
                                 <a class="dropdown-item" href="{{ route('certificate-templates.index') }}">Certificate Template</a>
 
                                 @if ($broGotAccessMaster->contains('name', 'course_class_member_log_read'))
-                                    <a class="dropdown-item" href="{{ route('getCCMH') }}">Class Member History
-                                        (Tracking)</a>
+                                    <a class="dropdown-item" href="{{ route('getCCMH') }}">Student Tracker</a>
                                 @else
-                                    <a class="dropdown-item disabled" href="{{ route('getCCMH') }}">Class Member
-                                        History (Tracking) <i class="lock icon"></i></a>
+                                    <a class="dropdown-item disabled" href="{{ route('getCCMH') }}">Student Tracker<i class="lock icon"></i></a>
                                 @endif
                                 @if ($broGotAccessMaster->contains('name', 'course_class_member_grading_manage'))
-                                    <a class="dropdown-item" href="{{ route('getCCMHGrade') }}">Class Member History
-                                        (Grading)</a>
+                                    <a class="dropdown-item" href="{{ route('getCCMHGrade') }}">Grade Asssignments</a>
                                 @else
-                                    <a class="dropdown-item disabled" href="{{ route('getCCMHGrade') }}">Class Member
-                                        History (Grading) <i class="lock icon"></i></a>
+                                    <a class="dropdown-item disabled" href="{{ route('getCCMHGrade') }}">Grade Asssignments<i class="lock icon"></i></a>
                                 @endif
                         </li>
                         <li class="nav-item dropdown">

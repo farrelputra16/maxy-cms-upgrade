@@ -50,27 +50,33 @@ class CourseClassMemberController extends Controller
 
     function postAddCourseClassMember(CourseClassMemberRequest $request)
     {
-        $existingUser = CourseClassMember::checkExistingCCM($request->users, $request->course_class);
+        $users = $request->users; // Mengambil semua pengguna dari permintaan
+        $courseClassId = $request->course_class;
 
-        if ($existingUser) {
-            return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('error', 'Failed to Enroll Member, user already exists');
-        } else {
-            $created = CourseClassMember::create([
-                'user_id' => $request['users'][0],
-                'course_class_id' => $request->course_class,
-                'description' => $request->description,
-                'status' => $request->status ? 1 : 0,
-                'created_id' => auth()->id(),
-                'updated_id' => auth()->id(),
-            ]);
+        foreach ($users as $user) {
+            $existingUser = CourseClassMember::checkExistingCCM($user, $courseClassId);
 
-            if ($created) {
-                return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('success', 'Enroll Member Success');
+            if ($existingUser) {
+                return redirect()->route('getCourseClassMember', ['id' => $courseClassId])->with('error', 'Failed to Enroll Member, user already exists');
             } else {
-                return redirect()->route('getCourseClassMember', ['id' => $request->course_class])->with('error', 'Failed to Enroll Member, please try again');
+                $created = CourseClassMember::create([
+                    'user_id' => $user,
+                    'course_class_id' => $courseClassId,
+                    'description' => $request->description,
+                    'status' => $request->status ? 1 : 0,
+                    'created_id' => auth()->id(),
+                    'updated_id' => auth()->id(),
+                ]);
             }
         }
+
+        if ($created) {
+            return redirect()->route('getCourseClassMember', ['id' => $courseClassId])->with('success', 'Enroll Member Success');
+        } else {
+            return redirect()->route('getCourseClassMember', ['id' => $courseClassId])->with('error', 'Failed to Enroll Member, please try again');
+        }
     }
+
 
     function getEditCourseClassMember(Request $request, CourseClassMember $courseClassMember)
     {
@@ -95,7 +101,7 @@ class CourseClassMemberController extends Controller
             Excel::import($import, $request->file('csv_file'));
 
             // Redirect dengan pesan sukses jika berhasil
-            return redirect()->route('getCourseClassMember')->with('success', 'Data berhasil diimpor dari file CSV.');
+            return redirect()->route('getCourseClass')->with('success', 'Data berhasil diimpor dari file CSV.');
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             dd('Validation Exception', $e->getMessage()); // Tambahkan pesan ini
         } catch (\Exception $e) {

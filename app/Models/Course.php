@@ -173,4 +173,14 @@ class Course extends Model
         }
 
     }
+
+    public static function getCourseDetailByCourseId($course_id){
+        $course_detail = DB::table('course as c')
+            ->select('c.*', 'mct.id as course_type_name', 'mct.id as course_type_id')
+            ->join('m_course_type as mct', 'mct.id', '=', 'c.m_course_type_id')
+            ->where('c.id', $course_id)
+            ->first();
+            
+        return $course_detail;
+    }
 }

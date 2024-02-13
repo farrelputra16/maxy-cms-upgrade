@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
+use App\Models\MCourseType;
 
 class CourseModuleController extends Controller
 {
@@ -140,6 +141,8 @@ class CourseModuleController extends Controller
         $courseParent = CourseModule::find($request->id);
         $courseModuleChild = CourseModule::courseModuleChild($request);
 
+        // dd($courseModuleChild);
+
         return view('course_module.child.index', [
             'courseParent' => $courseParent,
             'courseChildModules' => $courseModuleChild
@@ -183,8 +186,15 @@ class CourseModuleController extends Controller
     function getEditChildModule(Request $request)
     {
         $childModule = CourseModule::find($request->id);
+        $parentModule = CourseModule::find($childModule->course_module_parent_id);
+        $course_detail = Course::getCourseDetailByCourseId($parentModule->course_id);
+        $course_type = MCourseType::find($course_detail->m_course_type_id);
+
+        // dd($parentModule);
         return view('course_module.child.edit', [
-            'childModules' => $childModule,
+            'childModule' => $childModule,
+            'parentModule' => $parentModule,
+            'course_type' => $course_type,
         ]);
     }
 
@@ -194,7 +204,7 @@ class CourseModuleController extends Controller
             ->update([
                 'name' => $request->name,
                 'priority' => $request->priority,
-                'level' => $request->level,
+                'level' => 2,
                 'content' => $request->content,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
@@ -202,11 +212,14 @@ class CourseModuleController extends Controller
             ]);
 
         if ($updated) {
-            return app(HelperController::class)->Positive('getCourseModule');
+            // return app(HelperController::class)->Positive('getCourseModule');
+            return app(HelperController::class)->Positive('getCourse');
         } else {
-            return app(HelperController::class)->Warning('getCourseModule');
+            // return app(HelperController::class)->Warning('getCourseModule');
+            return app(HelperController::class)->Warning('getCourse');
         }
     }
+    
     function deleteCourseModule(Request $request, $id)
     {
         try {

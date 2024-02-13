@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-10">
                 <div class="form-container pt-3">
-                    <form method="GET" action="{{ route('getGradeCCMH') }}"
+                    <!-- <form method="GET" action="{{ route('getGradeCCMH') }}"
                           class="row row-cols-lg-3 g-3 align-items-center">
                         <div class="col-12">
                             <label for="courses" class="form-label">Course</label>
@@ -62,10 +62,8 @@
                             </select>
                         </div> --}}
 
-                        <div class="col-12 align-self-end">
-                            <button type="submit" class="btn btn-primary">Generate</button>
-                        </div>
-                    </form>
+                        
+                    </form> -->
                 </div>
             </div>
         </div>

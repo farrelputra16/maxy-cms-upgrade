@@ -39,7 +39,7 @@
                     <div class="col-md-6">
                         <label for="studentComment" class="form-label fw-bold">Student Comment</label>
                         <input type="text" class="form-control"
-                            value="{{ strip_tags($courseClassMemberGrading->comment) }}">
+                            value="{{ strip_tags($courseClassMemberGrading->comment) }}" readonly>
 
                     </div>
 
