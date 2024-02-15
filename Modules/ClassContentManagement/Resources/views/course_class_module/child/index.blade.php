@@ -42,11 +42,8 @@
                             <th>End Date</th>
                             <th>Module Name</th>
                             <th>Module Priority</th>
-                            <th>Module Level</th>
                             <th>Content</th>
                             <th>Description</th>
-                            <th>Created At</th>
-                            <th>Created By</th>
                             <th>Updated At</th>
                             <th>Updated By</th>
                             <th>Status</th>
@@ -61,11 +58,8 @@
                                 <td>{{ $item->end_date }}</td>
                                 <td>{{ $item->courseModule->name }}</td>
                                 <td>{{ $item->courseModule->priority }}</td>
-                                <td>{{ $item->courseModule->level }}</td>
                                 <td>{{ $item->courseModule->content ?? '-' }}</td>
                                 <td id="description">{!! !empty($item->courseModule->description) ? \Str::limit($item->courseModule->description, 30) : '-' !!}</td>
-                                <td>{{ $item->courseModule->created_at }}</td>
-                                <td>{{ $item->userCreated->name }}</td>
                                 <td>{{ $item->courseModule->updated_at }}</td>
                                 <td>{{ $item->userUpdated->name }}</td>
                                 <td>
