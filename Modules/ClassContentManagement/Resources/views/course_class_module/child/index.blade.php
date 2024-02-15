@@ -60,6 +60,7 @@
                         <th>Priority</th>
                         <th>Type</th>
                         <th scope="col">Course Module</th>
+                        <th scope="col">Content</th>
                         <th scope="col">Start Date</th>
                         <th scope="col">End Date</th>
                         <th scope="col">Description</th>
@@ -79,6 +80,7 @@
                         <td>{{ $item->priority }}</td>
                         <td>{{ $item->type }}</td>
                         <td>{{ $item->course_module_name }}</td>
+                        <td>{{ $item->course_module_content }}</td>
                         <td>{{ $item->start_date }}</td>
                         <td>{{ $item->end_date }}</td>
                         <td id="description">{{ $item->description }}</td>
