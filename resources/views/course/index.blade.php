@@ -92,7 +92,9 @@
                                     <div class="btn-group">
                                         <a href="{{ route('getEditCourse', ['id' => $item->id]) }}"
                                             class="btn btn-primary">Edit</a>
-                                        <a href="{{ route('getCourseModule', ['id' => $item->id]) }}"
+                                        <!-- <a href="{{ route('getCourseModule', ['id' => $item->id]) }}"
+                                            class="btn btn-info">Modules List</a> -->
+                                        <a href="{{ route('getCourseModule', ['course_id' => $item->id, 'page_type' => 'LMS']) }}"
                                             class="btn btn-info">Modules List</a>
                                     </div>
                                 </td>

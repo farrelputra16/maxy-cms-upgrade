@@ -132,13 +132,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/course/module/edit', [CourseModuleController::class, 'getEditCourseModule'])->name('getEditCourseModule')->middleware('access:course_module_update');
     Route::post('/course/module/edit', [CourseModuleController::class, 'postEditCourseModule'])->name('postEditCourseModule')->middleware('access:course_module_update');
 
-    Route::get('/course/module/child', [CourseModuleController::class, 'getCourseChildModule'])->name('getCourseChildModule')->middleware('access:course_module_manage');
+    // Route::get('/course/module/child', [CourseModuleController::class, 'getCourseChildModule'])->name('getCourseChildModule')->middleware('access:course_module_manage');
 
-    Route::get('/course/module/child/add', [CourseModuleController::class, 'getAddChildModule'])->name('getAddChildModule')->middleware('access:course_module_create');
+    // Route::get('/course/module/child/add', [CourseModuleController::class, 'getAddChildModule'])->name('getAddChildModule')->middleware('access:course_module_create');
+    // Route::post('/course/module/child/add', [CourseModuleController::class, 'postAddChildModule'])->name('postAddChildModule')->middleware('access:course_module_create');
+
+    // Route::get('/course/module/child/edit', [CourseModuleController::class, 'getEditChildModule'])->name('getEditChildModule')->middleware('access:course_module_update');
+    // Route::post('/course/module/child/edit', [CourseModuleController::class, 'postEditChildModule'])->name('postEditChildModule')->middleware('access:course_module_update');
+
+    Route::get('/course/module/child', [CourseModuleController::class, 'getCourseSubModule'])->name('getCourseSubModule')->middleware('access:course_module_manage');
+    Route::get('/course/module/child', [CourseModuleController::class, 'getCourseSubModule'])->name('getCourseSubModule')->middleware('access:course_module_manage');
+    Route::get('/course/module/child/add', [CourseModuleController::class, 'getAddCourseChildModule'])->name('getAddCourseChildModule')->middleware('access:course_module_create');
     Route::post('/course/module/child/add', [CourseModuleController::class, 'postAddChildModule'])->name('postAddChildModule')->middleware('access:course_module_create');
-
     Route::get('/course/module/child/edit', [CourseModuleController::class, 'getEditChildModule'])->name('getEditChildModule')->middleware('access:course_module_update');
     Route::post('/course/module/child/edit', [CourseModuleController::class, 'postEditChildModule'])->name('postEditChildModule')->middleware('access:course_module_update');
+
 
     Route::get('/course/module/delete/{id}', [CourseModuleController::class, 'deleteCourseModule'])->name('deleteCourseModule')->middleware('access:course_module_delete');
 

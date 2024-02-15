@@ -4,187 +4,222 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\CourseModule;
+use App\Models\MCourseType;
 use Auth;
 use DB;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
-use App\Models\MCourseType;
 
 class CourseModuleController extends Controller
 {
     // PARENT
     function getCourseModule(Request $request)
     {
+        // dd($request->all());
+        $course_id = $request->course_id;
+        
+        $course_detail = Course::getCourseDetailByCourseId($course_id);
+        $parent_modules = CourseModule::getCourseModuleParentByCourseId($course_id, $request->page_type);
 
-        // dd($request);
-        $idCourse = $request->id;
-        $coursenama = Course::select('name')->where('id', $idCourse)->first();
-        $courseModuleParent = CourseModule::getCourseModuleParent($request);
-        // return dd($coursenama);
-
+        // dd($parent_modules);
         return view('course_module.index', [
-            'courseModules' => $courseModuleParent,
-            'course_id' => $idCourse,
-            'course_name' => $coursenama
+            'parent_modules' => $parent_modules,
+            'course_detail' => $course_detail,
+            'page_type' => $request->page_type,
+        ]);
+    }
+    function getCourseSubModule(Request $request)
+    {
+        // dd($request->all());
+        $course_id = $request->course_id;
+        $course_detail = Course::getCourseDetailByCourseId($course_id);
+
+        $module_id = $request->module_id;
+        $sub_modules = CourseModule::getCourseModuleChildByParentId($module_id);
+        $parent_module_detail = CourseModule::getCourseModuleDetailByModuleId($module_id);
+
+        // dd($sub_modules);
+        return view('course_module.child.index', [
+            'sub_modules' => $sub_modules,
+            'course_detail' => $course_detail,
+            'parent_module_detail' => $parent_module_detail,
+            'page_type' => $request->page_type,
         ]);
     }
 
     function getAddCourseModule(Request $request)
     {
-        $idCourse = $request->id;
-
-        if ($idCourse !== null) {
-            $coursenama = Course::select('name')->where('id', $idCourse)->first();
-        } else {
-            $coursenama = 'NULL';
-        }
-
-        $courses = Course::select('id', 'name')->get();
+        $course_id = $request->id;
+        $course_detail = Course::getCourseDetailByCourseId($course_id);
+        $page_type = $request->page_type;
 
         return view('course_module.add', [
-            'courses' => $courses,
-            'courseID' => $idCourse,
-            'courseNAME' => $coursenama
+            'course_detail' => $course_detail,
+            'page_type' => $page_type,
         ]);
     }
 
     function postAddCourseModule(Request $request)
     {
-        try {
-            // Validasi input
-            $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'priority' => 'required',
-                'course' => 'required',
-                'content' => 'required',
-            ]);
+        // dd($request->all());
+        $level = 1;
+        $type = '';
 
-            if ($validator->fails()) {
-                // Jika validasi gagal, redirect kembali ke halaman sebelumnya dengan pesan error
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
+        if ($request->page_type == 'LMS') {
+            $type = 'parent';
+        }
+        if ($request->page_type == 'CP') {
+            $type = 'company_profile';
+        }
+        // dd($type);
 
-            // Proses membuat course module jika validasi berhasil
-            $create = CourseModule::create([
-                'name' => $request->name,
-                'priority' => $request->priority,
-                'level' => 1,
-                'course_id' => $request->course,
-                'content' => $request->content,
-                'description' => $request->description,
-                'status' => $request->status ? 1 : 0,
-                'created_id' => Auth::user()->id,
-                'updated_id' => Auth::user()->id
-            ]);
+        $create = CourseModule::create([
+            'name' => $request->name,
+            'priority' => $request->priority,
+            'level' => $level,
+            'type' => $type,
+            'course_id' => $request->course_id,
+            'content' => $request->content,
+            'description' => $request->description,
+            'status' => $request->status ? 1 : 0,
+            'created_id' => Auth::user()->id,
+            'updated_id' => Auth::user()->id
+        ]);
 
-            if ($create && $request->course_name != NULL) {
-                return app(HelperController::class)->Positive('getCourse');
-            } elseif ($create && $request->course_name == NULL) {
-                return app(HelperController::class)->Positive('getCourseModule');
-            } else {
-                return app(HelperController::class)->Negative('getCourseModule');
-            }
-        } catch (\Exception $e) {
-            // Tangani kesalahan umum di sini jika diperlukan
-            return app(HelperController::class)->Negative('getCourseModule');
+        if ($create) {
+            return redirect()->route('getCourseModule', ['course_id' => $request->course_id, 'page_type' => $request->page_type])->with('success', 'Sukses Menambah Modul');
+        } else {
+            return redirect()->route('getCourseModule', ['course_id' => $request->course_id, 'page_type' => $request->page_type])->with('error', 'Gagal Menambah Modul, silahkan coba lagi');
         }
     }
 
     function getEditCourseModule(Request $request)
     {
-        $courseModule = CourseModule::find($request->id);
-
-        $currentCourse = CourseModule::getCurrentCourse($request);
-
-        $allCourses = Course::where('id', '!=', $currentCourse->pluck('course_id')->first())->get();
-
-        // return dd($allCourses);
+        // dd($request->all());
+        $module_id = $request->id;
+        $module_detail = CourseModule::getCourseModuleDetailByModuleId($module_id);
 
         return view('course_module.edit', [
-            'courseModule' => $courseModule,
-            'allCourses' => $allCourses,
-            'courseName' => [
-                'course_id' => $currentCourse->pluck('course_id')->first(),
-                'course_name' => $currentCourse->pluck('course_name')->first()
-            ]
+            'module_detail' => $module_detail,
+            'page_type' => $request->page_type,
         ]);
     }
 
-
     function postEditCourseModule(Request $request)
     {
-        // dd($request);
-        $update = CourseModule::where('id', $request->course)
+        // dd($request->all());
+        $course_detail = Course::getCourseDetailByCourseId($request->course_id);
+        $update = CourseModule::where('id', $request->id)
             ->update([
-                'name' => $request->name,
-                'priority' => $request->priority,
-                'course_id' => $request->course,
-                'content' => $request->content,
-                'description' => $request->description,
-                'status' => $request->status ? 1 : 0,
-                'created_id' => Auth::user()->id,
-                'updated_id' => Auth::user()->id
+                "name" => $request->name,
+                "priority" => $request->priority,
+                "description" => $request->description,
+                "status" => $request->status ? 1 : 0,
+                'updated_at' => now(),
+                'updated_id' => Auth::guard('web')->user()->id,
             ]);
 
         if ($update) {
-            return app(HelperController::class)->Positive('getCourseModule', ['id' => $request->course]);
+            return redirect()->route('getCourseModule', ['course_id' => $course_detail->id, 'page_type' => $request->page_type])->with('success', 'Sukses Update Module');
         } else {
-            return app(HelperController::class)->Warning('getCourseModule');
+            return redirect()->route('getCourseModule', ['course_id' => $course_detail->id, 'page_type' => $request->page_type])->with('error', 'Gagal Update Modul, silahkan coba lagi');
         }
     }
 
     // CHILD
-    function getCourseChildModule(Request $request)
+    // function getCourseChildModule(Request $request){
+    //     $courseParent = CourseModule::find($request->id);
+    //     $courseModuleChild = CourseModule::CourseModuleChild($request);
+
+    //     return view('course_module.child.index', [
+    //         'courseParent' => $courseParent,
+    //         'courseChildModules' => $courseModuleChild
+    //     ]);
+    // }
+
+    function getAddCourseChildModule(Request $request)
     {
-        $courseParent = CourseModule::find($request->id);
-        $courseModuleChild = CourseModule::courseModuleChild($request);
-
-        // dd($courseModuleChild);
-
-        return view('course_module.child.index', [
-            'courseParent' => $courseParent,
-            'courseChildModules' => $courseModuleChild
-        ]);
-    }
-
-    function getAddChildModule(Request $request)
-    {
+        // dd($request->all());
+        $course_detail = Course::getCourseDetailByCourseId($request->course_id);
         $parent = CourseModule::find($request->id);
-        $childModules = CourseModule::where('course_module_parent_id', '=', $parent->id)->get();
+        $course_type = MCourseType::find($course_detail->m_course_type_id);
 
+        // dd($course_type);
         return view('course_module.child.add', [
+            'course_type' => $course_type,
             'parent' => $parent,
-            'allChildHave' => $childModules
+            'page_type' => $request->page_type,
+            // 'allChildHave' => $childModules
         ]);
     }
 
     function postAddChildModule(Request $request)
     {
+        // dd($request->all());
         $parentModule = CourseModule::find($request->parentId);
 
-        $create = CourseModule::create([
-            'name' => $request->name,
-            'priority' => $request->priority,
-            'level' => $request->level,
-            'course_id' => $parentModule->course_id,
-            'course_module_parent_id' => $parentModule->id,
-            'content' => $request->content,
-            'description' => $request->description,
-            'status' => $request->status ? 1 : 0,
-            'created_id' => Auth::user()->id,
-            'updated_id' => Auth::user()->id,
-        ]);
+        if (isset($request->rapid) & $request->rapid == 1) {
+            $create = CourseModule::create([
+                'name' => $request->name,
+                'priority' => $request->priority,
+                'level' => 2,
+                'html' => $request->html,
+                'js' => $request->js,
+                'course_id' => $parentModule->course_id,
+                'course_module_parent_id' => $parentModule->id,
+                'type' => 'materi pembelajaran',
+                'content' => $request->content,
+                'description' => $request->description,
+                'status' => $request->status ? 1 : 0,
+                'created_id' => Auth::user()->id,
+                'updated_id' => Auth::user()->id,
+            ]);
+        } else {
+            if ($request->type == 'materi pembelajaran' || $request->type == 'assignment') {
+                $material = '';
+                if ($request->hasFile('material')) {
+                    $file = $request->file('material');
+                    $material = $file->getClientOriginalName();
+                    $destinationPath = public_path('/uploads/course_module/' . $parentModule->id);
+                    if (!File::exists($destinationPath)) { // create folder jika blm ada
+                        File::makeDirectory($destinationPath, 0777, true, true);
+                    }
+                    $file->move($destinationPath, $material);
+                }
+            } else {
+                $material = $request->material;
+            }
+
+            $create = CourseModule::create([
+                'name' => $request->name,
+                'priority' => $request->priority,
+                'level' => 2,
+                'course_id' => $parentModule->course_id,
+                'course_module_parent_id' => $parentModule->id,
+                'type' => $request->type,
+                'material' => $material,
+                'duration' => $request->duration,
+                'content' => $request->content,
+                'description' => $request->description,
+                'status' => $request->status ? 1 : 0,
+                'created_id' => Auth::user()->id,
+                'updated_id' => Auth::user()->id,
+            ]);
+        }
+
 
         if ($create) {
-            return app(HelperController::class)->Positive('getCourseModule');
+            return redirect()->route('getCourseSubModule', ['course_id' => $parentModule->course_id, 'module_id' => $parentModule->id, 'page_type' => 'LMS_child'])->with('success', 'Sukses Update Module');
+        } else {
+            return redirect()->route('getCourseSubModule', ['course_id' => $parentModule->course_id, 'module_id' => $parentModule->id, 'page_type' => 'LMS_child'])->with('error', 'Gagal Update Modul, silahkan coba lagi');
         }
-        return app(HelperController::class)->Negative('getCourseModule');
     }
 
     function getEditChildModule(Request $request)
     {
+        // dd($request->all());
         $childModule = CourseModule::find($request->id);
         $parentModule = CourseModule::find($childModule->course_module_parent_id);
         $course_detail = Course::getCourseDetailByCourseId($parentModule->course_id);
@@ -200,53 +235,55 @@ class CourseModuleController extends Controller
 
     function postEditChildModule(Request $request)
     {
-        $updated = CourseModule::where('id', '=', $request->id)
-            ->update([
-                'name' => $request->name,
-                'priority' => $request->priority,
-                'level' => 2,
-                'content' => $request->content,
-                'description' => $request->description,
-                'status' => $request->status ? 1 : 0,
-                'updated_id' => Auth::user()->id,
-            ]);
+        // dd($request->all());
+        $module_detail = CourseModule::find($request->id);
 
-        if ($updated) {
-            // return app(HelperController::class)->Positive('getCourseModule');
-            return app(HelperController::class)->Positive('getCourse');
+        if (isset($request->rapid) & $request->rapid == 1) {
+            $update = CourseModule::where('id', '=', $request->id)
+                ->update([
+                    'name' => $request->name,
+                    'priority' => $request->priority,
+                    'html' => $request->html,
+                    'js' => $request->js,
+                    'type' => $request->type,
+                    'content' => $request->content,
+                    'description' => $request->description,
+                    'status' => $request->status ? 1 : 0,
+                    'updated_id' => Auth::user()->id,
+                ]);
         } else {
-            // return app(HelperController::class)->Warning('getCourseModule');
-            return app(HelperController::class)->Warning('getCourse');
-        }
-    }
-    
-    function deleteCourseModule(Request $request, $id)
-    {
-        try {
-            $courseModule = CourseModule::find($id);
-
-            if (!$courseModule) {
-                return app(HelperController::class)->Negative('getCourseModule');
-            }
-
-            // Check if it's a parent or child module
-            if ($courseModule->course_module_parent_id) {
-                // It's a child module
-                $parentModule = CourseModule::find($courseModule->course_module_parent_id);
-                $courseModule->delete();
-
-                return Redirect::route('getCourseChildModule', ['id' => $parentModule->id])
-                    ->with('success', 'Child module deleted successfully.');
+            if ($request->type == 'materi pembelajaran' || $request->type == 'assignment') {
+                $material = $module_detail->material;
+                if ($request->hasFile('material')) {
+                    $file = $request->file('material');
+                    $material = $file->getClientOriginalName();
+                    $destinationPath = public_path('/uploads/course_module/' . $module_detail->course_module_parent_id);
+                    if (!File::exists($destinationPath)) { // create folder jika blm ada
+                        File::makeDirectory($destinationPath, 0777, true, true);
+                    }
+                    $file->move($destinationPath, $material);
+                }
             } else {
-                // It's a parent module
-                $courseModule->delete();
-
-                return app(HelperController::class)->Positive('getCourseModule');
+                $material = $request->material;
             }
-        } catch (\Exception $e) {
-            // Handle common errors here if needed
-            return app(HelperController::class)->Negative('getCourseModule');
+            $update = CourseModule::where('id', '=', $request->id)
+                ->update([
+                    'name' => $request->name,
+                    'priority' => $request->priority,
+                    'type' => $request->type,
+                    'material' => $material,
+                    'duration' => $request->duration,
+                    'content' => $request->content,
+                    'description' => $request->description,
+                    'status' => $request->status ? 1 : 0,
+                    'updated_id' => Auth::user()->id,
+                ]);
+        }
+
+        if ($update) {
+            return redirect()->route('getCourseSubModule', ['course_id' => $module_detail->course_id, 'module_id' => $module_detail->course_module_parent_id, 'page_type' => 'LMS_child'])->with('success', 'Sukses Update Module');
+        } else {
+            return redirect()->route('getCourseSubModule', ['course_id' => $module_detail->course_id, 'module_id' => $module_detail->course_module_parent_id, 'page_type' => 'LMS_child'])->with('error', 'Gagal Update Modul, silahkan coba lagi');
         }
     }
-
 }
