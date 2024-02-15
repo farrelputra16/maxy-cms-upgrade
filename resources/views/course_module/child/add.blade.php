@@ -51,8 +51,8 @@
                     <label for="">Module Type</label>
                     <select name="type" class="ui dropdown" id="type_selector" required>
                         <option selected value="">-- Pilih Tipe Modul --</option>
-                        <option value="materi pembelajaran">Materi Pembelajaran</option>
-                        <option value="video pembelajaran">Video Pembelajaran</option>
+                        <option value="materi_pembelajaran">materi_pembelajaran</option>
+                        <option value="video_pembelajaran">video_pembelajaran</option>
                         <option value="assignment">Assignment</option>
                         @if(Route::has('getCMQuiz'))
                         <option value="quiz">Quiz</option>
@@ -95,13 +95,13 @@
     // Menambahkan event listener untuk perubahan pada elemen select
     typeSelector.addEventListener('change', function () {
         // Memeriksa apakah opsi yang dipilih adalah "assignment"
-        if (typeSelector.value === 'materi pembelajaran') {
+        if (typeSelector.value === 'materi_pembelajaran') {
             material.innerHTML = `
-                <label for="" class="form-label">File Materi Pembelajaran</label>
+                <label for="" class="form-label">File materi_pembelajaran</label>
                 <input class="form-control" type="file" id="formFile" name="material">
             `;
             duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-        } else if (typeSelector.value === 'video pembelajaran') {
+        } else if (typeSelector.value === 'video_pembelajaran') {
             material.innerHTML = `
                 <label for="">Link Video</label>
                 <input type="text" name="material">

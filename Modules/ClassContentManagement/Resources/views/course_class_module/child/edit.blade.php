@@ -1,51 +1,77 @@
 @extends('layout.master')
 
-@section('title', 'Edit Child Module')
+@section('title', 'Add Course Class Module')
 
 @section('content')
-    <div style="padding: 0px 12px 0px 12px;">
-        <form class="ui form"
-            action="{{ route('postEditCourseClassChildModule', ['id' => $courseChild->id, 'parent_id' => request()->parent_id]) }}"
-            method="post">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <div style="padding: 12px 12px 0px 12px;">
+        <h2>Edit Child Module:</h2>
+        <hr>  
+        <form class="ui form" action="{{ route('postEditCourseClassChildModule', ['id' => $child_detail->id]) }}" method="post">
             @csrf
+            <input type="hidden" name="course_class_id" value="{{ $class_detail->id }}">
+            <input type="hidden" name="ccmod_parent_id" value="{{ $parent_ccmod_detail->id }}">
             <div class="field">
-                <div class="two fields">
-                    <div class="field">
-                        <label for="">Child Module Name</label>
-                        <input type="text" name="name" value="{{ $courseChild->courseModule->name }}">
-                    </div>
-                    <div class="field">
-                        <label for="">Child Module Priority</label>
-                        <input type="text" name="priority" value="{{ $courseChild->courseModule->priority }}">
-                    </div>
-                    <div class="field">
-                        <label for="">Child Module Level</label>
-                        <input type="text" name="level" value="{{ $courseChild->courseModule->level }}">
-                    </div>
+                <label for="">Class</label>
+                <input type="text" value="{{ $class_detail->course_name }} Batch {{ $class_detail->batch}}" disabled>
+            </div>   
+            <div class="four fields">
+                <div class="field">
+                    <label for="">Course Module</label>
+                    <select name="course_module_id" class="ui dropdown">
+                        @foreach ($child_cm_list as $item)
+                            <option value="{{ $item->id }}" @if($item->id == $child_detail->course_module_id) selected @endif>[{{ $item->type }}] {{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('course_module_id'))
+                        @foreach ($errors->get('course_module_id') as $error)
+                            <span style="color: red;">{{$error}}</span>
+                        @endforeach
+                    @endif
+                </div> 
+                <div class="field">
+                    <label for="">Priority</label>
+                    <input type="number" name="priority" value="{{ $child_detail->priority }}">
+                    @if ($errors->has('priority'))
+                        @foreach ($errors->get('priority') as $error)
+                            <span style="color: red;">{{$error}}</span>
+                        @endforeach
+                    @endif
                 </div>
                 <div class="field">
-                    <label for="">Child Module Content</label>
-                    <textarea name="content" id="content">{{ $courseChild->courseModule->content }}</textarea>
+                    <label for="">Waktu Mulai</label>
+                    <input type="date" id="date" name="start" value="{{ \Carbon\Carbon::parse($child_detail->start_date)->format('Y-m-d') }}">
+                    @if ($errors->has('start'))
+                        @foreach ($errors->get('start') as $error)
+                            <span style="color: red;">{{$error}}</span>
+                        @endforeach
+                    @endif
                 </div>
                 <div class="field">
-                    <label for="">Child Module Description</label>
-                    <textarea name="description" id="description">{{ $courseChild->courseModule->description }}</textarea>
-                </div>
-                <div class="field">
-                    <div class="ui checkbox">
-                        <input class="form-check-input" type="checkbox" value="1"
-                            {{ $courseChild->courseModule->status == 1 ? 'checked' : '' }} name="status">
-                        <label>Aktif</label>
-                    </div>
+                    <label for="">Waktu Berakhir</label>
+                    <input type="date" id="date" name="end" value="{{ \Carbon\Carbon::parse($child_detail->end_date)->format('Y-m-d') }}">
+                    @if ($errors->has('end'))
+                        @foreach ($errors->get('end') as $error)
+                            <span style="color: red;">{{$error}}</span>
+                        @endforeach
+                    @endif
                 </div>
             </div>
-            <button class="right floated ui button primary">Save & Update</button>
+            <div class="field">
+                <label for="">Description</label>
+                <textarea name="description">{{ $child_detail->description }}</textarea>
+            </div>
+            <div class="field">
+                <div class="ui checkbox">
+                    <input class="form-check-input" type="checkbox" value="1" {{ $child_detail->status == 1 ? 'checked' : ''}} name="status" >
+                    <label>Aktif</label>
+                </div>
+            </div>
+            <button class="right floated ui button primary">Save</button>
         </form>
         <a href="{{ url()->previous() }}"><button class=" right floated ui red button">Batal</button></a>
     </div>
-
-    <script>
-        CKEDITOR.replace('content');
-        CKEDITOR.replace('description');
-    </script>
 @endsection

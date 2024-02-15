@@ -48,10 +48,10 @@
                 <div class="field">
                     <label for="">Module Type</label>
                     <select name="type" class="ui dropdown" id="type_selector">
-                        <option value="materi pembelajaran" @if($childModule->type == 'materi pembelajaran') selected
-                            @endif>Materi Pembelajaran</option>
-                        <option value="video pembelajaran" @if($childModule->type == 'video pembelajaran') selected
-                            @endif>Video Pembelajaran</option>
+                        <option value="materi_pembelajaran" @if($childModule->type == 'materi_pembelajaran') selected
+                            @endif>materi_pembelajaran</option>
+                        <option value="video_pembelajaran" @if($childModule->type == 'video_pembelajaran') selected
+                            @endif>video_pembelajaran</option>
                         <option value="assignment" @if($childModule->type == 'assignment') selected @endif>Assignment
                         </option>
                         @if(Route::has('getCMQuiz'))
@@ -60,17 +60,17 @@
                     </select>
                 </div>
                 <div class="field" id="material">
-                    @if ($childModule->type === 'materi pembelajaran')
-                    <label for="" class="form-label">File Materi Pembelajaran</label>
+                    @if ($childModule->type === 'materi_pembelajaran')
+                    <label for="" class="form-label">File materi_pembelajaran</label>
                     <input class="form-control" type="file" id="formFile" name="material">
                     <p class="pt-2">{{ $childModule->material }}</p>
                     <input type="hidden" name="duration" value="">
-                    @elseif ($childModule->type === 'video pembelajaran')
+                    @elseif ($childModule->type === 'video_pembelajaran')
                     <label for="">Link Video</label>
-                    <input type="text" name="material" @if($childModule->type == 'video pembelajaran') value="{{
+                    <input type="text" name="material" @if($childModule->type == 'video_pembelajaran') value="{{
                     $childModule->material }}" @endif>
                     <label for="">Durasi</label>
-                    <input type="number" name="duration" @if($childModule->type == 'video pembelajaran') value="{{
+                    <input type="number" name="duration" @if($childModule->type == 'video_pembelajaran') value="{{
                     $childModule->duration }}" @endif>
                     @else
                     <label for="" class="form-label">File Assignment</label>
@@ -116,20 +116,20 @@
     // Menambahkan event listener untuk perubahan pada elemen select
     typeSelector.addEventListener('change', function () {
         // Memeriksa apakah opsi yang dipilih adalah "assignment"
-        if (typeSelector.value === 'materi pembelajaran') {
+        if (typeSelector.value === 'materi_pembelajaran') {
             material.innerHTML = `
-                <label for="" class="form-label">File Materi Pembelajaran</label>
-                <input class="form-control" type="file" id="formFile" name="material" @if($childModule->type == 'materi pembelajaran') value="{{ $childModule->material }}" @endif>
+                <label for="" class="form-label">File materi_pembelajaran</label>
+                <input class="form-control" type="file" id="formFile" name="material" @if($childModule->type == 'materi_pembelajaran') value="{{ $childModule->material }}" @endif>
             `;
             duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-        } else if (typeSelector.value === 'video pembelajaran') {
+        } else if (typeSelector.value === 'video_pembelajaran') {
             material.innerHTML = `
                 <label for="">Link Video</label>
-                <input type="text" name="material" @if($childModule->type == 'video pembelajaran') value="{{ $childModule->material }}" @endif>
+                <input type="text" name="material" @if($childModule->type == 'video_pembelajaran') value="{{ $childModule->material }}" @endif>
             `;
             duration.innerHTML = `
                 <label for="">Durasi</label>
-                <input type="number" name="duration" @if($childModule->type == 'video pembelajaran') value="{{ $childModule->duration }}" @endif>
+                <input type="number" name="duration" @if($childModule->type == 'video_pembelajaran') value="{{ $childModule->duration }}" @endif>
             `;
         } else {
             material.innerHTML = `

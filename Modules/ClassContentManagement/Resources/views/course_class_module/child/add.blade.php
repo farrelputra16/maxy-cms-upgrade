@@ -1,134 +1,77 @@
 @extends('layout.master')
 
-@section('title', 'Add Child Module')
-
-@section('styles')
-    <style>
-        .hidden-inputs {
-            display: none;
-        }
-    </style>
-@endsection
+@section('title', 'Add Course Class Module')
 
 @section('content')
-    <div style="padding: 0px 30px 0px 30px;">
-        <form class="ui form" action="{{ route('postAddCourseClassChildModule', ['courseParentId' => $courseParent->id]) }}"
-            method="post">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <div style="padding: 12px 12px 0px 12px;">
+        <h2>Add Child Module:</h2>
+        <hr>  
+        <form class="ui form" action="{{ route('postAddCourseClassChildModule') }}" method="post">
             @csrf
+            <input type="hidden" name="course_class_id" value="{{ $class_detail->id }}">
+            <input type="hidden" name="ccmod_parent_id" value="{{ $parent_ccmod_detail->id }}">
             <div class="field">
+                <label for="">Class</label>
+                <input type="text" value="{{ $class_detail->course_name }} Batch {{ $class_detail->batch}}" disabled>
+            </div>   
+            <div class="four fields">
                 <div class="field">
-                    <label for="">Parent Module</label>
-                    <input type="text" value="{{ $courseParent->courseModule->name }}" readonly>
-                </div>
-                <div class="three fields">
-                    <div class="field">
-                        <label for="">start date</label>
-                        <input type="date" name="start_date" readonly
-                            value="{{ date('Y-m-d', strtotime($courseParent->start_date)) }}">
-                    </div>
-                    <div class="field">
-                        <label for="">end date</label>
-                        <input type="date" name="end_date" readonly
-                            value="{{ date('Y-m-d', strtotime($courseParent->end_date)) }}">
-                    </div>
-                    <div class="field">
-                        <label for="">Course Module</label>
-                        <select name="coursemoduleid" class="ui dropdown" id="selectModule">
-                            <option value="" selected>Pilih Modul</option>
-                            @foreach ($allModules as $item)
-                                @if ($item->course_module_parent_id)
-                                    <option value="{{ $item->id }}">[{{ $item->type }}]{{ $item->name }}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                        @if ($errors->has('coursemoduleid'))
-                            @foreach ($errors->get('coursemoduleid') as $error)
-                                <span style="color: red;">{{ $error }}</span>
-                            @endforeach
-                        @endif
-                        <a href="#" id="toggleChildInputs">Tambah Module</a>
-                    </div>
-                </div>
-                <div class="three fields hidden-inputs d-none">
-                    <div class="field">
-                        <label for="">Child Module Name</label>
-                        <input type="text" name="name" id="moduleName">
-                    </div>
-                    <div class="field">
-                        <label for="">Child Priority</label>
-                        <input type="number" name="priority" id="modulePriority">
-                    </div>
-                    <div class="field">
-                        <label for="">Child Level</label>
-                        <input type="number" name="level" id="moduleLevel">
-                    </div>
+                    <label for="">* Module</label>
+                    <select name="course_module_id" class="ui dropdown">
+                        @foreach ($child_cm_list as $item)
+                            <option value="{{ $item->id }}">[{{ $item->type }}] {{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('course_module_id'))
+                        @foreach ($errors->get('course_module_id') as $error)
+                            <span style="color: red;">{{$error}}</span>
+                        @endforeach
+                    @endif
+                </div> 
+                <div class="field">
+                    <label for="">* Priority</label>
+                    <input type="number" name="priority" required>
+                    @if ($errors->has('priority'))
+                        @foreach ($errors->get('priority') as $error)
+                            <span style="color: red;">{{$error}}</span>
+                        @endforeach
+                    @endif
                 </div>
                 <div class="field">
-                    <label>Child Module Content</label>
-                    <textarea name="content" id="content" placeholder="Enter Content"></textarea>
+                    <label for="">Waktu Mulai</label>
+                    <input type="date" id="date" name="start">
+                    @if ($errors->has('start'))
+                        @foreach ($errors->get('start') as $error)
+                            <span style="color: red;">{{$error}}</span>
+                        @endforeach
+                    @endif
                 </div>
                 <div class="field">
-                    <label>Child Module Description</label>
-                    <textarea name="description" id="description"></textarea>
-                </div>
-                <div class="field">
-                    <div class="ui checkbox">
-                        <input class="form-check-input" type="checkbox" value="1" name="status">
-                        <label>Aktif</label>
-                    </div>
+                    <label for="">Waktu Berakhir</label>
+                    <input type="date" id="date" name="end">
+                    @if ($errors->has('end'))
+                        @foreach ($errors->get('end') as $error)
+                            <span style="color: red;">{{$error}}</span>
+                        @endforeach
+                    @endif
                 </div>
             </div>
-            <button class="right floated ui button primary">Tambah Child Module</button>
+            <div class="field">
+                <label for="">Description</label>
+                <textarea name="description"></textarea>
+            </div>
+            <div class="field">
+                <div class="ui checkbox">
+                    <input class="form-check-input" type="checkbox" value="1" name="status" >
+                    <label>Aktif</label>
+                </div>
+            </div>
+            <button class="right floated ui button primary">Tambah Course Class Module</button>
         </form>
-        <a href="{{ url()->previous() }}"><button class="right floated ui red button">Batal</button></a>
+        <a href="{{ url()->previous() }}"><button class=" right floated ui red button">Batal</button></a>
     </div>
-
-    <script>
-        CKEDITOR.replace('content');
-        CKEDITOR.replace('description');
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $("#selectModule").change(function() {
-                var selectedModule = $(this).children("option:selected").val();
-
-                if (selectedModule === "") {
-                    $('#moduleName').val('');
-                    $('#modulePriority').val('');
-                    $('#moduleLevel').val('');
-                    return;
-                }
-
-                $.ajax({
-                    url: "{{ route('getAddCourseClassChildModule') }}",
-                    type: "GET",
-                    data: {
-                        id: selectedModule
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        $('#moduleName').val(data.name);
-                        $('#modulePriority').val(data.priority);
-                        $('#moduleLevel').val(data.level);
-                    }
-                });
-            });
-
-            $('#toggleChildInputs').click(function(e) {
-                e.preventDefault(); // Mencegah default aksi link
-
-                // Toggle tampilan input
-                $('.hidden-inputs').toggle();
-                $('.hidden-inputs').removeClass('d-none');
-
-                // Ganti teks link berdasarkan keadaan tampilan
-                if ($('.hidden-inputs').is(':visible')) {
-                    $(this).text('Sembunyikan Module');
-                } else {
-                    $(this).text('Tambah Module');
-                }
-            });
-        });
-    </script>
 @endsection

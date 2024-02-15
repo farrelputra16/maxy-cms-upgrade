@@ -101,6 +101,8 @@ class CourseModuleController extends Controller
         $module_id = $request->id;
         $module_detail = CourseModule::getCourseModuleDetailByModuleId($module_id);
 
+        // dd($module_detail);
+
         return view('course_module.edit', [
             'module_detail' => $module_detail,
             'page_type' => $request->page_type,
@@ -169,7 +171,7 @@ class CourseModuleController extends Controller
                 'js' => $request->js,
                 'course_id' => $parentModule->course_id,
                 'course_module_parent_id' => $parentModule->id,
-                'type' => 'materi pembelajaran',
+                'type' => 'materi_pembelajaran',
                 'content' => $request->content,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
@@ -177,7 +179,7 @@ class CourseModuleController extends Controller
                 'updated_id' => Auth::user()->id,
             ]);
         } else {
-            if ($request->type == 'materi pembelajaran' || $request->type == 'assignment') {
+            if ($request->type == 'materi_pembelajaran' || $request->type == 'assignment') {
                 $material = '';
                 if ($request->hasFile('material')) {
                     $file = $request->file('material');
@@ -225,7 +227,7 @@ class CourseModuleController extends Controller
         $course_detail = Course::getCourseDetailByCourseId($parentModule->course_id);
         $course_type = MCourseType::find($course_detail->m_course_type_id);
 
-        // dd($parentModule);
+        // dd($childModule);
         return view('course_module.child.edit', [
             'childModule' => $childModule,
             'parentModule' => $parentModule,
@@ -252,7 +254,7 @@ class CourseModuleController extends Controller
                     'updated_id' => Auth::user()->id,
                 ]);
         } else {
-            if ($request->type == 'materi pembelajaran' || $request->type == 'assignment') {
+            if ($request->type == 'materi_pembelajaran' || $request->type == 'assignment') {
                 $material = $module_detail->material;
                 if ($request->hasFile('material')) {
                     $file = $request->file('material');
