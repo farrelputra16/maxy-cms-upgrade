@@ -61,10 +61,6 @@
                     </div>  
                 </div>
                 <div class="field">
-                    <label for="">Course Class Module Content</label>
-                    <textarea name="content">{{ $course_class_module->content }}</textarea>
-                </div>
-                <div class="field">
                     <label for="">Course Class Module Description</label>
                     <textarea name="description">{{ $course_class_module->description }}</textarea>
                 </div>
