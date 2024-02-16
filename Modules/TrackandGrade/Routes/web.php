@@ -14,7 +14,7 @@ Route::get('/course/class/member/historygrade', [CourseClassMemberGradingControl
 Route::get('/course/class/member/history/grade', [CourseClassMemberGradingController::class, 'getGradeCCMH'])->name('getGradeCCMH')->middleware('access:course_class_member_grading_manage');
 
 Route::get('/course/class/member/history/edit/{course_class_member_grading}', [CourseClassMemberGradingController::class, 'getEditCCMH'])->name('getEditCCMH')->middleware('access:course_class_member_grading_update');
-Route::post('/course/class/member/history/edit/{course_class_member_grading}', [CourseClassMemberGradingController::class, 'postEditCCMH'])->name('postEditCCMH')->middleware('access:course_class_member_grading_update');
+Route::post('/course/class/member/history/edit', [CourseClassMemberGradingController::class, 'postEditCCMH'])->name('postEditCCMH')->middleware('access:course_class_member_grading_update');
 
 Route::post('/course/class/member/history/add', [CourseClassMemberGradingController::class, 'addCCMH'])->name('addCCMH');
 Route::match(['get', 'post'], '/course/class/member/history/added', [CourseClassMemberGradingController::class, 'postAddCCMH'])->name('postAddCCMH');
