@@ -192,16 +192,21 @@ class CourseClassModuleController extends Controller
         // dd($request->all());
         $parent_ccmod_detail = CourseClassModule::find($request->parent_id);
         $parent_cm_detail = CourseModule::getCourseModuleDetailByModuleId($parent_ccmod_detail->course_module_id);
+
+        $child_ccmod_detail = CourseClassModule::find($request->id);
+        $child_cm_detail = CourseModule::getCourseModuleDetailByModuleId($child_ccmod_detail->course_module_id);
+
         $class_detail = CourseClass::getClassDetailByClassId($parent_ccmod_detail->course_class_id);
         $child_cm_list = CourseModule::getCourseModuleChildByParentId($parent_cm_detail->id);
 
         $child_detail = CourseClassModule::find($request->id);
         
-        // dd($child_detail);
+        // dd($child_cm_detail);
         return view('classcontentmanagement::course_class_module.child.edit', [
             'child_cm_list' => $child_cm_list,
             'class_detail' => $class_detail,
             'parent_ccmod_detail' => $parent_ccmod_detail,
+            'child_cm_detail' => $child_cm_detail,
             'child_detail' => $child_detail,
         ]);
     }

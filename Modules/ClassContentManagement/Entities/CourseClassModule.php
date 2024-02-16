@@ -74,6 +74,7 @@ class CourseClassModule extends Model
                     'cm.course_module_parent_id as parent_id',
                     'c.name AS course_name',
                     'cm.content AS course_module_content',
+                    'cm.material AS course_module_material',
                 )  
                 ->join('course_module as cm', 'cm.id', '=', 'ccmod.course_module_id')
                 ->join('course_class as cc', 'cc.id', '=', 'ccmod.course_class_id')

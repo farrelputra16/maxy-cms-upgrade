@@ -61,6 +61,16 @@
                 </div>
             </div>
             <div class="field">
+                <label for="">Material</label>
+                <textarea name="" readonly>{{ $child_cm_detail->material }}</textarea>
+            </div>
+
+            <div class="field">
+                <label for="">Content</label>
+                <textarea name=""readonly>{{ $child_cm_detail->content }}</textarea>
+            </div>
+
+            <div class="field">
                 <label for="">Description</label>
                 <textarea name="description">{{ $child_detail->description }}</textarea>
             </div>

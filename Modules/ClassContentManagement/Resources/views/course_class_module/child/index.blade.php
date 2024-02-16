@@ -53,6 +53,7 @@
                     </a>
                 </div>
             </div>
+            <div>
             <table id="example" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
@@ -61,6 +62,7 @@
                         <th>Type</th>
                         <th scope="col">Course Module</th>
                         <th scope="col">Content</th>
+                        <th scope="col">Material</th>
                         <th scope="col">Start Date</th>
                         <th scope="col">End Date</th>
                         <th scope="col">Description</th>
@@ -80,7 +82,8 @@
                         <td>{{ $item->priority }}</td>
                         <td>{{ $item->type }}</td>
                         <td>{{ $item->course_module_name }}</td>
-                        <td>{{ $item->course_module_content }}</td>
+                        <td>{{ substr($item->course_module_content, 0, 25) }}</td>
+                        <td>{{ substr($item->course_module_material, 0, 25) }}</td>
                         <td>{{ $item->start_date }}</td>
                         <td>{{ $item->end_date }}</td>
                         <td id="description">{{ $item->description }}</td>
@@ -120,6 +123,7 @@
                     </tr> -->
                 </tfoot>
             </table>
+            </div>
         </div>
 
         <!-- Include JS libraries for DataTable initialization -->
