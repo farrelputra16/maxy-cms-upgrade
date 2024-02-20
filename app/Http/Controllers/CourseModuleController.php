@@ -184,7 +184,8 @@ class CourseModuleController extends Controller
                 if ($request->hasFile('material')) {
                     $file = $request->file('material');
                     $material = $file->getClientOriginalName();
-                    $destinationPath = public_path('/uploads/course_module/' . $parentModule->id);
+                    // $destinationPath = public_path('/uploads/course_module/' . $parentModule->id);
+                    $destinationPath = public_path('/fe/public/files');
                     if (!File::exists($destinationPath)) { // create folder jika blm ada
                         File::makeDirectory($destinationPath, 0777, true, true);
                     }
@@ -259,7 +260,8 @@ class CourseModuleController extends Controller
                 if ($request->hasFile('material')) {
                     $file = $request->file('material');
                     $material = $file->getClientOriginalName();
-                    $destinationPath = public_path('/uploads/course_module/' . $module_detail->course_module_parent_id);
+                    // $destinationPath = public_path('/uploads/course_module/' . $module_detail->course_module_parent_id);
+                    $destinationPath = public_path('/fe/public/files');
                     if (!File::exists($destinationPath)) { // create folder jika blm ada
                         File::makeDirectory($destinationPath, 0777, true, true);
                     }

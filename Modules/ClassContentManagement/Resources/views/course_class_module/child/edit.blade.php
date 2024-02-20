@@ -60,16 +60,20 @@
                     @endif
                 </div>
             </div>
-            <div class="field">
-                <label for="">Material</label>
-                <textarea name="" readonly>{{ $child_cm_detail->material }}</textarea>
-            </div>
 
-            <div class="field">
-                <label for="">Content</label>
-                <textarea name=""readonly>{{ $child_cm_detail->content }}</textarea>
-            </div>
+            <div class="p-5 m-5" style="border-radius: 25px; border: 2px solid #73AD21;">
+                <a href="{{ route('getEditChildModule', ['id' => $child_cm_detail->id]) }}"><h3>Material <i class="fa fa-edit"></i></h3></a>
+                <div class="field">
+                    <label for=""></label>
+                    <a href="{{ asset('fe/public/files/'.$child_cm_detail->material) }}" download>{{$child_cm_detail->material}}</a>
+                </div>
 
+                <div class="field">
+                    <label for=""></label>
+                    <textarea name="content" readonly>{{ $child_cm_detail->content }}</textarea>
+                </div>
+            </div>
+            
             <div class="field">
                 <label for="">Description</label>
                 <textarea name="description">{{ $child_detail->description }}</textarea>
@@ -84,4 +88,10 @@
         </form>
         <a href="{{ url()->previous() }}"><button class=" right floated ui red button">Batal</button></a>
     </div>
+    
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+
+    <script>
+        CKEDITOR.replace('content');
+    </script>
 @endsection

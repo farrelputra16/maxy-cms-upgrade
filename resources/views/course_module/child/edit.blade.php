@@ -10,7 +10,8 @@
 <div style="padding: 12px 12px 0px 12px;">
     <h2>Edit Child Module For: {{ $parentModule->name }}</h2>
     <hr><br>
-    <form class="ui form" action="{{ route('postEditChildModule', ['id' => $childModule->id]) }}" method="post" enctype="multipart/form-data">
+    <form class="ui form" action="{{ route('postEditChildModule', ['id' => $childModule->id]) }}" method="post"
+        enctype="multipart/form-data">
         @csrf
         <div class="field">
             <div class="field">
@@ -43,45 +44,69 @@
             </div>
             <input type="hidden" name="rapid" value="1">
             @else
-            <!-- TO DO -->
-            <div class="two fields">
-                <div class="field">
-                    <label for="">Module Type</label>
-                    <select name="type" class="ui dropdown" id="type_selector">
-                        <option value="materi_pembelajaran" @if($childModule->type == 'materi_pembelajaran') selected
-                            @endif>materi_pembelajaran</option>
-                        <option value="video_pembelajaran" @if($childModule->type == 'video_pembelajaran') selected
-                            @endif>video_pembelajaran</option>
-                        <option value="assignment" @if($childModule->type == 'assignment') selected @endif>Assignment
-                        </option>
-                        @if(Route::has('getCMQuiz'))
-                        <option value="quiz" @if($childModule->type == 'quiz') selected @endif>Quiz</option>
+            <hr>
+            <div class="card m-5 p-5">
+                <h3>Current:</h3>
+                @if($childModule->type == 'materi_pembelajaran')
+                Materi Pembelajaran
+                <a href="{{ asset('fe/public/files/'.$childModule->material) }}" download>{{$childModule->material}}</a>
+                @elseif($childModule->type == 'video_pembelajaran')
+                Video Pembelajaran
+                <a href="{{ $childModule->material }}">{{$childModule->material}}</a>
+                @elseif($childModule->type == 'assignment')
+                <a href="{{ asset('fe/public/files/'.$childModule->material) }}" download>{{$childModule->material}}</a>
+                Assignment
+                @endif
+
+                <h3>Change To:</h3>
+                <!-- TO DO -->
+                <div class="two fields">
+                    <div class="field">
+                        <label for="">Module Type</label>
+                        <select name="type" class="ui dropdown" id="type_selector">
+                            <option value="materi_pembelajaran" @if($childModule->type == 'materi_pembelajaran')
+                                selected
+                                @endif>materi_pembelajaran</option>
+                            <option value="video_pembelajaran" @if($childModule->type == 'video_pembelajaran') selected
+                                @endif>video_pembelajaran</option>
+                            <option value="assignment" @if($childModule->type == 'assignment') selected
+                                @endif>Assignment
+                            </option>
+                            @if(Route::has('getCMQuiz'))
+                            <option value="quiz" @if($childModule->type == 'quiz') selected @endif>Quiz</option>
+                            @endif
+                        </select>
+                    </div>
+                    <div class="field" id="material">
+                        @if ($childModule->type === 'materi_pembelajaran')
+                        <label for="" class="form-label">File materi_pembelajaran</label>
+                        <input class="form-control" type="file" id="formFile" name="material">
+                        <p class="pt-2">{{ $childModule->material }}</p>
+                        <input type="hidden" name="duration" value="">
+                        @elseif ($childModule->type === 'video_pembelajaran')
+                        <label for="">Link Video</label>
+                        <input type="text" name="material" @if($childModule->type == 'video_pembelajaran') value="{{
+                        $childModule->material }}" @endif>
+                        <label for="">Durasi</label>
+                        <input type="number" name="duration" @if($childModule->type == 'video_pembelajaran') value="{{
+                        $childModule->duration }}" @endif>
+                        @else
+                        <label for="" class="form-label">File Assignment</label>
+                        <input class="form-control" type="file" id="formFile" name="material">
+                        <input type="hidden" name="duration" value="">
                         @endif
-                    </select>
+                    </div>
                 </div>
-                <div class="field" id="material">
-                    @if ($childModule->type === 'materi_pembelajaran')
-                    <label for="" class="form-label">File materi_pembelajaran</label>
-                    <input class="form-control" type="file" id="formFile" name="material">
-                    <p class="pt-2">{{ $childModule->material }}</p>
-                    <input type="hidden" name="duration" value="">
-                    @elseif ($childModule->type === 'video_pembelajaran')
-                    <label for="">Link Video</label>
-                    <input type="text" name="material" @if($childModule->type == 'video_pembelajaran') value="{{
-                    $childModule->material }}" @endif>
-                    <label for="">Durasi</label>
-                    <input type="number" name="duration" @if($childModule->type == 'video_pembelajaran') value="{{
-                    $childModule->duration }}" @endif>
-                    @else
-                    <label for="" class="form-label">File Assignment</label>
-                    <input class="form-control" type="file" id="formFile" name="material">
-                    <input type="hidden" name="duration" value="">
-                    @endif
-                </div>
+                <div class="field" id="duration"></div>
+                @endif
             </div>
-            <div class="field" id="duration"></div>
-            @endif
             <!-- end materi -->
+
+
+            <div class="field">
+                <label for="">Content</label>
+                <textarea name="content">{{ $childModule->content }}</textarea>
+            </div>
             <div class="field">
                 <label for="">Description</label>
                 <textarea name="description">{{ $childModule->description }}</textarea>
@@ -102,12 +127,9 @@
 <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 
 <script>
-    // CKEDITOR.replace('html');
-    // CKEDITOR.replace('js');
     CKEDITOR.replace('content');
 </script>
 
-@if($course_type->slug == 'rapid-onboarding')
 <script>
     var typeSelector = document.getElementById('type_selector');
     var material = document.getElementById('material');
@@ -140,6 +162,5 @@
         }
     });
 </script>
-@endif
 
 @endsection

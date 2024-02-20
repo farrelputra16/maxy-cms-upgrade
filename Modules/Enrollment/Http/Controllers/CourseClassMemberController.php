@@ -5,6 +5,7 @@ namespace Modules\Enrollment\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Modules\Enrollment\Entities\CourseClassMember;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\User;
@@ -83,10 +84,28 @@ class CourseClassMemberController extends Controller
         return view('enrollment::course_class_member.edit', compact('courseClassMember'));
     }
 
-    function postEditCourseClassMember(CourseClassMemberRequest $request, CourseClassMember $courseClassMember)
+    function postEditCourseClassMember(Request $request)
     {
-        $courseClassMember->update($request->all() + ['updated_id' => auth()->id()]);
-        return redirect()->route('getCourseClassMember', ['id' => $courseClassMember->course_class_id])->with('success', 'Update Class Member Success');
+        // dd($request->all());
+        $update = CourseClassMember::where('id', $request->id)
+        ->update([
+            'daily_score' => $request->daily_score,
+            'absence_score' => $request->absence_score,
+            'hackathon_1_score' => $request->hackathon_1_score,
+            'hackathon_2_score' => $request->hackathon_2_score,
+            'internship_score' => $request->internship_score,
+            'final_score' => $request->final_score,
+            'description' => $request->description,
+            'status' => $request->status ? 1 : 0,
+            'updated_at' => now(),
+            'updated_id' => Auth::user()->id,
+        ]);
+
+        if($update){
+            return redirect()->route('getCourseClassMember', ['id' => $request->cc_id])->with('success', 'Member data updated successfully');
+        } else {
+            return redirect()->route('getCourseClassMember', ['id' => $request->cc_id])->with('error', 'Failed to update member data');
+        }
     }
 
     function importCSV(Request $request)

@@ -128,6 +128,7 @@
                 lengthMenu: [10, 25, 50, 100],
                 buttons: ['copy', 'excel', 'pdf', 'colvis'],
                 searching: true,
+                order: [[1, "asc"]],
             });
 
             // Add individual column search inputs and titles

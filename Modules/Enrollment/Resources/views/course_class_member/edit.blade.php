@@ -18,10 +18,10 @@
             Batch {{ $courseClassMember->courseClass->batch }}</h2>
         <hr>
 
-        <form class="ui form" action="{{ route('postEditCourseClassMember', $courseClassMember->id)}}"
-              method="POST">
+        <form class="ui form" action="{{ route('postEditCourseClassMember', $courseClassMember->id) }}" method="POST">
             @csrf
-            @method('PUT')
+            <input type="hidden" name="id" value="{{ $courseClassMember->id }}">
+            <input type="hidden" name="cc_id" value="{{ $courseClassMember->course_class_id }}">
 
             <div class="two fields">
                 <div class="field">
@@ -99,8 +99,7 @@
 
             <div class="field">
                 <label for="description" class="form-label">Description</label>
-                <textarea id="description" class="w-100"
-                          name="description">{{ $courseClassMember->description }}</textarea>
+                <textarea class="form-control" name="description" style="width:100%">{{ $courseClassMember->description }}</textarea>
             </div>
 
             <div class="field">
