@@ -38,6 +38,6 @@
         </div>
         <button class="right floated ui button primary">Save & Update</button>
     </form>
-    <a href="{{ route("getGradeCCMH") }}"><button class=" right floated ui red button">Batal</button></a>
+    <a href="{{ route("getCCMHGrade") }}"><button class=" right floated ui red button">Batal</button></a>
 </div>
 @endsection
