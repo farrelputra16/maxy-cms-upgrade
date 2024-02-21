@@ -2,15 +2,19 @@
 
 namespace Modules\TrackandGrade\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\ClassContentManagement\Entities\CourseClass;
+use Modules\ClassContentManagement\Entities\CourseClassModule;
 use Modules\TrackandGrade\Entities\CourseClassMemberGrading;
 use App\Http\Controllers\HelperController;
 use App\Models\CourseModule;
 use App\Models\Course;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
+
 
 class CourseClassMemberGradingController extends Controller
 {
@@ -75,7 +79,23 @@ class CourseClassMemberGradingController extends Controller
 
     function getEditCCMH(Request $request, CourseClassMemberGrading $courseClassMemberGrading)
     {
-        return view('course_class_member_grading.edit', compact('courseClassMemberGrading'));
+        // dd($courseClassMemberGrading);
+        $currentData = $courseClassMemberGrading;
+
+        $member = User::find($courseClassMemberGrading->user_id);
+        $class_module = CourseClassModule::find($courseClassMemberGrading->course_class_module_id);
+        $currentData->class_detail = CourseClass::getClassDetailByClassId($class_module->course_class_id);
+        $module_detail = CourseModule::find($class_module->course_module_id);
+
+        $course_name =  Str::lower(str_replace(' ', '_', $currentData->class_detail->course_name));
+        $user_name =  Str::lower(str_replace(' ', '_', $member->name));
+        $module_name = Str::lower(str_replace(' ', '_', $module_detail->name));
+
+        $currentData->user_name = $member->name;
+        $currentData->submission_url = 'uploads/course_class_member_grading/'.$course_name.'/'. $user_name.'/'.$module_name.'/'.$currentData->submitted_file;
+
+        // dd($currentData);
+        return view('trackandgrade::course_class_member_grading.edit', compact('currentData'));
     }
 
     function addCCMH(Request $request, CourseClassMemberGrading $courseClassMemberGrading)
@@ -107,15 +127,17 @@ class CourseClassMemberGradingController extends Controller
         }
     }
 
-    function postEditCCMH(Request $request, CourseClassMemberGrading $courseClassMemberGrading)
+    function postEditCCMH(Request $request)
     {
+        // dd($request->all());
+
         $waktuSaatIni = Carbon::now();
         $waktuSaatIni->setTimezone('Asia/Jakarta');
 
         // Mengambil jam dalam zona waktu yang telah diatur di .env
         $jamDiZonaWaktuAnda = $waktuSaatIni->format('Y-m-d H:i:s');
 
-        $updateData = $courseClassMemberGrading
+        $updateData = CourseClassMemberGrading::where('id', $request->id)
             ->update([
                 'grade' => $request->grade,
                 'graded_at' => $jamDiZonaWaktuAnda,
