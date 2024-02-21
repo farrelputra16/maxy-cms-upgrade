@@ -104,7 +104,7 @@
                             <td>{{ $item->user_name }}</td>
                             <td>{{ $item->submitted_file ?? '-' }}</td>
                             <td>{{ $item->grade ?? '-' }}</td>
-                            <td>{!! Str::limit($item->comment ?? '-') !!}</td>
+                            <td>{!! Str::limit(htmlspecialchars($item->comment) ?? '-') !!}</td>
                             <td>{!! Str::limit($item->tutor_comment ?? '-') !!}</td>
                             {{-- <td data-column="ID Course Class Member" class="hidden-column">
                                 {{ $item->course_class_member_id }}</td>
