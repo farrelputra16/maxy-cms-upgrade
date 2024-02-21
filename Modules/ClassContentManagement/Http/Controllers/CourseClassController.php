@@ -17,7 +17,8 @@ class CourseClassController extends Controller
 {
     function getCourseClass()
     {
-        $courseList = CourseClass::with('course')->get();
+        $courseList = CourseClass::getAllCourseClass();
+        // dd($courseList);
         return view('classcontentmanagement::course_class.index', ['course_list' => $courseList]);
     }
 

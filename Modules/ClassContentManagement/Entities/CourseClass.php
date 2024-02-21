@@ -96,8 +96,9 @@ class CourseClass extends Model
     public static function getAllCourseClass()
     {
         $class_list = DB::table('course_class as cc')
-            ->select('cc.*', 'c.name as course_name')
+            ->select('cc.*', 'c.name as course_name', 'mct.name as type')
             ->join('course as c', 'c.id', '=', 'cc.course_id')
+            ->join('m_course_type as mct', 'mct.id', '=', 'c.m_course_type_id')
             ->get();
 
         return $class_list;
