@@ -83,7 +83,9 @@ class UserController extends Controller
                 'profile_picture' => $fileName,
                 'm_partner_id' => $request->partner,
                 'phone' => $request->phone,
-                'address' => $request->address
+                'address' => $request->address,
+                'supervisor_name' => $request->supervisor_name,
+                'supervisor_email' => $request->supervisor_email
             ]);
             if ($create) {
                 return app(HelperController::class)->Positive('getUser');

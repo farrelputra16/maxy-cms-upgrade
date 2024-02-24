@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
         integrity="sha384-btZ82u+UkZp2Hd4zDTLzLzbn/7KW8xbDQbl5cpkL6uj5L/2m8cndGmYVRJsF70UtO" crossorigin="anonymous">
     </script>
@@ -54,18 +55,29 @@
         <hr>
         <h2>Bulk Upload</h2>
         <hr>
-        <form method="post" action="{{ route('course-class-member.import-csv') }}" enctype="multipart/form-data">
-            @csrf
-            <div class="field">
-                <label for="csv_file">Upload File CSV:</label>
-                <input type="file" name="csv_file" id="csv_file" accept=".csv">
-                @error('csv_file')
-                    <span style="color: red;">{{ $message }}</span>
-                @enderror
-            </div>
-            <button type="submit" class="right floated ui button primary" style="margin-top:-1.8%;margin-right:0.4%">Upload
-                CSV</button>
-        </form>
+        <div class="content pb-5">
+            <form method="post" action="{{ route('course-class-member.import-csv') }}" enctype="multipart/form-data">
+                @csrf
+                <div class="card p-5">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="csv_file">Upload File CSV:</label>
+                            <input type="file" name="csv_file" id="csv_file" accept=".csv">
+                            @error('csv_file')
+                                <span style="color: red;">{{ $message }}</span>
+                            @enderror
+                            <br>
+                            <small>sample: <i class="fa fa-file" aria-hidden="true"></i> <a href="{{ asset('csv/addccmember.csv') }}" download>csv example (click me to download)</a></small>
+                        </div>
+                        <div class="col-6" style="text-align:right">
+                            <button type="submit" class="ui button primary">Tambah Multiple Users</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"
         integrity="sha384-oBEahFNqz9AORwL3hFZO9zrZcIEJ0VlX4z/6xLc3pNRdh5iRNXFbpekwB6h5U2Pg" crossorigin="anonymous">

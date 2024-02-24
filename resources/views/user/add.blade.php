@@ -101,6 +101,28 @@
                     @endif
                 </div>
             </div>
+
+            <div class="two fields">
+                <div class="field">
+                    <label for="address">Supervisor Name(Nama Dosen Pembimbing)</label>
+                    <input type="text" name="supervisor_name" id="supervisor_name" placeholder="Masukkan Nama Dosen Pembimbing">
+                    @if ($errors->has('address'))
+                        @foreach ($errors->get('address') as $error)
+                            <span style="color: red;">{{$error}}</span>
+                        @endforeach
+                    @endif
+                </div>
+                <div class="field">
+                    <label for="address">Supervisor Email(Email Dosen Pembimbing)</label>
+                    <input type="text" name="supervisor_email" id="supervisor_email" placeholder="Masukkan Email Dosen Pembimbing">
+                    @if ($errors->has('address'))
+                        @foreach ($errors->get('address') as $error)
+                            <span style="color: red;">{{$error}}</span>
+                        @endforeach
+                    @endif
+                </div>
+            </div>
+
             <div class="three fields">
                 <div class="field">
                     <label for="city">City</label>

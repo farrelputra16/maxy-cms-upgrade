@@ -110,6 +110,30 @@
                             value="{{ $currentData->referal }}">
                     </div>
                 </div>
+
+                <div class="two fields">
+                <div class="field">
+                        <label for="university">Supervisor Name(Nama Dosen Pembimbing)</label>
+                        <input type="text" name="supervisor_name" id="supervisor_name" placeholder="Masukkan Nama Dosen Pembimbing"
+                            value="{{ $currentData->supervisor_name }}">
+                        @if ($errors->has('supervisor_name'))
+                            @foreach ($errors->get('supervisor_name') as $error)
+                                <span style="color: red;">{{ $error }}</span>
+                            @endforeach
+                        @endif
+                    </div>
+                    <div class="field">
+                        <label for="university">Supervisor Email(Email Dosen Pembimbing)</label>
+                        <input type="text" name="supervisor_email" id="supervisor_email" placeholder="Masukkan Email Dosen Pembimbing"
+                            value="{{ $currentData->supervisor_email }}">
+                        @if ($errors->has('supervisor_email'))
+                            @foreach ($errors->get('supervisor_email') as $error)
+                                <span style="color: red;">{{ $error }}</span>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+
                 <div class="three fields">
                     <div class="field">
                         <label for="university">University</label>

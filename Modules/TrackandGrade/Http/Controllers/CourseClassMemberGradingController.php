@@ -87,14 +87,18 @@ class CourseClassMemberGradingController extends Controller
         $currentData->class_detail = CourseClass::getClassDetailByClassId($class_module->course_class_id);
         $module_detail = CourseModule::find($class_module->course_module_id);
 
-        $course_name =  Str::lower(str_replace(' ', '_', $currentData->class_detail->course_name));
-        $user_name =  Str::lower(str_replace(' ', '_', $member->name));
-        $module_name = Str::lower(str_replace(' ', '_', $module_detail->name));
+        // $course_name =  Str::lower(str_replace(' ', '_', $currentData->class_detail->course_name));
+        // $user_name =  Str::lower(str_replace(' ', '_', $member->name));
+        // $module_name = Str::lower(str_replace(' ', '_', $module_detail->name));
+
+        $course_name = Str::snake(Str::lower($currentData->class_detail->course_name));
+        $user_name = Str::snake(Str::lower($member->name));
+        $module_name = Str::snake(Str::lower($module_detail->name));
 
         $currentData->user_name = $member->name;
         $currentData->submission_url = 'uploads/course_class_member_grading/'.$course_name.'/'. $user_name.'/'.$module_name.'/'.$currentData->submitted_file;
 
-        // dd($currentData);
+        // dd($currentData->submission_url);
         return view('trackandgrade::course_class_member_grading.edit', compact('currentData'));
     }
 
