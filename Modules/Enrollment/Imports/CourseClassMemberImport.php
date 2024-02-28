@@ -19,6 +19,7 @@ class CourseClassMemberImport implements ToModel, WithHeadingRow
 
         $course_class = DB::table('course_class')
             ->select('id')
+            ->join('another_table', 'another_table.course_class_id', '=', 'course_class.id')
             ->where('slug', $row['course_class_slug'])
             ->first();
 

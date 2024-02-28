@@ -33,8 +33,32 @@
         </div>
 
         <div class="row">
-            <div class="col-10">
-                <div class="form-container pt-3">
+            <div class="col-md-2">
+                <form action="{{ route('getCCMHGrade') }}" method="GET">
+                @csrf
+                    <label for="course_class" class="form-label">Pilih Kelas:</label>
+                    <select id="course_class" name="class_id" class="form-select">
+                        @foreach($class_list_dropdown as $class)
+                            <option value="{{ $class['class_id'] }}">{{ $class['course_name'] }} - Batch {{ $class['batch'] }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label for="day" class="form-label">Pilih Hari:</label>
+                    <select id="day" name="day" class="form-select">
+                        <option value="all">Semua Hari</option>
+                        @foreach($day_dropdown as $day)
+                            <option value="{{ strtolower($day) }}">{{ ucfirst($day) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary" style="margin-top: 27.5px;">Submit</button>
+                </form>
+            </div>
+        </div>
+
                     <!-- <form method="GET" action="{{ route('getGradeCCMH') }}"
                           class="row row-cols-lg-3 g-3 align-items-center">
                         <div class="col-12">
@@ -64,9 +88,7 @@
 
                         
                     </form> -->
-                </div>
-            </div>
-        </div>
+       
 
         <div id="table_content">
             <table id="example" class="table table-striped w-100">
