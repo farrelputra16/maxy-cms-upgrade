@@ -126,6 +126,7 @@ class CourseClass extends Model
             ->whereIn('cm.type', ['assignment', 'quiz'])
             ->join('course_class_module', 'course_class_module.course_module_id', '=', 'cm.id')
             ->join('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
+            ->join('course_class_member', 'course_class_member.course_class_id', '=', 'course_class.id')
             ->join('course', 'course.id', '=', 'course_class.course_id')
             ->get();
         } else {
@@ -161,12 +162,14 @@ class CourseClass extends Model
                     'users.id as user_id',
                     'users.name as user_name',
                     'course_class_member_grading.submitted_file',
+                    'course_class_member_grading.submitted_at',
                     'course_class_member_grading.comment',
                     'course_class_member_grading.tutor_comment',
                     'course_class_member_grading.grade',
                     'course_class_member_grading.id as id_grading'
                 )
                 ->where('course_class_member.course_class_id', $class_id)
+                ->where('course_class_member.status', 1)
                 ->get();
 
             // Add each member to the final array

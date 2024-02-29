@@ -99,6 +99,7 @@
                         <th>Day</th>
                         <th>Student Name</th>
                         <th>Submitted File</th>
+                        <th>Submitted At</th>
                         <th>Grade</th>
                         <th>Student Comment</th>
                         <th>Tutor Comment</th>
@@ -125,6 +126,7 @@
                             <td>{{ $item->day }}</td>
                             <td>{{ $item->user_name }}</td>
                             <td>{{ $item->submitted_file ?? '-' }}</td>
+                            <td>{{ $item->submitted_at ?? '-' }}</td>
                             <td>{{ $item->grade ?? '-' }}</td>
                             <td>{!! Str::limit(htmlspecialchars($item->comment) ?? '-') !!}</td>
                             <td>{!! Str::limit($item->tutor_comment ?? '-') !!}</td>
