@@ -104,15 +104,44 @@ class CourseClass extends Model
         return $class_list;
     }
 
-    public static function getTutorEnrolledClass()
+    public static function getAllCourseClassbyMentor()
     {
-        $class_list = DB::table('course_module as cm')
+        // dd(Auth::user()->id);
+        $class_list = DB::table('course_class as cc')
+            ->select('cc.*', 'c.name as course_name', 'mct.name as type')
+            ->join('course as c', 'c.id', '=', 'cc.course_id')
+            ->join('m_course_type as mct', 'mct.id', '=', 'c.m_course_type_id')
+            ->join('course_class_member as ccmember', 'ccmember.course_class_id', '=', 'cc.id')
+            ->where('ccmember.user_id', Auth::user()->id)
+            ->get();
+
+        return $class_list;
+    }
+
+    public static function getTutorEnrolledClass($hasManageAllClass)
+    {
+        if ($hasManageAllClass) {
+            $class_list = DB::table('course_module as cm')
             ->select('cm.id', 'cm.name', 'cm.day', 'course.name as course_name', 'course_class.batch', 'course_class.id as class_id', 'course_class_module.id as module')
             ->whereIn('cm.type', ['assignment', 'quiz'])
             ->join('course_class_module', 'course_class_module.course_module_id', '=', 'cm.id')
             ->join('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
             ->join('course', 'course.id', '=', 'course_class.course_id')
             ->get();
+        } else {
+            $class_list = DB::table('course_module as cm')
+            ->select('cm.id', 'cm.name', 'cm.day', 'course.name as course_name', 'course_class.batch', 'course_class.id as class_id', 'course_class_module.id as module')
+            ->whereIn('cm.type', ['assignment', 'quiz'])
+            ->join('course_class_module', 'course_class_module.course_module_id', '=', 'cm.id')
+            ->join('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
+            ->join('course_class_member', 'course_class_member.course_class_id', '=', 'course_class.id')
+            ->join('course', 'course.id', '=', 'course_class.course_id')
+            ->where('course_class_member.user_id', Auth::user()->id)
+            ->get();
+        }
+        
+
+        // dd($class_list);
 
         // Initialize the final array
         $final_array = [];

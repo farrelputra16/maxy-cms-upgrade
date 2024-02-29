@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 use DB;
+use App\Http\Controllers\AccessMasterController;
 
 class CourseClassMemberGradingController extends Controller
 {
@@ -26,6 +27,17 @@ class CourseClassMemberGradingController extends Controller
      */
     public function getCCMHGrade(Request $request)
     {
+        $broGotAccessMaster = AccessMasterController::getUserAccessMaster();
+
+        $hasManageAllClass = false;
+
+        foreach ($broGotAccessMaster as $access) {
+            if ($access->name === 'manage_all_class') {
+                $hasManageAllClass = true;
+                break;
+            }
+        }
+
         if ($request->has('day') && $request->has('class_id')) {
 
             $formattedPath = [];
@@ -149,9 +161,8 @@ class CourseClassMemberGradingController extends Controller
                 return response()->json(['message' => 'Failed to create zip.'], 500);
             }
         }
-        
-        $class_list = CourseClass::getTutorEnrolledClass();
 
+        $class_list = CourseClass::getTutorEnrolledClass($hasManageAllClass);
         $class_list1 = collect($class_list);
         $class_list1 = $class_list1->sortBy('id');
         $class_list_dropdown = $class_list1->filter(function($class) {
@@ -175,7 +186,7 @@ class CourseClassMemberGradingController extends Controller
             return $group->first()->day;
         })->values()->all();
 
-        // dd($class_list_dropdown);
+        
 
         return view('trackandgrade::course_class_member_grading.index', [
             'class_list' => $class_list,

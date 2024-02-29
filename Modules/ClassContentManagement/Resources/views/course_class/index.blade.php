@@ -39,15 +39,17 @@
 
         <div id="courseClassTable_wrapper">
             <nav class="navbar bg-body-tertiary py-3">
-                <div class="row">
-                    <div class="col">
-                        <a class="btn btn-primary" href="{{ route('getAddCourseClass') }}" role="button">Add Class +</a>
+                @if ($broGotAccessMaster->contains('name', 'course_class_create'))
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-primary" href="{{ route('getAddCourseClass') }}" role="button">Add Class +</a>
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-primary" href="{{ route('getDuplicateCourseClass') }}" role="button"
+                                style="width: 150px;">Duplicate Class +</a>
+                        </div>
                     </div>
-                    <div class="col">
-                        <a class="btn btn-primary" href="{{ route('getDuplicateCourseClass') }}" role="button"
-                            style="width: 150px;">Duplicate Class +</a>
-                    </div>
-                </div>
+                @endif
             </nav>
 
             <table id="courseClassTable" class="table table-striped" style="width:100%">

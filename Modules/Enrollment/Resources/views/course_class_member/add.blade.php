@@ -22,7 +22,7 @@
                         <label for="">Select User:</label>
                         <select id="hapus" name="users[]" multiple="">
                             @foreach ($users as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <option value="{{ $item->id }}">{{ $item->email }} - {{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>

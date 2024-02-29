@@ -12,12 +12,31 @@ use App\Http\Controllers\HelperController;
 use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Controllers\AccessMasterController;
+
 
 class CourseClassController extends Controller
 {
     function getCourseClass()
     {
-        $courseList = CourseClass::getAllCourseClass();
+        $broGotAccessMaster = AccessMasterController::getUserAccessMaster();
+
+        $hasManageAllClass = false;
+
+        foreach ($broGotAccessMaster as $access) {
+            if ($access->name === 'manage_all_class') {
+                $hasManageAllClass = true;
+                break;
+            }
+        }
+
+        if ($hasManageAllClass) {
+            $courseList = CourseClass::getAllCourseClass();
+        } else {
+            $courseList = CourseClass::getAllCourseClassbyMentor();
+        }
+
+        // $courseList = CourseClass::getAllCourseClass();
         // dd($courseList);
         return view('classcontentmanagement::course_class.index', ['course_list' => $courseList]);
     }

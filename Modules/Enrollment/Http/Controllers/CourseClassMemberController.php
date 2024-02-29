@@ -39,7 +39,8 @@ class CourseClassMemberController extends Controller
         $course_class_id = $request->id;
         $course_class_detail = CourseClass::getClassDetailByClassId($course_class_id);
         $courseClassMembers = CourseClassMember::getCourseClassMember($request);
-        $users = User::where('access_group_id', 2)->get();
+        // $users = User::where('access_group_id', 2)->get();
+        $users = User::get();
         $courseClassMemberIds = collect($courseClassMembers)->pluck('user_id')->toArray();
         // Filter out users with the same 'id' as in $courseClassMemberIds
         $filteredUsers = $users->whereNotIn('id', $courseClassMemberIds);
