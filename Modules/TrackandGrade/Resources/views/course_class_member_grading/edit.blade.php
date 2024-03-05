@@ -18,6 +18,18 @@
                 <label for="">Member</label>
                 <input type="text" name="user_name" value="{{ $currentData->user_name }}" disabled>
             </div>
+
+            <div class="two fields">
+                <div class="field">
+                    <label for="">Submitted At</label>
+                    <input type="text" name="user_name" value="{{ $currentData->submitted_at }}" disabled>
+                </div>
+                <div class="field">
+                    <label for="">Updated At</label>
+                    <input type="text" name="user_name" value="{{ $currentData->updated_at }}" disabled>
+                </div>
+            </div>
+
             <div class="field">
                 <label for="">Submitted File</label>
                 <a href="{{ asset($currentData->submission_url) }}" target="_blank"><h3>{{$currentData->submitted_file}}</h3></a>

@@ -163,6 +163,7 @@ class CourseClass extends Model
                     'users.name as user_name',
                     'course_class_member_grading.submitted_file',
                     'course_class_member_grading.submitted_at',
+                    'course_class_member_grading.updated_at',
                     'course_class_member_grading.comment',
                     'course_class_member_grading.tutor_comment',
                     'course_class_member_grading.grade',
