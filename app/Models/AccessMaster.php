@@ -32,6 +32,18 @@ class AccessMaster extends Model
         return self::pluck("name", "id")->toArray();
     }
 
+    public function getUserAccessMaster(){
+
+        $broGotAccessMaster = DB::table('access_group_detail')
+            ->join('access_group', 'access_group_detail.access_group_id', '=', 'access_group.id')
+            ->join('access_master', 'access_group_detail.access_master_id', '=', 'access_master.id')
+            ->select('access_master.name')
+            ->where('access_group.id', '=', Auth::user()->access_group_id)
+            ->get();
+            
+        return $broGotAccessMaster;
+    }
+
     public static function postEditAccessMaster($request){
         $idaccessmaster = $request->id;
         return (DB::table('access_master')

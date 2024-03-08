@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use App\Http\Controllers\AccessMasterController;
+use App\Models\AccessMaster;
 
 class CourseClassMemberLogController extends Controller
 {
@@ -28,7 +28,7 @@ class CourseClassMemberLogController extends Controller
 
     function getCCMH()
     {
-        $broGotAccessMaster = AccessMasterController::getUserAccessMaster();
+        $broGotAccessMaster = AccessMaster::getUserAccessMaster();
 
         $hasManageAllClass = false;
 

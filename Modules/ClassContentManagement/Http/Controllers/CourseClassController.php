@@ -11,15 +11,14 @@ use Modules\ClassContentManagement\Entities\CourseClass;
 use App\Http\Controllers\HelperController;
 use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
-
-use App\Http\Controllers\AccessMasterController;
+use App\Models\AccessMaster;
 
 
 class CourseClassController extends Controller
 {
     function getCourseClass()
     {
-        $broGotAccessMaster = AccessMasterController::getUserAccessMaster();
+        $broGotAccessMaster = AccessMaster::getUserAccessMaster();
 
         $hasManageAllClass = false;
 

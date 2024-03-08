@@ -58,36 +58,6 @@
                 </form>
             </div>
         </div>
-
-                    <!-- <form method="GET" action="{{ route('getGradeCCMH') }}"
-                          class="row row-cols-lg-3 g-3 align-items-center">
-                        <div class="col-12">
-                            <label for="courses" class="form-label">Course</label>
-                            <select class="form-select" id="courses" name="course_name">
-                                <option value="all" {{ request()->course_name == 'all' ? 'selected' : '' }}>
-                                    All
-                                </option>
-                                {{-- @foreach ($courseNames as $name)
-                                    <option value="{{ $name->name }}"
-                                        {{ request()->course_name == $name->name ? 'selected' : '' }}>{{ $name->name }}
-                                    </option>
-                                @endforeach --}}
-                            </select>
-                        </div>
-
-                        {{-- <div class="col-12">
-                            <label for="days" class="form-label">Day</label>
-                            <select class="form-select" id="days" name="day">
-                                <option value="all" {{ request()->day == 'all' ? 'selected' : '' }}>All</option>
-                                @foreach ($day as $item)
-                                    <option value="{{ $item->day }}"
-                                        {{ request()->day == $item->day ? 'selected' : '' }}>{{ $item->day }}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
-
-                        
-                    </form> -->
        
 
         <div id="table_content">

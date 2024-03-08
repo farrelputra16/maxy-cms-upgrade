@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 use DB;
-use App\Http\Controllers\AccessMasterController;
+use App\Models\AccessMaster;
 
 class CourseClassMemberGradingController extends Controller
 {
@@ -27,7 +27,7 @@ class CourseClassMemberGradingController extends Controller
      */
     public function getCCMHGrade(Request $request)
     {
-        $broGotAccessMaster = AccessMasterController::getUserAccessMaster();
+        $broGotAccessMaster = AccessMaster::getUserAccessMaster();
 
         $hasManageAllClass = false;
 
