@@ -7,6 +7,32 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-container .select2-selection--single {
+            box-sizing: border-box;
+            cursor: pointer;
+            display: block;
+            height: 38px; /* Ubah nilai height sesuai kebutuhan Anda */
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #444;
+            line-height: 33px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 33px;
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            width: 20px;
+        }
+    </style>
+
     <div style="padding: 24px 12px 0px 12px;">
         <h2 style="">Add Class</h2>
         <hr><br>
@@ -16,7 +42,7 @@
                 <div class="five fields">
                     <div class="field">
                         <label for="">Course</label>
-                        <select name="course_id" class="ui dropdown">
+                        <select name="course_id" class="ui dropdown select2" style="width: 100%;">
                             @foreach ($allCourses as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
@@ -90,5 +116,12 @@
     <script>
         CKEDITOR.replace('content');
         CKEDITOR.replace('description');
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> 
+    <script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
     </script>
 @endsection

@@ -118,8 +118,9 @@ class CourseClass extends Model
         return $class_list;
     }
 
-    public static function getTutorEnrolledClass($hasManageAllClass)
+    public static function getTutorEnrolledClass($hasManageAllClass , $class_id)
     {
+        // dd( $class_id);
         if ($hasManageAllClass) {
             $class_list = DB::table('course_module as cm')
             ->select('cm.id', 'cm.name', 'cm.day', 'course.name as course_name', 'course_class.batch', 'course_class.id as class_id', 'course_class_module.id as module')
@@ -128,6 +129,7 @@ class CourseClass extends Model
             ->join('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
             ->join('course_class_member', 'course_class_member.course_class_id', '=', 'course_class.id')
             ->join('course', 'course.id', '=', 'course_class.course_id')
+            ->where('course_class.id', $class_id)
             ->get();
         } else {
             $class_list = DB::table('course_module as cm')
@@ -137,6 +139,7 @@ class CourseClass extends Model
             ->join('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
             ->join('course_class_member', 'course_class_member.course_class_id', '=', 'course_class.id')
             ->join('course', 'course.id', '=', 'course_class.course_id')
+            ->where('course_class.id', $class_id)
             ->where('course_class_member.user_id', Auth::user()->id)
             ->get();
         }
@@ -235,6 +238,8 @@ class CourseClass extends Model
             ->join('m_course_type as mct', 'mct.id', '=', 'c.m_course_type_id')
             ->where('cc.id', $courseClassId)
             ->first();
+
+            // dd($classDetail);
 
         $classDetail->parent_modules = DB::table('course_class_module as ccmodule')
             ->select('ccmodule.*', 'cm.name as module_name', 'cm.type as module_type', 'cm.id as module_id')

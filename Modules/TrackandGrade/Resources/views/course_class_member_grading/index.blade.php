@@ -6,8 +6,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <style>
         .form-container {
             width: 48%;
@@ -16,6 +17,28 @@
         /* CSS untuk kolom-kolom yang disembunyikan */
         .hidden-column {
             display: none;
+        }
+
+        .select2-container .select2-selection--single {
+            box-sizing: border-box;
+            cursor: pointer;
+            display: block;
+            height: 38px; /* Ubah nilai height sesuai kebutuhan Anda */
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #444;
+            line-height: 33px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 33px;
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            width: 20px;
         }
     </style>
 @endsection
@@ -32,32 +55,45 @@
             <div class="active section">CCMH Grading</div>
         </div>
 
-        <div class="row">
+        @if(is_null($class_list))
+            <div class="row">
             <div class="col-md-2">
                 <form action="{{ route('getCCMHGrade') }}" method="GET">
                 @csrf
                     <label for="course_class" class="form-label">Pilih Kelas:</label>
-                    <select id="course_class" name="class_id" class="form-select">
-                        @foreach($class_list_dropdown as $class)
-                            <option value="{{ $class['class_id'] }}">{{ $class['course_name'] }} - Batch {{ $class['batch'] }}</option>
+                    <!-- <select id="course_class" name="class_id" class="form-select" > -->
+                    <select name="class_id" class="ui dropdown select2" style="width: 100%;">
+                        @foreach($class_list_dropdown1 as $class)
+                            <option value="{{ $class->class_id }}">{{ $class->course_name }} - Batch {{ $class->batch }}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="col-md-2">
-                    <label for="day" class="form-label">Pilih Hari:</label>
-                    <select id="day" name="day" class="form-select">
-                        <option value="all">Semua Hari</option>
-                        @foreach($day_dropdown as $day)
-                            <option value="{{ strtolower($day) }}">{{ ucfirst($day) }}</option>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 27.5px;">Submit</button>
+                </form>
+            </div>
+        </div>
+        @else
+        <div class="row">
+            <div class="col-md-2">
+                <form action="{{ route('getCCMHGrade') }}" method="GET">
+                @csrf
+                    <label for="course_class" class="form-label">Pilih Kelas:</label>
+                    <select name="class_id" class="ui dropdown select2" style="width: 100%;">
+                        @foreach($class_list_dropdown1 as $class)
+                            <option value="{{ $class->class_id }}">{{ $class->course_name }} - Batch {{ $class->batch }}</option>
                         @endforeach
                     </select>
                 </div>
+
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-primary" style="margin-top: 27.5px;">Submit</button>
                 </form>
             </div>
         </div>
+        <br>
+        
        
 
         <div id="table_content">
@@ -147,6 +183,45 @@
                 <a href="{{ route('getCertificate', $item->id) }}" class="btn btn-info btn-sm">Generate Certificate</a>
             @endif --}}
         </div>
+
+        <br><br>
+        <hr>
+        <h2>Download File</h2>
+        <hr>
+        <div class="content pb-5">
+            @csrf
+            <div class="card p-5">
+                <div class="row">
+                    <label for="course_class" class="form-label">Download File:</label>
+                    <div class="col-md-2">
+                        <form action="{{ route('getCCMHGrade') }}" method="GET">
+                        @csrf
+                            <label for="day" class="form-label">Pilih Hari:</label>
+                                <select id="day" name="day" class="form-select">
+                                    <option value="all">Semua Hari</option>
+                                    @foreach($day_dropdown as $day)
+                                        <option value="{{ strtolower($day) }}">{{ ucfirst($day) }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary" style="margin-top: 27.5px;">Submit</button>
+                            <div class="col-md-2">
+                                <select id="course_class" name="class_id" class="form-select" style="display: none;"> 
+                                    @foreach($class_list_dropdown as $class)
+                                        <option value="{{ $class['class_id'] }}">{{ $class['course_name'] }} - Batch {{ $class['batch'] }}</option>
+                                    @endforeach
+                                </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @endif
+
+        
+        
     </div>
 @endsection
 
@@ -163,6 +238,8 @@
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> 
     <script>
         $(document).ready(function () {
             let table = $('#example').DataTable({
@@ -191,6 +268,12 @@
             });
 
             table.buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
         });
     </script>
 @endsection
