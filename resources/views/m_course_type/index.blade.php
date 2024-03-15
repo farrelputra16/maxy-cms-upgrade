@@ -93,6 +93,9 @@
                         lengthMenu: [10, 25, 50, 100],
                         buttons: ['copy', 'excel', 'pdf', 'colvis'],
                         searching: true,
+                        columnDefs: [
+                            { "visible": false, "targets": [0] }
+                        ]
                     });
 
                     // Add individual column search inputs and titles

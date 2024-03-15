@@ -81,9 +81,13 @@
                 @csrf
                     <label for="course_class" class="form-label">Pilih Kelas:</label>
                     <select name="class_id" class="ui dropdown select2" style="width: 100%;">
-                        @foreach($class_list_dropdown1 as $class)
-                            <option value="{{ $class->class_id }}">{{ $class->course_name }} - Batch {{ $class->batch }}</option>
-                        @endforeach
+                    @foreach($class_list_dropdown1 as $class)
+                        <option value="{{ $class->class_id }}" 
+                            @if($id_class == $class->class_id) selected 
+                            @endif>
+                            {{ $class->course_name }} - Batch {{ $class->batch }}</option>
+                    @endforeach
+
                     </select>
                 </div>
 
@@ -100,7 +104,6 @@
             <table id="example" class="table table-striped w-100">
                 <thead>
                     <tr>
-                        <th>Course Class</th>
                         <th>Course Module</th>
                         <th>Day</th>
                         <th>Student Name</th>
@@ -128,7 +131,6 @@
                 <tbody>
                     @foreach ($class_list as $item)
                         <tr>
-                            <td>{{ $item->course_name }} {{ $item->batch }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->day }}</td>
                             <td>{{ $item->user_name }}</td>

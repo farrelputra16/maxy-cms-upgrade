@@ -40,6 +40,23 @@
                             <th>Email</th>
                             <th>Access Group</th>
                             <th>Description</th>
+
+                            <th>Date Of Birth</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>University</th>
+                            <th>Major</th>
+                            <th>Semester</th>
+                            <th>City</th>
+                            <th>Country</th>
+                            <th>Level</th>
+                            <th>supervisor_name</th>
+                            <th>supervisor_email</th>
+                            <th>IPK</th>
+                            <th>Religion</th>
+                            <th>Hobby</th>
+                            <th>Citizenship Status</th>
+
                             <th>Status</th>
                             <th>Created_at</th>
                             <th>Updated_at</th>
@@ -54,6 +71,24 @@
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->accessgroup }}</td>
                                 <td>{{ $item->description }}</td>
+
+
+                                <td>{{ $item->date_of_birth }}</td>
+                                <td>{{ $item->phone }}</td>
+                                <td>{{ $item->address }}</td>
+                                <td>{{ $item->university }}</td>
+                                <td>{{ $item->major }}</td>
+                                <td>{{ $item->semester }}</td>
+                                <td>{{ $item->city }}</td>
+                                <td>{{ $item->country }}</td>
+                                <td>{{ $item->level }}</td>
+                                <td>{{ $item->supervisor_name }}</td>
+                                <td>{{ $item->supervisor_email }}</td>
+                                <td>{{ $item->ipk }}</td>
+                                <td>{{ $item->religion }}</td>
+                                <td>{{ $item->hobby }}</td>
+                                <td>{{ $item->citizenship_status }}</td>
+
                                 <td>
                                     @if ($item->status == 1)
                                         <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
@@ -95,6 +130,9 @@
                         lengthMenu: [10, 25, 50, 100],
                         buttons: ['copy', 'excel', 'pdf', 'colvis'],
                         searching: true,
+                        columnDefs: [
+                                { "visible": false, "targets": [0,5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19] }
+                            ]
                     });
 
                     // Add individual column search inputs and titles

@@ -27,7 +27,7 @@ class CourseClassMemberGradingController extends Controller
      */
     public function getCCMHGrade(Request $request)
     {
-        // dd($request);
+        // dd($request->class_id);
         $broGotAccessMaster = AccessMaster::getUserAccessMaster();
 
         $hasManageAllClass = false;
@@ -235,7 +235,8 @@ class CourseClassMemberGradingController extends Controller
             'class_list' => $class_list,
             'class_list_dropdown' => $class_list_dropdown,
             'class_list_dropdown1' => $class_list_dropdown1,
-            'day_dropdown' => $day_dropdown
+            'day_dropdown' => $day_dropdown,
+            'id_class' => $request->class_id,
         ]);
     }
 

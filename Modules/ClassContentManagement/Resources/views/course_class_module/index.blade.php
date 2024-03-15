@@ -129,6 +129,9 @@
                 buttons: ['copy', 'excel', 'pdf', 'colvis'],
                 searching: true,
                 order: [[1, "asc"]],
+                columnDefs: [
+                            { "visible": false, "targets": [0] }
+                        ]
             });
 
             // Add individual column search inputs and titles

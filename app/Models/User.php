@@ -77,13 +77,7 @@ class User extends Authenticatable
     }
 
     public static function getAllUserWithAccessGroup(){
-        $users = collect(DB::select('SELECT users.id,
-            users.name,
-            users.email,
-            users.description,
-            users.status,
-            users.created_at,
-            users.updated_at,
+        $users = collect(DB::select('SELECT users.*,
             access_group.name AS accessgroup
             FROM users
             INNER JOIN access_group ON users.access_group_id = access_group.id'

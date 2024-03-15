@@ -26,6 +26,7 @@
         <div id="example_wrapper">
             <div class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
                 <div class="navbar-nav">
+                    <a class="btn btn-primary" href="{{ route('getAddRedeemCode') }}" role="button">Tambah Redeem Code +</a>
                 </div>
             </div>
             <table id="example" class="table table-striped" style="width:100%">
@@ -36,6 +37,7 @@
                     <th>Quota</th>
                     <th>Type</th>
                     <th>Description</th>
+                    <th>Expired Date</th>
                     <th>Created At</th>
                     <th>Created By</th>
                     <th>Updated At</th>
@@ -48,10 +50,11 @@
                 @foreach ($redeemCodes as $redeemCode)
                     <tr>
                         <td>{{ $redeemCode->id }}</td>
-                        <td>{{ $redeemCode->redeem_code }}</td>
+                        <td>{{ $redeemCode->code }}</td>
                         <td>{{ $redeemCode->quota }}</td>
                         <td>{{ $redeemCode->type }}</td>
                         <td id="description">{{ $redeemCode->description }}</td>
+                        <td>{{ $redeemCode->expired_date }}</td>
                         <td>{{ $redeemCode->created_at }}</td>
                         <td>{{ $redeemCode->userCreated->name }}</td>
                         <td>{{ $redeemCode->updated_at }}</td>
@@ -68,7 +71,7 @@
 
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('getEditCourse', ['id' => $redeemCode->id]) }}"
+                                <a href="{{ route('getEditRedeemCode', ['id' => $redeemCode->id]) }}"
                                    class="btn btn-primary">Edit</a>
                             </div>
                         </td>
@@ -99,6 +102,9 @@
                         lengthMenu: [10, 25, 50, 100],
                         buttons: ['copy', 'excel', 'pdf', 'colvis'],
                         searching: true,
+                        columnDefs: [
+                            { "visible": false, "targets": [0] }
+                        ]
                     });
 
                     // Add individual column search inputs and titles

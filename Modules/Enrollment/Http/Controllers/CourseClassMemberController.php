@@ -44,9 +44,17 @@ class CourseClassMemberController extends Controller
         $courseClassMemberIds = collect($courseClassMembers)->pluck('user_id')->toArray();
         // Filter out users with the same 'id' as in $courseClassMemberIds
         $filteredUsers = $users->whereNotIn('id', $courseClassMemberIds);
+
+        $mentors = User::where('access_group_id', '!=', 2)
+                ->select('id', 'name', 'email')
+                ->get();
+
+        // dd($mentors);
+
         return view('enrollment::course_class_member.add', [
             'users' => $filteredUsers,
-            'course_class_detail' => $course_class_detail
+            'course_class_detail' => $course_class_detail,
+            'mentors' => $mentors
         ]);
     }
 
@@ -55,6 +63,7 @@ class CourseClassMemberController extends Controller
         $users = $request->users; // Mengambil semua pengguna dari permintaan
         $courseClassId = $request->course_class;
 
+        // dd($request);
         foreach ($users as $user) {
             $existingUser = CourseClassMember::checkExistingCCM($user, $courseClassId);
 
@@ -65,6 +74,7 @@ class CourseClassMemberController extends Controller
                     'user_id' => $user,
                     'course_class_id' => $courseClassId,
                     'description' => $request->description,
+                    'mentor_id' => $request->mentor,
                     'status' => $request->status ? 1 : 0,
                     'created_id' => auth()->id(),
                     'updated_id' => auth()->id(),

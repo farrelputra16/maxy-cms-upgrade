@@ -273,7 +273,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     //                                     Redeem Code
     //Redeem Code Routes #########################################################################################################
-    Route::get('/redeemcode', [RedeemCodeController::class, 'getRedeemCode'])->name('getRedeemCode');
+    Route::get('/redeemcode', [RedeemCodeController::class, 'getRedeemCode'])->name('getRedeemCode')->middleware('access:redeem_code_manage');
+
+    Route::get('/redeemcode/add', [RedeemCodeController::class, 'getAddRedeemCode'])->name('getAddRedeemCode')->middleware('access:redeem_code_create');
+    Route::post('/redeemcode/add', [RedeemCodeController::class, 'postAddRedeemCode'])->name('postAddRedeemCode')->middleware('access:redeem_code_create');
+
+    Route::get('/redeemcode/edit', [RedeemCodeController::class, 'getEditRedeemCode'])->name('getEditRedeemCode')->middleware('access:redeem_code_update');
+    Route::post('/redeemcode/edit', [RedeemCodeController::class, 'postEditRedeemCode'])->name('postEditRedeemCode')->middleware('access:redeem_code_update');
 
     //                                     Maxy Talks
     //Testimonial Routes #########################################################################################################

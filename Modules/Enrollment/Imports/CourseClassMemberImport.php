@@ -19,7 +19,6 @@ class CourseClassMemberImport implements ToModel, WithHeadingRow
 
         $course_class = DB::table('course_class')
             ->select('id')
-            ->join('another_table', 'another_table.course_class_id', '=', 'course_class.id')
             ->where('slug', $row['course_class_slug'])
             ->first();
 
@@ -29,6 +28,7 @@ class CourseClassMemberImport implements ToModel, WithHeadingRow
         return new CourseClassMember([
             'user_id' => $user->id, // Sesuaikan dengan kolom dalam file CSV
             'course_class_id' => $course_class->id, // Sesuaikan dengan kolom dalam file CSV
+            'mentor_id' => $row['mentor_id'],
             'status' => 1,
             'created_at' => now(),
             'created_id' => Auth::user()->id, // Mengisi kolom "created_id" dengan ID pengguna saat ini
