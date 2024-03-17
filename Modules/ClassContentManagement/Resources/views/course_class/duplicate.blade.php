@@ -33,7 +33,7 @@
                 </div>
                 <div class="field">
                     <label for="">Class</label>
-                    <select id="course_class" class="ui dropdown">
+                    <select id="course_class" name="course_class_id" class="ui dropdown">
                         <option value="">Select</option>
                         @foreach ($class_list as $item)
                             <option value="{{ $item->id }}">{{ $item->course_name }} Batch {{ $item->batch }}</option>
