@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 use DB;
 use App\Models\AccessMaster;
+use Illuminate\Support\Facades\Auth;
 
 class CourseClassMemberGradingController extends Controller
 {
@@ -27,7 +28,7 @@ class CourseClassMemberGradingController extends Controller
      */
     public function getCCMHGrade(Request $request)
     {
-        // dd($request->class_id);
+        // dd($request);
         $broGotAccessMaster = AccessMaster::getUserAccessMaster();
 
         $hasManageAllClass = false;
@@ -50,8 +51,9 @@ class CourseClassMemberGradingController extends Controller
             // dd($class_list);
             }
             else{
-                $class_list_dropdown1 = DB::table('course_module as cm')
+                $class_list_dropdown1 = DB::table('course_class')
                     ->join('course', 'course.id', '=', 'course_class.course_id')
+                    ->join('course_class_member', 'course_class.id', '=', 'course_class_member.course_class_id')
                     ->select('course.name as course_name', 'course_class.batch', 'course_class.id as class_id')
                     ->where('course_class_member.user_id', Auth::user()->id)
                     ->get();
@@ -217,8 +219,9 @@ class CourseClassMemberGradingController extends Controller
             // dd($class_list);
             }
             else{
-                $class_list_dropdown1 = DB::table('course_module as cm')
+                $class_list_dropdown1 = DB::table('course_class')
                     ->join('course', 'course.id', '=', 'course_class.course_id')
+                    ->join('course_class_member', 'course_class.id', '=', 'course_class_member.course_class_id')
                     ->select('course.name as course_name', 'course_class.batch', 'course_class.id as class_id')
                     ->where('course_class_member.user_id', Auth::user()->id)
                     ->get();
@@ -290,7 +293,8 @@ class CourseClassMemberGradingController extends Controller
 
     function getEditCCMH(Request $request, CourseClassMemberGrading $courseClassMemberGrading)
     {
-        // dd($courseClassMemberGrading);
+        // dd($request);
+        $class_id = $request->class_id;
         $currentData = $courseClassMemberGrading;
 
         $member = User::find($courseClassMemberGrading->user_id);
@@ -310,7 +314,7 @@ class CourseClassMemberGradingController extends Controller
         $currentData->submission_url = 'uploads/course_class_member_grading/'.$course_name.'/'. $user_name.'/'.$module_name.'/'.$currentData->submitted_file;
 
         // dd($currentData->submission_url);
-        return view('trackandgrade::course_class_member_grading.edit', compact('currentData'));
+        return view('trackandgrade::course_class_member_grading.edit', compact('currentData' , 'class_id'));
     }
 
     function addCCMH(Request $request, CourseClassMemberGrading $courseClassMemberGrading)
@@ -360,7 +364,7 @@ class CourseClassMemberGradingController extends Controller
             ]);
 
         if ($updateData) {
-            return app(HelperController::class)->Positive('getCCMHGrade');
+            return app(HelperController::class)->Positive('getCCMHGrade', ['class_id' => $request->class_id]);
         } else {
             return app(HelperController::class)->Warning('getCCMHGrade');
         }

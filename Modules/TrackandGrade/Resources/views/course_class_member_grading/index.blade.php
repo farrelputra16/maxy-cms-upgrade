@@ -161,7 +161,7 @@
                             </td> --}}
                             @if ($item->id_grading !== null)
                                 <td>
-                                    <a href="{{ route('getEditCCMH', $item->id_grading) }}"
+                                    <a href="{{ route('getEditCCMH', [$item->id_grading , 'class_id' => $id_class]) }}"
                                         class="btn btn-success btn-sm">Edit</a>
                                 </td>
                             @else

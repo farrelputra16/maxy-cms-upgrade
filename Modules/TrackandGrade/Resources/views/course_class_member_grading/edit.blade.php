@@ -13,6 +13,7 @@
     <hr><br>
     <form class="ui form" action="{{ route('postEditCCMH', ['id' => $currentData->id]) }}" method="post">
         @csrf
+        <input type="text" name="class_id" value="{{ $class_id }}" hidden>
         <div class="field">
             <div class="field">
                 <label for="">Member</label>
