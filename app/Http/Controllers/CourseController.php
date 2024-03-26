@@ -128,7 +128,7 @@ class CourseController extends Controller
             'content' => 'nullable|string',
             'description' => 'nullable|string',
             'file_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'payment_link' => 'required|url',
+            'payment_link' => 'nullable|url',
             'level' => 'nullable|numeric',
             'status' => 'nullable|boolean',
         ]);
