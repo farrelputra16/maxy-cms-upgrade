@@ -31,6 +31,7 @@ class GenerateCertificateController extends Controller
             return redirect()->back()->with('error', 'Template sertifikat tidak ditemukan');
         }
 
+
         // Baca gambar template dengan Intervention Image
         $templateImage = Image::make($templatePath);
 
@@ -136,7 +137,7 @@ class GenerateCertificateController extends Controller
         unlink($pdfCertificatePath);
         unlink($pdfCompetenciesPath);
 
-        return $oMerger->stream($mergedPdfPath);
+        return gzdecode($oMerger->stream($mergedPdfPath));
     }
 
     public function getEditCertificateTemplate(Request $request)
