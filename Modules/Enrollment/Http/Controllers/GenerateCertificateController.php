@@ -70,9 +70,19 @@ class GenerateCertificateController extends Controller
 
         // Tambahkan konten sertifikat
         $content = "Telah berhasil menyelesaikan kegiatannya dalam Program $classDetail->course_type_name Bersertifikat di Maxy Academy\n";
-        $content .= "dengan project/kegiatan $classDetail->course_name Learning $classDetail->course_type_name";
+        // $content .= "dengan project/kegiatan $classDetail->course_name Learning $classDetail->course_type_name";
 
         $templateImage->text($content, $templateImage->width() / 2, $templateImage->height() / 1.6 + 60, function ($font) use ($openSansBoldPath) {
+            $font->file($openSansBoldPath);
+            $font->size(40);
+            $font->color('#2C2C64'); // Warna ungu
+            $font->align('center');
+            $font->valign('middle');
+        });
+
+        $content = "dengan project/kegiatan $classDetail->course_name Learning $classDetail->course_type_name";
+
+        $templateImage->text($content, $templateImage->width() / 2, $templateImage->height() / 1.6 + 120, function ($font) use ($openSansBoldPath) {
             $font->file($openSansBoldPath);
             $font->size(40);
             $font->color('#2C2C64'); // Warna ungu
