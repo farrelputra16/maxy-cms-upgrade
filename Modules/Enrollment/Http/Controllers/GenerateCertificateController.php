@@ -120,9 +120,16 @@ class GenerateCertificateController extends Controller
         $oMerger->addPDF($pdfCertificatePath, 'all');
         $oMerger->addPDF($pdfCompetenciesPath, 'all');
 
+        $userCertificateDirectory = public_path("sertifikat/{$courseClass->id}");
+
+        // Periksa apakah direktori sudah ada, jika tidak, buat direktori baru
+        if (!file_exists($userCertificateDirectory)) {
+            mkdir($userCertificateDirectory, 0777, true); // Buat direktori dengan izin penuh
+            }
         $oMerger->merge();
-        $mergedPdfPath = public_path("sertifikat\\" . $certificateName . '_certificate.pdf');
+        $mergedPdfPath = public_path("sertifikat/{$courseClass->id}/{$user->id}.pdf");
         $oMerger->save($mergedPdfPath);
+
 
         // Hapus file-file yang tidak diperlukan
         unlink($certificateImagePath);
