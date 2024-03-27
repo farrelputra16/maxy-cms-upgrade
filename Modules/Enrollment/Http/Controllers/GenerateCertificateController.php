@@ -137,7 +137,8 @@ class GenerateCertificateController extends Controller
         unlink($pdfCertificatePath);
         unlink($pdfCompetenciesPath);
 
-        return gzdecode($oMerger->stream($mergedPdfPath));
+        return redirect("/sertifikat/{$courseClass->id}/{$user->id}.pdf");
+
     }
 
     public function getEditCertificateTemplate(Request $request)
