@@ -41,6 +41,7 @@ class CourseController extends Controller
             $file->move(public_path('/uploads/course_img'), $fileName);
         }
 
+        
         $validated = $request->validate([
             'name' => 'required',
             'slug' => 'required',
@@ -48,15 +49,13 @@ class CourseController extends Controller
             'mini_fake_price' => 'nullable|numeric',
             'mini_price' => 'nullable|numeric',
             'short_description' => 'nullable|string|max:500',
-            'file_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'payment_link' => 'nullable|url',
             'level' => 'nullable|numeric',
             'content' => 'nullable|string',
-            'description' => 'nullable|string',
-            'status' => 'nullable|boolean',
+            'description' => 'nullable|string'
 
         ]);
-
+        
         $trim_mini_fake_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_fake_price));
         $trim_mini_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_price));
 
