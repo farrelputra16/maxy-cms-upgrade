@@ -4,5 +4,6 @@
     "Entrollment": true,
     "Enrollment": true,
     "TrackandGrade": true,
-    "CertificateTemplate": true
+    "CertificateTemplate": true,
+    "Quiz": true
 }
