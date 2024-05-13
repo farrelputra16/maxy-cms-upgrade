@@ -91,6 +91,8 @@
                                 <a href="{{ route('getEditChildModule', ['id' => $item->id]) }}" class="btn btn-primary">Edit</a>
                                 @if($item->type == 'quiz')
                                 <a href="{{ route('getCMQuiz', ['id' => $item->id]) }}" class="btn btn-info">Questions</a>
+                                @elseif($item->type == 'form')
+                                <a href="{{ route('getCMForm', ['id' => $item->id]) }}" class="btn btn-info">Questions</a>
                                 @endif
                             </div>
                         </td>
