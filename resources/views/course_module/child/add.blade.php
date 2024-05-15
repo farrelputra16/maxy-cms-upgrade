@@ -51,9 +51,10 @@
                     <label for="">Module Type</label>
                     <select name="type" class="ui dropdown" id="type_selector" required>
                         <option selected value="">-- Pilih Tipe Modul --</option>
-                        <option value="materi_pembelajaran">materi_pembelajaran</option>
-                        <option value="video_pembelajaran">video_pembelajaran</option>
+                        <option value="materi_pembelajaran">Materi Pembelajaran</option>
+                        <option value="video_pembelajaran">Video Pembelajaran</option>                                            
                         <option value="assignment">Assignment</option>
+                        <option value="form">Form</option>
                         @if(Route::has('getCMQuiz'))
                         <option value="quiz">Quiz</option>
                         @endif
@@ -110,14 +111,17 @@
                 <label for="">Durasi</label>
                 <input type="number" name="duration">
             `;
-        } else {
+        } else if (typeSelector.value === 'assignment') {
             material.innerHTML = `
                 <label for="" class="form-label">File Assignment</label>
                 <input class="form-control" type="file" id="formFile" name="material">
             `;
             duration.innerHTML = `<input type="hidden" name="duration" value="">`;
+        } else if (typeSelector.value === 'form' || typeSelector.value === 'quiz') {
+            material.innerHTML = ``;
+            duration.innerHTML = `<input type="hidden" name="duration" value="">`;
         }
-    });
+    }); 
 </script>
 @endif
 

@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Models;
-use DB;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class CourseModule extends Model
 {
@@ -42,7 +42,7 @@ class CourseModule extends Model
 
         return $module_detail;
     }
-    
+
     public static function getCourseModuleParentByCourseId($course_id, $type){
         if($type == 'CP'){ // jika buka list module company profile
             $parent_modules = DB::table('course_module as cm')
@@ -65,7 +65,7 @@ class CourseModule extends Model
         return $parent_modules;
     }
 
-    public static function getCourseModuleChildByParentId($module_id){  
+    public static function getCourseModuleChildByParentId($module_id){
 
         $courseModuleChild = DB::table('course_module')
             ->select('*')

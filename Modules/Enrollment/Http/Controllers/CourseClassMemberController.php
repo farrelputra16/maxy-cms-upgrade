@@ -79,6 +79,9 @@ class CourseClassMemberController extends Controller
                     'created_id' => auth()->id(),
                     'updated_id' => auth()->id(),
                 ]);
+
+                // create ccml user joined class
+
             }
         }
 
