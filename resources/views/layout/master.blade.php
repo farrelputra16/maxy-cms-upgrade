@@ -140,13 +140,6 @@
                                 <a class="dropdown-item" href="{{ route('certificate-templates.index') }}">Certificate Template</a>
 
                                 @if ($broGotAccessMaster->contains('name', 'course_class_member_log_read'))
-                                    <a class="dropdown-item" href="{{ route('getCCMH') }}">Student Tracker Server Side</a>
-                                @else
-                                    <a class="dropdown-item disabled" href="{{ route('getCCMH') }}">Student Tracker Server Side <i class="lock icon"></i></a>
-                                @endif
-
-
-                                @if ($broGotAccessMaster->contains('name', 'course_class_member_log_read'))
                                     <a class="dropdown-item" href="{{ route('getCCMH') }}">Student Tracker</a>
                                 @else
                                     <a class="dropdown-item disabled" href="{{ route('getCCMH') }}">Student Tracker<i class="lock icon"></i></a>
