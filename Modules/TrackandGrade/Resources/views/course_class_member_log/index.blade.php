@@ -1,6 +1,6 @@
 @extends ('layout.master')
 
-@section('title', 'History')
+@section('title', 'Voucher')
 @section('content')
 
     <head>
