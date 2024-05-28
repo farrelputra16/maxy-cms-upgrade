@@ -46,6 +46,7 @@ Route::get('/', function () {
     }
 })->name('welcome');
 
+// Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::get('/login', [AuthController::class, 'getLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'postLogin'])->name('postLogin');
 Route::post('/logout', [AuthController::class, 'postLogout'])->name('logout');

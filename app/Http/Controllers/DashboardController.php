@@ -14,9 +14,24 @@ class DashboardController extends Controller
         $accessMaster = AccessMaster::count();
         $user = User::count();
 
+        // ambil data active class
+        $active_class_list = [
+            ['course_name' => 'Backend', 'batch' => 1, 'class_id' => 1],
+            ['course_name' => 'Frontend', 'batch' => 1, 'class_id' => 2],
+            ['course_name' => 'UI/UX', 'batch' => 1, 'class_id' => 3],
+            ['course_name' => 'Digital Marketing', 'batch' => 1, 'class_id' => 4]
+        ];
+
+        // $totalStu = DB::table('users')->get();
+        $totalStu = User::where('access_group_id', 2)->count();
+        $stuActive = User::where('access_group_id', 2)->where('status', 1)->count();
+
         return view('dashboard.index', [
             'accessMaster' => $accessMaster,
-            'user' => $user
+            'user' => $user,
+            'active_class_list' => $active_class_list,
+            'totalStu' => $totalStu,
+            'stuActive' => $stuActive
         ]);
     }
 

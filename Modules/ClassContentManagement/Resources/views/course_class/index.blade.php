@@ -2,71 +2,349 @@
 
 @section('title', 'Course Class')
 
-@push('styles')
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-@endpush
-
 @section('content')
-<div style="padding: 0px 12px 0px 12px;">
-    <!DOCTYPE html>
-    <html>
+<!DOCTYPE html>
+<html>
 
-    <head>
-        <title>Course</title>
-        <!-- Include CSS libraries for styling the table -->
-        <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
-        <link rel="stylesheet" type="text/css"
-            href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+<head>
+    <title>Class Course</title>
+    <!-- Include CSS libraries for styling the table -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 
-    </head>
+    <style>
+        .conTitle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+        }
 
-    <body>
-        <h2>Course Class</h2>
-        <hr>
-        <div class="ui breadcrumb pt-2 pb-4">
-            <a class="section" href="{{ route('getDashboard') }}">Dashboard</a>
-            <i class="right angle icon divider"></i>
-            <div class="active section">Course Class</div>
-        </div>
+        .h2 {
+            font-weight: bold;
+            color: #232E66;
+            padding-left: .1rem;
+            font-size: 22px;
+            margin-bottom: -0.5rem;
+            margin-left: 1rem;
+        }
 
-        <div id="courseClassTable_wrapper">
-            <nav class="navbar bg-body-tertiary py-3">
-                @if ($broGotAccessMaster->contains('name', 'course_class_create'))
-                    <div class="row">
-                        <div class="col">
-                            <a class="btn btn-primary" href="{{ route('getAddCourseClass') }}" role="button">Add Class +</a>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-primary" href="{{ route('getDuplicateCourseClass') }}" role="button"
-                                style="width: 150px;">Duplicate Class +</a>
-                        </div>
-                    </div>
-                @endif
-            </nav>
+        .logout {
+            margin-right: 1rem;
+            margin-bottom: .5rem;
+            background-color: #FBB041;
+            color: #FFF;
+            width: 80px;
+            height: 35px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: none;
+            font-weight: bold;
+        }
 
-            <table id="courseClassTable" class="table table-striped" style="width:100%">
+        .breadcrumb {
+            border-top: 2px solid black;
+            display: inline-block;
+            width: 1010px;
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .breadcrumb .sectionDashboard,
+        .breadcrumb .divider,
+        .breadcrumb .secClass {
+            /* padding-top: 1rem; */
+            /* margin-top: 1rem; */
+            display: inline;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .breadcrumb .divider {
+            margin: 0 5px;
+        }
+
+        .conBtn {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            margin-right: 1rem;
+        }
+
+        .conBtn button {
+            margin-right: 1rem;
+            margin-left: .5rem;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            /* Adjust this value as needed for the desired spacing */
+            text-align: center;
+            /* Optional: Center-align text */
+        }
+
+        th {
+            font-weight: bold;
+            color: #232E66;
+            font-size: 12px;
+            /* padding-left: .2rem; */
+            /* margin-bottom: -0.5rem; */
+        }
+
+        .buttons-colvis {
+            background-color: #4056A1;
+            color: #FFF;
+            width: 135px;
+            height: 30px;
+            border-radius: 8px;
+            border: none;
+            box-shadow: none;
+            font-weight: bold;
+            font-size: 12px;
+            margin-left: .5rem;
+            margin-bottom: .5rem;
+            padding: 6px 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        .buttons-colvis:hover {
+            background-color: #31446B;
+        }
+
+        .buttons-colvis:active {
+            background-color: #2C3F63;
+        }
+
+        .buttons-copy,
+        .buttons-excel,
+        .buttons-pdf {
+            background-color: #4056A1;
+            color: #FFF;
+            width: 80px;
+            height: 30px;
+            border-radius: 8px;
+            border: none;
+            box-shadow: none;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 45rem;
+            margin-bottom: .5rem;
+            /* margin-right: .5rem; */
+            padding: 6px 12px;
+            transition: background-color 0.3 ease;
+        }
+
+        .buttons-copy:hover,
+        .buttons-excel:hover,
+        .buttons-pdf:hover {
+            background-color: #31446B;
+        }
+
+        .buttons-copy:active,
+        .buttons-excel:active,
+        .buttons-pdf:active {
+            background-color: #2C3F63;
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-bottom: 10px;
+        }
+
+        .dataTables_length {
+            margin-bottom: 10px;
+        }
+
+        .buttons-container .dt-buttons {
+            margin-bottom: 10px;
+        }
+
+        .btnAdd {
+            background-color: #4056A1;
+            color: #FFF;
+            width: 80px;
+            height: 30px;
+            border-radius: 8px;
+            border: none;
+            box-shadow: none;
+            font-weight: bold;
+            font-size: 13px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            margin-left: .5rem;
+            margin-bottom: 3rem;
+            padding-top: .3rem;
+        }
+
+        .btnDupli {
+            background-color: #4056A1;
+            color: #FFF;
+            width: 120px;
+            height: 30px;
+            border-radius: 8px;
+            border: none;
+            box-shadow: none;
+            font-weight: bold;
+            font-size: 13px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            margin-left: .5rem;
+            margin-bottom: 3rem;
+            padding-top: .3rem;
+        }
+
+        .tableCourse {
+            border: 1px solid #000000;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .btnAktif {
+            background-color: #46E44C;
+            width: 5rem;
+            height: 1rem;
+            color: #FFF !important;
+            font-size: 12px;
+            text-align: center;
+            display: inline-block;
+            padding-top: 4px;
+            padding-bottom: 10px;
+            border-radius: .4rem;
+        }
+
+        .btnNon {
+            background-color: #F13C20;
+            width: 5rem;
+            height: 1rem;
+            color: #FFF !important;
+            font-size: 12px;
+            text-align: center;
+            display: inline-block;
+            padding-top: 4px;
+            padding-bottom: 10px;
+            border-radius: .4rem;
+        }
+
+        .btnEdit {
+            background-color: #4056A1;
+            width: 4rem;
+            height: 1rem;
+            color: #FFF !important;
+            font-size: 12px;
+            text-align: center;
+            display: inline-block;
+            padding-top: 4px;
+            padding-bottom: 10px;
+            border-radius: .4rem;
+            margin-right: .5rem;
+        }
+
+        .btnModul {
+            background-color: #4056A1;
+            width: 6rem;
+            height: 1rem;
+            color: #FFF !important;
+            font-size: 12px;
+            text-align: center;
+            display: inline-block;
+            padding-top: 4px;
+            padding-bottom: 10px;
+            border-radius: .4rem;
+            margin-right: 1rem;
+        }
+
+        .btnMember {
+            background-color: #4056A1;
+            width: 6rem;
+            height: 1rem;
+            color: #FFF !important;
+            font-size: 12px;
+            text-align: center;
+            display: inline-block;
+            padding-top: 4px;
+            padding-bottom: 10px;
+            border-radius: .4rem;
+        }
+
+        .custom-length-container {
+            margin-bottom: 10px;
+            margin-left: .5rem;
+            font-size: 12px;
+        }
+
+        .custom-pagination-container {
+            margin-left: 10rem;
+        }
+
+        .custom-info-text {
+            margin-bottom: 10px;
+            margin-left: .5rem;
+            font-size: 12px;
+        }
+
+        .dataTables_paginate {
+            font-size: 12px;
+        }
+
+        .buttons-container .dt-buttons {
+            margin-bottom: 10px;
+            /* margin-right: 10rem; */
+        }
+
+        .dataTables_wrapper .dataTables_filter {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container conTitle">
+        <h2 class="h2">Class Course</h2>
+        <button class="logout">Logout</button>
+    </div>
+    <div class="breadcrumb pt-2 pb-4">
+        <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
+        <span class="divider">></span>
+        <div class="secClass">Class</div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a class="btnAdd btn-primary" href="{{ route('getAddCourseClass') }}" role="button">Add Class</a>
+                <a class="btnDupli btn-primary" href="{{ route('getDuplicateCourseClass') }}" role="button">Duplicate Class</a>
+            </div>
+
+            <table id="table" class="tableClass table-striped" style="width:100%">
                 <thead>
                     <tr>
-                        <th scope="col">Batch</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Start Date</th>
-                        <th scope="col">End Date</th>
-                        <th scope="col">Quota</th>
-                        <th scope="col">Announcement</th>
-                        <th scope="col">Content</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Created At</th>
-                        <th scope="col">Updated At</th>
-                        <th scope="col">Action</th>
+                        <th class="batch" style="width: 3%;">Batch</th>
+                        <th class="type" style="width: 3%;">Type</th>
+                        <th class="start" style="width: 3%;">Start Date</th>
+                        <th class="end" style="width: 3%;">End Date</th>
+                        <th class="quota" style="width: 3%;">Quota</th>
+                        <th class="ann" style="width: 3%;">Announcement</th>
+                        <th class="con" style="width: 3%;">Content</th>
+                        <th class="desc" style="width: 3%;">Description</th>
+                        <th class="sta" style="width: 3%;">Status</th>
+                        <th class="cre" style="width: 3%;">Created At</th>
+                        <th class="up" style="width: 3%;">Updated At</th>
+                        <th class="acy" style="width: 3%;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,23 +361,18 @@
                             !!}</td>
                         <td>
                             @if ($item->status == 1)
-                            <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
+                            <a class="btnAktif">Aktif</a>
                             @else
-                            <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
+                            <a class="btnNon">Non Aktif</a>
                             @endif
                         </td>
                         <td>{{ $item->created_at }}</td>
                         <td>{{ $item->updated_at }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('getEditCourseClass', ['id' => $item->id]) }}"
-                                    class="btn btn-primary">Edit</a>
-                                <a href="{{ route('getCourseClassModule', ['id' => $item->id]) }}"
-                                    class="btn btn-info">Module
-                                    List</a>
-                                <a href="{{ route('getCourseClassMember', ['id' => $item->id]) }}"
-                                    class="btn btn-info">Member
-                                    List</a>
+                                <a href="{{ route('getEditCourseClass', ['id' => $item->id]) }}" class="btnEdit">Edit</a>
+                                <a href="{{ route('getCourseClassModule', ['id' => $item->id]) }}" class="btnModul">Module</a>
+                                <a href="{{ route('getCourseClassMember', ['id' => $item->id]) }}" class="btnMember">Member</a>
                             </div>
                         </td>
                     </tr>
@@ -148,19 +421,57 @@
         });
     </script> -->
         <script>
-            $(document).ready(function () {
-                let table = $('#courseClassTable').DataTable({
+            $(document).ready(function() {
+                let table = $('#table').DataTable({
                     lengthChange: true,
                     lengthMenu: [10, 25, 50, 100],
-                    buttons: ['copy', 'excel', 'pdf', 'colvis'],
-                    searching: true,
-                    columnDefs: [
-                        { "visible": false, "targets": [2, 3, 4, 5, 9] }
+                    buttons: [
+                        'colvis',
+                        {
+                            extend: 'copy',
+                            className: 'buttons-copy',
+                        },
+                        {
+                            extend: 'excel',
+                            className: 'buttons-excel',
+                        },
+                        {
+                            extend: 'pdf',
+                            className: 'buttons-pdf',
+                        },
                     ],
+                    searching: true,
+                    columnDefs: [{
+                        "visible": false,
+                        "targets": [2, 3, 4, 5, 9]
+                    }],
+                });
+                let buttonContainer = $('<div>').addClass('buttons-container');
+                table.buttons().container().appendTo('.container .col-md-6:eq(0)');
+                buttonContainer.insertBefore('#tableCourse .dataTables_length');
+
+                // Create container for buttons and pagination
+                let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
+                buttonPaginationContainer.css({
+                    display: 'block',
+                    flexDirection: 'row',
+                    alignItems: 'flex-start',
+                    marginBottom: '10px'
                 });
 
+                // Insert the buttons into the new container
+                table.buttons().container().appendTo(buttonPaginationContainer);
+
+                // Insert the show entries and info into the new container with custom classes
+                $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
+                $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
+                $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
+
+                // Insert the new container before the table
+                buttonPaginationContainer.insertBefore('#table');
+                
                 // Add individual column search inputs and titles
-                $('#courseClassTable thead th').each(function () {
+                $('#table thead th').each(function() {
                     let title = $(this).text();
                     $(this).html('<div class="text-center">' + title +
                         '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' + title +
@@ -168,21 +479,22 @@
                 });
 
                 // Apply individual column search
-                table.columns().every(function () {
+                table.columns().every(function() {
                     let that = this;
-                    $('input', this.header()).on('keyup change', function () {
+                    $('input', this.header()).on('keyup change', function() {
                         if (that.search() !== this.value) {
                             that.search(this.value).draw();
                         }
                     });
                 });
 
-                table.buttons().container().appendTo('#courseClassTable_wrapper .col-md-6:eq(0)');
+                table.buttons().container().appendTo('#tableClass_wrapper .col-md-6:eq(0)');
             });
         </script>
-    </body>
+    </div>
+</body>
 
-    </html>
+</html>
 
 </div>
 @endsection

@@ -7,36 +7,44 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MA | @yield('title')</title>
 
-    <!-- Memuat CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.5/datatables.min.css" />
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/bootstrap-multiselect.css') }}" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="{{ asset('css/bootstrap-multiselect.css') }}" type="text/css"> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+
+    <!-- Bootstrap5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
+
+    <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/0756825c13.js" crossorigin="anonymous"></script>
 
-    <!-- Memuat jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Memuat Bootstrap CSS dan JS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
-    <!-- Memuat DataTables JS -->
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.5/datatables.min.js"></script>
-
-    <!-- Memuat Semantic UI JS -->
+    <!-- Semantic UI -->
+    <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
 
-    <!-- Memuat CKEditor -->
+    <!-- CK Editor -->
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 
-    <!-- Memuat Alpine JS -->
+    <!-- Alpine JS -->
     <script src="https://unpkg.com/alpinejs@3.13.10/dist/cdn.min.js" defer></script>
 
-    <!-- Memuat Bootstrap Multiselect JS -->
+    <!-- Multiselect -->
     <script type="text/javascript" src="{{ asset('js/bootstrap-multiselect.js') }}"></script>
 
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Extra -->
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     @yield('styles')
+
     <style>
         .dashboard-bg {
             background-color: #232E66;
@@ -63,12 +71,16 @@
             background-color: transparent !important;
             border: none;
             color: #FFF;
+            outline: none;
         }
 
         .btn-transparent:hover {
             background-color: #FBB041;
-            border: none;
             color: #FFF;
+        }
+
+        .btn-transparent.active {
+            border-color: transparent !important;
         }
 
         .btnMaster,
@@ -83,12 +95,8 @@
             background-color: #232E66;
             color: #FFF;
             font-size: 14px;
-        }
-
-        li .nav-item {
-            list-style-type: none;
-            margin-bottom: .5rem;
-
+            border: none;
+            border-color: #232E66;
         }
 
         .collapse .list-group-item {
@@ -109,19 +117,10 @@
             background-color: #232E66;
         }
 
-        .collapsing {
-            background-color: #232E66;
-            color: #FFF;
-            margin-left: 2rem;
-            width: auto;
-            /* Ensure it takes the full available width */
-            border: 1px solid #232E66;
-        }
+        .nav-item {
+            list-style-type: none;
+            border: 0px;
 
-        .collapse.show {
-            background-color: #232E66;
-            color: #FFF;
-            width: auto;
         }
     </style>
 </head>
@@ -149,21 +148,18 @@
                         <i class="fa fa-book logoMaster"></i>
                         <span class="ms-2">Master</span>
                     </a>
-                    <ul class="collapse" id="submenu1">
+                    <ul class="colMaster collapse">
                         <li class="nav-item">
                             <a href="{{ route('getCourse') }}" class="list-group-item list-group-item-action">Course</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('getCourseType') }}" class="list-group-item list-group-item-action">Course
-                                Type</a>
+                            <a href="{{ route('getCourseType') }}" class="list-group-item list-group-item-action">Course Type</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('getCoursePackage') }}" class="list-group-item list-group-item-action">Course
-                                Package</a>
+                            <a href="{{ route('getCoursePackage') }}" class="list-group-item list-group-item-action">Course Package</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('getDifficulty') }}" class="list-group-item list-group-item-action">Course
-                                Difficulty</a>
+                            <a href="{{ route('getDifficulty') }}" class="list-group-item list-group-item-action">Course Difficulty</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('getPartner') }}" class="list-group-item list-group-item-action">Partners</a>
@@ -302,6 +298,20 @@
     @endif
 
     @yield('scripts')
+    <!-- jQuery (Bootstrap requires this version) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
+    <!-- Semantic UI JS -->
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+    <!-- CKEditor -->
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+    <!-- Alpine JS -->
+    <script src="https://unpkg.com/alpinejs@3.13.10/dist/cdn.min.js" defer></script>
+    <!-- Bootstrap Multiselect JS -->
+    <script type="text/javascript" src="{{ asset('js/bootstrap-multiselect.js') }}"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const closeIcons = document.querySelectorAll('.message .close.icon');
@@ -343,9 +353,6 @@
             var $collapse = $this.siblings('.collapse');
             $collapse.collapse('toggle');
             $this.toggleClass('active');
-        });
-        $(document).ready(function() {
-            $('#tabel').DataTable();
         });
     </script>
 </body>

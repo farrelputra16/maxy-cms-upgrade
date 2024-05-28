@@ -1,15 +1,13 @@
 @extends('layout.master')
 
-@section('title', 'Course Package Benefit')
+@section('title', 'Course')
 
 @section('content')
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Package Benefit</title>
+    <title>Course</title>
     <!-- Include CSS libraries for styling the table -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
@@ -58,6 +56,8 @@
         .breadcrumb .divider,
         .breadcrumb .sectionMaster,
         .breadcrumb .sectionCourse {
+            /* padding-top: 1rem; */
+            /* margin-top: 1rem; */
             display: inline;
             font-size: 11px;
             font-weight: bold;
@@ -67,10 +67,10 @@
             margin: 0 5px;
         }
 
-        .btnAdd {
+        .btnTambahCourse {
             background-color: #4056A1;
             color: #FFF;
-            width: 200px;
+            width: 120px;
             height: 30px;
             border-radius: 8px;
             border: none;
@@ -98,18 +98,12 @@
             margin-left: .5rem;
         }
 
-        th,
-        td {
-            padding: 12px;
-            /* Adjust this value as needed for the desired spacing */
-            text-align: center;
-            /* Optional: Center-align text */
-        }
-
         th {
             font-weight: bold;
             color: #232E66;
-            font-size: 13px;
+            font-size: 12px;
+            /* padding-left: .2rem; */
+            /* margin-bottom: -0.5rem; */
         }
 
         .buttons-colvis {
@@ -150,8 +144,9 @@
             font-weight: bold;
             margin-left: 45rem;
             margin-bottom: .5rem;
+            /* margin-right: .5rem; */
             padding: 6px 12px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3 ease;
         }
 
         .buttons-copy:hover,
@@ -180,149 +175,94 @@
         .buttons-container .dt-buttons {
             margin-bottom: 10px;
         }
-
-        .tableBene {
-            border: 1px solid #000000;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .btnAktif {
-            background-color: #46E44C;
-            width: 5rem;
-            height: 1rem;
-            color: #FFF !important;
-            font-size: 12px;
-            text-align: center;
-            display: inline-block;
-            padding-top: 4px;
-            padding-bottom: 10px;
-            border-radius: .4rem;
-        }
-
-        .btnNon {
-            background-color: #F13C20;
-            width: 5rem;
-            height: 1rem;
-            color: #FFF !important;
-            font-size: 12px;
-            text-align: center;
-            display: inline-block;
-            padding-top: 4px;
-            padding-bottom: 10px;
-            border-radius: .4rem;
-        }
-
-        .btnEdit {
-            background-color: #4056A1;
-            width: 3rem;
-            height: 1rem;
-            color: #FFF !important;
-            font-size: 12px;
-            text-align: center;
-            display: inline-block;
-            padding-top: 4px;
-            padding-bottom: 10px;
-            border-radius: .4rem;
-            margin-right: .5rem;
-        }
     </style>
 </head>
 
 <body>
     <div class="container conTitle">
-        <h2 class="h2">Course Package Benefit</h2>
+        <h2 class="h2">Course</h2>
         <button class="logout">Logout</button>
     </div>
     <div class="breadcrumb pt-2 pb-4">
-        <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
+        <a class="section" href="{{ url('/') }}">Dashboard</a>
         <span class="divider">></span>
-        <div class="sectionMaster">Master</div>
-        <span class="divider">></span>
-        <div class="sectionCourse">Course Package</div>
-        <span class="divider">></span>
-        <div class="sectionCourse">Benefit List</div>
+        <div class="sectionCourse">Course</div>
     </div>
 
     <div class="container">
         <div class="row">
             <div class="col">
-                @if (isset($idCPB))
-                <a class="btnAdd" href="{{ route('getAddCoursePackageBenefit', ['idCPB' => $idCPB]) }}" role="button">Tambah Course Package Benefit</a>
-                @else
-                <a class="btnAdd" href="{{ route('getAddCoursePackageBenefit') }}" role="button">Tambah Course Package Benefit</a>
-                @endif
+                <a class="btnTambahCourse" href="{{ route('getAddCourse') }}" role="button">Tambah Course</a>
             </div>
 
-            <table id="table" class="tableBene table-striped" style="width:100%">
+            <table id="table" class="tableCourse table-striped" style="width:100%">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">ID Course Package - Price</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Created At</th>
-                        <th scope="col">Updated At</th>
-                        <th scope="col">Action</th>
+                        <th>ID</th>
+                        <th>Course Name</th>
+                        <th>Fake Price</th>
+                        <th>Price</th>
+                        <th>Course Type</th>
+                        <th>Description</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($coursePackageBenefits as $item)
+                    @foreach ($courses as $item)
                     <tr>
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->course_package_name }} - Rp. {{ $item->course_package_price }}</td>
-                        <td>{{ $item->description }}</td>
-                        <td>
-                            @if ($item->status == 1)
-                            <a class="btnAktif">Aktif</a>
+                        <td style="width: 3%;">{{ $item->id }}</td>
+                        <td style="width: 7%;">{{ $item->name }}</td>
+                        <td style="width: 8%;">
+                            {{ $item->fake_price ? 'Rp' . number_format($item->fake_price, 0, ',', '.') : '-' }}
+                        </td>
+                        <td style="width: 7%;">
+                            {{ $item->price ? 'Rp' . number_format($item->price, 0, ',', '.') : '-' }}
+                        </td>
+                        <td style="width: 9%;">
+                            @if ($item->m_course_type_id == 1)
+                            {{ 'Bootcamp' }}
+                            @elseif ($item->m_course_type_id == 2)
+                            {{ 'Rapid Onboarding' }}
+                            @elseif ($item->m_course_type_id == 3)
+                            {{ 'Mini Bootcamp' }}
+                            @elseif ($item->m_course_type_id == 4)
+                            {{ 'Hackathon' }}
+                            @elseif ($item->m_course_type_id == 5)
+                            {{ 'Prakerja' }}
+                            @elseif ($item->m_course_type_id == 6)
+                            {{ 'MSIB' }}
+                            @elseif ($item->m_course_type_id == 7)
+                            {{ 'Upskilling' }}
                             @else
-                            <a class="btnNon">Non Aktif</a>
+                            -
                             @endif
                         </td>
-                        <td>{{ $item->created_at }}</td>
-                        <td>{{ $item->updated_at }}</td>
-                        <td>
+                        <td style="width: 19%;" id="description">{!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}</td>
+                        <td style="width: 10%;">{{ $item->created_at }}</td>
+                        <td style="width: 10%;">{{ $item->updated_at }}</td>
+                        <td style="width: 3%;">
+                            @if ($item->status == 1)
+                            <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
+                            @else
+                            <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
+                            @endif
+                        </td>
+
+                        <td style="width: 8%;">
                             <div class="btn-group">
-                                <a href="{{ route('getEditCoursePackageBenefit', ['id' => $item->id]) }}" class="btnEdit">Edit</a>
-                                <!-- <a href="{{ route('deleteCourseModule', ['id' => $item->id]) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this module?')">Delete</a> -->
+                                <a href="{{ route('getEditCourse', ['id' => $item->id]) }}" class="btn btn-primary">Edit</a>
+                                <!-- <a href="{{ route('getCourseModule', ['id' => $item->id]) }}"
+                                                class="btn btn-info">Modules List</a> -->
+                                <a href="{{ route('getCourseModule', ['course_id' => $item->id, 'page_type' => 'LMS']) }}" class="btn btn-info">Modules List</a>
                             </div>
                         </td>
-                        <!-- <td>
-                            @if (isset($idCPB))
-                            <a href="{{ route('getEditCoursePackageBenefit', ['id' => $item->id, 'idCPB' => $idCPB]) }}" style="text-decoration: none; color:blue;">Edit</a>
-                            <form action="{{ route('deleteCoursePackageBenefit', ['id' => $item->id, 'idCPB' => $idCPB]) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this Course Package Benefit?')">
-                                @method('delete')
-                                @csrf
-                                <button type="submit" style="text-decoration: none; color: red; border: none; background-color: transparent; cursor: pointer;">Delete</button>
-                            </form>
-                            @else
-                            <a href="{{ route('getEditCoursePackageBenefit', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
-                            <form action="{{ route('deleteCoursePackageBenefit', ['id' => $item->id]) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this Course Package Benefit?')">
-                                @method('delete')
-                                @csrf
-                                <button type="submit" style="text-decoration: none; color: red; border: none; background-color: transparent; cursor: pointer;">Delete</button>
-                            </form>
-                            @endif
-                        </td> -->
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-        </div>
-
-        <!-- <div class="navbar-nav"> -->
-        <!-- @if (isset($idCPB)) -->
-        <!-- <a class="btn btn-primary" href="{{ route('getAddCoursePackageBenefit', ['idCPB' => $idCPB]) }}" role="button">Tambah Course Package Benefit +</a> -->
-        <!-- @endif -->
-        <!-- <a class="btn btn-secondary" href="{{ url()->previous() }}" role="button">Back</a> -->
-        <!-- </div> -->
-        <div class="navbar-nav">
-            @if (isset($idCPB))
-            <a class="btn btn-primary" href="{{ route('getCoursePackage') }}" role="button">BACK</a>
-            @endif
-            {{-- <a class="btn btn-secondary" href="{{ url()->previous() }}" role="button">Back</a> --}}
         </div>
 
         <!-- Include JS libraries for DataTable initialization -->
@@ -365,14 +305,15 @@
                     }]
                 });
                 let buttonContainer = $('<div>').addClass('buttons-container');
-                table.buttons().container().appendTo(buttonContainer);
-                buttonContainer.insertBefore('.tableBene_wrapper .dataTables_length');
+                table.buttons().container().appendTo('.container .col-md-6:eq(0)');
+                buttonContainer.insertBefore('#tableCourse .dataTables_length');
+
                 // Add individual column search inputs and titles
                 $('#table thead th').each(function() {
                     let title = $(this).text();
                     $(this).html('<div class="text-center">' + title +
-                        '</div><div class="mt-2"><input type="text" placeholder="Search ' + title +
-                        '" /></div>');
+                        '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' +
+                        title + '" /></div>');
                 });
 
                 // Apply individual column search
@@ -385,11 +326,10 @@
                     });
                 });
 
-                table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
+                // table.buttons().container().appendTo('.container .col-md-6:eq(0)');
             });
         </script>
     </div>
-
 </body>
 
 </html>

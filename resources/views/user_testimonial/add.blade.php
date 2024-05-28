@@ -3,95 +3,201 @@
 @section('title', 'Add General Data')
 
 @section('content')
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-    <div style="padding: 0px 12px 0px 12px;">
-        <h2>Add Testimonial</h2>
-        <hr style="padding-bottom:1%">
-        <form class="ui form" action="{{ route('postAddTestimonial') }}" method="post">
-            @csrf
-            <div class="field">
-                <div class="two fields">
+<!DOCTYPE html>
+<html lang="en">
 
-                    <div class="field">
-                        <label for="">Rating (in stars)</label>
-                        <input type="number" min="1" max="5" name="stars">
-                    </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Testimonial</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 
-                    <div class="two fields">
-                        <div class="field">
-                            <label for="">Role</label>
-                            <input type="text" name="role" placeholder="Ex : Alumni Bootcamp Rapid UI/UX Batch 3">
-                            @if ($errors->has('role'))
-                                @foreach ($errors->get('role') as $error)
-                                    <span style="color: red;">{{ $error }}</span>
-                                @endforeach
-                            @endif
-                        </div>
-                        <div class="field" style="margin-top:4.5%">
-                            <div class="ui checkbox">
-                                <input class="form-check-input" type="checkbox" value="1" name="status_highlight">
-                                <label>Highlight</label>
-                            </div>
-                        </div>
-                    </div>
+    <style>
+        .conTitle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+        }
 
-                </div>
-                <div class="three fields">
-                    <div class="field">
-                        <label for="">User</label>
-                        <select name="user_id" class="ui dropdown">
-                            <option selected value="">-- Pilih User --</option>
-                            @foreach ($allmember as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                        @if ($errors->has('member_id'))
-                            @foreach ($errors->get('member_id') as $error)
-                                <span style="color: red;">{{ $error }}</span>
-                            @endforeach
-                        @endif
-                    </div>
-                    <div class="field">
-                        <label for="">Course Class Batch</label>
-                        <select name="course_class_id" class="ui dropdown">
-                            <option selected value="">-- Pilih Batch Course Class --</option>
-                            @foreach ($allcourseclass as $item)
-                                <option value="{{ $item->id }}">{{ $item->batch }}</option>
-                            @endforeach
-                        </select>
-                        @if ($errors->has('course_class_id'))
-                            @foreach ($errors->get('course_class_id') as $error)
-                                <span style="color: red;">{{ $error }}</span>
-                            @endforeach
-                        @endif
-                    </div>
+        .h2 {
+            font-weight: bold;
+            color: #232E66;
+            padding-left: .1rem;
+            font-size: 22px;
+            margin-bottom: -0.5rem;
+            margin-left: 1rem;
+        }
+
+        .logout {
+            margin-right: 1rem;
+            margin-bottom: .5rem;
+            background-color: #FBB041;
+            color: #FFF;
+            width: 80px;
+            height: 35px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: none;
+            font-weight: bold;
+        }
+
+        .breadcrumb {
+            border-top: 2px solid black;
+            display: inline-block;
+            width: 1010px;
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .breadcrumb .sectionDashboard,
+        .breadcrumb .divider,
+        .breadcrumb .sectionMaster,
+        .breadcrumb .sectionCourse {
+            /* padding-top: 1rem; */
+            /* margin-top: 1rem; */
+            display: inline;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .breadcrumb .divider {
+            margin: 0 5px;
+        }
+
+        .btnBatal {
+            background-color: #F13C20;
+            color: #FFF;
+            margin-left: 53rem;
+            width: 80px;
+            height: 35px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: none;
+            font-weight: bold;
+        }
+
+        .btnTambah {
+            background-color: #4056A1;
+            color: #FFF;
+            margin-left: 1.5rem;
+            width: 180px;
+            height: 35px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container conTitle">
+        <h2 class="h2">Add Testimonial</h2>
+        <button class="logout">Logout</button>
+    </div>
+    <div class="breadcrumb pt-2 pb-4">
+        <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
+        <span class="divider">></span>
+        <div class="sectionMaster">Members</div>
+        <span class="divider">></span>
+        <div class="sectionCourse">Testimonial</div>
+        <span class="divider">></span>
+        <div class="sectionCourse">Add Testimonial</div>
+    </div>
+    <form class="formAdd ui form" action="{{ route('postAddTestimonial') }}" method="post">
+        @csrf
+        <div class="field">
+            <div class="two fields">
+                <div class="field">
+                    <label for="">Rating (in stars)</label>
+                    <input type="number" min="1" max="5" name="stars">
                 </div>
                 <div class="field">
-                    <label for="">Content</label>
-                    <textarea name="content" id="content"></textarea>
+                    <label for="">Role</label>
+                    <input type="text" name="role" placeholder="Ex : Alumni Bootcamp Rapid UI/UX Batch 3">
+                    @if ($errors->has('role'))
+                    @foreach ($errors->get('role') as $error)
+                    <span style="color: red;">{{ $error }}</span>
+                    @endforeach
+                    @endif
                 </div>
+            </div>
+
+            <div class="two fields">
                 <div class="field">
-                    <label for="">Description</label>
-                    <textarea name="description" id="description"></textarea>
-                    @if ($errors->has('description'))
-                        @foreach ($errors->get('description') as $error)
-                            <span style="color: red;">{{ $error }}</span>
+                    <label for="">User</label>
+                    <select name="user_id" class="ui dropdown">
+                        <option selected value="">-- Pilih User --</option>
+                        @foreach ($allmember as $item)
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
+                    </select>
+                    @if ($errors->has('member_id'))
+                    @foreach ($errors->get('member_id') as $error)
+                    <span style="color: red;">{{ $error }}</span>
+                    @endforeach
                     @endif
                 </div>
                 <div class="field">
-                    <div class="ui checkbox">
-                        <input class="form-check-input" type="checkbox" value="1" name="status">
-                        <label>Aktif</label>
-                    </div>
+                    <label for="">Course Class Batch</label>
+                    <select name="course_class_id" class="ui dropdown">
+                        <option selected value="">-- Pilih Batch Course Class --</option>
+                        @foreach ($allcourseclass as $item)
+                        <option value="{{ $item->id }}">{{ $item->batch }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('course_class_id'))
+                    @foreach ($errors->get('course_class_id') as $error)
+                    <span style="color: red;">{{ $error }}</span>
+                    @endforeach
+                    @endif
                 </div>
             </div>
-            <button class="right floated ui button primary">Tambah Data</button>
-        </form>
-        <a href="{{ route('getTestimonial') }}"><button class=" right floated ui red button">Batal</button></a>
+
+            <div class="field">
+                <label for="">Content</label>
+                <textarea name="content" id="content"></textarea>
+            </div>
+
+            <div class="field">
+                <label for="">Description</label>
+                <textarea name="description" id="description"></textarea>
+                @if ($errors->has('description'))
+                @foreach ($errors->get('description') as $error)
+                <span style="color: red;">{{ $error }}</span>
+                @endforeach
+                @endif
+            </div>
+
+            <div class="field">
+                <div class="ui checkbox" style="margin-right: 2rem;">
+                    <input class="form-check-input" type="checkbox" value="1" name="status">
+                    <label>Aktif</label>
+                </div>
+                <div class="ui checkbox">
+                    <input class="form-check-input" type="checkbox" value="1" name="status_highlight">
+                    <label>Highlight</label>
+                </div>
+            </div>
+        </div>
+        <div class="divTambah">
+            <button class="btnTambah">Tambah Testimonial</button>
+        </div>
+        <!-- <a href="{{ url()->previous() }}">
+            <button class="btnBatal">Batal</button>
+        </a> -->
+    </form>
+    <div class="divBatal">
+        <a href="{{ url()->previous() }}">
+            <button class="btnBatal">Batal</button>
+        </a>
     </div>
-    <script>
-        CKEDITOR.replace('description');
-        CKEDITOR.replace('content');
-    </script>
+</body>
+
+</html>
+<script>
+    CKEDITOR.replace('description');
+    CKEDITOR.replace('content');
+</script>
 @endsection

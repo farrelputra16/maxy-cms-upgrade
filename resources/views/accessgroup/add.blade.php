@@ -3,58 +3,175 @@
 @section('title', 'Add Access Group')
 
 @section('content')
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-    <div style="padding: 0px 12px 0px 12px;">
-        <h2>Add Access Group</h2>
-        <hr style="padding-bottom:1%">
-        <form class="ui form" action="{{ route('postAddAccessGroup') }}" method="post">
-            @csrf
-            <div class="field">
-                <div class="field">
-                    <label for="">Name</label>
-                    <input type="text" name="name" placeholder="Masukkan Nama Access Group">
-                    @if ($errors->has('name'))
-                        @foreach ($errors->get('name') as $error)
-                            <span style="color: red;">{{$error}}</span>
-                        @endforeach
-                    @endif
-                </div>
-                <div class="field">
-                    <label for="">Description</label>
-                    <textarea name="description" id="description"></textarea>
-                </div>
-                <div class="field">
-                    <label for="access_master">Pilih Access Master:</label>
-                    <select id="demo" name="access_master[]" multiple="multiple">
-                        @foreach ($accessMasters as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                        @endforeach
-                    </select>
-                    @if ($errors->has('access_master'))
-                        @foreach ($errors->get('access_master') as $error)
-                            <span style="color: red;">{{$error}}</span>
-                        @endforeach
-                    @endif
-                </div>
-                <div class="field">
-                    <div class="ui checkbox">
-                        <input class="form-check-input" type="checkbox" value="1" name="status" >
-                        <label>Aktif</label>
-                    </div>
-                  </div>
-            </div>
-            <button class="right floated ui button primary">Tambah Access Group</button>
-        </form>
-        <a href="{{ route("getAccessGroup") }}"><button class=" right floated ui red button">Batal</button></a>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Access Group</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+
+    <style>
+        .conTitle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .h2 {
+            font-weight: bold;
+            color: #232E66;
+            padding-left: .1rem;
+            font-size: 22px;
+            margin-bottom: -0.5rem;
+            margin-left: 1rem;
+        }
+
+        .logout {
+            margin-right: 1rem;
+            margin-bottom: .5rem;
+            background-color: #FBB041;
+            color: #FFF;
+            width: 80px;
+            height: 35px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: none;
+            font-weight: bold;
+        }
+
+        .breadcrumb {
+            border-top: 2px solid black;
+            display: inline-block;
+            width: 1010px;
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .breadcrumb .sectionDashboard,
+        .breadcrumb .divider,
+        .breadcrumb .sectionMaster,
+        .breadcrumb .sectionCourse {
+            /* padding-top: 1rem; */
+            /* margin-top: 1rem; */
+            display: inline;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .breadcrumb .divider {
+            margin: 0 5px;
+        }
+
+        .btnBatal {
+            background-color: #F13C20;
+            color: #FFF;
+            margin-left: 53rem;
+            width: 80px;
+            height: 35px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: none;
+            font-weight: bold;
+        }
+
+        .btnTambah {
+            background-color: #4056A1;
+            color: #FFF;
+            margin-left: 1.5rem;
+            width: 180px;
+            height: 35px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: none;
+            font-weight: bold;
+        }
+
+        .formMaster {
+            padding-left: 1rem;
+            padding-right: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container conTitle">
+        <h2 class="h2">Add Access Group</h2>
+        <button class="logout">Logout</button>
     </div>
-    <script>
-        $('#demo').multiselect({
-            maxHeight: 300,
-            includeSelectAllOption: true,
-            enableFiltering: true,
-        });
-    </script>
-    <script>
-        CKEDITOR.replace('description');
-    </script>
+
+    <div class="breadcrumb pt-2 pb-4">
+        <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
+        <span class="divider">></span>
+        <div class="sectionMaster">User & Access</div>
+        <span class="divider">></span>
+        <div class="sectionCourse">Access Group</div>
+        <span class="divider">></span>
+        <div class="sectionCourse">Add Access Group</div>
+    </div>
+
+    <form class="formMaster ui form" action="{{ route('postAddAccessGroup') }}" method="post">
+        @csrf
+        <div class="field">
+            <div class="field">
+                <label for="">Name</label>
+                <input type="text" name="name" placeholder="Masukkan Nama Access Group">
+                @if ($errors->has('name'))
+                @foreach ($errors->get('name') as $error)
+                <span style="color: red;">{{$error}}</span>
+                @endforeach
+                @endif
+            </div>
+
+            <div class="field">
+                <label for="">Description</label>
+                <textarea name="description" id="description"></textarea>
+            </div>
+
+            <div class="field">
+                <label for="access_master">Pilih Access Master:</label>
+                <select id="demo" name="access_master[]" multiple="multiple">
+                    @foreach ($accessMasters as $item)
+                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                    @endforeach
+                </select>
+                @if ($errors->has('access_master'))
+                @foreach ($errors->get('access_master') as $error)
+                <span style="color: red;">{{$error}}</span>
+                @endforeach
+                @endif
+            </div>
+
+            <div class="field">
+                <div class="ui checkbox">
+                    <input class="form-check-input" type="checkbox" value="1" name="status">
+                    <label>Aktif</label>
+                </div>
+            </div>
+        </div>
+        <div class="divTambah">
+            <button class="btnTambah">Add Access Group</button>
+        </div>
+    </form>
+    <div class="divBatal">
+        <a href="{{ url()->previous() }}">
+            <button class="btnBatal">Batal</button>
+        </a>
+    </div>
+</body>
+</html>
+<!-- <a href="{{ route("getAccessGroup") }}"><button class=" right floated ui red button">Batal</button></a> -->
+</div>
+<script>
+    $('#demo').multiselect({
+        maxHeight: 300,
+        includeSelectAllOption: true,
+        enableFiltering: true,
+    });
+</script>
+<script>
+    CKEDITOR.replace('description');
+</script>
 @endsection

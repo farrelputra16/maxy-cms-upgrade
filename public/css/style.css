@@ -8,3 +8,7 @@
 #table_content {
     overflow-x: scroll;
 }
+
+.nav-pills li a:hover {
+    
+}
