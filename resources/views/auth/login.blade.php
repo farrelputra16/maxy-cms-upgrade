@@ -8,31 +8,30 @@
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/bootstrap-multiselect.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
 
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
     <script type="text/javascript" src="{{ asset('js/bootstrap-multiselect.js') }}"></script>
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
     <script src="https://unpkg.com/alpinejs@3.13.10/dist/cdn.min.js" defer></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
     <script type="text/javascript" src="{{ asset('js/bootstrap-multiselect.js') }}"></script>
 
     <style>
-        .field {
-            padding-top: 10px;
-            text-align: center;
-        }
-
         @media screen and (max-width: 766px) {
             .field {
                 text-align: left;
@@ -78,38 +77,43 @@
 
 <body>
     <div class="row" style="height:100vh">
-        <div class="col-12 col-md-6" style="padding-top:10%; padding-left:20%;">
-            <h1 style="color: #000000; font-weight: 600; padding-bottom: 5px; font-family: Inter, sans-serif; letter-spacing: 2px;">
+        <div class="col-12 col-md-6" style="padding-top:6%; padding-left:15%;">
+            <h1
+                style="color: #000000; font-weight: 600; padding-bottom: 5px; font-family: Inter, sans-serif; letter-spacing: 2px; font-size: 64px">
                 Maxy's CMS</h1>
             <br>
 
             <form class="ui form" method="post" action="{{ route('login') }}">
                 @csrf
                 <div class="field" style="margin-bottom: 20px;">
-                    <label style="font-size: 16px; font-weight: bold; margin-left: -23rem;">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email" style="width: 350px; height: 45px; border-radius: 10px; border-color: #1533B5; border-width: 1.5px; margin-left: -1rem;
-                    border-style: solid; padding-left: 10px;">
+                    <label style="font-size: 28px; font-weight: bold;">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email"
+                        style="width: 100%; height: 45px; border-radius: 25px; border-color: #1533B5; border-width: 1.5px;
+                    border-style: solid; font-size: 24px; padding: 6%">
                 </div>
 
                 <div class="field" style="position: relative;">
-                    <label style="font-size: 16px; font-weight: bold; padding-bottom: 10px; margin-left: -21rem;">Password</label>
+                    <label style="font-size: 28px; font-weight: bold; padding-bottom: 10px;">Password</label>
                     <div style="position: relative;">
-                        <input type="password" id="pw" name="password" placeholder="Enter your password" style="width: 350px; height: 45px; border-radius: 10px; border-color: #1533B5; border-width: 1.5px; 
-                        border-style: solid; padding-left: 10px; margin-left: -3rem;">
+                        <input type="password" id="pw" name="password" placeholder="Enter your password"
+                            style="width: 100%; height: 45px; border-radius: 25px; border-color: #1533B5; border-width: 1.5px;
+                        border-style: solid; font-size: 24px; padding: 6%;">
 
-                        <span style="height: 45px; margin-left: -50px; margin-top: 30px">
-                            <img src="{{ asset('uploads/eyeLogin.png') }}" alt="showPw" style="height: 20px; margin-top: 10px" id="showPw">
+                        <span style="height: 45px; margin-left: -50px;">
+                            <img src="{{ asset('uploads/eyeLogin.png') }}" alt="showPw"
+                                style="height: 100%; margin-top: 3vh" id="showPw">
                         </span>
                     </div>
                 </div>
 
-                <div class="field" style="padding-top: 10px;">
-                    <a href="https://wa.me/+6281281910513/?text=Banh webnya error banh" style="font-size: 12px; color: #4056A1; font-weight: bold; padding-left:250px">Forget Password</a>
+                <div class="field" style="padding-top: 10px; text-align: right">
+                    <a href="https://wa.me/+62895631388845/?text=hello"
+                        style="font-size: 12px; color: #4056A1; font-weight: bold;">Forget
+                        Password</a>
                 </div>
 
-                <br><br>
-
-                <button id="loginBtn" class="ui button primary" type="submit" style="width: 350px; height: 45px; background-color: #4056A1; color: #FFF; border-radius:10px">Login</button>
+                <button id="loginBtn" class="ui button primary" type="submit"
+                    style="margin-top: 50px; width: 100%; background-color: #4056A1; color: #FFF; border-radius:30px; font-size: 28px;">Login</button>
             </form>
         </div>
 
