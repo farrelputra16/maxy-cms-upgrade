@@ -355,7 +355,7 @@
                 margin: -1.25rem auto;
                 /* margin-top: -3rem; */
                 /* margin-left: 0;
-                margin-right: auto; */
+                        margin-right: auto; */
             }
 
             .bb-legend-item text {
@@ -369,8 +369,8 @@
 
             .chart-container {
                 /* display: flex;
-                flex-direction: column;
-                align-items: center; */
+                        flex-direction: column;
+                        align-items: center; */
                 position: relative;
             }
 
@@ -382,8 +382,8 @@
 
             .chart-labels {
                 /* display: flex;
-                justify-content: space-around;
-                width: 100%; */
+                        justify-content: space-around;
+                        width: 100%; */
                 position: absolute;
                 bottom: 0;
                 left: 50%;
@@ -571,10 +571,10 @@
                         @foreach ($active_class_list as $class)
                             <tr>
                                 <td style="text-align: left; margin-bottom: 10px;">
-                                    {{ $class['course_name'] }}
+                                    {{ $class->course_name }}
                                 </td>
                                 <td style="text-align: center;">
-                                    {{ $class['batch'] }}
+                                    {{ $class->batch }}
                                 </td>
                                 <td>
                                     <a href="" class="btnDetail"
@@ -615,45 +615,45 @@
             </div>
         </div>
         <!-- <div class="px-3 pb-3" x-data="dashboard">
-        <div class="ui message">
-            <div class="header">
-                Selamat Datang, {{ Auth::user()->name }}
-            </div>
-            <p>Aplikasi ini sedang tahap pengembangan, beberapa kesalahan mungkin terjadi. Silakan hubungi <a href="https://wa.me/+6281281910513/?text=Banh webnya error banh">backend team development</a>.</p>
-        </div>
-        <div class="ui three stackable cards">
-            <div class="ui card" style="width: 10%;">
-                <div class="content">
-                    <div class="center aligned header">{{ $accessMaster }}</div>
+                <div class="ui message">
+                    <div class="header">
+                        Selamat Datang, {{ Auth::user()->name }}
+                    </div>
+                    <p>Aplikasi ini sedang tahap pengembangan, beberapa kesalahan mungkin terjadi. Silakan hubungi <a href="https://wa.me/+6281281910513/?text=Banh webnya error banh">backend team development</a>.</p>
                 </div>
-                <div class="extra content">
-                    <div class="center aligned">
-                        Access Master
+                <div class="ui three stackable cards">
+                    <div class="ui card" style="width: 10%;">
+                        <div class="content">
+                            <div class="center aligned header">{{ $accessMaster }}</div>
+                        </div>
+                        <div class="extra content">
+                            <div class="center aligned">
+                                Access Master
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui card" style="width: 10%;">
+                        <div class="content">
+                            <div class="center aligned header">{{ $user }}</div>
+                        </div>
+                        <div class="extra content">
+                            <div class="center aligned">
+                                User Active
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="ui card" style="width: 10%;">
-                <div class="content">
-                    <div class="center aligned header">{{ $user }}</div>
-                </div>
-                <div class="extra content">
-                    <div class="center aligned">
-                        User Active
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        @if (Auth::check() && Auth::user()->access_group_id == 1)
+                @if (Auth::check() && Auth::user()->access_group_id == 1)
     <button :class="isLoading ? 'ui labeled icon negative button mt-3' : 'ui positive button mt-3'" @click="toggle">
-            <template x-if="isLoading">
-                <i class="loading spinner icon"></i>
-            </template>
-            <span x-text="isLoading ?
+                    <template x-if="isLoading">
+                        <i class="loading spinner icon"></i>
+                    </template>
+                    <span x-text="isLoading ?
         'Hentikan' : 'Sinkronisasi Data GoKampus'"></span>
-        </button>
+                </button>
     @endif
-    </div> -->
+            </div> -->
 
         <script src="https://unpkg.com/@adminkit/core@latest/dist/js/app.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.min.js"></script>
@@ -757,7 +757,7 @@
                     liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
                 }
                 currentDate.innerText =
-                `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
+                    `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
                 daysTag.innerHTML = liTag;
             }
             renderCalendar();
