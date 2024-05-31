@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class CourseClass extends Model
 {
@@ -76,5 +77,12 @@ class CourseClass extends Model
         return $this->modules()->with('courseModule')->whereHas('courseModule', function ($query) {
             $query->where('level', '>', 1)->where('status', 1)->whereNotNull('day')->orderBy('priority')->orderBy('day');
         })->get();
+    }
+
+    public static function getActiveClass(){
+        return DB::table('course_class as cc')
+        ->select('cc.*', 'c.name as course_name')
+        ->join('course as c', 'c.id', '=', 'cc.course_id')
+        ->where('cc.status', 1)->where('cc.status_ongoing', 1)->get();
     }
 }
