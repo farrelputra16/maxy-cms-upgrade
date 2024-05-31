@@ -28,51 +28,51 @@ class CourseClassMemberLogController extends Controller
      * @return Renderable
      */
 
-    // function getCCMH()
-    // {
-    //     $broGotAccessMaster = AccessMaster::getUserAccessMaster();
-
-    //     $hasManageAllClass = false;
-
-    //     foreach ($broGotAccessMaster as $access) {
-    //         if ($access->name === 'manage_all_class') {
-    //             $hasManageAllClass = true;
-    //             break;
-    //         }
-    //     }
-
-    //     if ($hasManageAllClass) {
-    //         $ccmh = CourseClassMemberLog::join('users', 'users.id', '=', 'course_class_member_log.user_id')
-    //         ->leftJoin('course_class_module', 'course_class_module.id', '=', 'course_class_member_log.course_class_module_id')
-    //         ->leftJoin('course_module', 'course_module.id', '=', 'course_class_module.course_module_id')
-    //         ->leftJoin('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
-    //         ->leftJoin('course', 'course.id', '=', 'course_class.course_id')
-    //         ->select('course_class_member_log.*', 'users.name as user_name', 'course_module.type as course_type', 'course_module.day as day', 'course_module.name as course_module_name', 'course.name as course_name', 'course_class.batch as batch')
-    //         ->get();
-    //     } else {
-    //         $ccmh = CourseClassMemberLog::join('users', 'users.id', '=', 'course_class_member_log.user_id')
-    //         ->leftJoin('course_class_module', 'course_class_module.id', '=', 'course_class_member_log.course_class_module_id')
-    //         ->leftJoin('course_module', 'course_module.id', '=', 'course_class_module.course_module_id')
-    //         ->leftJoin('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
-    //         ->leftJoin('course_class_member', 'course_class_member.course_class_id', '=', 'course_class.id')
-    //         ->leftJoin('course', 'course.id', '=', 'course_class.course_id')
-    //         ->select('course_class_member_log.*', 'users.name as user_name', 'course_module.type as course_type', 'course_module.day as day', 'course_module.name as course_module_name', 'course.name as course_name', 'course_class.batch as batch')
-    //         ->where('course_class_member.user_id', Auth::user()->id)
-    //         ->get();
-    //     }
-    //     $course_name = Course::select('name')
-    //     ->get();
-
-    //     $user_name = User::where('access_group_id', 2)
-    //     ->pluck('name');
-
-    //     return view('trackandgrade::course_class_member_log.index', ['ccmh' => $ccmh, 'course_name' => $course_name, 'user_name' => $user_name]);
-    // }
-
-    public function getCCMH(Request $request)
+    function getCCMH()
     {
-        return view('trackandgrade::course_class_member_log.index1');
+        $broGotAccessMaster = AccessMaster::getUserAccessMaster();
+
+        $hasManageAllClass = false;
+
+        foreach ($broGotAccessMaster as $access) {
+            if ($access->name === 'manage_all_class') {
+                $hasManageAllClass = true;
+                break;
+            }
+        }
+
+        if ($hasManageAllClass) {
+            $ccmh = CourseClassMemberLog::join('users', 'users.id', '=', 'course_class_member_log.user_id')
+            ->leftJoin('course_class_module', 'course_class_module.id', '=', 'course_class_member_log.course_class_module_id')
+            ->leftJoin('course_module', 'course_module.id', '=', 'course_class_module.course_module_id')
+            ->leftJoin('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
+            ->leftJoin('course', 'course.id', '=', 'course_class.course_id')
+            ->select('course_class_member_log.*', 'users.name as user_name', 'course_module.type as course_type', 'course_module.day as day', 'course_module.name as course_module_name', 'course.name as course_name', 'course_class.batch as batch')
+            ->get();
+        } else {
+            $ccmh = CourseClassMemberLog::join('users', 'users.id', '=', 'course_class_member_log.user_id')
+            ->leftJoin('course_class_module', 'course_class_module.id', '=', 'course_class_member_log.course_class_module_id')
+            ->leftJoin('course_module', 'course_module.id', '=', 'course_class_module.course_module_id')
+            ->leftJoin('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
+            ->leftJoin('course_class_member', 'course_class_member.course_class_id', '=', 'course_class.id')
+            ->leftJoin('course', 'course.id', '=', 'course_class.course_id')
+            ->select('course_class_member_log.*', 'users.name as user_name', 'course_module.type as course_type', 'course_module.day as day', 'course_module.name as course_module_name', 'course.name as course_name', 'course_class.batch as batch')
+            ->where('course_class_member.user_id', Auth::user()->id)
+            ->get();
+        }
+        $course_name = Course::select('name')
+        ->get();
+
+        $user_name = User::where('access_group_id', 2)
+        ->pluck('name');
+
+        return view('trackandgrade::course_class_member_log.index', ['ccmh' => $ccmh, 'course_name' => $course_name, 'user_name' => $user_name]);
     }
+
+    // public function getCCMH(Request $request)
+    // {
+    //     return view('trackandgrade::course_class_member_log.index');
+    // }
 
     public function getCCMHajax(Request $request)
     {
