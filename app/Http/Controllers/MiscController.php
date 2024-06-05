@@ -35,7 +35,7 @@ class MiscController extends Controller
             if (file_put_contents($save_path, $image) !== false) {
                 echo 'Save Image Attempt : ' . $counter . ' - success <br>';
 
-                $update = Course::where('id', $course->id)->update(['image' => Str::slug($course->name)]);
+                $update = Course::where('id', $course->id)->update(['image' => Str::slug($course->name) . '.' . $ext]);
                 if ($update) {
                     echo 'Update Image Attempt : ' . $counter . ' - success <br>';
                 } else {
