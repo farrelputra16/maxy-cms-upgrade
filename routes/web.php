@@ -25,6 +25,7 @@ use App\Http\Controllers\MaxyTalkController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\RedeemCodeController;
 use App\Http\Controllers\MCourseTypeController;
+use App\Http\Controllers\MiscController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -301,3 +302,5 @@ Route::get('/noauthority', function () {
 // // Import File .csv
 // Route::post('/course-class-member/import-csv', [CourseClassMemberController::class, 'importCSV'])->name('course-class-member.import-csv');
 Route::post('/user/import-csv', [UserController::class, 'importCSV'])->name('user.import-csv');
+
+Route::get('/updateGKCourseImage', [MiscController::class, 'updateGKCourseImage'])->name('updateGKCourseImage');
