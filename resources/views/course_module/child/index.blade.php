@@ -67,7 +67,7 @@
             margin: 0 5px;
         }
 
-        .btnTambahModule {
+        .btnAdd {
             background-color: #4056A1;
             color: #FFF;
             width: 140px;
@@ -331,7 +331,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <a class="btnTambahModule" href="{{ route('getAddCourseChildModule', ['id' => $parent_module_detail->id, 'course_id' => $course_detail->id, 'page_type' => $page_type]) }}">Tambah Module +</button></a>
+                <a class="btnAdd" href="{{ route('getAddCourseChildModule', ['id' => $parent_module_detail->id, 'course_id' => $course_detail->id, 'page_type' => $page_type]) }}">Add Module +</button></a>
             </div>
         </div>
         <table id="table" class="tableChild table-striped" style="width:100%">

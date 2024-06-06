@@ -126,6 +126,7 @@
             box-shadow: none;
             font-weight: bold;
             font-size: 12px;
+            margin-top: .5rem;
             margin-left: .5rem;
             margin-bottom: .5rem;
             padding: 6px 12px;
@@ -152,6 +153,7 @@
             box-shadow: none;
             font-size: 12px;
             font-weight: bold;
+            margin-top: .5rem;
             margin-left: 45rem;
             margin-bottom: .5rem;
             /* margin-right: .5rem; */
@@ -300,13 +302,13 @@
                 <table id="table" class="tableMaster table-striped" style="width:100%">
                     <thead>
                         <tr>
-                            <th style="width: 1%;">ID</th>
-                            <th style="width: 1%;">Access Master Name</th>
-                            <th style="width: 1%;">Description</th>
-                            <th style="width: 1%;">Status</th>
-                            <th style="width: 1%;">Created At</th>
-                            <th style="width: 1%;">Updated At</th>
-                            <th style="width: 1%;">Action</th>
+                            <th>ID</th>
+                            <th>Access Master Name</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -332,97 +334,135 @@
                         </tr>
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Access Master Name</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
                 </table>
+                <!-- Info and Pagination container -->
+                <div class="buttons-container">
+                    <div class="custom-info-text"></div>
+                    <div class="custom-pagination-container"></div>
+                </div>
             </div>
-
-            <!-- Include JS libraries for DataTable initialization -->
-            <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-            <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-            <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-            <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-            <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-            <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-            <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
-            <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
-
-
-            <script>
-                $(document).ready(function() {
-                    let table = $('#table').DataTable({
-                        lengthChange: true,
-                        lengthMenu: [10, 25, 50, 100],
-                        buttons: [
-                            'colvis',
-                            {
-                                extend: 'copy',
-                                className: 'buttons-copy',
-                            },
-                            {
-                                extend: 'excel',
-                                className: 'buttons-excel',
-                            },
-                            {
-                                extend: 'pdf',
-                                className: 'buttons-pdf',
-                            },
-                        ],
-                        searching: true,
-                        columnDefs: [{
-                            "visible": false,
-                            "targets": [0]
-                        }]
-                    });
-                    let buttonContainer = $('<div>').addClass('buttons-container');
-                    table.buttons().container().appendTo(buttonContainer);
-                    buttonContainer.insertBefore('.tableMaster_wrapper .dataTables_length');
-
-                    // Create container for buttons and pagination
-                    let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
-                    buttonPaginationContainer.css({
-                        display: 'block',
-                        flexDirection: 'row',
-                        alignItems: 'flex-start',
-                        marginBottom: '10px'
-                    });
-
-                    // Insert the buttons into the new container
-                    table.buttons().container().appendTo(buttonPaginationContainer);
-
-                    // Insert the show entries and info into the new container with custom classes
-                    $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
-                    $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
-                    $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
-
-                    // Insert the new container before the table
-                    buttonPaginationContainer.insertBefore('#table');
-
-                    // Add individual column search inputs and titles
-                    $('#table thead th').each(function() {
-                        let title = $(this).text();
-                        $(this).html('<div class="text-center">' + title +
-                            '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' + title +
-                            '" /></div>');
-                    });
-
-                    // Apply individual column search
-                    table.columns().every(function() {
-                        let that = this;
-                        $('input', this.header()).on('keyup change', function() {
-                            if (that.search() !== this.value) {
-                                that.search(this.value).draw();
-                            }
-                        });
-                    });
-
-                    table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
-                });
-            </script>
+        </div>
+    </div>
 </body>
 
 </html>
 
-</div>
+<!-- Include JS libraries for DataTable initialization -->
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+
+
+<script>
+    $(document).ready(function() {
+        let table = $('#table').DataTable({
+            scrollX: true,
+            lengthChange: true,
+            lengthMenu: [10, 25, 50, 100],
+            buttons: [
+                'colvis',
+                {
+                    extend: 'copy',
+                    className: 'buttons-copy',
+                },
+                {
+                    extend: 'excel',
+                    className: 'buttons-excel',
+                },
+                {
+                    extend: 'pdf',
+                    className: 'buttons-pdf',
+                },
+            ],
+            searching: true,
+            columnDefs: [{
+                "visible": false,
+                "targets": [0]
+            }],
+            initComplete: function() {
+                this.api()
+                    .columns()
+                    .every(function() {
+                        var column = this;
+                        var title = column.footer().textContent;
+
+                        // Create input element and add event listener
+                        $('<input class="form-control" type="text" placeholder="Search ' + title + '" />')
+                            .appendTo($(column.footer()).empty())
+                            .on('keyup change clear', function() {
+                                if (column.search() !== this.value) {
+                                    column.search(this.value).draw();
+                                }
+                            });
+                    });
+            }
+        });
+
+        let buttonContainer = $('<div>').addClass('buttons-container');
+        table.buttons().container().appendTo(buttonContainer);
+        buttonContainer.insertBefore('.tableMaster_wrapper .dataTables_length');
+
+        // Create container for buttons and pagination
+        let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
+        buttonPaginationContainer.css({
+            display: 'block',
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            // marginTop: '10px'
+        });
+
+        // Insert the buttons into the new container
+        table.buttons().container().appendTo(buttonPaginationContainer);
+
+        // Insert the show entries and info into the new container with custom classes
+        // $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
+        // $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
+        // $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
+
+        // Insert the new container before the table
+        buttonPaginationContainer.insertBefore('#table');
+
+        // Add individual column search inputs and titles
+        // $('#table thead th').each(function() {
+        //     let title = $(this).text();
+        //     $(this).html('<div class="text-center">' + title +
+        //         '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' + title +
+        //         '" /></div>');
+        // });
+
+        // Apply the search for individual columns
+        table.columns().every(function() {
+            let that = this;
+
+            $('input', this.header()).on('keyup change clear', function() {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+
+        table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
+    });
+</script>
 @endsection

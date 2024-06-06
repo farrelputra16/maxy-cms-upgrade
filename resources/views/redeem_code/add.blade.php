@@ -77,21 +77,32 @@
             font-weight: bold;
         }
 
-        .btnTambah {
-            background-color: #4056A1;
+        .btnBatal {
+            background-color: #F13C20;
             color: #FFF;
-            margin-right: 1.5rem;
-            width: 120px;
+            /* margin-right: 1rem;
+        margin-left: 58rem;
+        margin-bottom: .5rem; */
+            color: #FFF;
+            width: 80px;
             height: 35px;
             border-radius: 10px;
             border: none;
             box-shadow: none;
             font-weight: bold;
+            margin-bottom: 20px;
         }
 
-        .formAdd {
-            padding-left: 1rem;
-            padding-right: 2rem;
+        .btnAdd {
+            background-color: #4056A1;
+            color: #FFF;
+            color: #FFF;
+            width: 200px;
+            height: 35px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: none;
+            font-weight: bold;
         }
 
         .divBatal {
@@ -101,10 +112,16 @@
             margin-top: -3rem;
         }
 
-        .divTambah {
+        .divAdd {
             text-align: right;
+            /* margin-right: .5rem; */
             margin-bottom: .5rem;
-            margin-right: .5rem;
+            /* margin-left: 65rem; */
+        }
+
+        .formAdd {
+            padding-left: 1rem;
+            padding-right: 2rem;
         }
     </style>
 </head>
@@ -167,14 +184,11 @@
                 </div>
             </div>
         </div>
-        <div class="divTambah">
-            <button class="btnTambah">Tambah Redeem Code</button>
+        <div class="divAdd">
+            <button class="btnAdd">Add Redeem Code</button>
         </div>
-        <!-- <a href="{{ url()->previous() }}">
-            <button class="btnBatal">Batal</button>
-        </a> -->
     </form>
-    <a href="{{ route('getRedeemCode') }}">
+    <a href="{{ url()->previous() }}">
         <button class="btnBatal">Batal</button>
     </a>
 </body>

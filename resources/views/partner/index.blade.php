@@ -67,7 +67,7 @@
             margin: 0 5px;
         }
 
-        .btnTambahPartners {
+        .btnAdd {
             background-color: #4056A1;
             color: #FFF;
             width: 140px;
@@ -124,6 +124,7 @@
             box-shadow: none;
             font-weight: bold;
             font-size: 12px;
+            margin-top: .5rem;
             margin-left: .5rem;
             margin-bottom: .5rem;
             padding: 6px 12px;
@@ -150,6 +151,7 @@
             box-shadow: none;
             font-size: 12px;
             font-weight: bold;
+            margin-top: .5rem;
             margin-left: 45rem;
             margin-bottom: .5rem;
             /* margin-right: .5rem; */
@@ -278,27 +280,27 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <a class="btnTambahPartners" href="{{ route('getAddPartner') }}" role="button">Tambah Partner +</a>
+                <a class="btnAdd" href="{{ route('getAddPartner') }}" role="button">Add Partner +</a>
             </div>
 
             <table id="table" class="tablePartners table-striped" style="width:100%">
                 <thead>
                     <tr>
-                        <th class="id" style="width: .5%;">ID</th>
-                        <th class="logo" style="width: .5%;">Logo</th>
-                        <th class="name" style="width: 1%;">Name</th>
-                        <th class="type" style="width: .5%;">Type</th>
-                        <th class="url" style="width: 1%;">URL</th>
-                        <th class="address" style="width: 1%;">Address</th>
-                        <th class="phone" style="width: 1%;">Phone</th>
-                        <th class="email" style="width: 1%;">Email</th>
-                        <th class="cp" style="width: 1%;">Contact Person</th>
-                        <th class="status" style="width: .5%;">Status Highlight</th>
-                        <th class="desc" style="width: .5%;">Description</th>
-                        <th class="status" style="width: .5%;">Status</th>
-                        <th class="cre" style="width: .5%;">Created At</th>
-                        <th class="up" style="width: .5%;">Updated At</th>
-                        <th class="act" style="width: .5%;">Action</th>
+                        <th class="id">ID</th>
+                        <th class="logo">Logo</th>
+                        <th class="name">Name</th>
+                        <th class="type">Type</th>
+                        <th class="url">URL</th>
+                        <th class="address">Address</th>
+                        <th class="phone">Phone</th>
+                        <th class="email">Email</th>
+                        <th class="cp">Contact Person</th>
+                        <th class="status">Status Highlight</th>
+                        <th class="desc">Description</th>
+                        <th class="status">Status</th>
+                        <th class="cre">Created At</th>
+                        <th class="up">Updated At</th>
+                        <th class="act">Action</th>
 
                     </tr>
                 </thead>
@@ -337,7 +339,33 @@
                     </tr>
                     @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th class="id">ID</th>
+                        <th class="logo">Logo</th>
+                        <th class="name">Name</th>
+                        <th class="type">Type</th>
+                        <th class="url">URL</th>
+                        <th class="address">Address</th>
+                        <th class="phone">Phone</th>
+                        <th class="email">Email</th>
+                        <th class="cp">Contact Person</th>
+                        <th class="status">Status Highlight</th>
+                        <th class="desc">Description</th>
+                        <th class="status">Status</th>
+                        <th class="cre">Created At</th>
+                        <th class="up">Updated At</th>
+                        <th class="act">Action</th>
+
+                    </tr>
+                </tfoot>
             </table>
+
+            <!-- Info and Pagination container -->
+            <div class="buttons-container">
+                <div class="custom-info-text"></div>
+                <div class="custom-pagination-container"></div>
+            </div>
         </div>
 
         <!-- Include JS libraries for DataTable initialization -->
@@ -357,6 +385,7 @@
         <script>
             $(document).ready(function() {
                 let table = $('#table').DataTable({
+                    scrollX: true,
                     lengthChange: true,
                     lengthMenu: [10, 25, 50, 100],
                     buttons: [
@@ -378,8 +407,26 @@
                     columnDefs: [{
                         "visible": false,
                         "targets": [0]
-                    }]
+                    }],
+                    initComplete: function() {
+                        this.api()
+                            .columns()
+                            .every(function() {
+                                var column = this;
+                                var title = column.footer().textContent;
+
+                                // Create input element and add event listener
+                                $('<input class="form-control" type="text" placeholder="Search ' + title + '" />')
+                                    .appendTo($(column.footer()).empty())
+                                    .on('keyup change clear', function() {
+                                        if (column.search() !== this.value) {
+                                            column.search(this.value).draw();
+                                        }
+                                    });
+                            });
+                    }
                 });
+
                 let buttonContainer = $('<div>').addClass('buttons-container');
                 table.buttons().container().appendTo(buttonContainer);
                 buttonContainer.insertBefore('.tablePartners_wrapper .dataTables_length');
@@ -390,39 +437,41 @@
                     display: 'block',
                     flexDirection: 'row',
                     alignItems: 'flex-start',
-                    marginBottom: '10px'
+                    // marginBottom: '10px'
                 });
 
                 // Insert the buttons into the new container
                 table.buttons().container().appendTo(buttonPaginationContainer);
 
                 // Insert the show entries and info into the new container with custom classes
-                $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
-                $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
-                $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
+                // $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
+                // $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
+                // $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
 
                 // Insert the new container before the table
                 buttonPaginationContainer.insertBefore('#table');
 
                 // Add individual column search inputs and titles
-                $('#table thead th').each(function() {
-                    let title = $(this).text();
-                    $(this).html('<div class="text-center">' + title +
-                        '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' +
-                        title + '" /></div>');
-                });
+                // $('#table thead th').each(function() {
+                //     let title = $(this).text();
+                //     $(this).html('<div class="text-center">' + title +
+                //         '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' +
+                //         title + '" /></div>');
+                // });
 
-                // Apply individual column search
+                // Apply the search for individual columns
                 table.columns().every(function() {
                     let that = this;
-                    $('input', this.header()).on('keyup change', function() {
+
+                    $('input', this.header()).on('keyup change clear', function() {
                         if (that.search() !== this.value) {
-                            that.search(this.value).draw();
+                            that
+                                .search(this.value)
+                                .draw();
                         }
                     });
                 });
-
-                table.buttons().container().appendTo('.container .col-md-6:eq(0)');
+                table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
             });
         </script>
     </div>

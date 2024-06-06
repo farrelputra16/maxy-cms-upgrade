@@ -77,7 +77,7 @@
             font-weight: bold;
         }
 
-        .btnTambah {
+        .btnAdd {
             background-color: #4056A1;
             color: #FFF;
             margin-left: 1.5rem;
@@ -87,6 +87,20 @@
             border: none;
             box-shadow: none;
             font-weight: bold;
+        }
+
+        .divBatal {
+            text-align: right;
+            margin-right: 15rem;
+            margin-bottom: 1rem;
+            margin-top: -3rem;
+        }
+
+        .divAdd {
+            text-align: right;
+            /* margin-right: .5rem; */
+            margin-bottom: .5rem;
+            /* margin-left: 65rem; */
         }
     </style>
 </head>
@@ -136,17 +150,16 @@
                 </div>
             </div>
         </div>
-        <div class="divTambah">
-            <button class="btnTambah">Tambah Course</button>
+        <div class="divAdd">
+            <button class="btnAdd">Add Course</button>
         </div>
         <!-- <a href="{{ url()->previous() }}">
             <button class="btnBatal">Batal</button>
         </a> -->
     </form>
-    <div class="divBatal">
-        <a href="{{ url()->previous() }}">
-            <button class="btnBatal">Batal</button>
-        </a>
+    <a href="{{ url()->previous() }}">
+        <button class="btnBatal">Batal</button>
+    </a>
     </div>
 </body>
 

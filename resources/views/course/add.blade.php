@@ -77,7 +77,7 @@
             font-weight: bold;
         }
 
-        .btnTambah {
+        .btnAdd {
             background-color: #4056A1;
             color: #FFF;
             color: #FFF;
@@ -97,11 +97,11 @@
             z-index: 1000;
         }
 
-        .divTambah {
+        .divAdd {
             text-align: right;
-            margin-right: 1rem;
+            /* margin-right: .5rem; */
             margin-bottom: .5rem;
-            margin-left: 65rem;
+            /* margin-left: 65rem; */
         }
     </style>
 </head>
@@ -205,8 +205,8 @@
                     </div>
                 </div>
             </div>
-            <div class="divTambah">
-                <button class="btnTambah">Tambah Course</button>
+            <div class="divAdd">
+                <button class="btnAdd">Add Course</button>
             </div>
         </form>
         <!-- <div style="margin-top:-4%"> -->
@@ -214,6 +214,7 @@
         <a href="{{ url()->previous() }}">
             <button class="btnBatal">Batal</button>
         </a>
+        <br>
         <!-- </div> -->
     </div>
 </body>

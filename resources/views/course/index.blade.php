@@ -11,7 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course</title>
     <!-- Include CSS libraries for styling the table -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
@@ -68,7 +67,7 @@
             margin: 0 5px;
         }
 
-        .btnTambahCourse {
+        .btnAdd {
             background-color: #4056A1;
             color: #FFF;
             width: 140px;
@@ -158,6 +157,7 @@
             box-shadow: none;
             font-weight: bold;
             font-size: 12px;
+            margin-top: .5rem;
             margin-left: .5rem;
             margin-bottom: .5rem;
             padding: 6px 12px;
@@ -184,6 +184,7 @@
             box-shadow: none;
             font-size: 12px;
             font-weight: bold;
+            margin-top: .5rem;
             margin-left: 1rem;
             margin-bottom: .5rem;
             padding: 6px 12px;
@@ -212,7 +213,7 @@
         .tableCourse {
             border: 1px solid #000000;
             border-radius: 8px;
-            overflow: hidden;
+            overflow-x: scroll;
         }
 
         .btnAktif {
@@ -296,6 +297,11 @@
         .dataTables_wrapper .dataTables_filter {
             margin-top: 20px;
         }
+
+        div.dt-container {
+            width: 800px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 
@@ -315,21 +321,21 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <a class="btnTambahCourse" href="{{ route('getAddCourse') }}" role="button">Tambah Course</a>
+                <a class="btnAdd" href="{{ route('getAddCourse') }}" role="button">Add Course</a>
             </div>
-            <table id="table" class="tableCourse table-striped" style="width:100%">
+            <table id="table" class="tableCourse table-striped display nowrap" style="width:100%">
                 <thead>
                     <tr>
-                        <th class="id" style="width: 3%;">ID</th>
-                        <th class="name" style="width: 5%;">Course Name</th>
-                        <th class="fake" style="width: 5%">Fake Price</th>
-                        <th class="price" style="width: 5%;">Price</th>
-                        <th class="type" style="width: 5%;">Course Type</th>
-                        <th class="desc" style="width: 2%;">Description</th>
-                        <th class="crea" style="width: 8%;">Created At</th>
-                        <th class="up" style="width: 8%;">Updated At</th>
-                        <th class="sta" style="width: 3%;">Status</th>
-                        <th class="act" style="width: 10%;">Action</th>
+                        <th>ID</th>
+                        <th>Course Name</th>
+                        <th>Fake Price</th>
+                        <th>Price</th>
+                        <th>Course Type</th>
+                        <th>Description</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -372,7 +378,7 @@
                             <a class="btnNon">Non Aktif</a>
                             @endif
                         </td>
-                        <td style="width: 8%;">
+                        <td>
                             <div class="btn-group">
                                 <a href="{{ route('getEditCourse', ['id' => $item->id]) }}" class="btnEdit">Edit</a>
                                 <a href="{{ route('getCourseModule', ['course_id' => $item->id, 'page_type' => 'LMS']) }}" class="btnModul">Modules List</a>
@@ -381,103 +387,140 @@
                     </tr>
                     @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Course Name</th>
+                        <th>Fake Price</th>
+                        <th>Price</th>
+                        <th>Course Type</th>
+                        <th>Description</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
             </table>
+
+            <!-- Info and Pagination container -->
+            <div class="buttons-container">
+                <div class="custom-info-text"></div>
+                <div class="custom-pagination-container"></div>
+            </div><br><br>
         </div>
-        @endsection
-
-        @section('scripts')
-        <!-- Include JS libraries for DataTable initialization -->
-        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
-
-        <script>
-            $(document).ready(function() {
-                let table = $('#table').DataTable({
-                    lengthChange: true,
-                    lengthMenu: [10, 25, 50, 100],
-                    pageLength: 10,
-                    buttons: [
-                        'colvis',
-                        {
-                            extend: 'copy',
-                            className: 'buttons-copy',
-                        },
-                        {
-                            extend: 'excel',
-                            className: 'buttons-excel',
-                        },
-                        {
-                            extend: 'pdf',
-                            className: 'buttons-pdf',
-                        },
-                    ],
-                    searching: true,
-                    columnDefs: [{
-                        "visible": false,
-                        "targets": [0]
-                    }],
-                    paging: true,
-                    responsive: true,
-                    dom: '<"top"lfB>rt<"bottom"ip><"clear">',
-                });
-
-                $('.buttons-prev').on('click', function() {
-                    table.page('previous').draw('page');
-                });
-
-                $('.buttons-next').on('click', function() {
-                    table.page('next').draw('page');
-                });
-
-                // Create container for buttons and pagination
-                let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
-                buttonPaginationContainer.css({
-                    display: 'block',
-                    flexDirection: 'row',
-                    alignItems: 'flex-start',
-                    marginBottom: '10px'
-                });
-
-                // Insert the buttons into the new container
-                table.buttons().container().appendTo(buttonPaginationContainer);
-
-                // Insert the show entries and info into the new container with custom classes
-                $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
-                $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
-                $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
-
-                // Insert the new container before the table
-                buttonPaginationContainer.insertBefore('#table');
-
-                // Add individual column search inputs and titles
-                $('#table thead th').each(function() {
-                    let title = $(this).text();
-                    $(this).html('<div class="search">' + title +
-                        '</div><div class="mt-2"><input class="form-control" style="width:3rem; text-align:center;" type="text" placeholder="Search ' + title + '" /></div>');
-                });
-
-                // Apply individual column search
-                table.columns().every(function() {
-                    let that = this;
-                    $('input', this.header()).on('keyup change', function() {
-                        if (that.search() !== this.value) {
-                            that.search(this.value).draw();
-                        }
-                    });
-                });
-            });
-        </script>
     </div>
 </body>
 
 </html>
+<!-- Include JS libraries for DataTable initialization -->
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
 
+<script>
+    $(document).ready(function() {
+        let table = $('#table').DataTable({
+            scrollX: true,
+            lengthChange: true,
+            lengthMenu: [10, 25, 50, 100],
+            buttons: [
+                'colvis',
+                {
+                    extend: 'copy',
+                    className: 'buttons-copy',
+                },
+                {
+                    extend: 'excel',
+                    className: 'buttons-excel',
+                },
+                {
+                    extend: 'pdf',
+                    className: 'buttons-pdf',
+                },
+            ],
+            searching: true,
+            columnDefs: [{
+                "visible": false,
+                "targets": [0]
+            }],
+            initComplete: function() {
+                this.api()
+                    .columns()
+                    .every(function() {
+                        var column = this;
+                        var title = column.footer().textContent;
+
+                        // Create input element and add event listener
+                        $('<input class="form-control" type="text" placeholder="Search ' + title + '" />')
+                            .appendTo($(column.footer()).empty())
+                            .on('keyup change clear', function() {
+                                if (column.search() !== this.value) {
+                                    column.search(this.value).draw();
+                                }
+                            });
+                    });
+            }
+        });
+
+        // Create container for buttons and pagination
+        let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
+        buttonPaginationContainer.css({
+            display: 'block',
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            // marginTop: '10px'
+        });
+
+        // Insert the buttons into the new container
+        table.buttons().container().appendTo(buttonPaginationContainer);
+
+        let buttonContainer = $('<div>').addClass('buttons-container');
+        table.buttons().container().appendTo(buttonContainer);
+        buttonContainer.insertBefore('.tableCourse_wrapper .dataTables_length');
+
+        // Insert the show entries and info into the new container with custom classes
+        // $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
+        // $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
+        // $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
+
+        // table.buttons().container().appendTo(buttonPaginationContainer);
+        // $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
+        // $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
+        // $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
+        // buttonPaginationContainer.insertBefore('#table');
+
+        // Insert the new container before the table
+        buttonPaginationContainer.insertBefore('#table');
+
+        // Add individual column search inputs and titles
+        // $('#table thead th').each(function() {
+        //     let title = $(this).text();
+        //     $(this).html('<div class="search">' + title +
+        //         '</div><div class="mt-2"><input class="form-control" style="width:3rem; text-align:center;" type="text" placeholder="Search ' + title + '" /></div>');
+        // });
+
+        // Apply the search for individual columns
+        table.columns().every(function() {
+            let that = this;
+
+            $('input', this.header()).on('keyup change clear', function() {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+        table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
+    });
+</script>
 @endsection

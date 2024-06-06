@@ -29,7 +29,7 @@ class AuthController extends Controller
     }
 
     function postLogout(Request $request){
-        Auth::logout();
+        AuthController::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
         return redirect()->route('welcome');

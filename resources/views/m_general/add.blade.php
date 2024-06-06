@@ -77,7 +77,7 @@
             font-weight: bold;
         }
 
-        .btnTambah {
+        .btnAdd {
             background-color: #4056A1;
             color: #FFF;
             color: #FFF;
@@ -91,19 +91,17 @@
 
         .divBatal {
             text-align: right;
-            margin-right: 10rem;
+            margin-right: 15rem;
             margin-bottom: 1rem;
             margin-top: -3rem;
-            z-index: 1000;
         }
 
-        .divTambah {
+        .divAdd {
             text-align: right;
-            margin-right: 1rem;
+            /* margin-right: .5rem; */
             margin-bottom: .5rem;
-            margin-left: 65rem;
+            /* margin-left: 65rem; */
         }
-        
     </style>
 </head>
 
@@ -158,7 +156,9 @@
                     </div>
                 </div>
             </div>
-            <button class="right floated ui button primary">Tambah Data</button>
+            <div class="divAdd">
+                <button class="btnAdd">Add General</button>
+            </div>
         </form>
         <a href="{{ url()->previous() }}">
             <button class="btnBatal">Batal</button>

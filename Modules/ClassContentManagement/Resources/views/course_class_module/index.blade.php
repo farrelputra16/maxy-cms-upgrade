@@ -118,6 +118,7 @@
             box-shadow: none;
             font-weight: bold;
             font-size: 12px;
+            margin-top: .5rem;
             margin-left: .5rem;
             margin-bottom: .5rem;
             padding: 6px 12px;
@@ -144,6 +145,7 @@
             box-shadow: none;
             font-size: 12px;
             font-weight: bold;
+            margin-top: .5rem;
             margin-left: 45rem;
             margin-bottom: .5rem;
             /* margin-right: .5rem; */
@@ -170,12 +172,83 @@
             margin-bottom: 10px;
         }
 
+        .tableModule {
+            border: 1px solid #000000;
+            border-radius: 8px;
+            overflow-x: scroll;
+            padding-left: .5rem;
+            padding-right: .5rem;
+            margin-right: 10px;
+        }
+
+        .btnEdit {
+            background-color: #4056A1;
+            width: 3rem;
+            height: 1rem;
+            color: #FFF !important;
+            font-size: 12px;
+            text-align: center;
+            display: inline-block;
+            padding-top: 4px;
+            padding-bottom: 10px;
+            border-radius: .4rem;
+            margin-right: .5rem;
+        }
+
+        .btnContent {
+            background-color: #4056A1;
+            width: 9rem;
+            height: 1rem;
+            color: #FFF !important;
+            font-size: 12px;
+            text-align: center;
+            display: inline-block;
+            padding-top: 4px;
+            padding-bottom: 10px;
+            border-radius: .4rem;
+        }
+
+        .btnAktif {
+            background-color: #46E44C;
+            width: 5rem;
+            height: 1rem;
+            color: #FFF !important;
+            font-size: 12px;
+            text-align: center;
+            display: inline-block;
+            padding-top: 4px;
+            padding-bottom: 10px;
+            border-radius: .4rem;
+        }
+
+        .btnNon {
+            background-color: #F13C20;
+            width: 5rem;
+            height: 1rem;
+            color: #FFF !important;
+            font-size: 12px;
+            text-align: center;
+            display: inline-block;
+            padding-top: 4px;
+            padding-bottom: 10px;
+            border-radius: .4rem;
+        }
+
         .dataTables_length {
             margin-bottom: 10px;
         }
 
         .buttons-container .dt-buttons {
             margin-bottom: 10px;
+        }
+
+        .dataTables_wrapper .dataTables_filter {
+            margin-top: 20px;
+        }
+
+        div.dt-container {
+            width: 800px;
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -212,18 +285,18 @@
             <table id="table" class="tableModule table-striped" style="width:100%">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
+                        <th>ID</th>
                         <th>Day</th>
-                        <th scope="col">Course Module</th>
-                        <th scope="col">Start Date</th>
-                        <th scope="col">End Date</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Created At</th>
-                        <th scope="col">Created Id</th>
-                        <th scope="col">Updated At</th>
-                        <th scope="col">Updated Id</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Action</th>
+                        <th>Course Module</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Description</th>
+                        <th>Created At</th>
+                        <th>Created Id</th>
+                        <th>Updated At</th>
+                        <th>Updated Id</th>
+                        <th>Status</th>
+                        <th>Action</th>
                         <!-- More buat tempat button edit -->
                     </tr>
                 </thead>
@@ -242,35 +315,42 @@
                         <td>{{ $item->updated_id }}</td>
                         <td>
                             @if ($item->status == 1)
-                            <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
+                            <a class="btnAktif">Aktif</a>
                             @else
-                            <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
+                            <a class="btnNon">Non Aktif</a>
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('getEditCourseClassModule', ['id' => $item->id]) }}" class="btn btn-primary">Edit</a>
-                            <a href="{{ route('getCourseClassChildModule', ['id' => $item->id]) }}" class="btn btn-primary">Content</a>
+                            <div class="btn-group">
+                                <a href="{{ route('getEditCourseClassModule', ['id' => $item->id]) }}" class="btnEdit">Edit</a>
+                                <a href="{{ route('getCourseClassChildModule', ['id' => $item->id]) }}" class="btnContent">Content</a>
+                            </div>
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
-                <!-- <tfoot>
-                <tr>
-                    <th><input type="text" class="form-control search-0" placeholder="Search Id" /></th>
-                    <th><input type="text" class="form-control search-1" placeholder="Search Day" /></th>
-                    <th><input type="text" class="form-control search-2" placeholder="Search Name" /></th>
-                    <th><input type="text" class="form-control search-3" placeholder="Search Start Date" /></th>
-                    <th><input type="text" class="form-control search-4" placeholder="Search End Date" /></th>
-                    <th><input type="text" class="form-control search-5" placeholder="Search Description" /></th>
-                    <th><input type="text" class="form-control search-6" placeholder="Search Created At" /></th>
-                    <th><input type="text" class="form-control search-7" placeholder="Search Created Id" /></th>
-                    <th><input type="text" class="form-control search-8" placeholder="Search Updated At" /></th>
-                    <th><input type="text" class="form-control search-9" placeholder="Search Updated Id" /></th>
-                    <th><input type="text" class="form-control search-10" placeholder="Search Status" /></th>
-                    <th></th>
-                </tr>
-            </tfoot> -->
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Day</th>
+                        <th>Course Module</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Description</th>
+                        <th>Created At</th>
+                        <th>Created Id</th>
+                        <th>Updated At</th>
+                        <th>Updated Id</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
             </table>
+            <!-- Info and Pagination container -->
+            <div class="buttons-container">
+                <div class="custom-info-text"></div>
+                <div class="custom-pagination-container"></div>
+            </div>
         </div>
 
         <!-- Include JS libraries for DataTable initialization -->
@@ -289,6 +369,7 @@
         <script>
             $(document).ready(function() {
                 let table = $('#table').DataTable({
+                    scrollX: true,
                     lengthChange: true,
                     lengthMenu: [10, 25, 50, 100],
                     buttons: [
@@ -307,37 +388,68 @@
                         },
                     ],
                     searching: true,
-                    order: [
-                        [1, "asc"]
-                    ],
                     columnDefs: [{
                         "visible": false,
                         "targets": [0]
-                    }]
+                    }],
+                    initComplete: function() {
+                        this.api()
+                            .columns()
+                            .every(function() {
+                                var column = this;
+                                var title = column.footer().textContent;
+
+                                // Create input element and add event listener
+                                $('<input class="form-control" type="text" placeholder="Search ' + title + '" />')
+                                    .appendTo($(column.footer()).empty())
+                                    .on('keyup change clear', function() {
+                                        if (column.search() !== this.value) {
+                                            column.search(this.value).draw();
+                                        }
+                                    });
+                            });
+                    }
                 });
                 let buttonContainer = $('<div>').addClass('buttons-container');
                 table.buttons().container().appendTo('.container .col-md-6:eq(0)');
-                buttonContainer.insertBefore('#tableCourse .dataTables_length');
+                buttonContainer.insertBefore('#tableModule .dataTables_length');
 
-                // Add individual column search inputs and titles
-                $('#table thead th').each(function() {
-                    let title = $(this).text();
-                    $(this).html('<div class="text-center">' + title +
-                        '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' + title +
-                        '" /></div>');
+                // Create container for buttons and pagination
+                let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
+                buttonPaginationContainer.css({
+                    display: 'block',
+                    flexDirection: 'row',
+                    justifyContent: 'flex-start',
+                    // marginTop: '10px'
                 });
 
-                // Apply individual column search
+                // Insert the buttons into the new container
+                table.buttons().container().appendTo(buttonPaginationContainer);
+
+                // Insert the new container before the table
+                buttonPaginationContainer.insertBefore('#table');
+
+                // Add individual column search inputs and titles
+                // $('#table thead th').each(function() {
+                //     let title = $(this).text();
+                //     $(this).html('<div class="text-center">' + title +
+                //         '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' + title +
+                //         '" /></div>');
+                // });
+
+                // Apply the search for individual columns
                 table.columns().every(function() {
                     let that = this;
-                    $('input', this.header()).on('keyup change', function() {
+
+                    $('input', this.header()).on('keyup change clear', function() {
                         if (that.search() !== this.value) {
-                            that.search(this.value).draw();
+                            that
+                                .search(this.value)
+                                .draw();
                         }
                     });
                 });
-
-                table.buttons().container().appendTo('#tableModule_wrapper .col-md-6:eq(0)');
+                table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
             });
         </script>
     </div>

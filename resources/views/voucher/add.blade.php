@@ -75,18 +75,33 @@
             border: none;
             box-shadow: none;
             font-weight: bold;
+            margin-bottom: 20px;
         }
 
-        .btnTambah {
+        .btnAdd {
             background-color: #4056A1;
             color: #FFF;
-            margin-left: 1.5rem;
-            width: 180px;
+            color: #FFF;
+            width: 200px;
             height: 35px;
             border-radius: 10px;
             border: none;
             box-shadow: none;
             font-weight: bold;
+        }
+
+        .divBatal {
+            text-align: right;
+            margin-right: 15rem;
+            margin-bottom: 1rem;
+            margin-top: -3rem;
+        }
+
+        .divAdd {
+            text-align: right;
+            /* margin-right: .5rem; */
+            margin-bottom: .5rem;
+            /* margin-left: 65rem; */
         }
 
         .formAdd {
@@ -167,16 +182,13 @@
                 </div>
             </div>
         </div>
-        <div class="divTambah">
-            <button class="btnTambah">Tambah Voucher</button>
-        </div>
-    </form>
-    <div class="divBatal">
+        <div class="divAdd">
+                    <button class="btnAdd">Add Course Package</button>
+                </div>
+                </form>
         <a href="{{ url()->previous() }}">
             <button class="btnBatal">Batal</button>
         </a>
-    </div>
-
 </body>
 
 </html>

@@ -190,6 +190,7 @@
             box-shadow: none;
             font-weight: bold;
             font-size: 12px;
+            margin-top: .5rem;
             margin-left: .5rem;
             margin-bottom: .5rem;
             padding: 6px 12px;
@@ -216,6 +217,7 @@
             box-shadow: none;
             font-size: 12px;
             font-weight: bold;
+            margin-top: .5rem;
             margin-left: 1rem;
             margin-bottom: .5rem;
             padding: 6px 12px;
@@ -245,32 +247,6 @@
             border: 1px solid #000000;
             border-radius: 8px;
             overflow: hidden;
-        }
-
-        .btnAktif {
-            background-color: #46E44C;
-            width: 5rem;
-            height: 1rem;
-            color: #FFF !important;
-            font-size: 12px;
-            text-align: center;
-            display: inline-block;
-            padding-top: 4px;
-            padding-bottom: 10px;
-            border-radius: .4rem;
-        }
-
-        .btnNon {
-            background-color: #F13C20;
-            width: 5rem;
-            height: 1rem;
-            color: #FFF !important;
-            font-size: 12px;
-            text-align: center;
-            display: inline-block;
-            padding-top: 4px;
-            padding-bottom: 10px;
-            border-radius: .4rem;
         }
 
         .btnEdit {
@@ -341,6 +317,11 @@
         .ddClass2 {
             margin-left: 1rem;
             width: 1rem;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
         }
     </style>
 </head>
@@ -416,18 +397,6 @@
                 <th>Student Comment</th>
                 <th>Tutor Comment</th>
                 <th>Action</th>
-                {{-- <th data-column="ID Course Class Member" class="hidden-column">ID Course Class Member</th>
-                        <th data-column="ID Course Module" class="hidden-column">ID Course Module</th>
-                        <th data-column="Description" class="hidden-column">Description</th>
-                        <th data-column="Paket Soal" class="hidden-column">Paket Soal</th>
-                        <th data-column="Package Type" class="hidden-column">Package Type</th>
-                        <th data-column="Created At" class="hidden-column">Created At</th>
-                        <th data-column="Updated At" class="hidden-column">Updated At</th>
-                        <th>File</th>
-                        <th>Comment</th>
-                        <th>Grade</th>
-                        <th>Updated At</th>
-                        <th>Action</th> --}}
             </tr>
         </thead>
         <tbody>
@@ -442,55 +411,40 @@
                 <td>{{ $item->updated_at }}</td>
                 <td>{!! Str::limit(htmlspecialchars($item->comment) ?? '-') !!}</td>
                 <td>{!! Str::limit($item->tutor_comment ?? '-') !!}</td>
-                {{-- <td data-column="ID Course Class Member" class="hidden-column">
-                                {{ $item->course_class_member_id }}</td>
-                <td data-column="ID Course Class Module" class="hidden-column">
-                    {{ $item->course_class_module_id }}
-                </td>
-                <td data-column="Description" class="hidden-column">{{ $item->description }}</td>
-                <td data-column="Paket Soal" class="hidden-column">{{ $item->paket_soal }}</td>
-                <td data-column="Package Type" class="hidden-column">{{ $item->package_type }}</td>
-                <td data-column="Created At" class="hidden-column">{{ $item->created_at }}</td>
-                <td data-column="Updated At" class="hidden-column">{{ $item->updated_at }}</td>
-                <td>
-                    @if ($item->submitted_file)
-                    <a href="{{ asset('uploads/course_class_member_grading/' . Str::snake(Str::lower($item->courseClassModule->courseModule->course->name)) . '/' . Str::snake(Str::lower($item->user->name)) . '/' . Str::snake(Str::lower($item->courseClassModule->courseModule->name)) . '/' . $item->submitted_file) }}">
-                        {{ $item->submitted_file }}
-                    </a>
-                    @else
-                    -
-                    @endif
-                </td> --}}
                 @if ($item->id_grading !== null)
                 <td>
-                    <a href="{{ route('getEditCCMH', [$item->id_grading , 'class_id' => $id_class]) }}" class="btn btn-success btn-sm">Edit</a>
+                    <a href="{{ route('getEditCCMH', [$item->id_grading , 'class_id' => $id_class]) }}" class="btnEdit btn-success btn-sm">Edit</a>
                 </td>
                 @else
                 <td>
                     -
                 </td>
                 @endif
-
-                {{-- Display additional grading information --}}
-                {{-- @if (isset($item->grading_info))
-                                @foreach ($item->grading_info as $grading)
-                                    <td>{{ $grading->submitted_file }}</td>
-                @endforeach
-                @endif --}}
             </tr>
             @endforeach
-
         </tbody>
+        <tfoot>
+            <tr>
+                <th>Course Module</th>
+                <th>Day</th>
+                <th>Student Name</th>
+                <th>Submitted File</th>
+                <th>Submitted At</th>
+                <th>Grade</th>
+                <th>Updated At</th>
+                <th>Student Comment</th>
+                <th>Tutor Comment</th>
+                <th>Action</th>
+            </tr>
+        </tfoot>
     </table>
-    {{-- @if ($averageGrade > 75)
-                <a href="{{ route('getCertificate', $item->id) }}" class="btn btn-info btn-sm">Generate Certificate</a>
-    @endif --}}
-    </div>
+    <!-- Info and Pagination container -->
+    <div class="buttons-container">
+        <div class="custom-info-text"></div>
+        <div class="custom-pagination-container"></div>
     </div>
     <br><br>
-    <hr>
     <h2>Download File</h2>
-    <hr>
     <div class="content pb-5">
         @csrf
         <div class="card p-5">
@@ -506,6 +460,7 @@
                             <option value="{{ strtolower($day) }}">{{ ucfirst($day) }}</option>
                             @endforeach
                         </select>
+                    </form>
                 </div>
                 <div class="col-md-2">
                     <button type="submit" class="btnSubmit btn-primary" style="margin-top: 27.5px;">Submit</button>
@@ -515,7 +470,6 @@
                             <option value="{{ $class['class_id'] }}">{{ $class['course_name'] }} - Batch {{ $class['batch'] }}</option>
                             @endforeach
                         </select>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -544,6 +498,7 @@
 <script>
     $(document).ready(function() {
         let table = $('#table').DataTable({
+            scrollX: true,
             lengthChange: true,
             lengthMenu: [10, 25, 50, 100],
             pageLength: 10,
@@ -567,45 +522,83 @@
                 "visible": false,
                 "targets": [0]
             }],
-            paging: true,
-            responsive: true,
-            dom: '<"top"<"show-info-container">lfB>rt<"bottom"ip><"clear">', // Mengganti nama class show-container menjadi show-info-container
+            initComplete: function() {
+                this.api()
+                    .columns()
+                    .every(function() {
+                        var column = this;
+                        var title = column.footer().textContent;
+
+                        // Create input element and add event listener
+                        $('<input class="form-control" type="text" placeholder="Search ' + title + '" />')
+                            .appendTo($(column.footer()).empty())
+                            .on('keyup change clear', function() {
+                                if (column.search() !== this.value) {
+                                    column.search(this.value).draw();
+                                }
+                            });
+                    });
+            }
         });
+
+        let buttonContainer = $('<div>').addClass('buttons-container');
+        table.buttons().container().appendTo(buttonContainer);
+        buttonContainer.insertBefore('.tableCourseMember_wrapper .dataTables_length');
+
+        // $('.buttons-prev').on('click', function() {
+        //     table.page('previous').draw('page');
+        // });
+
+        // $('.buttons-next').on('click', function() {
+        //     table.page('next').draw('page');
+        // });
+
+        // let buttonContainer = $('<div>').addClass('button-container');
+        // let infoContainer = $('<div>').addClass('info-container');
 
         // Create container for buttons and pagination
         let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
         buttonPaginationContainer.css({
             display: 'block',
             flexDirection: 'row',
-            alignItems: 'flex-start',
-            marginBottom: '10px'
+            justifyContent: 'flex-start',
+            // marginBottom: '10px'
         });
 
         // Insert the buttons into the new container
-        table.buttons().container().appendTo(buttonPaginationContainer);
+        table.buttons().container().appendTo(buttonContainer);
+        // $('.dataTables_length, .dataTables_info').appendTo(infoContainer);
+
+        // $('.top').append(buttonContainer);
+        // $('.top').append(infoContainer);
+
+        // $('.button-container').css('margin-bottom', '10px');
+        // $('.info-container').css('margin-bottom', '10px');
 
         // Insert the show entries and info into the new container with custom classes
-        $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
-        $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
-        $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
+        // $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
+        // $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
+        // $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
 
         // Insert the new container before the table
-        buttonPaginationContainer.insertBefore('#table');
+        // buttonPaginationContainer.insertBefore('#table');
 
         // Add individual column search inputs and titles
-        $('#table thead th').each(function() {
-            let title = $(this).text();
-            $(this).html('<div class="text-center">' + title +
-                '</div><div class="mt-2"><input type="text" placeholder="Search ' + title +
-                '" /></div>');
-        });
+        // $('#table thead th').each(function() {
+        //     let title = $(this).text();
+        //     $(this).html('<div class="search">' + title +
+        //         '</div><div class="mt-2"><input class="form-control" style="width:3rem; text-align:center;" type="text" placeholder="Search ' + title + '" /></div>');
+        // });
 
-        // Apply individual column search
+        // Apply the search for individual columns
         table.columns().every(function() {
             let that = this;
-            $('input', this.header()).on('keyup change', function() {
+
+            $('input', this.header()).on('keyup change clear', function() {
                 if (that.search() !== this.value) {
-                    that.search(this.value).draw();
+                    that
+                        .search(this.value)
+                        .draw();
                 }
             });
         });

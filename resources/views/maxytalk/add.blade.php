@@ -75,18 +75,33 @@
             border: none;
             box-shadow: none;
             font-weight: bold;
+            margin-bottom: 10px;
         }
 
-        .btnTambah {
+        .btnAdd {
             background-color: #4056A1;
             color: #FFF;
-            margin-left: 1.5rem;
-            width: 180px;
+            color: #FFF;
+            width: 200px;
             height: 35px;
             border-radius: 10px;
             border: none;
             box-shadow: none;
             font-weight: bold;
+        }
+
+        .divBatal {
+            text-align: right;
+            margin-right: 15rem;
+            margin-bottom: 1rem;
+            margin-top: -3rem;
+        }
+
+        .divAdd {
+            text-align: right;
+            /* margin-right: .5rem; */
+            margin-bottom: .5rem;
+            /* margin-left: 65rem; */
         }
 
         .formAdd {
@@ -198,18 +213,13 @@
                 <label>Aktif</label>
             </div>
         </div>
-        <div class="divTambah">
-            <button class="btnTambah">Tambah Maxy Talk</button>
+        <div class="divAdd">
+            <button class="btnAdd">Add Course Package</button>
         </div>
-        <!-- <a href="{{ url()->previous() }}">
-            <button class="btnBatal">Batal</button>
-        </a> -->
     </form>
-    <div class="divBatal">
-        <a href="{{ url()->previous() }}">
-            <button class="btnBatal">Batal</button>
-        </a>
-    </div>
+    <a href="{{ url()->previous() }}">
+        <button class="btnBatal">Batal</button>
+    </a>
 
 </body>
 

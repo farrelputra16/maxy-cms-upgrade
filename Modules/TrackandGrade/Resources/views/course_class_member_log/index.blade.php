@@ -368,7 +368,7 @@
                     </div>
                     <div class="field">
                         <label for="">Member</label>
-                        <select class="ui dropdown" name="user_name">
+                        <select class="ddMember ui dropdown" name="user_name">
                             <option value="all" {{ request()->get('user_name') == 'all' ? 'selected' : '' }}>all</option>
                             @foreach ($user_name as $userName)
                             <option value="{{ $userName }}" {{ request()->get('user_name') == $userName ? 'selected' : '' }}>{{ $userName }}</option>
@@ -465,7 +465,21 @@
                     </tr>
                     @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th>History</th>
+                        <th>Course type</th>
+                        <th>log type</th>
+                        <th>Created At</th>
+                    </tr>
+                </tfoot>
             </table>
+
+            <!-- Info and Pagination container -->
+            <div class="buttons-container">
+                <div class="custom-info-text"></div>
+                <div class="custom-pagination-container"></div>
+            </div>
         </div>
     </div>
 
@@ -486,9 +500,9 @@
     <script>
         $(document).ready(function() {
             let table = $('#table').DataTable({
+                scrollX: true,
                 lengthChange: true,
                 lengthMenu: [10, 25, 50, 100],
-                pageLength: 10,
                 buttons: [
                     'colvis',
                     {
@@ -509,17 +523,23 @@
                     "visible": false,
                     "targets": [0]
                 }],
-                paging: true,
-                responsive: true,
-                dom: '<"top"<"show-info-container">lfB>rt<"bottom"ip><"clear">', // Mengganti nama class show-container menjadi show-info-container
-            });
+                initComplete: function() {
+                    this.api()
+                        .columns()
+                        .every(function() {
+                            var column = this;
+                            var title = column.footer().textContent;
 
-            $('.buttons-prev').on('click', function() {
-                table.page('previous').draw('page');
-            });
-
-            $('.buttons-next').on('click', function() {
-                table.page('next').draw('page');
+                            // Create input element and add event listener
+                            $('<input class="form-control" type="text" placeholder="Search ' + title + '" />')
+                                .appendTo($(column.footer()).empty())
+                                .on('keyup change clear', function() {
+                                    if (column.search() !== this.value) {
+                                        column.search(this.value).draw();
+                                    }
+                                });
+                        });
+                }
             });
 
             // Create container for buttons and pagination
@@ -528,34 +548,38 @@
                 display: 'block',
                 flexDirection: 'row',
                 alignItems: 'flex-start',
-                marginBottom: '10px'
+                // marginBottom: '10px'
             });
 
             // Insert the buttons into the new container
             table.buttons().container().appendTo(buttonPaginationContainer);
 
             // Insert the show entries and info into the new container with custom classes
-            $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
-            $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
-            $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
+            // $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
+            // $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
+            // $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
 
             // Insert the new container before the table
             buttonPaginationContainer.insertBefore('#table');
 
             // Add individual column search inputs and titles
-            $('#table thead th').each(function() {
-                let title = $(this).text();
-                $(this).html('<div class="text-center">' + title +
-                    '</div><div class="mt-2"><input type="text" placeholder="Search ' + title +
-                    '" /></div>');
-            });
+            // $('#table thead th').each(function() {
+            //     let title = $(this).text();
+            //     $(this).html('<div class="text-center">' + title +
+            //         '</div><div class="mt-2"><input type="text" placeholder="Search ' + title +
+            //         '" /></div>');
+            // });
 
             // Apply individual column search
+            // Apply the search for individual columns
             table.columns().every(function() {
                 let that = this;
-                $('input', this.header()).on('keyup change', function() {
+
+                $('input', this.header()).on('keyup change clear', function() {
                     if (that.search() !== this.value) {
-                        that.search(this.value).draw();
+                        that
+                            .search(this.value)
+                            .draw();
                     }
                 });
             });

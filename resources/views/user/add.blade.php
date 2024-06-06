@@ -380,7 +380,7 @@
             </div>
         </div>
         <div class="divTambah">
-            <button class="btnTambah">Add Access Group</button>
+            <button class="btnTambah">Add Users</button>
         </div>
     </form>
     <div class="divBatal">

@@ -7,7 +7,7 @@
 <html>
 
 <head>
-    <title>Class Course</title>
+    <title>Course Class</title>
     <!-- Include CSS libraries for styling the table -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
@@ -110,7 +110,8 @@
             box-shadow: none;
             font-weight: bold;
             font-size: 12px;
-            margin-left: .5rem;
+            margin-top: .5rem;
+            margin-left: .2rem;
             margin-bottom: .5rem;
             padding: 6px 12px;
             transition: background-color 0.3s ease;
@@ -136,7 +137,8 @@
             box-shadow: none;
             font-size: 12px;
             font-weight: bold;
-            margin-left: 45rem;
+            margin-top: .5rem;
+            margin-left: 42rem;
             margin-bottom: .5rem;
             /* margin-right: .5rem; */
             padding: 6px 12px;
@@ -208,7 +210,7 @@
             padding-top: .3rem;
         }
 
-        .tableCourse {
+        .tableClass {
             border: 1px solid #000000;
             border-radius: 8px;
             overflow: hidden;
@@ -242,7 +244,7 @@
 
         .btnEdit {
             background-color: #4056A1;
-            width: 4rem;
+            width: 3rem;
             height: 1rem;
             color: #FFF !important;
             font-size: 12px;
@@ -254,9 +256,9 @@
             margin-right: .5rem;
         }
 
-        .btnModul {
+        .btnModul, .btnMember {
             background-color: #4056A1;
-            width: 6rem;
+            width: 3.5rem;
             height: 1rem;
             color: #FFF !important;
             font-size: 12px;
@@ -265,20 +267,8 @@
             padding-top: 4px;
             padding-bottom: 10px;
             border-radius: .4rem;
-            margin-right: 1rem;
-        }
-
-        .btnMember {
-            background-color: #4056A1;
-            width: 6rem;
-            height: 1rem;
-            color: #FFF !important;
-            font-size: 12px;
-            text-align: center;
-            display: inline-block;
-            padding-top: 4px;
-            padding-bottom: 10px;
-            border-radius: .4rem;
+            margin: auto;
+            margin-right: 10px;
         }
 
         .custom-length-container {
@@ -314,7 +304,7 @@
 
 <body>
     <div class="container conTitle">
-        <h2 class="h2">Class Course</h2>
+        <h2 class="h2">Course Class</h2>
         <button class="logout">Logout</button>
     </div>
     <div class="breadcrumb pt-2 pb-4">
@@ -333,18 +323,18 @@
             <table id="table" class="tableClass table-striped" style="width:100%">
                 <thead>
                     <tr>
-                        <th class="batch" style="width: 3%;">Batch</th>
-                        <th class="type" style="width: 3%;">Type</th>
-                        <th class="start" style="width: 3%;">Start Date</th>
-                        <th class="end" style="width: 3%;">End Date</th>
-                        <th class="quota" style="width: 3%;">Quota</th>
-                        <th class="ann" style="width: 3%;">Announcement</th>
-                        <th class="con" style="width: 3%;">Content</th>
-                        <th class="desc" style="width: 3%;">Description</th>
-                        <th class="sta" style="width: 3%;">Status</th>
-                        <th class="cre" style="width: 3%;">Created At</th>
-                        <th class="up" style="width: 3%;">Updated At</th>
-                        <th class="acy" style="width: 3%;">Action</th>
+                        <th>Batch</th>
+                        <th>Type</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Quota</th>
+                        <th>Announcement</th>
+                        <th>Content</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -378,7 +368,28 @@
                     </tr>
                     @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Batch</th>
+                        <th>Type</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Quota</th>
+                        <th>Announcement</th>
+                        <th>Content</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
             </table>
+            <!-- Info and Pagination container -->
+            <div class="buttons-container">
+                <div class="custom-info-text"></div>
+                <div class="custom-pagination-container"></div>
+            </div>
         </div>
 
         <!-- Include JS libraries for DataTable initialization -->
@@ -423,6 +434,7 @@
         <script>
             $(document).ready(function() {
                 let table = $('#table').DataTable({
+                    scrollX: true,
                     lengthChange: true,
                     lengthMenu: [10, 25, 50, 100],
                     buttons: [
@@ -445,7 +457,25 @@
                         "visible": false,
                         "targets": [2, 3, 4, 5, 9]
                     }],
+                    initComplete: function() {
+                        this.api()
+                            .columns()
+                            .every(function() {
+                                var column = this;
+                                var title = column.footer().textContent;
+
+                                // Create input element and add event listener
+                                $('<input class="form-control" type="text" placeholder="Search ' + title + '" />')
+                                    .appendTo($(column.footer()).empty())
+                                    .on('keyup change clear', function() {
+                                        if (column.search() !== this.value) {
+                                            column.search(this.value).draw();
+                                        }
+                                    });
+                            });
+                    }
                 });
+
                 let buttonContainer = $('<div>').addClass('buttons-container');
                 table.buttons().container().appendTo('.container .col-md-6:eq(0)');
                 buttonContainer.insertBefore('#tableCourse .dataTables_length');
@@ -456,39 +486,41 @@
                     display: 'block',
                     flexDirection: 'row',
                     alignItems: 'flex-start',
-                    marginBottom: '10px'
+                    // marginBottom: '10px'
                 });
 
                 // Insert the buttons into the new container
                 table.buttons().container().appendTo(buttonPaginationContainer);
 
                 // Insert the show entries and info into the new container with custom classes
-                $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
-                $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
-                $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
+                // $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
+                // $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
+                // $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
 
                 // Insert the new container before the table
                 buttonPaginationContainer.insertBefore('#table');
-                
-                // Add individual column search inputs and titles
-                $('#table thead th').each(function() {
-                    let title = $(this).text();
-                    $(this).html('<div class="text-center">' + title +
-                        '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' + title +
-                        '" /></div>');
-                });
 
-                // Apply individual column search
+                // Add individual column search inputs and titles
+                // $('#table thead th').each(function() {
+                //     let title = $(this).text();
+                //     $(this).html('<div class="text-center">' + title +
+                //         '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' + title +
+                //         '" /></div>');
+                // });
+
+                // Apply the search for individual columns
                 table.columns().every(function() {
                     let that = this;
-                    $('input', this.header()).on('keyup change', function() {
+
+                    $('input', this.header()).on('keyup change clear', function() {
                         if (that.search() !== this.value) {
-                            that.search(this.value).draw();
+                            that
+                                .search(this.value)
+                                .draw();
                         }
                     });
                 });
-
-                table.buttons().container().appendTo('#tableClass_wrapper .col-md-6:eq(0)');
+                table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
             });
         </script>
     </div>

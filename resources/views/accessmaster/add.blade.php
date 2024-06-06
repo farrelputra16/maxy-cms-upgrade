@@ -77,7 +77,14 @@
             font-weight: bold;
         }
 
-        .btnTambah {
+        .divAdd {
+            text-align: right;
+            /* margin-right: .5rem; */
+            margin-bottom: .5rem;
+            /* margin-left: 65rem; */
+        }
+
+        .btnAdd {
             background-color: #4056A1;
             color: #FFF;
             margin-left: 1.5rem;
@@ -135,9 +142,9 @@
                     </div>
                 </div>
             </div>
-            <div class="divTambah">
-                <button class="btnTambah">Tambah Course</button>
-            </div>
+            <div class="divAdd">
+                    <button class="btnAdd">Add Access Master</button>
+                </div>
         </form>
         <div class="divBatal">
             <a href="{{ url()->previous() }}">

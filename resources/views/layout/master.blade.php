@@ -71,6 +71,10 @@
             color: #FFF;
         }
 
+        .btn-transparent:active{
+            border-color: transparent !important;
+        }
+
         .btnMaster,
         .btnClass,
         .btnUser,

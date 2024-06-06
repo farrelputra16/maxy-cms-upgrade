@@ -79,6 +79,7 @@
             border: none;
             box-shadow: none;
             font-weight: bold;
+            margin-bottom: 10px;
         }
 
         .btnTambah {
@@ -143,7 +144,7 @@
         <span class="divider">></span>
         <div class="sectionMaster">Class Course</div>
         <span class="divider">></span>
-        <div class="sectionCourse">Class</div>
+        <div class="sectionCourse">Add Class</div>
     </div>
 
     <div class="container">
@@ -221,12 +222,13 @@
                 </div>
             </div>
             <div class="divTambah">
-                <button class="btnTambah">Tambah Course</button>
+                <button class="btnTambah">Add Course</button>
             </div>
         </form>
         <a href="{{ url()->previous() }}">
             <button class="btnBatal">Batal</button>
         </a>
+        <br>
     </div>
 </body>
 

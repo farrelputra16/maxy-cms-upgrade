@@ -2,6 +2,7 @@
 
 use Modules\TrackandGrade\Http\Controllers\CourseClassMemberGradingController;
 use Modules\TrackandGrade\Http\Controllers\CourseClassMemberLogController;
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('trackandgrade')->group(function () {
     Route::get('/', 'TrackandGradeController@index');

@@ -287,14 +287,14 @@
             <table id="table" class="tableCerti table-striped w-100">
                 <thead>
                     <tr>
-                        <th class="id" style="width: 1px;">ID</th>
-                        <th class="img" style="width: 3%;">Image</th>
-                        <th class="type" style="width: 3%;">Course Type - Batch</th>
-                        <th class="mark" style="width: 3%;">Marker State</th>
-                        <th class="temp" style="width: 3%;">Template Content</th>
-                        <th class="cre" style="width: 3%;">Created At</th>
-                        <th class="up" style="width: 3%;">Updated At</th>
-                        <th class="act" style="width: 3%;">Action</th>
+                        <th>ID</th>
+                        <th>Image</th>
+                        <th>Course Type - Batch</th>
+                        <th>Marker State</th>
+                        <th>Template Content</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -323,6 +323,18 @@
                     </tr>
                     @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Image</th>
+                        <th>Course Type - Batch</th>
+                        <th>Marker State</th>
+                        <th>Template Content</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
 
@@ -340,6 +352,7 @@
         <script>
             $(document).ready(function() {
                 let table = $('#table').DataTable({
+                    scrollX: true,
                     lengthChange: true,
                     lengthMenu: [10, 25, 50, 100],
                     lengthMenu: [10, 25, 50, 100],
@@ -362,45 +375,76 @@
                     columnDefs: [{
                         "visible": false,
                         "targets": [0]
-                    }]
+                    }],
+                    initComplete: function() {
+                        this.api()
+                            .columns()
+                            .every(function() {
+                                var column = this;
+                                var title = column.footer().textContent;
+
+                                // Create input element and add event listener
+                                $('<input class="form-control" type="text" placeholder="Search ' + title + '" />')
+                                    .appendTo($(column.footer()).empty())
+                                    .on('keyup change clear', function() {
+                                        if (column.search() !== this.value) {
+                                            column.search(this.value).draw();
+                                        }
+                                    });
+                            });
+                    }
                 });
                 let buttonContainer = $('<div>').addClass('buttons-container');
                 table.buttons().container().appendTo(buttonContainer);
-                buttonContainer.insertBefore('.tableCerti_wrapper .dataTables_length');
+                buttonContainer.insertBefore('.tableCerti .dataTables_length');
 
                 // Create container for buttons and pagination
                 let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
                 buttonPaginationContainer.css({
                     display: 'block',
                     flexDirection: 'row',
-                    alignItems: 'flex-start',
-                    marginBottom: '10px'
+                    justifyContent: 'flex-start',
+                    // marginTop: '10px'
                 });
 
                 // Insert the buttons into the new container
                 table.buttons().container().appendTo(buttonPaginationContainer);
 
                 // Insert the show entries and info into the new container with custom classes
-                $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
-                $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
-                $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
+                // $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
+                // $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
+                // $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
 
                 // Insert the new container before the table
                 buttonPaginationContainer.insertBefore('#table');
 
-                $("select[name='table_length']").on('click', function() {
-                    $.ajax({
-                        url: "",
-                        type: 'GET',
-                        data: {
-                            per_page: $(this).val()
-                        },
-                        success: function(data) {
-                            console.log(data);
+                // Apply the search for individual columns
+                table.columns().every(function() {
+                    let that = this;
+
+                    $('input', this.header()).on('keyup change clear', function() {
+                        if (that.search() !== this.value) {
+                            that
+                                .search(this.value)
+                                .draw();
                         }
                     });
-                    console.log($(this).val());
                 });
+                table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
+
+                // $("select[name='table_length']").on('click', function() {
+                //     $.ajax({
+                //         url: "",
+                //         type: 'GET',
+                //         data: {
+                //             per_page: $(this).val()
+                //         },
+                //         success: function(data) {
+                //             console.log(data);
+                //         }
+                //     });
+                //     console.log($(this).val());
+                // });
 
                 table.buttons().container()
                     .appendTo('#table_wrapper .col-md-6:eq(0)');

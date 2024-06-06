@@ -77,7 +77,7 @@
             font-weight: bold;
         }
 
-        .btnTambah {
+        .btnAdd {
             background-color: #4056A1;
             color: #FFF;
             margin-left: 1.5rem;
@@ -96,10 +96,13 @@
             margin-top: -3rem;
         }
 
-        .divTambah {
+        .divAdd {
             text-align: right;
+            margin-right: 1rem;
             margin-bottom: .5rem;
+            margin-left: 65rem;
         }
+
     </style>
 </head>
 
@@ -146,8 +149,8 @@
                 </div>
             </div>
 
-            <div class="divTambah">
-                <button class="btnTambah">Tambah Difficulty Type</button>
+            <div class="divAdd">
+                <button class="btnAdd">Add Course Difficulty</button>
             </div>
         </form>
         <!-- <div class="divBatal"> -->

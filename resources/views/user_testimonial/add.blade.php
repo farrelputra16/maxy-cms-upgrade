@@ -68,8 +68,24 @@
         .btnBatal {
             background-color: #F13C20;
             color: #FFF;
-            margin-left: 53rem;
+            /* margin-right: 1rem;
+        margin-left: 58rem;
+        margin-bottom: .5rem; */
+            color: #FFF;
             width: 80px;
+            height: 35px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .btnAdd {
+            background-color: #4056A1;
+            color: #FFF;
+            color: #FFF;
+            width: 130px;
             height: 35px;
             border-radius: 10px;
             border: none;
@@ -77,16 +93,18 @@
             font-weight: bold;
         }
 
-        .btnTambah {
-            background-color: #4056A1;
-            color: #FFF;
-            margin-left: 1.5rem;
-            width: 180px;
-            height: 35px;
-            border-radius: 10px;
-            border: none;
-            box-shadow: none;
-            font-weight: bold;
+        .divBatal {
+            text-align: right;
+            margin-right: 15rem;
+            margin-bottom: 1rem;
+            margin-top: -3rem;
+        }
+
+        .divAdd {
+            text-align: right;
+            /* margin-right: .5rem; */
+            margin-bottom: .5rem;
+            /* margin-left: 65rem; */
         }
     </style>
 </head>
@@ -181,17 +199,13 @@
                 </div>
             </div>
         </div>
-        <div class="divTambah">
-            <button class="btnTambah">Tambah Testimonial</button>
+        <div class="divAdd">
+            <button class="btnAdd">Add Testimonial</button>
         </div>
-        <!-- <a href="{{ url()->previous() }}">
-            <button class="btnBatal">Batal</button>
-        </a> -->
     </form>
-    <div class="divBatal">
-        <a href="{{ url()->previous() }}">
-            <button class="btnBatal">Batal</button>
-        </a>
+    <a href="{{ url()->previous() }}">
+        <button class="btnBatal">Batal</button>
+    </a>
     </div>
 </body>
 

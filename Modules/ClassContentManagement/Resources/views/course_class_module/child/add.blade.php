@@ -48,7 +48,7 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 1010px;
+            width: 96%;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }
@@ -80,16 +80,17 @@
             font-weight: bold;
         }
 
-        .btnTambah {
+        .btnAdd {
             background-color: #4056A1;
             color: #FFF;
             color: #FFF;
-            width: 120px;
+            width: 180px;
             height: 35px;
             border-radius: 10px;
             border: none;
             box-shadow: none;
             font-weight: bold;
+            margin-right: 10rem;
         }
 
         .divBatal {
@@ -100,11 +101,11 @@
             z-index: 1000;
         }
 
-        .divTambah {
+        .divAdd {
             text-align: right;
             margin-right: 1rem;
             margin-bottom: .5rem;
-            margin-left: 65rem;
+            margin-left: 60rem;
         }
     </style>
 </head>
@@ -187,13 +188,13 @@
                     <label>Aktif</label>
                 </div>
             </div>
-            <div class="divTambah">
-                <button class="btnTambah">Tambah Course</button>
+            <div class="divAdd">
+                <button class="btnAdd">Add Child Course</button>
             </div>
         </form>
         <a href="{{ url()->previous() }}">
             <button class="btnBatal">Batal</button>
-        </a>
+        </a><br>
     </div>
 </body>
 

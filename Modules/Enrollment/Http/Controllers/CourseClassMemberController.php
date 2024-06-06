@@ -49,7 +49,7 @@ class CourseClassMemberController extends Controller
                 ->select('id', 'name', 'email')
                 ->get();
 
-        // dd($mentors);
+        // dd($filteredUsers);
 
         return view('enrollment::course_class_member.add', [
             'users' => $filteredUsers,
@@ -58,12 +58,14 @@ class CourseClassMemberController extends Controller
         ]);
     }
 
-    function postAddCourseClassMember(CourseClassMemberRequest $request)
+    function postAddCourseClassMember(Request $request)
     {
+        // dd($request->all());
+        
         $users = $request->users; // Mengambil semua pengguna dari permintaan
         $courseClassId = $request->course_class;
 
-        // dd($request);
+        // dd($users);
         foreach ($users as $user) {
             $existingUser = CourseClassMember::checkExistingCCM($user, $courseClassId);
 
