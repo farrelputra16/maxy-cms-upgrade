@@ -45,7 +45,7 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 1010px;
+            width: 97%;;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }

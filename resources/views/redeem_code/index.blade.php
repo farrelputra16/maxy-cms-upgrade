@@ -34,7 +34,7 @@
         }
 
         .logout {
-            margin-right: 2rem;
+            margin-right: .8rem;
             margin-bottom: .5rem;
             background-color: #FBB041;
             color: #FFF;
@@ -49,7 +49,7 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 1010px;
+            width: 97%;;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }
