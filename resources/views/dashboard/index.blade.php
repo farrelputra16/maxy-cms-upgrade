@@ -466,7 +466,7 @@
         <button class="logout">Logout</button>
     </div>
 
-    <div class="breadcrumb pt-2 pb-4"></div>
+    <div class="breadcrumb"></div>
 
     <div class="row">
         <h3 class="h3">Leads</h3>
