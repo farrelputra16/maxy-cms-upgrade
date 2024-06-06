@@ -13,12 +13,13 @@ class MiscController extends Controller
     public function updateGKCourseImage()
     {
         ini_set('max_execution_time', 300);
-        $gk_course_list = Course::where('m_course_type_id', '7')->get();
+        $gk_course_list = Course::where('m_course_type_id', '7')
+            ->where('image', 'like', '%https%')
+            ->get();
 
         $counter = 0;
         foreach ($gk_course_list as $course) {
             $counter++;
-            // if ($counter > 405) { // untuk testing
             echo '=============================== <br>';
             echo 'counter : ' . $counter . '<br>';
             echo 'course_id : ' . $course->id . '<br>';
@@ -46,6 +47,5 @@ class MiscController extends Controller
             }
             echo '=============================== <br>';
         }
-        // }
     }
 }
