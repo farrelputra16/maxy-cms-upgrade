@@ -304,3 +304,4 @@ Route::get('/noauthority', function () {
 Route::post('/user/import-csv', [UserController::class, 'importCSV'])->name('user.import-csv');
 
 Route::get('/updateGKCourseImage', [MiscController::class, 'updateGKCourseImage'])->name('updateGKCourseImage');
+Route::get('/reorderUpskillingPriority', [MiscController::class, 'reorderUpskillingPriority'])->name('reorderUpskillingPriority');
