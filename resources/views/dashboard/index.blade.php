@@ -60,7 +60,8 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 97%;;
+            width: 97%;
+            ;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }
@@ -82,7 +83,7 @@
 
         .h3 {
             margin-left: 1rem;
-            margin-top: -1.5rem;
+            margin-top: -5rem;
             font-size: 20px;
             color: #4056A1;
             font-weight: bolder;
@@ -94,9 +95,10 @@
         }
 
         .box {
-            width: 200px;
-            height: 160px;
+            width: 100%;
+            height: auto;
             padding: 20px;
+            margin-left: 1rem;
             border: 3px solid #CCD2E3;
             border-radius: 10px;
             text-align: center;
@@ -109,19 +111,18 @@
 
         .box h3 {
             padding-top: 5rem;
-            font-size: 14px;
+            font-size: 120%;
             text-align: left;
-            font-weight: 900;
+            font-weight: bolder;
         }
 
         .box p {
-            font-size: 10px;
+            font-size: 90%;
             text-align: left;
         }
 
         .box img {
-            max-width: 50%;
-            width: 30%;
+            max-width: 25%;
             height: auto;
             margin-top: -2rem;
             margin-left: -3rem;
@@ -150,11 +151,12 @@
 
         /* Calendar Styles */
         .wrapper {
-            width: 280px;
-            height: 300px;
+            width: 80%;
+            height: auto;
             border-radius: 20px;
             border: 3px solid #CCD2E3;
             margin-right: 1rem;
+            margin-bottom: 1rem;
         }
 
         .wrapper header {
@@ -251,7 +253,8 @@
         }
 
         .days li.active {
-            color: #fff;
+            color: #FFF;
+            background-color: #FFF;
         }
 
         .days li::before {
@@ -259,28 +262,31 @@
             content: "";
             left: 50%;
             top: 50%;
-            height: 40px;
-            width: 40px;
+            height: 1px;
+            width: 1px;
             z-index: -1;
             border-radius: 50%;
             transform: translate(-50%, -50%);
-            color: #000000;
+            color: #FFF;
         }
 
         .days li.active::before {
             background: #FBB041;
-            color: #000000;
+            color: #FFF;
+            height: 40px;
+            width: 40px;
         }
 
         .days li:not(.active):hover::before {
-            background: #FBB041;
+            background: #FFF;
+            width: 1px;
         }
 
         /* Active Class */
         .boxActive {
-            width: 320px;
-            height: 300px;
-            padding: 20px;
+            width: 100%;
+            height: auto;
+            /* padding: 20px; */
             border: 3px solid #CCD2E3;
             border-radius: 10px;
             text-align: center;
@@ -333,8 +339,8 @@
         }
 
         .boxStu {
-            width: 315px;
-            height: 290px;
+            width: 90%;
+            height: 50%;
             padding: 20px;
             border: 3px solid #CCD2E3;
             border-radius: 10px;
@@ -343,7 +349,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            margin: 0 auto;
+            /* margin: 0 au to; */
         }
 
         #donut-chart {
@@ -410,7 +416,7 @@
 
         /* Schedule Today */
         .boxSch {
-            width: 280px;
+            width: 80%;
             height: auto;
             margin-right: .05rem;
             padding: 20px;
@@ -445,7 +451,7 @@
         .boxSch .line {
             border-top: 2px solid #CCD2E3;
             display: inline-block;
-            width: 275px;
+            width: 114%;
             margin-left: -20px;
         }
 
@@ -453,7 +459,7 @@
             border-bottom: 2px solid #CCD2E3;
             display: inline-block;
             align-items: center;
-            width: 250px;
+            width: 90%;
             margin-left: 12px;
             margin-top: -10px;
         }
@@ -466,31 +472,48 @@
         <button class="logout">Logout</button>
     </div>
 
-    <div class="breadcrumb"></div>
+    <div class="conBread">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb"></div>
+            </div>
+        </div>
+    </div>
 
-    <div class="row">
-        <h3 class="h3">Leads</h3>
-        <div class="container">
-            <div class="box">
-                <img src="{{ asset('uploads/Student.png') }}" alt="">
-                <a href="">View All</a>
-                <h3>Student</h3>
-                <p>there are 3 new leads</p>
+    <div class="row" style="width:100%; height:100%;">
+        <!-- Leads -->
+        <div class="col-md-8">
+            <h3 class="h3">Leads</h3>
+            <div class="row" style="width:100%">
+                <div class="col-md-4">
+                    <div class="box" style="margin-left: 1rem;">
+                        <img src="{{ asset('uploads/Student.png') }}" alt="">
+                        <a href="">View All</a>
+                        <h3>Student</h3>
+                        <p>there are 3 new leads</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="box">
+                        <img src="{{ asset('uploads/Company.png') }}" alt="">
+                        <a href="">View All</a>
+                        <h3>Company</h3>
+                        <p>no new lead</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="box">
+                        <img src="{{ asset('uploads/University.png') }}" alt="">
+                        <a href="">View All</a>
+                        <h3>University</h3>
+                        <p>there are 7 new leads</p>
+                    </div>
+                </div>
             </div>
-            <div class="box">
-                <img src="{{ asset('uploads/Company.png') }}" alt="">
-                <a href="">View All</a>
-                <h3>Company</h3>
-                <p>no new lead</p>
-            </div>
-            <div class="box">
-                <img src="{{ asset('uploads/University.png') }}" alt="">
-                <a href="">View All</a>
-                <h3>University</h3>
-                <p>there are 7 new leads</p>
-            </div>
+        </div>
 
-            <!-- Calendar Wrapper -->
+        <!-- Calendar Wrapper -->
+        <div class="col-md-4">
             <div class="wrapper">
                 <header>
                     <p class="current-date">May 2024</p>
@@ -551,66 +574,76 @@
         </div>
     </div>
 
-
-    <!-- Active Class -->
-    <h3 class="h3 act">Active Class</h3>
-    <h3 class="h3 stu">Student</h3>
-    <div class="container">
-        <div class="boxActive box">
-            <table id="table" class="tableActive table-striped" style="width: 100%;">
-                <thead>
-                    <tr>
-                        <th class="ticlass" style="width: 50%; text-align: left;">Class</th>
-                        <th class="tibatch" style="width: 20%;">Batch</th>
-                        <th class="tiaction" style="width: 30%; text-align: right;">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($active_class_list as $class)
-                    <tr>
-                        <td style="text-align: left; margin-bottom: 10px;">
-                            {{ $class->course_name }}
-                        </td>
-                        <td style="text-align: center;">
-                            {{ $class->batch }}
-                        </td>
-                        <td>
-                            <a href="" class="btnDetail" style="position: relative; text-align: center; width: 4.2rem;
+    <div class="row" style="width:100%">
+        <!-- Active Class -->
+        <div class="col-md-4">
+            <h3 class="h3 act">Active Class</h3>
+            <div class="boxActive box">
+                <table id="table" class="tableActive table-striped" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th class="ticlass" style="width: 50%; text-align: left;">Class</th>
+                            <th class="tibatch" style="width: 20%;">Batch</th>
+                            <th class="tiaction" style="width: 30%; text-align: right;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($active_class_list as $class)
+                        <tr>
+                            <td style="text-align: left; margin-bottom: 10px;">
+                                {{ $class->course_name }}
+                            </td>
+                            <td style="text-align: center;">
+                                {{ $class->batch }}
+                            </td>
+                            <td>
+                                <a href="" class="btnDetail" style="position: relative; text-align: center; width: 4.2rem;
                             border-radius: 12px; padding-right: -1rem; padding-bottom: .5rem;
                             margin-left: 3rem; margin-top: .25rem;">Detail</a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <div class="boxStu box">
-            <div class="chart-container">
-                <div id="chartjs-doughnut"></div>
-                <div id="donut-chart"></div>
-                <canvas id="chart"></canvas>
+        <!-- Student -->
+        <div class="col-md-4">
+            <h3 class="h3">Student</h3>
+            <div class="boxStu box">
+                <div class="chart-container">
+                    <div id="chartjs-doughnut"></div>
+                    <div id="donut-chart"></div>
+                    <canvas id="chart"></canvas>
+                </div>
             </div>
         </div>
 
         <!-- Schedule -->
-        <div class="boxSch">
-            <h3 class="h3">Schedule Today</h3>
-            <div class="line pt-2 pb-4">
-                <h5>Morning Huddle</h5>
-                <p>08.30 AM</p>
-                <div class="strip"></div>
-                <h5>Schedule Today</h5>
-                <p>01.00 PM</p>
-                <div class="strip"></div>
-                <h5>Schedule Today</h5>
-                <p>01.00 PM</p>
-                <div class="strip"></div>
-                <h5>Schedule Today</h5>
-                <p>01.00 PM</p>
+        <div class="col-md-4">
+            <div class="boxSch">
+                <h3 class="h3">Schedule Today</h3>
+                <div class="line pt-2 pb-4">
+                    <h5>Morning Huddle</h5>
+                    <p>08.30 AM</p>
+                    <div class="strip"></div>
+                    <h5>Schedule Today</h5>
+                    <p>01.00 PM</p>
+                    <div class="strip"></div>
+                    <h5>Schedule Today</h5>
+                    <p>01.00 PM</p>
+                    <div class="strip"></div>
+                    <h5>Schedule Today</h5>
+                    <p>01.00 PM</p>
+                </div>
             </div>
         </div>
-        <!-- <div class="px-3 pb-3" x-data="dashboard">
+    </div>
+</body>
+
+</html>
+<!-- <div class="px-3 pb-3" x-data="dashboard">
                 <div class="ui message">
                     <div class="header">
                         Selamat Datang, {{ Auth::user()->name }}
@@ -651,169 +684,165 @@
     @endif
             </div> -->
 
-        <script src="https://unpkg.com/@adminkit/core@latest/dist/js/app.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!-- Include Axios for making HTTP requests -->
-        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-        <script src="https://unpkg.com/bs-brain@2.0.4/components/charts/chart-4/assets/controller/chart-4.js"></script>
-        <script src="https://d3js.org/d3.v4.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/@adminkit/core@latest/dist/js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!-- Include Axios for making HTTP requests -->
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://unpkg.com/bs-brain@2.0.4/components/charts/chart-4/assets/controller/chart-4.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        <script>
-            const dashboard = () => {
-                return {
-                    isLoading: false,
-                    toggle() {
-                        this.isLoading = !this.isLoading;
+<script>
+    const dashboard = () => {
+        return {
+            isLoading: false,
+            toggle() {
+                this.isLoading = !this.isLoading;
 
-                        if (this.isLoading) {
-                            this.syncData();
-                        }
-                    },
-                    syncData() {
-                        this.isLoading = true;
-                        axios.get("{{ route('synchronizeData') }}")
-                            .then((response) => {
-                                this.isLoading = false
-                                alert('Sinkronisasi data berhasil!')
-                            })
-                            .catch(() => {
-                                this.isLoading = false
-                                alert('Sinkronisasi data gagal!')
-                            })
-                    }
+                if (this.isLoading) {
+                    this.syncData();
                 }
+            },
+            syncData() {
+                this.isLoading = true;
+                axios.get("{{ route('synchronizeData') }}")
+                    .then((response) => {
+                        this.isLoading = false
+                        alert('Sinkronisasi data berhasil!')
+                    })
+                    .catch(() => {
+                        this.isLoading = false
+                        alert('Sinkronisasi data gagal!')
+                    })
             }
+        }
+    }
 
-            document.addEventListener('DOMContentLoaded', function() {
-                var calendarEl = document.getElementById('calendar');
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
 
-                var calendar = new FullCalendar.Calendar(calendarEl, {
-                    timeZone: 'UTC',
-                    themeSystem: 'standard', // atau tema lain yang Anda inginkan
-                    initialView: 'dayGridMonth', // tampilan awal kalender
-                    events: 'https://fullcalendar.io/api/v1/events' // sumber event
-                });
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            timeZone: 'UTC',
+            themeSystem: 'standard', // atau tema lain yang Anda inginkan
+            initialView: 'dayGridMonth', // tampilan awal kalender
+            events: 'https://fullcalendar.io/api/v1/events' // sumber event
+        });
 
-                calendar.render();
-            });
-        </script>
+        calendar.render();
+    });
+</script>
 
-        <script>
-            const daysTag = document.querySelector(".days"),
-                currentDate = document.querySelector(".current-date"),
-                prevNextIcon = document.querySelectorAll(".icons span");
+<script>
+    const daysTag = document.querySelector(".days"),
+        currentDate = document.querySelector(".current-date"),
+        prevNextIcon = document.querySelectorAll(".icons span");
 
-            // getting new date, current year and month
-            let date = new Date(),
-                currYear = date.getFullYear(),
-                currMonth = date.getMonth();
+    // getting new date, current year and month
+    let date = new Date(),
+        currYear = date.getFullYear(),
+        currMonth = date.getMonth();
 
-            // storing full name of all months in array
-            const months = ["January", "February", "March", "April", "May", "June", "July",
-                "August", "September", "October", "November", "December"
-            ];
+    // storing full name of all months in array
+    const months = ["January", "February", "March", "April", "May", "June", "July",
+        "August", "September", "October", "November", "December"
+    ];
 
-            const renderCalendar = () => {
-                let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // getting first day of month
-                    lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // getting last date of month
-                    lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // getting last day of month
-                    lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // getting last date of previous month
-                let liTag = "";
+    const renderCalendar = () => {
+        let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // getting first day of month
+            lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // getting last date of month
+            lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // getting last day of month
+            lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // getting last date of previous month
+        let liTag = "";
 
-                for (let i = firstDayofMonth; i > 0; i--) { // creating li of previous month last days
-                    liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
-                }
+        for (let i = firstDayofMonth; i > 0; i--) { // creating li of previous month last days
+            liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
+        }
 
-                for (let i = 1; i <= lastDateofMonth; i++) { // creating li of all days of current month
-                    // adding active class to li if the current day, month, and year matched
-                    let isToday = i === date.getDate() && currMonth === new Date().getMonth() &&
-                        currYear === new Date().getFullYear() ? "active" : "";
-                    liTag += `<li class="${isToday}">${i}</li>`;
-                }
+        for (let i = 1; i <= lastDateofMonth; i++) { // creating li of all days of current month
+            // adding active class to li if the current day, month, and year matched
+            let isToday = i === date.getDate() && currMonth === new Date().getMonth() &&
+                currYear === new Date().getFullYear() ? "active" : "";
+            liTag += `<li class="${isToday}">${i}</li>`;
+        }
 
-                for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
-                    liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
-                }
-                currentDate.innerText =
-                    `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
-                daysTag.innerHTML = liTag;
+        for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
+            liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
+        }
+        currentDate.innerText =
+            `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
+        daysTag.innerHTML = liTag;
+    }
+    renderCalendar();
+
+    prevNextIcon.forEach(icon => { // getting prev and next icons
+        icon.addEventListener("click", () => { // adding click event on both icons
+            // if clicked icon is previous icon then decrement current month by 1 else increment it by 1
+            currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
+
+            if (currMonth < 0 || currMonth > 11) { // if current month is less than 0 or greater than 11
+                // creating a new date of current year & month and pass it as date value
+                date = new Date(currYear, currMonth, new Date().getDate());
+                currYear = date.getFullYear(); // updating current year with new date year
+                currMonth = date.getMonth(); // updating current month with new date month
+            } else {
+                date = new Date(); // pass the current date as date value
             }
-            renderCalendar();
+            renderCalendar(); // calling renderCalendar function
+        });
+    });
+</script>
 
-            prevNextIcon.forEach(icon => { // getting prev and next icons
-                icon.addEventListener("click", () => { // adding click event on both icons
-                    // if clicked icon is previous icon then decrement current month by 1 else increment it by 1
-                    currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
+<script>
+    let totalStu = <?php echo $totalStu; ?>;
+    let stuActive = <?php echo $stuActive; ?>;
 
-                    if (currMonth < 0 || currMonth > 11) { // if current month is less than 0 or greater than 11
-                        // creating a new date of current year & month and pass it as date value
-                        date = new Date(currYear, currMonth, new Date().getDate());
-                        currYear = date.getFullYear(); // updating current year with new date year
-                        currMonth = date.getMonth(); // updating current month with new date month
-                    } else {
-                        date = new Date(); // pass the current date as date value
-                    }
-                    renderCalendar(); // calling renderCalendar function
-                });
-            });
-        </script>
-
-        <script>
-            let totalStu = <?php echo $totalStu; ?>;
-            let stuActive = <?php echo $stuActive; ?>;
-
-            let chart = bb.generate({
-                data: {
-                    columns: [
-                        ["Inactive Students (" + (totalStu - stuActive) + ")", totalStu - stuActive],
-                        ["Student Active (" + stuActive + ")", stuActive],
-                    ],
-                    type: "donut",
-                    onclick: function(d, i) {
-                        console.log("onclick", d, i);
-                    },
-                    onover: function(d, i) {
-                        console.log("onover", d, i);
-                    },
-                    onout: function(d, i) {
-                        console.log("onout", d, i);
-                    },
-                },
-                color: {
-                    pattern: ["#232E66", "#1533B5"],
-                },
-                bindto: "#donut-chart",
-                donut: {
-                    label: {
-                        show: true
-                    }
-                },
-                legend: {
-                    show: true,
-                    position: 'bottom'
-                }
-            });
-        </script>
-
-</body>
-
-</html>
+    let chart = bb.generate({
+        data: {
+            columns: [
+                ["Inactive Students (" + (totalStu - stuActive) + ")", totalStu - stuActive],
+                ["Student Active (" + stuActive + ")", stuActive],
+            ],
+            type: "donut",
+            onclick: function(d, i) {
+                console.log("onclick", d, i);
+            },
+            onover: function(d, i) {
+                console.log("onover", d, i);
+            },
+            onout: function(d, i) {
+                console.log("onout", d, i);
+            },
+        },
+        color: {
+            pattern: ["#232E66", "#1533B5"],
+        },
+        bindto: "#donut-chart",
+        donut: {
+            label: {
+                show: true
+            }
+        },
+        legend: {
+            show: true,
+            position: 'bottom'
+        }
+    });
+</script>
 @endsection

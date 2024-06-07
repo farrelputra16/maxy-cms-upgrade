@@ -427,7 +427,7 @@
             });
             let buttonContainer = $('<div>').addClass('buttons-container');
             table.buttons().container().appendTo('.container .col-md-6:eq(0)');
-            buttonContainer.insertBefore('#tableCourse .dataTables_length');
+            buttonContainer.insertBefore('#tableCoursePackage .dataTables_length');
 
             let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
             buttonPaginationContainer.css({

@@ -216,6 +216,50 @@
             overflow: hidden;
         }
 
+        .tableClass td,
+        .tableClass th,
+        .batch th,
+        .batch td {
+            word-wrap: break-word;
+            white-space: normal;
+        }
+
+        .tableClass th:nth-child(1),
+        .tableClass td:ntn-child(1) {
+            max-width: 200px;
+            word-wrap: break-word;
+        }
+
+        .tableClass td:nth-child(1) div {
+            white-space: normal !important;
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+
+        .tableClass th.batch {
+            max-width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .tableClass td.batch {
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
+        .tableClass td.batch::after {
+            content: '...';
+            display: block;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff 50%);
+            padding: 0 4px;
+        }
+
         .btnAktif {
             background-color: #46E44C;
             width: 5rem;
@@ -304,7 +348,7 @@
 
 <body>
     <div class="container conTitle">
-        <h2 class="h2">Course Class</h2>
+        <h2 class="h2">Class</h2>
         <button class="logout">Logout</button>
     </div>
     <div class="breadcrumb pt-2 pb-4">
@@ -323,7 +367,7 @@
             <table id="table" class="tableClass table-striped" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Batch</th>
+                        <th class="batch">Batch</th>
                         <th>Type</th>
                         <th>Start Date</th>
                         <th>End Date</th>
@@ -340,7 +384,7 @@
                 <tbody>
                     @foreach ($course_list as $item)
                     <tr>
-                        <td scope="row">{{ $item->course_name }} Batch {{ $item->batch }}</td>
+                        <td class="batch" scope="row">{{ $item->course_name }} Batch {{ $item->batch }}</td>
                         <td>{{ $item->type }} </td>
                         <td>{{ $item->start_date }}</td>
                         <td>{{ $item->end_date }}</td>
@@ -433,6 +477,7 @@
     </script> -->
         <script>
             $(document).ready(function() {
+                $('[data-toggle="tooltip"]').tooltip();
                 let table = $('#table').DataTable({
                     scrollX: true,
                     lengthChange: true,

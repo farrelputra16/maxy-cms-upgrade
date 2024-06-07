@@ -41,7 +41,7 @@
         .dashboard-bg {
             background-color: #232E66;
             position: fixed;
-            overflow-y: scroll;
+            overflow-y: auto;
             top: 0;
             bottom: 0;
         }
@@ -55,24 +55,60 @@
         }
 
         .logoDash {
-            padding-left: 1.5rem;
+            margin-left: -1.8rem;
             margin-bottom: 1.5rem;
+        }
+
+        .dash {
+            margin-top: -1rem;
         }
 
         .btn-transparent {
             background-color: transparent !important;
-            border: none;
+            border: none !important;
             color: #FFF;
         }
 
         .btn-transparent:hover {
             background-color: #FBB041;
-            border: none;
+            border: none !important;
             color: #FFF;
         }
 
-        .btn-transparent:active{
-            border-color: transparent !important;
+        .btn-transparent:focus,
+        .btn-transparent:active {
+            border: none !important;
+            outline: none !important;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            color: #FFF;
+        }
+
+        .nav-item i {
+            margin-right: 10px;
+            margin-top: 1rem;
+        }
+
+        .nav-link::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: url('/path/to/your/icon.png') no-repeat center center;
+            background-size: contain;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background-color: #FBB041;
+            color: #FFF;
+            border-radius: 10px;
         }
 
         .btnMaster,
@@ -82,7 +118,7 @@
         .btnSet,
         .btnMember {
             margin-top: 1rem;
-            margin-left: 2rem;
+            margin-left: 1.5rem;
             margin-bottom: .5rem;
             background-color: #232E66;
             color: #FFF;
@@ -92,25 +128,24 @@
         li .nav-item {
             list-style-type: none;
             margin-bottom: .5rem;
-
         }
 
         .collapse .list-group-item {
             background-color: #232E66;
             color: #FFF;
-            margin-left: 2rem;
+            margin-left: 2.5rem;
             margin-bottom: .5rem;
-            width: 150px;
+            width: 110px;
             border: 1px solid #232E66;
         }
 
-        .collapse .list-group-item:hover {
+        .collapse .list-group-item:hover,
+        .collapse .list-group-item:focus,
+        .collapse .list-group-item.active {
             background-color: #FBB041;
             color: #FFF;
-        }
-
-        .collapse .list-group {
-            background-color: #232E66;
+            border: none !important;
+            outline: none !important;
         }
 
         .collapsing {
@@ -118,7 +153,6 @@
             color: #FFF;
             margin-left: 2rem;
             width: auto;
-            /* Ensure it takes the full available width */
             border: 1px solid #232E66;
         }
 
@@ -126,6 +160,23 @@
             background-color: #232E66;
             color: #FFF;
             width: auto;
+        }
+
+        .active {
+            background-color: #FBB041;
+        }
+
+        .submenu.active {
+            background-color: #FBB041;
+        }
+
+        .nav-item.active .list-group-item .list-group-item-action {
+            background-color: #FBB041;
+            color: #FFF;
+        }
+
+        .active-submenu {
+            background-color: #FBB041 !important;
         }
     </style>
 </head>
@@ -141,9 +192,9 @@
             <ul class="nav flex-column mt-2 mt-sm-0" id="menu">
                 <!-- Dashboard -->
                 <li class="nav-item py-2 py-sm-0">
-                    <a href="{{ url('/') }}" class="nav-link text-white" aria-current="page">
+                    <a href="{{ url('/') }}" class="nav-link text-white {{ Route::is('getDashboard') ? 'active' : '' }}" aria-current="page">
                         <i class="fa fa-house logoDash"></i>
-                        <span class="ms-2">Dashboard</span>
+                        <span class="dash">Dashboard</span>
                     </a>
                 </li>
 
@@ -153,46 +204,43 @@
                         <i class="fa fa-book logoMaster"></i>
                         <span class="ms-2">Master</span>
                     </a>
-                    <ul class="collapse" id="submenu1">
+                    <ul class="colMaster collapse" id="subMaster">
                         <li class="nav-item">
-                            <a href="{{ route('getCourse') }}" class="list-group-item list-group-item-action">Course</a>
+                            <a href="{{ route('getCourse') }}" class="list-group-item list-group-item-action {{ Route::is('getCourse') ? 'active' : '' }}">Course</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('getCourseType') }}" class="list-group-item list-group-item-action">Course
-                                Type</a>
+                            <a href="{{ route('getCourseType') }}" class="list-group-item list-group-item-action {{ Route::is('getCourseType') ? 'active' : '' }}">Course Type</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('getCoursePackage') }}" class="list-group-item list-group-item-action">Course
-                                Package</a>
+                            <a href="{{ route('getCoursePackage') }}" class="list-group-item list-group-item-action {{ Route::is('getCoursePackage') ? 'active' : '' }}">Course Package</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('getDifficulty') }}" class="list-group-item list-group-item-action">Course
-                                Difficulty</a>
+                            <a href="{{ route('getDifficulty') }}" class="list-group-item list-group-item-action {{ Route::is('getDifficulty') ? 'active' : '' }}">Course Difficulty</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('getPartner') }}" class="list-group-item list-group-item-action">Partners</a>
+                            <a href="{{ route('getPartner') }}" class="list-group-item list-group-item-action {{ Route::is('getPartner') ? 'active' : '' }}">Partners</a>
                         </li>
                     </ul>
                 </li>
 
                 <!-- Class -->
                 <li class="nav-item">
-                    <a class="btn btn-transparent btnClass text-white" data-bs-toggle="collapse" href="#">
+                    <a class="btn btn-transparent btnClass text-white" data-bs-toggle="collapse" href="#" style="margin-left: 20px;">
                         <i class="fa fa-graduation-cap logoClass"></i>
                         <span class="ms-2">Class</span>
                     </a>
-                    <ul class="colClass collapse">
+                    <ul class="colClass collapse" id="subClass">
                         <li class="nav-item">
-                            <a href="{{ route('getCourseClass') }}" class="list-group-item list-group-item-action">Class</a>
+                            <a href="{{ route('getCourseClass') }}" class="list-group-item list-group-item-action {{ Route::is('getCourseClass') ? 'active' : '' }}">Class</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('certificate-templates.index') }}" class="list-group-item list-group-item-action">Certificate Template</a>
+                            <a href="{{ route('certificate-templates.index') }}" class="list-group-item list-group-item-action {{ Route::is('certificate-templates.index') ? 'active' : '' }}">Certificate Template</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('getCCMH') }}" class="list-group-item list-group-item-action">Student Tracker</a>
+                            <a href="{{ route('getCCMH') }}" class="list-group-item list-group-item-action {{ Route::is('getCCMH') ? 'active' : '' }}">Student Tracker</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('getCCMHGrade') }}" class="list-group-item list-group-item-action">Grade Assignment</a>
+                            <a href="{{ route('getCCMHGrade') }}" class="list-group-item list-group-item-action {{ Route::is('getCCMHGrade') ? 'active' : '' }}">Grade Assignment</a>
                         </li>
                     </ul>
                 </li>
@@ -205,13 +253,13 @@
                     </a>
                     <ul class="colUser collapse">
                         <li class="nav-item">
-                            <a href="{{ route('getUser') }}" class="list-group-item list-group-item-action">Users</a>
+                            <a href="{{ route('getUser') }}" class="list-group-item list-group-item-action {{ Route::is('getUser') ? 'active' : '' }}">Users</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('getAccessGroup') }}" class="list-group-item list-group-item-action">Access Group</a>
+                            <a href="{{ route('getAccessGroup') }}" class="list-group-item list-group-item-action {{ Route::is('getAccessGroup') ? 'active' : '' }}">Access Group</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('getAccessMaster') }}" class="list-group-item list-group-item-action">Access Master</a>
+                            <a href="{{ route('getAccessMaster') }}" class="list-group-item list-group-item-action {{ Route::is('getAccessMaster') ? 'active' : '' }}">Access Master</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="list-group-item list-group-item-action">Need Help?</a>
@@ -227,10 +275,10 @@
                     </a>
                     <ul class="colOrder collapse">
                         <li class="nav-item">
-                            <a href="{{ route('getTransOrder') }}" class="list-group-item list-group-item-action">Orders</a>
+                            <a href="{{ route('getTransOrder') }}" class="list-group-item list-group-item-action {{ Route::is('getTransOrder') ? 'active' : '' }}">Orders</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('getVoucher') }}" class="list-group-item list-group-item-action">Vouchers</a>
+                            <a href="{{ route('getVoucher') }}" class="list-group-item list-group-item-action {{ Route::is('getVoucher') ? 'active' : '' }}">Vouchers</a>
                         </li>
                     </ul>
                 </li>
@@ -243,10 +291,10 @@
                     </a>
                     <ul class="colSet collapse">
                         <li class="nav-item">
-                            <a href="{{ route('getGeneral') }}" class="list-group-item list-group-item-action">General</a>
+                            <a href="{{ route('getGeneral') }}" class="list-group-item list-group-item-action {{ Route::is('getGeneral') ? 'active' : '' }}">General</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('getMaxyTalk') }}" class="list-group-item list-group-item-action">Maxy Talk</a>
+                            <a href="{{ route('getMaxyTalk') }}" class="list-group-item list-group-item-action {{ Route::is('getMaxyTalk') ? 'active' : '' }}">Maxy Talk</a>
                         </li>
                     </ul>
                 </li>
@@ -259,10 +307,10 @@
                     </a>
                     <ul class="colMember collapse">
                         <li class="nav-item">
-                            <a href="{{ route('getTestimonial') }}" class="list-group-item list-group-item-action">Testimonial</a>
+                            <a href="{{ route('getTestimonial') }}" class="list-group-item list-group-item-action {{ Route::is('getTestimonial') ? 'active' : '' }}">Testimonial</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('getRedeemCode') }}" class="list-group-item list-group-item-action">Redeem Code</a>
+                            <a href="{{ route('getRedeemCode') }}" class="list-group-item list-group-item-action {{ Route::is('getRedeemCode') ? 'active' : '' }}">Redeem Code</a>
                         </li>
                     </ul>
                 </li>
@@ -303,35 +351,34 @@
         </div>
         <p>{{ session()->get('messageN') }}</p>
     </div>
-    @endif
+</body>
 
-    @yield('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const closeIcons = document.querySelectorAll('.message .close.icon');
+</html>
+@endif
 
-            closeIcons.forEach(function(icon) {
-                icon.addEventListener('click', function() {
-                    this.closest('.message').remove();
-                });
+@yield('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const closeIcons = document.querySelectorAll('.message .close.icon');
+
+        closeIcons.forEach(function(icon) {
+            icon.addEventListener('click', function() {
+                this.closest('.message').remove();
             });
         });
 
+        // Script untuk bootstrap collapse
         $('.collapse').on('show.bs.collapse', function() {
             $(this).siblings('.btn-transparent').addClass('active');
         }).on('hide.bs.collapse', function() {
             $(this).siblings('.btn-transparent').removeClass('active');
         });
 
+        // Script untuk menu Master
         jQuery(function($) {
             $('#Master').on('click', function(e) {
                 e.preventDefault();
                 $('#MasterMenu').toggleClass('show');
-            });
-
-            $('#MasterMenu .nav-link').on('click', function(e) {
-                e.stopPropagation();
-                $('#MasterMenu').removeClass('show');
             });
 
             $(document).on('click', function(e) {
@@ -341,18 +388,47 @@
             });
         });
 
+        // Script untuk btn-transparent toggle
         $('.btn-transparent').click(function(e) {
             e.preventDefault();
             var $this = $(this);
             var $collapse = $this.siblings('.collapse');
             $collapse.collapse('toggle');
             $this.toggleClass('active');
-        });
-        $(document).ready(function() {
-            $('#tabel').DataTable();
-        });
-    </script>
-</body>
 
-</html>
+            // Hapus border dan outline jika ada
+            $this.css('border', 'none');
+            $this.css('outline', 'none');
+        });
+
+        // Script untuk DataTable
+        // $(document).ready(function() {
+        //     $('#tabel').DataTable();
+        // });
+
+        $(document).ready(function() {
+            // Ketika submenu diklik
+            $('.nav-link, .list-group-item').on('click', function() {
+                // Hapus class active-submenu dari semua submenu
+                $('.nav-link, .list-group-item').removeClass('active-submenu');
+
+                // Tambahkan class active-submenu ke submenu yang diklik
+                $(this).addClass('active-submenu');
+            });
+        });
+
+        // Script untuk menambahkan dan menghapus class active pada nav-link
+        const links = document.querySelectorAll('.nav-link');
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    });
+</script>
 @endauth

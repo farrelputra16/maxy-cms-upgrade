@@ -5,7 +5,6 @@ namespace Modules\ClassContentManagement\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-
 use Modules\ClassContentManagement\Entities\CourseClassModule;
 use Modules\ClassContentManagement\Entities\CourseClass;
 use App\Http\Controllers\HelperController;
@@ -19,7 +18,6 @@ class CourseClassController extends Controller
     function getCourseClass()
     {
         $broGotAccessMaster = AccessMaster::getUserAccessMaster();
-
         $hasManageAllClass = false;
 
         foreach ($broGotAccessMaster as $access) {
@@ -35,9 +33,16 @@ class CourseClassController extends Controller
             $courseList = CourseClass::getAllCourseClassbyMentor();
         }
 
+        $batchTitle = $courseList->isNotEmpty() ? $courseList[0]->batch : 'No Batch Available';
+
+        return view('classcontentmanagement::course_class.index', [
+            'course_list' => $courseList,
+            'batch_title' => $batchTitle
+        ]);
+
         // $courseList = CourseClass::getAllCourseClass();
         // dd($courseList);
-        return view('classcontentmanagement::course_class.index', ['course_list' => $courseList]);
+        // return view('classcontentmanagement::course_class.index', ['course_list' => $courseList]);
     }
 
     function getAddCourseClass()

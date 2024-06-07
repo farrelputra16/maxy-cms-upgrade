@@ -25,6 +25,7 @@ class CourseClassModuleController extends Controller
 
     function getCourseClassParentModule(Request $request){
         $course_class_id = $request->id;
+        $class_detail = CourseClass::getClassDetailByClassId($course_class_id);
         $course_detail = CourseClass::getCourseDetailByClassId($course_class_id);
 
         $courseClassModules = CourseClassModule::getClassModuleParentByClassId($course_class_id);
@@ -34,6 +35,7 @@ class CourseClassModuleController extends Controller
             'courseclassmodules' => $courseClassModules,
             'course_class_id' => $course_class_id,
             'course_detail' => $course_detail,
+            'class_detail' => $class_detail,
         ]);
     }
 
@@ -219,7 +221,6 @@ class CourseClassModuleController extends Controller
                 'end_date' => $request->end,
                 'priority' => $request->priority,
                 'course_module_id' => $request->course_module_id,
-
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => auth()->user()->id,

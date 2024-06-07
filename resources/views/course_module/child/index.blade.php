@@ -47,7 +47,8 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 97%;;
+            width: 97%;
+            ;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }
@@ -301,7 +302,7 @@
 
 <body>
     <div class="container conTitle">
-        <h2 class="h2">Course Child Module</h2>
+        <h2 class="h2">Course Child Module: {{ $parent_module_detail->name }}</h2>
         <button class="logout">Logout</button>
     </div>
     <div class="breadcrumb pt-2 pb-4">
@@ -312,8 +313,6 @@
         <div class="secCourse" href="{{ route('getCourse') }}">Course</div>
         <span class="divider">></span>
         <div class="secParent" href="{{ route('getCourseModule', ['course_id' => $parent_module_detail->course_id, 'page_type' => 'LMS']) }}"> {{ $parent_module_detail->course_name }}</a></div>
-        <span class="divider">></span>
-        <div class="secID">{{ $parent_module_detail->name }}</div>
     </div>
 
     @if(session('success'))
@@ -366,14 +365,14 @@
                     <td>{{ $item->updated_id }}</td>
                     <td>
                         @if ($item->status == 1)
-                        <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
+                        <a class="btnAktif">Aktif</a>
                         @else
-                        <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
+                        <a class="btnNon">Non Aktif</a>
                         @endif
                     </td>
                     <td>
                         <div class="btn-group">
-                            <a href="{{ route('getEditChildModule', ['id' => $item->id]) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('getEditChildModule', ['id' => $item->id]) }}" class="btnEdit btn-primary">Edit</a>
                             @if($item->type == 'quiz')
                             <a href="{{ route('getCMQuiz', ['id' => $item->id]) }}" class="btn btn-info">Questions</a>
                             @elseif($item->type == 'form')

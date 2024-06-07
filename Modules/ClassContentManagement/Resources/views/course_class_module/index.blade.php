@@ -197,7 +197,7 @@
 
         .btnContent {
             background-color: #4056A1;
-            width: 9rem;
+            width: 5rem;
             height: 1rem;
             color: #FFF !important;
             font-size: 12px;
@@ -255,7 +255,7 @@
 
 <body>
     <div class="container conTitle">
-        <h2 class="h2">Course Class Module</h2>
+        <h2 class="h2">Course Class Module: {{$class_detail->course_name}}</h2>
         <button class="logout">Logout</button>
     </div>
     <div class="breadcrumb pt-2 pb-4">

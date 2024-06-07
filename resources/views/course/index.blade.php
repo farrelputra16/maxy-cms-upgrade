@@ -49,7 +49,7 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 97%;;
+            width: 97%;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }
@@ -216,6 +216,83 @@
             overflow-x: scroll;
         }
 
+        .tableCourse td,
+        .tableCourse th,
+        .desc th,
+        .desc td,
+        .short th,
+        .short td,
+        .content th,
+        .content td {
+            word-wrap: break-word;
+            white-space: normal;
+        }
+
+        .tableCourse th:nth-child(2),
+        .tableCourse td:ntn-child(2),
+        .short th:nth-child(5),
+        .short td:ntn-child(5),
+        .desc th:nth-child(6),
+        .desc td:ntn-child(6),
+        .content th:nth-child(7),
+        .content td:ntn-child(7) {
+            max-width: 200px;
+            word-wrap: break-word;
+        }
+
+        .tableCourse td:nth-child(2) div,
+        .tableCourse td:nth-child(5) div,
+        .tableCourse td:nth-child(6) div,
+        .tableCourse td:nth-child(7) div {
+            white-space: normal !important;
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+
+        .tableCourse th.course-name,
+        .tableCourse td.course-name,
+        .tableCourse th.short,
+        .tableCourse td.short,
+        .tableCourse th.desc,
+        .tableCourse td.desc,
+        .tableCourse th.content,
+        .tableCourse td.content {
+            max-width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .tableCourse td.course-name,
+        .tableCourse td.short,
+        .tableCourse td.desc,
+        .tableCourse td.content {
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
+        .tableCourse td.course-name::after {
+            content: '...';
+            display: block;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff 50%);
+            padding: 0 4px;
+        }
+
+        .tableCourse td.short::after {
+            content: '...';
+            display: block;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff 50%);
+            padding: 0 4px;
+        }
+
         .btnAktif {
             background-color: #46E44C;
             width: 5rem;
@@ -327,11 +404,13 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Course Name</th>
+                        <th class="course-name">Course Name</th>
                         <th>Fake Price</th>
                         <th>Price</th>
                         <th>Course Type</th>
-                        <th>Description</th>
+                        <th class="short">Short Description</th>
+                        <th class="desc">Description</th>
+                        <th>Content</th>
                         <th>Created At</th>
                         <th>Updated At</th>
                         <th>Status</th>
@@ -342,13 +421,9 @@
                     @foreach ($courses as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
-                        <td>{{ $item->name }}</td>
-                        <td>
-                            {{ $item->fake_price ? 'Rp' . number_format($item->fake_price, 0, ',', '.') : '-' }}
-                        </td>
-                        <td>
-                            {{ $item->price ? 'Rp' . number_format($item->price, 0, ',', '.') : '-' }}
-                        </td>
+                        <td class="course-name" data-toggle="tooltip" data-placement="top" title="{{ $item->name }}">{{ $item->name }}</td>
+                        <td>{{ $item->fake_price ? 'Rp' . number_format($item->fake_price, 0, ',', '.') : '-' }}</td>
+                        <td>{{ $item->price ? 'Rp' . number_format($item->price, 0, ',', '.') : '-' }}</td>
                         <td>
                             @if ($item->m_course_type_id == 1)
                             {{ 'Bootcamp' }}
@@ -368,7 +443,9 @@
                             -
                             @endif
                         </td>
-                        <td id="description">{!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}</td>
+                        <td class="short" data-toggle="tooltip" data-placement="top" title="{{ $item->short_description }}">{{ $item->short_description }}</td>
+                        <td class="desc" data-toggle="tooltip" data-placement="top" title="{{ $item->description }}">{!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}</td>
+                        <td class="content" title="{{ $item->content }}">{{ $item->content }}</td>
                         <td>{{ $item->created_at }}</td>
                         <td>{{ $item->updated_at }}</td>
                         <td>
@@ -394,7 +471,9 @@
                         <th>Fake Price</th>
                         <th>Price</th>
                         <th>Course Type</th>
+                        <th>Short Description</th>
                         <th>Description</th>
+                        <th>Content</th>
                         <th>Created At</th>
                         <th>Updated At</th>
                         <th>Status</th>
@@ -428,6 +507,7 @@
 
 <script>
     $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
         let table = $('#table').DataTable({
             scrollX: true,
             lengthChange: true,
@@ -449,9 +529,14 @@
             ],
             searching: true,
             columnDefs: [{
-                "visible": false,
-                "targets": [0]
-            }],
+                    "visible": false,
+                    "targets": [0]
+                },
+                {
+                    "width": "200px",
+                    "targets": 1
+                }
+            ],
             initComplete: function() {
                 this.api()
                     .columns()
@@ -485,28 +570,10 @@
 
         let buttonContainer = $('<div>').addClass('buttons-container');
         table.buttons().container().appendTo(buttonContainer);
-        buttonContainer.insertBefore('.tableCourse_wrapper .dataTables_length');
-
-        // Insert the show entries and info into the new container with custom classes
-        // $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
-        // $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
-        // $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
-
-        // table.buttons().container().appendTo(buttonPaginationContainer);
-        // $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
-        // $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
-        // $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
-        // buttonPaginationContainer.insertBefore('#table');
+        buttonContainer.insertBefore('.tableCourse .dataTables_length');
 
         // Insert the new container before the table
         buttonPaginationContainer.insertBefore('#table');
-
-        // Add individual column search inputs and titles
-        // $('#table thead th').each(function() {
-        //     let title = $(this).text();
-        //     $(this).html('<div class="search">' + title +
-        //         '</div><div class="mt-2"><input class="form-control" style="width:3rem; text-align:center;" type="text" placeholder="Search ' + title + '" /></div>');
-        // });
 
         // Apply the search for individual columns
         table.columns().every(function() {

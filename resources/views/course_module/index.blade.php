@@ -46,7 +46,8 @@
             .breadcrumb {
                 border-top: 2px solid black;
                 display: inline-block;
-                width: 97%;;
+                width: 97%;
+                ;
                 margin-left: 1rem;
                 margin-bottom: 1rem;
             }
@@ -244,6 +245,67 @@
                 overflow: hidden;
             }
 
+            .tableParent td,
+            .tableParent th,
+            .module td,
+            .module th,
+            .content td,
+            .content th,
+            .desc td,
+            .desc th {
+                word-wrap: break-word;
+                white-space: normal;
+            }
+
+            .tableParent th:nth-child(3),
+            .tableParent td:ntn-child(3),
+            .tableParent th:nth-child(4),
+            .tableParent td:ntn-child(4),
+            .tableParent th:nth-child(5),
+            .tableParent td:ntn-child(5) {
+                max-width: 200px;
+                word-wrap: break-word;
+            }
+
+            .tableParent td:nth-child(3) div,
+            .tableParent td:nth-child(4) div,
+            .tableParent td:nth-child(5) div {
+                white-space: normal !important;
+                display: -webkit-box;
+                overflow: hidden;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+            }
+
+            .tableParent th.module,
+            .tableParent td.module,
+            .tableParent th.content,
+            .tableParent td.content,
+            .tableParent th.desc,
+            .tableParent td.desc {
+                max-width: 200px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .tableParent td.module,
+            .tableParent td.content,
+            .tableParent td.desc {
+                white-space: normal;
+                word-wrap: break-word;
+            }
+
+            .tableParent td.module::after {
+                content: '...';
+                display: block;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                background: linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff 50%);
+                padding: 0 4px;
+            }
+
             .btnAktif {
                 background-color: #46E44C;
                 width: 5rem;
@@ -329,25 +391,8 @@
     </head>
 
     <body>
-        <!-- @if(session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
-
-                @if(session('error'))
-                <div class="alert alert-danger">{{ session('error') }}</div>
-                @endif
-                
-                @if($page_type == 'LMS')
-                <h2>Parent Modules For Course: {{ $course_detail->name }}</h2>
-                
-                @elseif($page_type == 'CP')
-                <h2>Company Profile Modules For Course: {{ $course_detail->name }}</h2>
-                
-                @endif
-                <hr> -->
-
         <div class="container conTitle">
-            <h2 class="h2">Parent Modules For Course:</h2>
+            <h2 class="h2">Parent Modules For Course: {{ $course_detail->name }}</h2>
             <button class="logout">Logout</button>
         </div>
         <div class="breadcrumb pt-2 pb-4">
@@ -369,14 +414,14 @@
                         <button class="btnAdd">Add Module +</button>
                     </a>
                 </div>
-                <table id="table" class="tableParent table-borderless" style="width:100%">
+                <table id="table" class="tableParent table-striped display nowrap" style="width:100%">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Day</th>
-                            <th>Module Name</th>
-                            <!-- <th>Content</th> -->
-                            <th>Description</th>
+                            <th class="module">Module Name</th>
+                            <th class="content">Content</th>
+                            <th class="desc">Description</th>
                             <th>Created At</th>
                             <th>Created Id</th>
                             <th>Updated At</th>
@@ -390,17 +435,18 @@
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->priority }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td id="description">{{ $item->description }}</td>
+                            <td class="module" data-toggle="tooltip" data-placement="top" title="{{ $item->name }}">{{ $item->name }}</td>
+                            <td class="desc" data-toggle="tooltip" data-placement="top" title="{{ $item->description }}">{{ $item->description }}</td>
+                            <td class="content" data-toggle="tooltip" data-placement="top" title="{{ $item->content }}">{{ $item->content}}</td>
                             <td>{{ $item->created_at }}</td>
                             <td>{{ $item->created_id }}</td>
                             <td>{{ $item->updated_at }}</td>
                             <td>{{ $item->updated_id }}</td>
                             <td>
                                 @if ($item->status == 1)
-                                <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
+                                <a class="btnAktif">Aktif</a>
                                 @else
-                                <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
+                                <a class="btnNon">Non Aktif</a>
                                 @endif
                             </td>
                             <td>
@@ -441,6 +487,7 @@
 
     <script>
         $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
             let table = $('#table').DataTable({
                 scrollX: true,
                 lengthChange: true,

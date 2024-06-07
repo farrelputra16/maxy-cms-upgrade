@@ -242,7 +242,11 @@
 
 <body>
     <div class="container conTitle">
-        <h2 class="h2">Edit Module: @if($course_class_module->course_module_type != '') [{{ $course_class_module->course_module_type }}] @else [Parent Module Day {{ $course_class_module->priority }}] @endif{{ $course_class_module->course_module_name }}</h2>
+        <h2 class="h2">Edit Module: 
+        @if($course_class_module->course_module_type != '') 
+        [{{ $course_class_module->course_module_type }}] 
+        @else [Parent Module Day {{ $course_class_module->priority }}] 
+        @endif{{ $course_class_module->course_module_name }}</h2>
         <button class="logout">Logout</button>
     </div>
     <div class="breadcrumb pt-2 pb-4">
