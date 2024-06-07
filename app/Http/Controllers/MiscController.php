@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class MiscController extends Controller
 {
@@ -46,6 +47,55 @@ class MiscController extends Controller
                 echo 'Save Image Attempt : ' . $counter . ' - failed <br>';
             }
             echo '=============================== <br>';
+        }
+    }
+
+    public function reorderUpskillingPriority()
+    {
+        $gk_class_list = DB::table('course_class as cc')
+            ->select('cc.*', 'c.name as course_name')
+            ->join('course as c', 'c.id', '=', 'cc.course_id')
+            ->where('c.m_course_type_id', '7')
+            // ->where('cc.id', 36)
+            ->get();
+
+        // dd($gk_class_list);
+
+
+        foreach ($gk_class_list as $class) {
+            // if ($class->id == 36) {
+            // get parent class module
+            $parent_modules = DB::table('course_class_module')
+                ->where('course_class_id', $class->id)
+                ->where('level', 1)
+                ->get();
+
+            // dd($parent_modules);
+
+            $counter = 0;
+            foreach ($parent_modules as $parent) {
+                $counter++;
+                echo '=============================== <br>';
+                echo 'parent id : ' . $parent->id . '<br>';
+                echo 'counter : ' . $counter . '<br>';
+
+                $update = DB::table('course_class_module')
+                    ->where('id', $parent->id)
+                    ->update([
+                        'priority' => $counter,
+                    ]);
+
+                if ($update) {
+                    echo 'Update parent : ' . $counter . ' - success <br>';
+                } else {
+                    if ($counter == $parent->priority) {
+                        echo 'Update parent : ' . $counter . ' - skipped because already correct <br>';
+                    } else {
+                        echo 'Update parent : ' . $counter . ' - failed <br>';
+                    }
+                }
+            }
+            // }
         }
     }
 }
