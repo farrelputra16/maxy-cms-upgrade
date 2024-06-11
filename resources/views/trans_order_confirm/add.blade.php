@@ -29,18 +29,7 @@
             margin-left: 1rem;
         }
 
-        .h3 {
-            .h2 {
-            font-weight: bold;
-            color: #232E66;
-            padding-left: .1rem;
-            font-size: 18px;
-            margin-bottom: -0.5rem;
-            margin-left: 1rem;
-        }
-        }
-
-        .logout {
+        .btnlogout {
             margin-right: 1rem;
             margin-bottom: .5rem;
             background-color: #FBB041;
@@ -110,7 +99,10 @@
 <body>
     <div class="container conTitle">
         <h2 class="h2">Add Orders Confirm</h2>
-        <button class="logout">Logout</button>
+        <form class="form-inline my-2 my-lg-0 me-3" method="post" action="{{ route('logout') }}">
+            @csrf
+            <button class="btnlogout" type="submit">Logout</button>
+        </form>
     </div>
 
     <div class="breadcrumb pt-2 pb-4">
@@ -120,7 +112,7 @@
         <span class="divider">></span>
         <div class="sectionCourse">Trans Order Confirm</div>
         <span class="divider">></span>
-        <div class="sectionCourse">Add Trans Order Confirm</div>
+        <div class="sectionCourse">Add</div>
     </div>
 
     <form class="formAdd ui form" action="{{ route('postAddTransOrderConfirm') }}" method="post" enctype="multipart/form-data">

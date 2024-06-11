@@ -65,7 +65,7 @@
             margin-left: 1rem;
         }
 
-        .logout {
+        .btnlogout {
             margin-right: 1rem;
             margin-bottom: .5rem;
             background-color: #FBB041;
@@ -81,7 +81,8 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 97%;;
+            width: 97%;
+            ;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }
@@ -305,20 +306,6 @@
             margin-top: 20px;
         }
 
-        .form-label {
-            margin-left: 1rem;
-        }
-
-        .ddClass {
-            margin-left: 1rem;
-            width: 1rem;
-        }
-
-        .ddClass2 {
-            margin-left: 1rem;
-            width: 1rem;
-        }
-
         .table-container {
             width: 100%;
             overflow-x: auto;
@@ -329,8 +316,12 @@
 <body>
     <div class="container conTitle">
         <h2 class="h2">CCMH Grading</h2>
-        <button class="logout">Logout</button>
+        <form class="form-inline my-2 my-lg-0 me-3" method="post" action="{{ route('logout') }}">
+            @csrf
+            <button class="btnlogout" type="submit">Logout</button>
+        </form>
     </div>
+
     <div class="breadcrumb pt-2 pb-4">
         <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
         <span class="divider">></span>
@@ -341,140 +332,165 @@
         <div class="sectionCourse">CCMH Grading</div>
     </div>
 
-    @if(is_null($class_list))
-    <div class="row">
-        <div class="col-md-2">
-            <form action="{{ route('getCCMHGrade') }}" method="GET">
-                @csrf
-                <label for="course_class" class="form-label">Pilih Kelas:</label>
-                <!-- <select id="course_class" name="class_id" class="form-select" > -->
-                <select name="class_id" class="ddClass ui dropdown" style="width: 100%;">
-                    @foreach($class_list_dropdown1 as $class)
-                    <option value="{{ $class->class_id }}">{{ $class->course_name }} - Batch {{ $class->batch }}</option>
-                    @endforeach
-                </select>
-
-                <div class="col-md-2">
-                    <button type="submit" class="btnSubmit btn-primary" style="margin-top: 27.5px;">Submit</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    @else
-    <div class="row">
-        <div class="col-md-2">
-            <form action="{{ route('getCCMHGrade') }}" method="GET">
-                @csrf
-                <label for="course_class" class="form-label">Pilih Kelas:</label>
-                <select name="class_id" class="ddClass2 ui dropdown" style="width: 100%;">
-                    @foreach($class_list_dropdown1 as $class)
-                    <option value="{{ $class->class_id }}" @if($id_class=$class->class_id) selected
-                        @endif>
-                        {{ $class->course_name }} - Batch {{ $class->batch }}
-                    </option>
-                    @endforeach
-                </select>
-            </form>
-        </div>
-
-        <div class="col-md-2">
-            <button type="submit" class="btnSubmit btn-primary" style="margin-top: 27.5px;">Submit</button>
-            </form>
-        </div>
-    </div>
-    <br>
-
-    <table id="table" class="tableGrade table-striped w-100">
-        <thead>
-            <tr>
-                <th>Course Module</th>
-                <th>Day</th>
-                <th>Student Name</th>
-                <th>Submitted File</th>
-                <th>Submitted At</th>
-                <th>Grade</th>
-                <th>Updated At</th>
-                <th>Student Comment</th>
-                <th>Tutor Comment</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($class_list as $item)
-            <tr>
-                <td>{{ $item->name }}</td>
-                <td>{{ $item->day }}</td>
-                <td>{{ $item->user_name }}</td>
-                <td>{{ $item->submitted_file ?? '-' }}</td>
-                <td>{{ $item->submitted_at ?? '-' }}</td>
-                <td>{{ $item->grade ?? '-' }}</td>
-                <td>{{ $item->updated_at }}</td>
-                <td>{!! Str::limit(htmlspecialchars($item->comment) ?? '-') !!}</td>
-                <td>{!! Str::limit($item->tutor_comment ?? '-') !!}</td>
-                @if ($item->id_grading !== null)
-                <td>
-                    <a href="{{ route('getEditCCMH', [$item->id_grading , 'class_id' => $id_class]) }}" class="btnEdit btn-success btn-sm">Edit</a>
-                </td>
-                @else
-                <td>
-                    -
-                </td>
-                @endif
-            </tr>
-            @endforeach
-        </tbody>
-        <tfoot>
-            <tr>
-                <th>Course Module</th>
-                <th>Day</th>
-                <th>Student Name</th>
-                <th>Submitted File</th>
-                <th>Submitted At</th>
-                <th>Grade</th>
-                <th>Updated At</th>
-                <th>Student Comment</th>
-                <th>Tutor Comment</th>
-                <th>Action</th>
-            </tr>
-        </tfoot>
-    </table>
-    <!-- Info and Pagination container -->
-    <div class="buttons-container">
-        <div class="custom-info-text"></div>
-        <div class="custom-pagination-container"></div>
-    </div>
-    <br><br>
-    <h2>Download File</h2>
-    <div class="content pb-5">
-        @csrf
-        <div class="card p-5">
-            <div class="row">
-                <label for="course_class" class="form-label">Download File:</label>
-                <div class="col-md-2">
-                    <form action="{{ route('getCCMHGrade') }}" method="GET">
-                        @csrf
-                        <label for="day" class="form-label">Pilih Hari:</label>
-                        <select id="day" name="day" class="form-select">
-                            <option value="all">Semua Hari</option>
-                            @foreach($day_dropdown as $day)
-                            <option value="{{ strtolower($day) }}">{{ ucfirst($day) }}</option>
-                            @endforeach
-                        </select>
-                    </form>
-                </div>
-                <div class="col-md-2">
-                    <button type="submit" class="btnSubmit btn-primary" style="margin-top: 27.5px;">Submit</button>
+    <div class="container">
+        @if(is_null($class_list))
+        <div class="row">
+            <div class="col-md-2">
+                <form action="{{ route('getCCMHGrade') }}" method="GET">
+                    @csrf
+                    <label for="course_class" class="form-label" style="width: 20rem;">Pilih Kelas:</label>
+                    <!-- <select id="course_class" name="class_id" class="form-select" > -->
+                    <select name="class_id" class="ddClass ui dropdown">
+                        <option selected disabled>Pilih Kelas:</option>
+                        @foreach($class_list_dropdown1 as $class)
+                        <option value="{{ $class->class_id }}">{{ $class->course_name }} - Batch {{ $class->batch }}</option>
+                        @endforeach
+                    </select>
                     <div class="col-md-2">
-                        <select id="course_class" name="class_id" class="form-select" style="display: none;">
-                            @foreach($class_list_dropdown as $class)
-                            <option value="{{ $class['class_id'] }}">{{ $class['course_name'] }} - Batch {{ $class['batch'] }}</option>
-                            @endforeach
-                        </select>
+                        <button type="submit" class="btnSubmit" style="margin-top: 27.5px;">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        @else
+        <div class="row">
+            <div class="col-md-2">
+                <form action="{{ route('getCCMHGrade') }}" method="GET">
+                    @csrf
+                    <!-- <label for="course_class" class="form-label">Pilih Kelas:</label> -->
+                    <select name="class_id" class="ddClass ui dropdown" style="width: 20rem;">
+                        @foreach($class_list_dropdown1 as $class)
+                        <option value="{{ $class->class_id }}" @if($id_class==$class->class_id) selected @endif>
+                            {{ $class->course_name }} - Batch {{ $class->batch }}
+                        </option>
+                        @endforeach
+                    </select>
+                    <div class="col-md-2">
+                        <button type="submit" class="btnSubmit" style="margin-top: 27.5px;">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <table id="table" class="tableGrade table-striped w-100">
+            <thead>
+                <tr>
+                    <th>Course Module</th>
+                    <th>Day</th>
+                    <th>Student Name</th>
+                    <th>Submitted File</th>
+                    <th>Submitted At</th>
+                    <th>Grade</th>
+                    <th>Updated At</th>
+                    <th>Student Comment</th>
+                    <th>Tutor Comment</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($class_list as $item)
+                <tr>
+                    <td>{{ $item->name }}</td>
+                    <td>{{ $item->day }}</td>
+                    <td>{{ $item->user_name }}</td>
+                    <td>{{ $item->submitted_file ?? '-' }}</td>
+                    <td>{{ $item->submitted_at ?? '-' }}</td>
+                    <td>{{ $item->grade ?? '-' }}</td>
+                    <td>{{ $item->updated_at }}</td>
+                    <td>{!! Str::limit(htmlspecialchars($item->comment) ?? '-') !!}</td>
+                    <td>{!! Str::limit($item->tutor_comment ?? '-') !!}</td>
+                    {{-- <td data-column="ID Course Class Member" class="hidden-column">
+                                {{ $item->course_class_member_id }}</td>
+                    <td data-column="ID Course Class Module" class="hidden-column">
+                        {{ $item->course_class_module_id }}
+                    </td>
+                    <td data-column="Description" class="hidden-column">{{ $item->description }}</td>
+                    <td data-column="Paket Soal" class="hidden-column">{{ $item->paket_soal }}</td>
+                    <td data-column="Package Type" class="hidden-column">{{ $item->package_type }}</td>
+                    <td data-column="Created At" class="hidden-column">{{ $item->created_at }}</td>
+                    <td data-column="Updated At" class="hidden-column">{{ $item->updated_at }}</td>
+                    <td>
+                        @if ($item->submitted_file)
+                        <a href="{{ asset('uploads/course_class_member_grading/' . Str::snake(Str::lower($item->courseClassModule->courseModule->course->name)) . '/' . Str::snake(Str::lower($item->user->name)) . '/' . Str::snake(Str::lower($item->courseClassModule->courseModule->name)) . '/' . $item->submitted_file) }}">
+                            {{ $item->submitted_file }}
+                        </a>
+                        @else
+                        -
+                        @endif
+                    </td> --}}
+                    @if ($item->id_grading !== null)
+                    <td>
+                        <a href="{{ route('getEditCCMH', [$item->id_grading , 'class_id' => $id_class]) }}" class="btn btn-success btn-sm">Edit</a>
+                    </td>
+                    @else
+                    <td>
+                        -
+                    </td>
+                    @endif
+
+                    {{-- Display additional grading information --}}
+                    {{-- @if (isset($item->grading_info))
+                                @foreach ($item->grading_info as $grading)
+                                    <td>{{ $grading->submitted_file }}</td>
+                    @endforeach
+                    @endif --}}
+                </tr>
+                @endforeach
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Course Module</th>
+                    <th>Day</th>
+                    <th>Student Name</th>
+                    <th>Submitted File</th>
+                    <th>Submitted At</th>
+                    <th>Grade</th>
+                    <th>Updated At</th>
+                    <th>Student Comment</th>
+                    <th>Tutor Comment</th>
+                    <th>Action</th>
+                </tr>
+            </tfoot>
+        </table>
+        <!-- Info and Pagination container -->
+        <div class="buttons-container">
+            <div class="custom-info-text"></div>
+            <div class="custom-pagination-container"></div>
+        </div>
+        <br><br>
+        <h2>Download File</h2>
+        <div class="content pb-5">
+            @csrf
+            <div class="card p-5">
+                <div class="row">
+                    <label for="course_class" class="form-label">Download File:</label>
+                    <div class="col-md-2">
+                        <form action="{{ route('getCCMHGrade') }}" method="GET">
+                            @csrf
+                            <label for="day" class="form-label">Pilih Hari:</label>
+                            <select id="day" name="day" class="form-select">
+                                <option value="all">Semua Hari</option>
+                                @foreach($day_dropdown as $day)
+                                <option value="{{ strtolower($day) }}">{{ ucfirst($day) }}</option>
+                                @endforeach
+                            </select>
+                        </form>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btnSubmit btn-primary" style="margin-top: 27.5px;">Submit</button>
+                        <div class="col-md-2">
+                            <select id="course_class" name="class_id" class="form-select" style="display: none;">
+                                @foreach($class_list_dropdown as $class)
+                                <option value="{{ $class['class_id'] }}">{{ $class['course_name'] }} - Batch {{ $class['batch'] }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
+            @endif
         </div>
-        @endif
     </div>
 
 </body>
@@ -545,17 +561,6 @@
         table.buttons().container().appendTo(buttonContainer);
         buttonContainer.insertBefore('.tableCourseMember_wrapper .dataTables_length');
 
-        // $('.buttons-prev').on('click', function() {
-        //     table.page('previous').draw('page');
-        // });
-
-        // $('.buttons-next').on('click', function() {
-        //     table.page('next').draw('page');
-        // });
-
-        // let buttonContainer = $('<div>').addClass('button-container');
-        // let infoContainer = $('<div>').addClass('info-container');
-
         // Create container for buttons and pagination
         let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
         buttonPaginationContainer.css({
@@ -567,28 +572,6 @@
 
         // Insert the buttons into the new container
         table.buttons().container().appendTo(buttonContainer);
-        // $('.dataTables_length, .dataTables_info').appendTo(infoContainer);
-
-        // $('.top').append(buttonContainer);
-        // $('.top').append(infoContainer);
-
-        // $('.button-container').css('margin-bottom', '10px');
-        // $('.info-container').css('margin-bottom', '10px');
-
-        // Insert the show entries and info into the new container with custom classes
-        // $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
-        // $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
-        // $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
-
-        // Insert the new container before the table
-        // buttonPaginationContainer.insertBefore('#table');
-
-        // Add individual column search inputs and titles
-        // $('#table thead th').each(function() {
-        //     let title = $(this).text();
-        //     $(this).html('<div class="search">' + title +
-        //         '</div><div class="mt-2"><input class="form-control" style="width:3rem; text-align:center;" type="text" placeholder="Search ' + title + '" /></div>');
-        // });
 
         // Apply the search for individual columns
         table.columns().every(function() {
@@ -609,7 +592,22 @@
 
 <script>
     $(document).ready(function() {
-        $('.select2').select2();
+        $('#formSubmit').on('submit', function(e) {
+            e.preventDefault(); // Prevent form submission
+            var selectedValue = $('#course_class').val(); // Get selected value from dropdown
+
+            // Check if value is not null or empty
+            if (selectedValue) {
+                // Set the value of the hidden input field to the selected value
+                $('#selectedClassId').val(selectedValue);
+                // Submit the form
+                $(this).unbind('submit').submit();
+            } else {
+                // Handle case where no value is selected
+                alert('Pilih kelas terlebih dahulu.');
+            }
+        });
     });
 </script>
+
 @endsection

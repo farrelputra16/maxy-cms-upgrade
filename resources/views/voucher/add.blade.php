@@ -29,7 +29,7 @@
             margin-left: 1rem;
         }
 
-        .logout {
+        .btnlogout {
             margin-right: 1rem;
             margin-bottom: .5rem;
             background-color: #FBB041;
@@ -45,7 +45,8 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 97%;;
+            width: 97%;
+            ;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }
@@ -82,7 +83,7 @@
             background-color: #4056A1;
             color: #FFF;
             color: #FFF;
-            width: 200px;
+            width: 100px;
             height: 35px;
             border-radius: 10px;
             border: none;
@@ -114,7 +115,10 @@
 <body>
     <div class="container conTitle">
         <h2 class="h2">Add Vouchers</h2>
-        <button class="logout">Logout</button>
+        <form class="form-inline my-2 my-lg-0 me-3" method="post" action="{{ route('logout') }}">
+            @csrf
+            <button class="btnlogout" type="submit">Logout</button>
+        </form>
     </div>
     <div class="breadcrumb pt-2 pb-4">
         <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
@@ -183,12 +187,12 @@
             </div>
         </div>
         <div class="divAdd">
-                    <button class="btnAdd">Add Course Package</button>
-                </div>
-                </form>
-        <a href="{{ url()->previous() }}">
-            <button class="btnBatal">Batal</button>
-        </a>
+            <button class="btnAdd">Add Voucher</button>
+        </div>
+    </form>
+    <a href="{{ url()->previous() }}">
+        <button class="btnBatal">Batal</button>
+    </a>
 </body>
 
 </html>

@@ -32,7 +32,7 @@
             margin-left: 1rem;
         }
 
-        .logout {
+        .btnlogout {
             margin-right: 2rem;
             margin-bottom: .5rem;
             background-color: #FBB041;
@@ -232,14 +232,19 @@
 <body>
     <div class="container conTitle">
         <h2 class="h2">Child Modules: {{ $parent_module->detail->name }}</h2>
-        <button class="logout">Logout</button>
+        <form class="form-inline my-2 my-lg-0 me-3" method="post" action="{{ route('logout') }}">
+            @csrf
+            <button class="btnlogout" type="submit">Logout</button>
+        </form>
     </div>
     <div class="breadcrumb pt-2 pb-4">
         <a class="section" href="{{ url('/') }}">Dashboard</a>
         <span class="divider">></span>
         <div class="secClass">Class</div>
         <span class="divider">></span>
-        <a class="secBatch" href="{{ route('getCourseClassModule', ['id' => $parent_module->course_class_id]) }}">{{ $course_detail->name }} Batch {{ $course_detail->batch }}</a>
+        <div class="secClass">Module List</div>
+        <span class="divider">></span>
+        <div class="secClass">Content</div>
     </div>
 
     @if(session('success'))

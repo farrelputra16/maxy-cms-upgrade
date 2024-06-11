@@ -30,7 +30,7 @@
                 margin-bottom: -0.5rem;
             }
 
-            .logout {
+            .btnlogout {
                 margin-right: 1rem;
                 margin-bottom: .5rem;
                 background-color: #FBB041;
@@ -393,7 +393,10 @@
     <body>
         <div class="container conTitle">
             <h2 class="h2">Parent Modules For Course: {{ $course_detail->name }}</h2>
-            <button class="logout">Logout</button>
+            <form class="form-inline my-2 my-lg-0 me-3" method="post" action="{{ route('logout') }}">
+            @csrf
+            <button class="btnlogout" type="submit">Logout</button>
+        </form>
         </div>
         <div class="breadcrumb pt-2 pb-4">
             <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>

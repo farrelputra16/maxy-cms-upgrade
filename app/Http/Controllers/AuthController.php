@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -29,7 +29,7 @@ class AuthController extends Controller
     }
 
     function postLogout(Request $request){
-        AuthController::logout();
+        Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
         return redirect()->route('welcome');

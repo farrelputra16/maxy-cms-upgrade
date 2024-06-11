@@ -32,7 +32,7 @@
             margin-left: 1rem;
         }
 
-        .logout {
+        .btnlogout {
             margin-right: 2rem;
             margin-bottom: .5rem;
             background-color: #FBB041;
@@ -90,6 +90,7 @@
             border: none;
             box-shadow: none;
             font-weight: bold;
+            padding-right: 10px;
         }
 
         .divBatal {
@@ -102,9 +103,8 @@
 
         .divAdd{
             text-align: right;
-            margin-right: 1rem;
+            margin-right: 2rem;
             margin-bottom: .5rem;
-            margin-left: 65rem;
         }
     </style>
 </head>
@@ -112,7 +112,10 @@
 <body>
     <div class="container conTitle">
         <h2 class="h2">Add Parent Module:</h2>
-        <button class="logout">Logout</button>
+        <form class="form-inline my-2 my-lg-0 me-3" method="post" action="{{ route('logout') }}">
+            @csrf
+            <button class="btnlogout" type="submit">Logout</button>
+        </form>
     </div>
     <div class="breadcrumb pt-2 pb-4">
         <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>

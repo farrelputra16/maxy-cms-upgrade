@@ -44,9 +44,9 @@
             margin-left: 1rem;
         }
 
-        .logout {
+        .btnlogout {
             margin-right: 2rem;
-            margin-bottom: .5rem;
+            margin-bottom: .8rem;
             background-color: #FBB041;
             color: #FFF;
             width: 80px;
@@ -469,7 +469,10 @@
 <body>
     <div class="container conTitle">
         <h2 class="h2">Dashboard</h2>
-        <button class="logout">Logout</button>
+        <form class="form-inline my-2 my-lg-0 me-3" method="post" action="{{ route('logout') }}">
+            @csrf
+            <button class="btnlogout" type="submit">Logout</button>
+        </form>
     </div>
 
     <div class="conBread">

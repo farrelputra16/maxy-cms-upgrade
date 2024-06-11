@@ -32,7 +32,7 @@
             margin-left: 1rem;
         }
 
-        .logout {
+        .btnlogout {
             margin-right: 1rem;
             margin-bottom: .5rem;
             background-color: #FBB041;
