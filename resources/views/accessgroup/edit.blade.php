@@ -13,6 +13,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 
     <style>
+        body {
+            background-color: #E3E5EE;
+        }
+
         .conTitle {
             display: flex;
             justify-content: space-between;
@@ -45,7 +49,8 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 97%;;
+            width: 97%;
+            ;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }
@@ -171,45 +176,47 @@
                 </div>
                 <div class="two fields">
                     <div class="field">
-                        <label for="">Access Master saat ini:</label>
-                        <small>Pilih untuk hapus Access Master</small>
-                        <select id="hapus" name="access_master_old[]" multiple="">
+                        <label for="hapus">Access Master saat ini:</label>
+                        <!-- <small>Pilih untuk hapus Access Master</small> -->
+                        <select id="hapus" name="access_master_old[]" multiple>
                             @foreach ($currentData as $key => $value)
                             <option value="{{ $key }}">{{ $value }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="field">
-                        <label for="">Access Master tersedia:</label>
+                        <label for="tambah">Access Master tersedia:</label>
                         <small>Pilih untuk tambah Access Master</small>
-                        <select id="tambah" name="access_master_available[]" multiple="multiple">
+                        <select id="tambah" name="access_master_available[]" multiple>
                             @foreach ($allAccessMaster as $key => $value)
                             <option value="{{ $key }}">{{ $value }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
-                <div class="field">
-                    <label for="">Description</label>
-                    <textarea name="description" id="description">{{ $accessgroups->description }}</textarea>
-                </div>
-                <div class="field">
-                    <div class="ui checkbox">
-                        <input class="form-check-input" type="checkbox" value="1" {{ $accessgroups->status == 1 ? 'checked' : '' }} name="status">
-                        <label>Aktif</label>
-                    </div>
-                </div>
-            </div>
-            <div class="divSave">
-                <button class="btnSave">Save & Update</button>
-            </div>
-        </form>
 
-        <!-- <div class="divBatal"> -->
-        <a href="{{ url()->previous() }}" class="divBatal">
-            <button class="btnBatal">Batal</button>
-        </a>
-        <!-- </div> -->
+            </div>
+            <div class="field">
+                <label for="">Description</label>
+                <textarea name="description" id="description">{{ $accessgroups->description }}</textarea>
+            </div>
+            <div class="field">
+                <div class="ui checkbox">
+                    <input class="form-check-input" type="checkbox" value="1" {{ $accessgroups->status == 1 ? 'checked' : '' }} name="status">
+                    <label>Aktif</label>
+                </div>
+            </div>
+    </div>
+    <div class="divSave">
+        <button class="btnSave">Save & Update</button>
+    </div>
+    </form>
+
+    <!-- <div class="divBatal"> -->
+    <a href="{{ url()->previous() }}" class="divBatal">
+        <button class="btnBatal">Batal</button>
+    </a>
+    <!-- </div> -->
     </div>
 </body>
 

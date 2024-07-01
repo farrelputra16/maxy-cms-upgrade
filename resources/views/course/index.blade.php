@@ -17,6 +17,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 
     <style>
+        body {
+            background-color: #E3E5EE;
+        }
+
         .conTitle {
             display: flex;
             justify-content: space-between;
@@ -35,7 +39,7 @@
 
         .btnlogout {
             margin-right: 1rem;
-            margin-bottom: .6rem;
+            margin-bottom: .5rem;
             background-color: #FBB041;
             color: #FFF;
             width: 80px;
@@ -68,22 +72,17 @@
         }
 
         .btnAdd {
-            background-color: #4056A1;
-            color: #FFF;
+            color: #1533B5;
             width: 140px;
             height: 30px;
-            border-radius: 8px;
-            border: none;
-            box-shadow: none;
             font-weight: bold;
             font-size: 13px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
             cursor: pointer;
-            margin-left: .5rem;
-            margin-bottom: 3rem;
             padding-top: .3rem;
+            margin-left: 2rem;
         }
 
         .conBtn {
@@ -137,7 +136,7 @@
         td {
             padding: 12px;
             /* Adjust this value as needed for the desired spacing */
-            text-align: center;
+            text-align: left;
             /* Optional: Center-align text */
         }
 
@@ -211,8 +210,6 @@
         }
 
         .tableCourse {
-            border: 1px solid #000000;
-            border-radius: 8px;
             overflow-x: scroll;
         }
 
@@ -291,6 +288,19 @@
             right: 0;
             background: linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff 50%);
             padding: 0 4px;
+        }
+
+        .custom-striped tbody tr:nth-of-type(odd) {
+            background-color: #E3E3E3;
+        }
+
+        .custom-striped tbody tr:nth-of-type(even) {
+            background-color: #FFF;
+        }
+
+        .custom-striped tbody tr:nth-of-type(odd) td,
+        .custom-striped tbody tr:nth-of-type(even) td {
+            color: #000000;
         }
 
         .btnAktif {
@@ -379,6 +389,12 @@
             width: 800px;
             margin: 0 auto;
         }
+
+        .card {
+            margin-right: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+        }
     </style>
 </head>
 
@@ -391,105 +407,115 @@
         </form>
     </div>
     <div class="breadcrumb pt-2 pb-4">
-        <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
-        <span class="divider">></span>
-        <div class="sectionMaster">Master</div>
-        <span class="divider">></span>
-        <div class="sectionCourse">Course</div>
+        <div class="container">
+            <div class="row">
+                <div class="col-10">
+                    <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
+                    <span class="divider">></span>
+                    <div class="sectionMaster">Master</div>
+                    <span class="divider">></span>
+                    <div class="sectionCourse">Course</div>
+                </div>
+                <div class="col-2">
+                    <a class="btnAdd" href="{{ route('getAddCourse') }}" role="button">Add Course</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="container">
         <div class="row">
-            <div class="col">
-                <a class="btnAdd" href="{{ route('getAddCourse') }}" role="button">Add Course</a>
-            </div>
-            <table id="table" class="tableCourse table-striped display nowrap" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th class="course-name">Course Name</th>
-                        <th>Fake Price</th>
-                        <th>Price</th>
-                        <th>Course Type</th>
-                        <th class="short">Short Description</th>
-                        <th class="desc">Description</th>
-                        <th>Content</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($courses as $item)
-                    <tr>
-                        <td>{{ $item->id }}</td>
-                        <td class="course-name" data-toggle="tooltip" data-placement="top" title="{{ $item->name }}">{{ $item->name }}</td>
-                        <td>{{ $item->fake_price ? 'Rp' . number_format($item->fake_price, 0, ',', '.') : '-' }}</td>
-                        <td>{{ $item->price ? 'Rp' . number_format($item->price, 0, ',', '.') : '-' }}</td>
-                        <td>
-                            @if ($item->m_course_type_id == 1)
-                            {{ 'Bootcamp' }}
-                            @elseif ($item->m_course_type_id == 2)
-                            {{ 'Rapid Onboarding' }}
-                            @elseif ($item->m_course_type_id == 3)
-                            {{ 'Mini Bootcamp' }}
-                            @elseif ($item->m_course_type_id == 4)
-                            {{ 'Hackathon' }}
-                            @elseif ($item->m_course_type_id == 5)
-                            {{ 'Prakerja' }}
-                            @elseif ($item->m_course_type_id == 6)
-                            {{ 'MSIB' }}
-                            @elseif ($item->m_course_type_id == 7)
-                            {{ 'Upskilling' }}
-                            @else
-                            -
-                            @endif
-                        </td>
-                        <td class="short" data-toggle="tooltip" data-placement="top" title="{{ $item->short_description }}">{{ $item->short_description }}</td>
-                        <td class="desc" data-toggle="tooltip" data-placement="top" title="{{ $item->description }}">{!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}</td>
-                        <td class="content" title="{{ $item->content }}">{{ $item->content }}</td>
-                        <td>{{ $item->created_at }}</td>
-                        <td>{{ $item->updated_at }}</td>
-                        <td>
-                            @if ($item->status == 1)
-                            <a class="btnAktif">Aktif</a>
-                            @else
-                            <a class="btnNon">Non Aktif</a>
-                            @endif
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <a href="{{ route('getEditCourse', ['id' => $item->id]) }}" class="btnEdit">Edit</a>
-                                <a href="{{ route('getCourseModule', ['course_id' => $item->id, 'page_type' => 'LMS']) }}" class="btnModul">Modules List</a>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>ID</th>
-                        <th>Course Name</th>
-                        <th>Fake Price</th>
-                        <th>Price</th>
-                        <th>Course Type</th>
-                        <th>Short Description</th>
-                        <th>Description</th>
-                        <th>Content</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </tfoot>
-            </table>
+            <div class="card">
+                <div class="card-body">
+                    <table id="table" class="tableCourse table-striped custom-striped nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th class="course-name">Course Name</th>
+                                <th>Promo Price</th>
+                                <th>Price</th>
+                                <th>Course Type</th>
+                                <th class="short">Short Description</th>
+                                <th class="desc">Description</th>
+                                <th>Content</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($courses as $item)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td class="course-name" data-toggle="tooltip" data-placement="top" title="{{ $item->name }}">{{ $item->name }}</td>
+                                <td>{{ $item->fake_price ? 'Rp' . number_format($item->fake_price, 0, ',', '.') : '-' }}</td>
+                                <td>{{ $item->price ? 'Rp' . number_format($item->price, 0, ',', '.') : '-' }}</td>
+                                <td>
+                                    @if ($item->m_course_type_id == 1)
+                                    {{ 'Bootcamp' }}
+                                    @elseif ($item->m_course_type_id == 2)
+                                    {{ 'Rapid Onboarding' }}
+                                    @elseif ($item->m_course_type_id == 3)
+                                    {{ 'Mini Bootcamp' }}
+                                    @elseif ($item->m_course_type_id == 4)
+                                    {{ 'Hackathon' }}
+                                    @elseif ($item->m_course_type_id == 5)
+                                    {{ 'Prakerja' }}
+                                    @elseif ($item->m_course_type_id == 6)
+                                    {{ 'MSIB' }}
+                                    @elseif ($item->m_course_type_id == 7)
+                                    {{ 'Upskilling' }}
+                                    @else
+                                    -
+                                    @endif
+                                </td>
+                                <td class="short" data-toggle="tooltip" data-placement="top" title="{{ $item->short_description }}">{{ $item->short_description }}</td>
+                                <td class="desc" data-toggle="tooltip" data-placement="top" title="{{ $item->description }}">{!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}</td>
+                                <td class="content" title="{{ $item->content }}">{{ $item->content }}</td>
+                                <td>{{ $item->created_at }}</td>
+                                <td>{{ $item->updated_at }}</td>
+                                <td>
+                                    @if ($item->status == 1)
+                                    <a class="btnAktif">Aktif</a>
+                                    @else
+                                    <a class="btnNon">Non Aktif</a>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="{{ route('getEditCourse', ['id' => $item->id]) }}" class="btnEdit">Edit</a>
+                                        <a href="{{ route('getCourseModule', ['course_id' => $item->id, 'page_type' => 'LMS']) }}" class="btnModul">Modules List</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>Course Name</th>
+                                <th>Fake Price</th>
+                                <th>Price</th>
+                                <th>Course Type</th>
+                                <th>Short Description</th>
+                                <th>Description</th>
+                                <th>Content</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
 
-            <!-- Info and Pagination container -->
-            <div class="buttons-container">
-                <div class="custom-info-text"></div>
-                <div class="custom-pagination-container"></div>
-            </div><br><br>
+                    <!-- Info and Pagination container -->
+                    <div class="buttons-container">
+                        <div class="custom-info-text"></div>
+                        <div class="custom-pagination-container"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
@@ -513,8 +539,8 @@
         $('[data-toggle="tooltip"]').tooltip();
         let table = $('#table').DataTable({
             scrollX: true,
-            lengthChange: true,
-            lengthMenu: [10, 25, 50, 100],
+            lengthChange: false,
+            // lengthMenu: [10, 25, 50, 100],
             buttons: [
                 'colvis',
                 {
@@ -531,15 +557,16 @@
                 },
             ],
             searching: true,
-            columnDefs: [{
-                    "visible": false,
-                    "targets": [0]
-                },
-                {
-                    "width": "200px",
-                    "targets": 1
-                }
-            ],
+            columnDefs: [{}],
+            // columnDefs: [{
+            //         "visible": false,
+            //         "targets": [0]
+            //     },
+            //     {
+            //         "width": "200px",
+            //         "targets": 1
+            //     }
+            // ],
             initComplete: function() {
                 this.api()
                     .columns()

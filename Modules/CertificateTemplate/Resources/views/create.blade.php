@@ -16,6 +16,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 
     <style>
+        body {
+            background-color: #E3E5EE;
+        }
+        
         .conTitle {
             display: flex;
             justify-content: space-between;

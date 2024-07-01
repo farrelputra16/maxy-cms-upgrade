@@ -231,7 +231,6 @@
         <a href="{{ url()->previous() }}">
             <button class="btnBatal">Batal</button>
         </a>
-        <br>
     </div>
 </body>
 

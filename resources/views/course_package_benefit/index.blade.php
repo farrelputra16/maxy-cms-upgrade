@@ -17,6 +17,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 
     <style>
+        body {
+            background-color: #E3E5EE;
+        }
+
         .conTitle {
             display: flex;
             justify-content: space-between;
@@ -49,7 +53,8 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 97%;;
+            width: 97%;
+            ;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }
@@ -68,25 +73,20 @@
         }
 
         .btnAdd {
-            background-color: #4056A1;
-            color: #FFF;
+            color: #1533B5;
             width: 200px;
             height: 30px;
-            border-radius: 8px;
-            border: none;
-            box-shadow: none;
             font-weight: bold;
             font-size: 13px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
             cursor: pointer;
-            margin-left: .5rem;
-            margin-bottom: 3rem;
             padding-top: .3rem;
+            margin-left: -3rem;
         }
 
-        .btnBack{
+        .btnBack {
             background-color: #4056A1;
             color: #FFF;
             width: 200px;
@@ -201,9 +201,21 @@
         }
 
         .tableBene {
-            border: 1px solid #000000;
-            border-radius: 8px;
-            overflow: hidden;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .custom-striped tbody tr:nth-of-type(odd) {
+            background-color: #E3E3E3;
+        }
+
+        .custom-striped tbody tr:nth-of-type(even) {
+            background-color: #FFF;
+        }
+
+        .custom-striped tbody tr:nth-of-type(odd) td,
+        .custom-striped tbody tr:nth-of-type(even) td {
+            color: #000000;
         }
 
         .btnAktif {
@@ -245,6 +257,41 @@
             border-radius: .4rem;
             margin-right: .5rem;
         }
+
+        .custom-length-container {
+            margin-bottom: 10px;
+            margin-left: .5rem;
+            font-size: 12px;
+        }
+
+        .custom-pagination-container {
+            margin-left: 10rem;
+        }
+
+        .custom-info-text {
+            margin-bottom: 10px;
+            margin-left: .5rem;
+            font-size: 12px;
+        }
+
+        .dataTables_paginate {
+            font-size: 12px;
+        }
+
+        .buttons-container .dt-buttons {
+            margin-bottom: 10px;
+            /* margin-right: 10rem; */
+        }
+
+        .dataTables_wrapper .dataTables_filter {
+            margin-top: 20px;
+        }
+
+        .card {
+            margin-right: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+        }
     </style>
 </head>
 
@@ -256,112 +303,98 @@
             <button class="btnlogout" type="submit">Logout</button>
         </form>
     </div>
+
     <div class="breadcrumb pt-2 pb-4">
-        <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
-        <span class="divider">></span>
-        <div class="sectionMaster">Master</div>
-        <span class="divider">></span>
-        <div class="sectionCourse">Course Package</div>
-        <span class="divider">></span>
-        <div class="sectionCourse">Benefit List</div>
+        <div class="container">
+            <div class="row">
+                <div class="col-10">
+                    <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
+                    <span class="divider">></span>
+                    <div class="sectionMaster">Master</div>
+                    <span class="divider">></span>
+                    <div class="sectionCourse">Course Package</div>
+                    <span class="divider">></span>
+                    <div class="sectionCourse">Benefit List</div>
+                </div>
+                <div class="col-2">
+                    @if (isset($idCPB))
+                    <a class="btnAdd" href="{{ route('getAddCoursePackageBenefit', ['idCPB' => $idCPB]) }}" role="button">Add Course Package Benefit</a>
+                    @else
+                    <a class="btnAdd" href="{{ route('getAddCoursePackageBenefit') }}" role="button">Add Course Package Benefit</a>
+                    @endif
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="container">
         <div class="row">
-            <div class="col">
-                @if (isset($idCPB))
-                <a class="btnAdd" href="{{ route('getAddCoursePackageBenefit', ['idCPB' => $idCPB]) }}" role="button">Add Course Package Benefit</a>
-                @else
-                <a class="btnAdd" href="{{ route('getAddCoursePackageBenefit') }}" role="button">Add Course Package Benefit</a>
-                @endif
+            <div class="card">
+                <div class="card-body">
+                    <table id="table" class="tableBene table-striped custom-striped display nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">ID Course Package - Price</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Created At</th>
+                                <th scope="col">Updated At</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($coursePackageBenefits as $item)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->course_package_name }} - Rp. {{ $item->course_package_price }}</td>
+                                <td>{{ $item->description }}</td>
+                                <td>
+                                    @if ($item->status == 1)
+                                    <a class="btnAktif">Aktif</a>
+                                    @else
+                                    <a class="btnNon">Non Aktif</a>
+                                    @endif
+                                </td>
+                                <td>{{ $item->created_at }}</td>
+                                <td>{{ $item->updated_at }}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="{{ route('getEditCoursePackageBenefit', ['id' => $item->id]) }}" class="btnEdit">Edit</a>
+                                        <!-- <a href="{{ route('deleteCourseModule', ['id' => $item->id]) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this module?')">Delete</a> -->
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>ID Course Package - Price</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <!-- Info and Pagination container -->
+                    <div class="buttons-container">
+                        <div class="custom-info-text"></div>
+                        <div class="custom-pagination-container"></div>
+                    </div>
+                </div>
+                <div class="navbar-nav">
+                    @if (isset($idCPB))
+                    <a class="btnBack btn-primary" href="{{ route('getCoursePackage') }}" role="button">BACK</a>
+                    @endif
+                    {{-- <a class="btnBack btn-secondary" href="{{ url()->previous() }}" role="button">Back</a> --}}
+                </div>
             </div>
-
-            <table id="table" class="tableBene table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">ID Course Package - Price</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Created At</th>
-                        <th scope="col">Updated At</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($coursePackageBenefits as $item)
-                    <tr>
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->course_package_name }} - Rp. {{ $item->course_package_price }}</td>
-                        <td>{{ $item->description }}</td>
-                        <td>
-                            @if ($item->status == 1)
-                            <a class="btnAktif">Aktif</a>
-                            @else
-                            <a class="btnNon">Non Aktif</a>
-                            @endif
-                        </td>
-                        <td>{{ $item->created_at }}</td>
-                        <td>{{ $item->updated_at }}</td>
-                        <td>
-                            <div class="btn-group">
-                                <a href="{{ route('getEditCoursePackageBenefit', ['id' => $item->id]) }}" class="btnEdit">Edit</a>
-                                <!-- <a href="{{ route('deleteCourseModule', ['id' => $item->id]) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this module?')">Delete</a> -->
-                            </div>
-                        </td>
-                        <!-- <td>
-                            @if (isset($idCPB))
-                            <a href="{{ route('getEditCoursePackageBenefit', ['id' => $item->id, 'idCPB' => $idCPB]) }}" style="text-decoration: none; color:blue;">Edit</a>
-                            <form action="{{ route('deleteCoursePackageBenefit', ['id' => $item->id, 'idCPB' => $idCPB]) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this Course Package Benefit?')">
-                                @method('delete')
-                                @csrf
-                                <button type="submit" style="text-decoration: none; color: red; border: none; background-color: transparent; cursor: pointer;">Delete</button>
-                            </form>
-                            @else
-                            <a href="{{ route('getEditCoursePackageBenefit', ['id' => $item->id]) }}" style="text-decoration: none; color:blue;">Edit</a>
-                            <form action="{{ route('deleteCoursePackageBenefit', ['id' => $item->id]) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this Course Package Benefit?')">
-                                @method('delete')
-                                @csrf
-                                <button type="submit" style="text-decoration: none; color: red; border: none; background-color: transparent; cursor: pointer;">Delete</button>
-                            </form>
-                            @endif
-                        </td> -->
-                    </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>ID Course Package - Price</th>
-                        <th>Description</th>
-                        <th>Status</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
-                        <th>Action</th>
-                    </tr>
-                </tfoot>
-            </table>
-            <!-- Info and Pagination container -->
-            <div class="buttons-container">
-                <div class="custom-info-text"></div>
-                <div class="custom-pagination-container"></div>
-            </div>
-        </div>
-
-        <!-- <div class="navbar-nav"> -->
-        <!-- @if (isset($idCPB)) -->
-        <!-- <a class="btn btn-primary" href="{{ route('getAddCoursePackageBenefit', ['idCPB' => $idCPB]) }}" role="button">Tambah Course Package Benefit +</a> -->
-        <!-- @endif -->
-        <!-- <a class="btn btn-secondary" href="{{ url()->previous() }}" role="button">Back</a> -->
-        <!-- </div> -->
-        <div class="navbar-nav">
-            @if (isset($idCPB))
-            <a class="btnBack btn-primary" href="{{ route('getCoursePackage') }}" role="button">BACK</a>
-            @endif
-            {{-- <a class="btnBack btn-secondary" href="{{ url()->previous() }}" role="button">Back</a> --}}
         </div>
     </div>
 </body>
@@ -383,10 +416,11 @@
 
 <script>
     $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
         let table = $('#table').DataTable({
             scrollX: true,
-            lengthChange: true,
-            lengthMenu: [10, 25, 50, 100],
+            lengthChange: false,
+            // lengthMenu: [10, 25, 50, 100],
             buttons: [
                 'colvis',
                 {
@@ -403,10 +437,11 @@
                 },
             ],
             searching: true,
-            columnDefs: [{
-                "visible": false,
-                "targets": [0]
-            }],
+            columnDefs: [{}],
+            // columnDefs: [{
+            //     "visible": false,
+            //     "targets": [0]
+            // }],
             initComplete: function() {
                 this.api()
                     .columns()
@@ -425,47 +460,46 @@
                     });
             }
         });
-    });
-    let buttonContainer = $('<div>').addClass('buttons-container');
-    table.buttons().container().appendTo(buttonContainer);
-    buttonContainer.insertBefore('.tableBene .dataTables_length');
+        let buttonContainer = $('<div>').addClass('buttons-container');
+        table.buttons().container().appendTo(buttonContainer);
+        buttonContainer.insertBefore('.tableBene .dataTables_length');
 
-    // Create container for buttons and pagination
-    let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
-    buttonPaginationContainer.css({
-        display: 'block',
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        // marginTop: '10px'
-    });
-
-    // Insert the buttons into the new container
-    table.buttons().container().appendTo(buttonPaginationContainer);
-
-    // Insert the new container before the table
-    buttonPaginationContainer.insertBefore('#table');
-
-    // Add individual column search inputs and titles
-    // $('#table thead th').each(function() {
-    //     let title = $(this).text();
-    //     $(this).html('<div class="text-center">' + title +
-    //         '</div><div class="mt-2"><input type="text" placeholder="Search ' + title +
-    //         '" /></div>');
-    // });
-
-    // Apply the search for individual columns
-    table.columns().every(function() {
-        let that = this;
-
-        $('input', this.header()).on('keyup change clear', function() {
-            if (that.search() !== this.value) {
-                that
-                    .search(this.value)
-                    .draw();
-            }
+        // Create container for buttons and pagination
+        let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
+        buttonPaginationContainer.css({
+            display: 'block',
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            // marginTop: '10px'
         });
-    });
 
-    table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
+        // Insert the buttons into the new container
+        table.buttons().container().appendTo(buttonPaginationContainer);
+
+        // Insert the new container before the table
+        buttonPaginationContainer.insertBefore('#table');
+
+        // Add individual column search inputs and titles
+        // $('#table thead th').each(function() {
+        //     let title = $(this).text();
+        //     $(this).html('<div class="text-center">' + title +
+        //         '</div><div class="mt-2"><input type="text" placeholder="Search ' + title +
+        //         '" /></div>');
+        // });
+
+        // Apply the search for individual columns
+        table.columns().every(function() {
+            let that = this;
+
+            $('input', this.header()).on('keyup change clear', function() {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+        table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
+    });
 </script>
 @endsection

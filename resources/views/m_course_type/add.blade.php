@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title', 'Add Difficulty Type')
+@section('title', 'Add Course Type')
 
 @section('content')
 <!DOCTYPE html>
@@ -13,6 +13,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 
     <style>
+        body {
+            background-color: #E3E5EE;
+        }
+
         .conTitle {
             display: flex;
             justify-content: space-between;
@@ -114,6 +118,7 @@
             <button class="btnlogout" type="submit">Logout</button>
         </form>
     </div>
+
     <div class="breadcrumb pt-2 pb-4">
         <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
         <span class="divider">></span>
@@ -122,51 +127,51 @@
         <div class="sectionCourse">Course Type</div>
     </div>
 
-    <form class="ui form" action="" method="post">
-        @csrf
-        <div class="field">
+    <div class="container">
+        <form class="ui form" action="" method="post">
+            @csrf
             <div class="field">
-                <label for="">Name</label>
-                <input type="text" name="name" placeholder="Masukkan Nama Course Type">
-                @if ($errors->has('name'))
-                @foreach ($errors->get('name') as $error)
-                <span style="color: red;">{{$error}}</span>
-                @endforeach
-                @endif
-            </div>
-            <div class="field">
-                <label for="">Slug</label>
-                <input type="text" name="slug" placeholder="Masukkan Slug Course Type">
-                @if ($errors->has('slug'))
-                @foreach ($errors->get('slug') as $error)
-                <span style="color: red;">{{$error}}</span>
-                @endforeach
-                @endif
-            </div>
-            <div class="field">
-                <label for="">Description</label>
-                <textarea name="description"></textarea>
-            </div>
-            <div class="field">
-                <div class="ui checkbox">
-                    <input class="form-check-input" type="checkbox" value="1" name="status">
-                    <label>Aktif</label>
+                <div class="field">
+                    <label for="">Name</label>
+                    <input type="text" name="name" placeholder="Masukkan Nama Course Type">
+                    @if ($errors->has('name'))
+                    @foreach ($errors->get('name') as $error)
+                    <span style="color: red;">{{$error}}</span>
+                    @endforeach
+                    @endif
+                </div>
+                <div class="field">
+                    <label for="">Slug</label>
+                    <input type="text" name="slug" placeholder="Masukkan Slug Course Type">
+                    @if ($errors->has('slug'))
+                    @foreach ($errors->get('slug') as $error)
+                    <span style="color: red;">{{$error}}</span>
+                    @endforeach
+                    @endif
+                </div>
+                <div class="field">
+                    <label for="">Description</label>
+                    <textarea name="description"></textarea>
+                </div>
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input class="form-check-input" type="checkbox" value="1" name="status">
+                        <label>Aktif</label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="divAdd">
-            <button class="btnAdd">Add Course</button>
-        </div>
-        <!-- <a href="{{ url()->previous() }}">
+            <div class="divAdd">
+                <button class="btnAdd">Add Course</button>
+            </div>
+            <!-- <a href="{{ url()->previous() }}">
             <button class="btnBatal">Batal</button>
         </a> -->
-    </form>
-    <a href="{{ url()->previous() }}">
-        <button class="btnBatal">Batal</button>
-    </a>
+        </form>
+        <a href="{{ url()->previous() }}">
+            <button class="btnBatal">Batal</button>
+        </a>
     </div>
 </body>
 
 </html>
-</div>
 @endsection

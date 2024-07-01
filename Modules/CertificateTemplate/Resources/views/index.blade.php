@@ -18,6 +18,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 
     <style>
+        body {
+            background-color: #E3E5EE;
+        }
+
         .conTitle {
             display: flex;
             justify-content: space-between;
@@ -35,7 +39,7 @@
         }
 
         .btnlogout {
-            margin-right: 2rem;
+            margin-right: .2rem;
             margin-bottom: .5rem;
             background-color: #FBB041;
             color: #FFF;
@@ -50,17 +54,16 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 97%;;
+            width: 97%;
+            ;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }
 
-        .breadcrumb .sectionDashboard,
+        .breadcrumb .secDash,
         .breadcrumb .divider,
         .breadcrumb .secClass,
-        .breadcrumb .sectionCourse {
-            /* padding-top: 1rem; */
-            /* margin-top: 1rem; */
+        .breadcrumb .secCourse {
             display: inline;
             font-size: 11px;
             font-weight: bold;
@@ -71,21 +74,15 @@
         }
 
         .btnTemplate {
-            background-color: #4056A1;
-            color: #FFF;
+            color: #1533B5;
             width: 170px;
             height: 30px;
-            border-radius: 8px;
-            border: none;
-            box-shadow: none;
             font-weight: bold;
             font-size: 13px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
             cursor: pointer;
-            margin-left: .5rem;
-            margin-bottom: 3rem;
             padding-top: .3rem;
         }
 
@@ -105,7 +102,7 @@
         td {
             padding: 12px;
             /* Adjust this value as needed for the desired spacing */
-            text-align: center;
+            text-align: left;
             /* Optional: Center-align text */
         }
 
@@ -186,9 +183,20 @@
         }
 
         .tableCerti {
-            border: 1px solid #000000;
-            border-radius: 8px;
             overflow: hidden;
+        }
+
+        .custom-striped tbody tr:nth-of-type(odd) {
+            background-color: #E3E3E3;
+        }
+
+        .custom-striped tbody tr:nth-of-type(even) {
+            background-color: #FFF;
+        }
+
+        .custom-striped tbody tr:nth-of-type(odd) td,
+        .custom-striped tbody tr:nth-of-type(even) td {
+            color: #000000;
         }
 
         .btnEdit {
@@ -247,6 +255,12 @@
         .dataTables_wrapper .dataTables_filter {
             margin-top: 20px;
         }
+
+        .card {
+            margin-right: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+        }
     </style>
 </head>
 
@@ -260,11 +274,23 @@
     </div>
 
     <div class="breadcrumb pt-2 pb-4">
-        <a class="section" href="{{ url('/') }}">Dashboard</a>
-        <span class="divider">></span>
-        <div class="sectionCourse">Class</div>
-        <span class="divider">></span>
-        <div class="secClass">Certificate Templates</div>
+        <div class="container">
+            <div class="row">
+                <div class="col-10">
+                    <a class="secDash" href="{{ url('/') }}">Dashboard</a>
+                    <span class="divider">></span>
+                    <div class="secCourse">Class</div>
+                    <span class="divider">></span>
+                    <div class="secClass">Certificate Templates</div>
+                </div>
+                <div class="col-2">
+                <a class="btnTemplate" href="{{ route('certificate-templates.create') }}">
+                    Template Certificate +
+                </a>
+            </div>
+            </div>
+        </div>
+
     </div>
 
     @if (session('success'))
@@ -281,187 +307,183 @@
 
     <div class="container">
         <div class="row">
-            <div class="col">
-                <a class="btnTemplate btn-primary" href="{{ route('certificate-templates.create') }}">
-                    Template Certificate +
-                </a>
-            </div>
-
-            <table id="table" class="tableCerti table-striped w-100">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Image</th>
-                        <th>Course Type - Batch</th>
-                        <th>Marker State</th>
-                        <th>Template Content</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($certificateTemplates as $certificateTemplate)
-                    <tr>
-                        <td>{{ $certificateTemplate->id }}</td>
-                        <td>
-                            <img src="{{ asset('uploads/certificate/' . $certificateTemplate->type->id . '/' . $certificateTemplate->filename) }}" alt="{{ $certificateTemplate->filename }}" width="225">
-                        </td>
-                        <td>{{ $certificateTemplate->type->name . " - " . "Batch $certificateTemplate->batch" ?? '-' }}</td>
-                        <td class="text-wrap">{{ \Str::limit($certificateTemplate->marker_state) }}</td>
-                        <td id="description" class="text-wrap">{!! !empty($certificateTemplate->template_content) ? \Str::limit($certificateTemplate->template_content) : '-' !!}</td>
-                        <td>{{ $certificateTemplate->created_at }}</td>
-                        <td>{{ $certificateTemplate->updated_at }}</td>
-                        <td>
-                            <div class="d-flex gap-2">
-                                <a href="{{ route('certificate-templates.edit', $certificateTemplate->id) }}" class="btnEdit">Edit</a>
-                                <a href="{{ route('certificate-templates.destroy', $certificateTemplate->id) }}" class="btnDelete">Delete</a>
-                                <!-- <form action="{{ route('certificate-templates.destroy', $certificateTemplate->id) }}" method="POST">
+            
+            <div class="card">
+                <div class="card-body">
+                    <table id="table" class="tableCerti table-striped custom-striped w-100">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Image</th>
+                                <th>Course Type - Batch</th>
+                                <th>Marker State</th>
+                                <th>Template Content</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($certificateTemplates as $certificateTemplate)
+                            <tr>
+                                <td>{{ $certificateTemplate->id }}</td>
+                                <td>
+                                    <img src="{{ asset('uploads/certificate/' . $certificateTemplate->type->id . '/' . $certificateTemplate->filename) }}" alt="{{ $certificateTemplate->filename }}" width="225">
+                                </td>
+                                <td>{{ $certificateTemplate->type->name . " - " . "Batch $certificateTemplate->batch" ?? '-' }}</td>
+                                <td class="text-wrap">{{ \Str::limit($certificateTemplate->marker_state) }}</td>
+                                <td id="description" class="text-wrap">{!! !empty($certificateTemplate->template_content) ? \Str::limit($certificateTemplate->template_content) : '-' !!}</td>
+                                <td>{{ $certificateTemplate->created_at }}</td>
+                                <td>{{ $certificateTemplate->updated_at }}</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <a href="{{ route('certificate-templates.edit', $certificateTemplate->id) }}" class="btnEdit">Edit</a>
+                                        <a href="{{ route('certificate-templates.destroy', $certificateTemplate->id) }}" class="btnDelete">Delete</a>
+                                        <!-- <form action="{{ route('certificate-templates.destroy', $certificateTemplate->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btnDelete" type="submit">Delete</button>
                                 </form> -->
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>ID</th>
-                        <th>Image</th>
-                        <th>Course Type - Batch</th>
-                        <th>Marker State</th>
-                        <th>Template Content</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
-                        <th>Action</th>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>Image</th>
+                                <th>Course Type - Batch</th>
+                                <th>Marker State</th>
+                                <th>Template Content</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
 
-        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+                <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+                <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+                <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+                <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+                <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+                <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+                <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
 
-        <script>
-            $(document).ready(function() {
-                let table = $('#table').DataTable({
-                    scrollX: true,
-                    lengthChange: true,
-                    lengthMenu: [10, 25, 50, 100],
-                    lengthMenu: [10, 25, 50, 100],
-                    buttons: [
-                        'colvis',
-                        {
-                            extend: 'copy',
-                            className: 'buttons-copy',
-                        },
-                        {
-                            extend: 'excel',
-                            className: 'buttons-excel',
-                        },
-                        {
-                            extend: 'pdf',
-                            className: 'buttons-pdf',
-                        },
-                    ],
-                    searching: true,
-                    columnDefs: [{
-                        "visible": false,
-                        "targets": [0]
-                    }],
-                    initComplete: function() {
-                        this.api()
-                            .columns()
-                            .every(function() {
-                                var column = this;
-                                var title = column.footer().textContent;
+                <script>
+                    $(document).ready(function() {
+                        let table = $('#table').DataTable({
+                            scrollX: true,
+                            lengthChange: false,
+                            // lengthMenu: [10, 25, 50, 100],
+                            buttons: [
+                                'colvis',
+                                {
+                                    extend: 'copy',
+                                    className: 'buttons-copy',
+                                },
+                                {
+                                    extend: 'excel',
+                                    className: 'buttons-excel',
+                                },
+                                {
+                                    extend: 'pdf',
+                                    className: 'buttons-pdf',
+                                },
+                            ],
+                            searching: true,
+                            columnDefs: [{
+                                "visible": false,
+                                "targets": [0]
+                            }],
+                            initComplete: function() {
+                                this.api()
+                                    .columns()
+                                    .every(function() {
+                                        var column = this;
+                                        var title = column.footer().textContent;
 
-                                // Create input element and add event listener
-                                $('<input class="form-control" type="text" placeholder="Search ' + title + '" />')
-                                    .appendTo($(column.footer()).empty())
-                                    .on('keyup change clear', function() {
-                                        if (column.search() !== this.value) {
-                                            column.search(this.value).draw();
-                                        }
+                                        // Create input element and add event listener
+                                        $('<input class="form-control" type="text" placeholder="Search ' + title + '" />')
+                                            .appendTo($(column.footer()).empty())
+                                            .on('keyup change clear', function() {
+                                                if (column.search() !== this.value) {
+                                                    column.search(this.value).draw();
+                                                }
+                                            });
                                     });
+                            }
+                        });
+                        let buttonContainer = $('<div>').addClass('buttons-container');
+                        table.buttons().container().appendTo(buttonContainer);
+                        buttonContainer.insertBefore('.tableCerti .dataTables_length');
+
+                        // Create container for buttons and pagination
+                        let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
+                        buttonPaginationContainer.css({
+                            display: 'block',
+                            flexDirection: 'row',
+                            justifyContent: 'flex-start',
+                            // marginTop: '10px'
+                        });
+
+                        // Insert the buttons into the new container
+                        table.buttons().container().appendTo(buttonPaginationContainer);
+
+                        // Insert the show entries and info into the new container with custom classes
+                        // $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
+                        // $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
+                        // $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
+
+                        // Insert the new container before the table
+                        buttonPaginationContainer.insertBefore('#table');
+
+                        // Apply the search for individual columns
+                        table.columns().every(function() {
+                            let that = this;
+
+                            $('input', this.header()).on('keyup change clear', function() {
+                                if (that.search() !== this.value) {
+                                    that
+                                        .search(this.value)
+                                        .draw();
+                                }
                             });
-                    }
-                });
-                let buttonContainer = $('<div>').addClass('buttons-container');
-                table.buttons().container().appendTo(buttonContainer);
-                buttonContainer.insertBefore('.tableCerti .dataTables_length');
+                        });
+                        table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
 
-                // Create container for buttons and pagination
-                let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
-                buttonPaginationContainer.css({
-                    display: 'block',
-                    flexDirection: 'row',
-                    justifyContent: 'flex-start',
-                    // marginTop: '10px'
-                });
+                        // $("select[name='table_length']").on('click', function() {
+                        //     $.ajax({
+                        //         url: "",
+                        //         type: 'GET',
+                        //         data: {
+                        //             per_page: $(this).val()
+                        //         },
+                        //         success: function(data) {
+                        //             console.log(data);
+                        //         }
+                        //     });
+                        //     console.log($(this).val());
+                        // });
 
-                // Insert the buttons into the new container
-                table.buttons().container().appendTo(buttonPaginationContainer);
+                        table.buttons().container()
+                            .appendTo('#table_wrapper .col-md-6:eq(0)');
 
-                // Insert the show entries and info into the new container with custom classes
-                // $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
-                // $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
-                // $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
-
-                // Insert the new container before the table
-                buttonPaginationContainer.insertBefore('#table');
-
-                // Apply the search for individual columns
-                table.columns().every(function() {
-                    let that = this;
-
-                    $('input', this.header()).on('keyup change clear', function() {
-                        if (that.search() !== this.value) {
-                            that
-                                .search(this.value)
-                                .draw();
-                        }
+                        $(".btnDelete").on("click", function(e) {
+                            e.preventDefault();
+                            let confirmDelete = confirm("Are you sure you want to delete this item?");
+                            if (confirmDelete) {
+                                $(this).parent().submit();
+                            }
+                        });
                     });
-                });
-                table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
-
-                // $("select[name='table_length']").on('click', function() {
-                //     $.ajax({
-                //         url: "",
-                //         type: 'GET',
-                //         data: {
-                //             per_page: $(this).val()
-                //         },
-                //         success: function(data) {
-                //             console.log(data);
-                //         }
-                //     });
-                //     console.log($(this).val());
-                // });
-
-                table.buttons().container()
-                    .appendTo('#table_wrapper .col-md-6:eq(0)');
-
-                $(".btnDelete").on("click", function(e) {
-                    e.preventDefault();
-                    let confirmDelete = confirm("Are you sure you want to delete this item?");
-                    if (confirmDelete) {
-                        $(this).parent().submit();
-                    }
-                });
-            });
-        </script>
-    </div>
+                </script>
+            </div>
 </body>
 
 </html>

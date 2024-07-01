@@ -28,6 +28,10 @@
     <link rel="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" type="text/css" />
 
     <style>
+        body {
+            background-color: #E3E5EE;
+        }
+
         .conTitle {
             display: flex;
             justify-content: space-between;
@@ -95,6 +99,7 @@
         }
 
         .box {
+            background-color: #FFF;
             width: 100%;
             height: auto;
             padding: 20px;
@@ -122,6 +127,7 @@
         }
 
         .box img {
+            background-color: #FFF;
             max-width: 25%;
             height: auto;
             margin-top: -2rem;
@@ -151,6 +157,7 @@
 
         /* Calendar Styles */
         .wrapper {
+            background-color: #FFF;
             width: 80%;
             height: auto;
             border-radius: 20px;
@@ -193,6 +200,7 @@
         }
 
         .calendar {
+            background-color: #FFF;
             padding-top: 1rem;
             padding-left: -5rem;
         }
@@ -284,6 +292,7 @@
 
         /* Active Class */
         .boxActive {
+            background-color: #FFF;
             width: 100%;
             height: auto;
             /* padding: 20px; */
@@ -416,6 +425,7 @@
 
         /* Schedule Today */
         .boxSch {
+            background-color: #FFF;
             width: 80%;
             height: auto;
             margin-right: .05rem;

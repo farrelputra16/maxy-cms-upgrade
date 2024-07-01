@@ -242,6 +242,10 @@
                         <li class="nav-item">
                             <a href="{{ route('getCCMHGrade') }}" class="list-group-item list-group-item-action {{ Route::is('getCCMHGrade') ? 'active' : '' }}">Grade Assignment</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('getAttendance') }}" class="list-group-item list-group-item-action {{ Route::is('getAttendance') ? 'active' : '' }}">Attendance</a>
+                        </li>
+
                     </ul>
                 </li>
 
@@ -400,12 +404,6 @@
             $this.css('border', 'none');
             $this.css('outline', 'none');
         });
-
-        // Script untuk DataTable
-        // $(document).ready(function() {
-        //     $('#tabel').DataTable();
-        // });
-
         $(document).ready(function() {
             // Ketika submenu diklik
             $('.nav-link, .list-group-item').on('click', function() {

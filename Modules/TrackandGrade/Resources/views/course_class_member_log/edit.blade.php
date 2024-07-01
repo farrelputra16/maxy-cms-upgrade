@@ -12,6 +12,10 @@
     <title>Edit CCMH Tracking</title>
 
     <style>
+        body {
+            background-color: #E3E5EE;
+        }
+        
         .conTitle {
             display: flex;
             justify-content: space-between;

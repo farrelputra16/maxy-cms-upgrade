@@ -15,6 +15,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 
     <style>
+        body {
+            background-color: #DFE3F1;
+        }
+
         .conTitle {
             display: flex;
             justify-content: space-between;
@@ -47,7 +51,8 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 97%;;
+            width: 97%;
+            ;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }
@@ -68,21 +73,15 @@
         }
 
         .btnAdd {
-            background-color: #4056A1;
-            color: #FFF;
-            width: 180px;
+            color: #1533B5;
+            width: 150px;
             height: 30px;
-            border-radius: 8px;
-            border: none;
-            box-shadow: none;
             font-weight: bold;
             font-size: 13px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
             cursor: pointer;
-            margin-left: .5rem;
-            margin-bottom: 3rem;
             padding-top: .3rem;
         }
 
@@ -102,7 +101,7 @@
         td {
             padding: 12px;
             /* Adjust this value as needed for the desired spacing */
-            text-align: center;
+            text-align: left;
             /* Optional: Center-align text */
         }
 
@@ -187,9 +186,20 @@
         }
 
         .tableCourseDiff {
-            border: 1px solid #000000;
-            border-radius: 8px;
             overflow: hidden;
+        }
+
+        .custom-striped tbody tr:nth-of-type(odd) {
+            background-color: #E3E3E3;
+        }
+
+        .custom-striped tbody tr:nth-of-type(even) {
+            background-color: #FFF;
+        }
+
+        .custom-striped tbody tr:nth-of-type(odd) td,
+        .custom-striped tbody tr:nth-of-type(even) td {
+            color: #000000;
         }
 
         .btnAktif {
@@ -260,6 +270,12 @@
         .dataTables_wrapper .dataTables_filter {
             margin-top: 20px;
         }
+
+        .card {
+            margin-right: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+        }
     </style>
 </head>
 
@@ -272,185 +288,194 @@
         </form>
     </div>
     <div class="breadcrumb pt-2 pb-4">
-        <a class="section" href="{{ url('/') }}">Dashboard</a>
-        <span class="divider">></span>
-        <div class="sectionCourse">Master</div>
-        <span class="divider">></span>
-        <div class="sectionCourse">Difficulty Type</div>
+        <div class="container">
+            <div class="row">
+                <div class="col-10">
+                    <a class="section" href="{{ url('/') }}">Dashboard</a>
+                    <span class="divider">></span>
+                    <div class="sectionCourse">Master</div>
+                    <span class="divider">></span>
+                    <div class="sectionCourse">Difficulty Type</div>
+                </div>
+                <div class="col-2">
+                    <a class="btnAdd" href="{{ route('getAddDifficultyType', ['access' => 'm_difficulty_type_create']) }}" role="button">Add Difficulty Type</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="container">
         <div class="row">
-            <div class="col">
-                <a class="btnAdd" href="{{ route('getAddDifficultyType', ['access' => 'm_difficulty_type_create']) }}" role="button">Add Difficulty Type</a>
-            </div>
-
-            <table id="table" class="tableCourseDiff table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Created At</th>
-                        <th scope="col">Updated At</th>
-                        <th scope="col">Action</th>
-                        <!-- More buat tempat edit / delete -->
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($mDifficulties as $item)
-                    <tr>
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $item->name }}</td>
-                        <td id="description">{{ $item->description }}</td>
-                        <td>
-                            @if ($item->status == 1)
-                            <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
-                            @else
-                            <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
-                            @endif
-                        </td>
-                        <td>{{ $item->created_at }}</td>
-                        <td>{{ $item->updated_at }}</td>
-                        <!-- <td>
+            <div class="card">
+                <div class="card-body">
+                    <table id="table" class="tableCourseDiff table-striped custom-striped nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Created At</th>
+                                <th scope="col">Updated At</th>
+                                <th scope="col">Action</th>
+                                <!-- More buat tempat edit / delete -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($mDifficulties as $item)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td id="description">{{ $item->description }}</td>
+                                <td>
+                                    @if ($item->status == 1)
+                                    <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
+                                    @else
+                                    <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
+                                    @endif
+                                </td>
+                                <td>{{ $item->created_at }}</td>
+                                <td>{{ $item->updated_at }}</td>
+                                <!-- <td>
                                         <a href="{{ route('getEditDifficultyType', ['id' => $item->id, 'access' => 'm_difficulty_type_update']) }}" style="text-decoration: none; color:blue;">Edit</a>
                                     </td> -->
-                        <td>
-                            <div class="btn-group">
-                                <a href="{{ route('getEditDifficultyType', ['id' => $item->id, 'access' => 'm_difficulty_type_update']) }}" class="btnEdit btn-primary">Edit</a>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Created At</th>
-                        <th scope="col">Updated At</th>
-                        <th scope="col">Action</th>
-                        <!-- More buat tempat edit / delete -->
-                    </tr>
-                </tfoot>
-            </table>
-            <!-- Info and Pagination container -->
-            <div class="buttons-container">
-                <div class="custom-info-text"></div>
-                <div class="custom-pagination-container"></div>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="{{ route('getEditDifficultyType', ['id' => $item->id, 'access' => 'm_difficulty_type_update']) }}" class="btnEdit btn-primary">Edit</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Created At</th>
+                                <th scope="col">Updated At</th>
+                                <th scope="col">Action</th>
+                                <!-- More buat tempat edit / delete -->
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <!-- Info and Pagination container -->
+                    <div class="buttons-container">
+                        <div class="custom-info-text"></div>
+                        <div class="custom-pagination-container"></div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- Include JS libraries for DataTable initialization -->
-        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
-
-        <script>
-            $(document).ready(function() {
-                let table = $('#table').DataTable({
-                    scrollX: true,
-                    lengthChange: true,
-                    lengthMenu: [10, 25, 50, 100],
-                    buttons: [
-                        'colvis',
-                        {
-                            extend: 'copy',
-                            className: 'buttons-copy',
-                        },
-                        {
-                            extend: 'excel',
-                            className: 'buttons-excel',
-                        },
-                        {
-                            extend: 'pdf',
-                            className: 'buttons-pdf',
-                        },
-                    ],
-                    searching: true,
-                    columnDefs: [{
-                        "visible": false,
-                        "targets": [0]
-                    }],
-                    initComplete: function() {
-                        this.api()
-                            .columns()
-                            .every(function() {
-                                var column = this;
-                                var title = column.footer().textContent;
-
-                                // Create input element and add event listener
-                                $('<input class="form-control" type="text" placeholder="Search ' + title + '" />')
-                                    .appendTo($(column.footer()).empty())
-                                    .on('keyup change clear', function() {
-                                        if (column.search() !== this.value) {
-                                            column.search(this.value).draw();
-                                        }
-                                    });
-                            });
-                    }
-                });
-
-                let buttonContainer = $('<div>').addClass('buttons-container');
-                table.buttons().container().appendTo('.container .col-md-6:eq(0)');
-                buttonContainer.insertBefore('#tableCourse .dataTables_length');
-
-                let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
-                buttonPaginationContainer.css({
-                    display: 'block',
-                    flexDirection: 'row',
-                    justifyContent: 'flex-start',
-                    // marginTop: '10px'
-                });
-
-                // Insert the buttons into the new container
-                table.buttons().container().appendTo(buttonPaginationContainer);
-
-                // Insert the show entries and info into the new container with custom classes
-                // $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
-                // $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
-                // $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
-
-                // Insert the new container before the table
-                buttonPaginationContainer.insertBefore('#table');
-
-                // Add individual column search inputs and titles
-                // $('#table thead th').each(function() {
-                //     let title = $(this).text();
-                //     $(this).html('<div class="text-center">' + title +
-                //         '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' +
-                //         title + '" /></div>');
-                // });
-
-                // Apply individual column search
-                table.columns().every(function() {
-                    let that = this;
-
-                    $('input', this.header()).on('keyup change clear', function() {
-                        if (that.search() !== this.value) {
-                            that
-                                .search(this.value)
-                                .draw();
-                        }
-                    });
-                });
-
-                table.buttons().container().appendTo('.container .col-md-6:eq(0)');
-            });
-        </script>
     </div>
 </body>
 
 </html>
+
+<!-- Include JS libraries for DataTable initialization -->
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        let table = $('#table').DataTable({
+            scrollX: true,
+            lengthChange: true,
+            lengthMenu: [10, 25, 50, 100],
+            buttons: [
+                'colvis',
+                {
+                    extend: 'copy',
+                    className: 'buttons-copy',
+                },
+                {
+                    extend: 'excel',
+                    className: 'buttons-excel',
+                },
+                {
+                    extend: 'pdf',
+                    className: 'buttons-pdf',
+                },
+            ],
+            searching: true,
+            columnDefs: [{
+                "visible": false,
+                "targets": [0]
+            }],
+            initComplete: function() {
+                this.api()
+                    .columns()
+                    .every(function() {
+                        var column = this;
+                        var title = column.footer().textContent;
+
+                        // Create input element and add event listener
+                        $('<input class="form-control" type="text" placeholder="Search ' + title + '" />')
+                            .appendTo($(column.footer()).empty())
+                            .on('keyup change clear', function() {
+                                if (column.search() !== this.value) {
+                                    column.search(this.value).draw();
+                                }
+                            });
+                    });
+            }
+        });
+
+        let buttonContainer = $('<div>').addClass('buttons-container');
+        table.buttons().container().appendTo('.container .col-md-6:eq(0)');
+        buttonContainer.insertBefore('#tableCourse .dataTables_length');
+
+        let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
+        buttonPaginationContainer.css({
+            display: 'block',
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            // marginTop: '10px'
+        });
+
+        // Insert the buttons into the new container
+        table.buttons().container().appendTo(buttonPaginationContainer);
+
+        // Insert the show entries and info into the new container with custom classes
+        // $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
+        // $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
+        // $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
+
+        // Insert the new container before the table
+        buttonPaginationContainer.insertBefore('#table');
+
+        // Add individual column search inputs and titles
+        // $('#table thead th').each(function() {
+        //     let title = $(this).text();
+        //     $(this).html('<div class="text-center">' + title +
+        //         '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' +
+        //         title + '" /></div>');
+        // });
+
+        // Apply individual column search
+        table.columns().every(function() {
+            let that = this;
+
+            $('input', this.header()).on('keyup change clear', function() {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+
+        table.buttons().container().appendTo('.container .col-md-6:eq(0)');
+    });
+</script>
 @endsection

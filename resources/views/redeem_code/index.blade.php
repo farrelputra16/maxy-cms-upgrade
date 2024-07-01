@@ -17,6 +17,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 
     <style>
+        body {
+            background-color: #E3E5EE;
+        }
+
         .conTitle {
             display: flex;
             justify-content: space-between;
@@ -70,23 +74,18 @@
             margin: 0 5px;
         }
 
-        .btnTambahCourse {
-            background-color: #4056A1;
-            color: #FFF;
+        .btnAdd {
+            color: #1533B5;
             width: 140px;
             height: 30px;
-            border-radius: 8px;
-            border: none;
-            box-shadow: none;
             font-weight: bold;
             font-size: 13px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
             cursor: pointer;
-            margin-left: .5rem;
-            margin-bottom: 3rem;
             padding-top: .3rem;
+            margin-left: 1rem;
         }
 
         .conBtn {
@@ -105,7 +104,7 @@
         td {
             padding: 12px;
             /* Adjust this value as needed for the desired spacing */
-            text-align: center;
+            text-align: left;
             /* Optional: Center-align text */
         }
 
@@ -191,9 +190,20 @@
         }
 
         .tableRedeem {
-            border: 1px solid #000000;
-            border-radius: 8px;
             overflow: hidden;
+        }
+
+        .custom-striped tbody tr:nth-of-type(odd) {
+            background-color: #E3E3E3;
+        }
+
+        .custom-striped tbody tr:nth-of-type(even) {
+            background-color: #FFF;
+        }
+
+        .custom-striped tbody tr:nth-of-type(odd) td,
+        .custom-striped tbody tr:nth-of-type(even) td {
+            color: #000000;
         }
 
         .btnAktif {
@@ -277,6 +287,12 @@
         .dataTables_wrapper .dataTables_filter {
             margin-top: 20px;
         }
+
+        .card {
+            margin-right: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+        }
     </style>
 </head>
 
@@ -289,89 +305,96 @@
         </form>
     </div>
     <div class="breadcrumb pt-2 pb-4">
-        <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
-        <span class="divider">></span>
-        <div class="sectionMaster">Members</div>
-        <span class="divider">></span>
-        <div class="sectionCourse">Redeem Code</div>
+        <div class="container">
+            <div class="row">
+                <div class="col-10">
+                    <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
+                    <span class="divider">></span>
+                    <div class="sectionMaster">Members</div>
+                    <span class="divider">></span>
+                    <div class="sectionCourse">Redeem Code</div>
+                </div>
+                <div class="col-2">
+                    <a class="btnAdd" href="{{ route('getAddRedeemCode') }}" role="button">Add Redeem Code</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="container">
         <div class="row">
-            <div class="col">
-                <a class="btnTambahCourse" href="{{ route('getAddRedeemCode') }}" role="button">Add Redeem Code</a>
-            </div>
+            <div class="card">
+                <div class="card-body">
+                    <table id="table" class="tableRedeem table-striped custom-striped nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Code</th>
+                                <th>Quota</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Expired Date</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($redeemCodes as $redeemCode)
+                            <tr>
+                                <td>{{ $redeemCode->id }}</td>
+                                <td>{{ $redeemCode->code }}</td>
+                                <td>{{ $redeemCode->quota }}</td>
+                                <td>{{ $redeemCode->type }}</td>
+                                <td id="description">{{ $redeemCode->description }}</td>
+                                <td>{{ $redeemCode->expired_date }}</td>
+                                <td>{{ $redeemCode->created_at }}</td>
+                                <td>{{ $redeemCode->userCreated->name }}</td>
+                                <td>{{ $redeemCode->updated_at }}</td>
+                                <td>{{ $redeemCode->userUpdated->name }}</td>
+                                <td>
+                                    @if ($redeemCode->status == 1)
+                                    <a class="btnAktif">Aktif</a>
+                                    @else
+                                    <a class="btnNon">Non Aktif</a>
+                                    @endif
+                                </td>
 
-            <table id="table" class="tableRedeem table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Code</th>
-                        <th>Quota</th>
-                        <th>Type</th>
-                        <th>Description</th>
-                        <th>Expired Date</th>
-                        <th>Created At</th>
-                        <th>Created By</th>
-                        <th>Updated At</th>
-                        <th>Updated By</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($redeemCodes as $redeemCode)
-                    <tr>
-                        <td>{{ $redeemCode->id }}</td>
-                        <td>{{ $redeemCode->code }}</td>
-                        <td>{{ $redeemCode->quota }}</td>
-                        <td>{{ $redeemCode->type }}</td>
-                        <td id="description">{{ $redeemCode->description }}</td>
-                        <td>{{ $redeemCode->expired_date }}</td>
-                        <td>{{ $redeemCode->created_at }}</td>
-                        <td>{{ $redeemCode->userCreated->name }}</td>
-                        <td>{{ $redeemCode->updated_at }}</td>
-                        <td>{{ $redeemCode->userUpdated->name }}</td>
-                        <td>
-                            @if ($redeemCode->status == 1)
-                            <a class="btnAktif">Aktif</a>
-                            @else
-                            <a class="btnNon">Non Aktif</a>
-                            @endif
-                        </td>
-
-                        <td>
-                            <div class="btn-group">
-                                <a href="{{ route('getEditRedeemCode', ['id' => $redeemCode->id]) }}" class="btnEdit">Edit</a>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>ID</th>
-                        <th>Code</th>
-                        <th>Quota</th>
-                        <th>Type</th>
-                        <th>Description</th>
-                        <th>Expired Date</th>
-                        <th>Created At</th>
-                        <th>Created By</th>
-                        <th>Updated At</th>
-                        <th>Updated By</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </tfoot>
-            </table>
-            <!-- Info and Pagination container -->
-            <div class="buttons-container">
-                <div class="custom-info-text"></div>
-                <div class="custom-pagination-container"></div>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="{{ route('getEditRedeemCode', ['id' => $redeemCode->id]) }}" class="btnEdit">Edit</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>Code</th>
+                                <th>Quota</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Expired Date</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <!-- Info and Pagination container -->
+                    <div class="buttons-container">
+                        <div class="custom-info-text"></div>
+                        <div class="custom-pagination-container"></div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 </body>
 
 </html>
@@ -394,8 +417,8 @@
     $(document).ready(function() {
         let table = $('#table').DataTable({
             scrollX: true,
-            lengthChange: true,
-            lengthMenu: [10, 25, 50, 100],
+            lengthChange: false,
+            // lengthMenu: [10, 25, 50, 100],
             buttons: [
                 'colvis',
                 {
@@ -434,53 +457,52 @@
                     });
             }
         });
-    });
 
-    let buttonContainer = $('<div>').addClass('buttons-container');
-    table.buttons().container().appendTo(buttonContainer);
-    buttonContainer.insertBefore('.tableRedeem .dataTables_length');
+        let buttonContainer = $('<div>').addClass('buttons-container');
+        table.buttons().container().appendTo(buttonContainer);
+        buttonContainer.insertBefore('.tableRedeem .dataTables_length');
 
-    // Create container for buttons and pagination
-    let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
-    buttonPaginationContainer.css({
-        display: 'block',
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        // marginTop: '10px'
-    });
-
-    // Insert the buttons into the new container
-    table.buttons().container().appendTo(buttonPaginationContainer);
-
-    // Insert the show entries and info into the new container with custom classes
-    // $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
-    // $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
-    // $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
-
-    // Insert the new container before the table
-    buttonPaginationContainer.insertBefore('#table');
-
-    // Add individual column search inputs and titles
-    // $('#table thead th').each(function() {
-    //     let title = $(this).text();
-    //     $(this).html('<div class="text-center">' + title +
-    //         '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' + title +
-    //         '" /></div>');
-    // });
-
-    // Apply the search for individual columns
-    table.columns().every(function() {
-        let that = this;
-
-        $('input', this.header()).on('keyup change clear', function() {
-            if (that.search() !== this.value) {
-                that
-                    .search(this.value)
-                    .draw();
-            }
+        // Create container for buttons and pagination
+        let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
+        buttonPaginationContainer.css({
+            display: 'block',
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            // marginTop: '10px'
         });
-    });
 
-    table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
+        // Insert the buttons into the new container
+        table.buttons().container().appendTo(buttonPaginationContainer);
+
+        // Insert the show entries and info into the new container with custom classes
+        // $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
+        // $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
+        // $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
+
+        // Insert the new container before the table
+        buttonPaginationContainer.insertBefore('#table');
+
+        // Add individual column search inputs and titles
+        // $('#table thead th').each(function() {
+        //     let title = $(this).text();
+        //     $(this).html('<div class="text-center">' + title +
+        //         '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' + title +
+        //         '" /></div>');
+        // });
+
+        // Apply the search for individual columns
+        table.columns().every(function() {
+            let that = this;
+
+            $('input', this.header()).on('keyup change clear', function() {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+        table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
+    });
 </script>
 @endsection

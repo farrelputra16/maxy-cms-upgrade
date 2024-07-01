@@ -12,6 +12,10 @@
     <title>Add Course Package</title>
 
     <style>
+        body {
+            background-color: #E3E5EE;
+        }
+
         .conTitle {
             display: flex;
             justify-content: space-between;
@@ -44,7 +48,8 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 97%;;
+            width: 97%;
+            ;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }
@@ -177,9 +182,10 @@
                         <label>Aktif</label>
                     </div>
                 </div>
-                <div class="divAdd">
-                    <button class="btnAdd">Add Course Package</button>
-                </div>
+            </div>
+            <div class="divAdd">
+                <button class="btnAdd">Add Course Package</button>
+            </div>
         </form>
         <a href="{{ url()->previous() }}">
             <button class="btnBatal">Batal</button>

@@ -13,6 +13,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 
     <style>
+        body {
+            background-color: #E3E5EE;
+        }
+
         .conTitle {
             display: flex;
             justify-content: space-between;
@@ -45,7 +49,8 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 97%;;
+            width: 97%;
+            ;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }
@@ -117,6 +122,7 @@
             <button class="btnlogout" type="submit">Logout</button>
         </form>
     </div>
+
     <div class="breadcrumb pt-2 pb-4">
         <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
         <span class="divider">></span>
@@ -126,89 +132,91 @@
         <span class="divider">></span>
         <div class="sectionCourse">Add Testimonial</div>
     </div>
-    <form class="formAdd ui form" action="{{ route('postAddTestimonial') }}" method="post">
-        @csrf
-        <div class="field">
-            <div class="two fields">
-                <div class="field">
-                    <label for="">Rating (in stars)</label>
-                    <input type="number" min="1" max="5" name="stars">
-                </div>
-                <div class="field">
-                    <label for="">Role</label>
-                    <input type="text" name="role" placeholder="Ex : Alumni Bootcamp Rapid UI/UX Batch 3">
-                    @if ($errors->has('role'))
-                    @foreach ($errors->get('role') as $error)
-                    <span style="color: red;">{{ $error }}</span>
-                    @endforeach
-                    @endif
-                </div>
-            </div>
 
-            <div class="two fields">
-                <div class="field">
-                    <label for="">User</label>
-                    <select name="user_id" class="ui dropdown">
-                        <option selected value="">-- Pilih User --</option>
-                        @foreach ($allmember as $item)
-                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+    <div class="container">
+        <form class="formAdd ui form" action="{{ route('postAddTestimonial') }}" method="post">
+            @csrf
+            <div class="field">
+                <div class="two fields">
+                    <div class="field">
+                        <label for="">Rating (in stars)</label>
+                        <input type="number" min="1" max="5" name="stars">
+                    </div>
+                    <div class="field">
+                        <label for="">Role</label>
+                        <input type="text" name="role" placeholder="Ex : Alumni Bootcamp Rapid UI/UX Batch 3">
+                        @if ($errors->has('role'))
+                        @foreach ($errors->get('role') as $error)
+                        <span style="color: red;">{{ $error }}</span>
                         @endforeach
-                    </select>
-                    @if ($errors->has('member_id'))
-                    @foreach ($errors->get('member_id') as $error)
-                    <span style="color: red;">{{ $error }}</span>
-                    @endforeach
-                    @endif
+                        @endif
+                    </div>
                 </div>
-                <div class="field">
-                    <label for="">Course Class Batch</label>
-                    <select name="course_class_id" class="ui dropdown">
-                        <option selected value="">-- Pilih Batch Course Class --</option>
-                        @foreach ($allcourseclass as $item)
-                        <option value="{{ $item->id }}">{{ $item->batch }}</option>
+
+                <div class="two fields">
+                    <div class="field">
+                        <label for="">User</label>
+                        <select name="user_id" class="ui dropdown">
+                            <option selected value="">-- Pilih User --</option>
+                            @foreach ($allmember as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('member_id'))
+                        @foreach ($errors->get('member_id') as $error)
+                        <span style="color: red;">{{ $error }}</span>
                         @endforeach
-                    </select>
-                    @if ($errors->has('course_class_id'))
-                    @foreach ($errors->get('course_class_id') as $error)
+                        @endif
+                    </div>
+                    <div class="field">
+                        <label for="">Course Class Batch</label>
+                        <select name="course_class_id" class="ui dropdown">
+                            <option selected value="">-- Pilih Batch Course Class --</option>
+                            @foreach ($allcourseclass as $item)
+                            <option value="{{ $item->id }}">{{ $item->batch }}</option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('course_class_id'))
+                        @foreach ($errors->get('course_class_id') as $error)
+                        <span style="color: red;">{{ $error }}</span>
+                        @endforeach
+                        @endif
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="">Content</label>
+                    <textarea name="content" id="content"></textarea>
+                </div>
+
+                <div class="field">
+                    <label for="">Description</label>
+                    <textarea name="description" id="description"></textarea>
+                    @if ($errors->has('description'))
+                    @foreach ($errors->get('description') as $error)
                     <span style="color: red;">{{ $error }}</span>
                     @endforeach
                     @endif
                 </div>
-            </div>
 
-            <div class="field">
-                <label for="">Content</label>
-                <textarea name="content" id="content"></textarea>
-            </div>
-
-            <div class="field">
-                <label for="">Description</label>
-                <textarea name="description" id="description"></textarea>
-                @if ($errors->has('description'))
-                @foreach ($errors->get('description') as $error)
-                <span style="color: red;">{{ $error }}</span>
-                @endforeach
-                @endif
-            </div>
-
-            <div class="field">
-                <div class="ui checkbox" style="margin-right: 2rem;">
-                    <input class="form-check-input" type="checkbox" value="1" name="status">
-                    <label>Aktif</label>
-                </div>
-                <div class="ui checkbox">
-                    <input class="form-check-input" type="checkbox" value="1" name="status_highlight">
-                    <label>Highlight</label>
+                <div class="field">
+                    <div class="ui checkbox" style="margin-right: 2rem;">
+                        <input class="form-check-input" type="checkbox" value="1" name="status">
+                        <label>Aktif</label>
+                    </div>
+                    <div class="ui checkbox">
+                        <input class="form-check-input" type="checkbox" value="1" name="status_highlight">
+                        <label>Highlight</label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="divAdd">
-            <button class="btnAdd">Add Testimonial</button>
-        </div>
-    </form>
-    <a href="{{ url()->previous() }}">
-        <button class="btnBatal">Batal</button>
-    </a>
+            <div class="divAdd">
+                <button class="btnAdd">Add Testimonial</button>
+            </div>
+        </form>
+        <a href="{{ url()->previous() }}">
+            <button class="btnBatal">Batal</button>
+        </a>
     </div>
 </body>
 

@@ -16,6 +16,10 @@
     <link href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap-5-theme@1.1.2/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
 
     <style>
+        body {
+            background-color: #E3E5EE;
+        }
+
         .conTitle {
             display: flex;
             justify-content: space-between;
@@ -48,7 +52,8 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 97%;;
+            width: 97%;
+            ;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }
@@ -137,13 +142,20 @@
     </div>
 
     <div class="breadcrumb pt-2 pb-4">
-        <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
-        <span class="divider">></span>
-        <div class="sectionMaster">User & Access</div>
-        <span class="divider">></span>
-        <div class="sectionCourse">Access Group</div>
-        <span class="divider">></span>
-        <div class="sectionCourse">Add Access Group</div>
+        <div class="container">
+            <div class="row">
+                <div class="col-10">
+                    <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
+                    <span class="divider">></span>
+                    <div class="sectionMaster">User & Access</div>
+                    <span class="divider">></span>
+                    <div class="sectionCourse">Access Group</div>
+                    <span class="divider">></span>
+                    <div class="sectionCourse">Add Access Group</div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <form class="formMaster ui form" action="{{ route('postAddAccessGroup') }}" method="post">

@@ -24,6 +24,10 @@
     <!-- <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css"> -->
 
     <style>
+        body {
+            background-color: #DFE3F1;
+        }
+
         .conTitle {
             display: flex;
             justify-content: space-between;
@@ -144,7 +148,7 @@
         td {
             padding: 12px;
             /* Adjust this value as needed for the desired spacing */
-            text-align: center;
+            text-align: left;
             /* Optional: Center-align text */
         }
 
@@ -218,9 +222,20 @@
         }
 
         .tableMember {
-            border: 1px solid #000000;
-            border-radius: 8px;
             overflow-x: scroll;
+        }
+
+        .custom-striped tbody tr:nth-of-type(odd) {
+            background-color: pink;
+        }
+
+        .custom-striped tbody tr:nth-of-type(even) {
+            background-color: #FFF;
+        }
+
+        .custom-striped tbody tr:nth-of-type(odd) td,
+        .custom-striped tbody tr:nth-of-type(even) td {
+            color: #000000;
         }
 
         .btnAktif {
@@ -331,8 +346,6 @@
         <a class="secDash" href="{{ route('getDashboard') }}">Dashboard</a>
         <span class="divider">></span>
         <div class="secCourse" href="{{ route('getCourseClass') }}">Class Course</div>
-        <span class="divider">></span>
-        <div class="secClass">{{ $courseClassDetail->course_name }} Batch {{ $courseClassDetail->batch }}</div>
     </div>
 
     @if (session('success'))
@@ -356,8 +369,9 @@
                 <a class="btnTambah" href="{{ route('getAddCourseClassMember') }}" role="button">Tambah Class Member</a>
                 @endif
             </div>
-
-            <table id="table" class="tableMember table-striped display nowrap" style="width:100%">
+            <div class="card" style="margin-right: 1rem; margin-bottom: 5rem;">
+            <div class="card-body">
+            <table id="table" class="tableMember table-striped custom-striped display nowrap" style="width:100%">
                 <thead>
                     <tr>
                         <th>No.</th>

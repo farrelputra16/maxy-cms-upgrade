@@ -16,6 +16,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 
     <style>
+        body {
+            background-color: #DFE3F1;
+        }
+
         .conTitle {
             display: flex;
             justify-content: space-between;
@@ -48,7 +52,8 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 97%;;
+            width: 97%;
+            ;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }
@@ -173,10 +178,21 @@
         }
 
         .tableChild {
-            border: 1px solid #000000;
-            border-radius: 8px;
             overflow-x: scroll;
             padding-left: .5rem;
+        }
+
+        .custom-striped tbody tr:nth-of-type(odd) {
+            background-color: pink;
+        }
+
+        .custom-striped tbody tr:nth-of-type(even) {
+            background-color: #FFF;
+        }
+
+        .custom-striped tbody tr:nth-of-type(odd) td,
+        .custom-striped tbody tr:nth-of-type(even) td {
+            color: #000000;
         }
 
         .btnAktif {
@@ -266,186 +282,188 @@
                     <button class="btnTambah">Add Class Module</button>
                 </a>
             </div>
-            <table id="table" class="tableChild table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Priority</th>
-                        <th>Type</th>
-                        <th>Course Module</th>
-                        <th>Content</th>
-                        <th>Material</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Description</th>
-                        <th>Created At</th>
-                        <th>Created Id</th>
-                        <th>Updated At</th>
-                        <th>Updated Id</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                        <!-- More buat tempat button edit -->
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($child_modules as $item)
-                    <tr>
-                        <td scope="row">{{ $item->id }}</td>
-                        <td>{{ $item->priority }}</td>
-                        <td>{{ $item->type }}</td>
-                        <td>{{ $item->course_module_name }}</td>
-                        <td>{{ substr($item->course_module_content, 0, 25) }}</td>
-                        <td>{{ substr($item->course_module_material, 0, 25) }}</td>
-                        <td>{{ $item->start_date }}</td>
-                        <td>{{ $item->end_date }}</td>
-                        <td id="description">{{ $item->description }}</td>
-                        <td>{{ $item->created_at }}</td>
-                        <td>{{ $item->created_id }}</td>
-                        <td>{{ $item->updated_at }}</td>
-                        <td>{{ $item->updated_id }}</td>
-                        <td>
-                            @if ($item->status == 1)
-                            <a class="btnAktif">Aktif</a>
-                            @else
-                            <a class="btnNon">Non Aktif</a>
-                            @endif
-                        </td>
-                        <td>
-                            <a href="{{ route('getEditCourseClassChildModule', ['id' => $item->id, 'parent_id' => $parent_module->id]) }}" class="btnEdit btn-primary">Edit</a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>ID</th>
-                        <th>Priority</th>
-                        <th>Type</th>
-                        <th>Course Module</th>
-                        <th>Content</th>
-                        <th>Material</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Description</th>
-                        <th>Created At</th>
-                        <th>Created Id</th>
-                        <th>Updated At</th>
-                        <th>Updated Id</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                        <!-- More buat tempat button edit -->
-                    </tr>
-                </tfoot>
-            </table>
-            <!-- Info and Pagination container -->
-            <div class="buttons-container">
-                <div class="custom-info-text"></div>
-                <div class="custom-pagination-container"></div>
-            </div>
-        </div>
+            <div class="card" style="margin-right: 1rem; margin-bottom: 5rem;">
+                <div class="card-body">
+                    <table id="table" class="tableChild table-striped custom-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Priority</th>
+                                <th>Type</th>
+                                <th>Course Module</th>
+                                <th>Content</th>
+                                <th>Material</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Description</th>
+                                <th>Created At</th>
+                                <th>Created Id</th>
+                                <th>Updated At</th>
+                                <th>Updated Id</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                                <!-- More buat tempat button edit -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($child_modules as $item)
+                            <tr>
+                                <td scope="row">{{ $item->id }}</td>
+                                <td>{{ $item->priority }}</td>
+                                <td>{{ $item->type }}</td>
+                                <td>{{ $item->course_module_name }}</td>
+                                <td>{{ substr($item->course_module_content, 0, 25) }}</td>
+                                <td>{{ substr($item->course_module_material, 0, 25) }}</td>
+                                <td>{{ $item->start_date }}</td>
+                                <td>{{ $item->end_date }}</td>
+                                <td id="description">{{ $item->description }}</td>
+                                <td>{{ $item->created_at }}</td>
+                                <td>{{ $item->created_id }}</td>
+                                <td>{{ $item->updated_at }}</td>
+                                <td>{{ $item->updated_id }}</td>
+                                <td>
+                                    @if ($item->status == 1)
+                                    <a class="btnAktif">Aktif</a>
+                                    @else
+                                    <a class="btnNon">Non Aktif</a>
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{ route('getEditCourseClassChildModule', ['id' => $item->id, 'parent_id' => $parent_module->id]) }}" class="btnEdit btn-primary">Edit</a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>Priority</th>
+                                <th>Type</th>
+                                <th>Course Module</th>
+                                <th>Content</th>
+                                <th>Material</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Description</th>
+                                <th>Created At</th>
+                                <th>Created Id</th>
+                                <th>Updated At</th>
+                                <th>Updated Id</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                                <!-- More buat tempat button edit -->
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <!-- Info and Pagination container -->
+                    <div class="buttons-container">
+                        <div class="custom-info-text"></div>
+                        <div class="custom-pagination-container"></div>
+                    </div>
+                </div>
 
 
-        <!-- Include JS libraries for DataTable initialization -->
-        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+                <!-- Include JS libraries for DataTable initialization -->
+                <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+                <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+                <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+                <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+                <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+                <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+                <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+                <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
 
-        <script>
-            $(document).ready(function() {
-                let table = $('#table').DataTable({
-                    scrollX: true,
-                    lengthChange: true,
-                    lengthMenu: [10, 25, 50, 100],
-                    buttons: [
-                        'colvis',
-                        {
-                            extend: 'copy',
-                            className: 'buttons-copy',
-                        },
-                        {
-                            extend: 'excel',
-                            className: 'buttons-excel',
-                        },
-                        {
-                            extend: 'pdf',
-                            className: 'buttons-pdf',
-                        },
-                    ],
-                    searching: true,
-                    columnDefs: [{
-                        "visible": false,
-                        "targets": [0]
-                    }],
-                    initComplete: function() {
-                        this.api()
-                            .columns()
-                            .every(function() {
-                                var column = this;
-                                var title = column.footer().textContent;
+                <script>
+                    $(document).ready(function() {
+                        let table = $('#table').DataTable({
+                            scrollX: true,
+                            lengthChange: true,
+                            lengthMenu: [10, 25, 50, 100],
+                            buttons: [
+                                'colvis',
+                                {
+                                    extend: 'copy',
+                                    className: 'buttons-copy',
+                                },
+                                {
+                                    extend: 'excel',
+                                    className: 'buttons-excel',
+                                },
+                                {
+                                    extend: 'pdf',
+                                    className: 'buttons-pdf',
+                                },
+                            ],
+                            searching: true,
+                            columnDefs: [{
+                                "visible": false,
+                                "targets": [0]
+                            }],
+                            initComplete: function() {
+                                this.api()
+                                    .columns()
+                                    .every(function() {
+                                        var column = this;
+                                        var title = column.footer().textContent;
 
-                                // Create input element and add event listener
-                                $('<input class="form-control" type="text" placeholder="Search ' + title + '" />')
-                                    .appendTo($(column.footer()).empty())
-                                    .on('keyup change clear', function() {
-                                        if (column.search() !== this.value) {
-                                            column.search(this.value).draw();
-                                        }
+                                        // Create input element and add event listener
+                                        $('<input class="form-control" type="text" placeholder="Search ' + title + '" />')
+                                            .appendTo($(column.footer()).empty())
+                                            .on('keyup change clear', function() {
+                                                if (column.search() !== this.value) {
+                                                    column.search(this.value).draw();
+                                                }
+                                            });
                                     });
+                            }
+                        });
+
+                        let buttonContainer = $('<div>').addClass('buttons-container');
+                        table.buttons().container().appendTo('.container .col-md-6:eq(0)');
+                        buttonContainer.insertBefore('.tableChild .dataTables_length');
+
+                        // Create container for buttons and pagination
+                        let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
+                        buttonPaginationContainer.css({
+                            display: 'block',
+                            flexDirection: 'row',
+                            justifyContent: 'flex-start',
+                            // marginTop: '10px'
+                        });
+
+                        // Insert the buttons into the new container
+                        table.buttons().container().appendTo(buttonPaginationContainer);
+
+                        // Insert the new container before the table
+                        buttonPaginationContainer.insertBefore('#table');
+
+                        // Add individual column search inputs and titles
+                        // $('#table thead th').each(function() {
+                        //     let title = $(this).text();
+                        //     $(this).html('<div class="text-center">' + title +
+                        //         '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' + title +
+                        //         '" /></div>');
+                        // });
+
+                        // Apply the search for individual columns
+                        table.columns().every(function() {
+                            let that = this;
+
+                            $('input', this.header()).on('keyup change clear', function() {
+                                if (that.search() !== this.value) {
+                                    that
+                                        .search(this.value)
+                                        .draw();
+                                }
                             });
-                    }
-                });
-
-                let buttonContainer = $('<div>').addClass('buttons-container');
-                table.buttons().container().appendTo('.container .col-md-6:eq(0)');
-                buttonContainer.insertBefore('.tableChild .dataTables_length');
-
-                // Create container for buttons and pagination
-                let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
-                buttonPaginationContainer.css({
-                    display: 'block',
-                    flexDirection: 'row',
-                    justifyContent: 'flex-start',
-                    // marginTop: '10px'
-                });
-
-                // Insert the buttons into the new container
-                table.buttons().container().appendTo(buttonPaginationContainer);
-
-                // Insert the new container before the table
-                buttonPaginationContainer.insertBefore('#table');
-
-                // Add individual column search inputs and titles
-                // $('#table thead th').each(function() {
-                //     let title = $(this).text();
-                //     $(this).html('<div class="text-center">' + title +
-                //         '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' + title +
-                //         '" /></div>');
-                // });
-
-                // Apply the search for individual columns
-                table.columns().every(function() {
-                    let that = this;
-
-                    $('input', this.header()).on('keyup change clear', function() {
-                        if (that.search() !== this.value) {
-                            that
-                                .search(this.value)
-                                .draw();
-                        }
+                        });
+                        table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
                     });
-                });
-                table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
-            });
-        </script>
-    </div>
+                </script>
+            </div>
 </body>
 
 </html>

@@ -16,6 +16,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 
     <style>
+        body {
+            background-color: #E3E5EE;
+        }
+
         .conTitle {
             display: flex;
             justify-content: space-between;
@@ -48,7 +52,8 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 97%;;
+            width: 97%;
+            ;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }
@@ -68,23 +73,18 @@
             margin: 0 5px;
         }
 
-        .btnAddVoucher {
-            background-color: #4056A1;
-            color: #FFF;
+        .btnAdd {
+            color: #1533B5;
             width: 100px;
             height: 30px;
-            border-radius: 8px;
-            border: none;
-            box-shadow: none;
             font-weight: bold;
             font-size: 13px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
             cursor: pointer;
-            margin-left: .5rem;
-            margin-bottom: 3rem;
             padding-top: .3rem;
+            margin-left: 3rem;
         }
 
         .conBtn {
@@ -103,7 +103,7 @@
         td {
             padding: 12px;
             /* Adjust this value as needed for the desired spacing */
-            text-align: center;
+            text-align: left;
             /* Optional: Center-align text */
         }
 
@@ -189,9 +189,20 @@
         }
 
         .tableVoucher {
-            border: 1px solid #000000;
-            border-radius: 8px;
             overflow: hidden;
+        }
+
+        .custom-striped tbody tr:nth-of-type(odd) {
+            background-color: #E3E3E3;
+        }
+
+        .custom-striped tbody tr:nth-of-type(even) {
+            background-color: #FFF;
+        }
+
+        .custom-striped tbody tr:nth-of-type(odd) td,
+        .custom-striped tbody tr:nth-of-type(even) td {
+            color: #000000;
         }
 
         .btnAktif {
@@ -275,6 +286,12 @@
         .dataTables_wrapper .dataTables_filter {
             margin-top: 20px;
         }
+
+        .card {
+            margin-right: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+        }
     </style>
 </head>
 
@@ -287,81 +304,92 @@
         </form>
     </div>
     <div class="breadcrumb pt-2 pb-4">
-        <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
-        <span class="divider">></span>
-        <div class="sectionMaster">Order</div>
-        <span class="divider">></span>
-        <div class="sectionCourse">Voucher</div>
+        <div class="container">
+            <div class="row">
+                <div class="col-10">
+                    <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
+                    <span class="divider">></span>
+                    <div class="sectionMaster">Order</div>
+                    <span class="divider">></span>
+                    <div class="sectionCourse">Voucher</div>
+                </div>
+                <div class="col-2">
+                    <a class="btnAdd" href="{{ route('getAddVoucher') }}" role="button">Add Voucher</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div class="container">
         <div class="row">
-            <div class="col">
-                <a class="btnAddVoucher" href="{{ route('getAddVoucher') }}" role="button">Add Voucher</a>
-            </div>
-            <table id="table" class="tableVoucher table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Voucher Name</th>
-                        <th>Voucher Code</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Discount Type</th>
-                        <th>Discount</th>
-                        <th>Max Discount</th>
-                        <th>Description</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($voucher as $item)
-                    <tr>
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->code }}</td>
-                        <td>{{ $item->start_date }}</td>
-                        <td>{{ $item->end_date }}</td>
-                        <td>{{ $item->discount_type }}</td>
-                        <td>{{ $item->discount }}</td>
-                        <td>{{ $item->max_discount }}</td>
-                        <td>{{ $item->description }}</td>
-                        <td>
-                            @if ($item->status == 1)
-                            <a class="btnAktif">Aktif</a>
-                            @else
-                            <a class="btnNon">Non Aktif</a>
-                            @endif
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <a href="{{ route('getEditVoucher', ['id' => $item->id]) }}" class="btnEdit">Edit</a>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>ID</th>
-                        <th>Voucher Name</th>
-                        <th>Voucher Code</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Discount Type</th>
-                        <th>Discount</th>
-                        <th>Max Discount</th>
-                        <th>Description</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </tfoot>
-            </table>
-            <!-- Info and Pagination container -->
-            <div class="buttons-container">
-                <div class="custom-info-text"></div>
-                <div class="custom-pagination-container"></div>
+            <div class="card">
+                <div class="card-body">
+                    <table id="table" class="tableVoucher table-striped custom-striped nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Voucher Name</th>
+                                <th>Voucher Code</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Discount Type</th>
+                                <th>Discount</th>
+                                <th>Max Discount</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($voucher as $item)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->code }}</td>
+                                <td>{{ $item->start_date }}</td>
+                                <td>{{ $item->end_date }}</td>
+                                <td>{{ $item->discount_type }}</td>
+                                <td>{{ $item->discount }}</td>
+                                <td>{{ $item->max_discount }}</td>
+                                <td>{{ $item->description }}</td>
+                                <td>
+                                    @if ($item->status == 1)
+                                    <a class="btnAktif">Aktif</a>
+                                    @else
+                                    <a class="btnNon">Non Aktif</a>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="{{ route('getEditVoucher', ['id' => $item->id]) }}" class="btnEdit">Edit</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>Voucher Name</th>
+                                <th>Voucher Code</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Discount Type</th>
+                                <th>Discount</th>
+                                <th>Max Discount</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <!-- Info and Pagination container -->
+                    <div class="buttons-container">
+                        <div class="custom-info-text"></div>
+                        <div class="custom-pagination-container"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

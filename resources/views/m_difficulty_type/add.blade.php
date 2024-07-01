@@ -13,6 +13,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 
     <style>
+        body {
+            background-color: #E3E5EE;
+        }
+
         .conTitle {
             display: flex;
             justify-content: space-between;
@@ -45,7 +49,8 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 97%;;
+            width: 97%;
+            ;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }
@@ -80,7 +85,6 @@
         .btnAdd {
             background-color: #4056A1;
             color: #FFF;
-            margin-left: 1.5rem;
             width: 180px;
             height: 35px;
             border-radius: 10px;
@@ -100,9 +104,7 @@
             text-align: right;
             margin-right: 1rem;
             margin-bottom: .5rem;
-            margin-left: 65rem;
         }
-
     </style>
 </head>
 
@@ -138,7 +140,6 @@
                         @endif
                     </div>
                 </div>
-
                 <div class="field">
                     <label for="">Description</label>
                     <textarea name="description"></textarea>
@@ -150,18 +151,17 @@
                         <label>Aktif</label>
                     </div>
                 </div>
-            </div>
 
-            <div class="divAdd">
-                <button class="btnAdd">Add Course Difficulty</button>
+                <div class="divAdd">
+                    <button class="btnAdd">Add Course Difficulty</button>
+                </div>
             </div>
         </form>
         <!-- <div class="divBatal"> -->
-            <a href="{{ url()->previous() }}">
-                <button class="btnBatal">Batal</button>
-            </a>
+        <a href="{{ url()->previous() }}">
+            <button class="btnBatal">Batal</button>
+        </a>
         <!-- </div> -->
     </div>
 </body>
-</div>
 @endsection

@@ -12,6 +12,10 @@
     <title>Add Partner</title>
 
     <style>
+        body {
+            background-color: #E3E5EE;
+        }
+
         .conTitle {
             display: flex;
             justify-content: space-between;
@@ -44,7 +48,8 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 97%;;
+            width: 97%;
+            ;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }
@@ -78,7 +83,7 @@
 
         .btnAdd {
             background-color: #4056A1;
-            color: #FFF;
+            color: #1533B5;
             color: #FFF;
             width: 120px;
             height: 35px;
@@ -148,10 +153,7 @@
                         </select>
                     </div>
                 </div>
-                <!-- <div class="field">
-                                            <label for="">Logo</label>
-                                            <input type="file" name="logo">
-                                        </div> -->
+                
                 <div class="two fields">
                     <div class="field">
                         <label for="">Email</label>
@@ -230,13 +232,16 @@
         <br>
     </div>
     <br>
-    <script>
-        CKEDITOR.replace('address');
-        CKEDITOR.replace('description');
-    </script>
-    @endsection
-    <script>
-        function preview() {
-            frame.src = URL.createObjectURL(event.target.files[0]);
-        }
-    </script>
+</body>
+
+</html>
+<script>
+    CKEDITOR.replace('address');
+    CKEDITOR.replace('description');
+</script>
+@endsection
+<script>
+    function preview() {
+        frame.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>

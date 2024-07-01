@@ -17,6 +17,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 
     <style>
+        body {
+            background-color: #E3E5EE;
+        }
+
         .flex-container {
             display: flex;
             justify-content: space-between;
@@ -95,7 +99,8 @@
         .breadcrumb {
             border-top: 2px solid black;
             display: inline-block;
-            width: 97%;;
+            width: 97%;
+            ;
             margin-left: 1rem;
             margin-bottom: 1rem;
         }
@@ -183,7 +188,7 @@
         td {
             padding: 12px;
             /* Adjust this value as needed for the desired spacing */
-            text-align: center;
+            text-align: left;
             /* Optional: Center-align text */
         }
 
@@ -256,9 +261,20 @@
         }
 
         .tableTrack {
-            border: 1px solid #000000;
-            border-radius: 8px;
             overflow: hidden;
+        }
+
+        .custom-striped tbody tr:nth-of-type(odd) {
+            background-color: #E3E3E3;
+        }
+
+        .custom-striped tbody tr:nth-of-type(even) {
+            background-color: #FFF;
+        }
+
+        .custom-striped tbody tr:nth-of-type(odd) td,
+        .custom-striped tbody tr:nth-of-type(even) td {
+            color: #000000;
         }
 
         .btnGene {
@@ -344,13 +360,20 @@
     </div>
 
     <div class="breadcrumb pt-2 pb-4">
-        <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
-        <span class="divider">></span>
-        <div class="sectionMaster">Class</div>
-        <span class="divider">></span>
-        <div class="sectionCourse">Student Tracker</div>
-        <span class="divider">></span>
-        <div class="sectionCourse">CCMH Tracking</div>
+        <div class="container">
+            <div class="row">
+                <div class="col-10">
+                    <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
+                    <span class="divider">></span>
+                    <div class="sectionMaster">Class</div>
+                    <span class="divider">></span>
+                    <div class="sectionCourse">Student Tracker</div>
+                    <span class="divider">></span>
+                    <div class="sectionCourse">CCMH Tracking</div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div class="container">
@@ -422,200 +445,207 @@
 
     <div class="container">
         <div class="row">
-            <table id="table" class="tableTrack table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>History</th>
-                        <th>Course type</th>
-                        <th>log type</th>
-                        <th>Created At</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($ccmh as $item)
-                    <tr>
-                        <td>
-                            @if ($item->status_log == 1)
-                            @if (in_array($item->course_type, ['pretest', 'postest', 'unjukketerampilan']))
-                            {{ $item->user_name }} di kelas {{ $item->course_name }} - Batch {{ $item->batch }} Mendapatkan Paket Soal {{ $item->paket_soal }} Mengerjakan Module yaitu {{ $item->course_module_name }} - Day {{ $item->day }}
-                            @elseif($item->course_type == 'assignment')
-                            {{ $item->user_name }} di kelas {{ $item->course_name }} - Batch {{ $item->batch }} Mengumpulkan(submit) Tugas Module yaitu {{ $item->course_module_name }} - Day {{ $item->day }}
-                            @endif
-                            @elseif($item->status_log == 2)
-                            @if ($item->log_type == 'profile')
-                            {{ $item->user_name }} Membuka Profilenya
-                            @else
-                            {{ $item->user_name }} di kelas {{ $item->course_name }} - Batch {{ $item->batch }}, Membuka Module yaitu {{ $item->course_module_name }} - Day {{ $item->day }}
-                            @endif
-                            @elseif($item->status_log == 3)
-                            {{ $item->user_name }} Mengubah Profilenya
-                            @elseif($item->status_log == 4)
-                            @if ($item->log_type == 'profile')
-                            {{ $item->user_name }} Mengubah Foto Profilenya
-                            @else
-                            {{ $item->user_name }} di kelas {{ $item->course_name }} - Batch {{ $item->batch }}, Menghapus(unsubmit) Tugas Modulenya yaitu {{ $item->course_module_name }} - Day {{ $item->day }}
-                            @endif
-                            @else
-                            {{ '' }}
-                            @endif
-                        </td>
-                        <td>{{ $item->course_name ? $item->course_name . ' - Batch ' . $item->batch : '' }}</td>
-                        <td>{{ $item->log_type ?? '' }}</td>
-                        <td>{{ $item->created_at }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>History</th>
-                        <th>Course type</th>
-                        <th>log type</th>
-                        <th>Created At</th>
-                    </tr>
-                </tfoot>
-            </table>
+            <div class="card" style="margin-right: 1rem; margin-bottom: 5rem;">
+                <div class="card-body">
+                    <table id="table" class="tableTrack table-striped custom-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>History</th>
+                                <th>Course type</th>
+                                <th>log type</th>
+                                <th>Created At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($ccmh as $item)
+                            <tr>
+                                <td>
+                                    @if ($item->status_log == 1)
+                                    @if (in_array($item->course_type, ['pretest', 'postest', 'unjukketerampilan']))
+                                    {{ $item->user_name }} di kelas {{ $item->course_name }} - Batch {{ $item->batch }} Mendapatkan Paket Soal {{ $item->paket_soal }} Mengerjakan Module yaitu {{ $item->course_module_name }} - Day {{ $item->day }}
+                                    @elseif($item->course_type == 'assignment')
+                                    {{ $item->user_name }} di kelas {{ $item->course_name }} - Batch {{ $item->batch }} Mengumpulkan(submit) Tugas Module yaitu {{ $item->course_module_name }} - Day {{ $item->day }}
+                                    @endif
+                                    @elseif($item->status_log == 2)
+                                    @if ($item->log_type == 'profile')
+                                    {{ $item->user_name }} Membuka Profilenya
+                                    @else
+                                    {{ $item->user_name }} di kelas {{ $item->course_name }} - Batch {{ $item->batch }}, Membuka Module yaitu {{ $item->course_module_name }} - Day {{ $item->day }}
+                                    @endif
+                                    @elseif($item->status_log == 3)
+                                    {{ $item->user_name }} Mengubah Profilenya
+                                    @elseif($item->status_log == 4)
+                                    @if ($item->log_type == 'profile')
+                                    {{ $item->user_name }} Mengubah Foto Profilenya
+                                    @else
+                                    {{ $item->user_name }} di kelas {{ $item->course_name }} - Batch {{ $item->batch }}, Menghapus(unsubmit) Tugas Modulenya yaitu {{ $item->course_module_name }} - Day {{ $item->day }}
+                                    @endif
+                                    @else
+                                    {{ '' }}
+                                    @endif
+                                </td>
+                                <td>{{ $item->course_name ? $item->course_name . ' - Batch ' . $item->batch : '' }}</td>
+                                <td>{{ $item->log_type ?? '' }}</td>
+                                <td>{{ $item->created_at }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>History</th>
+                                <th>Course type</th>
+                                <th>log type</th>
+                                <th>Created At</th>
+                            </tr>
+                        </tfoot>
+                    </table>
 
-            <!-- Info and Pagination container -->
-            <div class="buttons-container">
-                <div class="custom-info-text"></div>
-                <div class="custom-pagination-container"></div>
+                    <!-- Info and Pagination container -->
+                    <div class="buttons-container">
+                        <div class="custom-info-text"></div>
+                        <div class="custom-pagination-container"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</body>
 
-    <!-- Include the required scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+</html>
 
-    <script>
-        $(document).ready(function() {
-            let table = $('#table').DataTable({
-                scrollX: true,
-                lengthChange: true,
-                lengthMenu: [10, 25, 50, 100],
-                buttons: [
-                    'colvis',
-                    {
-                        extend: 'copy',
-                        className: 'buttons-copy',
-                    },
-                    {
-                        extend: 'excel',
-                        className: 'buttons-excel',
-                    },
-                    {
-                        extend: 'pdf',
-                        className: 'buttons-pdf',
-                    },
-                ],
-                searching: true,
-                columnDefs: [{
-                    "visible": false,
-                    "targets": [0]
-                }],
-                initComplete: function() {
-                    this.api()
-                        .columns()
-                        .every(function() {
-                            var column = this;
-                            var title = column.footer().textContent;
+<!-- Include the required scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
 
-                            // Create input element and add event listener
-                            $('<input class="form-control" type="text" placeholder="Search ' + title + '" />')
-                                .appendTo($(column.footer()).empty())
-                                .on('keyup change clear', function() {
-                                    if (column.search() !== this.value) {
-                                        column.search(this.value).draw();
-                                    }
-                                });
-                        });
-                }
-            });
+<script>
+    $(document).ready(function() {
+        let table = $('#table').DataTable({
+            scrollX: true,
+            lengthChange: false,
+            // lengthMenu: [10, 25, 50, 100],
+            buttons: [
+                'colvis',
+                {
+                    extend: 'copy',
+                    className: 'buttons-copy',
+                },
+                {
+                    extend: 'excel',
+                    className: 'buttons-excel',
+                },
+                {
+                    extend: 'pdf',
+                    className: 'buttons-pdf',
+                },
+            ],
+            searching: true,
+            columnDefs: [{
+                "visible": false,
+                "targets": [0]
+            }],
+            initComplete: function() {
+                this.api()
+                    .columns()
+                    .every(function() {
+                        var column = this;
+                        var title = column.footer().textContent;
 
-            // Create container for buttons and pagination
-            let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
-            buttonPaginationContainer.css({
-                display: 'block',
-                flexDirection: 'row',
-                alignItems: 'flex-start',
-                // marginBottom: '10px'
-            });
-
-            // Insert the buttons into the new container
-            table.buttons().container().appendTo(buttonPaginationContainer);
-
-            // Insert the show entries and info into the new container with custom classes
-            // $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
-            // $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
-            // $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
-
-            // Insert the new container before the table
-            buttonPaginationContainer.insertBefore('#table');
-
-            // Add individual column search inputs and titles
-            // $('#table thead th').each(function() {
-            //     let title = $(this).text();
-            //     $(this).html('<div class="text-center">' + title +
-            //         '</div><div class="mt-2"><input type="text" placeholder="Search ' + title +
-            //         '" /></div>');
-            // });
-
-            // Apply individual column search
-            // Apply the search for individual columns
-            table.columns().every(function() {
-                let that = this;
-
-                $('input', this.header()).on('keyup change clear', function() {
-                    if (that.search() !== this.value) {
-                        that
-                            .search(this.value)
-                            .draw();
-                    }
-                });
-            });
-
-            table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('.ddShow').click(function(e) {
-                e.stopPropagation(); // Untuk mencegah penyebaran event klik ke elemen lain
-                $(this).next('.ddMenu').toggle(); // Toggle tampilan dropdown
-            });
-
-            $(document).click(function(e) {
-                if (!$(e.target).closest('.ddShow').length) {
-                    $('.ddMenu').hide();
-                }
-            });
-
-            function toggleColumns() {
-                $('.column-checkbox').each(function() {
-                    var column = $(this).data('column');
-                    if ($(this).prop('checked')) {
-                        $('th[data-column="' + column + '"]').removeClass('hidden-column');
-                        $('td[data-column="' + column + '"]').removeClass('hidden-column');
-                    } else {
-                        $('th[data-column="' + column + '"]').addClass('hidden-column');
-                        $('td[data-column="' + column + '"]').addClass('hidden-column');
-                    }
-                });
+                        // Create input element and add event listener
+                        $('<input class="form-control" type="text" placeholder="Search ' + title + '" />')
+                            .appendTo($(column.footer()).empty())
+                            .on('keyup change clear', function() {
+                                if (column.search() !== this.value) {
+                                    column.search(this.value).draw();
+                                }
+                            });
+                    });
             }
-
-            toggleColumns(); // Untuk menyembunyikan kolom secara default pada awalnya
         });
-    </script>
+
+        // Create container for buttons and pagination
+        let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
+        buttonPaginationContainer.css({
+            display: 'block',
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            // marginBottom: '10px'
+        });
+
+        // Insert the buttons into the new container
+        table.buttons().container().appendTo(buttonPaginationContainer);
+
+        // Insert the show entries and info into the new container with custom classes
+        // $('.dataTables_length').addClass('custom-length-container').appendTo(buttonPaginationContainer);
+        // $('.dataTables_info').addClass('custom-info-text').appendTo(buttonPaginationContainer);
+        // $('.dataTables_paginate').addClass('custom-pagination-container').appendTo(buttonPaginationContainer);
+
+        // Insert the new container before the table
+        buttonPaginationContainer.insertBefore('#table');
+
+        // Add individual column search inputs and titles
+        // $('#table thead th').each(function() {
+        //     let title = $(this).text();
+        //     $(this).html('<div class="text-center">' + title +
+        //         '</div><div class="mt-2"><input type="text" placeholder="Search ' + title +
+        //         '" /></div>');
+        // });
+
+        // Apply individual column search
+        // Apply the search for individual columns
+        table.columns().every(function() {
+            let that = this;
+
+            $('input', this.header()).on('keyup change clear', function() {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+
+        table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.ddShow').click(function(e) {
+            e.stopPropagation(); // Untuk mencegah penyebaran event klik ke elemen lain
+            $(this).next('.ddMenu').toggle(); // Toggle tampilan dropdown
+        });
+
+        $(document).click(function(e) {
+            if (!$(e.target).closest('.ddShow').length) {
+                $('.ddMenu').hide();
+            }
+        });
+
+        function toggleColumns() {
+            $('.column-checkbox').each(function() {
+                var column = $(this).data('column');
+                if ($(this).prop('checked')) {
+                    $('th[data-column="' + column + '"]').removeClass('hidden-column');
+                    $('td[data-column="' + column + '"]').removeClass('hidden-column');
+                } else {
+                    $('th[data-column="' + column + '"]').addClass('hidden-column');
+                    $('td[data-column="' + column + '"]').addClass('hidden-column');
+                }
+            });
+        }
+
+        toggleColumns(); // Untuk menyembunyikan kolom secara default pada awalnya
+    });
+</script>
 
 </body>
 
