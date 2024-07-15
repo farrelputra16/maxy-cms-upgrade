@@ -26,6 +26,8 @@ use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\RedeemCodeController;
 use App\Http\Controllers\MCourseTypeController;
 use App\Http\Controllers\MiscController;
+use App\Http\Controllers\CarouselController;
+use App\Http\Controllers\ProdiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,6 +66,15 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/course/edit', [CourseController::class, 'getEditCourse'])->name('getEditCourse')->middleware('access:course_update');
     Route::post('/course/edit', [CourseController::class, 'postEditCourse'])->name('postEditCourse')->middleware('access:course_update');
+
+    // prodi route ###########################################################################################################
+    Route::get('/prodi', [ProdiController::class, 'getProdi'])->name('getProdi')->middleware('access:prodi_manage');
+
+    Route::get('/prodi/add', [ProdiController::class, 'getAddProdi'])->name('getAddCourse')->middleware('access:prodi_create');
+    Route::post('/prodi/add', [ProdiController::class, 'postAddProdi'])->name('postAddCourse')->middleware('access:prodi_create');
+
+    Route::get('/prodi/edit', [ProdiController::class, 'getEditProdi'])->name('getEditCourse')->middleware('access:prodi_update');
+    Route::post('/prodi/edit', [ProdiController::class, 'postEditProdi'])->name('postEditCourse')->middleware('access:prodi_update');
 
 // course class route ####################################################################################################
 // Route::get('/course/class', [CourseClassController::class, 'getCourseClass'])->name('getCourseClass')->middleware('access:course_class_manage');
@@ -292,6 +303,16 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('maxytalk/edit', [MaxyTalkController::class, 'getEditMaxyTalk'])->name('getEditMaxyTalk')->middleware('access:maxy_talk_update');
     Route::post('maxytalk/edit', [MaxyTalkController::class, 'postEditMaxyTalk'])->name('postEditMaxyTalk')->middleware('access:maxy_talk_update');
+
+    //                                     Carousel
+    //Carousel Routes #########################################################################################################
+    Route::get('/carousel', [CarouselController::class, 'getCarousel'])->name('getCarousel')->middleware('access:carousel_manage');
+
+    Route::get('/carousel/add', [CarouselController::class, 'getAddCarousel'])->name('getAddCarousel')->middleware('access:carousel_create');
+    Route::post('/carousel/add', [CarouselController::class, 'postAddCarousel'])->name('postAddCarousel')->middleware('access:carousel_create');
+
+    Route::get('/carousel/edit', [CarouselController::class, 'getEditCarousel'])->name('getEditCarousel')->middleware('access:carousel_update');
+    Route::post('/carousel/edit', [CarouselController::class, 'postEditCarousel'])->name('postEditCarousel')->middleware('access:carousel_update');
 });
 
 // bad access

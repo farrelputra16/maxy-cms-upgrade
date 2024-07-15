@@ -220,6 +220,9 @@
                         <li class="nav-item">
                             <a href="{{ route('getPartner') }}" class="list-group-item list-group-item-action {{ Route::is('getPartner') ? 'active' : '' }}">Partners</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('getProdi') }}" class="list-group-item list-group-item-action {{ Route::is('getProdi') ? 'active' : '' }}">Prodi</a>
+                        </li>
                     </ul>
                 </li>
 
@@ -315,6 +318,17 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('getRedeemCode') }}" class="list-group-item list-group-item-action {{ Route::is('getRedeemCode') ? 'active' : '' }}">Redeem Code</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="btn btn-transparent btnMember text-white" data-bs-toggle="collapse" href="#">
+                        <i class="fa fa-user logoMember"></i>
+                        <span class="ms-2">Content</span>
+                    </a>
+                    <ul class="colMember collapse">
+                        <li class="nav-item">
+                            <a href="{{ route('getCarousel') }}" class="list-group-item list-group-item-action {{ Route::is('getCarousel') ? 'active' : '' }}">Carousel</a>
                         </li>
                     </ul>
                 </li>
