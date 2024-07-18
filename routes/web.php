@@ -27,7 +27,10 @@ use App\Http\Controllers\RedeemCodeController;
 use App\Http\Controllers\MCourseTypeController;
 use App\Http\Controllers\MiscController;
 use App\Http\Controllers\CarouselController;
-use App\Http\Controllers\ProdiController;
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\MProposalTypeController;
+use App\Http\Controllers\MProposalStatusController;
+use App\Http\Controllers\MEventTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,14 +70,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/course/edit', [CourseController::class, 'getEditCourse'])->name('getEditCourse')->middleware('access:course_update');
     Route::post('/course/edit', [CourseController::class, 'postEditCourse'])->name('postEditCourse')->middleware('access:course_update');
 
-    // prodi route ###########################################################################################################
-    Route::get('/prodi', [ProdiController::class, 'getProdi'])->name('getProdi')->middleware('access:prodi_manage');
+    // kategori route ###########################################################################################################
+    Route::get('/kategori', [KategoriController::class, 'getKategori'])->name('getKategori')->middleware('access:kategori_manage');
 
-    Route::get('/prodi/add', [ProdiController::class, 'getAddProdi'])->name('getAddCourse')->middleware('access:prodi_create');
-    Route::post('/prodi/add', [ProdiController::class, 'postAddProdi'])->name('postAddCourse')->middleware('access:prodi_create');
+    Route::get('/kategori/add', [KategoriController::class, 'getAddKategori'])->name('getAddKategori')->middleware('access:kategori_create');
+    Route::post('/kategori/add', [KategoriController::class, 'postAddKategori'])->name('postAddKategori')->middleware('access:kategori_create');
 
-    Route::get('/prodi/edit', [ProdiController::class, 'getEditProdi'])->name('getEditCourse')->middleware('access:prodi_update');
-    Route::post('/prodi/edit', [ProdiController::class, 'postEditProdi'])->name('postEditCourse')->middleware('access:prodi_update');
+    Route::get('/kategori/edit', [KategoriController::class, 'getEditKategori'])->name('getEditKategori')->middleware('access:kategori_update');
+    Route::post('/kategori/edit', [KategoriController::class, 'postEditKategori'])->name('postEditKategori')->middleware('access:kategori_update');
+
+    // dummy attendance route ###########################################################################################################
+    Route::get('/attendance', [ProdiController::class, 'getProdi'])->name('getAttendance')->middleware('access:prodi_manage');
 
 // course class route ####################################################################################################
 // Route::get('/course/class', [CourseClassController::class, 'getCourseClass'])->name('getCourseClass')->middleware('access:course_class_manage');
@@ -181,7 +187,32 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/course/type/edit', [MCourseTypeController::class, 'getEditCourseType'])->name('getEditCourseType')->middleware('access:m_Course_type_update');
     Route::post('/course/type/edit', [MCourseTypeController::class, 'postEditCourseType'])->name('postEditCourseType')->middleware('access:m_Course_type_update');
 
+    // proposal type 
+    Route::get('/proposal/type', [MProposalTypeController::class, 'getProposalType'])->name('getProposalType')->middleware('access:m_proposal_type_manage');
 
+    Route::get('/proposal/type/add', [MProposalTypeController::class, 'getAddProposalType'])->name('getAddProposalType')->middleware('access:m_proposal_type_create');
+    Route::post('/proposal/type/add', [MProposalTypeController::class, 'postAddProposalType'])->name('postAddProposalType')->middleware('access:m_proposal_type_create');
+
+    Route::get('/proposal/type/edit', [MProposalTypeController::class, 'getEditProposalType'])->name('getEditProposalType')->middleware('access:m_proposal_type_update');
+    Route::post('/proposal/type/edit', [MProposalTypeController::class, 'postEditProposalType'])->name('postEditProposalType')->middleware('access:m_proposal_type_update');
+
+    // proposal status 
+    Route::get('/proposal/status', [MProposalStatusController::class, 'getProposalStatus'])->name('getProposalStatus')->middleware('access:m_proposal_status_manage');
+
+    Route::get('/proposal/status/add', [MProposalStatusController::class, 'getAddProposalStatus'])->name('getAddProposalStatus')->middleware('access:m_proposal_status_create');
+    Route::post('/proposal/status/add', [MProposalStatusController::class, 'postAddProposalStatus'])->name('postAddProposalStatus')->middleware('access:m_proposal_status_create');
+
+    Route::get('/proposal/status/edit', [MProposalStatusController::class, 'getEditProposalStatus'])->name('getEditProposalStatus')->middleware('access:m_proposal_status_update');
+    Route::post('/proposal/status/edit', [MProposalStatusController::class, 'postEditProposalStatus'])->name('postEditProposalStatus')->middleware('access:m_proposal_status_update');
+
+    // Event type 
+    Route::get('/event/type', [MEventTypeController::class, 'getEventType'])->name('getEventType')->middleware('access:m_event_type_manage');
+
+    Route::get('/event/type/add', [MEventTypeController::class, 'getAddEventType'])->name('getAddEventType')->middleware('access:m_event_type_create');
+    Route::post('/event/type/add', [MEventTypeController::class, 'postAddEventType'])->name('postAddEventType')->middleware('access:m_event_type_create');
+
+    Route::get('/event/type/edit', [MEventTypeController::class, 'getEditEventType'])->name('getEditEventType')->middleware('access:m_event_type_update');
+    Route::post('/event/type/edit', [MEventTypeController::class, 'postEditEventType'])->name('postEditEventType')->middleware('access:m_event_type_update');
 
     //                                                      USER MANAGEMENT
 

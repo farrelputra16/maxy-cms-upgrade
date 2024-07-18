@@ -17,6 +17,10 @@
     <!-- Memuat jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
     <!-- Memuat Bootstrap CSS dan JS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -221,7 +225,16 @@
                             <a href="{{ route('getPartner') }}" class="list-group-item list-group-item-action {{ Route::is('getPartner') ? 'active' : '' }}">Partners</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('getProdi') }}" class="list-group-item list-group-item-action {{ Route::is('getProdi') ? 'active' : '' }}">Prodi</a>
+                            <a href="{{ route('getKategori') }}" class="list-group-item list-group-item-action {{ Route::is('getKategori') ? 'active' : '' }}">Kategori</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('getProposalType') }}" class="list-group-item list-group-item-action {{ Route::is('getProposalType') ? 'active' : '' }}">Proposal Type</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('getProposalStatus') }}" class="list-group-item list-group-item-action {{ Route::is('getProposalStatus') ? 'active' : '' }}">Proposal Status</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('getEventType') }}" class="list-group-item list-group-item-action {{ Route::is('getEventType') ? 'active' : '' }}">Event Type</a>
                         </li>
                     </ul>
                 </li>
@@ -369,10 +382,10 @@
         </div>
         <p>{{ session()->get('messageN') }}</p>
     </div>
+    @endif
 </body>
 
 </html>
-@endif
 
 @yield('scripts')
 <script>

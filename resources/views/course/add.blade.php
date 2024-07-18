@@ -205,6 +205,12 @@
                     <textarea name="description"></textarea>
                 </div>
 
+                <select class="js-example-basic-multiple" name="courseCategory[]" multiple="multiple">
+                    @foreach ($allCourseCategory as $courseCategory)
+                        <option value="{{ $courseCategory->id }}">{{ $courseCategory->name }}</option>
+                    @endforeach
+                </select>
+
                 <div class="field">
                     <div class="ui checkbox">
                         <input class="form-check-input" type="checkbox" value="1" name="status">
@@ -228,6 +234,9 @@
 
 </html>
 <script>
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2();
+    });
     function preview() {
         frame.src = URL.createObjectURL(event.target.files[0]);
     }

@@ -167,7 +167,7 @@
                 <div class="two fields">
                     <div class="field">
                         <label for="">Name</label>
-                        <input type="text" name="name" value="{{ $courses->id }}">
+                        <input type="text" name="name" value="{{ $courses->name }}">
                     </div>
                     <div class="field">
                         <label for="">Slug</label>
@@ -266,6 +266,12 @@
                     <textarea name="short_description" id="short_description" placeholder="Enter Short Description">{{ $courses->short_description }}</textarea>
                 </div>
 
+                <select class="js-example-basic-multiple" name="courseCategory[]" multiple="multiple">
+                    @foreach ($allCourseCategory as $courseCategory)
+                        <option value="{{ $courseCategory->id }}" @if ($selectedCategoryId->contains('category_id', $courseCategory->id)) selected @endif>{{ $courseCategory->name }}</option>
+                    @endforeach
+                </select>
+
                 <div class="field">
                     <div class="ui checkbox">
                         <input class="form-check-input" type="checkbox" value="1" {{ $courses->status == 1 ? 'checked' : '' }} name="status">
@@ -289,6 +295,9 @@
 </html>
 
 <script>
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2();
+    });
     function preview() {
         frame.src = URL.createObjectURL(event.target.files[0]);
         if ($('#type_selector').val() == 1) {
