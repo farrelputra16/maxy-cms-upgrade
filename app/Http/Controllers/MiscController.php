@@ -98,4 +98,31 @@ class MiscController extends Controller
             // }
         }
     }
+
+    public function updateSlugCourseClass()
+    {
+        $course_class = DB::table('course_class as cc')
+            ->select('c.slug', 'cc.batch', 'cc.id')
+            ->join('course as c', 'c.id', '=', 'cc.course_id')
+            ->whereNull('cc.slug')
+            // ->where('cc.id', 36)
+            ->get();
+
+        // dd($course_class);
+
+
+        foreach ($course_class as $class) {
+            $update = DB::table('course_class')
+                ->where('id', $class->id)
+                ->update([
+                    'slug' => $class->slug.'-'.$class->batch,
+                ]);
+
+            if ($update) {
+                echo 'Update course_class : ' . $class->id . ' - success <br>';
+            } else {
+                echo 'Update course_class : ' . $class->id . ' - failed <br>';
+            }
+        }
+    }
 }

@@ -24,7 +24,7 @@ class CourseController extends Controller
         $allPackagePrices = CoursePackage::all();
         $allCourseTypes = MCourseType::all();
         $allCourseDifficulty = MDifficultyType::all();
-        $allCourseCategory = Kategori::all();
+        $allCourseCategory = Kategori::where('status', 1)->get();
 
         return view('course.add', [
             'allPackagePrices' => $allPackagePrices,
@@ -109,7 +109,7 @@ class CourseController extends Controller
     {
         $idCourse = $request->id;
         $courses = Course::find($idCourse);
-        $allCourseCategory = Kategori::all();
+        $allCourseCategory = Kategori::where('status', 1)->get();
         $selectedCategoryId = DB::table('course_category')->where('course_id', $request->id)->get('category_id');
 
         $currentDataCourse = Course::CurrentDataCourse($idCourse);
@@ -162,22 +162,25 @@ class CourseController extends Controller
         $request->short_description='';
         $request->package_price=1;//dd($request->name);
 
-        $updateData = Course::postEditCourse($request);
-
-        if ($updateData) {
-            DB::table('course_category')->where('course_id', $request->id)->delete();
-            $categories = $request->input('courseCategory');
-            foreach ($categories as $categoryId) {
-                DB::table('course_category')->insert([
-                    'course_id' => $request->id,
-                    'category_id' => $categoryId,
-                    'created_id' => Auth::user()->id,
-                    'updated_id' => Auth::user()->id
-                ]);
+        try {
+            $updateData = Course::postEditCourse($request);
+            if ($updateData) {
+                DB::table('course_category')->where('course_id', $request->id)->delete();
+                $categories = $request->input('courseCategory');
+                foreach ($categories as $categoryId) {
+                    DB::table('course_category')->insert([
+                        'course_id' => $request->id,
+                        'category_id' => $categoryId,
+                        'created_id' => Auth::user()->id,
+                        'updated_id' => Auth::user()->id
+                    ]);
+                }
+                return app(HelperController::class)->Positive('getCourse');
+            } else {
+                return app(HelperController::class)->Warning('getCourse');
             }
-            return app(HelperController::class)->Positive('getCourse');
-        } else {
-            return app(HelperController::class)->Warning('getCourse');
+        } catch (\Exception $e) {dd($e);
+            return app(HelperController::class)->Negative('getCourse');
         }
     }
 }
