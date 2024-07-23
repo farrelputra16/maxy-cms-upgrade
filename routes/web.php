@@ -27,7 +27,7 @@ use App\Http\Controllers\RedeemCodeController;
 use App\Http\Controllers\MCourseTypeController;
 use App\Http\Controllers\MiscController;
 use App\Http\Controllers\CarouselController;
-use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MProposalTypeController;
 use App\Http\Controllers\MProposalStatusController;
 use App\Http\Controllers\MEventTypeController;
@@ -70,14 +70,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/course/edit', [CourseController::class, 'getEditCourse'])->name('getEditCourse')->middleware('access:course_update');
     Route::post('/course/edit', [CourseController::class, 'postEditCourse'])->name('postEditCourse')->middleware('access:course_update');
 
-    // kategori route ###########################################################################################################
-    Route::get('/kategori', [KategoriController::class, 'getKategori'])->name('getKategori')->middleware('access:kategori_manage');
+    // categori route ###########################################################################################################
+    Route::get('/category', [CategoryController::class, 'getCategory'])->name('getCategory')->middleware('access:category_manage');
 
-    Route::get('/kategori/add', [KategoriController::class, 'getAddKategori'])->name('getAddKategori')->middleware('access:kategori_create');
-    Route::post('/kategori/add', [KategoriController::class, 'postAddKategori'])->name('postAddKategori')->middleware('access:kategori_create');
+    Route::get('/category/add', [CategoryController::class, 'getAddCategory'])->name('getAddCategory')->middleware('access:category_create');
+    Route::post('/category/add', [CategoryController::class, 'postAddCategory'])->name('postAddCategory')->middleware('access:category_create');
 
-    Route::get('/kategori/edit', [KategoriController::class, 'getEditKategori'])->name('getEditKategori')->middleware('access:kategori_update');
-    Route::post('/kategori/edit', [KategoriController::class, 'postEditKategori'])->name('postEditKategori')->middleware('access:kategori_update');
+    Route::get('/category/edit', [CategoryController::class, 'getEditCategory'])->name('getEditCategory')->middleware('access:category_update');
+    Route::post('/category/edit', [CategoryController::class, 'postEditCategory'])->name('postEditCategory')->middleware('access:category_update');
 
     // dummy attendance route ###########################################################################################################
     Route::get('/attendance', [ProdiController::class, 'getProdi'])->name('getAttendance')->middleware('access:prodi_manage');

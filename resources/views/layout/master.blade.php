@@ -225,7 +225,7 @@
                             <a href="{{ route('getPartner') }}" class="list-group-item list-group-item-action {{ Route::is('getPartner') ? 'active' : '' }}">Partners</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('getKategori') }}" class="list-group-item list-group-item-action {{ Route::is('getKategori') ? 'active' : '' }}">Kategori</a>
+                            <a href="{{ route('getCategory') }}" class="list-group-item list-group-item-action {{ Route::is('getCategory') ? 'active' : '' }}">Category</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('getProposalType') }}" class="list-group-item list-group-item-action {{ Route::is('getProposalType') ? 'active' : '' }}">Proposal Type</a>

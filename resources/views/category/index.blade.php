@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title', 'Kategori')
+@section('title', 'Category')
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
@@ -8,7 +8,7 @@
         <html>
 
         <head>
-            <title>Kategori</title>
+            <title>Category</title>
             <!-- Include CSS libraries for styling the table -->
             <link rel="stylesheet"
                 href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
@@ -20,17 +20,17 @@
         </head>
 
         <body>
-            <h2>Kategori</h2>
+            <h2>Category</h2>
             <hr>
             <div class="ui breadcrumb pt-2 pb-4">
             <a class="section" href="{{ url('/') }}">Dashboard</a>
             <i class="right angle icon divider"></i>
-            <div class="active section">Kategori</div>
+            <div class="active section">Category</div>
         </div>
             <div id="example_wrapper">
                 <div class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
                     <div class="navbar-nav">
-                        <a class="btn btn-primary" href="{{ route('getAddKategori') }}" role="button">Tambah Kategori
+                        <a class="btn btn-primary" href="{{ route('getAddCategory') }}" role="button">Tambah Category
                             +</a>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($Kategoris as $item)
+                        @foreach ($Categorys as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
@@ -63,7 +63,7 @@
                                 <td>{{ $item->updated_at }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('getEditKategori', ['id' => $item->id]) }}"
+                                        <a href="{{ route('getEditCategory', ['id' => $item->id]) }}"
                                             class="btn btn-primary">Edit</a>
                                     </div>
                                 </td>

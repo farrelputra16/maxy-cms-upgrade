@@ -4,28 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Kategori;
+use App\Models\Category;
 use Illuminate\Support\Facades\File;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 
-class KategoriController extends Controller
+class CategoryController extends Controller
 {
-    function getKategori(){
-        $Kategoris = Kategori::all();
+    function getCategory(){
+        $Categorys = Category::all();
 
-        return view('kategori.index',[
-            'Kategoris' => $Kategoris
+        return view('category.index',[
+            'Categorys' => $Categorys
         ]);
     
     }
-    function getAddKategori(){
+    function getAddCategory(){
         
-        return view('kategori.add');
+        return view('category.add');
     }
 
-    function postAddKategori(Request $request){
+    function postAddCategory(Request $request){
         //return dd($request);
         $validated= $request->validate([
             'name' => 'required',
@@ -33,7 +33,7 @@ class KategoriController extends Controller
 
         if ($validated){
             $image = '';
-            $create = Kategori::create([
+            $create = Category::create([
                 'name' => $request->name,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
@@ -41,25 +41,25 @@ class KategoriController extends Controller
                 'updated_id' => Auth::user()->id,
             ]);
             if ($create)
-                return app(HelperController::class)->Positive('getKategori');
+                return app(HelperController::class)->Positive('getCategory');
             else
-                return app(HelperController::class)->Negative('getKategori');
+                return app(HelperController::class)->Negative('getCategory');
         }
     }
 
-    function getEditKategori(Request $request){
-        $idKategori = $request->id;
-        $Kategori = Kategori::find($idKategori);
+    function getEditCategory(Request $request){
+        $idCategory = $request->id;
+        $Category = Category::find($idCategory);
 
-        return view('kategori.edit',[
-            'Kategori' => $Kategori,
+        return view('category.edit',[
+            'Category' => $Category,
         ]);
     }
 
-    function postEditKategori(Request $request){
-        $idKategori = $request->id;
+    function postEditCategory(Request $request){
+        $idCategory = $request->id;
 
-        $updateData = Kategori::where('id', $idKategori)
+        $updateData = Category::where('id', $idCategory)
             ->update([
                 'name' => $request->name,
                 'description' => $request->description,
@@ -67,9 +67,9 @@ class KategoriController extends Controller
             ]);
 
         if ($updateData){
-            return app(HelperController::class)->Positive('getKategori');
+            return app(HelperController::class)->Positive('getCategory');
         } else{
-            return app(HelperController::class)->Warning('getKategori');
+            return app(HelperController::class)->Warning('getCategory');
         }
     }
 }
