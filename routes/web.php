@@ -31,6 +31,10 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MProposalTypeController;
 use App\Http\Controllers\MProposalStatusController;
 use App\Http\Controllers\MEventTypeController;
+
+// jago digital controller ###########################################################################################################
+use App\Http\Controllers\AgentController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -81,46 +85,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     // dummy attendance route ###########################################################################################################
     Route::get('/attendance', [ProdiController::class, 'getProdi'])->name('getAttendance')->middleware('access:prodi_manage');
-
-// course class route ####################################################################################################
-// Route::get('/course/class', [CourseClassController::class, 'getCourseClass'])->name('getCourseClass')->middleware('access:course_class_manage');
-
-// Route::get('/course/class/duplicate', [CourseClassController::class, 'getDuplicateCourseClass'])->name('getDuplicateCourseClass')->middleware('access:course_class_create');
-// Route::post('/course/class/duplicate', [CourseClassController::class, 'postDuplicateCourseClass'])->name('postDuplicateCourseClass')->middleware('access:course_class_create');
-
-// Route::get('/course/class/add', [CourseClassController::class, 'getAddCourseClass'])->name('getAddCourseClass')->middleware('access:course_class_create');
-// Route::post('/course/class/add', [CourseClassController::class, 'postAddCourseClass'])->name('postAddCourseClass')->middleware('access:course_class_create');
-
-// Route::get('/course/class/edit', [CourseClassController::class, 'getEditCourseClass'])->name('getEditCourseClass')->middleware('access:course_class_update');
-// Route::post('/course/class/edit', [CourseClassController::class, 'postEditCourseClass'])->name('postEditCourseClass')->middleware('access:course_class_update');
-
-// course class member history route ####################################################################################################
-// Route::get('/course/class/member/history', [CourseClassMemberHistoryController::class, 'getCCMH'])->name('getCCMH')->middleware('access:course_class_member_log_read');
-// Route::get('/course/class/member/history/course_name', [CourseClassMemberHistoryController::class, 'getnameCCMH'])->name('getnameCCMH')->middleware('access:course_class_member_log_read');
-
-// Route::get('/course/class/member/historygrade', [CourseClassMemberHistoryController::class, 'getCCMHGrade'])->name('getCCMHGrade')->middleware('access:course_class_member_grading_manage');
-// Route::get('/course/class/member/history/grade', [CourseClassMemberHistoryController::class, 'getGradeCCMH'])->name('getGradeCCMH')->middleware('access:course_class_member_grading_manage');
-
-// Route::get('/course/class/member/history/edit', [CourseClassMemberHistoryController::class, 'getEditCCMH'])->name('getEditCCMH')->middleware('access:course_class_member_grading_update');
-// Route::post('/course/class/member/history/edit', [CourseClassMemberHistoryController::class, 'postEditCCMH'])->name('postEditCCMH')->middleware('access:course_class_member_grading_update');
-
-// course class member route ############################################################################################
-// Route::get('/course/class/member', [CourseClassMemberController::class, 'getCourseClassMember'])->name('getCourseClassMember')->middleware('access:course_class_member_manage');
-
-// Route::get('/course/class/member/add', [CourseClassMemberController::class, 'getAddCourseClassMember'])->name('getAddCourseClassMember')->middleware('access:course_class_member_create');
-// Route::post('/course/class/member/add', [CourseClassMemberController::class, 'postAddCourseClassMember'])->name('postAddCourseClassMember')->middleware('access:course_class_member_create');
-
-// Route::get('/course/class/member/edit', [CourseClassMemberController::class, 'getEditCourseClassMember'])->name('getEditCourseClassMember')->middleware('access:course_class_member_update');
-// Route::post('/course/class/member/edit', [CourseClassMemberController::class, 'postEditCourseClassMember'])->name('postEditCourseClassMember')->middleware('access:course_class_member_update');
-
-//Course Class Module route ###############################################################################################
-// Route::get('/courseclassmodule', [CourseClassModuleController::class, 'getCourseClassModule'])->name('getCourseClassModule')->middleware('access:course_class_module_manage');
-
-// Route::get('/courseclassmodule/add', [CourseClassModuleController::class, 'getAddCourseClassModule'])->name('getAddCourseClassModule')->middleware('access:course_class_module_create');
-// Route::post('/courseclassmodule/add', [CourseClassModuleController::class, 'postAddCourseClassModule'])->name('postAddCourseClassModule')->middleware('access:course_class_module_create');
-
-// Route::get('/courseclassmodule/edit', [CourseClassModuleController::class, 'getEditCourseClassModule'])->name('getEditCourseClassModule')->middleware('access:course_class_module_update');
-// Route::post('/courseclassmodule/edit', [CourseClassModuleController::class, 'postEditCourseClassModule'])->name('postEditCourseClassModule')->middleware('access:course_class_module_update');
 
     //course package route ###################################################################################################
     Route::get('/course/package', [CoursePackageController::class, 'getCoursePackage'])->name('getCoursePackage')->middleware('access:course_package_manage');
@@ -178,7 +142,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/course/difficulty/edit', [MDifficultyTypeController::class, 'getEditDifficulty'])->name('getEditDifficultyType')->middleware('access:m_difficulty_type_update');
     Route::post('/course/difficulty/edit', [MDifficultyTypeController::class, 'postEditDifficulty'])->name('postEditDifficultyType')->middleware('access:m_difficulty_type_update');
 
-    // course type 
+    // course type
     Route::get('/course/type', [MCourseTypeController::class, 'getCourseType'])->name('getCourseType')->middleware('access:m_Course_type_manage');
 
     Route::get('/course/type/add', [MCourseTypeController::class, 'getAddCourseType'])->name('getAddCourseType')->middleware('access:m_Course_type_create');
@@ -187,7 +151,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/course/type/edit', [MCourseTypeController::class, 'getEditCourseType'])->name('getEditCourseType')->middleware('access:m_Course_type_update');
     Route::post('/course/type/edit', [MCourseTypeController::class, 'postEditCourseType'])->name('postEditCourseType')->middleware('access:m_Course_type_update');
 
-    // proposal type 
+    // proposal type
     Route::get('/proposal/type', [MProposalTypeController::class, 'getProposalType'])->name('getProposalType')->middleware('access:m_proposal_type_manage');
 
     Route::get('/proposal/type/add', [MProposalTypeController::class, 'getAddProposalType'])->name('getAddProposalType')->middleware('access:m_proposal_type_create');
@@ -196,7 +160,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/proposal/type/edit', [MProposalTypeController::class, 'getEditProposalType'])->name('getEditProposalType')->middleware('access:m_proposal_type_update');
     Route::post('/proposal/type/edit', [MProposalTypeController::class, 'postEditProposalType'])->name('postEditProposalType')->middleware('access:m_proposal_type_update');
 
-    // proposal status 
+    // proposal status
     Route::get('/proposal/status', [MProposalStatusController::class, 'getProposalStatus'])->name('getProposalStatus')->middleware('access:m_proposal_status_manage');
 
     Route::get('/proposal/status/add', [MProposalStatusController::class, 'getAddProposalStatus'])->name('getAddProposalStatus')->middleware('access:m_proposal_status_create');
@@ -205,7 +169,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/proposal/status/edit', [MProposalStatusController::class, 'getEditProposalStatus'])->name('getEditProposalStatus')->middleware('access:m_proposal_status_update');
     Route::post('/proposal/status/edit', [MProposalStatusController::class, 'postEditProposalStatus'])->name('postEditProposalStatus')->middleware('access:m_proposal_status_update');
 
-    // Event type 
+    // Event type
     Route::get('/event/type', [MEventTypeController::class, 'getEventType'])->name('getEventType')->middleware('access:m_event_type_manage');
 
     Route::get('/event/type/add', [MEventTypeController::class, 'getAddEventType'])->name('getAddEventType')->middleware('access:m_event_type_create');
@@ -358,3 +322,30 @@ Route::post('/user/import-csv', [UserController::class, 'importCSV'])->name('use
 Route::get('/updateGKCourseImage', [MiscController::class, 'updateGKCourseImage'])->name('updateGKCourseImage');
 Route::get('/reorderUpskillingPriority', [MiscController::class, 'reorderUpskillingPriority'])->name('reorderUpskillingPriority');
 Route::get('/updateSlugCourseClass', [MiscController::class, 'updateSlugCourseClass'])->name('updateSlugCourseClass');
+
+// jago digital route ###########################################################################################################
+Route::prefix('agent')->name('agent.')->group(function () {
+    Route::get('/', function () {
+        if (!Auth::user())
+            return redirect()->route('agent.login');
+        return redirect()->route('agent.getDashboard');
+    });
+    Route::get('/login', [AgentController::class, 'getLogin'])->name('login');
+    Route::post('/login', [AgentController::class, 'postLogin'])->name('postLogin');
+
+    Route::get('/access-denied', function () {
+        return view('pages.auth.access-denied');
+    })->name('accessDenied');
+
+    Route::group(['middleware' => 'agent.auth'], function () {
+        Route::get('/dashboard', [AgentController::class, 'getDashboard'])->name('getDashboard');
+        Route::get('/content', [AgentController::class, 'getContent'])->name('getContent');
+        Route::post('/content', [AgentController::class, 'postContent'])->name('postContent');
+        Route::get('/testimonial', [AgentController::class, 'getTestimonial'])->name('getTestimonial');
+        Route::post('/testimonial', [AgentController::class, 'postTestimonial'])->name('postTestimonial');
+        Route::get('/color', [AgentController::class, 'getColor'])->name('getColor');
+        Route::get('/setting', [AgentController::class, 'getSetting'])->name('getSetting');
+    });
+
+    Route::post('/logout', [AgentController::class, 'postLogout'])->name('logout');
+});
