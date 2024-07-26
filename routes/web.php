@@ -339,13 +339,21 @@ Route::prefix('agent')->name('agent.')->group(function () {
 
     Route::group(['middleware' => 'agent.auth'], function () {
         Route::get('/dashboard', [AgentController::class, 'getDashboard'])->name('getDashboard');
+
         Route::get('/content', [AgentController::class, 'getContent'])->name('getContent');
         Route::post('/content', [AgentController::class, 'postContent'])->name('postContent');
+
         Route::get('/testimonial', [AgentController::class, 'getTestimonial'])->name('getTestimonial');
         Route::post('/testimonial', [AgentController::class, 'postTestimonial'])->name('postTestimonial');
+
         Route::get('/color', [AgentController::class, 'getColor'])->name('getColor');
+        Route::post('/color', [AgentController::class, 'postColor'])->name('postColor');
+
         Route::get('/setting', [AgentController::class, 'getSetting'])->name('getSetting');
+        Route::post('/setting', [AgentController::class, 'postSetting'])->name('postSetting');
+
+        Route::get('/check-slug', [AgentController::class, 'checkSlug']);
     });
 
-    Route::post('/logout', [AgentController::class, 'postLogout'])->name('logout');
+    Route::get('/logout', [AgentController::class, 'postLogout'])->name('logout');
 });

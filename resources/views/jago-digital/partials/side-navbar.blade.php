@@ -27,13 +27,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('agent.getDashboard') }}" class="waves-effect">
+                    <a href="{{ route('agent.getColor') }}" class="waves-effect">
                         <i class="bx bx-palette"></i>
                         <span key="t-color">Color</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('agent.getDashboard') }}" class="waves-effect">
+                    <a href="{{ route('agent.getSetting') }}" class="waves-effect">
                         <i class="bx bx-cog"></i>
                         <span key="t-setting">Setting</span>
                     </a>

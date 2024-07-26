@@ -332,7 +332,7 @@
                             class="bx bx-lock-open font-size-16 align-middle me-1"></i> <span key="t-lock-screen">Lock
                             screen</span></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-danger" href="#"><i
+                    <a class="dropdown-item text-danger" href="{{ route('agent.logout') }}"><i
                             class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span
                             key="t-logout">Logout</span></a>
                 </div>

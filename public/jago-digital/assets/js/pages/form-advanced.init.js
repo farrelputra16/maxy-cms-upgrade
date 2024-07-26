@@ -74,6 +74,7 @@
                 },
             }),
             s("#colorpicker-default").spectrum(),
+            s(".color-picker").spectrum(),
             s("#colorpicker-showalpha").spectrum({ showAlpha: !0 }),
             s("#colorpicker-showpaletteonly").spectrum({
                 showPaletteOnly: !0,
