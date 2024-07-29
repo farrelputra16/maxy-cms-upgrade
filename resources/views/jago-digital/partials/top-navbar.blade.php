@@ -29,12 +29,12 @@
             </button>
 
             <!-- App Search-->
-            <form class="app-search d-none d-lg-block">
+            {{-- <form class="app-search d-none d-lg-block">
                 <div class="position-relative">
                     <input type="text" class="form-control" placeholder="Search...">
                     <span class="bx bx-search-alt"></span>
                 </div>
-            </form>
+            </form> --}}
 
             {{-- <div class="dropdown dropdown-mega d-none d-lg-block ms-2">
                 <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown"
@@ -181,7 +181,7 @@
         <div class="d-flex">
 
             <div class="dropdown d-inline-block d-lg-none ms-2">
-                <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
+                {{-- <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="mdi mdi-magnify"></i>
                 </button>
@@ -200,7 +200,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
+                </div> --}}
             </div>
 
             <div class="dropdown d-none d-lg-inline-block ms-1">
@@ -210,7 +210,7 @@
             </div>
 
             <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item noti-icon waves-effect"
+                {{-- <button type="button" class="btn header-item noti-icon waves-effect"
                     id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                     <i class="bx bx-bell bx-tada"></i>
@@ -276,8 +276,8 @@
                                         <p class="mb-1" key="t-grammer">If several languages coalesce
                                             the
                                             grammar</p>
-                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span
-                                                key="t-min-ago">3 min ago</span></p>
+                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span key="t-min-ago">3
+                                                min ago</span></p>
                                     </div>
                                 </div>
                             </div>
@@ -306,32 +306,37 @@
                                 More..</span>
                         </a>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user"
-                        src="{{ asset('jago-digital/assets/images/users/avatar-1.jpg') }}" alt="Header Avatar">
-                    <span class="d-none d-xl-inline-block ms-1" key="t-henry">Henry</span>
+                    @if (auth()->user()->profile_picture)
+                        <img src="{{ asset('uploads/' . auth()->user()->profile_picture) }}" alt=""
+                            class="rounded-circle header-profile-user">
+                    @else
+                        <img src="{{ asset('img/default_profile.png') }}" alt=""
+                            class="rounded-circle header-profile-user">
+                    @endif
+                    <span class="d-none d-xl-inline-block ms-1" key="t-henry">
+                        {{ auth()->user()->name }}</span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                    <a class="dropdown-item" href="#"><i class="bx bx-user font-size-16 align-middle me-1"></i>
+                    {{-- <a class="dropdown-item" href="#"><i class="bx bx-user font-size-16 align-middle me-1"></i>
                         <span key="t-profile">Profile</span></a>
-                    <a class="dropdown-item" href="#"><i
-                            class="bx bx-wallet font-size-16 align-middle me-1"></i> <span key="t-my-wallet">My
+                    <a class="dropdown-item" href="#"><i class="bx bx-wallet font-size-16 align-middle me-1"></i>
+                        <span key="t-my-wallet">My
                             Wallet</span></a>
-                    <a class="dropdown-item d-block" href="#"><span
-                            class="badge bg-success float-end">11</span><i
+                    <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end">11</span><i
                             class="bx bx-wrench font-size-16 align-middle me-1"></i> <span
                             key="t-settings">Settings</span></a>
                     <a class="dropdown-item" href="#"><i
                             class="bx bx-lock-open font-size-16 align-middle me-1"></i> <span key="t-lock-screen">Lock
                             screen</span></a>
-                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-divider"></div> --}}
                     <a class="dropdown-item text-danger" href="{{ route('agent.logout') }}"><i
                             class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span
                             key="t-logout">Logout</span></a>

@@ -1,7 +1,11 @@
 !(function (s) {
     "use strict";
 
-    var baseUrl = "http://127.0.0.1:8080/";
+    // local
+    // var baseUrl = "http://127.0.0.1:8080/";
+
+    // production
+    var baseUrl = "https://cms.maxy.academy/";
 
     var e,
         t = localStorage.getItem("language"),

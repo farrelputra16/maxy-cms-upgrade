@@ -158,7 +158,6 @@
     <!-- init js -->
     <script src="{{ asset('jago-digital/assets/js/pages/form-editor.init.js') }}"></script>
 
-    @yield('script')
     <!-- dashboard init -->
     <script src="{{ asset('jago-digital/assets/js/pages/dashboard.init.js') }}"></script>
 
@@ -193,6 +192,9 @@
 
     <!-- App js -->
     <script src="{{ asset('jago-digital/assets/js/app.js') }}"></script>
+
+    @yield('script')
+
 </body>
 
 </html>

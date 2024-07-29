@@ -1,8 +1,11 @@
 !(function () {
     "use strict";
 
-    // Ganti dengan base URL aplikasi Laravel Anda
-    var baseUrl = "http://127.0.0.1:8080/";
+    // local
+    // var baseUrl = "http://127.0.0.1:8080/";
+
+    // production
+    var baseUrl = "https://cms.maxy.academy/";
 
     if (window.sessionStorage) {
         var t = sessionStorage.getItem("is_visited");

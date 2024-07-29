@@ -16,13 +16,13 @@
                 </li>
                 <li>
                     <a href="{{ route('agent.getContent') }}" class="waves-effect">
-                        <i class="bx bx-game"></i>
+                        <i class="bx bx-info-circle"></i>
                         <span key="t-content">Content</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('agent.getTestimonial') }}" class="waves-effect">
-                        <i class="bx bx-game"></i>
+                        <i class='bx bx-line-chart'></i>
                         <span key="t-content">Testimonial</span>
                     </a>
                 </li>

@@ -11,8 +11,6 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboards</a>
-                        </li>
                         <li class="breadcrumb-item active">Dashboard</li>
                     </ol>
                 </div>
@@ -30,7 +28,7 @@
                         <div class="col-7">
                             <div class="text-primary p-3">
                                 <h5 class="text-primary">Welcome Back !</h5>
-                                <p>Maxy CMS Dashboard</p>
+                                <p>Agent CMS Dashboard</p>
                             </div>
                         </div>
                         <div class="col-5 align-self-end">
@@ -43,17 +41,22 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="avatar-md profile-user-wid mb-4">
-                                <img src="{{ asset('jago-digital/assets/images/users/avatar-1.jpg') }}" alt=""
-                                    class="img-thumbnail rounded-circle">
+                                @if (auth()->user()->profile_picture)
+                                    <img src="{{ asset('uploads/' . auth()->user()->profile_picture) }}" alt=""
+                                        class="img-thumbnail rounded-circle">
+                                @else
+                                    <img src="{{ asset('img/default_profile.png') }}" alt=""
+                                        class="img-thumbnail rounded-circle">
+                                @endif
                             </div>
-                            <h5 class="font-size-15 text-truncate">Henry Price</h5>
-                            <p class="text-muted mb-0 text-truncate">UI/UX Designer</p>
+                            <h5 class="font-size-15 text-truncate">{{ auth()->user()->name }}</h5>
+                            <p class="text-muted mb-0 text-truncate">Konsultan Edukasi</p>
                         </div>
 
                         <div class="col-sm-8">
                             <div class="pt-4">
 
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-6">
                                         <h5 class="font-size-15">125</h5>
                                         <p class="text-muted mb-0">Projects</p>
@@ -67,13 +70,13 @@
                                     <a href="javascript: void(0);"
                                         class="btn btn-primary waves-effect waves-light btn-sm">View
                                         Profile <i class="mdi mdi-arrow-right ms-1"></i></a>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-body">
                     <h4 class="card-title mb-4">Monthly Earning</h4>
                     <div class="row">
@@ -99,10 +102,10 @@
                     <p class="text-muted mb-0">We craft digital, graphic and dimensional thinking.
                     </p>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <div class="col-xl-8">
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-md-4">
                     <div class="card mini-stats-wid">
                         <div class="card-body">
@@ -164,9 +167,9 @@
                     </div>
                 </div>
             </div>
-            <!-- end row -->
+            <!-- end row --> --}}
 
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-body">
                     <div class="d-sm-flex flex-wrap">
                         <h4 class="card-title mb-4">Email Sent</h4>
@@ -189,12 +192,12 @@
                         data-colors='["--bs-primary", "--bs-warning", "--bs-success"]' dir="ltr">
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
     <!-- end row -->
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-xl-4">
             <div class="card">
                 <div class="card-body">
@@ -206,8 +209,8 @@
                             </span>
                         </div>
                         <p class="font-16 text-muted mb-2"></p>
-                        <h5><a href="javascript: void(0);" class="text-dark">Facebook - <span
-                                    class="text-muted font-16">125 sales</span> </a></h5>
+                        <h5><a href="javascript: void(0);" class="text-dark">Facebook - <span class="text-muted font-16">125
+                                    sales</span> </a></h5>
                         <p class="text-muted">Maecenas nec odio et ante tincidunt tempus. Donec
                             vitae
                             sapien ut libero venenatis faucibus tincidunt.</p>
@@ -403,9 +406,9 @@
             </div>
         </div>
     </div>
-    <!-- end row -->
+    <!-- end row --> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
@@ -620,5 +623,5 @@
             </div>
         </div>
     </div>
-    <!-- end row -->
+    <!-- end row --> --}}
 @endsection
