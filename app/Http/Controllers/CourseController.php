@@ -6,7 +6,7 @@ use App\Models\Course;
 use App\Models\CoursePackage;
 use App\Models\MCourseType;
 use App\Models\MDifficultyType;
-use App\Models\Kategori;
+use App\Models\Category;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +24,7 @@ class CourseController extends Controller
         $allPackagePrices = CoursePackage::all();
         $allCourseTypes = MCourseType::all();
         $allCourseDifficulty = MDifficultyType::all();
-        $allCourseCategory = Kategori::where('status', 1)->get();
+        $allCourseCategory = Category::where('status', 1)->get();
 
         return view('course.add', [
             'allPackagePrices' => $allPackagePrices,
@@ -109,7 +109,7 @@ class CourseController extends Controller
     {
         $idCourse = $request->id;
         $courses = Course::find($idCourse);
-        $allCourseCategory = Kategori::where('status', 1)->get();
+        $allCourseCategory = Category::where('status', 1)->get();
         $selectedCategoryId = DB::table('course_category')->where('course_id', $request->id)->get('category_id');
 
         $currentDataCourse = Course::CurrentDataCourse($idCourse);

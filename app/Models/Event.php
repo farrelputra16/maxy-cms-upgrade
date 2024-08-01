@@ -7,14 +7,20 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MProposalStatus extends Model
+class Event extends Model
 {
     use HasFactory;
-
-    protected $table = 'm_proposal_status';
+    
+    protected $table = 'event';
 
     protected $fillable = [
+        'm_event_type_id',
         'name',
+        'date_start',
+        'date_end',
+        'url',
+        'is_need_verification',
+        'is_public',
         'description',
         'status',
         'created_at',
@@ -23,8 +29,8 @@ class MProposalStatus extends Model
         'updated_id'
     ];
 
-    public function Proposal()
+    public function event_type()
     {
-        return $this->hasMany(Proposal::class, 'id')->where('status', 1);
+        return $this->belongsTo(MEventType::class, 'm_event_type_id');
     }
 }

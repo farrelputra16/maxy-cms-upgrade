@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title', 'Carousel')
+@section('title', 'Event Attendance')
 
 @section('content')
     <div style="padding: 0px 12px 0px 12px;">
@@ -8,7 +8,7 @@
         <html>
 
         <head>
-            <title>Carousels</title>
+            <title>Event Attendances</title>
             <!-- Include CSS libraries for styling the table -->
             <link rel="stylesheet"
                 href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
@@ -20,61 +20,43 @@
         </head>
 
         <body>
-            <h2>Carousel</h2>
+            <h2>Event Attendance</h2>
             <hr>
             <div class="ui breadcrumb pt-2 pb-4">
             <a class="section" href="{{ url('/') }}">Dashboard</a>
             <i class="right angle icon divider"></i>
-            <div class="active section">Carousels</div>
+            <div class="active section">Event Attendances</div>
         </div>
             <div id="example_wrapper">
                 <div class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
-                    <div class="navbar-nav">
-                        <a class="btn btn-primary" href="{{ route('getAddCarousel') }}" role="button">Tambah Carousel
-                            +</a>
-                    </div>
+                    
                 </div>
                 <table id="example" class="table table-striped" style="width:100%">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Short Description</th>
-                            <th>Date</th>
+                            <th>Student name</th>
                             <th>Description</th>
                             <th>Status</th>
                             <th>Created at</th>
                             <th>Updated at</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($carousels as $item)
+                        @foreach ($event_attendances as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
-                                <td>
-                                    <img src="{{ asset('uploads/carousel/about-us/' . $item->image) }}" alt="Image" style="max-width: 200px; max-height: 150px;">
-                                </td>
                                 <td>{{ $item->name }}</td>
-                                <td>{{ $item->short_desc }}</td>
-                                <td>{{ $item->date }}</td>
                                 <td>{{ $item->description }}</td>
                                 <td>
                                     @if ($item->status == 1)
-                                        <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
+                                        <a class="ui tiny green label" style="text-decoration: none;">Hadir</a>
                                     @else
-                                        <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
+                                        <a class="ui tiny red label" style="text-decoration: none;">Terdaftar</a>
                                     @endif
                                 </td>
                                 <td>{{ $item->created_at }}</td>
                                 <td>{{ $item->updated_at }}</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <a href="{{ route('getEditCarousel', ['id' => $item->id]) }}"
-                                            class="btn btn-primary">Edit</a>
-                                    </div>
-                                </td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -22,4 +22,9 @@ class MProposalType extends Model
         'updated_at',
         'updated_id'
     ];
+
+    public function Proposal()
+    {
+        return $this->hasMany(Proposal::class, 'id')->where('status', 1);
+    }
 }

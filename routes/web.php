@@ -31,6 +31,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MProposalTypeController;
 use App\Http\Controllers\MProposalStatusController;
 use App\Http\Controllers\MEventTypeController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\ProposalController;
 
 // jago digital controller ###########################################################################################################
 use App\Http\Controllers\AgentController;
@@ -64,6 +66,8 @@ Route::post('/logout', [AuthController::class, 'postLogout'])->name('logout');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [DashboardController::class, 'getDashboard'])->name('getDashboard');
     Route::get('/dashboard/synchronize', [DashboardController::class, 'synchronizeData'])->name('synchronizeData');
+
+    Route::get('/profile', function () {return view('profile.index');})->name('profile');
 
     // course route ###########################################################################################################
     Route::get('/course', [CourseController::class, 'getCourse'])->name('getCourse')->middleware('access:course_manage');
@@ -289,6 +293,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/redeemcode/edit', [RedeemCodeController::class, 'getEditRedeemCode'])->name('getEditRedeemCode')->middleware('access:redeem_code_update');
     Route::post('/redeemcode/edit', [RedeemCodeController::class, 'postEditRedeemCode'])->name('postEditRedeemCode')->middleware('access:redeem_code_update');
 
+    //                                     Proposal
+    //Proposal Routes #########################################################################################################
+    Route::get('/proposal', [ProposalController::class, 'getProposal'])->name('getProposal')->middleware('access:proposal_manage');
+
+    Route::get('/proposal/add', [ProposalController::class, 'getAddProposal'])->name('getAddProposal')->middleware('access:proposal_create');
+    Route::post('/proposal/add', [ProposalController::class, 'postAddProposal'])->name('postAddProposal')->middleware('access:proposal_create');
+
+    Route::get('/proposal/edit', [ProposalController::class, 'getEditProposal'])->name('getEditProposal')->middleware('access:proposal_update');
+    Route::post('/proposal/edit', [ProposalController::class, 'postEditProposal'])->name('postEditProposal')->middleware('access:proposal_update');
+
     //                                     Maxy Talks
     //Testimonial Routes #########################################################################################################
     Route::get('maxytalk', [MaxyTalkController::class, 'getMaxyTalk'])->name('getMaxyTalk')->middleware('access:maxy_talk_manage');
@@ -308,6 +322,18 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/carousel/edit', [CarouselController::class, 'getEditCarousel'])->name('getEditCarousel')->middleware('access:carousel_update');
     Route::post('/carousel/edit', [CarouselController::class, 'postEditCarousel'])->name('postEditCarousel')->middleware('access:carousel_update');
+
+    //                                     Event
+    //Event Routes #########################################################################################################
+    Route::get('/event', [EventController::class, 'getEvent'])->name('getEvent')->middleware('access:event_manage');
+
+    Route::get('/event/add', [EventController::class, 'getAddEvent'])->name('getAddEvent')->middleware('access:event_create');
+    Route::post('/event/add', [EventController::class, 'postAddEvent'])->name('postAddEvent')->middleware('access:event_create');
+
+    Route::get('/event/edit', [EventController::class, 'getEditEvent'])->name('getEditEvent')->middleware('access:event_update');
+    Route::post('/event/edit', [EventController::class, 'postEditEvent'])->name('postEditEvent')->middleware('access:event_update');
+
+    Route::get('/event/attendance', [EventController::class, 'getAttendanceEvent'])->name('getAttendanceEvent')->middleware('access:event_attendance_read');
 });
 
 // bad access

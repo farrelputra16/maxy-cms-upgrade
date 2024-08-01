@@ -202,6 +202,14 @@
                     </a>
                 </li>
 
+                <!-- Profile -->
+                <li class="nav-item py-2 py-sm-0">
+                    <a href="{{ url('/profile') }}" class="nav-link text-white {{ Route::is('profile') ? 'active' : '' }}" aria-current="page">
+                        <i class="fas fa-user-circle logoDash"></i>
+                        <span class="dash">Profile</span>
+                    </a>
+                </li>
+
                 <!-- Master -->
                 <li class="nav-item">
                     <a class="btn btn-transparent btnMaster text-white" data-bs-toggle="collapse" href="#">
@@ -261,7 +269,6 @@
                         <li class="nav-item">
                             <a href="{{ route('getAttendance') }}" class="list-group-item list-group-item-action {{ Route::is('getAttendance') ? 'active' : '' }}">Attendance</a>
                         </li>
-
                     </ul>
                 </li>
 
@@ -332,6 +339,9 @@
                         <li class="nav-item">
                             <a href="{{ route('getRedeemCode') }}" class="list-group-item list-group-item-action {{ Route::is('getRedeemCode') ? 'active' : '' }}">Redeem Code</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('getProposal') }}" class="list-group-item list-group-item-action {{ Route::is('getProposal') ? 'active' : '' }}">Proposal</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -342,6 +352,11 @@
                     <ul class="colMember collapse">
                         <li class="nav-item">
                             <a href="{{ route('getCarousel') }}" class="list-group-item list-group-item-action {{ Route::is('getCarousel') ? 'active' : '' }}">Carousel</a>
+                        </li>
+                    </ul>
+                    <ul class="colMember collapse">
+                        <li class="nav-item">
+                            <a href="{{ route('getEvent') }}" class="list-group-item list-group-item-action {{ Route::is('getEvent') ? 'active' : '' }}">Event</a>
                         </li>
                     </ul>
                 </li>
