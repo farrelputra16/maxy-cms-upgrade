@@ -55,7 +55,7 @@ class CourseController extends Controller
                 'level' => 'nullable|numeric',
                 'content' => 'nullable|string',
                 'description' => 'nullable|string',
-                'courseCategory' => 'required|array',
+                'courseCategory' => 'nullable|array',
                 'courseCategory.*' => 'exists:m_category_course,id',
             ]);
             //sementara
@@ -84,23 +84,25 @@ class CourseController extends Controller
                     'status' => $request->status == '' ? 0 : 1,
                     'created_id' => Auth::user()->id,
                     'updated_id' => Auth::user()->id
-                ]);//dd($request);
+                ]);
 
                 if ($create) {
                     $categories = $request->input('courseCategory');
 
-                    foreach ($categories as $categoryId) {
-                        DB::table('course_category')->insert([
-                            'course_id' => $create->id,
-                            'category_id' => $categoryId,
-                            'created_id' => Auth::user()->id,
-                            'updated_id' => Auth::user()->id
-                        ]);
+                    if ($categories) {
+                        foreach ($categories as $categoryId) {
+                            DB::table('course_category')->insert([
+                                'course_id' => $create->id,
+                                'category_id' => $categoryId,
+                                'created_id' => Auth::user()->id,
+                                'updated_id' => Auth::user()->id
+                            ]);
+                        }
                     }
                     return app(HelperController::class)->Positive('getCourse');
                 }
             }
-        } catch (\Exception $e) {//dd($e);
+        } catch (\Exception $e) {dd($e);
             return app(HelperController::class)->Negative('getCourse');
         }
     }
@@ -152,8 +154,8 @@ class CourseController extends Controller
             'payment_link' => 'nullable|url',
             'level' => 'nullable|numeric',
             'status' => 'nullable|boolean',
-            'courseCategory' => 'required|array',
-            'courseCategory.*' => 'exists:m_category_course,id',
+            // 'courseCategory' => 'required|array',
+            // 'courseCategory.*' => 'exists:m_category_course,id',
         ]);
 
         //sementara
@@ -167,13 +169,15 @@ class CourseController extends Controller
             if ($updateData) {
                 DB::table('course_category')->where('course_id', $request->id)->delete();
                 $categories = $request->input('courseCategory');
-                foreach ($categories as $categoryId) {
-                    DB::table('course_category')->insert([
-                        'course_id' => $request->id,
-                        'category_id' => $categoryId,
-                        'created_id' => Auth::user()->id,
-                        'updated_id' => Auth::user()->id
-                    ]);
+                if ($categories) {
+                    foreach ($categories as $categoryId) {
+                        DB::table('course_category')->insert([
+                            'course_id' => $request->id,
+                            'category_id' => $categoryId,
+                            'created_id' => Auth::user()->id,
+                            'updated_id' => Auth::user()->id
+                        ]);
+                    }
                 }
                 return app(HelperController::class)->Positive('getCourse');
             } else {
