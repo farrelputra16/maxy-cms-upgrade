@@ -12,8 +12,10 @@ use App\Http\Controllers\HelperController;
 
 
 use App\Models\CourseModule;
+use App\Models\CourseJournal;
 use DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 
 class CourseClassModuleController extends Controller
@@ -211,6 +213,78 @@ class CourseClassModuleController extends Controller
             'child_cm_detail' => $child_cm_detail,
             'child_detail' => $child_detail,
         ]);
+    }
+    function getJournalCourseClassChildModule(Request $request){
+        $ccmod_parent = CourseClassModule::find($request->id);
+        $ccmod_parent->detail = CourseModule::find($ccmod_parent->course_module_id);
+        $users = CourseJournal::with('User')
+            ->where('course_class_module_id', $request->id)
+            ->whereNull('course_journal_parent_id')
+            ->where('level', 1)
+            ->get();
+        
+        // dd($child_cm_detail);
+        return view('classcontentmanagement::course_class_module.child.journal.index', [
+            'users' => $users,
+            'parent_module' => $ccmod_parent,
+        ]);
+    }
+    function getAddJournalCourseClassChildModule(Request $request){
+        // dd($request->all());
+        //courseclassmember yg sudah submit
+        // course_class_module_id
+        // user_id course_class_member mentor_id auth_user
+        $ccmod_parent = CourseClassModule::find($request->course_class_module_id);
+        $ccmod_parent->detail = CourseModule::find($ccmod_parent->course_module_id);
+        $comments = CourseJournal::where('course_class_module_id', $request->course_class_module_id)
+            ->where('user_id', $request->user_id)
+            ->whereNull('course_journal_parent_id')
+            ->orderBy('level', 'ASC')
+            ->get();
+        foreach($comments as $comment) {
+            $comment->diff = Carbon::parse($comment->created_at)->diffForHumans();
+            $comment->child = CourseJournal::with('User')
+                ->where('course_class_module_id', $request->course_class_module_id)
+                ->where('course_journal_parent_id', $comment->id)
+                ->orderBy('priority', 'ASC')
+                ->get();
+            foreach ($comment->child as $child) {
+                $child->diff = Carbon::parse($child->created_at)->diffForHumans();
+            }
+        }// dd($comments);
+        return view('classcontentmanagement::course_class_module.child.journal.add', [
+            'comments' => $comments,
+            'parent_module' => $ccmod_parent,
+            'course_journal_parent_id' =>$request->id,
+        ]);
+    }
+    function postAddJournalCourseClassChildModule(Request $request){
+        $level = CourseJournal::where('course_class_module_id', $request->course_class_module_id)
+            ->where('user_id', $request->user_id)
+            ->whereNull('course_journal_parent_id')
+            ->count();
+        
+        $priority = CourseJournal::where('course_class_module_id', $request->course_class_module_id)
+            ->where('user_id', Auth::user()->id)
+            ->where('level', $level)
+            ->count();//dd($priority);
+
+        $create = CourseJournal::create([
+            'user_id' => Auth::user()->id,
+            'course_class_module_id' => $request->course_class_module_id,
+            'course_journal_parent_id' => $request->course_journal_parent_id,
+            'level' => $level,
+            'priority' => $priority+2,
+            'description' => $request->description,
+            'created_id' => Auth::user()->id,
+            'updated_id' => Auth::user()->id
+        ]);
+        
+        if ($create){
+            return redirect()->route('getJournalCourseClassChildModule', ['id' => $request->course_class_module_id])->with('success', 'Sukses');
+        } else {
+            return redirect()->route('getJournalCourseClassChildModule', ['id' => $request->course_class_module_id])->with('failed', 'Gagal, silahkan coba lagi');
+        }
     }
     function postEditCourseClassChildModule(Request $request){
         // dd($request->all());

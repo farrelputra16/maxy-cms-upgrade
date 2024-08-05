@@ -40,12 +40,13 @@ class ProposalController extends Controller
                 'updated_id' => Auth::user()->id
             ]);
             if ($updateData){
-                $sequence = ProposalBimbingan::where('proposal_id', $request->id)->where('user_id', auth()->id())->count();
+                $level = ProposalBimbingan::where('proposal_id', $request->id)->where('user_id', auth()->id())->count();
                 $create = ProposalBimbingan::create([
                     'proposal_id' => $request->id,
                     'user_id' => auth()->id(),
                     'm_proposal_status_id' => $request->status,
-                    'sequence' => $sequence+1,
+                    'level' => $level+1,
+                    'priority' => 1,
                     'description' => $request->description,
                     'created_id' => auth()->id(),
                     'updated_id' => auth()->id(),
