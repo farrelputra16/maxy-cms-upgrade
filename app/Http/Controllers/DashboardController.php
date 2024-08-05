@@ -36,6 +36,10 @@ class DashboardController extends Controller
             'stuActive' => $stuActive,
         ]);
     }
+    public function getDashboard2()
+    {
+        return view('dashboard.index-v2');
+    }
 
     // public function generateToken($email, $name)
     // {

@@ -9,6 +9,35 @@
     overflow-x: scroll;
 }
 
-.nav-pills li a:hover {
-    
+#floating-whatsapp-button {
+    position: fixed;
+    bottom: 50px;
+    /* Sesuaikan dengan posisi vertikal yang Anda inginkan */
+    right: 70px;
+    /* Sesuaikan dengan posisi horizontal yang Anda inginkan */
+    z-index: 1000;
+    /* Pastikan z-index cukup tinggi untuk menampilkan tombol di atas elemen lain */
+}
+
+#floating-whatsapp-button a {
+    display: block;
+    background-color: #25d366;
+    color: #fff;
+    width: 60px;
+    /* Mengubah lebar tombol */
+    height: 60px;
+    /* Mengubah tinggi tombol */
+    line-height: 60px;
+    /* Mengubah vertikal teks di tengah tombol */
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    font-size: 24px;
+    /* Mengubah ukuran font teks */
+}
+
+#floating-whatsapp-button a:hover {
+    background-color: #128c7e;
+    /* Warna latar belakang tombol WhatsApp saat dihover */
 }

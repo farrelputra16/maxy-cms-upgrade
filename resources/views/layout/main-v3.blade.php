@@ -11,7 +11,7 @@
     <meta content="Themesbrand" name="author" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('jago-digital/assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/cms-v3/images/favicon.ico') }}">
 
 
 
@@ -31,28 +31,29 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
 
     <!-- Advanced Forms -->
-    <link href="{{ asset('jago-digital/assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('jago-digital/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}"
+    <link href="{{ asset('assets/cms-v3/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/cms-v3/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}"
         rel="stylesheet" type="text/css">
-    <link href="{{ asset('jago-digital/assets/libs/spectrum-colorpicker2/spectrum.min.css') }}" rel="stylesheet"
+    <link href="{{ asset('assets/cms-v3/libs/spectrum-colorpicker2/spectrum.min.css') }}" rel="stylesheet"
         type="text/css">
-    <link href="{{ asset('jago-digital/assets/libs/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}"
+    <link href="{{ asset('assets/cms-v3/libs/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}"
         rel="stylesheet" type="text/css">
-    <link href="{{ asset('jago-digital/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css') }}"
+    <link href="{{ asset('assets/cms-v3/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css') }}"
         rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('jago-digital/assets/libs/@chenfengyuan/datepicker/datepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/cms-v3/libs/@chenfengyuan/datepicker/datepicker.min.css') }}">
 
     <!-- Bootstrap Css -->
-    <link href="{{ asset('jago-digital/assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet"
+    <link href="{{ asset('assets/cms-v3/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet"
         type="text/css" />
     <!-- Icons Css -->
-    <link href="{{ asset('jago-digital/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/cms-v3/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
-    <link href="{{ asset('jago-digital/assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/cms-v3/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
     <!-- App js -->
-    <script src="{{ asset('jago-digital/assets/js/plugin.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/js/plugin.js') }}"></script>
     <!-- Custom Css -->
-    <link href="{{ asset('jago-digital/assets/css/datatables-custom.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/cms-v3/css/datatables-custom.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
 </head>
 
 <body data-sidebar="dark">
@@ -143,23 +144,23 @@
     <div class="rightbar-overlay"></div>
 
     <!-- JAVASCRIPT -->
-    <script src="{{ asset('jago-digital/assets/libs/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('jago-digital/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('jago-digital/assets/libs/metismenu/metisMenu.min.js') }}"></script>
-    <script src="{{ asset('jago-digital/assets/libs/simplebar/simplebar.min.js') }}"></script>
-    <script src="{{ asset('jago-digital/assets/libs/node-waves/waves.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/metismenu/metisMenu.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/simplebar/simplebar.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/node-waves/waves.min.js') }}"></script>
 
     <!-- apexcharts -->
-    <script src="{{ asset('jago-digital/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/apexcharts/apexcharts.min.js') }}"></script>
 
     <!--tinymce js-->
-    <script src="{{ asset('jago-digital/assets/libs/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/tinymce/tinymce.min.js') }}"></script>
 
     <!-- init js -->
-    <script src="{{ asset('jago-digital/assets/js/pages/form-editor.init.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/js/pages/form-editor.init.js') }}"></script>
 
     <!-- dashboard init -->
-    <script src="{{ asset('jago-digital/assets/js/pages/dashboard.init.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/js/pages/dashboard.init.js') }}"></script>
 
     <!-- Required datatable js -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
@@ -175,23 +176,23 @@
 
 
     <!-- Datatable init js -->
-    <script src="{{ asset('jago-digital/assets/js/pages/datatables.init.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/js/pages/datatables.init.js') }}"></script>
 
 
     <!-- Advanced Forms -->
-    <script src="{{ asset('jago-digital/assets/libs/select2/js/select2.min.js') }}"></script>
-    <script src="{{ asset('jago-digital/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ asset('jago-digital/assets/libs/spectrum-colorpicker2/spectrum.min.js') }}"></script>
-    <script src="{{ asset('jago-digital/assets/libs/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
-    <script src="{{ asset('jago-digital/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
-    <script src="{{ asset('jago-digital/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
-    <script src="{{ asset('jago-digital/assets/libs/@chenfengyuan/datepicker/datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/select2/js/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/spectrum-colorpicker2/spectrum.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/@chenfengyuan/datepicker/datepicker.min.js') }}"></script>
 
     <!-- form advanced init -->
-    <script src="{{ asset('jago-digital/assets/js/pages/form-advanced.init.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/js/pages/form-advanced.init.js') }}"></script>
 
     <!-- App js -->
-    <script src="{{ asset('jago-digital/assets/js/app.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/js/app.js') }}"></script>
 
     @yield('script')
 

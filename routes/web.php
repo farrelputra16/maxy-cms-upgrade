@@ -36,6 +36,7 @@ use App\Http\Controllers\ProposalController;
 
 // jago digital controller ###########################################################################################################
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -65,9 +66,12 @@ Route::post('/logout', [AuthController::class, 'postLogout'])->name('logout');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [DashboardController::class, 'getDashboard'])->name('getDashboard');
+    Route::get('/dashboard2', [DashboardController::class, 'getDashboard2'])->name('getDashboard2');
     Route::get('/dashboard/synchronize', [DashboardController::class, 'synchronizeData'])->name('synchronizeData');
 
-    Route::get('/profile', function () {return view('profile.index');})->name('profile');
+    Route::get('/profile', function () {
+        return view('profile.index');
+    })->name('profile');
 
     // course route ###########################################################################################################
     Route::get('/course', [CourseController::class, 'getCourse'])->name('getCourse')->middleware('access:course_manage');
@@ -334,6 +338,24 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/event/edit', [EventController::class, 'postEditEvent'])->name('postEditEvent')->middleware('access:event_update');
 
     Route::get('/event/attendance', [EventController::class, 'getAttendanceEvent'])->name('getAttendanceEvent')->middleware('access:event_attendance_read');
+
+    //Blog Routes #########################################################################################################
+    Route::get('/blog', [BlogController::class, 'getBlog'])->name('getBlog');
+
+    Route::get('/blog/add', [BlogController::class, 'getAddBlog'])->name('getAddBlog');
+    Route::post('/blog/add', [BlogController::class, 'postAddBlog'])->name('postAddBlog');
+
+    Route::get('/blog/edit', [BlogController::class, 'getEditBlog'])->name('getEditBlog');
+    Route::post('/blog/edit', [BlogController::class, 'postEditBlog'])->name('postEditBlog');
+
+    // Blog Routes with Access Restriction (uncomment when blog development is finished) ##############################
+    // Route::get('/blog', [BlogController::class, 'getBlog'])->name('getBlog')->middleware('access:blog_manage');
+
+    // Route::get('/blog/add', [BlogController::class, 'getAddBlog'])->name('getAddBlog')->middleware('access:blog_create');
+    // Route::post('/blog/add', [BlogController::class, 'postAddBlog'])->name('postAddBlog')->middleware('access:blog_create');
+
+    // Route::get('/blog/edit', [BlogController::class, 'getEditBlog'])->name('getEditBlog')->middleware('access:blog_update');
+    // Route::post('/blog/edit', [BlogController::class, 'postEditBlog'])->name('postEditBlog')->middleware('access:blog_update');
 });
 
 // bad access
