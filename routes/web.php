@@ -36,6 +36,7 @@ use App\Http\Controllers\ProposalController;
 
 // jago digital controller ###########################################################################################################
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -92,7 +93,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/category/edit', [CategoryController::class, 'postEditCategory'])->name('postEditCategory')->middleware('access:category_update');
 
     // dummy attendance route ###########################################################################################################
-    Route::get('/attendance', [ProdiController::class, 'getProdi'])->name('getAttendance')->middleware('access:prodi_manage');
+    Route::get('/attendance', [AttendanceController::class, 'getAttendance'])->name('getAttendance')->middleware('access:prodi_manage');
 
     //course package route ###################################################################################################
     Route::get('/course/package', [CoursePackageController::class, 'getCoursePackage'])->name('getCoursePackage')->middleware('access:course_package_manage');

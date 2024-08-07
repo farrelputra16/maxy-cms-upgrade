@@ -18,7 +18,7 @@ $(document).ready(function () {
             },
         ],
         searching: true,
-        columnDefs: [{ visible: false, targets: [-5, -4, -3, 0] }],
+        columnDefs: [{ visible: false, targets: [-6, -5, -4, -3, 1] }],
         initComplete: function () {
             // Simpan referensi API DataTables dalam variabel
             var api = this.api();
