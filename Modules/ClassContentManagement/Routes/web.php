@@ -3,6 +3,11 @@
 use Modules\ClassContentManagement\Http\Controllers\ClassContentManagementController;
 use Modules\ClassContentManagement\Http\Controllers\CourseClassController;
 use Modules\ClassContentManagement\Http\Controllers\CourseClassModuleController;
+use Modules\ClassContentManagement\Http\Controllers\AttendanceController;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +20,7 @@ use Modules\ClassContentManagement\Http\Controllers\CourseClassModuleController;
 */
 
 // Route::get('/test-module', [ClassContentManagementController::class, 'index']);
-
+// course class
 Route::get('/course/class', [CourseClassController::class, 'getCourseClass'])->name('getCourseClass')->middleware('access:course_class_manage');
 
 Route::get('/course/class/duplicate', [CourseClassController::class, 'getDuplicateCourseClass'])->name('getDuplicateCourseClass')->middleware('access:course_class_create');
@@ -27,7 +32,22 @@ Route::post('/course/class/add', [CourseClassController::class, 'postAddCourseCl
 Route::get('/course/class/edit', [CourseClassController::class, 'getEditCourseClass'])->name('getEditCourseClass')->middleware('access:course_class_update');
 Route::post('/course/class/edit', [CourseClassController::class, 'postEditCourseClass'])->name('postEditCourseClass')->middleware('access:course_class_update');
 
-// Course class module //
+// course class attendance
+Route::get('/course/class/attendance', [AttendanceController::class, 'getCourseClassAttendance'])->name('getCourseClassAttendance');
+Route::get('/course/class/attendance/add', [AttendanceController::class, 'getAddCourseClassAttendance'])->name('getAddCourseClassAttendance');
+Route::post('/course/class/attendance/add', [AttendanceController::class, 'postAddCourseClassAttendance'])->name('postAddCourseClassAttendance');
+Route::get('/course/class/attendance/edit', [AttendanceController::class, 'getEditCourseClassAttendance'])->name('getEditCourseClassAttendance');
+Route::post('/course/class/attendance/edit', [AttendanceController::class, 'postEditCourseClassAttendance'])->name('postEditCourseClassAttendance');
+
+// member attendance
+Route::get('/course/class/attendance/member', [AttendanceController::class, 'getMemberAttendance'])->name('getMemberAttendance');
+Route::get('/course/class/attendance/member/add', [AttendanceController::class, 'getAddMemberAttendance'])->name('getAddMemberAttendance');
+Route::post('/course/class/attendance/member/add', [AttendanceController::class, 'postAddMemberAttendance'])->name('postAddMemberAttendance');
+Route::get('/course/class/attendance/member/edit', [AttendanceController::class, 'getEditMemberAttendance'])->name('getEditMemberAttendance');
+Route::post('/course/class/attendance/member/edit', [AttendanceController::class, 'postEditMemberAttendance'])->name('postEditMemberAttendance');
+
+
+// course class module
 Route::get('/course/class/module', [CourseClassModuleController::class, 'getCourseClassParentModule'])->name('getCourseClassModule')->middleware('access:course_class_module_manage');
 Route::get('/course/class/module/add', [CourseClassModuleController::class, 'getAddCourseClassModule'])->name('getAddCourseClassModule')->middleware('access:course_class_module_create');
 Route::post('/course/class/module/add', [CourseClassModuleController::class, 'postAddCourseClassModule'])->name('postAddCourseClassModule')->middleware('access:course_class_module_create');

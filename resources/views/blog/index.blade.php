@@ -67,7 +67,11 @@
                                         title="{{ $item->title }}">
                                         {!! \Str::limit($item->title, 30) !!}
                                     </td>
-                                    <td>{{ $item->slug }}</td>
+                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
+                                        title="{{ $item->slug }}">
+                                        <a href="https://maxy.academy/blog/{{ $item->slug }}"
+                                            target="_blank">{!! \Str::limit($item->slug, 30) !!}</a>
+                                    </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->content) !!}">
                                         {!! \Str::limit($item->content, 30) !!}
