@@ -33,6 +33,8 @@ use App\Http\Controllers\MProposalStatusController;
 use App\Http\Controllers\MEventTypeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProposalController;
+use App\Http\Controllers\MPartnershipTypeController;
+use App\Http\Controllers\PartnershipController;
 
 // jago digital controller ###########################################################################################################
 use App\Http\Controllers\AgentController;
@@ -187,6 +189,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/event/type/edit', [MEventTypeController::class, 'getEditEventType'])->name('getEditEventType')->middleware('access:m_event_type_update');
     Route::post('/event/type/edit', [MEventTypeController::class, 'postEditEventType'])->name('postEditEventType')->middleware('access:m_event_type_update');
 
+    // Partnership type
+    Route::get('/partnership/type', [MPartnershipTypeController::class, 'getPartnershipType'])->name('getPartnershipType')->middleware('access:m_partnership_type_manage');
+
+    Route::get('/partnership/type/add', [MPartnershipTypeController::class, 'getAddPartnershipType'])->name('getAddPartnershipType')->middleware('access:m_partnership_type_create');
+    Route::post('/partnership/type/add', [MPartnershipTypeController::class, 'postAddPartnershipType'])->name('postAddPartnershipType')->middleware('access:m_partnership_type_create');
+
+    Route::get('/partnership/type/edit', [MPartnershipTypeController::class, 'getEditPartnershipType'])->name('getEditPartnershipType')->middleware('access:m_partnership_type_update');
+    Route::post('/partnership/type/edit', [MPartnershipTypeController::class, 'postEditPartnershipType'])->name('postEditPartnershipType')->middleware('access:m_partnership_type_update');
+
     //                                                      USER MANAGEMENT
 
     //AccessGroup Route #######################################################################################################
@@ -339,6 +350,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/event/edit', [EventController::class, 'postEditEvent'])->name('postEditEvent')->middleware('access:event_update');
 
     Route::get('/event/attendance', [EventController::class, 'getAttendanceEvent'])->name('getAttendanceEvent')->middleware('access:event_attendance_read');
+
+    //                                     Partnership
+    //Partnership Routes #########################################################################################################
+    Route::get('/partnership', [PartnershipController::class, 'getPartnership'])->name('getPartnership')->middleware('access:partnership_manage');
+
+    Route::get('/partnership/add', [PartnershipController::class, 'getAddPartnership'])->name('getAddPartnership')->middleware('access:partnership_create');
+    Route::post('/partnership/add', [PartnershipController::class, 'postAddPartnership'])->name('postAddPartnership')->middleware('access:partnership_create');
+
+    Route::get('/partnership/edit', [PartnershipController::class, 'getEditPartnership'])->name('getEditPartnership')->middleware('access:partnership_update');
+    Route::post('/partnership/edit', [PartnershipController::class, 'postEditPartnership'])->name('postEditPartnership')->middleware('access:partnership_update');
 
     //Blog Routes #########################################################################################################
     Route::get('/blog', [BlogController::class, 'getBlog'])->name('getBlog');

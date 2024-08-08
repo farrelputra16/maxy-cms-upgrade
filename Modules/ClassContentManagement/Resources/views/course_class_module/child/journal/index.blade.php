@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title', 'Course Class Module')
+@section('title', 'Course Class Module Journal')
 
 @section('content')
 <!DOCTYPE html>
@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Class Module</title>
+    <title>Course Class Module Journal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
@@ -278,9 +278,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <a href="{{ route('getAddCourseClassChildModule', ['id' => $parent_module->id]) }}">
-                    <button class="btnTambah">Add Class Module</button>
-                </a>
+                
             </div>
             <div class="card" style="margin-right: 1rem; margin-bottom: 5rem;">
                 <div class="card-body">
@@ -288,49 +286,32 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Priority</th>
-                                <th>Type</th>
-                                <th>Course Module</th>
-                                <th>Content</th>
-                                <th>Material</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>Description</th>
+                                <th>Name</th>
+                                <th>Notes</th>
                                 <th>Created At</th>
-                                <th>Created Id</th>
                                 <th>Updated At</th>
-                                <th>Updated Id</th>
                                 <th>Status</th>
                                 <th>Action</th>
                                 <!-- More buat tempat button edit -->
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($child_modules as $item)
+                            @foreach ($users as $item)
                             <tr>
                                 <td scope="row">{{ $item->id }}</td>
-                                <td>{{ $item->priority }}</td>
-                                <td>{{ $item->type }}</td>
-                                <td>{{ $item->course_module_name }}</td>
-                                <td>{{ substr($item->course_module_content, 0, 25) }}</td>
-                                <td>{{ substr($item->course_module_material, 0, 25) }}</td>
-                                <td>{{ $item->start_date }}</td>
-                                <td>{{ $item->end_date }}</td>
+                                <td>{{ $item->User->name }}</td>
                                 <td id="description">{{ $item->description }}</td>
                                 <td>{{ $item->created_at }}</td>
-                                <td>{{ $item->created_id }}</td>
                                 <td>{{ $item->updated_at }}</td>
-                                <td>{{ $item->updated_id }}</td>
                                 <td>
-                                    @if ($item->status == 1)
+                                    @if ($item->User->status == 1)
                                     <a class="btnAktif">Aktif</a>
                                     @else
                                     <a class="btnNon">Non Aktif</a>
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('getEditCourseClassChildModule', ['id' => $item->id, 'parent_id' => $parent_module->id]) }}" class="btnEdit btn-primary">Edit</a>
-                                    <a href="{{ route('getJournalCourseClassChildModule', ['id' => $item->id]) }}" class="btnEdit btn-primary">Journal</a>
+                                    <a href="{{ route('getAddJournalCourseClassChildModule', ['id' => $item->id, 'user_id' => $item->User->id, 'course_class_module_id' => $parent_module->id]) }}" class="btnEdit btn-primary">Edit</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -338,18 +319,10 @@
                         <tfoot>
                             <tr>
                                 <th>ID</th>
-                                <th>Priority</th>
-                                <th>Type</th>
-                                <th>Course Module</th>
-                                <th>Content</th>
-                                <th>Material</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>Description</th>
+                                <th>Name</th>
+                                <th>Notes</th>
                                 <th>Created At</th>
-                                <th>Created Id</th>
                                 <th>Updated At</th>
-                                <th>Updated Id</th>
                                 <th>Status</th>
                                 <th>Action</th>
                                 <!-- More buat tempat button edit -->

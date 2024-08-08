@@ -111,7 +111,6 @@ class EventController extends Controller
                     'is_public' => $request->public ? 1 : 0,
                     'description' => $request->description,
                     'status' => $request->status ? 1 : 0,
-                    'created_id' => Auth::user()->id,
                     'updated_id' => Auth::user()->id,
                 ]);
 

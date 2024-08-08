@@ -62,6 +62,10 @@ Route::post('/courseclassmodule/child/add', [CourseClassModuleController::class,
 Route::get('/courseclassmodule/child/edit', [CourseClassModuleController::class, 'getEditCourseClassChildModule'])->name('getEditCourseClassChildModule')->middleware('access:course_class_module_update');
 Route::post('/courseclassmodule/child/edit', [CourseClassModuleController::class, 'postEditCourseClassChildModule'])->name('postEditCourseClassChildModule')->middleware('access:course_class_module_update');
 
+Route::get('/courseclassmodule/child/journal', [CourseClassModuleController::class, 'getJournalCourseClassChildModule'])->name('getJournalCourseClassChildModule')->middleware('access:course_class_module_journal_manage');
+Route::get('/courseclassmodule/child/journal/create', [CourseClassModuleController::class, 'getAddJournalCourseClassChildModule'])->name('getAddJournalCourseClassChildModule')->middleware('access:course_class_module_journal_create');
+Route::post('/courseclassmodule/child/journal/create', [CourseClassModuleController::class, 'postAddJournalCourseClassChildModule'])->name('postAddJournalCourseClassChildModule')->middleware('access:course_class_module_journal_create');
+
 Route::delete('/courseclassmodule/delete/{id}', [CourseClassModuleController::class, 'deleteCourseClassModule'])
     ->name('deleteCourseClassModule')
     ->middleware('access:course_class_module_delete');

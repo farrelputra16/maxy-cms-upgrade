@@ -244,6 +244,9 @@
                         <li class="nav-item">
                             <a href="{{ route('getEventType') }}" class="list-group-item list-group-item-action {{ Route::is('getEventType') ? 'active' : '' }}">Event Type</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('getPartnershipType') }}" class="list-group-item list-group-item-action {{ Route::is('getPartnershipType') ? 'active' : '' }}">Partnership Type</a>
+                        </li>
                     </ul>
                 </li>
 
@@ -357,6 +360,11 @@
                     <ul class="colMember collapse">
                         <li class="nav-item">
                             <a href="{{ route('getEvent') }}" class="list-group-item list-group-item-action {{ Route::is('getEvent') ? 'active' : '' }}">Event</a>
+                        </li>
+                    </ul>
+                    <ul class="colMember collapse">
+                        <li class="nav-item">
+                            <a href="{{ route('getPartnership') }}" class="list-group-item list-group-item-action {{ Route::is('getPartnership') ? 'active' : '' }}">Partnership</a>
                         </li>
                     </ul>
                 </li>
