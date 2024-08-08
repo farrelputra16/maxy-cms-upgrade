@@ -220,23 +220,23 @@
             }
 
             /* .tableClass td,
-            .tableClass th {
-                word-wrap: break-word;
-            } */
+                                .tableClass th {
+                                    word-wrap: break-word;
+                                } */
 
             /* .tableClass th:nth-child(1),
-            .tableClass td:ntn-child(1) {
-                max-width: 200px;
-                word-wrap: break-word;
-            }
+                                .tableClass td:ntn-child(1) {
+                                    max-width: 200px;
+                                    word-wrap: break-word;
+                                }
 
-            .tableClass td:nth-child(1) div {
-                white-space: normal !important;
-                display: -webkit-box;
-                overflow: hidden;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 2;
-            } */
+                                .tableClass td:nth-child(1) div {
+                                    white-space: normal !important;
+                                    display: -webkit-box;
+                                    overflow: hidden;
+                                    -webkit-box-orient: vertical;
+                                    -webkit-line-clamp: 2;
+                                } */
 
             .custom-striped tbody tr:nth-of-type(odd) {
                 background-color: #E3E3E3;
@@ -380,6 +380,7 @@
                                 <tr>
                                     <th class="batch">Batch</th>
                                     <th class="type">Type</th>
+                                    <th>Ongoing</th>
                                     <th>Start Date</th>
                                     <th>End Date</th>
                                     <th>Quota</th>
@@ -398,6 +399,13 @@
                                         <td class="batch" scope="row">{{ $item->course_name }} Batch {{ $item->batch }}
                                         </td>
                                         <td>{{ $item->type }} </td>
+                                        <td>
+                                            @if ($item->status_ongoing == 1)
+                                                <button class="btn btn-success">Aktif</button>
+                                            @else
+                                                <button class="btn btn-danger">Non Aktif</button>
+                                            @endif
+                                        </td>
                                         <td>{{ $item->start_date }}</td>
                                         <td>{{ $item->end_date }}</td>
                                         <td>{{ $item->quota }}</td>
@@ -432,6 +440,7 @@
                                 <tr>
                                     <th>Batch</th>
                                     <th>Type</th>
+                                    <th>Ongoing</th>
                                     <th>Start Date</th>
                                     <th>End Date</th>
                                     <th>Quota</th>

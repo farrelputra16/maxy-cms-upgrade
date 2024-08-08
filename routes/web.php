@@ -351,6 +351,15 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/event/attendance', [EventController::class, 'getAttendanceEvent'])->name('getAttendanceEvent')->middleware('access:event_attendance_read');
 
+    // Event Requirement
+    Route::get('/event/requirement', [EventController::class, 'getEventRequirement'])->name('getEventRequirement');
+    Route::get('/event/requirement/add', [EventController::class, 'getAddEventRequirement'])->name('getAddEventRequirement');
+    Route::post('/event/requirement/add', [EventController::class, 'postAddEventRequirement'])->name('postAddEventRequirement');
+    Route::get('/event/requirement/edit', [EventController::class, 'getEditEventRequirement'])->name('getEditEventRequirement');
+    Route::post('/event/requirement/edit', [EventController::class, 'postEditEventRequirement'])->name('postEditEventRequirement');
+
+
+
     //                                     Partnership
     //Partnership Routes #########################################################################################################
     Route::get('/partnership', [PartnershipController::class, 'getPartnership'])->name('getPartnership')->middleware('access:partnership_manage');

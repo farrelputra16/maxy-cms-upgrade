@@ -172,6 +172,7 @@ class CourseClassController extends Controller
 
     function postEditCourseClass(Request $request)
     {
+        // dd($request->all());
         $courseClassId = $request->id;
 
         $updateData = CourseClass::where('id', $courseClassId)
@@ -183,6 +184,7 @@ class CourseClassController extends Controller
                 'course_id' => $request->course_id,
                 'announcement' => $request->announcement,
                 'content' => $request->content,
+                'status_ongoing' => $request->ongoing ? 1 : 0,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => auth()->user()->id,
