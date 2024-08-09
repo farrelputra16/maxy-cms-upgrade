@@ -229,6 +229,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/user/edit', [UserController::class, 'getEditUser'])->name('getEditUser')->middleware('access:users_update');
     Route::post('/user/edit', [UserController::class, 'postEditUser'])->name('postEditUser')->middleware('access:users_update');
 
+    Route::get('/user/profile', [UserController::class, 'getProfileUser'])->name('getProfileUser')->middleware('access:users_read');
+
     //                                      PARTNER
     // partner routes
     Route::get('/partner', [PartnerController::class, 'getPartner'])->name('getPartner')->middleware('access:m_partner_manage');

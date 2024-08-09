@@ -388,6 +388,9 @@
                                     <div class="btn-group">
                                         <a href="{{ route('getEditUser', ['id' => $item->id]) }}" class="btnEdit">Edit</a>
                                     </div>
+                                    <div class="btn-group">
+                                        <a href="{{ route('getProfileUser', ['id' => $item->id]) }}" class="btnEdit">Profile</a>
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach

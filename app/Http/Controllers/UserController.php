@@ -25,6 +25,23 @@ class UserController extends Controller
         return view('user.index', ['users' => $users]);
     }
 
+    function getProfileUser(Request $request)
+    {
+        $users = User::with(['UserCertificate', 'UserEducation', 'UserPortofolio', 'MProvince', 'UserExperience', 'UserLanguage', 'UserLanguage.MLanguage'])
+            ->find($request->id);
+        $father = DB::table('user_parent')
+            ->where('user_id', $request->id)
+            ->where('type', 'ayah')
+            ->first();
+        $mother = DB::table('user_parent')
+            ->where('user_id', $request->id)
+            ->where('type', 'ibu')
+            ->first();
+        //dd($users);
+
+        return view('user.profile', ['currentData' => $users, 'father' => $father, 'mother' => $mother]);
+    }
+
     function getAddUser()
     {
         $allAccessGroups = AccessGroup::all();

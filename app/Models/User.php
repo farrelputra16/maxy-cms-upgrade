@@ -84,4 +84,34 @@ class User extends Authenticatable
         ));
         return $users;
     }
+
+    public function MProvince()
+    {
+        return $this->belongsTo(MProvince::class, 'm_province_id');
+    }
+
+    public function UserCertificate()
+    {
+        return $this->hasMany(UserCertificate::class, 'user_id');
+    }
+
+    public function UserEducation()
+    {
+        return $this->hasMany(UserEducation::class, 'user_id');
+    }
+
+    public function UserPortofolio()
+    {
+        return $this->hasMany(UserPortofolio::class, 'user_id');
+    }
+
+    public function UserExperience()
+    {
+        return $this->hasMany(UserExperience::class, 'user_id');
+    }
+
+    public function UserLanguage()
+    {
+        return $this->hasMany(UserLanguage::class, 'user_id');
+    }
 }

@@ -20,4 +20,9 @@ class MProvince extends Model
         'updated',
         'updated_id'
     ];
+
+    public function User()
+    {
+        return $this->hasMany(User::class, 'm_province_id');
+    }
 }
