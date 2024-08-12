@@ -33,4 +33,9 @@ class Event extends Model
     {
         return $this->belongsTo(MEventType::class, 'm_event_type_id');
     }
+
+    public function EventRequirement()
+    {
+        return $this->hasMany(EventRequirement::class, 'event_id');
+    }
 }

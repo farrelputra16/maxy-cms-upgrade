@@ -31,4 +31,14 @@ class EventRequirement extends Model
             ->where('event_id', $event_id)
             ->get();
     }
+
+    public function EventParticipantRequirement()
+    {
+        return $this->hasMany(EventParticipantRequirement::class, 'event_requirement_id');
+    }
+
+    public function Event()
+    {
+        return $this->belongsTo(Event::class, 'event_id');
+    }
 }

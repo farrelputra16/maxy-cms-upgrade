@@ -360,6 +360,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/event/requirement/edit', [EventController::class, 'getEditEventRequirement'])->name('getEditEventRequirement');
     Route::post('/event/requirement/edit', [EventController::class, 'postEditEventRequirement'])->name('postEditEventRequirement');
 
+    Route::get('/event/verification', [EventController::class, 'getEventVerification'])->name('getEventVerification');
+
 
 
     //                                     Partnership

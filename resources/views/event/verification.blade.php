@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title', 'Attendance')
+@section('title', 'Event Verification')
 
 @section('styles')
     <style>
@@ -322,7 +322,7 @@
 
     <div class="container conTitle">
         <h2>
-            Events
+            Event Verifications
         </h2>
         <form class="form-inline my-2 my-lg-0 me-3" method="post" action="{{ route('logout') }}">
             @csrf
@@ -337,12 +337,13 @@
                     <a class="sectionDashboard" href="{{ url('/') }}">Dashboard</a>
                     <span class="divider">></span>
                     <div class="secClass">Event</div>
+                    <span class="divider">></span>
+                    <div class="secClass">Attendance</div>
+                    <span class="divider">></span>
+                    <div class="secClass">Verifications</div>
                 </div>
                 <div class="col text-end">
-                    <a class="btn btn-outline border border-dark " href="{{ route('getAddEvent') }}"
-                        role="button"><b>Tambah
-                            Event
-                            +</b></a>
+                    
                 </div>
             </div>
         </div>
@@ -355,85 +356,28 @@
                     <table id="table" class="table table-striped custom-striped dt-responsive nowrap w-100 ">
                         <thead>
                             <tr>
-                                <th>No.</th>
-                                <th>ID</th>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Date start</th>
-                                <th>Date end</th>
-                                <th>Description</th>
-                                <th>Need verification</th>
-                                <th>Public</th>
-                                <th>Status</th>
+                                <th>Requirement</th>
+                                <th>Value</th>
                                 <th>Created at</th>
                                 <th>Updated at</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($events as $key => $item)
+                            @foreach ($requirement as $item)
                                 <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->id }}</td>
-                                    <td>
-                                        <img src="{{ asset('uploads/event/' . $item->image) }}" alt="Image"
-                                            style="max-width: 200px; max-height: 150px;">
-                                    </td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->date_start }}</td>
-                                    <td>{{ $item->date_end }}</td>
-                                    <td>{{ $item->description }}</td>
-                                    <td>
-                                        @if ($item->is_need_verification == 1)
-                                            <a class="ui tiny green label" style="text-decoration: none;">Yes</a>
-                                        @else
-                                            <a class="ui tiny red label" style="text-decoration: none;">No</a>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($item->is_public == 1)
-                                            <a class="ui tiny green label" style="text-decoration: none;">Yes</a>
-                                        @else
-                                            <a class="ui tiny red label" style="text-decoration: none;">No</a>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($item->status == 1)
-                                            <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
-                                        @else
-                                            <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
-                                        @endif
-                                    </td>
+                                    <td>{{ $item->EventRequirement->name }}</td>
+                                    <td>{{ $item->value }}</td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->updated_at }}</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <a href="{{ route('getEditEvent', ['id' => $item->id]) }}"
-                                                class="btn btn-primary">Edit</a>
-                                            <a href="{{ route('getAttendanceEvent', ['id' => $item->id]) }}"
-                                                class="btn btn-info">Attendance</a>
-                                            <a href="{{ route('getEventRequirement', ['id' => $item->id]) }}"
-                                                class="btn btn-secondary">Requirements</a>
-                                        </div>
-                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>No.</th>
-                                <th>ID</th>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Date start</th>
-                                <th>Date end</th>
-                                <th>Description</th>
-                                <th>Need verification</th>
-                                <th>Public</th>
-                                <th>Status</th>
+                                <th>Requirement</th>
+                                <th>Value</th>
                                 <th>Created at</th>
                                 <th>Updated at</th>
-                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

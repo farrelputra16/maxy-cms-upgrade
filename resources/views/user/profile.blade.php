@@ -443,6 +443,26 @@
                         <p>No data available</p>
                     @endif
                 </div>
+
+                <div class="field">
+                    <h3>Active Course</h3>
+                    @foreach($currentData->courseClassMembers as $portofolio)
+                        @if(isset($portofolio->courseClass) && !is_null($portofolio->courseClass) && $portofolio->courseClass->status_ongoing==1)
+                            <p class='active_course'>{{ $portofolio->courseClass->slug }}</p>
+                        @endif
+                    @endforeach
+                    <p id='active_course' class="d-none">No data available</p>
+                </div>
+
+                <div class="field">
+                    <h3>Completed Course</h3>
+                    @foreach($currentData->courseClassMembers as $portofolio)
+                        @if(isset($portofolio->courseClass) && !is_null($portofolio->courseClass) && $portofolio->courseClass->status_ongoing==2)
+                            <p class='completed_course'>{{ $portofolio->courseClass->slug }}</p>
+                        @endif
+                    @endforeach
+                    <p id='completed_course' class="d-none">No data available</p>
+                </div>
             </div>
         </form>
 
@@ -454,7 +474,25 @@
     </div>
 
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var activeCourses = document.getElementsByClassName("active_course");
+        if (activeCourses.length === 0) {
+            var noDataElement = document.getElementById("active_course");
+            if (noDataElement) {
+                noDataElement.classList.remove("d-none");
+            }
+        }
 
+        var activeCourses = document.getElementsByClassName("completed_course");
+        if (activeCourses.length === 0) {
+            var noDataElement = document.getElementById("completed_course");
+            if (noDataElement) {
+                noDataElement.classList.remove("d-none");
+            }
+        }
+    });
+</script>
 </html>
 <script>
     CKEDITOR.replace('description');

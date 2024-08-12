@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\EventRequirement;
 use App\Models\MEventType;
+use App\Models\EventParticipantRequirement;
 use Illuminate\Support\Facades\File;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
@@ -94,8 +95,8 @@ class EventController extends Controller
     }
 
     function postEditEvent(Request $request)
-    { //dd($request);
-        $idevent = $request->id;
+    {   
+        $idevent = $request->id;//dd($request);
 
         $validated = $request->validate([
             'name' => 'required',
@@ -214,5 +215,18 @@ class EventController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('getEventRequirement', ['id' => $request->event_id])->with('error', 'failed to update event requirement: ' . $e->getMessage());
         }
+    }
+
+    public function getEventVerification(Request $request)
+    {
+        // dd($request->all());
+        $requirement = EventParticipantRequirement::with(['EventRequirement', 'User'])
+            ->where('user_id', $request->user_id)
+            ->whereHas('EventRequirement', function($query) use ($request) {
+                $query->where('event_id', $request->event_id);
+            })
+            ->get();
+
+        return view('event.verification', compact(['requirement']));
     }
 }

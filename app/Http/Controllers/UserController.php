@@ -27,7 +27,12 @@ class UserController extends Controller
 
     function getProfileUser(Request $request)
     {
-        $users = User::with(['UserCertificate', 'UserEducation', 'UserPortofolio', 'MProvince', 'UserExperience', 'UserLanguage', 'UserLanguage.MLanguage'])
+        // $users = User::with(['UserCertificate', 'UserEducation', 'UserPortofolio', 'MProvince', 'UserExperience', 'UserLanguage', 'UserLanguage.MLanguage', 'courseClassMembers.courseClass'])
+        //     ->find($request->id);
+
+        $users = User::with(['UserCertificate', 'UserEducation', 'UserPortofolio', 'MProvince', 'UserExperience', 'UserLanguage', 'UserLanguage.MLanguage', 'courseClassMembers.courseClass' => function ($query) {
+                $query->where('status_ongoing', '>', 0);
+            }])
             ->find($request->id);
         $father = DB::table('user_parent')
             ->where('user_id', $request->id)

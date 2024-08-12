@@ -217,12 +217,20 @@
                         <textarea name="description">{{ $course_class_detail->description }}</textarea>
                     </div>
 
-                    <div class="field">
+                    <!-- <div class="field">
                         <div class="ui checkbox">
                             <input class="form-check-input" type="checkbox" value="1"
                                 {{ $course_class_detail->status_ongoing == 1 ? 'checked' : '' }} name="ongoing">
                             <label>Ongoing</label>
                         </div>
+                    </div> -->
+                    <div class="field">
+                        <label for="">Ongoing</label>
+                        <select name="ongoing" class="ui dropdown">
+                            <option value="0" @if ($course_class_detail->status_ongoing==0) selected @endif> Not Started </option>
+                            <option value="1" @if ($course_class_detail->status_ongoing==1) selected @endif> Ongoing </option>
+                            <option value="2" @if ($course_class_detail->status_ongoing==2) selected @endif> Completed </option>
+                        </select>
                     </div>
                     <div class="field">
                         <div class="ui checkbox">

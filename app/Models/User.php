@@ -114,4 +114,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserLanguage::class, 'user_id');
     }
+
+    public function EventParticipantRequirement()
+    {
+        return $this->hasMany(EventParticipantRequirement::class, 'user_id');
+    }
 }

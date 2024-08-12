@@ -184,7 +184,7 @@ class CourseClassController extends Controller
                 'course_id' => $request->course_id,
                 'announcement' => $request->announcement,
                 'content' => $request->content,
-                'status_ongoing' => $request->ongoing ? 1 : 0,
+                'status_ongoing' => $request->ongoing ? $request->ongoing : 0,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => auth()->user()->id,
