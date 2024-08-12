@@ -23,10 +23,10 @@
             <h2>Event</h2>
             <hr>
             <div class="ui breadcrumb pt-2 pb-4">
-            <a class="section" href="{{ url('/') }}">Dashboard</a>
-            <i class="right angle icon divider"></i>
-            <div class="active section">Events</div>
-        </div>
+                <a class="section" href="{{ url('/') }}">Dashboard</a>
+                <i class="right angle icon divider"></i>
+                <div class="active section">Events</div>
+            </div>
             <div id="example_wrapper">
                 <div class="navbar bg-body-tertiary" style="padding: 12px 0px 12px 0px;">
                     <div class="navbar-nav">
@@ -56,7 +56,8 @@
                             <tr>
                                 <td>{{ $item->id }}</td>
                                 <td>
-                                    <img src="{{ asset('uploads/event/' . $item->image) }}" alt="Image" style="max-width: 200px; max-height: 150px;">
+                                    <img src="{{ asset('uploads/event/' . $item->image) }}" alt="Image"
+                                        style="max-width: 200px; max-height: 150px;">
                                 </td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->date_start }}</td>
@@ -89,10 +90,10 @@
                                     <div class="btn-group">
                                         <a href="{{ route('getEditEvent', ['id' => $item->id]) }}"
                                             class="btn btn-primary">Edit</a>
-                                    </div>
-                                    <div class="btn-group">
                                         <a href="{{ route('getAttendanceEvent', ['id' => $item->id]) }}"
-                                            class="btn btn-primary">Absence</a>
+                                            class="btn btn-info">Attendance</a>
+                                        <a href="{{ route('getEventRequirement', ['id' => $item->id]) }}"
+                                            class="btn btn-secondary">Requirements</a>
                                     </div>
                                 </td>
                             </tr>
@@ -114,31 +115,33 @@
             <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
             <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
 
-            
+
             <script>
-                $(document).ready(function () {
+                $(document).ready(function() {
                     let table = $('#example').DataTable({
                         lengthChange: true,
                         lengthMenu: [10, 25, 50, 100],
                         buttons: ['copy', 'excel', 'pdf', 'colvis'],
                         searching: true,
-                        columnDefs: [
-                            { "visible": false, "targets": [0] }
-                        ]
+                        columnDefs: [{
+                            "visible": false,
+                            "targets": [0]
+                        }]
                     });
 
                     // Add individual column search inputs and titles
-                    $('#example thead th').each(function () {
+                    $('#example thead th').each(function() {
                         let title = $(this).text();
                         $(this).html('<div class="text-center">' + title +
-                    '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' + title +
-                    '" /></div>');
+                            '</div><div class="mt-2"><input class="form-control" type="text" placeholder="Search ' +
+                            title +
+                            '" /></div>');
                     });
 
                     // Apply individual column search
-                    table.columns().every(function () {
+                    table.columns().every(function() {
                         let that = this;
-                        $('input', this.header()).on('keyup change', function () {
+                        $('input', this.header()).on('keyup change', function() {
                             if (that.search() !== this.value) {
                                 that.search(this.value).draw();
                             }
