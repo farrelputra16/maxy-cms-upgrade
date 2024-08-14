@@ -35,6 +35,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\MPartnershipTypeController;
 use App\Http\Controllers\PartnershipController;
+use App\Http\Controllers\MSurveyController;
 
 // jago digital controller ###########################################################################################################
 use App\Http\Controllers\AgentController;
@@ -197,6 +198,15 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/partnership/type/edit', [MPartnershipTypeController::class, 'getEditPartnershipType'])->name('getEditPartnershipType')->middleware('access:m_partnership_type_update');
     Route::post('/partnership/type/edit', [MPartnershipTypeController::class, 'postEditPartnershipType'])->name('postEditPartnershipType')->middleware('access:m_partnership_type_update');
+
+    // survey
+    Route::get('/survey', [MSurveyController::class, 'getSurvey'])->name('getSurvey')->middleware('access:m_survey_manage');
+
+    Route::get('/survey/add', [MSurveyController::class, 'getAddSurvey'])->name('getAddSurvey')->middleware('access:m_survey_create');
+    Route::post('/survey/add', [MSurveyController::class, 'postAddSurvey'])->name('postAddSurvey')->middleware('access:m_survey_create');
+
+    Route::get('/survey/edit', [MSurveyController::class, 'getEditSurvey'])->name('getEditSurvey')->middleware('access:m_survey_update');
+    Route::post('/survey/edit', [MSurveyController::class, 'postEditSurvey'])->name('postEditSurvey')->middleware('access:m_survey_update');
 
     //                                                      USER MANAGEMENT
 

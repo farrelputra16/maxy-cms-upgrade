@@ -71,7 +71,6 @@ class UserController extends Controller
             'email' => 'required|unique:users,email|email',
             'password' => 'required|min:5',
             'access_group' => 'required',
-            'phone' => 'required'
         ]);
 
         if ($request->hasFile('file_image')) {
@@ -149,7 +148,6 @@ class UserController extends Controller
             'email' => 'required|email',
             'password' => 'required',
             'access_group' => 'required',
-            'phone' => 'required'
         ]);
 
         // return dd($request);

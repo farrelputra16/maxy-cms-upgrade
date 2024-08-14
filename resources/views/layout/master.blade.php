@@ -247,6 +247,9 @@
                         <li class="nav-item">
                             <a href="{{ route('getPartnershipType') }}" class="list-group-item list-group-item-action {{ Route::is('getPartnershipType') ? 'active' : '' }}">Partnership Type</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('getSurvey') }}" class="list-group-item list-group-item-action {{ Route::is('getSurvey') ? 'active' : '' }}">Survey</a>
+                        </li>
                     </ul>
                 </li>
 
@@ -268,9 +271,6 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('getCCMHGrade') }}" class="list-group-item list-group-item-action {{ Route::is('getCCMHGrade') ? 'active' : '' }}">Grade Assignment</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('getAttendance') }}" class="list-group-item list-group-item-action {{ Route::is('getAttendance') ? 'active' : '' }}">Attendance</a>
                         </li>
                     </ul>
                 </li>
