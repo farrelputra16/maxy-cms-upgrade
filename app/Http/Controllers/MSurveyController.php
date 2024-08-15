@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MSurvey;
+use App\Models\SurveyResult;
 use Illuminate\Support\Facades\Auth;
 
 class MSurveyController extends Controller
@@ -53,16 +54,6 @@ class MSurveyController extends Controller
         ]);
 
         if($validate){
-            // $update = MSurvey::where('id', '=', $request->id)
-            //     ->update([
-            //         'survey' => $request->survey ? $request->survey : 0,
-            //         'name' => $request->name,
-            //         'expired_date' => date('Y-m-d H:i:s', strtotime($request->expired_date)),
-            //         'type' => $request->type ? $request->type : 0,
-            //         'description' => $request->description,
-            //         'status' => $request->status ? 1 : 0,
-            //         'updated_id' => Auth::user()->id,
-            //     ]);
             $update = MSurvey::find($request->id);
             $update->update([
                     'survey' => $request->survey ? $request->survey : $update->survey,
@@ -80,5 +71,19 @@ class MSurveyController extends Controller
                 return app(HelperController::class)->Warning('getSurvey');
             }
         }
+    }
+
+    function getSurveyResult(Request $request){
+        $SurveyResult = SurveyResult::with('MSurvey', 'User')
+            ->where('survey_id', $request->id)
+            ->get();
+        return view('m_survey.result.index', ['SurveyResult' => $SurveyResult]);
+    }
+
+    function getSurveyResultDetail(Request $request){
+        $SurveyResult = SurveyResult::with('MSurvey', 'User')
+            ->where('id', $request->id)
+            ->first();
+        return view('m_survey.result.detail', ['currentData' => $SurveyResult]);
     }
 }

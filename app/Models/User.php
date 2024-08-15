@@ -119,4 +119,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(EventParticipantRequirement::class, 'user_id');
     }
+
+    public function SurveyResult()
+    {
+        return $this->hasMany(SurveyResult::class, 'user_id');
+    }
 }

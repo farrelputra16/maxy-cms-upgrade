@@ -144,7 +144,7 @@
         <span class="divider">></span>
         <div class="sectionMaster">Master</div>
         <span class="divider">></span>
-        <div class="sectionProposal">Proposal</div>
+        <div class="sectionProposal">Survey</div>
     </div>
 
     <div class="container">
@@ -202,9 +202,6 @@
                 <div id="surveyCreatorContainer" style="position: absolute; height: 100%; width: 100%"></div>
             </div>
         </form>
-        <a href="{{ url()->previous() }}">
-            <button class="btnBatal">Batal</button>
-        </a>
     </div>
 </body>
 

@@ -349,7 +349,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="btn btn-transparent btnMember text-white" data-bs-toggle="collapse" href="#">
-                        <i class="fa fa-user logoMember"></i>
+                        <i class="fa-solid fa-file-pen"></i>
                         <span class="ms-2">Content</span>
                     </a>
                     <ul class="colMember collapse">

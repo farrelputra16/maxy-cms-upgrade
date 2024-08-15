@@ -182,9 +182,6 @@
                 <input type="hidden" name='survey' id='survey'>
                 <div id="surveyCreatorContainer" style="position: absolute; height: 100%; width: 100%"></div>
             </div>
-            <!-- <a href="{{ url()->previous() }}">
-            <button class="btnBatal">Batal</button>
-        </a> -->
         </form>
     </div>
 </body>

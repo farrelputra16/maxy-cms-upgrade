@@ -208,6 +208,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/survey/edit', [MSurveyController::class, 'getEditSurvey'])->name('getEditSurvey')->middleware('access:m_survey_update');
     Route::post('/survey/edit', [MSurveyController::class, 'postEditSurvey'])->name('postEditSurvey')->middleware('access:m_survey_update');
 
+    Route::get('/survey/result', [MSurveyController::class, 'getSurveyResult'])->name('getSurveyResult')->middleware('access:survey_result_manage');
+    Route::get('/survey/result/detail', [MSurveyController::class, 'getSurveyResultDetail'])->name('getSurveyResultDetail')->middleware('access:survey_result_read');
+
     //                                                      USER MANAGEMENT
 
     //AccessGroup Route #######################################################################################################

@@ -1,13 +1,13 @@
 @extends('layout.master')
 
-@section('title', 'Survey')
+@section('title', 'Survey Result')
 
 @section('content')
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Survey</title>
+    <title>Survey Result</title>
     <!-- Include CSS libraries for styling the table -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
@@ -196,7 +196,7 @@
             margin-bottom: 10px;
         }
 
-        .tableSurvey {
+        .tableSurvey Result {
             overflow: hidden;
         }
 
@@ -301,7 +301,7 @@
 
 <body>
     <div class="container conTitle">
-        <h2 class="h2">Survey</h2>
+        <h2 class="h2">Survey Result</h2>
         <form class="form-inline my-2 my-lg-0 me-3" method="post" action="{{ route('logout') }}">
             @csrf
             <button class="btnlogout" type="submit">Logout</button>
@@ -317,9 +317,10 @@
                     <div class="sectionMaster">Master</div>
                     <span class="divider">></span>
                     <div class="sectionProposal">Survey</div>
+                    <span class="divider">></span>
+                    <div class="sectionProposal">Survey Result</div>
                 </div>
                 <div class="col-2">
-                    <a class="btnAdd" href="{{ route('getAddSurvey', ['access' => 'm_survey_create']) }}" role="button">Add Survey +</a>
                 </div>
             </div>
         </div>
@@ -329,49 +330,34 @@
         <div class="row">
             <div class="card">
                 <div class="card-body">
-                    <table id="table" class="tableSurvey table-striped custom-striped" style="width:100%">
+                    <table id="table" class="tableSurvey Result table-striped custom-striped" style="width:100%">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>URL</th>
-                                <th>Name</th>
-                                <th>Expired Date</th>
-                                <th>Type</th>
-                                <th>Description</th>
+                                <th>Survey Name</th>
+                                <th>Respondent Name</th>
+                                <th>Content</th>
+                                <th>Score</th>
                                 <th>Created At</th>
-                                <th>Updated At</th>
-                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($MSurvey as $item)
+                            @foreach ($SurveyResult as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
-                                <td>{{ config('app.frontend_app_url').'/lms/survey/'.$item->id }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->expired_date }}</td>
-                                <td>
-                                    @if ($item->type == 0)
-                                    <span class="badge text-bg-warning" style="padding: 15%; font-size: smaller; ">Evaluasi</span>
-                                    @elseif ($item->type == 1)
-                                    <span class="badge text-bg-primary" style="padding: 15%; font-size: smaller; ">Quiz</span>
-                                    @endif
-                                </td>
-                                <td id="description">{{ $item->description }}</td>
+                                <td>{{ $item->MSurvey->name }}</td>
+                                <td>{{ $item->User->name }}</td>
+                                @if(strlen($item->content) > 75)
+                                    <td>{{ substr($item->content, 0, 75) }}...</td>
+                                @else
+                                    <td>{{ $item->content }}</td>
+                                @endif
+                                <td>{{ $item->score }}</td>
                                 <td>{{ $item->created_at }}</td>
-                                <td>{{ $item->updated_at }}</td>
-                                <td>
-                                    @if ($item->status == 1)
-                                    <a class="btnAktif">Aktif</a>
-                                    @else
-                                    <a class="btnNon">Non Aktif</a>
-                                    @endif
-                                </td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('getEditSurvey', ['id' => $item->id, 'access' => 'm_survey_update']) }}" class="btnEdit">Edit</a>
-                                        <a href="{{ route('getSurveyResult', ['id' => $item->id, 'access' => 'survey_result_manage']) }}" class="btnEdit">Result</a>
+                                        <a href="{{ route('getSurveyResultDetail', ['id' => $item->id, 'access' => 'survey_result_read']) }}" class="btnEdit">Detail</a>
                                     </div>
                                 </td>
                             </tr>
@@ -380,14 +366,11 @@
                         <tfoot>
                             <tr>
                                 <th>ID</th>
-                                <th>URL</th>
-                                <th>Name</th>
-                                <th>Expired Date</th>
-                                <th>Type</th>
-                                <th>Description</th>
+                                <th>Survey Name</th>
+                                <th>Respondent Name</th>
+                                <th>Content</th>
+                                <th>Score</th>
                                 <th>Created At</th>
-                                <th>Updated At</th>
-                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -465,7 +448,7 @@
 
         let buttonContainer = $('<div>').addClass('buttons-container');
         table.buttons().container().appendTo(buttonContainer);
-        buttonContainer.insertBefore('.tableSurvey_wrapper .dataTables_length');
+        buttonContainer.insertBefore('.tableSurvey Result_wrapper .dataTables_length');
 
         // $('.buttons-prev').on('click', function() {
         //     table.page('previous').draw('page');
