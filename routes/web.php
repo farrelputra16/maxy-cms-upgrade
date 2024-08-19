@@ -414,6 +414,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Route::get('/blog/edit', [BlogController::class, 'getEditBlog'])->name('getEditBlog')->middleware('access:blog_update');
     // Route::post('/blog/edit', [BlogController::class, 'postEditBlog'])->name('postEditBlog')->middleware('access:blog_update');
+
+    Route::get('/blog-tag', [BlogController::class, 'getBlogTag'])->name('getBlogTag');
+
+    Route::get('/blog-tag/add', [BlogController::class, 'getAddBlogTag'])->name('getAddBlogTag');
+    Route::post('/blog-tag/add', [BlogController::class, 'postAddBlogTag'])->name('postAddBlogTag');
+
+    Route::get('/blog-tag/edit', [BlogController::class, 'getEditBlogTag'])->name('getEditBlogTag');
+    Route::post('/blog-tag/edit', [BlogController::class, 'postEditBlogTag'])->name('postEditBlogTag');
 });
 
 // bad access

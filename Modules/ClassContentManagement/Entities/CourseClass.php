@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\ClassContentManagement\Entities\CourseClassModule;
 
 use Illuminate\Support\Facades\Auth;
-use DB;
+use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Psr7\Request;
 
 class CourseClass extends Model
@@ -45,9 +45,10 @@ class CourseClass extends Model
 
     public function scopeTotalDuration($query)
     {
-        return $query->addSelect(['total_duration' => CourseClassModule::selectRaw('CAST(SUM(course_module.duration) AS SIGNED)')
-            ->whereColumn('course_class_module.course_class_id', 'course_class.id')
-            ->leftJoin('course_module', 'course_class_module.course_module_id', '=', 'course_module.id')
+        return $query->addSelect([
+            'total_duration' => CourseClassModule::selectRaw('CAST(SUM(course_module.duration) AS SIGNED)')
+                ->whereColumn('course_class_module.course_class_id', 'course_class.id')
+                ->leftJoin('course_module', 'course_class_module.course_module_id', '=', 'course_module.id')
         ]);
     }
 
@@ -79,9 +80,9 @@ class CourseClass extends Model
             ->whereHas('courseModule', function ($query) {
                 $query->where('level', 1)->where('status', 1)->whereNotNull('day')->orderBy('priority')->orderBy('day');
             })
-//            ->whereHas('gradings', function ($query) {
-//                $query->where('user_id', auth()->user()->id);
-//            })
+            //            ->whereHas('gradings', function ($query) {
+            //                $query->where('user_id', auth()->user()->id);
+            //            })
             ->get();
     }
 
@@ -118,32 +119,32 @@ class CourseClass extends Model
         return $class_list;
     }
 
-    public static function getTutorEnrolledClass($hasManageAllClass , $class_id)
+    public static function getTutorEnrolledClass($hasManageAllClass, $class_id)
     {
         // dd( $class_id);
         if ($hasManageAllClass) {
             $class_list = DB::table('course_module as cm')
-            ->select('cm.id', 'cm.name', 'cm.day', 'course.name as course_name', 'course_class.batch', 'course_class.id as class_id', 'course_class_module.id as module')
-            ->whereIn('cm.type', ['assignment', 'quiz'])
-            ->join('course_class_module', 'course_class_module.course_module_id', '=', 'cm.id')
-            ->join('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
-            ->join('course_class_member', 'course_class_member.course_class_id', '=', 'course_class.id')
-            ->join('course', 'course.id', '=', 'course_class.course_id')
-            ->where('course_class.id', $class_id)
-            ->get();
+                ->select('cm.id', 'cm.name', 'cm.day', 'course.name as course_name', 'course_class.batch', 'course_class.id as class_id', 'course_class_module.id as module')
+                ->whereIn('cm.type', ['assignment', 'quiz'])
+                ->join('course_class_module', 'course_class_module.course_module_id', '=', 'cm.id')
+                ->join('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
+                ->join('course_class_member', 'course_class_member.course_class_id', '=', 'course_class.id')
+                ->join('course', 'course.id', '=', 'course_class.course_id')
+                ->where('course_class.id', $class_id)
+                ->get();
         } else {
             $class_list = DB::table('course_module as cm')
-            ->select('cm.id', 'cm.name', 'cm.day', 'course.name as course_name', 'course_class.batch', 'course_class.id as class_id', 'course_class_module.id as module')
-            ->whereIn('cm.type', ['assignment', 'quiz'])
-            ->join('course_class_module', 'course_class_module.course_module_id', '=', 'cm.id')
-            ->join('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
-            ->join('course_class_member', 'course_class_member.course_class_id', '=', 'course_class.id')
-            ->join('course', 'course.id', '=', 'course_class.course_id')
-            ->where('course_class.id', $class_id)
-            ->where('course_class_member.user_id', Auth::user()->id)
-            ->get();
+                ->select('cm.id', 'cm.name', 'cm.day', 'course.name as course_name', 'course_class.batch', 'course_class.id as class_id', 'course_class_module.id as module')
+                ->whereIn('cm.type', ['assignment', 'quiz'])
+                ->join('course_class_module', 'course_class_module.course_module_id', '=', 'cm.id')
+                ->join('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
+                ->join('course_class_member', 'course_class_member.course_class_id', '=', 'course_class.id')
+                ->join('course', 'course.id', '=', 'course_class.course_id')
+                ->where('course_class.id', $class_id)
+                ->where('course_class_member.user_id', Auth::user()->id)
+                ->get();
         }
-        
+
 
         // dd($class_list);
 
@@ -204,7 +205,7 @@ class CourseClass extends Model
 
     public static function getAllParentCourseModuleByCourseId($courseId)
     {
-        
+
         $allModule = DB::table('course_module as cm')
             ->select('*')
             ->where('cm.course_id', '=', $courseId)
@@ -213,7 +214,7 @@ class CourseClass extends Model
             ->where('level', 1)
             ->get();
 
-            // dd($allModule);
+        // dd($allModule);
         return $allModule;
     }
 
@@ -239,7 +240,7 @@ class CourseClass extends Model
             ->where('cc.id', $courseClassId)
             ->first();
 
-            // dd($classDetail);
+        // dd($classDetail);
 
         $classDetail->parent_modules = DB::table('course_class_module as ccmodule')
             ->select('ccmodule.*', 'cm.name as module_name', 'cm.type as module_type', 'cm.id as module_id')

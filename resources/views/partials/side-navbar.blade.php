@@ -8,58 +8,18 @@
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title" key="t-menu">Menu</li>
+
                 <li>
                     <a href="{{ route('getDashboard2') }}" class="waves-effect">
                         <i class="bx bx-home-circle"></i>
                         <span key="t-dashboard">Dashboard</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('agent.getContent') }}" class="waves-effect">
-                        <i class="bx bx-info-circle"></i>
-                        <span key="t-content">Content</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('agent.getTestimonial') }}" class="waves-effect">
-                        <i class='bx bx-line-chart'></i>
-                        <span key="t-content">Testimonial</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('agent.getColor') }}" class="waves-effect">
-                        <i class="bx bx-palette"></i>
-                        <span key="t-color">Color</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('agent.getSetting') }}" class="waves-effect">
-                        <i class="bx bx-cog"></i>
-                        <span key="t-setting">Setting</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bxs-bar-chart-alt-2"></i>
-                        <span key="t-transaction">Content</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#" key="t-carousel">Carousel</a></li>
-                        <li><a href="#" key="t-testimonial">Testimonial</a></li>
-                        <li><a href="{{ route('getBlog') }}" key="t-blog">Blog</a></li>
-                    </ul>
-                </li>
 
                 <li>
-                    <a href="{{ url('/profile') }}" class="waves-effect">
-                        <i class="fas fa-user-circle logoDash"></i>
-                        <span key="t-setting">Profile</span>
-                    </a>
-                </li>
-                <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="fa fa-book logoMaster"></i>
-                        <span key="t-transaction">Master</span>
+                        <i class='bx bx-book'></i>
+                        <span key="t-master">Master</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('getCourse') }}" key="t-carousel">Course</a></li>
@@ -73,83 +33,99 @@
                         <li><a href="{{ route('getEventType') }}" key="t-blog">Event Type</a></li>
                         <li><a href="{{ route('getPartnershipType') }}" key="t-blog">Partnership Type</a></li>
                         <li><a href="{{ route('getSurvey') }}" key="t-blog">Survey</a></li>
-                        
+
                     </ul>
                 </li>
+
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="fa fa-graduation-cap logoClass"></i>
-                        <span key="t-transaction">Class</span>
+                        <i class='bx bxs-graduation'></i>
+                        <span key="t-class">Class</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('getCourseClass') }}" key="t-carousel">Class</a></li>
-                        <li><a href="{{ route('certificate-templates.index') }}" key="t-carousel">Certificate Template</a></li>
-                        <li><a href="{{ route('getCCMH') }}" key="t-carousel">Student Tracker</a></li>
-                        <li><a href="{{ route('getCCMHGrade') }}" key="t-carousel">Grade Assignment</a></li>
+                        <li><a href="{{ route('getCourseClass') }}" key="t-class">Class Management</a></li>
+                        <li><a href="{{ route('certificate-templates.index') }}" key="t-certificate">Certificate
+                                Template</a></li>
+                        <li><a href="{{ route('getCCMH') }}" key="t-student-tracker">Student Tracker</a></li>
+                        <li><a href="{{ route('getCCMHGrade') }}" key="t-grade-assignment">Grade Assignment</a></li>
                     </ul>
                 </li>
+
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="fa-solid fa-calendar"></i>
-                        <span key="t-transaction">Schedule</span>
+                        <i class='bx bx-calendar-event'></i>
+                        <span key="t-schedule">Schedule</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('getSchedule') }}" key="t-carousel">Schedule</a></li>
+                        <li><a href="{{ route('getSchedule') }}" key="t-schedule">Schedule</a></li>
                     </ul>
                 </li>
+
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="fa fa-shield logoUser"></i>
-                        <span key="t-transaction">User & Access</span>
+                        <i class='bx bx-lock-open'></i>
+                        <span key="t-user-access">User & Access</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('getUser') }}" key="t-carousel">Users</a></li>
-                        <li><a href="{{ route('getAccessGroup') }}" key="t-carousel">Access Group</a></li>
-                        <li><a href="{{ route('getAccessMaster') }}" key="t-carousel">Access Master</a></li>
-                        <li><a href="#" key="t-carousel">Need Help?</a></li>
+                        <li><a href="{{ route('getUser') }}" key="t-user">Users</a></li>
+                        <li><a href="{{ route('getAccessGroup') }}" key="t-access-group">Access Group</a></li>
+                        <li><a href="{{ route('getAccessMaster') }}" key="t-access-master">Access Master</a></li>
                     </ul>
                 </li>
+
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="fa fa-shopping-cart logoOrder"></i>
-                        <span key="t-transaction">Order</span>
+                        <i class='bx bx-cart'></i>
+                        <span key="t-transaction">Transaction</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('getTransOrder') }}" key="t-carousel">Orders</a></li>
-                        <li><a href="{{ route('getVoucher') }}" key="t-carousel">Vouchers</a></li>
+                        <li><a href="{{ route('getTransOrder') }}" key="t-order">Order</a></li>
+                        <li><a href="{{ route('getVoucher') }}" key="t-voucher">Vouchers</a></li>
                     </ul>
                 </li>
+
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="fa fa-gear logoSet"></i>
-                        <span key="t-transaction">Settings</span>
+                        <i class='bx bx-user-circle'></i>
+                        <span key="t-member">Member</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('getGeneral') }}" key="t-blog">General</a></li>
-                        <li><a href="{{ route('getMaxyTalk') }}" key="t-blog">Maxy Talk</a></li>
+                        <li><a href="{{ route('getTestimonial') }}" key="t-testimonial">Testimonial</a></li>
+                        <li><a href="{{ route('getRedeemCode') }}" key="t-redeem-code">Redeem Code</a></li>
+                        <li><a href="{{ route('getProposal') }}" key="t-proposal">Proposal</a></li>
                     </ul>
                 </li>
+
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="fa fa-user logoMember"></i>
-                        <span key="t-transaction">Members</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('getTestimonial') }}" key="t-blog">Testimonial</a></li>
-                        <li><a href="{{ route('getRedeemCode') }}" key="t-blog">Redeem Code</a></li>
-                        <li><a href="{{ route('getProposal') }}" key="t-blog">Proposal</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="fa-solid fa-file-pen"></i>
-                        <span key="t-transaction">Content</span>
+                        <i class="bx bxs-bar-chart-alt-2"></i>
+                        <span key="t-content">Content</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('getCarousel') }}" key="t-carousel">Carousel</a></li>
-                        <li><a href="{{ route('getEvent') }}" key="t-carousel">Event</a></li>
-                        <li><a href="{{ route('getPartnership') }}" key="t-carousel">Partnership</a></li>
+                        <li><a href="{{ route('getEvent') }}" key="t-event">Event</a></li>
+                        <li><a href="{{ route('getPartnership') }}" key="t-partnership">Partnership</a></li>
+                        <li><a href="#" key="t-testimonial">Testimonial</a></li>
+                        <li><a href="{{ route('getBlog') }}" key="t-blog">Blog</a></li>
+                        <li><a href="{{ route('getBlogTag') }}" key="t-blog-tag">Blog Tag</a></li>
                     </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class='bx bx-cog'></i>
+                        <span key="t-setting">Settings</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('getGeneral') }}" key="t-general">General</a></li>
+                        <li><a href="{{ route('getMaxyTalk') }}" key="t-maxy-talk">Maxy Talk</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{{ route('profile') }}" class="waves-effect">
+                        <i class="bx bx-info-circle"></i>
+                        <span key="t-profile">Profile</span>
+                    </a>
                 </li>
             </ul>
         </div>

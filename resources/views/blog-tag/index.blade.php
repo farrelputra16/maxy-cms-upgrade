@@ -42,18 +42,12 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Order Number</th>
-                                <th>Member</th>
-                                <th>Course</th>
-                                <th>Date</th>
-                                <th>Total</th>
-                                <th>Discount</th>
-                                <th>After Discount</th>
-                                <th>Course Package</th>
-                                <th>Promo</th>
-                                <th>Seller Agent</th>
-                                <th>Payment Status</th>
-                                <th class="data-long">Description</th>
+                                <th>Title</th>
+                                <th>Slug</th>
+                                <th>Content</th>
+                                <th>Cover Image</th>
+                                <th>Tags</th>
+                                <th>Description</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>
@@ -63,48 +57,36 @@
                             </tr>
                         </thead>
 
+
                         <tbody>
-                            @foreach ($order as $key => $item)
+                            @foreach ($blog as $key => $item)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->id }}</td>
                                     <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->order_number }}">
-                                        {!! \Str::limit($item->order_number, 30) !!}
+                                        title="{{ $item->title }}">
+                                        {!! \Str::limit($item->title, 30) !!}
                                     </td>
-                                    <td>{{ $item->users_name }}</td>
-                                    <td>{{ $item->course_name }}</td>
-                                    <td>{{ $item->date }}</td>
-                                    <td>{{ 'Rp ' . number_format($item->total, 0, ',', '.') }}</td>
-                                    <td>{{ $item->discount ?? 0 }}%</td>
-                                    <td>{{ 'Rp' . number_format($item->total_after_discount) }}</td>
-                                    <td>{{ $item->course_package_name }}</td>
-                                    <td>
-                                        @if ($item->promotion_name !== null)
-                                            {{ $item->promotion_name }}
-                                        @else
-                                            Tidak ada
-                                        @endif
+                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
+                                        title="{{ $item->slug }}">
+                                        <a href="https://maxy.academy/blog/{{ $item->slug }}"
+                                            target="_blank">{!! \Str::limit($item->slug, 30) !!}</a>
                                     </td>
-                                    <td>{{ $item->agent_name }}</td>
+                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                        title="{!! strip_tags($item->content) !!}">
+                                        {!! \Str::limit($item->content, 30) !!}
+                                    </td>
                                     <td>
-                                        @if ($item->payment_status == 0)
-                                            <!-- Not Completed -->
-                                            <a class="btn btn-info disabled">Not
-                                                Completed</a>
-                                        @elseif ($item->payment_status == 1)
-                                            <!-- Completed -->
-                                            <a class="btn btn-success disabled">Completed</a>
-                                        @elseif ($item->payment_status == 2)
-                                            <!-- Partial -->
-                                            <a class="btn btn-warning disabled">Partial</a>
-                                        @elseif ($item->payment_status == 3)
-                                            <!-- Cancelled -->
-                                            <a class="btn btn-danger disabled">Cancelled</a>
-                                        @else
-                                            <!-- Unknown Status -->
-                                            <a class="btn btn-dark disabled">Unknown Status</a>
-                                        @endif
+                                        <img class="w-100"
+                                            src="{{ asset('uploads/blog/' . $item->slug . '/' . $item->cover_img) }}"
+                                            alt="{{ $item->cover_img }}">
+                                    </td>
+                                    <td>
+                                        @foreach ($item->tags as $tag)
+                                            <div class="btn btn-secondary rounded-pill">
+                                                {{ $tag->name }}
+                                            </div>
+                                        @endforeach
                                     </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->description) !!}">
@@ -116,40 +98,29 @@
                                     <td>{{ $item->updated_id }}</td>
                                     <td value="{{ $item->status }}">
                                         @if ($item->status == 1)
-                                            <a class="btn btn-success disabled">Aktif</a>
+                                            <a class="btn btn-success">Aktif</a>
                                         @else
-                                            <a class="btn btn-danger disabled">Non Aktif</a>
+                                            <a class="btn btn-danger">Non Aktif</a>
                                         @endif
                                     </td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="{{ route('getEditTransOrder', ['id' => $item->id]) }}"
+                                            <a href="{{ route('getEditBlog', ['id' => $item->id]) }}"
                                                 class="btn btn-primary">Edit</a>
-                                            <a href="{{ route('getTransOrderConfirm', ['id' => $item->id]) }}"
-                                                class="btn btn-info">Proof of Payment</a>
-                                            {{-- <a href="{{ route('showTransOrderDetail', ['id' => $item->id]) }}"
-                                                class="btn btn-info">Detail</a> --}}
                                         </div>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
-
                         <tfoot>
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Order Number</th>
-                                <th>Member</th>
-                                <th>Course</th>
-                                <th>Date</th>
-                                <th>Total</th>
-                                <th>Discount</th>
-                                <th>After Discount</th>
-                                <th>Course Package</th>
-                                <th>Promo</th>
-                                <th>Seller Agent</th>
-                                <th>Payment Status</th>
+                                <th class="data-medium">Title</th>
+                                <th>Slug</th>
+                                <th class="data-long">Content</th>
+                                <th>Cover Image</th>
+                                <th>Tags</th>
                                 <th class="data-long">Description</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
