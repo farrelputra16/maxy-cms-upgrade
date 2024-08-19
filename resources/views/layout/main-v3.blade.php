@@ -11,7 +11,7 @@
     <meta content="Themesbrand" name="author" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/cms-v3/images/favicon.ico') }}">
+    <!-- <link rel="shortcut icon" href="{{ asset('assets/cms-v3/images/favicon.ico') }}"> -->
 
 
 
@@ -41,6 +41,7 @@
     <link href="{{ asset('assets/cms-v3/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css') }}"
         rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ asset('assets/cms-v3/libs/@chenfengyuan/datepicker/datepicker.min.css') }}">
+    @yield('style')
 
     <!-- Bootstrap Css -->
     <link href="{{ asset('assets/cms-v3/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet"
@@ -54,6 +55,8 @@
     <!-- Custom Css -->
     <link href="{{ asset('assets/cms-v3/css/datatables-custom.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/0756825c13.js" crossorigin="anonymous"></script>
 </head>
 
 <body data-sidebar="dark">

@@ -275,6 +275,19 @@
                     </ul>
                 </li>
 
+                <!-- Schedule -->
+                <li class="nav-item">
+                    <a class="btn btn-transparent btnUser text-white" data-bs-toggle="collapse" href="#">
+                        <i class="fa-solid fa-calendar"></i>
+                        <span class="ms-2">Schedule</span>
+                    </a>
+                    <ul class="colUser collapse">
+                        <li class="nav-item">
+                            <a href="{{ route('getSchedule') }}" class="list-group-item list-group-item-action {{ Route::is('getSchedule') ? 'active' : '' }}">Schedule</a>
+                        </li>
+                    </ul>
+                </li>
+
                 <!-- User & Access -->
                 <li class="nav-item">
                     <a class="btn btn-transparent btnUser text-white" data-bs-toggle="collapse" href="#">

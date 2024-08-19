@@ -36,6 +36,7 @@ use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\MPartnershipTypeController;
 use App\Http\Controllers\PartnershipController;
 use App\Http\Controllers\MSurveyController;
+use App\Http\Controllers\ScheduleController;
 
 // jago digital controller ###########################################################################################################
 use App\Http\Controllers\AgentController;
@@ -210,6 +211,15 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/survey/result', [MSurveyController::class, 'getSurveyResult'])->name('getSurveyResult')->middleware('access:survey_result_manage');
     Route::get('/survey/result/detail', [MSurveyController::class, 'getSurveyResultDetail'])->name('getSurveyResultDetail')->middleware('access:survey_result_read');
+
+    // schedule
+    Route::get('/schedule', [ScheduleController::class, 'getSchedule'])->name('getSchedule')->middleware('access:m_survey_manage');
+
+    Route::get('/schedule/add', [ScheduleController::class, 'getAddSchedule'])->name('getAddSchedule')->middleware('access:m_survey_create');
+    Route::post('/schedule/add', [ScheduleController::class, 'postAddSchedule'])->name('postAddSchedule')->middleware('access:m_survey_create');
+
+    Route::get('/schedule/edit', [ScheduleController::class, 'getEditSchedule'])->name('getEditSchedule')->middleware('access:m_survey_update');
+    Route::post('/schedule/edit', [ScheduleController::class, 'postEditSchedule'])->name('postEditSchedule')->middleware('access:m_survey_update');
 
     //                                                      USER MANAGEMENT
 
