@@ -3,9 +3,9 @@
 @section('title', 'Schedule')
 
 @section('style')
-<link href="{{ asset('assets/cms-v3/libs/tui-time-picker/tui-time-picker.min.css') }}" />
-<link href="{{ asset('assets/cms-v3/libs/tui-date-picker/tui-date-picker.min.css') }}" />
-<link href="{{ asset('assets/cms-v3/libs/tui-calendar/tui-calendar.min.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/cms-v3/libs/tui-time-picker/tui-time-picker.min.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/cms-v3/libs/tui-date-picker/tui-date-picker.min.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/cms-v3/libs/tui-calendar/tui-calendar.min.css') }}" />
 @endsection
 
 @section('content')
