@@ -213,13 +213,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/survey/result/detail', [MSurveyController::class, 'getSurveyResultDetail'])->name('getSurveyResultDetail')->middleware('access:survey_result_read');
 
     // schedule
-    Route::get('/schedule', [ScheduleController::class, 'getSchedule'])->name('getSchedule')->middleware('access:m_survey_manage');
+    Route::get('/schedule', [ScheduleController::class, 'getSchedule'])->name('getSchedule')->middleware('access:schedule_manage');
 
-    Route::post('/schedule/add', [ScheduleController::class, 'postAddSchedule'])->name('postAddSchedule')->middleware('access:m_survey_create');
+    Route::post('/schedule/add', [ScheduleController::class, 'postAddSchedule'])->name('postAddSchedule')->middleware('access:schedule_create');
 
-    Route::post('/schedule/edit', [ScheduleController::class, 'postEditSchedule'])->name('postEditSchedule')->middleware('access:m_survey_update');
+    Route::post('/schedule/edit', [ScheduleController::class, 'postEditSchedule'])->name('postEditSchedule')->middleware('access:schedule_update');
 
-    Route::post('/schedule/delete', [ScheduleController::class, 'postDeleteSchedule'])->name('postDeleteSchedule')->middleware('access:m_survey_delete');
+    Route::post('/schedule/delete', [ScheduleController::class, 'postDeleteSchedule'])->name('postDeleteSchedule')->middleware('access:schedule_delete');
 
     //                                                      USER MANAGEMENT
 

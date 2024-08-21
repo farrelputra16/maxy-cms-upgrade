@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/cms-v3/libs/tui-date-picker/tui-date-picker.min.css') }}" />
 <!-- <link rel="stylesheet" type="text/css" href="{{ asset('assets/cms-v3/libs/tui-calendar/tui-calendar.min.css') }}" /> -->
 <link rel="stylesheet" href="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.css" />
-<script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
+<!-- <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script> -->
 @endsection
 
 @section('content')
@@ -73,6 +73,15 @@
         scheduleView: true,
         useCreationPopup: true,  // Enables the creation popup
         useDetailPopup: true,    // Enables the detail popup
+        template: {
+            popupDetailLocation: function(schedule) {
+                // Return an empty string or null to effectively remove the location field from the popup
+                return '';
+            },
+            // popupDetailPrivate: function(schedule) {
+            //     return '';
+            // }
+        },
         calendars: [
             {
                 id: '1',
@@ -82,16 +91,7 @@
                 dragBgColor: '#9e5fff',
                 borderColor: '#9e5fff'
             }
-        ],
-        template: {
-            popupDetailLocation: function(schedule) {
-                // Return an empty string or null to effectively remove the location field from the popup
-                return '';
-            },
-            popupDetailPrivate: function(schedule) {
-                return '';
-            }
-        }
+        ]
     });
     // Event handler for when a new schedule is created through the popup
     calendar.on('beforeCreateSchedule', function(event) {
