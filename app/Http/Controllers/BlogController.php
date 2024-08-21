@@ -38,7 +38,8 @@ class BlogController extends Controller
             $fileName = '';
             if ($request->hasFile('file_image')) {
                 $file = $request->file('file_image');
-                $fileName = $file->getClientOriginalName();
+                $extension = $file->getClientOriginalExtension();
+                $fileName = $request->slug . '.' . $extension;
                 $directory = public_path('/uploads/blog/' . $request->slug . '/');
 
                 // Create destination folder if it doesn't exist
@@ -91,7 +92,10 @@ class BlogController extends Controller
             // save cover image
             if ($request->hasFile('file_image')) {
                 $file = $request->file('file_image');
-                $fileName = $file->getClientOriginalName();
+
+                $extension = $file->getClientOriginalExtension();
+                $fileName = $request->slug . '.' . $extension;
+
                 $file->move(public_path('/uploads/blog/' . $request->slug . '/'), $fileName);
             } else {
                 $fileName = $request->img_keep;
@@ -105,7 +109,6 @@ class BlogController extends Controller
                 $blog->title = $request->title;
                 $blog->slug = $request->slug;
                 $blog->content = $request->content;
-                $blog->cover_img = $fileName;
                 $blog->description = $request->description;
                 $blog->status = $request->status == '' ? 0 : 1;
                 $blog->created_id = Auth::user()->id;

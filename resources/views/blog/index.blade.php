@@ -77,9 +77,8 @@
                                         {!! \Str::limit($item->content, 30) !!}
                                     </td>
                                     <td>
-                                        <img class="w-100"
-                                            src="{{ asset('uploads/blog/' . $item->slug . '/' . $item->cover_img) }}"
-                                            alt="{{ $item->cover_img }}">
+                                        <img src="{{ asset('uploads/blog/' . $item->slug . '/' . $item->cover_img) }}"
+                                            alt="{{ $item->cover_img }}" style="max-height: 10vh">
                                     </td>
                                     <td>
                                         @foreach ($item->tags as $tag)
