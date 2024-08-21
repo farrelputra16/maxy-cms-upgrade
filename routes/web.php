@@ -215,11 +215,11 @@ Route::group(['middleware' => 'auth'], function () {
     // schedule
     Route::get('/schedule', [ScheduleController::class, 'getSchedule'])->name('getSchedule')->middleware('access:m_survey_manage');
 
-    Route::get('/schedule/add', [ScheduleController::class, 'getAddSchedule'])->name('getAddSchedule')->middleware('access:m_survey_create');
     Route::post('/schedule/add', [ScheduleController::class, 'postAddSchedule'])->name('postAddSchedule')->middleware('access:m_survey_create');
 
-    Route::get('/schedule/edit', [ScheduleController::class, 'getEditSchedule'])->name('getEditSchedule')->middleware('access:m_survey_update');
     Route::post('/schedule/edit', [ScheduleController::class, 'postEditSchedule'])->name('postEditSchedule')->middleware('access:m_survey_update');
+
+    Route::post('/schedule/delete', [ScheduleController::class, 'postDeleteSchedule'])->name('postDeleteSchedule')->middleware('access:m_survey_delete');
 
     //                                                      USER MANAGEMENT
 

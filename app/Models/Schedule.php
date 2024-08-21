@@ -11,13 +11,13 @@ class Schedule extends Model
 {
     use HasFactory;
     
-    protected $table = 'm_carousel';
+    protected $table = 'schedule';
 
     protected $fillable = [
         'name',
-        'short_desc',
-        'date',
-        'image',
+        'category',
+        'date_start',
+        'date_end',
         'description',
         'status',
         'created_at',

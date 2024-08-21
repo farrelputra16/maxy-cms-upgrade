@@ -3,156 +3,40 @@
 @section('title', 'Schedule')
 
 @section('style')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/cms-v3/libs/tui-time-picker/tui-time-picker.min.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/cms-v3/libs/tui-date-picker/tui-date-picker.min.css') }}" />
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/cms-v3/libs/tui-calendar/tui-calendar.min.css') }}" />
+<!-- <link rel="stylesheet" type="text/css" href="{{ asset('assets/cms-v3/libs/tui-calendar/tui-calendar.min.css') }}" /> -->
+<link rel="stylesheet" href="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.css" />
+<script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
 @endsection
 
 @section('content')
-<!-- ============================================================== -->
-<!-- Start right Content here -->
-<!-- ============================================================== -->
-
-            <!-- start page title -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">TUI Calendar</h4>
-
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Calendar</a></li>
-                                <li class="breadcrumb-item active">TUI Calendar</li>
-                            </ol>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <!-- end page title -->
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div id="lnb">
-                            
-                                <div id="right">
-                                    <div id="menu" class="mb-3">
-                            
-                                        <span id="menu-navi" class="d-sm-flex flex-wrap text-center text-sm-start justify-content-sm-between">
-                                            <div class="d-sm-flex flex-wrap gap-1">
-                                                <div class="btn-group mb-2" role="group" aria-label="Basic example">
-                                                    <button type="button" class="btn btn-primary move-day" data-action="move-prev">
-                                                        <i class="calendar-icon ic-arrow-line-left mdi mdi-chevron-left"
-                                                            data-action="move-prev"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-primary move-day" data-action="move-next">
-                                                        <i class="calendar-icon ic-arrow-line-right mdi mdi-chevron-right"
-                                                            data-action="move-next"></i>
-                                                    </button>
-                                                </div>
-                            
-                            
-                                                <button type="button" class="btn btn-primary move-today mb-2"
-                                                    data-action="move-today">Today</button>
-                                            </div>
-                            
-                                            <h4 id="renderRange" class="render-range fw-bold pt-1 mx-3"></h4>
-                            
-                                            <div class="dropdown align-self-start mt-3 mt-sm-0 mb-2">
-                                                <button id="dropdownMenu-calendarType" class="btn btn-primary" type="button"
-                                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                    <i id="calendarTypeIcon" class="calendar-icon ic_view_month" style="margin-right: 4px;"></i>
-                                                    <span id="calendarTypeName">Dropdown</span>&nbsp;
-                                                    <i class="calendar-icon tui-full-calendar-dropdown-arrow"></i>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="dropdownMenu-calendarType">
-                                                    <li role="presentation">
-                                                        <a class="dropdown-item" role="menuitem" data-action="toggle-daily">
-                                                            <i class="calendar-icon ic_view_day"></i>Daily
-                                                        </a>
-                                                    </li>
-                                                    <li role="presentation">
-                                                        <a class="dropdown-item" role="menuitem" data-action="toggle-weekly">
-                                                            <i class="calendar-icon ic_view_week"></i>Weekly
-                                                        </a>
-                                                    </li>
-                                                    <li role="presentation">
-                                                        <a class="dropdown-item" role="menuitem" data-action="toggle-monthly">
-                                                            <i class="calendar-icon ic_view_month"></i>Month
-                                                        </a>
-                                                    </li>
-                                                    <li role="presentation">
-                                                        <a class="dropdown-item" role="menuitem" data-action="toggle-weeks2">
-                                                            <i class="calendar-icon ic_view_week"></i>2 weeks
-                                                        </a>
-                                                    </li>
-                                                    <li role="presentation">
-                                                        <a class="dropdown-item" role="menuitem" data-action="toggle-weeks3">
-                                                            <i class="calendar-icon ic_view_week"></i>3 weeks
-                                                        </a>
-                                                    </li>
-                                                    <li role="presentation" class="dropdown-divider"></li>
-                                                    <li role="presentation">
-                                                        <a class="dropdown-item" role="menuitem" data-action="toggle-workweek">
-                                                            <input type="checkbox" class="tui-full-calendar-checkbox-square" value="toggle-workweek"
-                                                                checked>
-                                                            <span class="checkbox-title"></span>Show weekends
-                                                        </a>
-                                                    </li>
-                                                    <li role="presentation">
-                                                        <a class="dropdown-item" role="menuitem" data-action="toggle-start-day-1">
-                                                            <input type="checkbox" class="tui-full-calendar-checkbox-square"
-                                                                value="toggle-start-day-1">
-                                                            <span class="checkbox-title"></span>Start Week on Monday
-                                                        </a>
-                                                    </li>
-                                                    <li role="presentation">
-                                                        <a class="dropdown-item" role="menuitem" data-action="toggle-narrow-weekend">
-                                                            <input type="checkbox" class="tui-full-calendar-checkbox-square"
-                                                                value="toggle-narrow-weekend">
-                                                            <span class="checkbox-title"></span>Narrower than weekdays
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </span>
-
-                                    </div>
-                                </div>
-                            
-                                <div class="lnb-new-schedule float-sm-end ms-sm-3 mt-4 mt-sm-0">
-                                    <button id="btn-new-schedule" type="button" class="btn btn-primary lnb-new-schedule-btn" data-toggle="modal">
-                                        New schedule</button>
-                                </div>
-                                <div id="calendarList" class="lnb-calendars-d1 mt-4 mt-sm-0 me-sm-0 mb-4"></div>
-                            
-                                <div id="calendar" style="height: 800px;"></div>
-
-                            </div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div id="lnb">
+                
+                    <div id="right">
+                        <div id="menu" class="mb-3">
+                
+                            <span id="menu-navi" class="d-sm-flex flex-wrap text-center text-sm-start justify-content-sm-between">
+                                <h4 id="renderRange" class="render-range fw-bold pt-1 mx-3"></h4>
+                            </span>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- end row -->            
+                
+                    <button onclick="triggerSchedulePopup()" class="btn btn-primary lnb-new-schedule-btn">Add Schedule</button>
+                    <div id="calendarList" class="lnb-calendars-d1 mt-4 mt-sm-0 me-sm-0 mb-4"></div>
+                
+                    <div id="calendar" style="height: 800px;"></div>
 
-    <footer class="footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-6">
-                    <script>document.write(new Date().getFullYear())</script> © Skote.
-                </div>
-                <div class="col-sm-6">
-                    <div class="text-sm-end d-none d-sm-block">
-                        
-                    </div>
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
 </div>
-<!-- end main content-->
 @endsection
 
 @section('script')
@@ -163,8 +47,291 @@
 <script src="{{ asset('assets/cms-v3/libs/moment/moment.min.js') }}"></script>
 <script src="{{ asset('assets/cms-v3/libs/chance/chance.min.js') }}"></script>
 <script src="{{ asset('assets/cms-v3/libs/tui-calendar/tui-calendar.min.js') }}"></script>
-<script src="{{ asset('assets/cms-v3/js/pages/calendars.js') }}"></script>
+<!-- <script src="{{ asset('assets/cms-v3/js/pages/calendars.js') }}"></script>
 <script src="{{ asset('assets/cms-v3/js/pages/schedules.js') }}"></script>
-<script src="{{ asset('assets/cms-v3/js/pages/calendar.init.js') }}"></script>
+<script src="{{ asset('assets/cms-v3/js/pages/calendar.init.js') }}"></script> -->
 <script src="{{ asset('assets/cms-v3/js/app.js') }}"></script>
+<script>
+    function formatDateForMySQL(dateString) {
+        var date = new Date(dateString);
+        
+        // Get components of the date
+        var year = date.getFullYear();
+        var month = ('0' + (date.getMonth() + 1)).slice(-2); // months are 0-based
+        var day = ('0' + date.getDate()).slice(-2);
+        var hours = ('0' + date.getHours()).slice(-2);
+        var minutes = ('0' + date.getMinutes()).slice(-2);
+        var seconds = ('0' + date.getSeconds()).slice(-2);
+        
+        // Return the formatted date
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
+
+    var calendar = new tui.Calendar('#calendar', {
+        defaultView: 'week', // or 'month'
+        taskView: false,
+        scheduleView: true,
+        useCreationPopup: true,  // Enables the creation popup
+        useDetailPopup: true,    // Enables the detail popup
+        calendars: [
+            {
+                id: '1',
+                name: 'My Calendar',
+                color: '#ffffff',
+                bgColor: '#9e5fff',
+                dragBgColor: '#9e5fff',
+                borderColor: '#9e5fff'
+            }
+        ],
+        template: {
+            popupDetailLocation: function(schedule) {
+                // Return an empty string or null to effectively remove the location field from the popup
+                return '';
+            },
+            popupDetailPrivate: function(schedule) {
+                return '';
+            }
+        }
+    });
+    // Event handler for when a new schedule is created through the popup
+    calendar.on('beforeCreateSchedule', function(event) {
+        // Convert to Date objects if not already
+        var start = event.start instanceof Date ? event.start : event.start.toDate();
+        var end = event.end instanceof Date ? event.end : event.end.toDate();
+
+        var scheduleData = {
+            id: String(Math.random()), // Unique ID for the schedule
+            calendarId: event.calendarId || '1',
+            title: event.title,
+            category: event.isAllDay ? 'allday' : 'time',
+            dueDateClass: '',
+            start: start.toISOString(), // Convert to ISO string
+            end: end.toISOString(),     // Convert to ISO string
+            isReadOnly: false // Make it editable
+        };
+        
+        // Use createSchedules method to add the schedule to the calendar
+        calendar.createSchedules([scheduleData]);
+
+        // Submit the schedule to the server
+        var formData = new FormData();
+        formData.append('title', scheduleData.title);
+        formData.append('start', formatDateForMySQL(scheduleData.start));
+        formData.append('end', formatDateForMySQL(scheduleData.end));
+        formData.append('category', scheduleData.category);
+        
+        // Assuming you have a form element and button in your HTML
+        var button = document.querySelector('.tui-full-calendar-confirm'); // Replace with your button ID
+        var originalText = button.innerHTML;
+
+        fetch("{{ route('postAddSchedule') }}", {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector(
+                    'meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Close modal if it exists
+                const modal = bootstrap.Modal.getInstance(button.closest('.modal'));
+                if (modal) {
+                    modal.hide();
+                }
+                // Show success notification with dynamic message
+                Swal.fire({
+                    title: 'Success!',
+                    text: data.success,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    location.reload();
+                });
+            } else {
+                // Show error notification with dynamic message
+                Swal.fire({
+                    title: 'Error!',
+                    text: data.error,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        })
+        .catch(error => {
+            // Show error notification for catch block
+            Swal.fire({
+                title: 'Error!',
+                text: error,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        })
+        .finally(() => {
+            // Enable button and reset its text
+            button.disabled = false;
+            button.innerHTML = originalText;
+        });
+    });
+    // Event handler for when a schedule is clicked to show its details
+    calendar.on('beforeUpdateSchedule', function(event) {
+        var schedule = event.schedule;
+        var changes = event.changes;
+
+        calendar.updateSchedule(schedule.id, schedule.calendarId, changes);
+
+        console.log(changes.title);
+
+        // Optionally, trigger an AJAX request to update the schedule on a backend server here
+        // Submit the schedule to the server
+        var formData = new FormData();
+        formData.append('id', schedule.id);
+        if ('title' in changes) {
+            formData.append('title', changes.title);
+        }
+        if ('start' in changes) {
+            formData.append('start', formatDateForMySQL(changes.start));
+        }
+        if ('end' in changes) {
+            formData.append('end', formatDateForMySQL(changes.end));
+        }
+        if ('category' in changes) {
+            formData.append('category', changes.category);
+        }
+        
+        // Assuming you have a form element and button in your HTML
+        var button = document.querySelector('.tui-full-calendar-confirm'); // Replace with your button ID
+        var originalText = button.innerHTML;
+
+        fetch("{{ route('postEditSchedule') }}", {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector(
+                    'meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Close modal if it exists
+                const modal = bootstrap.Modal.getInstance(button.closest('.modal'));
+                if (modal) {
+                    modal.hide();
+                }
+                // Show success notification with dynamic message
+                Swal.fire({
+                    title: 'Success!',
+                    text: data.success,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    location.reload();
+                });
+            } else {
+                // Show error notification with dynamic message
+                Swal.fire({
+                    title: 'Error!',
+                    text: data.error,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        })
+        .catch(error => {
+            // Show error notification for catch block
+            Swal.fire({
+                title: 'Error!',
+                text: error,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        })
+        .finally(() => {
+            // Enable button and reset its text
+            button.disabled = false;
+            button.innerHTML = originalText;
+        });
+
+    });
+    calendar.on('beforeDeleteSchedule', function(event) {
+        var schedule = event.schedule;
+        
+        calendar.deleteSchedule(schedule.id, schedule.calendarId);
+
+        console.log(schedule.id);
+
+        // Optionally, trigger an AJAX request to update the schedule on a backend server here
+        // Submit the schedule to the server
+        var formData = new FormData();
+        formData.append('id', schedule.id);
+        
+        fetch("{{ route('postDeleteSchedule') }}", {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector(
+                    'meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Show success notification with dynamic message
+                Swal.fire({
+                    title: 'Success!',
+                    text: data.success,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    location.reload();
+                });
+            } else {
+                // Show error notification with dynamic message
+                Swal.fire({
+                    title: 'Error!',
+                    text: data.error,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        })
+        .catch(error => {
+            // Show error notification for catch block
+            Swal.fire({
+                title: 'Error!',
+                text: error,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        });
+    });
+    function triggerSchedulePopup() {
+        var date = new Date(); // Use the current date as an example
+
+        calendar.openCreationPopup({
+            start: date,
+            end: new Date(date.getTime() + 60 * 60 * 1000), // 1 hour later
+            isAllDay: false
+        });
+    }
+    @foreach ($schedules as $schedule)
+        var schedule_date_start = new Date("{{ $schedule->date_start }}");
+        var schedule_date_end = new Date("{{ $schedule->date_end }}");
+        var scheduleData = {
+            id: "{{ $schedule->id }}", // Unique ID for the schedule
+            calendarId: '1',
+            title: "{{ $schedule->name }}",
+            category: "{{ $schedule->category }}",
+            dueDateClass: '',
+            start: schedule_date_start.toISOString(), // Convert to ISO string
+            end: schedule_date_end.toISOString(),     // Convert to ISO string
+            isReadOnly: false // Make it editable
+        };
+        
+        // Use createSchedules method to add the schedule to the calendar
+        calendar.createSchedules([scheduleData]);
+    @endforeach
+</script>
 @endsection

@@ -20,86 +20,83 @@ class ScheduleController extends Controller
         ]);
     
     }
-    function getAddSchedule(){
-        
-        return view('schedule.add');
-    }
-
+    
     function postAddSchedule(Request $request){
-        //return dd($request);
-        $validated= $request->validate([
-            'name' => 'required',
-            'short_desc' => 'required',
-            'date' => 'required',
-        ]);
-
-        if ($validated){
-            $image = '';
-            $create = Schedule::create([
-                'name' => $request->name,
-                'short_desc' => $request->short_desc,
-                'date' => date('Y-m-d', strtotime($request->date)),
-                'image' => $image,
-                'description' => $request->description,
-                'status' => $request->status ? 1 : 0,
-                'created_id' => Auth::user()->id,
-                'updated_id' => Auth::user()->id,
+        try {
+            // return dd($request->all());
+            $validated= $request->validate([
+                'title' => 'required',
+                'category' => 'required',
+                'start' => 'required',
+                'end' => 'required',
             ]);
-            if ($create){
-                if ($request->hasFile('image')) {
-                    $file = $request->file('image');
-                    $image = $create->id;
-                    $destinationPath = public_path('/uploads/schedule/about-us');
-                    if (!File::exists($destinationPath)) { // create folder jika blm ada
-                        File::makeDirectory($destinationPath, 0777, true, true);
-                    }
-                    $file->move($destinationPath, $image);
-                }
-                $updateData = Schedule::where('id', $create->id)->update([ 'image' => $image ]);
-                if ($updateData){
-                    return app(HelperController::class)->Positive('getSchedule');
-                } else{
-                    return app(HelperController::class)->Warning('getSchedule');
+
+            if ($validated){
+                $create = Schedule::create([
+                    'name' => $request->title,
+                    'category' => $request->category,
+                    'date_start' => date('Y-m-d H:i:s', strtotime($request->start)),
+                    'date_end' => date('Y-m-d H:i:s', strtotime($request->end)),
+                    'status' => 1,
+                    'created_id' => Auth::user()->id,
+                    'updated_id' => Auth::user()->id,
+                ]);
+                if ($create){
+                    return response()->json(['success' => 'Success', 'create' => $create], 200);
                 }
             }
-            return app(HelperController::class)->Negative('getSchedule');
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
         }
     }
 
-    function getEditSchedule(Request $request){
-        $idschedule = $request->id;
-        $schedule = Schedule::find($idschedule);
-
-        return view('schedule.edit',[
-            'schedule' => $schedule,
-        ]);
-    }
-
     function postEditSchedule(Request $request){
-        $idschedule = $request->id;
-
-        $updateData = Schedule::where('id', $idschedule)
-            ->update([
-                'name' => $request->name,
-                'short_desc' => $request->short_desc,
-                'date' => date('Y-m-d', strtotime($request->date)),
-                'description' => $request->description,
-                'status' => $request->status ? 1 : 0
+        try {
+            // return dd($request->all());
+            $validated= $request->validate([
+                'id' => 'required',
             ]);
 
-        if ($updateData){
-            if ($request->hasFile('image')) {
-                $file = $request->file('image');
-                $image = $idschedule;
-                $destinationPath = public_path('/uploads/schedule/about-us');
-                if (!File::exists($destinationPath)) { // create folder jika blm ada
-                    File::makeDirectory($destinationPath, 0777, true, true);
-                }
-                $file->move($destinationPath, $image);
+            if ($validated){
+                $currentData = Schedule::find($request->id);
+                $updateData = Schedule::where('id', $request->id)
+                    ->update([
+                        'name' => $request->title ? $request->title : $currentData->name,
+                        'category' => $request->category ? $request->category : $currentData->category,
+                        'date_start' => $request->start ? date('Y-m-d H:i:s', strtotime($request->start)) : $currentData->date_start,
+                        'date_end' => $request->end ? date('Y-m-d H:i:s', strtotime($request->end)) : $currentData->date_end,
+                        'status' => 1,
+                        'updated_id' => Auth::user()->id,
+                    ]);
+                return response()->json(['success' => 'Success', 'updateData' => $updateData], 200);
             }
-            return app(HelperController::class)->Positive('getSchedule');
-        } else{
-            return app(HelperController::class)->Warning('getSchedule');
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
+        }
+    }
+
+    function postDeleteSchedule(Request $request){
+        try {
+            // return dd($request->all());
+            $validated= $request->validate([
+                'id' => 'required',
+            ]);
+
+            if ($validated){
+                $currentData = Schedule::find($request->id);
+                
+                if ($currentData) {
+                    $currentData->delete();
+
+                    // Return a response or redirect
+                    return response()->json(['success' => 'Success', 'currentData' => $currentData], 200);
+                }
+
+                // If user not found
+                return response()->json(['message' => 'Data not found.'], 404);
+            }
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
         }
     }
 }

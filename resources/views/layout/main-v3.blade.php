@@ -57,6 +57,9 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/0756825c13.js" crossorigin="anonymous"></script>
+    <!-- swal -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body data-sidebar="dark">
