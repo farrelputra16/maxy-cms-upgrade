@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Schedule;
+use App\Models\CourseClass;
 use Illuminate\Support\Facades\File;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
@@ -13,10 +14,14 @@ use Auth;
 class ScheduleController extends Controller
 {
     function getSchedule(){
-        $schedules = Schedule::all();
+        $schedules = Schedule::with(['CourseClass'])->get();
+        $course_class = CourseClass::where('status', 1)
+            ->where('status_ongoing', 1)
+            ->get();
 
         return view('schedule.index',[
-            'schedules' => $schedules
+            'schedules' => $schedules,
+            'course_class' => $course_class,
         ]);
     
     }
@@ -33,7 +38,8 @@ class ScheduleController extends Controller
 
             if ($validated){
                 $create = Schedule::create([
-                    'name' => $request->title,
+                    'course_class_id' => $request->title,
+                    'location' => $request->location,
                     'category' => $request->category,
                     'date_start' => date('Y-m-d H:i:s', strtotime($request->start)),
                     'date_end' => date('Y-m-d H:i:s', strtotime($request->end)),
@@ -61,7 +67,8 @@ class ScheduleController extends Controller
                 $currentData = Schedule::find($request->id);
                 $updateData = Schedule::where('id', $request->id)
                     ->update([
-                        'name' => $request->title ? $request->title : $currentData->name,
+                        'course_class_id' => $request->title ? $request->title : $currentData->course_class_id,
+                        'location' => $request->location ? $request->location : $currentData->location,
                         'category' => $request->category ? $request->category : $currentData->category,
                         'date_start' => $request->start ? date('Y-m-d H:i:s', strtotime($request->start)) : $currentData->date_start,
                         'date_end' => $request->end ? date('Y-m-d H:i:s', strtotime($request->end)) : $currentData->date_end,

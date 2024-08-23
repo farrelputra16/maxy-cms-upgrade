@@ -11,6 +11,11 @@ class CourseClass extends Model
     public $timestamps = false;
     protected $guarded = [];
 
+    public function Schedule()
+    {
+        return $this->hasMany(Schedule::class, 'course_class_id');
+    }
+
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id');

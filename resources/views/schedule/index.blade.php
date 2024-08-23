@@ -6,9 +6,12 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/cms-v3/libs/tui-time-picker/tui-time-picker.min.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/cms-v3/libs/tui-date-picker/tui-date-picker.min.css') }}" />
-<!-- <link rel="stylesheet" type="text/css" href="{{ asset('assets/cms-v3/libs/tui-calendar/tui-calendar.min.css') }}" /> -->
-<link rel="stylesheet" href="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.css" />
-<!-- <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script> -->
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/cms-v3/libs/tui-calendar/tui-calendar.min.css') }}" />
+<style>
+    #tui-full-calendar-schedule-private, .tui-full-calendar-section-allday, .tui-full-calendar-section-state {
+        display: none !important;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -40,7 +43,7 @@
 @endsection
 
 @section('script')
-<script src="https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.min.js"></script>
+<script src="{{ asset('assets/cms-v3/libs/tui.code-snippet/tui.code-snippet.min.js') }}"></script>
 <script src="{{ asset('assets/cms-v3/libs/tui-dom/tui-dom.min.js') }}"></script>
 <script src="{{ asset('assets/cms-v3/libs/tui-time-picker/tui-time-picker.min.js') }}"></script>
 <script src="{{ asset('assets/cms-v3/libs/tui-date-picker/tui-date-picker.min.js') }}"></script>
@@ -73,15 +76,6 @@
         scheduleView: true,
         useCreationPopup: true,  // Enables the creation popup
         useDetailPopup: true,    // Enables the detail popup
-        template: {
-            popupDetailLocation: function(schedule) {
-                // Return an empty string or null to effectively remove the location field from the popup
-                return '';
-            },
-            // popupDetailPrivate: function(schedule) {
-            //     return '';
-            // }
-        },
         calendars: [
             {
                 id: '1',
@@ -95,6 +89,7 @@
     });
     // Event handler for when a new schedule is created through the popup
     calendar.on('beforeCreateSchedule', function(event) {
+        console.log(event);
         // Convert to Date objects if not already
         var start = event.start instanceof Date ? event.start : event.start.toDate();
         var end = event.end instanceof Date ? event.end : event.end.toDate();
@@ -104,6 +99,7 @@
             calendarId: event.calendarId || '1',
             title: event.title,
             category: event.isAllDay ? 'allday' : 'time',
+            location: event.location,
             dueDateClass: '',
             start: start.toISOString(), // Convert to ISO string
             end: end.toISOString(),     // Convert to ISO string
@@ -119,6 +115,7 @@
         formData.append('start', formatDateForMySQL(scheduleData.start));
         formData.append('end', formatDateForMySQL(scheduleData.end));
         formData.append('category', scheduleData.category);
+        formData.append('location', scheduleData.location);
         
         // Assuming you have a form element and button in your HTML
         var button = document.querySelector('.tui-full-calendar-confirm'); // Replace with your button ID
@@ -176,12 +173,11 @@
     });
     // Event handler for when a schedule is clicked to show its details
     calendar.on('beforeUpdateSchedule', function(event) {
+        console.log(event);
         var schedule = event.schedule;
         var changes = event.changes;
 
         calendar.updateSchedule(schedule.id, schedule.calendarId, changes);
-
-        console.log(changes.title);
 
         // Optionally, trigger an AJAX request to update the schedule on a backend server here
         // Submit the schedule to the server
@@ -189,6 +185,9 @@
         formData.append('id', schedule.id);
         if ('title' in changes) {
             formData.append('title', changes.title);
+        }
+        if ('location' in changes) {
+            formData.append('location', changes.location);
         }
         if ('start' in changes) {
             formData.append('start', formatDateForMySQL(changes.start));
@@ -322,7 +321,8 @@
         var scheduleData = {
             id: "{{ $schedule->id }}", // Unique ID for the schedule
             calendarId: '1',
-            title: "{{ $schedule->name }}",
+            title: "{{ $schedule->CourseClass->slug }}",
+            location: "{{ $schedule->location }}",
             category: "{{ $schedule->category }}",
             dueDateClass: '',
             start: schedule_date_start.toISOString(), // Convert to ISO string
@@ -333,5 +333,42 @@
         // Use createSchedules method to add the schedule to the calendar
         calendar.createSchedules([scheduleData]);
     @endforeach
+
+    function handleDisplayChange(entries) {
+        entries.forEach(entry => {
+            if (entry.target.style.display === 'block') {
+                setTimeout(replaceInputWithSelect, 0);
+            }
+        });
+    }
+
+    // Create a MutationObserver to watch for changes
+    const observer = new MutationObserver(handleDisplayChange);
+
+    // Target element to observe
+    const targetNode = document.querySelector('.tui-full-calendar-floating-layer');
+
+    if (targetNode) {
+        // Configure the observer to watch for attribute changes
+        observer.observe(targetNode, { attributes: true, attributeFilter: ['style'] });
+    }
+    function replaceInputWithSelect() {
+        const inputField = document.querySelector('#tui-full-calendar-schedule-title');
+        if (inputField) {
+            const select = document.createElement('select');
+            select.id = 'tui-full-calendar-schedule-title';
+            select.className = 'tui-full-calendar-content';
+
+            // Example options; you might dynamically generate these based on your data
+            select.innerHTML = ``;
+            @foreach ($course_class as $class)
+            select.innerHTML += `
+                <option value='{{ $class->id }}'>{{ $class->slug }}</option>
+            `;
+            @endforeach
+
+            inputField.parentNode.replaceChild(select, inputField);
+        }
+    }
 </script>
 @endsection

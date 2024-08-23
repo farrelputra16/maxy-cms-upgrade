@@ -14,7 +14,8 @@ class Schedule extends Model
     protected $table = 'schedule';
 
     protected $fillable = [
-        'name',
+        'course_class_id',
+        'location',
         'category',
         'date_start',
         'date_end',
@@ -25,4 +26,9 @@ class Schedule extends Model
         'updated_at',
         'updated_id'
     ];
+
+    public function CourseClass()
+    {
+        return $this->belongsTo(CourseClass::class, 'course_class_id');
+    }
 }
