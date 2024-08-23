@@ -39,7 +39,7 @@ class BlogController extends Controller
             if ($request->hasFile('file_image')) {
                 $file = $request->file('file_image');
                 $extension = $file->getClientOriginalExtension();
-                $fileName = $request->slug . '.' . $extension;
+                $fileName = $request->id . '.' . $extension;
                 $directory = public_path('/uploads/blog/' . $request->slug . '/');
 
                 // Create destination folder if it doesn't exist
@@ -94,7 +94,7 @@ class BlogController extends Controller
                 $file = $request->file('file_image');
 
                 $extension = $file->getClientOriginalExtension();
-                $fileName = $request->slug . '.' . $extension;
+                $fileName = $request->id . '.' . $extension;
 
                 $file->move(public_path('/uploads/blog/' . $request->slug . '/'), $fileName);
             } else {
