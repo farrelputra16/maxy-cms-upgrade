@@ -73,7 +73,9 @@
                                     data-placeholder="Choose ...">
                                     {{-- <option>Select</option> --}}
                                     @foreach ($blogTagList as $item)
-                                        <option value="{{ $item->id }}"> {{ $item->name }} </option>
+                                        <option value="{{ $item->id }}"
+                                            @if ($item->selected) selected @endif> {{ $item->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>

@@ -72,8 +72,16 @@ class BlogController extends Controller
     }
     public function getEditBlog(Request $request)
     {
-        $data = MBlog::find($request->id);
+        $data = MBlog::with('tags')->where('id', $request->id)->first();
         $blogTagList = MBlogTag::where('status', 1)->get();
+
+        foreach ($blogTagList as $key => $item) {
+            foreach ($data->tags as $d) {
+                if ($d->id == $item->id) {
+                    $item->selected = true;
+                }
+            }
+        }
 
         return view('blog.edit', compact(['data', 'blogTagList']));
     }
