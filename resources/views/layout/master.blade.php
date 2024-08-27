@@ -285,6 +285,9 @@
                         <li class="nav-item">
                             <a href="{{ route('getSchedule') }}" class="list-group-item list-group-item-action {{ Route::is('getSchedule') ? 'active' : '' }}">Schedule</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('getGeneralSchedule') }}" class="list-group-item list-group-item-action {{ Route::is('getGeneralSchedule') ? 'active' : '' }}">General Schedule</a>
+                        </li>
                     </ul>
                 </li>
 
