@@ -67,7 +67,7 @@
                                 <select class="form-control select2 select2-multiple" multiple="multiple" name="tag[]"
                                     data-placeholder="Choose ...">
                                     <option>Select</option>
-                                    @foreach ($blogTagList as $item)
+                                    @foreach ($data as $item)
                                         <option value="{{ $item->id }}"> {{ $item->name }} </option>
                                     @endforeach
                                 </select>

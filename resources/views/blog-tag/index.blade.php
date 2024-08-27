@@ -42,11 +42,8 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Title</th>
-                                <th>Slug</th>
-                                <th>Content</th>
-                                <th>Cover Image</th>
-                                <th>Tags</th>
+                                <th>Name</th>
+                                <th>Color</th>
                                 <th>Description</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
@@ -59,35 +56,22 @@
 
 
                         <tbody>
-                            @foreach ($blog as $key => $item)
+                            @foreach ($data as $key => $item)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->id }}</td>
                                     <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->title }}">
-                                        {!! \Str::limit($item->title, 30) !!}
+                                        title="{{ $item->name }}">
+                                        {!! \Str::limit($item->name, 30) !!}
                                     </td>
-                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->slug }}">
-                                        <a href="https://maxy.academy/blog/{{ $item->slug }}"
-                                            target="_blank">{!! \Str::limit($item->slug, 30) !!}</a>
+
+                                    <td data-toggle="tooltip" data-placement="top" title="{{ $item->color }}">
+                                        <div class="rounded w-25 h-100"
+                                            style="color: {{ $item->color }}; background-color: {{ $item->color }}">-
+                                        </div>
                                     </td>
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->content) !!}">
-                                        {!! \Str::limit($item->content, 30) !!}
-                                    </td>
-                                    <td>
-                                        <img class="w-100"
-                                            src="{{ asset('uploads/blog/' . $item->slug . '/' . $item->cover_img) }}"
-                                            alt="{{ $item->cover_img }}">
-                                    </td>
-                                    <td>
-                                        @foreach ($item->tags as $tag)
-                                            <div class="btn btn-secondary rounded-pill">
-                                                {{ $tag->name }}
-                                            </div>
-                                        @endforeach
-                                    </td>
+
+
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->description) !!}">
                                         {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
@@ -105,7 +89,7 @@
                                     </td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="{{ route('getEditBlog', ['id' => $item->id]) }}"
+                                            <a href="{{ route('getEditBlogTag', ['id' => $item->id]) }}"
                                                 class="btn btn-primary">Edit</a>
                                         </div>
                                     </td>
@@ -116,11 +100,8 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Title</th>
-                                <th>Slug</th>
-                                <th class="data-long">Content</th>
-                                <th>Cover Image</th>
-                                <th>Tags</th>
+                                <th class="data-medium">Name</th>
+                                <th>Color</th>
                                 <th class="data-long">Description</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
@@ -139,7 +120,7 @@
 
     <!-- FAB add starts -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddBlog') }}" target="_blank">
+        <a href="{{ route('getAddBlogTag') }}" target="_blank">
             <i class="fas fa-plus"></i>
         </a>
     </div>

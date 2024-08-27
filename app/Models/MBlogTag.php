@@ -13,6 +13,13 @@ class MBlogTag extends Model
 
     protected $fillable = [
         'name',
+        'color',
+        'description',
+        'status',
+        'created_at',
+        'created_id',
+        'updated_at',
+        'updated_id',
     ];
 
     public function blogs()

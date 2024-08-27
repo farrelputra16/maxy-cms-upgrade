@@ -47,6 +47,7 @@
                                 <th>Content</th>
                                 <th>Cover Image</th>
                                 <th>Tags</th>
+                                <th>Highlight</th>
                                 <th>Description</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
@@ -59,7 +60,7 @@
 
 
                         <tbody>
-                            @foreach ($blog as $key => $item)
+                            @foreach ($data as $key => $item)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->id }}</td>
@@ -82,10 +83,17 @@
                                     </td>
                                     <td>
                                         @foreach ($item->tags as $tag)
-                                            <div class="btn btn-secondary rounded-pill">
+                                            <div class="badge bg-secondary px-2">
                                                 {{ $tag->name }}
                                             </div>
                                         @endforeach
+                                    </td>
+                                    <td value="{{ $item->status_highlight }}">
+                                        @if ($item->status_highlight == 1)
+                                            <a class="btn btn-success">Aktif</a>
+                                        @else
+                                            <a class="btn btn-danger">Non Aktif</a>
+                                        @endif
                                     </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->description) !!}">
@@ -120,6 +128,7 @@
                                 <th class="data-long">Content</th>
                                 <th>Cover Image</th>
                                 <th>Tags</th>
+                                <th>Highlight</th>
                                 <th class="data-long">Description</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
