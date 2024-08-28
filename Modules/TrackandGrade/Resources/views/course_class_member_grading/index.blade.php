@@ -13,10 +13,11 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Course</li>
+                        <li class="breadcrumb-item active">Submission List</li>
                     </ol>
                 </div>
                 <!-- end breadcrumb -->
+
             </div>
         </div>
     </div>
@@ -79,6 +80,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Id</th>
                                     <th>Module</th>
                                     <th>Day</th>
                                     <th>Student Name</th>
@@ -88,6 +90,7 @@
                                     <th>Updated At</th>
                                     <th>Student Comment</th>
                                     <th>Tutor Comment</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -99,12 +102,41 @@
                                         @php $data_index += 1; @endphp
 
                                         <tr>
-                                            <td>{{ $data_index }}</td>
+                                            <td>
+                                                @php
+                                                    $number = $data_index;
+                                                    if ($data_index < 10) {
+                                                        $number = '0' . $data_index;
+                                                    }
+                                                    echo $number;
+                                                @endphp
+                                            </td>
+                                            <td>
+                                                @php
+                                                    if ($member->submission) {
+                                                        $number = $member->submission->id;
+                                                        if ($member->submission->id < 10) {
+                                                            $number = '0' . $member->submission->id;
+                                                        }
+                                                        echo $number;
+                                                    } else {
+                                                        echo '-';
+                                                    }
+                                                @endphp
+                                            </td>
                                             <td class="data-medium" data-toggle="tooltip" data-placement="top"
                                                 title="{{ $item->module_name }}">
                                                 {!! \Str::limit($item->module_name, 30) !!}
                                             </td>
-                                            <td>{{ $item->parent->priority }}</td>
+                                            <td>
+                                                @php
+                                                    $number = $item->parent->priority;
+                                                    if ($item->parent->priority < 10) {
+                                                        $number = '0' . $item->parent->priority;
+                                                    }
+                                                    echo $number;
+                                                @endphp
+                                            </td>
                                             <td>{{ $member->user_name }}</td>
                                             <td>{{ $member->submission->submitted_file ?? '-' }}</td>
                                             <td>{{ $member->submission->submitted_at ?? '-' }}</td>
@@ -122,6 +154,17 @@
                                             </td>
                                             <td>
                                                 @if ($member->submission)
+                                                    @if ($member->submission->grade)
+                                                        <div class="badge bg-success">Graded</div>
+                                                    @else
+                                                        <div class="badge bg-warning">Submitted for Grading</div>
+                                                    @endif
+                                                @else
+                                                    <div class="badge bg-danger">No Submission</div>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($member->submission)
                                                     <a href="{{ route('getEditGrade', ['id' => $member->submission->id]) }}"
                                                         class="btn btn-success btn-sm">Edit</a>
                                                 @else
@@ -135,6 +178,7 @@
                             <tfoot>
                                 <tr>
                                     <th>No</th>
+                                    <th>Id</th>
                                     <th class="data-medium">Module</th>
                                     <th>Day</th>
                                     <th>Student Name</th>
@@ -144,6 +188,7 @@
                                     <th>Updated At</th>
                                     <th class="data-long">Student Comment</th>
                                     <th class="data-long">Tutor Comment</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </tfoot>
