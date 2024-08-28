@@ -14,21 +14,20 @@ Route::get('/course/class/member/history', [CourseClassMemberLogController::clas
 Route::get('/course/class/member/history/json', [CourseClassMemberLogController::class, 'getCCMHajax'])->name('getCCMHajax')->middleware('access:course_class_member_log_read');
 
 
-Route::get('/course/class/member/history/serverside/CPBAA', [CourseClassMemberLogController::class, 'getCCMHCOBA'])->name('getCCMHCOBA')->middleware('access:course_class_member_log_read');
+Route::get('/course/class/member/history/serverside/COBAA', [CourseClassMemberLogController::class, 'getCCMHCOBA'])->name('getCCMHCOBA')->middleware('access:course_class_member_log_read');
 
 
+// Grade Assignment
+
+Route::get('/grading', [CourseClassMemberGradingController::class, 'getGrade'])->name('getGrade')->middleware('access:course_class_member_grading_manage');
+
+Route::get('/grading/edit', [CourseClassMemberGradingController::class, 'getEditGrade'])->name('getEditGrade')->middleware('access:course_class_member_grading_update');
+Route::post('/grading/post', [CourseClassMemberGradingController::class, 'postEditGrade'])->name('postEditGrade')->middleware('access:course_class_member_grading_update');
 
 
-
-
+// Member History
 
 Route::get('/course/class/member/history/course_name', [CourseClassMemberLogController::class, 'getnameCCMH'])->name('getnameCCMH')->middleware('access:course_class_member_log_read');
-
-Route::get('/course/class/member/historygrade', [CourseClassMemberGradingController::class, 'getCCMHGrade'])->name('getCCMHGrade')->middleware('access:course_class_member_grading_manage');
-Route::get('/course/class/member/history/grade', [CourseClassMemberGradingController::class, 'getGradeCCMH'])->name('getGradeCCMH')->middleware('access:course_class_member_grading_manage');
-
-Route::get('/course/class/member/history/edit/{course_class_member_grading}', [CourseClassMemberGradingController::class, 'getEditCCMH'])->name('getEditCCMH')->middleware('access:course_class_member_grading_update');
-Route::post('/course/class/member/history/grading/edit', [CourseClassMemberGradingController::class, 'postEditCCMH'])->name('postEditCCMH')->middleware('access:course_class_member_grading_update');
 
 Route::post('/course/class/member/history/add', [CourseClassMemberGradingController::class, 'addCCMH'])->name('addCCMH');
 Route::match(['get', 'post'], '/course/class/member/history/added', [CourseClassMemberGradingController::class, 'postAddCCMH'])->name('postAddCCMH');

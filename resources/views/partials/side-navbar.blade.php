@@ -46,8 +46,8 @@
                         <li><a href="{{ route('getCourseClass') }}" key="t-class">Class Management</a></li>
                         <li><a href="{{ route('certificate-templates.index') }}" key="t-certificate">Certificate
                                 Template</a></li>
-                        <li><a href="{{ route('getCCMH') }}" key="t-student-tracker">Student Tracker</a></li>
-                        <li><a href="{{ route('getCCMHGrade') }}" key="t-grade-assignment">Grade Assignment</a></li>
+                        {{-- <li><a href="{{ route('getCCMH') }}" key="t-student-tracker">Student Tracker</a></li> --}}
+                        <li><a href="{{ route('getGrade') }}" key="t-grade-assignment">Grade Assignment</a></li>
                     </ul>
                 </li>
 

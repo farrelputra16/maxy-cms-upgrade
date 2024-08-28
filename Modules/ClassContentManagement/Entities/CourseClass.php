@@ -119,78 +119,56 @@ class CourseClass extends Model
         return $class_list;
     }
 
-    public static function getTutorEnrolledClass($hasManageAllClass, $class_id)
+    public static function getAssignmentModulesByClassId($class_id)
     {
-        // dd( $class_id);
-        if ($hasManageAllClass) {
-            $class_list = DB::table('course_module as cm')
-                ->select('cm.id', 'cm.name', 'cm.day', 'course.name as course_name', 'course_class.batch', 'course_class.id as class_id', 'course_class_module.id as module')
-                ->whereIn('cm.type', ['assignment', 'quiz'])
-                ->join('course_class_module', 'course_class_module.course_module_id', '=', 'cm.id')
-                ->join('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
-                ->join('course_class_member', 'course_class_member.course_class_id', '=', 'course_class.id')
-                ->join('course', 'course.id', '=', 'course_class.course_id')
-                ->where('course_class.id', $class_id)
-                ->get();
-        } else {
-            $class_list = DB::table('course_module as cm')
-                ->select('cm.id', 'cm.name', 'cm.day', 'course.name as course_name', 'course_class.batch', 'course_class.id as class_id', 'course_class_module.id as module')
-                ->whereIn('cm.type', ['assignment', 'quiz'])
-                ->join('course_class_module', 'course_class_module.course_module_id', '=', 'cm.id')
-                ->join('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
-                ->join('course_class_member', 'course_class_member.course_class_id', '=', 'course_class.id')
-                ->join('course', 'course.id', '=', 'course_class.course_id')
-                ->where('course_class.id', $class_id)
-                ->where('course_class_member.user_id', Auth::user()->id)
-                ->get();
-        }
+        // get assignment & quiz modules
+        $module_list = DB::table('course_module as cm')
+            ->select('ccm.*', 'cm.name as module_name', 'cm.course_module_parent_id as parent_id', 'c.name as course_name', 'cc.batch as batch', 'cc.id as class_id')
+            ->join('course_class_module as ccm', 'ccm.course_module_id', '=', 'cm.id')
+            ->join('course_class as cc', 'cc.id', '=', 'ccm.course_class_id')
+            ->join('course as c', 'c.id', '=', 'cc.course_id')
+            ->whereIn('cm.type', ['assignment', 'quiz'])
+            ->where('cc.id', $class_id)
+            ->get();
 
+        // get class member list
+        $class_member_list = DB::table('course_class_member as ccmember')
+            ->select('ccmember.*', 'u.name as user_name', 'u.id as user_id')
+            ->join('users as u', 'u.id', '=', 'ccmember.user_id')
+            ->where('ccmember.course_class_id', $class_id)
+            ->get();
 
-        // dd($class_list);
+        // iterate through each module in the list
+        foreach ($module_list as $key => $item) {
+            // 1. find parent cm id
+            // 2. find ccm id where cm id = parent cm id
 
-        // Initialize the final array
-        $final_array = [];
+            // find parent course module
+            $parent_module = DB::table('course_module as cm')
+                ->where('cm.id', $item->parent_id)
+                ->first();
 
-        // Iterate through each class in the list
-        foreach ($class_list as $class) {
-            $class_id = $class->class_id;
-            $module_id = $class->module;
-            // Join with course_class_member, course_class_member_grading, and users tables
-            $class_members = DB::table('course_class_member')
-                ->join('users', 'users.id', '=', 'course_class_member.user_id')
-                ->leftJoin('course_class_member_grading', function ($join) use ($class_id, $module_id) {
-                    $join->on('course_class_member_grading.user_id', '=', 'course_class_member.user_id')
-                        ->where('course_class_member_grading.course_class_module_id', $module_id);
-                })
-                ->select(
-                    'users.id as user_id',
-                    'users.name as user_name',
-                    'course_class_member_grading.submitted_file',
-                    'course_class_member_grading.submitted_at',
-                    'course_class_member_grading.updated_at',
-                    'course_class_member_grading.comment',
-                    'course_class_member_grading.tutor_comment',
-                    'course_class_member_grading.grade',
-                    'course_class_member_grading.id as id_grading'
-                )
-                ->where('course_class_member.course_class_id', $class_id)
-                ->where('course_class_member.status', 1)
-                ->get();
+            // add parent course class module data using parent cm id and class id to each module
+            $item->parent = DB::table('course_class_module as ccm')
+                ->where('course_module_id', $parent_module->id)
+                ->where('course_class_id', $class_id)
+                ->first();
 
-            // Add each member to the final array
-            foreach ($class_members as $member) {
-                $classKey = $class->name;
-                $userKey = $member->user_id;
+            // add member list to each module
+            // ** use map to create a clone of the member list to avoid affecting the original $class_member_list **
+            $item->member_list = $class_member_list->map(function ($member) {
+                return clone $member;
+            });
 
-                // If user not in array for this class, add them
-                if (!isset($final_array[$classKey][$userKey])) {
-                    $final_array[$classKey][$userKey] = (object)array_merge((array)$class, (array)$member);
-                }
+            // check assignment and quiz submission of each member on each module
+            foreach ($item->member_list as $member_key => $member) {
+                $member->submission = DB::table('course_class_member_grading')
+                    ->where('user_id', $member->user_id)
+                    ->where('course_class_module_id', $item->id)
+                    ->first();
             }
         }
-        // Flatten the array to have a sequential index
-        $final_array = array_reduce($final_array, 'array_merge', []);
-        return $final_array;
+        return $module_list;
     }
 
     public static function getCourseDetailByClassId($course_class_id)
