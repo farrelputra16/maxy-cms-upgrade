@@ -128,6 +128,7 @@ class ScheduleController extends Controller
 
             $events = $schedules->map(function($schedule) {
                 return [
+                    'id' => $schedule->id,
                     'title' => $schedule->CourseClass->slug,
                     'daysOfWeek' => [$schedule->day], // Repeat every week on this day
                     'startTime' => date('H:i:s', strtotime($schedule->date_start)),
@@ -156,8 +157,8 @@ class ScheduleController extends Controller
                     'course_class_id' => $request->title,
                     'academic_period' => $request->academic_period,
                     'day' => $request->day,
-                    'date_start' => date('Y-m-d H:i:s', strtotime($request->start)),
-                    'date_end' => date('Y-m-d H:i:s', strtotime($request->end)),
+                    'date_start' => date('Y-m-d H:i:s', strtotime($request->start_time)),
+                    'date_end' => date('Y-m-d H:i:s', strtotime($request->end_time)),
                     'status' => 1,
                     'created_id' => Auth::user()->id,
                     'updated_id' => Auth::user()->id,
@@ -175,22 +176,47 @@ class ScheduleController extends Controller
         try {
             // return dd($request->all());
             $validated= $request->validate([
-                'id' => 'required',
+                'start_time' => 'required',
+                'end_time' => 'required',
+                'day' => 'required',
             ]);
 
             if ($validated){
                 $currentData = Schedule::find($request->id);
                 $updateData = Schedule::where('id', $request->id)
                     ->update([
-                        'course_class_id' => $request->title ? $request->title : $currentData->course_class_id,
-                        'location' => $request->location ? $request->location : $currentData->location,
-                        'category' => $request->category ? $request->category : $currentData->category,
-                        'date_start' => $request->start ? date('Y-m-d H:i:s', strtotime($request->start)) : $currentData->date_start,
-                        'date_end' => $request->end ? date('Y-m-d H:i:s', strtotime($request->end)) : $currentData->date_end,
+                        'day' => $request->day,
+                        'date_start' => date('Y-m-d H:i:s', strtotime($request->start_time)),
+                        'date_end' => date('Y-m-d H:i:s', strtotime($request->end_time)),
                         'status' => 1,
                         'updated_id' => Auth::user()->id,
                     ]);
                 return response()->json(['success' => 'Success', 'updateData' => $updateData], 200);
+            }
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
+        }
+    }
+
+    function postDeleteGeneralSchedule(Request $request){
+        try {
+            // return dd($request->all());
+            $validated= $request->validate([
+                'id' => 'required',
+            ]);
+
+            if ($validated){
+                $currentData = Schedule::find($request->id);
+                
+                if ($currentData) {
+                    $currentData->delete();
+
+                    // Return a response or redirect
+                    return response()->json(['success' => 'Success', 'currentData' => $currentData], 200);
+                }
+
+                // If user not found
+                return response()->json(['message' => 'Data not found.'], 404);
             }
         } catch (Exception $e) {
             return response()->json(['error' => $e], 500);

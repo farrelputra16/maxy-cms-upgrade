@@ -73,48 +73,129 @@
                         url: "{{ route('getAddGeneralSchedule') }}",
                         dataType: 'json',
                         data: { period: academicPeriod },
-                        success: function(data) {console.log(data);
+                        success: function(data) {//console.log(data);
                             successCallback(data);
                         }
                     });
                 }
             },
-            eventReceive: function(info) {
-                let startTime = info.event.start;
-                let endTime = info.event.end;
-                if (startTime) {
-                    let start_time = startTime.toTimeString().split(' ')[0]; // "HH:MM:SS"
-                    let end_time = endTime ? endTime.toTimeString().split(' ')[0] : null; // "HH:MM:SS"
+            eventReceive: function(info) {console.log('eventReceive');
+                handleEventUpdate(info,'c');
 
-                    let eventData = {
-                        class_id: info.event.extendedProps.id,
-                        day: startTime.getUTCDay(), // Get day of the week (0 for Sunday, 1 for Monday, etc.)
-                        start_time: start_time,
-                        end_time: end_time,
-                        title: info.event.id,
-                        academic_period: $('#academic-period').val(),
-                    };
+                // let startTime = info.event.start;
+                // let endTime = info.event.end;
+                // if (startTime) {
+                //     let today = new Date();
+                //     let datePart = today.toISOString().split('T')[0]; // "YYYY-MM-DD"
 
-                    // Save to database
-                    $.ajax({
-                        url: "{{ route('postAddGeneralSchedule') }}",
-                        method: 'POST',
-                        data: eventData,
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector(
-                                'meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        success: function(response) {
-                            if (response.conflict) {
-                                info.event.setProp('backgroundColor', 'red');
-                            } else {
-                                info.event.setProp('backgroundColor', 'blue');
-                            }
-                        }
-                    });
-                } else {
-                    console.error('Event start time is null or undefined');
-                }
+                //     let start_time = startTime.toTimeString().split(' ')[0]; // "HH:MM:SS"
+                //     let end_time = endTime ? endTime.toTimeString().split(' ')[0] : null; // "HH:MM:SS"
+
+                //     let eventData = {
+                //         id: info.event.id,
+                //         day: startTime.getUTCDay(), // Get day of the week (0 for Sunday, 1 for Monday, etc.)
+                //         start_time: datePart + ' ' +start_time,
+                //         end_time: datePart + ' ' +end_time,
+                //         title: info.event.id,
+                //         academic_period: $('#academic-period').val(),
+                //     };
+
+                //     // Save to database
+                //     $.ajax({
+                //         url: "{{ route('postAddGeneralSchedule') }}",
+                //         method: 'POST',
+                //         data: eventData,
+                //         headers: {
+                //             'X-CSRF-TOKEN': document.querySelector(
+                //                 'meta[name="csrf-token"]').getAttribute('content')
+                //         },
+                //         success: function(response) {
+                //             if (response.conflict) {
+                //                 info.event.setProp('backgroundColor', 'red');
+                //             } else {
+                //                 info.event.setProp('backgroundColor', 'blue');
+                //             }
+                //         }
+                //     });
+                // } else {
+                //     console.error('Event start time is null or undefined');
+                // }
+            },
+            eventDrop: function(info) {console.log('eventDrop');
+                handleEventUpdate(info,'u');
+                
+                // let startTime = info.event.start;
+                // let endTime = info.event.end;
+                // if (startTime) {
+                //     let datePart = startTime.toISOString().split('T')[0]; // "YYYY-MM-DD"
+                //     let start_time = startTime.toTimeString().split(' ')[0]; // "HH:MM:SS"
+                //     let end_time = endTime ? endTime.toTimeString().split(' ')[0] : null; // "HH:MM:SS"
+
+                //     let eventData = {
+                //         id: info.event.id,
+                //         day: startTime.getUTCDay(),
+                //         start_time: datePart + ' ' + start_time,
+                //         end_time: datePart + ' ' + end_time,
+                //         academic_period: $('#academic-period').val(),
+                //     };
+
+                //     // Update in the database
+                //     $.ajax({
+                //         url: "{{ route('postEditGeneralSchedule') }}", // Make sure this route handles update logic
+                //         method: 'POST',
+                //         data: eventData,
+                //         headers: {
+                //             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                //         },
+                //         success: function(response) {
+                //             if (response.conflict) {
+                //                 info.event.setProp('backgroundColor', 'red');
+                //             } else {
+                //                 info.event.setProp('backgroundColor', 'blue');
+                //             }
+                //         }
+                //     });
+                // } else {
+                //     console.error('Event start time is null or undefined');
+                // }
+            },
+            eventResize: function(info) {console.log('eventResize');
+                handleEventUpdate(info,'u');
+
+                // let startTime = info.event.start;
+                // let endTime = info.event.end;
+                // if (startTime && endTime) {
+                //     let datePart = startTime.toISOString().split('T')[0]; // "YYYY-MM-DD"
+                //     let start_time = startTime.toTimeString().split(' ')[0]; // "HH:MM:SS"
+                //     let end_time = endTime.toTimeString().split(' ')[0]; // "HH:MM:SS"
+
+                //     let eventData = {
+                //         id: info.event.id,
+                //         day: startTime.getUTCDay(),
+                //         start_time: datePart + ' ' + start_time,
+                //         end_time: datePart + ' ' + end_time,
+                //         academic_period: $('#academic-period').val(),
+                //     };
+
+                //     // Update in the database
+                //     $.ajax({
+                //         url: "{{ route('postEditGeneralSchedule') }}", // Make sure this route handles update logic
+                //         method: 'POST',
+                //         data: eventData,
+                //         headers: {
+                //             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                //         },
+                //         success: function(response) {
+                //             if (response.conflict) {
+                //                 info.event.setProp('backgroundColor', 'red');
+                //             } else {
+                //                 info.event.setProp('backgroundColor', 'blue');
+                //             }
+                //         }
+                //     });
+                // } else {
+                //     console.error('Event start time or end time is null or undefined');
+                // }
             },
             eventMouseEnter: function(info) {
                 // Format the start time
@@ -123,7 +204,7 @@
                 let endTime = info.event.end ? info.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
 
                 // Create the tooltip content
-                let tooltip = `<div class="fc-tooltip">${info.event.title}<br>Start: ${startTime}<br>End: ${endTime}</div>`;
+                let tooltip = `<div class="fc-tooltip">${info.event.title}<br>Start: ${startTime}<br>End: ${endTime}<button class="delete-event-btn">Delete</button></div>`;
                 $('body').append(tooltip);
 
                 $(".fc-tooltip").css({
@@ -138,8 +219,15 @@
                     boxShadow: '2px 2px 5px rgba(0,0,0,0.3)'
                 });
 
+                $(".delete-event-btn").on('click', function() {
+                    handleEventUpdate(info, 'd');
+                });
+
+                let hideTooltipTimeout;
                 $(info.el).on('mouseleave', function() {
-                    $('.fc-tooltip').remove();
+                    hideTooltipTimeout = setTimeout(function() {
+                        $('.fc-tooltip').remove();
+                    }, 2000); // 2 seconds delay before tooltip disappears
                 });
             },
         });
@@ -159,13 +247,75 @@
                 };
             }
         });
+
+        function handleEventUpdate(info, type) {
+            let isConflicting = checkForConflicts(info.event);
+
+            if (isConflicting) {
+                info.event.setProp('backgroundColor', 'red');
+            } else {
+                info.event.setProp('backgroundColor', 'blue');
+
+                let startTime = info.event.start;
+                let endTime = info.event.end;
+                let datePart = startTime.toISOString().split('T')[0]; // "YYYY-MM-DD"
+
+                let start_time = startTime.toTimeString().split(' ')[0]; // "HH:MM:SS"
+                let end_time = endTime ? endTime.toTimeString().split(' ')[0] : null; // "HH:MM:SS"
+
+                let eventData = {
+                    id: info.event.id,
+                    day: startTime.getUTCDay(),
+                    start_time: datePart + ' ' + start_time,
+                    end_time: datePart + ' ' + end_time,
+                    title: info.event.id,
+                    academic_period: $('#academic-period').val(),
+                };
+
+                if (type=='c')
+                    let routeUrl = "{{ route('postAddGeneralSchedule') }}";
+                else if (type=='u')
+                    let routeUrl = "{{ route('postEditGeneralSchedule') }}";
+                else
+                    let routeUrl = "{{ route('postDeleteGeneralSchedule') }}";
+
+                // Save to database
+                $.ajax({
+                    url: routeUrl, // Use your appropriate route
+                    method: 'POST',
+                    data: eventData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    success: function(response) {
+                        if (response.conflict) {
+                            info.event.setProp('backgroundColor', 'red');
+                        } else {
+                            info.event.setProp('backgroundColor', 'blue');
+                        }
+                    }
+                });
+            }
+        }
+
+        function checkForConflicts(event) {console.log(event);
+            let allEvents = calendar.getEvents();
+            for (let i = 0; i < allEvents.length; i++) {
+                let existingEvent = allEvents[i];console.log(existingEvent);
+
+                // Skip checking the event against itself
+                if (existingEvent === event) continue;
+
+                // Check if the event overlaps with any other event
+                if (
+                    (event.start >= existingEvent.start && event.start < existingEvent.end) || (event.start < existingEvent.start && event.end > existingEvent.end) || (event.end > existingEvent.start && event.end <= existingEvent.end)
+                ) {
+                    if (event.id!=existingEvent.id)
+                        return true;
+                }
+            }
+            return false;
+        }
     });
-</script>
-<script>
-    @foreach ($schedules as $schedule)
-        var schedule_date_start = new Date("{{ $schedule->date_start }}");
-        var schedule_date_end = new Date("{{ $schedule->date_end }}");
-        
-    @endforeach
 </script>
 @endsection
