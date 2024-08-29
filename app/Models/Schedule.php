@@ -15,7 +15,7 @@ class Schedule extends Model
 
     protected $fillable = [
         'course_class_id',
-        'academic_period',
+        'm_academic_period_id',
         'day',
         'location',
         'category',
@@ -32,5 +32,10 @@ class Schedule extends Model
     public function CourseClass()
     {
         return $this->belongsTo(CourseClass::class, 'course_class_id');
+    }
+
+    public function MAcademicPeriod()
+    {
+        return $this->belongsTo(MAcademicPeriod::class, 'm_academic_period_id');
     }
 }

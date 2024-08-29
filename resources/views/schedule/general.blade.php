@@ -16,24 +16,31 @@
         border-radius: 5px;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     }
+    .fc-toolbar-title {
+        display: none;
+    }
 </style>
 @endsection
 
 @section('content')
 <select id="academic-period">
     <option value="">Select Academic Period</option>
-    <option value="1">Ganjil 2004</option>
-    <option value="2">Genap 2004</option>
-    <option value="3">Ganjil 2005</option>
-    <option value="4">Genap 2005</option>
+    @foreach ($academic_periods as $item)
+        <option value="{{ $item->id }}">{{ $item->name }}</option>
+    @endforeach
+    <!-- Populate with available periods -->
+</select>
+
+<select id="prodi">
+    <option value="">Select Prodi</option>
+    @foreach ($prodi as $item)
+        <option value="{{ $item->id }}">{{ $item->name }}</option>
+    @endforeach
     <!-- Populate with available periods -->
 </select>
 
 <div id='external-events'>
     <!-- List of classes -->
-    @foreach ($course_class as $schedule)
-        <div class='fc-event' data-id="{{ $schedule->id }}">{{ $schedule->slug }}</div>
-    @endforeach
 </div>
 
 <div id='calendar'></div>
@@ -81,121 +88,12 @@
             },
             eventReceive: function(info) {console.log('eventReceive');
                 handleEventUpdate(info,'c');
-
-                // let startTime = info.event.start;
-                // let endTime = info.event.end;
-                // if (startTime) {
-                //     let today = new Date();
-                //     let datePart = today.toISOString().split('T')[0]; // "YYYY-MM-DD"
-
-                //     let start_time = startTime.toTimeString().split(' ')[0]; // "HH:MM:SS"
-                //     let end_time = endTime ? endTime.toTimeString().split(' ')[0] : null; // "HH:MM:SS"
-
-                //     let eventData = {
-                //         id: info.event.id,
-                //         day: startTime.getUTCDay(), // Get day of the week (0 for Sunday, 1 for Monday, etc.)
-                //         start_time: datePart + ' ' +start_time,
-                //         end_time: datePart + ' ' +end_time,
-                //         title: info.event.id,
-                //         academic_period: $('#academic-period').val(),
-                //     };
-
-                //     // Save to database
-                //     $.ajax({
-                //         url: "{{ route('postAddGeneralSchedule') }}",
-                //         method: 'POST',
-                //         data: eventData,
-                //         headers: {
-                //             'X-CSRF-TOKEN': document.querySelector(
-                //                 'meta[name="csrf-token"]').getAttribute('content')
-                //         },
-                //         success: function(response) {
-                //             if (response.conflict) {
-                //                 info.event.setProp('backgroundColor', 'red');
-                //             } else {
-                //                 info.event.setProp('backgroundColor', 'blue');
-                //             }
-                //         }
-                //     });
-                // } else {
-                //     console.error('Event start time is null or undefined');
-                // }
             },
             eventDrop: function(info) {console.log('eventDrop');
                 handleEventUpdate(info,'u');
-                
-                // let startTime = info.event.start;
-                // let endTime = info.event.end;
-                // if (startTime) {
-                //     let datePart = startTime.toISOString().split('T')[0]; // "YYYY-MM-DD"
-                //     let start_time = startTime.toTimeString().split(' ')[0]; // "HH:MM:SS"
-                //     let end_time = endTime ? endTime.toTimeString().split(' ')[0] : null; // "HH:MM:SS"
-
-                //     let eventData = {
-                //         id: info.event.id,
-                //         day: startTime.getUTCDay(),
-                //         start_time: datePart + ' ' + start_time,
-                //         end_time: datePart + ' ' + end_time,
-                //         academic_period: $('#academic-period').val(),
-                //     };
-
-                //     // Update in the database
-                //     $.ajax({
-                //         url: "{{ route('postEditGeneralSchedule') }}", // Make sure this route handles update logic
-                //         method: 'POST',
-                //         data: eventData,
-                //         headers: {
-                //             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                //         },
-                //         success: function(response) {
-                //             if (response.conflict) {
-                //                 info.event.setProp('backgroundColor', 'red');
-                //             } else {
-                //                 info.event.setProp('backgroundColor', 'blue');
-                //             }
-                //         }
-                //     });
-                // } else {
-                //     console.error('Event start time is null or undefined');
-                // }
             },
             eventResize: function(info) {console.log('eventResize');
                 handleEventUpdate(info,'u');
-
-                // let startTime = info.event.start;
-                // let endTime = info.event.end;
-                // if (startTime && endTime) {
-                //     let datePart = startTime.toISOString().split('T')[0]; // "YYYY-MM-DD"
-                //     let start_time = startTime.toTimeString().split(' ')[0]; // "HH:MM:SS"
-                //     let end_time = endTime.toTimeString().split(' ')[0]; // "HH:MM:SS"
-
-                //     let eventData = {
-                //         id: info.event.id,
-                //         day: startTime.getUTCDay(),
-                //         start_time: datePart + ' ' + start_time,
-                //         end_time: datePart + ' ' + end_time,
-                //         academic_period: $('#academic-period').val(),
-                //     };
-
-                //     // Update in the database
-                //     $.ajax({
-                //         url: "{{ route('postEditGeneralSchedule') }}", // Make sure this route handles update logic
-                //         method: 'POST',
-                //         data: eventData,
-                //         headers: {
-                //             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                //         },
-                //         success: function(response) {
-                //             if (response.conflict) {
-                //                 info.event.setProp('backgroundColor', 'red');
-                //             } else {
-                //                 info.event.setProp('backgroundColor', 'blue');
-                //             }
-                //         }
-                //     });
-                // } else {
-                //     console.error('Event start time or end time is null or undefined');
-                // }
             },
             eventMouseEnter: function(info) {
                 // Format the start time
@@ -238,6 +136,21 @@
             calendar.refetchEvents();
         });
 
+        $('#prodi').on('change', function() {
+            $.ajax({
+                url: "{{ route('getOngoingCourseClassByCourseCategory') }}",
+                dataType: 'json',
+                data: { prodi: $('#prodi').val() },
+                success: function(data) {console.log(data);
+                    //successCallback(data); <div class='fc-event' data-id=""></div>
+                    $('#external-events').html('');
+                    data.forEach(item => {
+                        $('#external-events').append(`<div class='fc-event' data-id="${item.id}">${item.slug}</div>`);
+                    });
+                }
+            });
+        });
+
         new FullCalendar.Draggable(document.getElementById('external-events'), {
             itemSelector: '.fc-event',
             eventData: function(eventEl) {
@@ -272,12 +185,13 @@
                     academic_period: $('#academic-period').val(),
                 };
 
-                if (type=='c')
-                    let routeUrl = "{{ route('postAddGeneralSchedule') }}";
-                else if (type=='u')
-                    let routeUrl = "{{ route('postEditGeneralSchedule') }}";
-                else
-                    let routeUrl = "{{ route('postDeleteGeneralSchedule') }}";
+                if (type=='c') {
+                    var routeUrl = "{{ route('postAddGeneralSchedule') }}";
+                } else if (type=='u') {
+                    var routeUrl = "{{ route('postEditGeneralSchedule') }}";
+                } else {
+                    var routeUrl = "{{ route('postDeleteGeneralSchedule') }}";
+                }
 
                 // Save to database
                 $.ajax({

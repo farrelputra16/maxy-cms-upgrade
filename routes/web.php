@@ -36,6 +36,7 @@ use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\MPartnershipTypeController;
 use App\Http\Controllers\PartnershipController;
 use App\Http\Controllers\MSurveyController;
+use App\Http\Controllers\MAcademicPeriodController;
 use App\Http\Controllers\ScheduleController;
 
 // jago digital controller ###########################################################################################################
@@ -212,6 +213,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/survey/result', [MSurveyController::class, 'getSurveyResult'])->name('getSurveyResult')->middleware('access:survey_result_manage');
     Route::get('/survey/result/detail', [MSurveyController::class, 'getSurveyResultDetail'])->name('getSurveyResultDetail')->middleware('access:survey_result_read');
 
+    // academic period
+    Route::get('/academic_period', [MAcademicPeriodController::class, 'getAcademicPeriod'])->name('getAcademicPeriod')->middleware('access:m_academic_period_manage');
+
+    Route::get('/academic_period/add', [MAcademicPeriodController::class, 'getAddAcademicPeriod'])->name('getAddAcademicPeriod')->middleware('access:m_academic_period_create');
+    Route::post('/academic_period/add', [MAcademicPeriodController::class, 'postAddAcademicPeriod'])->name('postAddAcademicPeriod')->middleware('access:m_academic_period_create');
+
+    Route::get('/academic_period/edit', [MAcademicPeriodController::class, 'getEditAcademicPeriod'])->name('getEditAcademicPeriod')->middleware('access:m_academic_period_update');
+    Route::post('/academic_period/edit', [MAcademicPeriodController::class, 'postEditAcademicPeriod'])->name('postEditAcademicPeriod')->middleware('access:m_academic_period_update');
+
     // schedule
     Route::get('/schedule', [ScheduleController::class, 'getSchedule'])->name('getSchedule')->middleware('access:schedule_manage');
 
@@ -229,6 +239,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/schedule/general/edit', [ScheduleController::class, 'postEditGeneralSchedule'])->name('postEditGeneralSchedule')->middleware('access:schedule_update');
 
     Route::post('/schedule/general/delete', [ScheduleController::class, 'postDeleteGeneralSchedule'])->name('postDeleteGeneralSchedule')->middleware('access:schedule_delete');
+
+    Route::get('/schedule/general/course/class', [ScheduleController::class, 'getOngoingCourseClassByCourseCategory'])->name('getOngoingCourseClassByCourseCategory')->middleware('access:schedule_manage');
     //                                                      USER MANAGEMENT
 
     //AccessGroup Route #######################################################################################################

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Schedule;
 use App\Models\CourseClass;
+use App\Models\MAcademicPeriod;
+use App\Models\Category;
 use Illuminate\Support\Facades\File;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
@@ -109,13 +111,17 @@ class ScheduleController extends Controller
 
     function getGeneralSchedule(){
         $schedules = Schedule::with(['CourseClass'])->get();
-        $course_class = CourseClass::where('status', 1)
-            ->where('status_ongoing', 1)
-            ->get();
+        // $course_class = CourseClass::where('status', 1)
+        //     ->where('status_ongoing', 1)
+        //     ->get();
+        $academic_periods = MAcademicPeriod::where('status', 1)->get();
+        $prodi = Category::where('status', 1)->get();
 
         return view('schedule.general',[
             'schedules' => $schedules,
-            'course_class' => $course_class,
+            // 'course_class' => $course_class,
+            'academic_periods' => $academic_periods,
+            'prodi' => $prodi,
         ]);
     
     }
@@ -124,7 +130,7 @@ class ScheduleController extends Controller
         try {
             $period = $request->input('period');
             // Fetch schedules based on the selected academic period
-            $schedules = Schedule::with(['CourseClass'])->where('academic_period', $period)->get();
+            $schedules = Schedule::with(['CourseClass'])->where('m_academic_period_id', $period)->get();
 
             $events = $schedules->map(function($schedule) {
                 return [
@@ -137,6 +143,21 @@ class ScheduleController extends Controller
             });
 
             return response()->json($events);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
+        }
+    }
+
+    function getOngoingCourseClassByCourseCategory(Request $request){
+        try {
+            $prodi = $request->input('prodi');
+            $course_class = CourseClass::whereHas('course.CourseCategory', function ($query) use ($prodi) {
+                    $query->where('category_id', $prodi);
+                })
+                ->where('status_ongoing', 1)
+                ->get();
+
+            return $course_class;
         } catch (Exception $e) {
             return response()->json(['error' => $e], 500);
         }
@@ -155,7 +176,7 @@ class ScheduleController extends Controller
             if ($validated){
                 $create = Schedule::create([
                     'course_class_id' => $request->title,
-                    'academic_period' => $request->academic_period,
+                    'm_academic_period_id' => $request->academic_period,
                     'day' => $request->day,
                     'date_start' => date('Y-m-d H:i:s', strtotime($request->start_time)),
                     'date_end' => date('Y-m-d H:i:s', strtotime($request->end_time)),

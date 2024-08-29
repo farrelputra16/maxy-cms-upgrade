@@ -33,6 +33,7 @@
                         <li><a href="{{ route('getEventType') }}" key="t-blog">Event Type</a></li>
                         <li><a href="{{ route('getPartnershipType') }}" key="t-blog">Partnership Type</a></li>
                         <li><a href="{{ route('getSurvey') }}" key="t-blog">Survey</a></li>
+                        <li><a href="{{ route('getAcademicPeriod') }}" key="t-blog">Academic Period</a></li>
 
                     </ul>
                 </li>

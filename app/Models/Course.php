@@ -25,6 +25,11 @@ class Course extends Model
 
     protected $with = ['type'];
 
+    public function CourseCategory()
+    {
+        return $this->hasMany(CourseCategory::class, 'course_id');
+    }
+
     public function modules()
     {
         return $this->hasMany(CourseModule::class, 'course_id')->where('status', 1);

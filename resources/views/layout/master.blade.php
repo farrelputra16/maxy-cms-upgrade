@@ -273,6 +273,10 @@
                                 <a href="{{ route('getSurvey') }}"
                                     class="list-group-item list-group-item-action {{ Route::is('getSurvey') ? 'active' : '' }}">Survey</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('getAcademicPeriod') }}" 
+                                    class="list-group-item list-group-item-action {{ Route::is('getAcademicPeriod') ? 'active' : '' }}">Academic Period</a>
+                            </li>
                         </ul>
                     </li>
 
