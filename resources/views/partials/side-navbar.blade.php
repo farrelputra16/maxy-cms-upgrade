@@ -59,6 +59,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('getSchedule') }}" key="t-schedule">Schedule</a></li>
+                        <li><a href="{{ route('getGeneralSchedule') }}" key="t-general-schedule">General Schedule</a></li>
                     </ul>
                 </li>
 

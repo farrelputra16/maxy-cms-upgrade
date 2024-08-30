@@ -23,21 +23,31 @@
 @endsection
 
 @section('content')
-<select id="academic-period">
-    <option value="">Select Academic Period</option>
-    @foreach ($academic_periods as $item)
-        <option value="{{ $item->id }}">{{ $item->name }}</option>
-    @endforeach
-    <!-- Populate with available periods -->
-</select>
+<div class="mb-3">
+    <label for="exampleSelect" class="form-label">Select Academic Period</label>
+    <select id="academic-period" class="form-select">
+        <option value="">Select Academic Period</option>
+        @foreach ($academic_periods as $item)
+            <option value="{{ $item->id }}">{{ $item->name }}</option>
+        @endforeach
+        <!-- Populate with available periods -->
+    </select>
+</div>
 
-<select id="prodi">
-    <option value="">Select Prodi</option>
-    @foreach ($prodi as $item)
-        <option value="{{ $item->id }}">{{ $item->name }}</option>
-    @endforeach
-    <!-- Populate with available periods -->
-</select>
+<div class="mb-3">
+    <label for="exampleSelect" class="form-label">Select Prodi</label>
+    <select id="prodi" class="form-select">
+        <option value="">Select Prodi</option>
+        @foreach ($prodi as $item)
+            <option value="{{ $item->id }}">{{ $item->name }}</option>
+        @endforeach
+        <!-- Populate with available periods -->
+    </select>
+</div>
+
+<div class="mb-3">
+    <button type="button" class="btn btn-primary" id='publish'>Publish</button>
+</div>
 
 <div id='external-events'>
     <!-- List of classes -->
@@ -147,6 +157,21 @@
                     data.forEach(item => {
                         $('#external-events').append(`<div class='fc-event' data-id="${item.id}">${item.slug}</div>`);
                     });
+                }
+            });
+        });
+
+        $('#publish').on('click', function() {
+            $.ajax({
+                url: "{{ route('postSaveGeneralSchedule') }}",
+                method: 'POST',
+                dataType: 'json',
+                data: { academic_periods: $('#academic-period').val() },
+                headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                success: function(data) {console.log(data);
+                    //successCallback(data); <div class='fc-event' data-id=""></div>
                 }
             });
         });

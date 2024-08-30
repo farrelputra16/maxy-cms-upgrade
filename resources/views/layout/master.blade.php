@@ -323,8 +323,7 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('getGeneralSchedule') }}"
-                                    class="list-group-item list-group-item-action {{ Route::is('getGeneralSchedule') ? 'active' : '' }}">General
-                                    Schedule</a>
+                                    class="list-group-item list-group-item-action {{ Route::is('getGeneralSchedule') ? 'active' : '' }}">General Schedule</a>
                             </li>
                         </ul>
                     </li>

@@ -241,6 +241,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/schedule/general/delete', [ScheduleController::class, 'postDeleteGeneralSchedule'])->name('postDeleteGeneralSchedule')->middleware('access:schedule_delete');
 
     Route::get('/schedule/general/course/class', [ScheduleController::class, 'getOngoingCourseClassByCourseCategory'])->name('getOngoingCourseClassByCourseCategory')->middleware('access:schedule_manage');
+
+    Route::post('/schedule/general/save', [ScheduleController::class, 'postSaveGeneralSchedule'])->name('postSaveGeneralSchedule')->middleware('access:schedule_create');
     //                                                      USER MANAGEMENT
 
     //AccessGroup Route #######################################################################################################

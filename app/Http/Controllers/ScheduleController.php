@@ -180,7 +180,7 @@ class ScheduleController extends Controller
                     'day' => $request->day,
                     'date_start' => date('Y-m-d H:i:s', strtotime($request->start_time)),
                     'date_end' => date('Y-m-d H:i:s', strtotime($request->end_time)),
-                    'status' => 1,
+                    'status' => 0,
                     'created_id' => Auth::user()->id,
                     'updated_id' => Auth::user()->id,
                 ]);
@@ -209,7 +209,7 @@ class ScheduleController extends Controller
                         'day' => $request->day,
                         'date_start' => date('Y-m-d H:i:s', strtotime($request->start_time)),
                         'date_end' => date('Y-m-d H:i:s', strtotime($request->end_time)),
-                        'status' => 1,
+                        'status' => 0,
                         'updated_id' => Auth::user()->id,
                     ]);
                 return response()->json(['success' => 'Success', 'updateData' => $updateData], 200);
@@ -238,6 +238,22 @@ class ScheduleController extends Controller
 
                 // If user not found
                 return response()->json(['message' => 'Data not found.'], 404);
+            }
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
+        }
+    }
+
+    function postSaveGeneralSchedule(Request $request){
+        try {
+            // return dd($request->all());
+            $validated= $request->validate([
+                'academic_periods' => 'required',
+            ]);
+
+            if ($validated){
+                $updateData = Schedule::where('m_academic_period_id', $request->academic_periods)->update(['status' => 1]);
+                return response()->json(['success' => 'Success', 'updateData' => $updateData], 200);
             }
         } catch (Exception $e) {
             return response()->json(['error' => $e], 500);
