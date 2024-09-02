@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Modules\ClassContentManagement\Entities\ClassAttendance;
 use Modules\ClassContentManagement\Entities\CourseClass;
 use Modules\ClassContentManagement\Entities\MemberAttendance;
+use Modules\Enrollment\Entities\CourseClassMember;
 
 class AttendanceController extends Controller
 {
@@ -39,7 +40,7 @@ class AttendanceController extends Controller
     {
         // dd($request->all());
         try {
-            //code...
+            // create new class attendance
             $attendance = new ClassAttendance();
             $attendance->name = $request->name;
             $attendance->course_class_module_id = $request->day;
@@ -50,6 +51,19 @@ class AttendanceController extends Controller
             $attendance->updated_id = Auth::user()->id;
 
             $attendance->save();
+
+            // create member attendance data (default = tidak hadir)
+            $members = CourseClassMember::getCCMByCourseClassId($request->class_id);
+            foreach ($members as $key => $value) {
+                $memberAttendance = new MemberAttendance();
+                $memberAttendance->course_class_attendance_id = $attendance->id;
+                $memberAttendance->user_id = $value->id;
+                $memberAttendance->status = 0;
+                $memberAttendance->created_id = Auth::user()->id;
+                $memberAttendance->updated_id = Auth::user()->id;
+
+                $memberAttendance->save();
+            }
 
             return redirect()->route('getCourseClassAttendance', ['id' => $request->class_id])->with('success', 'new attendance created successfully');
         } catch (\Exception $e) {
@@ -73,7 +87,7 @@ class AttendanceController extends Controller
         // dd($request->all());
 
         try {
-            //code...
+            // edit class attendance
             $attendance = ClassAttendance::find($request->attendance_id);
             $attendance->name = $request->name;
             $attendance->course_class_module_id = $request->day;
@@ -84,6 +98,25 @@ class AttendanceController extends Controller
             $attendance->updated_id = Auth::user()->id;
 
             $attendance->save();
+
+            // create member attendance data if not exist (default = tidak hadir)
+            $members = CourseClassMember::getCCMByCourseClassId($request->class_id);
+            foreach ($members as $key => $value) {
+                $exist = MemberAttendance::where('course_class_attendance_id', $attendance->id)
+                    ->where('user_id', $value->id)
+                    ->first();
+
+                if (!$exist) {
+                    $memberAttendance = new MemberAttendance();
+                    $memberAttendance->course_class_attendance_id = $attendance->id;
+                    $memberAttendance->user_id = $value->id;
+                    $memberAttendance->status = 0;
+                    $memberAttendance->created_id = Auth::user()->id;
+                    $memberAttendance->updated_id = Auth::user()->id;
+
+                    $memberAttendance->save();
+                }
+            }
 
             return redirect()->route('getCourseClassAttendance', ['id' => $request->class_id])->with('success', 'new attendance updated successfully');
         } catch (\Exception $e) {

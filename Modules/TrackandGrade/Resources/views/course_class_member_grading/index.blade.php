@@ -113,7 +113,7 @@
                                             </td>
                                             <td>
                                                 @php
-                                                    if ($member->submission) {
+                                                    if (isset($member->submission)) {
                                                         $number = $member->submission->id;
                                                         if ($member->submission->id < 10) {
                                                             $number = '0' . $member->submission->id;
@@ -130,11 +130,15 @@
                                             </td>
                                             <td>
                                                 @php
-                                                    $number = $item->parent->priority;
-                                                    if ($item->parent->priority < 10) {
-                                                        $number = '0' . $item->parent->priority;
+                                                    if (isset($item->parent->priority)) {
+                                                        $number = $item->parent->priority;
+                                                        if ($item->parent->priority < 10) {
+                                                            $number = '0' . $item->parent->priority;
+                                                        }
+                                                        echo $number;
+                                                    } else {
+                                                        echo '-';
                                                     }
-                                                    echo $number;
                                                 @endphp
                                             </td>
                                             <td>{{ $member->user_name }}</td>
@@ -153,7 +157,7 @@
                                                     : '-' !!}
                                             </td>
                                             <td>
-                                                @if ($member->submission)
+                                                @if (isset($member->submission))
                                                     @if ($member->submission->grade)
                                                         <div class="badge bg-success">Graded</div>
                                                     @else
@@ -214,118 +218,5 @@
 @endsection
 
 @section('script')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            let table = $('#table').DataTable({
-                scrollX: true,
-                lengthChange: false,
-                // lengthMenu: [10, 25, 50, 100],
-                pageLength: 10,
-                buttons: [
-                    'colvis',
-                    {
-                        extend: 'copy',
-                        className: 'buttons-copy',
-                    },
-                    {
-                        extend: 'excel',
-                        className: 'buttons-excel',
-                    },
-                    {
-                        extend: 'pdf',
-                        className: 'buttons-pdf',
-                    },
-                ],
-                searching: true,
-                columnDefs: [{
-                    "visible": false,
-                    "targets": [0]
-                }],
-                initComplete: function() {
-                    this.api()
-                        .columns()
-                        .every(function() {
-                            var column = this;
-                            var title = column.footer().textContent;
-
-                            // Create input element and add event listener
-                            $('<input class="form-control" type="text" placeholder="Search ' +
-                                    title + '" />')
-                                .appendTo($(column.footer()).empty())
-                                .on('keyup change clear', function() {
-                                    if (column.search() !== this.value) {
-                                        column.search(this.value).draw();
-                                    }
-                                });
-                        });
-                }
-            });
-
-            let buttonContainer = $('<div>').addClass('buttons-container');
-            table.buttons().container().appendTo(buttonContainer);
-            buttonContainer.insertBefore('.tableCourseMember_wrapper .dataTables_length');
-
-            // Create container for buttons and pagination
-            let buttonPaginationContainer = $('<div>').addClass('button-pagination-container');
-            buttonPaginationContainer.css({
-                display: 'block',
-                flexDirection: 'row',
-                justifyContent: 'flex-start',
-                // marginBottom: '10px'
-            });
-
-            // Insert the buttons into the new container
-            table.buttons().container().appendTo(buttonContainer);
-
-            // Apply the search for individual columns
-            table.columns().every(function() {
-                let that = this;
-
-                $('input', this.header()).on('keyup change clear', function() {
-                    if (that.search() !== this.value) {
-                        that
-                            .search(this.value)
-                            .draw();
-                    }
-                });
-            });
-
-            table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $('#formSubmit').on('submit', function(e) {
-                e.preventDefault(); // Prevent form submission
-                var selectedValue = $('#course_class').val(); // Get selected value from dropdown
-
-                // Check if value is not null or empty
-                if (selectedValue) {
-                    // Set the value of the hidden input field to the selected value
-                    $('#selectedClassId').val(selectedValue);
-                    // Submit the form
-                    $(this).unbind('submit').submit();
-                } else {
-                    // Handle case where no value is selected
-                    alert('Pilih kelas terlebih dahulu.');
-                }
-            });
-        });
-    </script>
 
 @endsection
