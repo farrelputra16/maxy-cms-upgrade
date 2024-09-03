@@ -9,12 +9,51 @@ use Modules\ClassContentManagement\Entities\CourseClassModule;
 use Modules\ClassContentManagement\Entities\CourseClass;
 use App\Http\Controllers\HelperController;
 use App\Models\Course;
+use App\Models\CourseModule;
 use Illuminate\Support\Facades\Auth;
 use App\Models\AccessMaster;
 
 
 class CourseClassController extends Controller
 {
+    function getCourseClassScoring(Request $request)
+    {
+        $classes = CourseClassModule::with(['CourseClass', 'CourseModule'])
+            ->where('course_class_id', $request->id)
+            ->whereHas('CourseModule', function ($query) {
+                $query->where('type', 'assignment');
+            })
+            ->orderBy('course_class_module.id')
+            ->get();
+        // dd($classes[0]->CourseClass);
+            
+        return view('classcontentmanagement::course_class.scoring', [
+            'classes' => $classes,
+            'id' => $request->id,
+        ]);
+    }
+
+    public function postCourseClassScoring(Request $request)
+    {//dd($request->all());
+        try {
+            $updateData = CourseClass::where('id', $request->id)
+                ->update([
+                    'percentage' => $request->attendance,
+                ]);
+            $data = $request->all();
+
+            foreach ($data as $id => $percentage) {
+                if (!is_numeric($id)) {
+                    continue;
+                }
+                CourseClassModule::where('id', $id)->update(['percentage' => $percentage]);
+            }
+            return app(HelperController::class)->Positive('getCourseClass');
+        } catch (Exception $e) {dd($e);
+            return app(HelperController::class)->Warning('getCourseClass');
+        }
+    }
+
     function getCourseClass()
     {
         $broGotAccessMaster = AccessMaster::getUserAccessMaster();

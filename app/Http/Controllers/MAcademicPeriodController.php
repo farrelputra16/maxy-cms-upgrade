@@ -20,12 +20,16 @@ class MAcademicPeriodController extends Controller
 
     function postAddAcademicPeriod(Request $request){
         $validate = $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'date_start' => 'required|date|after_or_equal:today',
+            'date_end' => 'required|date|after_or_equal:tomorrow',
         ]);
 
         if ($validate){
             $create = MAcademicPeriod::create([
                 'name' => $request->name,
+                'date_start' => date('Y-m-d', strtotime($request->date_start)),
+                'date_end' => date('Y-m-d', strtotime($request->date_end)),
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => Auth::user()->id,
@@ -46,13 +50,17 @@ class MAcademicPeriodController extends Controller
 
     function postEditAcademicPeriod(Request $request){
         $validate = $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'date_start' => 'required|date|after_or_equal:today',
+            'date_end' => 'required|date|after_or_equal:tomorrow',
         ]);
 
         if($validate){
             $update = MAcademicPeriod::where('id', '=', $request->id)
                 ->update([
                     'name' => $request->name,
+                    'date_start' => date('Y-m-d', strtotime($request->date_start)),
+                    'date_end' => date('Y-m-d', strtotime($request->date_end)),
                     'description' => $request->description,
                     'status' => $request->status ? 1 : 0,
                     'updated_id' => Auth::user()->id

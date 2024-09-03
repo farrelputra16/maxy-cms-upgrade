@@ -587,6 +587,39 @@
         </div>
     </div>
 
+    <div class="row" style="width:100%; margin-bottom: 5%;">
+        <div class="col-md-8">
+            <h3 class="h3 act">Partnerships Expiring Soon</h3>
+            <div class="boxActive box">
+                @if($partnerships->isEmpty())
+                    <div class="alert alert-info" role="alert">
+                        No partnerships are expiring soon.
+                    </div>
+                @else
+                    <table id="table" class="tableActive table-striped" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th class="ticlass" style="width: 50%; text-align: left;">Partner</th>
+                                <th class="tibatch" style="width: 20%;">Type</th>
+                                <th class="tiaction" style="width: 30%; text-align: right;">Expiry Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($partnerships as $record)
+                                <tr>
+                                    <td>{{ $record->Partner->name }}</td>
+                                    <td>{{ $record->MPartnershipType->name }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($record->date_end)->format('Y-m-d') }}</td>
+
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @endif
+            </div>
+        </div>
+    </div>
+
     <div class="row" style="width:100%">
         <!-- Active Class -->
         <div class="col-md-4">

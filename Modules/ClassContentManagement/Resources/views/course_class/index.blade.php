@@ -431,6 +431,8 @@
                                                     class="btnMember">Member</a>
                                                 <a href="{{ route('getCourseClassAttendance', ['id' => $item->id]) }}"
                                                     class="btn btn-secondary">Attendance</a>
+                                                <a href="{{ route('getCourseClassScoring', ['id' => $item->id]) }}"
+                                                    class="btn btn-secondary">Scoring Percentage</a>
                                             </div>
                                         </td>
                                     </tr>

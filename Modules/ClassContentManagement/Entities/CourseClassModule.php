@@ -16,6 +16,7 @@ class CourseClassModule extends Model
     protected $fillable = [
         'start_date',
         'end_date',
+        'percentage',
         'priority',
         'level',
         'course_module_id',
@@ -32,6 +33,16 @@ class CourseClassModule extends Model
     protected static function newFactory()
     {
         return \Modules\ClassContentManagement\Database\factories\CourseClassModuleFactory::new();
+    }
+
+    public function CourseClass()
+    {
+        return $this->belongsTo(CourseClass::class, 'course_class_id');
+    }
+
+    public function CourseModule()
+    {
+        return $this->belongsTo(CourseModule::class, 'course_module_id');
     }
 
 

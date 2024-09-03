@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Modules\Enrollment\Entities\CourseClassMember;
 
 class CourseClass extends Model
 {

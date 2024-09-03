@@ -334,6 +334,8 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
+                                <th>Date start</th>
+                                <th>Date end</th>
                                 <th>Description</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
@@ -346,6 +348,8 @@
                             <tr>
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
+                                <td>{{ $item->date_start }}</td>
+                                <td>{{ $item->date_end }}</td>
                                 <td id="description">{{ $item->description }}</td>
                                 <td>{{ $item->created_at }}</td>
                                 <td>{{ $item->updated_at }}</td>
@@ -368,6 +372,8 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
+                                <th>Date start</th>
+                                <th>Date end</th>
                                 <th>Description</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>

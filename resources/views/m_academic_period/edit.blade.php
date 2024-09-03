@@ -151,6 +151,26 @@
                 </div>
 
                 <div class="field">
+                    <label for="date_start">Date Start</label>
+                    <input type="date" id="date_start" name="date_start" value="{{ $currentData->date_start }}">
+                    @if ($errors->has('date_start'))
+                        @foreach ($errors->get('date_start') as $error)
+                            <span style="color: red;">{{ $error }}</span>
+                        @endforeach
+                    @endif
+                </div>
+
+                <div class="field">
+                    <label for="date_end">Date End</label>
+                    <input type="date" id="date_end" name="date_end" value="{{ $currentData->date_end }}">
+                    @if ($errors->has('date_end'))
+                        @foreach ($errors->get('date_end') as $error)
+                            <span style="color: red;">{{ $error }}</span>
+                        @endforeach
+                    @endif
+                </div>
+
+                <div class="field">
                     <label for="">Description</label>
                     <textarea name="description">{{ $currentData->description }}</textarea>
                 </div>

@@ -110,7 +110,7 @@ class ScheduleController extends Controller
     }
 
     function getGeneralSchedule(){
-        $schedules = Schedule::with(['CourseClass'])->get();
+        // $schedules = Schedule::with(['CourseClass'])->get();
         // $course_class = CourseClass::where('status', 1)
         //     ->where('status_ongoing', 1)
         //     ->get();
@@ -118,7 +118,7 @@ class ScheduleController extends Controller
         $prodi = Category::where('status', 1)->get();
 
         return view('schedule.general',[
-            'schedules' => $schedules,
+            // 'schedules' => $schedules,
             // 'course_class' => $course_class,
             'academic_periods' => $academic_periods,
             'prodi' => $prodi,
@@ -130,17 +130,39 @@ class ScheduleController extends Controller
         try {
             $period = $request->input('period');
             // Fetch schedules based on the selected academic period
-            $schedules = Schedule::with(['CourseClass'])->where('m_academic_period_id', $period)->get();
+            // $schedules = Schedule::with(['CourseClass'])->where('m_academic_period_id', $period)->get();
 
-            $events = $schedules->map(function($schedule) {
-                return [
-                    'id' => $schedule->id,
-                    'title' => $schedule->CourseClass->slug,
-                    'daysOfWeek' => [$schedule->day], // Repeat every week on this day
-                    'startTime' => date('H:i:s', strtotime($schedule->date_start)),
-                    'endTime' => date('H:i:s', strtotime($schedule->date_end))
-                ];
-            });
+            // $events = $schedules->map(function($schedule) {
+            //     return [
+            //         'id' => $schedule->id,
+            //         'title' => $schedule->CourseClass->slug,
+            //         'daysOfWeek' => [$schedule->day], // Repeat every week on this day
+            //         'startTime' => date('H:i:s', strtotime($schedule->date_start)),
+            //         'endTime' => date('H:i:s', strtotime($schedule->date_end))
+            //     ];
+            // });
+
+            $schedules = Schedule::with(['CourseClass.members.user' => function ($query) {
+                $query->where('type', 'tutor');
+            }])
+            ->where('m_academic_period_id', $period)
+            ->get();
+
+            $events = [];
+
+            foreach ($schedules as $schedule) {
+                foreach ($schedule->CourseClass->members as $member) {
+                    if ($member->user && $member->user->type === 'tutor') {
+                        $events[] = [
+                            'id' => $schedule->id,
+                            'title' => $schedule->CourseClass->slug.'<br>'.$member->user->name,
+                            'daysOfWeek' => [$schedule->day], // Repeat every week on this day
+                            'startTime' => date('H:i:s', strtotime($schedule->date_start)),
+                            'endTime' => date('H:i:s', strtotime($schedule->date_end))
+                        ];
+                    }
+                }
+            }
 
             return response()->json($events);
         } catch (Exception $e) {

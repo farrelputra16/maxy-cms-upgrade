@@ -15,6 +15,8 @@ class MAcademicPeriod extends Model
 
     protected $fillable = [
         'name',
+        'date_start',
+        'date_end',
         'description',
         'status',
         'created_at',

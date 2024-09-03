@@ -32,6 +32,9 @@ Route::post('/course/class/add', [CourseClassController::class, 'postAddCourseCl
 Route::get('/course/class/edit', [CourseClassController::class, 'getEditCourseClass'])->name('getEditCourseClass')->middleware('access:course_class_update');
 Route::post('/course/class/edit', [CourseClassController::class, 'postEditCourseClass'])->name('postEditCourseClass')->middleware('access:course_class_update');
 
+Route::get('/course/class/scoring', [CourseClassController::class, 'getCourseClassScoring'])->name('getCourseClassScoring')->middleware('access:course_class_update');
+Route::post('/course/class/scoring', [CourseClassController::class, 'postCourseClassScoring'])->name('postCourseClassScoring')->middleware('access:course_class_update');
+
 // course class attendance
 Route::get('/course/class/attendance', [AttendanceController::class, 'getCourseClassAttendance'])->name('getCourseClassAttendance');
 Route::get('/course/class/attendance/add', [AttendanceController::class, 'getAddCourseClassAttendance'])->name('getAddCourseClassAttendance');

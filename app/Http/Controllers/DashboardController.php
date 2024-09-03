@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Jobs\GoKampusDataSyncJob;
 use App\Models\AccessMaster;
 use App\Models\CourseClass;
+use App\Models\Partnership;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Foundation\Auth\User;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -28,12 +30,20 @@ class DashboardController extends Controller
         $totalStu = User::where('access_group_id', 2)->count();
         $stuActive = User::where('access_group_id', 2)->where('status', 1)->count();
 
+        $now = Carbon::now();
+        $oneMonthFromNow = $now->copy()->addMonth();
+        $partnerships = Partnership::with(['Partner', 'MPartnershipType'])
+            ->where('date_end', '<', $oneMonthFromNow)
+            ->where('date_end', '>', $now)
+            ->get();
+        
         return view('dashboard.index', [
             'accessMaster' => $accessMaster,
             'user' => $user,
             'active_class_list' => $active_class_list,
             'totalStu' => $totalStu,
             'stuActive' => $stuActive,
+            'partnerships' => $partnerships,
         ]);
     }
     public function getDashboard2()
