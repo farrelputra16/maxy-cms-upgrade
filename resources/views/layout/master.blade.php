@@ -277,6 +277,10 @@
                                 <a href="{{ route('getAcademicPeriod') }}" 
                                     class="list-group-item list-group-item-action {{ Route::is('getAcademicPeriod') ? 'active' : '' }}">Academic Period</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('getScore') }}" 
+                                    class="list-group-item list-group-item-action {{ Route::is('getScore') ? 'active' : '' }}">Grade</a>
+                            </li>
                         </ul>
                     </li>
 

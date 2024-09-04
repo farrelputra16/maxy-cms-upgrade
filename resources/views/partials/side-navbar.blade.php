@@ -34,6 +34,7 @@
                         <li><a href="{{ route('getPartnershipType') }}" key="t-blog">Partnership Type</a></li>
                         <li><a href="{{ route('getSurvey') }}" key="t-blog">Survey</a></li>
                         <li><a href="{{ route('getAcademicPeriod') }}" key="t-blog">Academic Period</a></li>
+                        <li><a href="{{ route('getScore') }}" key="t-blog">Grade</a></li>
 
                     </ul>
                 </li>

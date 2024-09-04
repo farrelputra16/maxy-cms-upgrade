@@ -38,6 +38,7 @@ use App\Http\Controllers\PartnershipController;
 use App\Http\Controllers\MSurveyController;
 use App\Http\Controllers\MAcademicPeriodController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\MScoreController;
 
 // jago digital controller ###########################################################################################################
 use App\Http\Controllers\AgentController;
@@ -221,6 +222,15 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/academic_period/edit', [MAcademicPeriodController::class, 'getEditAcademicPeriod'])->name('getEditAcademicPeriod')->middleware('access:m_academic_period_update');
     Route::post('/academic_period/edit', [MAcademicPeriodController::class, 'postEditAcademicPeriod'])->name('postEditAcademicPeriod')->middleware('access:m_academic_period_update');
+
+    // score
+    Route::get('/m_score', [MScoreController::class, 'getScore'])->name('getScore')->middleware('access:m_score_manage');
+
+    Route::get('/m_score/add', [MScoreController::class, 'getAddScore'])->name('getAddScore')->middleware('access:m_score_create');
+    Route::post('/m_score/add', [MScoreController::class, 'postAddScore'])->name('postAddScore')->middleware('access:m_score_create');
+
+    Route::get('/m_score/edit', [MScoreController::class, 'getEditScore'])->name('getEditScore')->middleware('access:m_score_update');
+    Route::post('/m_score/edit', [MScoreController::class, 'postEditScore'])->name('postEditScore')->middleware('access:m_score_update');
 
     // schedule
     Route::get('/schedule', [ScheduleController::class, 'getSchedule'])->name('getSchedule')->middleware('access:schedule_manage');
