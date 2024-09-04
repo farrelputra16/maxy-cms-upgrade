@@ -15,6 +15,8 @@ class MScore extends Model
 
     protected $fillable = [
         'name',
+        'range_start',
+        'range_end',
         'description',
         'status',
         'created_at',
@@ -23,8 +25,8 @@ class MScore extends Model
         'updated_id'
     ];
 
-    public function Schedule()
+    public function Transkrip()
     {
-        return $this->hasMany(Schedule::class, 'm_score_id');
+        return $this->hasMany(Transkrip::class, 'm_score_id');
     }
 }

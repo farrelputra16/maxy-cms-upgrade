@@ -39,6 +39,7 @@ use App\Http\Controllers\MSurveyController;
 use App\Http\Controllers\MAcademicPeriodController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\MScoreController;
+use App\Http\Controllers\TranskripController;
 
 // jago digital controller ###########################################################################################################
 use App\Http\Controllers\AgentController;
@@ -375,6 +376,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/proposal/edit', [ProposalController::class, 'getEditProposal'])->name('getEditProposal')->middleware('access:proposal_update');
     Route::post('/proposal/edit', [ProposalController::class, 'postEditProposal'])->name('postEditProposal')->middleware('access:proposal_update');
+
+    //                                     Transkrip
+    //Transkrip Routes #########################################################################################################
+    Route::get('/transkrip', [TranskripController::class, 'getTranskrip'])->name('getTranskrip')->middleware('access:transkrip_manage');
 
     //                                     Maxy Talks
     //Testimonial Routes #########################################################################################################

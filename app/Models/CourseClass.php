@@ -12,6 +12,11 @@ class CourseClass extends Model
     public $timestamps = false;
     protected $guarded = [];
 
+    public function Transkrip()
+    {
+        return $this->hasMany(Transkrip::class, 'course_class_id');
+    }
+    
     public function Schedule()
     {
         return $this->hasMany(Schedule::class, 'course_class_id');

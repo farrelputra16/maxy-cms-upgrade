@@ -416,6 +416,10 @@
                                 <a href="{{ route('getProposal') }}"
                                     class="list-group-item list-group-item-action {{ Route::is('getProposal') ? 'active' : '' }}">Proposal</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('getTranskrip') }}"
+                                    class="list-group-item list-group-item-action {{ Route::is('getTranskrip') ? 'active' : '' }}">Transkrip</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">

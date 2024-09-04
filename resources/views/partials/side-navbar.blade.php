@@ -96,6 +96,7 @@
                         <li><a href="{{ route('getTestimonial') }}" key="t-testimonial">Testimonial</a></li>
                         <li><a href="{{ route('getRedeemCode') }}" key="t-redeem-code">Redeem Code</a></li>
                         <li><a href="{{ route('getProposal') }}" key="t-proposal">Proposal</a></li>
+                        <li><a href="{{ route('getTranskrip') }}" key="t-proposal">Transkrip</a></li>
                     </ul>
                 </li>
 

@@ -26,6 +26,8 @@ class MScoreController extends Controller
         if ($validate){
             $create = MScore::create([
                 'name' => $request->name,
+                'range_start' => $request->range_start,
+                'range_end' => $request->range_end,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => Auth::user()->id,
@@ -53,6 +55,8 @@ class MScoreController extends Controller
             $update = MScore::where('id', '=', $request->id)
                 ->update([
                     'name' => $request->name,
+                    'range_start' => $request->range_start,
+                    'range_end' => $request->range_end,
                     'description' => $request->description,
                     'status' => $request->status ? 1 : 0,
                     'updated_id' => Auth::user()->id

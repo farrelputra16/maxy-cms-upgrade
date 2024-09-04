@@ -43,6 +43,20 @@
                         </div>
 
                         <div class="mb-3 row">
+                            <label for="input-title" class="col-md-2 col-form-label">Range Start</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" name="range_start" id="input-title">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="input-title" class="col-md-2 col-form-label">Range End</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" name="range_end" id="input-title">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
                             <label for="input-description" class="col-md-2 col-form-label">Description
                                 <small>(Admin)</small></label>
                             <div class="col-md-10">

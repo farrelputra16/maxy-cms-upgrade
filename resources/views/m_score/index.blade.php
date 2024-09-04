@@ -43,6 +43,8 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th>Name</th>
+                                <th>Range Start</th>
+                                <th>Range End</th>
                                 <th>Description</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
@@ -63,6 +65,8 @@
                                         title="{{ $item->name }}">
                                         {!! \Str::limit($item->name, 30) !!}
                                     </td>
+                                    <td>{{ $item->range_start }}</td>
+                                    <td>{{ $item->range_end }}</td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->description) !!}">
                                         {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
@@ -92,6 +96,8 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Name</th>
+                                <th>Range Start</th>
+                                <th>Range End</th>
                                 <th class="data-long">Description</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>

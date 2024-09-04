@@ -72,6 +72,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function Transkrip(){
+        return $this->hasMany(Transkrip::class, 'user_id');
+    }
+    
     public function courseClassMembers(){
         return $this->hasMany(CourseClassMember::class, 'user_id');
     }
