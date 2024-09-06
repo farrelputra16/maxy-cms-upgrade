@@ -288,7 +288,6 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Notes</th>
-                                <th>Created At</th>
                                 <th>Updated At</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -301,17 +300,24 @@
                                 <td scope="row">{{ $item->id }}</td>
                                 <td>{{ $item->User->name }}</td>
                                 <td id="description">{{ $item->description }}</td>
-                                <td>{{ $item->created_at }}</td>
                                 <td>{{ $item->updated_at }}</td>
                                 <td>
-                                    @if ($item->User->status == 1)
+                                    @if ($item->status == 1)
                                     <a class="btnAktif">Aktif</a>
                                     @else
                                     <a class="btnNon">Non Aktif</a>
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('getAddJournalCourseClassChildModule', ['id' => $item->id, 'user_id' => $item->User->id, 'course_class_module_id' => $parent_module->id]) }}" class="btnEdit btn-primary">Edit</a>
+                                    <a href="{{ route('getAddJournalCourseClassChildModule', ['id' => $item->id, 'user_id' => $item->User->id, 'course_class_module_id' => $parent_module->id]) }}" class="btnEdit btn-primary">Reply</a>
+                                    <form action="{{ route('postRejectJournalCourseClassChildModule', ['id' => $item->id, 'course_class_module_id' => $parent_module->id]) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @if ($item->status == 1)
+                                        <button type="submit" class="btn btn-danger">Reject</button>
+                                        @else
+                                        <button type="submit" class="btn btn-success">Accept</button>
+                                        @endif
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
@@ -321,7 +327,6 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Notes</th>
-                                <th>Created At</th>
                                 <th>Updated At</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -335,7 +340,6 @@
                         <div class="custom-pagination-container"></div>
                     </div>
                 </div>
-
 
                 <!-- Include JS libraries for DataTable initialization -->
                 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
@@ -438,6 +442,8 @@
                     });
                 </script>
             </div>
+        </div>
+    </div>
 </body>
 
 </html>

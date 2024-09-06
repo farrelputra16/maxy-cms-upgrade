@@ -52,6 +52,42 @@ class CourseClassController extends Controller
                 }
                 CourseClassModule::where('id', $id)->update(['percentage' => $percentage]);
             }
+
+            $members = CourseClassMember::where('course_class_id', $request->id)->get();
+            foreach ($members as $member) {
+                $data = Transkrip::where('user_id', $member->user_id)
+                    ->where('course_class_id', $request->id)
+                    ->exists();
+                $attendance_percentage = CourseClass::where('id', $request->id)->value('percentage') ?? 0;
+                $attendance_score = 1;
+                $score = $attendance_score * $attendance_percentage / 100;
+                $course_module_percentage = CourseClassModule::with(['CourseClass', 'CourseModule'])
+                    ->where('course_class_id', $request->id)
+                    ->whereHas('CourseModule', function ($query) {
+                        $query->where('type', 'assignment');
+                    })
+                    ->orderBy('course_class_module.id')
+                    ->get();
+                foreach ($course_module_percentage as $item) {
+                    $item->grade = CourseClassMemberGrading::where('course_class_module_id', $item->id)
+                        ->where('user_id', $member->user_id)
+                        ->value('grade') 
+                        ?? 0;
+                    $score += $item->grade * $item->percentage / 100;
+                }
+                $score_id = MScore::where('range_start', '<=', $score)->where('range_end', '>', $score)->first();
+                if ($data) {
+                    $data->update(['m_score_id'=>$score_id->id, 'updated_id' => Auth::user()->id]);
+                } else {
+                    $create = Transkrip::create([
+                        'user_id' => $member->user_id,
+                        'course_class_id' => $request->id,
+                        'm_score_id' => $score_id->id,
+                        'created_id' => Auth::user()->id,
+                        'updated_id' => Auth::user()->id
+                    ]);
+                }
+            }
             return app(HelperController::class)->Positive('getCourseClass');
         } catch (Exception $e) {dd($e);
             return app(HelperController::class)->Warning('getCourseClass');

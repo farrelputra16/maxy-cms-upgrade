@@ -135,7 +135,7 @@
             @csrf
             <input type="hidden" name="course_class_module_id" value="{{ $parent_module->id }}">
             <input type="hidden" name="course_journal_parent_id" value="{{ $course_journal_parent_id }}">
-            <input type="hidden" name="user_id" value="{{ $comments[0]->User->id }}">
+            <input type="hidden" name="user_id" value="{{ $comment->User->id }}">
             <div class="field">
                 <label for="">Materi</label>
                 <div>
@@ -147,67 +147,65 @@
                 <label for="">File Materi</label>
                 <a href="{{ asset('fe/public/files/'.$parent_module->detail->material) }}" download>{{ $parent_module->detail->material }}</a>
             </div>
-            @foreach($comments as $comment)
-<section class="gradient-custom">
-    <div class="container my-5 py-5">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-12 col-lg-10 col-xl-8">
-                <div class="card w-100">
-                    <div class="card-body p-4">
-                        <div class="row">
-                            <div class="col">
-                                <div class="d-flex flex-start">
-                                    @if (empty($comment->User->profile_picture))
-                                        <i class="fas fa-user-circle"></i>
-                                    @else
-                                        <img src="{{ config('app.url_backend') }}/uploads/{{ $comment->User->profile_picture }}" class="rounded-circle shadow-1-strong me-3" alt="Profile Picture" width="65" height="65">
-                                    @endif
-                                    <div class="flex-grow-1 flex-shrink-1">
-                                        <div>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <p class="mb-1">
-                                                    {{ $comment->User->name }} <span class="small">- {{ $comment->diff }}</span>
-                                                </p>
-                                            </div>
-                                            <p class="small mb-0">
-                                                {!! $comment->description !!}
-                                            </p>
-                                        </div>
-                                        @foreach ($comment->child as $child)
-                                        <div class="d-flex flex-start mt-4">
-                                            <a class="me-3" href="#">
-                                                @if (empty(auth()->user()->profile_picture))
+            <section class="gradient-custom">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-12 col-lg-10 col-xl-8">
+                            <div class="card w-100">
+                                <div class="card-body p-4">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="d-flex flex-start">
+                                                @if (empty($comment->User->profile_picture))
                                                     <i class="fas fa-user-circle"></i>
                                                 @else
-                                                    <img src="{{ config('app.url_backend') }}/uploads/{{ auth()->user()->profile_picture }}"
-                                                        class="rounded-circle shadow-1-strong" alt="Profile Picture" width="65" height="65" />
+                                                    <img src="{{ config('app.url_backend') }}/uploads/{{ $comment->User->profile_picture }}" class="rounded-circle shadow-1-strong me-3" alt="Profile Picture" width="65" height="65">
                                                 @endif
-                                            </a>
-                                            <div class="flex-grow-1 flex-shrink-1">
-                                                <div>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <p class="mb-1">
-                                                            {{ auth()->user()->name }} <span class="small">- {{ $child->diff }}</span>
+                                                <div class="flex-grow-1 flex-shrink-1">
+                                                    <div>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <p class="mb-1">
+                                                                {{ $comment->User->name }} <span class="small">- {{ $comment->diff }}</span>
+                                                            </p>
+                                                        </div>
+                                                        <p class="small mb-0">
+                                                            {!! $comment->description !!}
                                                         </p>
                                                     </div>
-                                                    <p class="small mb-0">
-                                                        {!! $child->description !!}
-                                                    </p>
+                                                    @foreach ($comment->child as $child)
+                                                    <div class="d-flex flex-start mt-4">
+                                                        <a class="me-3" href="#">
+                                                            @if (empty(auth()->user()->profile_picture))
+                                                                <i class="fas fa-user-circle"></i>
+                                                            @else
+                                                                <img src="{{ config('app.url_backend') }}/uploads/{{ auth()->user()->profile_picture }}"
+                                                                    class="rounded-circle shadow-1-strong" alt="Profile Picture" width="65" height="65" />
+                                                            @endif
+                                                        </a>
+                                                        <div class="flex-grow-1 flex-shrink-1">
+                                                            <div>
+                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                    <p class="mb-1">
+                                                                        {{ auth()->user()->name }} <span class="small">- {{ $child->diff }}</span>
+                                                                    </p>
+                                                                </div>
+                                                                <p class="small mb-0">
+                                                                    {!! $child->description !!}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @endforeach
                                                 </div>
                                             </div>
                                         </div>
-                                        @endforeach
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
-            @endforeach
+            </section>
             <div class="field">
                 <label for="">Description</label>
                 <textarea name="description"></textarea>

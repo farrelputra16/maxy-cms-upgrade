@@ -220,10 +220,10 @@ class CourseClassModuleController extends Controller
         $users = CourseJournal::with('User')
             ->where('course_class_module_id', $request->id)
             ->whereNull('course_journal_parent_id')
-            ->where('level', 1)
+            ->where('priority', 1)
             ->get();
         
-        // dd($child_cm_detail);
+        // dd($users);
         return view('classcontentmanagement::course_class_module.child.journal.index', [
             'users' => $users,
             'parent_module' => $ccmod_parent,
@@ -231,49 +231,60 @@ class CourseClassModuleController extends Controller
     }
     function getAddJournalCourseClassChildModule(Request $request){
         // dd($request->all());
-        //courseclassmember yg sudah submit
-        // course_class_module_id
-        // user_id course_class_member mentor_id auth_user
         $ccmod_parent = CourseClassModule::find($request->course_class_module_id);
         $ccmod_parent->detail = CourseModule::find($ccmod_parent->course_module_id);
-        $comments = CourseJournal::where('course_class_module_id', $request->course_class_module_id)
-            ->where('user_id', $request->user_id)
-            ->whereNull('course_journal_parent_id')
-            ->orderBy('level', 'ASC')
+        // $comments = CourseJournal::where('course_class_module_id', $request->course_class_module_id)
+        //     ->where('user_id', $request->user_id)
+        //     ->whereNull('course_journal_parent_id')
+        //     ->orderBy('level', 'ASC')
+        //     ->get();
+        // foreach($comments as $comment) {
+        //     $comment->diff = Carbon::parse($comment->created_at)->diffForHumans();
+        //     $comment->child = CourseJournal::with('User')
+        //         ->where('course_class_module_id', $request->course_class_module_id)
+        //         ->where('course_journal_parent_id', $comment->id)
+        //         ->orderBy('priority', 'ASC')
+        //         ->get();
+        //     foreach ($comment->child as $child) {
+        //         $child->diff = Carbon::parse($child->created_at)->diffForHumans();
+        //     }
+        // }
+        $comment = CourseJournal::find($request->id);
+        $comment->diff = Carbon::parse($comment->created_at)->diffForHumans();
+        $comment->child = CourseJournal::with('User')
+            ->where('course_class_module_id', $request->course_class_module_id)
+            ->where('course_journal_parent_id', $comment->id)
+            ->orderBy('priority', 'ASC')
             ->get();
-        foreach($comments as $comment) {
-            $comment->diff = Carbon::parse($comment->created_at)->diffForHumans();
-            $comment->child = CourseJournal::with('User')
-                ->where('course_class_module_id', $request->course_class_module_id)
-                ->where('course_journal_parent_id', $comment->id)
-                ->orderBy('priority', 'ASC')
-                ->get();
-            foreach ($comment->child as $child) {
-                $child->diff = Carbon::parse($child->created_at)->diffForHumans();
-            }
-        }// dd($comments);
+        foreach ($comment->child as $child) {
+            $child->diff = Carbon::parse($child->created_at)->diffForHumans();
+        }
         return view('classcontentmanagement::course_class_module.child.journal.add', [
-            'comments' => $comments,
+            'comment' => $comment,
             'parent_module' => $ccmod_parent,
             'course_journal_parent_id' =>$request->id,
         ]);
     }
     function postAddJournalCourseClassChildModule(Request $request){
-        $level = CourseJournal::where('course_class_module_id', $request->course_class_module_id)
-            ->where('user_id', $request->user_id)
-            ->whereNull('course_journal_parent_id')
-            ->count();
+        // dd($request->all());
+        // $level = CourseJournal::find()
+        //     ->where('user_id', $request->user_id)
+        //     ->whereNull('course_journal_parent_id')
+        //     ->count();
+        $level = CourseJournal::find($request->course_journal_parent_id);
         
-        $priority = CourseJournal::where('course_class_module_id', $request->course_class_module_id)
-            ->where('user_id', Auth::user()->id)
-            ->where('level', $level)
-            ->count();//dd($priority);
+        // $priority = CourseJournal::where('course_class_module_id', $request->course_class_module_id)
+        //     ->where('user_id', Auth::user()->wh)
+        //     ->where('level', $level)
+        //     ->count();
+        $priority = CourseJournal::where('course_journal_parent_id', $request->course_journal_parent_id)
+            ->count();
 
         $create = CourseJournal::create([
             'user_id' => Auth::user()->id,
             'course_class_module_id' => $request->course_class_module_id,
             'course_journal_parent_id' => $request->course_journal_parent_id,
-            'level' => $level,
+            'level' => $level->level,
             'priority' => $priority+2,
             'description' => $request->description,
             'created_id' => Auth::user()->id,
@@ -281,6 +292,20 @@ class CourseClassModuleController extends Controller
         ]);
         
         if ($create){
+            return redirect()->route('getJournalCourseClassChildModule', ['id' => $request->course_class_module_id])->with('success', 'Sukses');
+        } else {
+            return redirect()->route('getJournalCourseClassChildModule', ['id' => $request->course_class_module_id])->with('failed', 'Gagal, silahkan coba lagi');
+        }
+    }
+    function postRejectJournalCourseClassChildModule(Request $request){
+        // dd($request->all());        
+        $journal = CourseJournal::findOrFail($request->id);
+        // Toggle the status: if it's 0, set it to 1; if it's 1, set it to 0
+        $journal->status = ($journal->status == 0) ? 1 : 0;
+        $journal->updated_id = auth()->user()->id;
+        $update = $journal->save();
+        
+        if ($update){
             return redirect()->route('getJournalCourseClassChildModule', ['id' => $request->course_class_module_id])->with('success', 'Sukses');
         } else {
             return redirect()->route('getJournalCourseClassChildModule', ['id' => $request->course_class_module_id])->with('failed', 'Gagal, silahkan coba lagi');
