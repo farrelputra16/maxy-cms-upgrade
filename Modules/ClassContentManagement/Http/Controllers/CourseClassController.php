@@ -5,17 +5,18 @@ namespace Modules\ClassContentManagement\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use App\Http\Controllers\HelperController;
+use Illuminate\Support\Facades\Auth;
 use Modules\ClassContentManagement\Entities\CourseClassModule;
 use Modules\ClassContentManagement\Entities\CourseClass;
-use App\Http\Controllers\HelperController;
+use Modules\TrackandGrade\Entities\CourseClassMemberGrading;
+use Modules\Enrollment\Entities\CourseClassMember;
 use App\Models\Course;
 use App\Models\CourseModule;
-use Illuminate\Support\Facades\Auth;
 use App\Models\AccessMaster;
 use App\Models\Transkrip;
-use Modules\Enrollment\Entities\CourseClassMember;
 use App\Models\MScore;
-use Modules\TrackandGrade\Entities\CourseClassMemberGrading;
+use App\Models\MemberAttendance;
 
 
 class CourseClassController extends Controller
@@ -57,9 +58,25 @@ class CourseClassController extends Controller
             foreach ($members as $member) {
                 $data = Transkrip::where('user_id', $member->user_id)
                     ->where('course_class_id', $request->id)
-                    ->exists();
+                    ->first();
                 $attendance_percentage = CourseClass::where('id', $request->id)->value('percentage') ?? 0;
-                $attendance_score = 1;
+                $courseClassId = $request->id;
+                $absentCount = MemberAttendance::where('user_id', $member->user_id)
+                    ->whereNull('attended_at')
+                    ->whereHas('CourseClassAttendance', function ($query) use ($courseClassId) {
+                        $query->whereHas('CourseClassModule', function ($query) use ($courseClassId) {
+                            $query->where('course_class_id', $courseClassId);
+                        });
+                    })
+                    ->count();
+                $totalCount = MemberAttendance::where('user_id', $member->user_id)
+                    ->whereHas('CourseClassAttendance', function ($query) use ($courseClassId) {
+                        $query->whereHas('CourseClassModule', function ($query) use ($courseClassId) {
+                            $query->where('course_class_id', $courseClassId);
+                        });
+                    })
+                    ->count();
+                $attendance_score = $totalCount > 0 ? ($absentCount / $totalCount) * 100 : 0;;
                 $score = $attendance_score * $attendance_percentage / 100;
                 $course_module_percentage = CourseClassModule::with(['CourseClass', 'CourseModule'])
                     ->where('course_class_id', $request->id)
@@ -278,7 +295,23 @@ class CourseClassController extends Controller
                         ->where('course_class_id', $request->id)
                         ->exists();
                     $attendance_percentage = CourseClass::where('id', $request->id)->value('percentage') ?? 0;
-                    $attendance_score = 1;
+                    $courseClassId = $request->id;
+                    $absentCount = MemberAttendance::where('user_id', $member->user_id)
+                        ->whereNull('attended_at')
+                        ->whereHas('CourseClassAttendance', function ($query) use ($courseClassId) {
+                            $query->whereHas('CourseClassModule', function ($query) use ($courseClassId) {
+                                $query->where('course_class_id', $courseClassId);
+                            });
+                        })
+                        ->count();
+                    $totalCount = MemberAttendance::where('user_id', $member->user_id)
+                        ->whereHas('CourseClassAttendance', function ($query) use ($courseClassId) {
+                            $query->whereHas('CourseClassModule', function ($query) use ($courseClassId) {
+                                $query->where('course_class_id', $courseClassId);
+                            });
+                        })
+                        ->count();
+                    $attendance_score = $totalCount > 0 ? ($absentCount / $totalCount) * 100 : 0;;
                     $score = $attendance_score * $attendance_percentage / 100;
                     $course_module_percentage = CourseClassModule::with(['CourseClass', 'CourseModule'])
                         ->where('course_class_id', $request->id)

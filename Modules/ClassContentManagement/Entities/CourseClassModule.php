@@ -40,6 +40,11 @@ class CourseClassModule extends Model
         return $this->hasMany(\Modules\TrackandGrade\Entities\CourseClassMemberGrading::class, 'course_class_module_id');
     }
 
+    public function CourseClassAttendance()
+    {
+        return $this->hasMany(CourseClassAttendance::class, 'course_class_module_id');
+    }
+
     public function CourseClass()
     {
         return $this->belongsTo(CourseClass::class, 'course_class_id');
