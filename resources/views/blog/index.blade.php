@@ -45,7 +45,7 @@
                                 <th>Title</th>
                                 <th>Slug</th>
                                 <th>Content</th>
-                                <th>Cover Image</th>
+                                {{-- <th>Cover Image</th> --}}
                                 <th>Tags</th>
                                 <th>Highlight</th>
                                 <th>Description</th>
@@ -77,10 +77,10 @@
                                         title="{!! strip_tags($item->content) !!}">
                                         {!! \Str::limit($item->content, 30) !!}
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         <img src="{{ asset('uploads/blog/' . $item->slug . '/' . $item->cover_img) }}"
                                             alt="{{ $item->cover_img }}" style="max-height: 10vh">
-                                    </td>
+                                    </td> --}}
                                     <td>
                                         @foreach ($item->tags as $tag)
                                             <div class="badge bg-secondary px-2">
@@ -126,7 +126,7 @@
                                 <th class="data-medium">Title</th>
                                 <th>Slug</th>
                                 <th class="data-long">Content</th>
-                                <th>Cover Image</th>
+                                {{-- <th>Cover Image</th> --}}
                                 <th>Tags</th>
                                 <th>Highlight</th>
                                 <th class="data-long">Description</th>

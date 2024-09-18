@@ -34,12 +34,26 @@ class BlogController extends Controller
                 'description' => 'nullable|string',
             ]);
 
+            // add new data to database
+            $blog = new MBlog();
+            $blog->title = $request->title;
+            $blog->slug = $request->slug;
+            $blog->content = $request->content;
+            // $blog->cover_img = $fileName;
+            $blog->description = $request->description;
+            $blog->status = $request->status == '' ? 0 : 1;
+            $blog->created_id = Auth::user()->id;
+            $blog->updated_id = Auth::user()->id;
+            $blog->save();
+
+            $blog->tags()->attach($request->tag);
+
             // save cover image
             $fileName = '';
             if ($request->hasFile('file_image')) {
                 $file = $request->file('file_image');
                 $extension = $file->getClientOriginalExtension();
-                $fileName = $request->id . '.' . $extension;
+                $fileName = $blog->id . '.' . $extension;
                 $directory = public_path('/uploads/blog/' . $request->slug . '/');
 
                 // Create destination folder if it doesn't exist
@@ -51,19 +65,10 @@ class BlogController extends Controller
                 $file->move($directory, $fileName);
             }
 
-            // add new data to database
-            $create = MBlog::create([
-                'title' => $request->title,
-                'slug' => $request->slug,
-                'content' => $request->content,
-                'cover_img' => $fileName,
-                'description' => $request->description,
-                'status' => $request->status == '' ? 0 : 1,
-                'created_id' => Auth::user()->id,
-                'updated_id' => Auth::user()->id
-            ]);
+            // update cover_img data
+            $blog->cover_img = $fileName;
+            $blog->save();
 
-            $create->tags()->attach($request->tag);
 
             return redirect()->route('getBlog')->with('success', 'data successfully created.');
         } catch (\Exception $e) {
