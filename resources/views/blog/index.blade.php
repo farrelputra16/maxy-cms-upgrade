@@ -90,9 +90,9 @@
                                     </td>
                                     <td value="{{ $item->status_highlight }}">
                                         @if ($item->status_highlight == 1)
-                                            <a class="btn btn-success">Aktif</a>
+                                            <a class="btn btn-success"><i class="fas fa-check"></i> &nbsp; Yes</a>
                                         @else
-                                            <a class="btn btn-danger">Non Aktif</a>
+                                            <a class="btn btn-danger"><i class="fas fa-times"></i> &nbsp; No</a>
                                         @endif
                                     </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"

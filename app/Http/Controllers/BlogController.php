@@ -14,7 +14,7 @@ class BlogController extends Controller
     //
     public function getBlog()
     {
-        $data = MBlog::get();
+        $data = MBlog::orderBy('created_at', 'desc')->get();
         return view('blog.index', compact('data'));
     }
     public function getAddBlog()
@@ -40,6 +40,7 @@ class BlogController extends Controller
             $blog->slug = $request->slug;
             $blog->content = $request->content;
             // $blog->cover_img = $fileName;
+            $blog->status_highlight = $request->status_highlight == '' ? 0 : 1;
             $blog->description = $request->description;
             $blog->status = $request->status == '' ? 0 : 1;
             $blog->created_id = Auth::user()->id;
@@ -123,6 +124,7 @@ class BlogController extends Controller
                 $blog->slug = $request->slug;
                 $blog->content = $request->content;
                 $blog->cover_img = $fileName;
+                $blog->status_highlight = $request->status_highlight == '' ? 0 : 1;
                 $blog->description = $request->description;
                 $blog->status = $request->status == '' ? 0 : 1;
                 $blog->created_id = Auth::user()->id;
