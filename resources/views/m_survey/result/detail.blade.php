@@ -21,7 +21,17 @@
 
             <div class="field">
                 <label for="">Content</label>
-                <textarea disabled>{{ $currentData->content }}</textarea>
+                @php 
+                    $contentData = json_decode($currentData->content, true);
+                    $thirdKey = array_keys($contentData)[2];
+                    $thirdValue = $contentData[$thirdKey];
+                    $formattedKey = str_replace('_', ' ', $thirdKey);
+                @endphp
+                <textarea readonly>
+Q: {{ $formattedKey }}?
+
+A: {{ $thirdValue }}
+    </textarea>
             </div>
 
             <div class="field">
