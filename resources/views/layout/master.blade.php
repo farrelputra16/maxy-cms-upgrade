@@ -378,7 +378,7 @@
                     </li>
 
                     <!-- Settings -->
-                    <li class="nav-item">
+                    <li class="nav-item mt-1">
                         <a class="btn btn-transparent btnSet text-white" data-bs-toggle="collapse" href="#">
                             <i class="fa fa-gear logoSet"></i>
                             <span class="ms-2">Settings</span>
@@ -397,12 +397,12 @@
                     </li>
 
                     <!-- Members -->
-                    <li class="nav-item">
-                        <a class="btn btn-transparent btnMember text-white" data-bs-toggle="collapse" href="#">
-                            <i class="fa fa-user logoMember"></i>
-                            <span class="ms-2">Members</span>
+                    <li class="nav-item ">
+                        <a class="btn btn-transparent btnMember text-white d-inline-flex" data-bs-toggle="collapse" href="#">
+                            <i class="fa fa-user logoMember mb-1"></i>
+                            <span class="ms-2 mt-2">Members</span>
                         </a>
-                        <ul class="colMember collapse">
+                        <ul class="colMember collapse mt-3">
                             <li class="nav-item">
                                 <a href="{{ route('getTestimonial') }}"
                                     class="list-group-item list-group-item-action {{ Route::is('getTestimonial') ? 'active' : '' }}">Testimonial</a>
@@ -422,12 +422,12 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="btn btn-transparent btnMember text-white" data-bs-toggle="collapse" href="#">
-                            <i class="fa-solid fa-file-pen"></i>
-                            <span class="ms-2">Content</span>
+                    <li class="nav-item dropdown pt-2">
+                        <a class="btn btn-transparent btnMember text-white d-inline-flex" data-bs-toggle="collapse" href="#">
+                            <i class="fa-solid fa-file-pen mb-1"></i>
+                            <span class="ms-2 mt-2">Content</span>
                         </a>
-                        <ul class="colMember collapse">
+                        <ul class="colMember collapse mt-4">
                             <li class="nav-item">
                                 <a href="{{ route('getCarousel') }}"
                                     class="list-group-item list-group-item-action {{ Route::is('getCarousel') ? 'active' : '' }}">Carousel</a>
