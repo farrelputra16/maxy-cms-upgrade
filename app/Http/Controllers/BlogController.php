@@ -39,7 +39,7 @@ class BlogController extends Controller
             $blog->title = $request->title;
             $blog->slug = $request->slug;
             $blog->content = $request->content;
-            // $blog->cover_img = $fileName;
+            $blog->cover_img = 'temp';
             $blog->status_highlight = $request->status_highlight == '' ? 0 : 1;
             $blog->description = $request->description;
             $blog->status = $request->status == '' ? 0 : 1;
