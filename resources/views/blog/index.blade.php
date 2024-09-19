@@ -57,8 +57,6 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-
-
                         <tbody>
                             @foreach ($data as $key => $item)
                                 <tr>
@@ -75,8 +73,9 @@
                                     </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->content) !!}">
-                                        {!! \Str::limit($item->content, 30) !!}
+                                        {!! \Str::limit(strip_tags($item->content), 30) !!}
                                     </td>
+
                                     {{-- <td>
                                         <img src="{{ asset('uploads/blog/' . $item->slug . '/' . $item->cover_img) }}"
                                             alt="{{ $item->cover_img }}" style="max-height: 10vh">
