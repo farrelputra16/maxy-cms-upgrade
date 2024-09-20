@@ -298,10 +298,9 @@ class CourseClassModuleController extends Controller
         }
     }
     function postRejectJournalCourseClassChildModule(Request $request){
-        // dd($request->all());        
+        // dd($request->all());
         $journal = CourseJournal::findOrFail($request->id);
-        // Toggle the status: if it's 0, set it to 1; if it's 1, set it to 0
-        $journal->status = ($journal->status == 0) ? 1 : 0;
+        $journal->acceptable = ($journal->acceptable == 0) ? 1 : 0;
         $journal->updated_id = auth()->user()->id;
         $update = $journal->save();
         
@@ -309,6 +308,19 @@ class CourseClassModuleController extends Controller
             return redirect()->route('getJournalCourseClassChildModule', ['id' => $request->course_class_module_id])->with('success', 'Sukses');
         } else {
             return redirect()->route('getJournalCourseClassChildModule', ['id' => $request->course_class_module_id])->with('failed', 'Gagal, silahkan coba lagi');
+        }
+    }
+    function postDeleteJournalCourseClassChildModule(Request $request){
+        // dd($request->all());
+        $journal = CourseJournal::findOrFail($request->id);
+        $journal->status = ($journal->status == 0) ? 1 : 0;;
+        $journal->updated_id = auth()->user()->id;
+        $update = $journal->save();
+        
+        if ($update){
+            return response()->json(['success' => true, 'message' => 'Success']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Gagal, silahkan coba lagi']);
         }
     }
     function postEditCourseClassChildModule(Request $request){

@@ -452,23 +452,7 @@
                                 <td>{{ $item->fake_price ? 'Rp' . number_format($item->fake_price, 0, ',', '.') : '-' }}</td>
                                 <td>{{ $item->price ? 'Rp' . number_format($item->price, 0, ',', '.') : '-' }}</td>
                                 <td>
-                                    @if ($item->m_course_type_id == 1)
-                                    {{ 'Bootcamp' }}
-                                    @elseif ($item->m_course_type_id == 2)
-                                    {{ 'Rapid Onboarding' }}
-                                    @elseif ($item->m_course_type_id == 3)
-                                    {{ 'Mini Bootcamp' }}
-                                    @elseif ($item->m_course_type_id == 4)
-                                    {{ 'Hackathon' }}
-                                    @elseif ($item->m_course_type_id == 5)
-                                    {{ 'Prakerja' }}
-                                    @elseif ($item->m_course_type_id == 6)
-                                    {{ 'MSIB' }}
-                                    @elseif ($item->m_course_type_id == 7)
-                                    {{ 'Upskilling' }}
-                                    @else
-                                    -
-                                    @endif
+                                    {{ $item->type->name }}
                                 </td>
                                 <td class="short" data-toggle="tooltip" data-placement="top" title="{{ $item->short_description }}">{{ $item->short_description }}</td>
                                 <td class="desc" data-toggle="tooltip" data-placement="top" title="{{ $item->description }}">{!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}</td>

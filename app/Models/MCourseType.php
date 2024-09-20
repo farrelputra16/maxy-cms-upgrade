@@ -23,4 +23,9 @@ class MCourseType extends Model
         'updated_at',
         'updated_id'
     ];
+
+    public function Course()
+    {
+        return $this->hasMany(Course::class, 'm_course_type_id');
+    }
 }
