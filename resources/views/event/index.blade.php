@@ -1,7 +1,20 @@
 @extends('layout.master')
 
 @section('title', 'Attendance')
-
+@section('custom-css')
+<style>
+    .custom-dropdown-content {
+        margin-top: 1.5625rem;
+        padding-bottom: 1.5625rem;
+    }
+    .custom-dropdown-carousel {
+        margin-top: 1.5625rem;
+    }
+    .custom-dropdown-Testimonial{
+        margin-top: 1.5625rem;
+    }
+</style>
+@endsection
 @section('styles')
     <style>
         body {
