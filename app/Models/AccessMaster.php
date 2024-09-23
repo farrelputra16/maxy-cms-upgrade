@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Models;
-use DB;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class AccessMaster extends Model
 {
@@ -32,7 +32,7 @@ class AccessMaster extends Model
         return self::pluck("name", "id")->toArray();
     }
 
-    public function getUserAccessMaster(){
+    public static function getUserAccessMaster(){
 
         $broGotAccessMaster = DB::table('access_group_detail')
             ->join('access_group', 'access_group_detail.access_group_id', '=', 'access_group.id')
@@ -40,7 +40,7 @@ class AccessMaster extends Model
             ->select('access_master.name')
             ->where('access_group.id', '=', Auth::user()->access_group_id)
             ->get();
-            
+
         return $broGotAccessMaster;
     }
 

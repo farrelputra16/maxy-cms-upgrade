@@ -6,5 +6,6 @@
     "TrackandGrade": true,
     "CertificateTemplate": true,
     "Quiz": true,
-    "Form": true
+    "Form": true,
+    "Attendance": true
 }

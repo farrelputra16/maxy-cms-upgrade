@@ -16,11 +16,43 @@ use App\Models\CourseModule;
 use App\Models\AccessMaster;
 use App\Models\Transkrip;
 use App\Models\MScore;
-use App\Models\MemberAttendance;
+use Modules\Attendance\Entities\MemberAttendance;
 
 
 class CourseClassController extends Controller
 {
+    function generateAttendanceAllClass()
+    {
+        try {
+            //code...
+            $broGotAccessMaster = AccessMaster::getUserAccessMaster();
+            $hasManageAllClass = false;
+
+            foreach ($broGotAccessMaster as $access) {
+                if ($access->name === 'manage_all_class') {
+                    $hasManageAllClass = true;
+                    break;
+                }
+            }
+
+            if ($hasManageAllClass) {
+                $classList = CourseClass::getAllCourseClass();
+            } else {
+                $classList = CourseClass::getAllCourseClassbyMentor();
+            }
+            // dd($classList);
+
+            foreach ($classList as $key => $value) {
+                // auto generate student attendance (preventing error if student enrolls mid class)
+                MemberAttendance::generateMemberAttendance($value->id);
+            }
+            return redirect()->route('getCourseClass')->with('success', 'missing student attendances generated successfully');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', 'failed to generate missing student attendances, ' . $e->getMessage());
+        }
+    }
+
     function getCourseClassScoring(Request $request)
     {
         $classes = CourseClassModule::with(['CourseClass', 'CourseModule'])
@@ -39,7 +71,7 @@ class CourseClassController extends Controller
     }
 
     public function postCourseClassScoring(Request $request)
-    {//dd($request->all());
+    { //dd($request->all());
         try {
             $updateData = CourseClass::where('id', $request->id)
                 ->update([
@@ -94,7 +126,7 @@ class CourseClassController extends Controller
                 }
                 $score_id = MScore::where('range_start', '<=', $score)->where('range_end', '>', $score)->first();
                 if ($data) {
-                    $data->update(['m_score_id'=>$score_id->id, 'updated_id' => Auth::user()->id]);
+                    $data->update(['m_score_id' => $score_id->id, 'updated_id' => Auth::user()->id]);
                 } else {
                     $create = Transkrip::create([
                         'user_id' => $member->user_id,
@@ -106,7 +138,8 @@ class CourseClassController extends Controller
                 }
             }
             return app(HelperController::class)->Positive('getCourseClass');
-        } catch (Exception $e) {dd($e);
+        } catch (Exception $e) {
+            dd($e);
             return app(HelperController::class)->Warning('getCourseClass');
         }
     }
@@ -288,7 +321,7 @@ class CourseClassController extends Controller
             ]);
 
         if ($updateData) {
-            if ($request->ongoing==2) {
+            if ($request->ongoing == 2) {
                 $members = CourseClassMember::where('course_class_id', $request->id)->get();
                 foreach ($members as $member) {
                     $data = Transkrip::where('user_id', $member->user_id)
@@ -329,7 +362,7 @@ class CourseClassController extends Controller
                     }
                     $score_id = MScore::where('range_start', '<=', $score)->where('range_end', '>', $score)->first();
                     if ($data) {
-                        $data->update(['m_score_id'=>$score_id->id, 'updated_id' => Auth::user()->id]);
+                        $data->update(['m_score_id' => $score_id->id, 'updated_id' => Auth::user()->id]);
                     } else {
                         $create = Transkrip::create([
                             'user_id' => $member->user_id,
