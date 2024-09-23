@@ -21,7 +21,7 @@ class AttendanceController extends Controller
         $class = CourseClass::getClassDetailByClassId($request->id);
 
         // dd($attendance_list);
-        return view('classcontentmanagement::course_class_attendance.index', [
+        return view('classcontentmanagement::course_class_attendance.indexv3', [
             'attendance' => $attendance_list,
             'class' => $class,
         ]);
@@ -32,7 +32,7 @@ class AttendanceController extends Controller
 
         $class = CourseClass::getClassDetailByClassId($request->class_id);
 
-        return view('classcontentmanagement::course_class_attendance.add', [
+        return view('classcontentmanagement::course_class_attendance.addv3', [
             'class' => $class
         ]);
     }
@@ -77,7 +77,7 @@ class AttendanceController extends Controller
         $class = CourseClass::getClassDetailByClassId($request->class_id);
         $attendance = ClassAttendance::find($request->id);
 
-        return view('classcontentmanagement::course_class_attendance.edit', [
+        return view('classcontentmanagement::course_class_attendance.editv3', [
             'attendance' => $attendance,
             'class' => $class
         ]);
@@ -132,7 +132,7 @@ class AttendanceController extends Controller
         $class = CourseClass::getClassDetailByClassId($request->class_id);
 
         // dd($attendance_list);
-        return view('classcontentmanagement::course_class_member_attendance.index', [
+        return view('classcontentmanagement::course_class_member_attendance.indexv3', [
             'attendance' => $attendance,
             'class' => $class,
             'class_attendance_id' => $request->id,

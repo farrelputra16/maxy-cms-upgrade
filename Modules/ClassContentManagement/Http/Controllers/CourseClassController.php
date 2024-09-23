@@ -31,7 +31,7 @@ class CourseClassController extends Controller
             ->orderBy('course_class_module.id')
             ->get();
         // dd($classes[0]->CourseClass);
-            
+
         return view('classcontentmanagement::course_class.scoring', [
             'classes' => $classes,
             'id' => $request->id,
@@ -88,7 +88,7 @@ class CourseClassController extends Controller
                 foreach ($course_module_percentage as $item) {
                     $item->grade = CourseClassMemberGrading::where('course_class_module_id', $item->id)
                         ->where('user_id', $member->user_id)
-                        ->value('grade') 
+                        ->value('grade')
                         ?? 0;
                     $score += $item->grade * $item->percentage / 100;
                 }
@@ -131,7 +131,7 @@ class CourseClassController extends Controller
 
         $batchTitle = $courseList->isNotEmpty() ? $courseList[0]->batch : 'No Batch Available';
 
-        return view('classcontentmanagement::course_class.index', [
+        return view('classcontentmanagement::course_class.indexv3', [
             'course_list' => $courseList,
             'batch_title' => $batchTitle
         ]);
@@ -145,7 +145,7 @@ class CourseClassController extends Controller
     {
         $allCourses = Course::all();
 
-        return view('classcontentmanagement::course_class.add', [
+        return view('classcontentmanagement::course_class.addv3', [
             'allCourses' => $allCourses
         ]);
     }
@@ -259,7 +259,7 @@ class CourseClassController extends Controller
 
         $courseList = Course::get();
 
-        return view('classcontentmanagement::course_class.edit', [
+        return view('classcontentmanagement::course_class.editv3', [
             'course_class_detail' => $courseClassDetail,
             'course_list' => $courseList
         ]);
@@ -323,7 +323,7 @@ class CourseClassController extends Controller
                     foreach ($course_module_percentage as $item) {
                         $item->grade = CourseClassMemberGrading::where('course_class_module_id', $item->id)
                             ->where('user_id', $member->user_id)
-                            ->value('grade') 
+                            ->value('grade')
                             ?? 0;
                         $score += $item->grade * $item->percentage / 100;
                     }
