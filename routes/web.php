@@ -90,6 +90,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/course/edit', [CourseController::class, 'getEditCourse'])->name('getEditCourse')->middleware('access:course_update');
     Route::post('/course/edit', [CourseController::class, 'postEditCourse'])->name('postEditCourse')->middleware('access:course_update');
 
+    // Route::get('/course/MBKM', [CourseController::class, 'getCourseMBKM'])->name('getCourseMBKM')->middleware('access:course_manage');
+
+    // Route::get('/course/add/MBKM', [CourseController::class, 'getAddMBKM'])->name('getAddMBKM')->middleware('access:course_create');
+
+    // Route::get('/course/edit/MBKM', [CourseController::class, 'getEditMBKM'])->name('getEditMBKM')->middleware('access:course_update');
+
     // categori route ###########################################################################################################
     Route::get('/category', [CategoryController::class, 'getCategory'])->name('getCategory')->middleware('access:category_manage');
 
@@ -234,8 +240,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/m_score/edit', [MScoreController::class, 'postEditScore'])->name('postEditScore')->middleware('access:m_score_update');
 
     // schedule
-    Route::get('/schedule', [ScheduleController::class, 'getSchedule'])->name('getSchedule')->middleware('access:schedule_manage');
+    Route::get('/schedule', [ScheduleController::class, 'getSchedule'])->name('getSchedule')->middleware('access:schedule_read');
 
+    Route::get('/schedule/add', [ScheduleController::class, 'getAddSchedule'])->name('getAddSchedule')->middleware('access:schedule_read');
     Route::post('/schedule/add', [ScheduleController::class, 'postAddSchedule'])->name('postAddSchedule')->middleware('access:schedule_create');
 
     Route::post('/schedule/edit', [ScheduleController::class, 'postEditSchedule'])->name('postEditSchedule')->middleware('access:schedule_update');
@@ -244,7 +251,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/schedule/general', [ScheduleController::class, 'getGeneralSchedule'])->name('getGeneralSchedule')->middleware('access:schedule_manage');
 
-    Route::get('/schedule/general/add', [ScheduleController::class, 'getAddGeneralSchedule'])->name('getAddGeneralSchedule')->middleware('access:schedule_create');
+    Route::get('/schedule/general/add', [ScheduleController::class, 'getAddGeneralSchedule'])->name('getAddGeneralSchedule')->middleware('access:schedule_read');
     Route::post('/schedule/general/add', [ScheduleController::class, 'postAddGeneralSchedule'])->name('postAddGeneralSchedule')->middleware('access:schedule_create');
 
     Route::post('/schedule/general/edit', [ScheduleController::class, 'postEditGeneralSchedule'])->name('postEditGeneralSchedule')->middleware('access:schedule_update');

@@ -20,9 +20,29 @@
             </div>
 
             <div class="field">
-                <label for="">Content</label>
-                <textarea disabled>{{ $currentData->content }}</textarea>
+    <label for="">Content</label>
+    @php
+        $contentData = json_decode($currentData->content, true); // Decode JSON data
+    @endphp
+
+    @if($contentData)
+        @foreach($contentData as $key => $value)
+            @if($key != 'id')
+                @php
+                    $formattedKey = str_replace('_', ' ', $key);
+                @endphp
+                <div class="field">
+                <textarea readonly>
+Q: {{ $formattedKey }}{{ substr($formattedKey, -1) == '?' ? '' : '?' }}
+A: {{ $value }}
+                </textarea>
+            @endif
             </div>
+        @endforeach
+    @else
+        <textarea readonly>Tidak ada data.</textarea>
+    @endif
+</div>
 
             <div class="field">
                 <label for="">Score</label>

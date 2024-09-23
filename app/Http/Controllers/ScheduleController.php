@@ -16,94 +16,141 @@ use Auth;
 class ScheduleController extends Controller
 {
     function getSchedule(){
-        $schedules = Schedule::with(['CourseClass'])->get();
-        $course_class = CourseClass::where('status', 1)
-            ->where('status_ongoing', 1)
-            ->get();
+        $academic_periods = MAcademicPeriod::where('status', 1)->get();
+        // $schedules = Schedule::with(['CourseClass'])->get();
+        // $course_class = CourseClass::where('status', 1)
+        //     ->where('status_ongoing', 1)
+        //     ->get();
 
         return view('schedule.index',[
-            'schedules' => $schedules,
-            'course_class' => $course_class,
+            // 'schedules' => $schedules,
+            // 'course_class' => $course_class,
+            'academic_periods' => $academic_periods,
         ]);
     
     }
     
-    function postAddSchedule(Request $request){
-        try {
-            // return dd($request->all());
-            $validated= $request->validate([
-                'title' => 'required',
-                'category' => 'required',
-                'start' => 'required',
-                'end' => 'required',
-            ]);
+    // function postAddSchedule(Request $request){
+    //     try {
+    //         // return dd($request->all());
+    //         $validated= $request->validate([
+    //             'title' => 'required',
+    //             'category' => 'required',
+    //             'start' => 'required',
+    //             'end' => 'required',
+    //         ]);
 
-            if ($validated){
-                $create = Schedule::create([
-                    'course_class_id' => $request->title,
-                    'location' => $request->location,
-                    'category' => $request->category,
-                    'date_start' => date('Y-m-d H:i:s', strtotime($request->start)),
-                    'date_end' => date('Y-m-d H:i:s', strtotime($request->end)),
-                    'status' => 1,
-                    'created_id' => Auth::user()->id,
-                    'updated_id' => Auth::user()->id,
-                ]);
-                if ($create){
-                    return response()->json(['success' => 'Success', 'create' => $create], 200);
-                }
-            }
-        } catch (Exception $e) {
-            return response()->json(['error' => $e], 500);
-        }
-    }
+    //         if ($validated){
+    //             $create = Schedule::create([
+    //                 'course_class_id' => $request->title,
+    //                 'location' => $request->location,
+    //                 'category' => $request->category,
+    //                 'date_start' => date('Y-m-d H:i:s', strtotime($request->start)),
+    //                 'date_end' => date('Y-m-d H:i:s', strtotime($request->end)),
+    //                 'status' => 1,
+    //                 'created_id' => Auth::user()->id,
+    //                 'updated_id' => Auth::user()->id,
+    //             ]);
+    //             if ($create){
+    //                 return response()->json(['success' => 'Success', 'create' => $create], 200);
+    //             }
+    //         }
+    //     } catch (Exception $e) {
+    //         return response()->json(['error' => $e], 500);
+    //     }
+    // }
 
-    function postEditSchedule(Request $request){
-        try {
-            // return dd($request->all());
-            $validated= $request->validate([
-                'id' => 'required',
-            ]);
+    // function postEditSchedule(Request $request){
+    //     try {
+    //         // return dd($request->all());
+    //         $validated= $request->validate([
+    //             'id' => 'required',
+    //         ]);
 
-            if ($validated){
-                $currentData = Schedule::find($request->id);
-                $updateData = Schedule::where('id', $request->id)
-                    ->update([
-                        'course_class_id' => $request->title ? $request->title : $currentData->course_class_id,
-                        'location' => $request->location ? $request->location : $currentData->location,
-                        'category' => $request->category ? $request->category : $currentData->category,
-                        'date_start' => $request->start ? date('Y-m-d H:i:s', strtotime($request->start)) : $currentData->date_start,
-                        'date_end' => $request->end ? date('Y-m-d H:i:s', strtotime($request->end)) : $currentData->date_end,
-                        'status' => 1,
-                        'updated_id' => Auth::user()->id,
-                    ]);
-                return response()->json(['success' => 'Success', 'updateData' => $updateData], 200);
-            }
-        } catch (Exception $e) {
-            return response()->json(['error' => $e], 500);
-        }
-    }
+    //         if ($validated){
+    //             $currentData = Schedule::find($request->id);
+    //             $updateData = Schedule::where('id', $request->id)
+    //                 ->update([
+    //                     'course_class_id' => $request->title ? $request->title : $currentData->course_class_id,
+    //                     'location' => $request->location ? $request->location : $currentData->location,
+    //                     'category' => $request->category ? $request->category : $currentData->category,
+    //                     'date_start' => $request->start ? date('Y-m-d H:i:s', strtotime($request->start)) : $currentData->date_start,
+    //                     'date_end' => $request->end ? date('Y-m-d H:i:s', strtotime($request->end)) : $currentData->date_end,
+    //                     'status' => 1,
+    //                     'updated_id' => Auth::user()->id,
+    //                 ]);
+    //             return response()->json(['success' => 'Success', 'updateData' => $updateData], 200);
+    //         }
+    //     } catch (Exception $e) {
+    //         return response()->json(['error' => $e], 500);
+    //     }
+    // }
 
-    function postDeleteSchedule(Request $request){
-        try {
-            // return dd($request->all());
-            $validated= $request->validate([
-                'id' => 'required',
-            ]);
+    // function postDeleteSchedule(Request $request){
+    //     try {
+    //         // return dd($request->all());
+    //         $validated= $request->validate([
+    //             'id' => 'required',
+    //         ]);
 
-            if ($validated){
-                $currentData = Schedule::find($request->id);
+    //         if ($validated){
+    //             $currentData = Schedule::find($request->id);
                 
-                if ($currentData) {
-                    $currentData->delete();
+    //             if ($currentData) {
+    //                 $currentData->delete();
 
-                    // Return a response or redirect
-                    return response()->json(['success' => 'Success', 'currentData' => $currentData], 200);
+    //                 // Return a response or redirect
+    //                 return response()->json(['success' => 'Success', 'currentData' => $currentData], 200);
+    //             }
+
+    //             // If user not found
+    //             return response()->json(['message' => 'Data not found.'], 404);
+    //         }
+    //     } catch (Exception $e) {
+    //         return response()->json(['error' => $e], 500);
+    //     }
+    // }
+
+    function getAddSchedule(Request $request){
+        try {
+            $period = $request->input('period');
+            // Fetch schedules based on the selected academic period
+            // $schedules = Schedule::with(['CourseClass'])->where('m_academic_period_id', $period)->get();
+
+            // $events = $schedules->map(function($schedule) {
+            //     return [
+            //         'id' => $schedule->id,
+            //         'title' => $schedule->CourseClass->slug,
+            //         'daysOfWeek' => [$schedule->day], // Repeat every week on this day
+            //         'startTime' => date('H:i:s', strtotime($schedule->date_start)),
+            //         'endTime' => date('H:i:s', strtotime($schedule->date_end))
+            //     ];
+            // });
+
+            $schedules = Schedule::with(['CourseClass.members.user' => function ($query) {
+                $query->where('type', 'tutor');
+            }])
+            ->where('m_academic_period_id', $period)
+            ->where('status', 1)
+            ->get();
+
+            $events = [];
+
+            foreach ($schedules as $schedule) {
+                foreach ($schedule->CourseClass->members as $member) {
+                    if ($member->user && $member->user->type === 'tutor' && $member->status==1 && $member->user->id==Auth::user()->id) {
+                        $events[] = [
+                            'id' => $schedule->id,
+                            'title' => $schedule->CourseClass->slug.'<br>'.$member->user->name,
+                            'daysOfWeek' => [$schedule->day], // Repeat every week on this day
+                            'startTime' => date('H:i:s', strtotime($schedule->date_start)),
+                            'endTime' => date('H:i:s', strtotime($schedule->date_end))
+                        ];
+                    }
                 }
-
-                // If user not found
-                return response()->json(['message' => 'Data not found.'], 404);
             }
+
+            return response()->json($events);
         } catch (Exception $e) {
             return response()->json(['error' => $e], 500);
         }
@@ -152,7 +199,7 @@ class ScheduleController extends Controller
 
             foreach ($schedules as $schedule) {
                 foreach ($schedule->CourseClass->members as $member) {
-                    if ($member->user && $member->user->type === 'tutor') {
+                    if ($member->user && $member->user->type === 'tutor' && $member->status==1) {
                         $events[] = [
                             'id' => $schedule->id,
                             'title' => $schedule->CourseClass->slug.'<br>'.$member->user->name,

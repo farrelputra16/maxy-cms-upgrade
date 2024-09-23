@@ -70,7 +70,8 @@
             droppable: true,
             allDaySlot: false,
             slotMinTime: '08:00:00',
-            slotMaxTime: '20:00:00',
+            slotMaxTime: '22:00:00',
+            slotDuration: '00:15:00',
             dayHeaderFormat: { weekday: 'long' }, // Display only day names
             hiddenDays: [],
             defaultTimedEventDuration: '02:00:00', // 1-hour default duration

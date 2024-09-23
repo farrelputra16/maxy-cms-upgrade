@@ -45,7 +45,7 @@
                                 <th>Title</th>
                                 <th>Slug</th>
                                 <th>Content</th>
-                                <th>Cover Image</th>
+                                {{-- <th>Cover Image</th> --}}
                                 <th>Tags</th>
                                 <th>Highlight</th>
                                 <th>Description</th>
@@ -57,8 +57,6 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-
-
                         <tbody>
                             @foreach ($data as $key => $item)
                                 <tr>
@@ -75,12 +73,13 @@
                                     </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->content) !!}">
-                                        {!! \Str::limit($item->content, 30) !!}
+                                        {!! \Str::limit(strip_tags($item->content), 30) !!}
                                     </td>
-                                    <td>
+
+                                    {{-- <td>
                                         <img src="{{ asset('uploads/blog/' . $item->slug . '/' . $item->cover_img) }}"
                                             alt="{{ $item->cover_img }}" style="max-height: 10vh">
-                                    </td>
+                                    </td> --}}
                                     <td>
                                         @foreach ($item->tags as $tag)
                                             <div class="badge bg-secondary px-2">
@@ -90,9 +89,9 @@
                                     </td>
                                     <td value="{{ $item->status_highlight }}">
                                         @if ($item->status_highlight == 1)
-                                            <a class="btn btn-success">Aktif</a>
+                                            <a class="btn btn-success"><i class="fas fa-check"></i> &nbsp; Yes</a>
                                         @else
-                                            <a class="btn btn-danger">Non Aktif</a>
+                                            <a class="btn btn-danger"><i class="fas fa-times"></i> &nbsp; No</a>
                                         @endif
                                     </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
@@ -126,7 +125,7 @@
                                 <th class="data-medium">Title</th>
                                 <th>Slug</th>
                                 <th class="data-long">Content</th>
-                                <th>Cover Image</th>
+                                {{-- <th>Cover Image</th> --}}
                                 <th>Tags</th>
                                 <th>Highlight</th>
                                 <th class="data-long">Description</th>

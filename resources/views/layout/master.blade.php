@@ -7,6 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MA | @yield('title')</title>
 
+    <!-- CSS di page event-index.blade.php -->
+    @yield('custom-css')
+
     <!-- Memuat CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.5/datatables.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css" rel="stylesheet">
@@ -287,7 +290,7 @@
                     <!-- Class -->
                     <li class="nav-item">
                         <a class="btn btn-transparent btnClass text-white" data-bs-toggle="collapse" href="#"
-                            style="margin-left: 20px;">
+                            style="margin-left: 1.25rem;">
                             <i class="fa fa-graduation-cap logoClass"></i>
                             <span class="ms-2">Class</span>
                         </a>
@@ -378,7 +381,7 @@
                     </li>
 
                     <!-- Settings -->
-                    <li class="nav-item">
+                    <li class="nav-item ">
                         <a class="btn btn-transparent btnSet text-white" data-bs-toggle="collapse" href="#">
                             <i class="fa fa-gear logoSet"></i>
                             <span class="ms-2">Settings</span>
@@ -397,12 +400,12 @@
                     </li>
 
                     <!-- Members -->
-                    <li class="nav-item">
-                        <a class="btn btn-transparent btnMember text-white" data-bs-toggle="collapse" href="#">
-                            <i class="fa fa-user logoMember"></i>
-                            <span class="ms-2">Members</span>
+                    <li class="nav-item ">
+                        <a class="btn btn-transparent btnMember text-white d-inline-flex" data-bs-toggle="collapse" href="#">
+                            <i class="fa fa-user logoMember mb-1"></i>
+                            <span class="ms-2" style ="padding-top: 0.625rem;">Members</span>
                         </a>
-                        <ul class="colMember collapse">
+                        <ul class="colMember collapse custom-dropdown-Testimonial">
                             <li class="nav-item">
                                 <a href="{{ route('getTestimonial') }}"
                                     class="list-group-item list-group-item-action {{ Route::is('getTestimonial') ? 'active' : '' }}">Testimonial</a>
@@ -422,12 +425,12 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="btn btn-transparent btnMember text-white" data-bs-toggle="collapse" href="#">
-                            <i class="fa-solid fa-file-pen"></i>
-                            <span class="ms-2">Content</span>
+                    <li class="nav-item dropdown custom-dropdown-content">
+                        <a class="btn btn-transparent btnMember text-white d-inline-flex"  data-bs-toggle="collapse" href="#">
+                            <i class="fa-solid fa-file-pen mb-1"></i>
+                            <span class="ms-2" style ="padding-top: 0.625rem;">Content</span>
                         </a>
-                        <ul class="colMember collapse">
+                        <ul class="colMember collapse custom-dropdown-carousel">
                             <li class="nav-item">
                                 <a href="{{ route('getCarousel') }}"
                                     class="list-group-item list-group-item-action {{ Route::is('getCarousel') ? 'active' : '' }}">Carousel</a>

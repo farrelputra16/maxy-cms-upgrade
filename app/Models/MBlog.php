@@ -16,6 +16,7 @@ class MBlog extends Model
         'slug',
         'content',
         'cover_img',
+        'status_highlight',
         'description',
         'status',
         'created_at',
