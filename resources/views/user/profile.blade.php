@@ -164,66 +164,66 @@
                 <div class="two fields">
                     <div class="field">
                         <label for="">ID</label>
-                        <input type="text" name="id" value="{{ $currentData->id }}">
+                        <input type="text" name="id" value="{{ $currentData->id ?? '-' }}" disabled>
                     </div>
                     <div class="field">
                         <label for="">Name</label>
-                        <input type="text" name="name" value="{{ $currentData->name }}">
+                        <input type="text" name="name" value="{{ $currentData->name ?? '-' }}" disabled>
                     </div>
                 </div>
 
                 <div class="two fields">
                     <div class="field">
                         <label for="no_ktp">KTP</label>
-                        <input type="text" name="no_ktp" id="no_ktp" value="{{ $currentData->no_ktp }}">
+                        <input type="text" name="no_ktp" id="no_ktp" value="{{ $currentData->no_ktp ?? '-' }}" disabled>
                     </div>
                     <div class="field">
                         <label for="">Telp</label>
-                        <input type="text" name="phone" value="{{ $currentData->phone }}">
+                        <input type="text" name="phone" value="{{ $currentData->phone ?? '-' }}" disabled>
                     </div>
                 </div>
 
                 <div class="two fields">
                     <div class="field">
                         <label for="supervisor_name">Nama Pembimbing</label>
-                        <input type="text" name="supervisor_name" id="supervisor_name" value="{{ $currentData->supervisor_name }}">
+                        <input type="text" name="supervisor_name" id="supervisor_name" value="{{ $currentData->supervisor_name ?? '-' }}" disabled>
                     </div>
                     <div class="field">
                         <label for="supervisor_email">Email Pembimbing</label>
-                        <input type="text" name="supervisor_email" id="supervisor_email" value="{{ $currentData->supervisor_email }}">
+                        <input type="text" name="supervisor_email" id="supervisor_email" value="{{ $currentData->supervisor_email ?? '-' }}" disabled>
                     </div>
                 </div>
 
                 <div class="two fields">
                     <div class="field">
                         <label for="supervisor_name">Nama Ayah</label>
-                        <input type="text" name="supervisor_name" id="supervisor_name" value="{{ $father->name }}">
+                        <input type="text" name="supervisor_name" id="supervisor_name" value="{{ $father->name ?? '-' }}" disabled>
                     </div>
                     <div class="field">
                         <label for="supervisor_email">Pekerjaan Ayah</label>
-                        <input type="text" name="supervisor_email" id="supervisor_email" value="{{ $father->job }}">
+                        <input type="text" name="supervisor_email" id="supervisor_email" value="{{ $father->job ?? '-' }}" disabled>
                     </div>
                 </div>
 
                 <div class="two fields">
                     <div class="field">
                         <label for="supervisor_name">Nama Ibu</label>
-                        <input type="text" name="supervisor_name" id="supervisor_name" value="{{ $mother->name }}">
+                        <input type="text" name="supervisor_name" id="supervisor_name" value="{{ $mother->name ?? '-' }}" disabled>
                     </div>
                     <div class="field">
                         <label for="supervisor_email">Pekerjaan Ibu</label>
-                        <input type="text" name="supervisor_email" id="supervisor_email" value="{{ $mother->job }}">
+                        <input type="text" name="supervisor_email" id="supervisor_email" value="{{ $mother->job ?? '-' }}" disabled>
                     </div>
                 </div>
 
                 <div class="two fields">
                     <div class="field">
                         <label for="supervisor_name">Agama</label>
-                        <input type="text" name="supervisor_name" id="supervisor_name" value="{{ $currentData->religion }}">
+                        <input type="text" name="supervisor_name" id="supervisor_name" value="{{ $currentData->religion ?? '-' }}" disabled>
                     </div>
                     <div class="field">
                         <label for="supervisor_email">Status Kewarganegaraan</label>
-                        <input type="text" name="supervisor_email" id="supervisor_email" value="{{ $currentData->citizenship_status }}">
+                        <input type="text" name="supervisor_email" id="supervisor_email" value="{{ $currentData->citizenship_status ?? '-' }}" disabled>
                     </div>
                 </div>
 
@@ -234,40 +234,40 @@
                     </div>
                     <div class="field">
                         <label for="supervisor_email">IPK</label>
-                        <input type="text" name="supervisor_email" id="supervisor_email" value="{{ $currentData->ipk }}">
+                        <input type="text" name="supervisor_email" id="supervisor_email" value="{{ $currentData->ipk ?? '-' }}" disabled>
                     </div>
                 </div>
 
                 <div class="two fields">
                     <div class="field">
                         <label for="supervisor_name">Kota</label>
-                        <input type="text" name="supervisor_name" id="supervisor_name" value="{{ $currentData->city }}">
+                        <input type="text" name="supervisor_name" id="supervisor_name" value="{{ $currentData->city ?? '-' }}" disabled>
                     </div>
                     <div class="field">
                         <label for="supervisor_email">Provinsi</label>
-                        <input type="text" name="supervisor_email" id="supervisor_email" value="{{ $currentData->MProvince->name }}">
+                        <input type="text" name="supervisor_email" id="supervisor_email" value="{{ $currentData->MProvince->name ?? '-' }}" disabled>
                     </div>
                 </div>
 
                 <div class="two fields">
                     <div class="field">
                         <label for="supervisor_name">Negara</label>
-                        <input type="text" name="supervisor_name" id="supervisor_name" value="{{ $currentData->country }}">
+                        <input type="text" name="supervisor_name" id="supervisor_name" value="{{ $currentData->country ?? '-' }}" disabled>
                     </div>
                     <div class="field">
                         <label for="supervisor_email">Kode Pos</label>
-                        <input type="text" name="supervisor_email" id="supervisor_email" value="{{ $currentData->postal_code }}">
+                        <input type="text" name="supervisor_email" id="supervisor_email" value="{{ $currentData->postal_code ?? '-' }}" disabled>
                     </div>
                 </div>
 
                 <div class="two fields">
                     <div class="field">
                         <label for="supervisor_name">Alamat</label>
-                        <input type="text" name="supervisor_name" id="supervisor_name" value="{{ $currentData->address }}">
+                        <input type="text" name="supervisor_name" id="supervisor_name" value="{{ $currentData->address ?? '-' }}" disabled>
                     </div>
                     <div class="field">
                         <label for="">Hobby</label>
-                        <input type="text" name="hobby" value="{{ $currentData->hobby }}">
+                        <input type="text" name="hobby" value="{{ $currentData->hobby ?? '-' }}" disabled>
                     </div>
                 </div>
 
@@ -278,7 +278,7 @@
 
                 <div class="field">
                     <label for="supervisor_name">Video Perkenalan</label>
-                    <input type="text" name="supervisor_name" id="supervisor_name" value="{{ $currentData->detail_description_video }}">
+                    <input type="text" name="supervisor_name" id="supervisor_name" value="{{ $currentData->detail_description_video ?? '-' }}" disabled>
                 </div>
 
                 <div class="field">
