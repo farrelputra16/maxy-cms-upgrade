@@ -80,7 +80,12 @@
         <div class="col-12 col-md-6" style="padding-top:6%; padding-left:15%;">
             <h1
                 style="color: #000000; font-weight: 600; padding-bottom: 5px; font-family: Inter, sans-serif; letter-spacing: 2px; font-size: 64px">
-                Maxy's CMS</h1>
+                @if(env('APP_ENV') == 'local')
+                Bina Karya's CMS
+                @else
+                Maxy's CMS
+                @endif
+            </h1>
             <br>
 
             <form class="ui form" method="post" action="{{ route('login') }}">
@@ -118,7 +123,11 @@
         </div>
 
         <div class="col-6" style="height:100%">
+            @if(env('APP_ENV') == 'local')
+            <img src="{{ asset('uploads/LogoMaxy.png') }}" alt="Logo" style="height:100%; padding-left:45%">
+            @else
             <img src="{{ asset('uploads/LogoLogin.png') }}" alt="Logo" style="height:100%; padding-left:45%">
+            @endif
         </div>
     </div>
 

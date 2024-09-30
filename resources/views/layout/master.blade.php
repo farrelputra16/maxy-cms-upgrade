@@ -229,6 +229,12 @@
                                 <a href="{{ route('getCourse') }}"
                                     class="list-group-item list-group-item-action {{ Route::is('getCourse') ? 'active' : '' }}">Course</a>
                             </li>
+                            @if(env('APP_ENV') == 'local')
+                            <li class="nav-item">
+                                <a href="{{ route('getCourseMBKM') }}"
+                                    class="list-group-item list-group-item-action {{ Route::is('getCourseMBKM') ? 'active' : '' }}">MBKM</a>
+                            </li>
+                            @endif
                             <li class="nav-item">
                                 <a href="{{ route('getCourseType') }}"
                                     class="list-group-item list-group-item-action {{ Route::is('getCourseType') ? 'active' : '' }}">Course

@@ -15,8 +15,18 @@ class CourseController extends Controller
 {
     function getCourse()
     {
-        $courses = Course::all();
+        $courses = Course::with(['type'])->get();
         return view('course.index', ['courses' => $courses]);
+    }
+
+    function getCourseMBKM()
+    {
+        $courses = Course::with(['type'])
+            ->whereHas('type', function ($query) {
+                $query->where('name', 'MBKM');
+            })
+            ->get();
+        return view('course.MBKM.index', ['courses' => $courses]);
     }
 
     function getAddCourse()
@@ -27,6 +37,21 @@ class CourseController extends Controller
         $allCourseCategory = Category::where('status', 1)->get();
 
         return view('course.add', [
+            'allPackagePrices' => $allPackagePrices,
+            'allCourseTypes' => $allCourseTypes,
+            'allCourseDifficulty' => $allCourseDifficulty,
+            'allCourseCategory' => $allCourseCategory,
+        ]);
+    }
+
+    function getAddMBKM()
+    {
+        $allPackagePrices = CoursePackage::all();
+        $allCourseTypes = MCourseType::all();
+        $allCourseDifficulty = MDifficultyType::all();
+        $allCourseCategory = Category::where('status', 1)->get();
+
+        return view('course.MBKM.add', [
             'allPackagePrices' => $allPackagePrices,
             'allCourseTypes' => $allCourseTypes,
             'allCourseDifficulty' => $allCourseDifficulty,
@@ -127,6 +152,37 @@ class CourseController extends Controller
         }//dd($selectedCategoryId);
 
         return view('course.edit', [
+            'courses' => $courses,
+            'currentDataCourse' => $currentDataCourse,
+            'allCourseTypes' => $allCourseTypes,
+            'currentCoursePackages' => $currentCoursePackages,
+            'allCoursePackages' => $allCoursePackages,
+            'allDifficultyTypes' => $allDifficultyTypes,
+            'allCourseCategory' => $allCourseCategory,
+            'selectedCategoryId' => $selectedCategoryId,
+        ]);
+    }
+
+    function getEditMBKM(Request $request)
+    {
+        $idCourse = $request->id;
+        $courses = Course::find($idCourse);
+        $allCourseCategory = Category::where('status', 1)->get();
+        $selectedCategoryId = DB::table('course_category')->where('course_id', $request->id)->get('category_id');
+
+        $currentDataCourse = Course::CurrentDataCourse($idCourse);
+        $currentCoursePackages = Course::CurrentCoursePackages($idCourse);
+
+        $allCourseTypes = MCourseType::where('id', '!=', $currentDataCourse->m_course_type_id)->get();
+        $allDifficultyTypes = MDifficultyType::where('id', '!=', $currentDataCourse->m_difficulty_type_id)->get();
+
+        if ($currentCoursePackages == NULL) {
+            $allCoursePackages = CoursePackage::all();
+        } else {
+            $allCoursePackages = CoursePackage::where('id', '!=', $currentCoursePackages->course_package_id)->get();
+        }//dd($selectedCategoryId);
+
+        return view('course.MBKM.edit', [
             'courses' => $courses,
             'currentDataCourse' => $currentDataCourse,
             'allCourseTypes' => $allCourseTypes,

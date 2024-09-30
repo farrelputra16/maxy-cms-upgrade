@@ -90,11 +90,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/course/edit', [CourseController::class, 'getEditCourse'])->name('getEditCourse')->middleware('access:course_update');
     Route::post('/course/edit', [CourseController::class, 'postEditCourse'])->name('postEditCourse')->middleware('access:course_update');
 
-    // Route::get('/course/MBKM', [CourseController::class, 'getCourseMBKM'])->name('getCourseMBKM')->middleware('access:course_manage');
+    Route::get('/course/MBKM', [CourseController::class, 'getCourseMBKM'])->name('getCourseMBKM')->middleware('access:course_manage');
 
-    // Route::get('/course/add/MBKM', [CourseController::class, 'getAddMBKM'])->name('getAddMBKM')->middleware('access:course_create');
+    Route::get('/course/add/MBKM', [CourseController::class, 'getAddMBKM'])->name('getAddMBKM')->middleware('access:course_create');
 
-    // Route::get('/course/edit/MBKM', [CourseController::class, 'getEditMBKM'])->name('getEditMBKM')->middleware('access:course_update');
+    Route::get('/course/edit/MBKM', [CourseController::class, 'getEditMBKM'])->name('getEditMBKM')->middleware('access:course_update');
 
     // categori route ###########################################################################################################
     Route::get('/category', [CategoryController::class, 'getCategory'])->name('getCategory')->middleware('access:category_manage');

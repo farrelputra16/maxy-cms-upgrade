@@ -8,8 +8,13 @@
                         <img src="{{ asset('jago-digital/assets/images/logo-m.png') }}" alt="" height="22">
                     </span>
                     <span class="logo-lg">
+                        @if(env('APP_ENV') == 'local')
+                        <img src="{{ asset('uploads/LogoMaxy.png') }}" alt=""
+                            height="50">
+                        @else
                         <img src="{{ asset('jago-digital/assets/images/logo-maxy-light.png') }}" alt=""
                             height="17">
+                        @endif
                     </span>
                 </a>
 
@@ -18,8 +23,13 @@
                         <img src="{{ asset('jago-digital/assets/images/logo-m.png') }}" alt="" height="22">
                     </span>
                     <span class="logo-lg">
+                        @if(env('APP_ENV') == 'local')
+                        <img src="{{ asset('uploads/LogoMaxy.png') }}" alt=""
+                            height="50">
+                        @else
                         <img src="{{ asset('jago-digital/assets/images/logo-maxy-light.png') }}" alt=""
                             height="19">
+                        @endif
                     </span>
                 </a>
             </div>
