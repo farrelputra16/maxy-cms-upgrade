@@ -52,7 +52,7 @@
                                 </div>
                                 <h5 class="font-size-15 text-truncate">{{ auth()->user()->name }}</h5>
 
-                                <p class="text-muted mb-0 text-truncate"> Role akun ini adalah: <strong>{{$admin -> accessGroup -> name}}</strong></p>
+                                <p class="text-muted mb-0 text-truncate"> Role akun ini adalah: <strong>{{ $admin->accessGroup->name }}</strong></p>
                             </div>
                         </div>
                     </div>
@@ -662,7 +662,7 @@
                 horizontalAlign: 'center'
             },
             labels: ['Active', 'Inactive'],
-            colors: ['#00E396', '#FF4560'], // Warna untuk setiap bagian chart
+            colors: ['#198754', '#dc3545'], // Warna untuk setiap bagian chart
             responsive: [{
                 breakpoint: 480,
                 options: {
