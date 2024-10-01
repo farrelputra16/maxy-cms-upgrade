@@ -223,7 +223,7 @@ class ScheduleController extends Controller
             $course_class = CourseClass::whereHas('course.CourseCategory', function ($query) use ($prodi) {
                     $query->where('category_id', $prodi);
                 })
-                ->where('status_ongoing', 1)
+                ->where('status_ongoing', 0)
                 ->get();
 
             return $course_class;
