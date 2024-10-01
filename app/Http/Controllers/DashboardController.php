@@ -81,4 +81,22 @@ class DashboardController extends Controller
     {
         GoKampusDataSyncJob::dispatch(auth()->user());
     }
+    public function getStudentStatusData(){
+        // Ambil jumlah data berdasarkan status
+        $activeStudents = \DB::table('course_class_member')
+            ->where('status', 1)
+            ->distinct('user_id')
+            ->count('user_id');
+
+        $inactiveStudents = \DB::table('course_class_member')
+            ->where('status', 0)
+            ->distinct('user_id')
+            ->count('user_id');
+
+        // Kembalikan data dalam format JSON ke frontend
+        return response()->json([
+            'active' => $activeStudents,
+            'inactive' => $inactiveStudents
+        ]);
+    }
 }

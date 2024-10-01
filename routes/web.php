@@ -76,6 +76,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [DashboardController::class, 'getDashboard'])->name('getDashboard');
     Route::get('/dashboard2', [DashboardController::class, 'getDashboard2'])->name('getDashboard2');
     Route::get('/dashboard/synchronize', [DashboardController::class, 'synchronizeData'])->name('synchronizeData');
+    Route::get('/student-status-data', [DashboardController::class, 'getStudentStatusData']);
 
     Route::get('/profile', function () {
         return view('profile.indexv3');

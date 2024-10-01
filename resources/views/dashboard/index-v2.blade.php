@@ -161,11 +161,11 @@
                                 <div id="student-chart" style="height: 100%;"></div>
                                 <div class="justify-content-center row">
                                     <div class="col-sm-4 text-center">
-                                        <h5 class="mb-0">879</h5>
+                                        <h5 id="user-active" class="mb-0">879</h5>
                                         <p class="text-muted text-truncate">Active</p>
                                     </div>
                                     <div class="col-sm-4 text center">
-                                        <h5 class="mb-0">23</h5>
+                                        <h5 id="user-inactive"class="mb-0">23</h5>
                                         <p class="text-muted text-truncate">Inactive</p>
                                     </div>
                                 </div>
@@ -648,34 +648,49 @@
 
 @section('script')
 
-    <script>
-        // ApexChart
-        var options = {
-            series: [879, 23], // Data untuk chart (Active, Inactive)
-            chart: {
-                type: 'pie',
-                height: '100%', // Ubah ukuran tinggi chart
-                width: '100%' // Ubah ukuran lebar chart
-            },
-            legend: {
-                position: 'bottom',
-                horizontalAlign: 'center'
-            },
-            labels: ['Active', 'Inactive'],
-            colors: ['#198754', '#dc3545'], // Warna untuk setiap bagian chart
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    chart: {
-                        width: '100%' // Lebar chart di layar kecil
-                    },
-                }
-            }]
-        };
+<script>
+    // Ambil data dari endpoint untuk status mahasiswa
+    fetch('/student-status-data')
+        .then(response => response.json())
+        .then(data => {
+            // Data yang diterima dari server
+            var active = data.active;
+            var inactive = data.inactive;
+            // Memasukkan data.active ke dalam elemen HTML dengan ID 'user-active'
+            document.getElementById('user-active').innerText = data.active;
 
-        var chart = new ApexCharts(document.querySelector("#student-chart"), options);
-        chart.render();
-    </script>
+            // Memasukkan data.inactive ke dalam elemen HTML dengan ID 'user-inactive'
+            document.getElementById('user-inactive').innerText = data.inactive;
+
+            // ApexChart
+            var options = {
+                series: [active, inactive], // Data dari database (Active, Inactive)
+                chart: {
+                    type: 'pie',
+                    height: '100%', // Ubah ukuran tinggi chart
+                    width: '100%' // Ubah ukuran lebar chart
+                },
+                legend: {
+                    position: 'bottom',
+                    horizontalAlign: 'center'
+                },
+                labels: ['Active', 'Inactive'],
+                colors: ['#00E396', '#FF4560'], // Warna untuk setiap bagian chart
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: '100%' // Lebar chart di layar kecil
+                        },
+                    }
+                }]
+            };
+
+            var chart = new ApexCharts(document.querySelector("#student-chart"), options);
+            chart.render();
+        })
+        .catch(error => console.error('Error fetching data:', error));
+</script>
 
     <script>
         // calendar
