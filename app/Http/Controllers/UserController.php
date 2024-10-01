@@ -22,7 +22,7 @@ class UserController extends Controller
 
         $users = User::getAllUserWithAccessGroup();
 
-        return view('user.index', ['users' => $users]);
+        return view('user.indexv3', ['users' => $users]);
     }
 
     function getProfileUser(Request $request)
@@ -53,7 +53,7 @@ class UserController extends Controller
         $allProvince = MProvince::all();
         $allPartner = Partner::all();
 
-        return view('user.add', [
+        return view('user.addv3', [
             'allAccessGroups' => $allAccessGroups,
             'allProvince' => $allProvince,
             'allPartner' => $allPartner
@@ -133,7 +133,7 @@ class UserController extends Controller
         $allProvince = MProvince::all();
         $allPartner = Partner::all();
 
-        return view('user.edit', [
+        return view('user.editv3', [
             'currentData' => $currentData,
             'allAccessGroups' => $allAccessGroups,
             'allProvince' => $allProvince,

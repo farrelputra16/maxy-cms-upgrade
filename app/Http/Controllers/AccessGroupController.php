@@ -15,13 +15,13 @@ class AccessGroupController extends Controller
     function getAccessGroup()
     {
         $accessgroups = AccessGroup::all();
-        return view('accessgroup.index', ['accessgroups' => $accessgroups]);
+        return view('accessgroup.indexv3', ['accessgroups' => $accessgroups]);
     }
 
     function getAddAccessGroup()
     {
         $accessMasters = AccessMaster::all();
-        return view('accessgroup.add', ['accessMasters' => $accessMasters]);
+        return view('accessgroup.addv3', ['accessMasters' => $accessMasters]);
     }
 
     public function postAddAccessGroup(Request $request)
@@ -58,7 +58,7 @@ class AccessGroupController extends Controller
         $currentData = array_column(json_decode(AccessGroupDetail::CurrentAccessGroupDetail($idaccessgroup)), 'name', 'id');
         $allAccessMaster = AccessMaster::AllAccessMaster();
 
-        return view('accessgroup.edit', [
+        return view('accessgroup.editv3', [
             'accessgroups' => $accessgroups,
             'currentData' => $currentData,
             'allAccessMaster' => array_diff($allAccessMaster, $currentData)

@@ -11,11 +11,11 @@ class MEventTypeController extends Controller
 {
     function getEventType(){
         $MEventType = MEventType::all();
-        return view('m_event_type.index', ['MEventType' => $MEventType]);
+        return view('m_event_type.indexv3', ['MEventType' => $MEventType]);
     }
 
     function getAddEventType(){
-        return view('m_event_type.add');
+        return view('m_event_type.addv3');
     }
 
     function postAddEventType(Request $request){
@@ -41,7 +41,7 @@ class MEventTypeController extends Controller
 
     function getEditEventType(Request $request){
         $currentData = MEventType::find($request->id);
-        return view('m_event_type.edit', ['currentData' => $currentData]);
+        return view('m_event_type.editv3', ['currentData' => $currentData]);
     }
 
     function postEditEventType(Request $request){

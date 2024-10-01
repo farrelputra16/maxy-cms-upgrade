@@ -12,13 +12,13 @@ class GeneralController extends Controller
     //
     function getGeneral(){
         $generals = General::all();
-        
-        return view('m_general.index', ['generals' => $generals]);
+
+        return view('m_general.indexv3', ['generals' => $generals]);
     }
-    
+
     function getAddGeneral(){
 
-        return view('m_general.add');
+        return view('m_general.addv3');
     }
 
     function postAddGeneral(Request $request){
@@ -41,7 +41,7 @@ class GeneralController extends Controller
                 return app(HelperController::class)->Positive('getGeneral');
             } else {
                 return app(HelperController::class)->Negative('getGeneral');
-    
+
            }
         }
     }
@@ -50,7 +50,7 @@ class GeneralController extends Controller
         $idgeneral = $request->id;
         $generals = General::find($idgeneral);
 
-        return view('m_general.edit', [
+        return view('m_general.editv3', [
             'generals' => $generals
         ]);
     }
@@ -77,13 +77,13 @@ class GeneralController extends Controller
                 return app(HelperController::class)->Positive('getGeneral');
             } else {
                 return app(HelperController::class)->Warning('getGeneral');
-            } 
+            }
         }
     }
 
     function deactivateGeneral(Request $request, $id) {
         $general = General::find($id);
-        
+
         if ($general) {
             $general->status = 0; // Set status menjadi non aktif
             $general->save();

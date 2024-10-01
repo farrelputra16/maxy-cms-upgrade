@@ -36,8 +36,8 @@ class DashboardController extends Controller
             ->where('date_end', '<', $oneMonthFromNow)
             ->where('date_end', '>', $now)
             ->get();
-        
-        return view('dashboard.index', [
+
+        return view('dashboard.index-v2', [
             'accessMaster' => $accessMaster,
             'user' => $user,
             'active_class_list' => $active_class_list,

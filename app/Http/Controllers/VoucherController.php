@@ -12,12 +12,12 @@ class VoucherController extends Controller
     function getVoucher(){
         $voucher = Promotion::all();
         // return dd($voucher);
-        return view('voucher.index', ['voucher' => $voucher]);
+        return view('voucher.indexv3', ['voucher' => $voucher]);
     }
 
     function getAddVoucher(){
         $voucher = Promotion::all();
-        return view('voucher.add', [
+        return view('voucher.addv3', [
             'voucher' => $voucher
         ]);
     }
@@ -71,7 +71,7 @@ class VoucherController extends Controller
 
         $allPromotion = Promotion::where('id', '!=', $currentData->id)->get();
         // return dd($allPromotion);
-        return view('voucher.edit', [
+        return view('voucher.editv3', [
             'voucher' => $voucher,
             'currentData' => $currentData,
             'allPromotion' => $allPromotion
@@ -80,7 +80,7 @@ class VoucherController extends Controller
 
     function postEditVoucher(Request $request){
         $idvoucher = $request->id;
-    
+
         $updateData = Promotion::where('id', $idvoucher)
             ->update([
                 'name' => $request->name,

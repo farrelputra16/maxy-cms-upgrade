@@ -11,11 +11,11 @@ class MPartnershipTypeController extends Controller
 {
     function getPartnershipType(){
         $MPartnershipType = MPartnershipType::all();
-        return view('m_partnership_type.index', ['MPartnershipType' => $MPartnershipType]);
+        return view('m_partnership_type.indexv3', ['MPartnershipType' => $MPartnershipType]);
     }
 
     function getAddPartnershipType(){
-        return view('m_partnership_type.add');
+        return view('m_partnership_type.addv3');
     }
 
     function postAddPartnershipType(Request $request){
@@ -41,7 +41,7 @@ class MPartnershipTypeController extends Controller
 
     function getEditPartnershipType(Request $request){
         $currentData = MPartnershipType::find($request->id);
-        return view('m_partnership_type.edit', ['currentData' => $currentData]);
+        return view('m_partnership_type.editv3', ['currentData' => $currentData]);
     }
 
     function postEditPartnershipType(Request $request){

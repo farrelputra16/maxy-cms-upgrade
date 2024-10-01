@@ -13,15 +13,15 @@ class AccessMasterController extends Controller
     public function getAccessMaster(){
 
         $accessmasters = AccessMaster::all();
-        return view('accessmaster.index', ['accessmasters' => $accessmasters]);
+        return view('accessmaster.indexv3', ['accessmasters' => $accessmasters]);
     }
 
     function getAddAccessMaster(){
-        
-        
-        return view('accessmaster.add');
+
+
+        return view('accessmaster.addv3');
     }
-    
+
     public function PostAddAccessMaster(Request $request){
         $validated = $request->validate([
             'name' => 'required'
@@ -46,15 +46,15 @@ class AccessMasterController extends Controller
     function getEditAccessMaster(Request $request){
         $idaccessmaster = $request->id;
         $accessmasters = AccessMaster::find($idaccessmaster);
-    
-        return view('accessmaster.edit', [
+
+        return view('accessmaster.editv3', [
             'accessmasters' => $accessmasters
         ]);
     }
 
     function postEditAccessMaster(Request $request){
         $idaccessmaster = $request->id;
-        
+
         $updateData = AccessMaster::postEditAccessMaster($request);
 
         if ($updateData){

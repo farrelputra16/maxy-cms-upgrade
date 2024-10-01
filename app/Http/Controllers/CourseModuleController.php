@@ -19,12 +19,12 @@ class CourseModuleController extends Controller
     {
         // dd($request->all());
         $course_id = $request->course_id;
-        
+
         $course_detail = Course::getCourseDetailByCourseId($course_id);
         $parent_modules = CourseModule::getCourseModuleParentByCourseId($course_id, $request->page_type);
 
         // dd($parent_modules);
-        return view('course_module.index', [
+        return view('course_module.indexv3', [
             'parent_modules' => $parent_modules,
             'course_detail' => $course_detail,
             'page_type' => $request->page_type,
@@ -41,7 +41,7 @@ class CourseModuleController extends Controller
         $parent_module_detail = CourseModule::getCourseModuleDetailByModuleId($module_id);
 
         // dd($sub_modules);
-        return view('course_module.child.index', [
+        return view('course_module.child.indexv3', [
             'sub_modules' => $sub_modules,
             'course_detail' => $course_detail,
             'parent_module_detail' => $parent_module_detail,
@@ -55,7 +55,7 @@ class CourseModuleController extends Controller
         $course_detail = Course::getCourseDetailByCourseId($course_id);
         $page_type = $request->page_type;
 
-        return view('course_module.add', [
+        return view('course_module.addv3', [
             'course_detail' => $course_detail,
             'page_type' => $page_type,
         ]);
@@ -103,7 +103,7 @@ class CourseModuleController extends Controller
 
         // dd($module_detail);
 
-        return view('course_module.edit', [
+        return view('course_module.editv3', [
             'module_detail' => $module_detail,
             'page_type' => $request->page_type,
         ]);
@@ -149,7 +149,7 @@ class CourseModuleController extends Controller
         $course_type = MCourseType::find($course_detail->m_course_type_id);
 
         // dd($course_type);
-        return view('course_module.child.add', [
+        return view('course_module.child.addv3', [
             'course_type' => $course_type,
             'parent' => $parent,
             'page_type' => $request->page_type,
@@ -229,7 +229,7 @@ class CourseModuleController extends Controller
         $course_type = MCourseType::find($course_detail->m_course_type_id);
 
         // dd($childModule);
-        return view('course_module.child.edit', [
+        return view('course_module.child.editv3', [
             'childModule' => $childModule,
             'parentModule' => $parentModule,
             'course_type' => $course_type,

@@ -20,7 +20,7 @@ class EventController extends Controller
     {
         $events = Event::all();
 
-        return view('event.index', [
+        return view('event.indexv3', [
             'events' => $events
         ]);
     }
@@ -95,7 +95,7 @@ class EventController extends Controller
     }
 
     function postEditEvent(Request $request)
-    {   
+    {
         $idevent = $request->id;//dd($request);
 
         $validated = $request->validate([

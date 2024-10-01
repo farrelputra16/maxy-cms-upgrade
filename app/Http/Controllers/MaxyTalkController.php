@@ -14,7 +14,7 @@ class MaxyTalkController extends Controller
     function getMaxyTalk(){
         $maxytalk = MaxyTalk::all();
 
-        return view('maxytalk.index', [
+        return view('maxytalk.indexv3', [
             'maxytalk' => $maxytalk
         ]);
     }
@@ -23,7 +23,7 @@ class MaxyTalkController extends Controller
         $maxytalk = MaxyTalk::all();
         $users = User::all();
 
-        return view('maxytalk.add', [
+        return view('maxytalk.addv3', [
             'maxytalk' => $maxytalk,
             'users' => $users
         ]);

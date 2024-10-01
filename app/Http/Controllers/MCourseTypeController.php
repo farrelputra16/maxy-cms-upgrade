@@ -11,11 +11,11 @@ class MCourseTypeController extends Controller
 {
     function getCourseType(){
         $mCourseType = MCourseType::all();
-        return view('m_course_type.index', ['mCourseType' => $mCourseType]);
+        return view('m_course_type.indexv3', ['mCourseType' => $mCourseType]);
     }
 
     function getAddCourseType(){
-        return view('m_course_type.add');
+        return view('m_course_type.addv3');
     }
 
     function postAddCourseType(Request $request){
@@ -42,7 +42,7 @@ class MCourseTypeController extends Controller
 
     function getEditCourseType(Request $request){
         $currentData = MCourseType::find($request->id);
-        return view('m_course_type.edit', ['currentData' => $currentData]);
+        return view('m_course_type.editv3', ['currentData' => $currentData]);
     }
 
     function postEditCourseType(Request $request){

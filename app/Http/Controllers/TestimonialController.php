@@ -23,10 +23,10 @@ class TestimonialController extends Controller
             ->join('course_class', 'user_testimonial.course_class_id', '=', 'course_class.id')
             ->get();
 
-        return view('user_testimonial.index',[
+        return view('user_testimonial.indexv3',[
             'testimonials' => $testimonials
         ]);
-    
+
     }
 
     function getAddTestimonial(){
@@ -34,7 +34,7 @@ class TestimonialController extends Controller
         $allmember = User::all();
         $allcourseclass = CourseClass::all();
 
-        return view('user_testimonial.add',[
+        return view('user_testimonial.addv3',[
             'allcourse' => $allcourse,
             'allmember' => $allmember,
             'allcourseclass' => $allcourseclass
@@ -91,7 +91,7 @@ class TestimonialController extends Controller
 
         // return dd($currentData);
 
-        return view('user_testimonial.edit',[
+        return view('user_testimonial.editv3',[
             'testimonials' => $testimonials,
             'currentData' => $currentData,
             'allmember' => $allmember,
@@ -121,4 +121,3 @@ class TestimonialController extends Controller
         }
     }
 }
-    

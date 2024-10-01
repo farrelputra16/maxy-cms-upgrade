@@ -12,7 +12,7 @@ class PartnerController extends Controller
     //
     function getPartner(){
         $partners = Partner::all();
-        return view('partner.index', ['partners' => $partners]);
+        return view('partner.indexv3', ['partners' => $partners]);
     }
 
     function getAddPartner() {
@@ -21,7 +21,7 @@ class PartnerController extends Controller
             ->Where('type', '!=', '')
             ->groupBy('type')
             ->get();
-        return view('partner.add', ['partnerTypes' => $partnerTypes]);
+        return view('partner.addv3', ['partnerTypes' => $partnerTypes]);
     }
 
     function postAddPartner(Request $request){
@@ -71,12 +71,17 @@ class PartnerController extends Controller
 
     function getEditPartner(Request $request){
         $partners = Partner::find($request->id);
-        return view('partner.edit', ['partners' => $partners]);
+        $partnerTypes = Partner::select('type')
+            ->whereNotNull('type')
+            ->Where('type', '!=', '')
+            ->groupBy('type')
+            ->get();
+        return view('partner.editv3', ['partners' => $partners, 'partnerTypes' => $partnerTypes]);
     }
 
     function postEditPartner(Request $request){
 
-        
+
         if ($request->hasFile('logo')) {
             $file = $request->file('logo');
             $fileName = $file->getClientOriginalName();
@@ -118,6 +123,6 @@ class PartnerController extends Controller
             } else {
                 return app(HelperController::class)->Warning('getPartner');
             }
-        }   
+        }
     }
 }

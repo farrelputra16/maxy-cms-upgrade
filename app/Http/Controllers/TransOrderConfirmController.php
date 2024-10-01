@@ -24,7 +24,7 @@ class TransOrderConfirmController extends Controller
         $transOrderName = TransOrder::select('order_number')->where('id', $transOrderId)->first();
         $transOrderConfirms = TransOrderConfirm::where('trans_order_id', $transOrderId)->get();
 
-        return view('trans_order_confirm.index', compact('transOrderConfirms', 'transOrderId', 'transOrderName'));
+        return view('trans_order_confirm.indexv3', compact('transOrderConfirms', 'transOrderId', 'transOrderName'));
     }
 
     /**
@@ -40,7 +40,7 @@ class TransOrderConfirmController extends Controller
         $coursePackages = CoursePackage::all();
         $promotions = Promotion::all();
 
-        return view('trans_order_confirm.add', [
+        return view('trans_order_confirm.addv3', [
             'coursePackages' => $coursePackages,
             'promotions' => $promotions,
             'bankAccounts' => $bankAccounts,

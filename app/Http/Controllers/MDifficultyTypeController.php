@@ -10,11 +10,11 @@ class MDifficultyTypeController extends Controller
     //
     function getDifficulty(){
         $mDifficulties = MDifficultyType::all();
-        return view('m_difficulty_type.index', ['mDifficulties' => $mDifficulties]);
+        return view('m_difficulty_type.indexv3', ['mDifficulties' => $mDifficulties]);
     }
 
     function getAddDifficulty(){
-        return view('m_difficulty_type.add');
+        return view('m_difficulty_type.addv3');
     }
 
     function postAddDifficulty(Request $request){
@@ -40,7 +40,7 @@ class MDifficultyTypeController extends Controller
 
     function getEditDifficulty(Request $request){
         $currentData = MDifficultyType::find($request->id);
-        return view('m_difficulty_type.edit', ['currentData' => $currentData]);
+        return view('m_difficulty_type.editv3', ['currentData' => $currentData]);
     }
 
     function postEditDifficulty(Request $request){

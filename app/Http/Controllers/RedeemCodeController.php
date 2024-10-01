@@ -13,13 +13,13 @@ class RedeemCodeController extends Controller
     function getRedeemCode()
     {
         $redeemCodes = RedeemCode::all();
-        return view('redeem_code.index', compact('redeemCodes'));
+        return view('redeem_code.indexv3', compact('redeemCodes'));
     }
 
 
     function getAddRedeemCode(){
         $RedeemCode = RedeemCode::all();
-        return view('redeem_code.add', [
+        return view('redeem_code.addv3', [
             'RedeemCode' => $RedeemCode
         ]);
     }
@@ -55,7 +55,7 @@ class RedeemCodeController extends Controller
     }
 
     function getEditRedeemCode(Request $request){
-        
+
         $current_course_class_redeem_code = DB::table('course_class_redeem_code')
             ->join('redeem_code', 'course_class_redeem_code.redeem_code_id', '=', 'redeem_code.id')
             ->join('course_class', 'course_class_redeem_code.course_class_id', '=', 'course_class.id')
@@ -75,9 +75,9 @@ class RedeemCodeController extends Controller
 
 
         $currentData = RedeemCode::where('id', '=', $request->id)->first();
-        
+
         // dd($current_course_class_redeem_code);
-        return view('redeem_code.edit', [
+        return view('redeem_code.editv3', [
             'currentData' => $currentData,
             'current_course_class_redeem_code' => $current_course_class_redeem_code,
             'allcourse_class_redeem_code' => $allcourse_class_redeem_code
@@ -132,7 +132,7 @@ class RedeemCodeController extends Controller
 
 
         $idRedeemCode = $request->id;
-    
+
         $updateData = RedeemCode::where('id', $idRedeemCode)
             ->update([
                 'name' => $request->name,

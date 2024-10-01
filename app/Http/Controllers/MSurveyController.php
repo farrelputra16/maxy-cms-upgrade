@@ -12,11 +12,11 @@ class MSurveyController extends Controller
 {
     function getSurvey(){
         $MSurvey = MSurvey::all();
-        return view('m_survey.index', ['MSurvey' => $MSurvey]);
+        return view('m_survey.indexv3', ['MSurvey' => $MSurvey]);
     }
 
     function getAddSurvey(){
-        return view('m_survey.add');
+        return view('m_survey.addv3');
     }
 
     function postAddSurvey(Request $request){//dd($request->all());

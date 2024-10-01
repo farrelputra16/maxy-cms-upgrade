@@ -11,13 +11,13 @@ class CoursePackageController extends Controller
     function getCoursePackage(){
         $coursePackages = CoursePackage::all();
 
-        return view('course_package.index', [
+        return view('course_package.indexv3', [
             'coursePackages' => $coursePackages
         ]);
     }
 
     function getAddCoursePackage(){
-        return view('course_package.add');
+        return view('course_package.addv3');
     }
 
     public function postAddCoursePackage(Request $request){
@@ -41,7 +41,7 @@ class CoursePackageController extends Controller
                 'created_id' => Auth::user()->id,
                 'updated_id' => Auth::user()->id
             ]);
-    
+
             if ($create){
                 return app(HelperController::class)->Positive('getCoursePackage');
             }
@@ -52,8 +52,8 @@ class CoursePackageController extends Controller
     function getEditCoursePackage(Request $request){
             $idCoursePackage = $request->id;
             $coursePackages = CoursePackage::find($idCoursePackage);
-    
-            return view('course_package.edit', [
+
+            return view('course_package.editv3', [
                 'coursePackages' => $coursePackages,
             ]);
     }

@@ -15,14 +15,14 @@ class CategoryController extends Controller
     function getCategory(){
         $Categorys = Category::all();
 
-        return view('category.index',[
+        return view('category.indexv3',[
             'Categorys' => $Categorys
         ]);
-    
+
     }
     function getAddCategory(){
-        
-        return view('category.add');
+
+        return view('category.addv3');
     }
 
     function postAddCategory(Request $request){
