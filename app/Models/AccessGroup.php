@@ -27,6 +27,11 @@ class AccessGroup extends Model
         return $this->belongsToMany(AccessMaster::class, 'access_group_detail')->withPivot('access_master_id');
     }
 
+        public function users()
+        {
+            return $this->hasMany(User::class, 'access_group_id');
+        }
+
     public static function postEditAccessGroup($request){
         $idAccessGroup = $request->id;
         DB::table('access_group')->where('id', '=', $idAccessGroup)

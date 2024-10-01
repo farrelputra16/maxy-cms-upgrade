@@ -75,7 +75,7 @@ class User extends Authenticatable
     public function Transkrip(){
         return $this->hasMany(Transkrip::class, 'user_id');
     }
-    
+
     public function courseClassMembers(){
         return $this->hasMany(CourseClassMember::class, 'user_id');
     }
@@ -87,6 +87,11 @@ class User extends Authenticatable
             INNER JOIN access_group ON users.access_group_id = access_group.id'
         ));
         return $users;
+    }
+
+    public function accessGroup()
+    {
+        return $this->belongsTo(AccessGroup::class, 'access_group_id');
     }
 
     public function MProvince()

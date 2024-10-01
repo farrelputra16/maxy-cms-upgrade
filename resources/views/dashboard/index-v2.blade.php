@@ -22,7 +22,7 @@
 
     <div class="row">
         <div class="col-xl-8">
-            <div class="col-8">
+            <div class="">
                 <div class="card overflow-hidden">
                     <div class="bg-primary-subtle">
                         <div class="row">
@@ -51,7 +51,8 @@
                                     @endif
                                 </div>
                                 <h5 class="font-size-15 text-truncate">{{ auth()->user()->name }}</h5>
-                                <p class="text-muted mb-0 text-truncate">Konsultan Edukasi</p>
+
+                                <p class="text-muted mb-0 text-truncate"> Role akun ini adalah: <strong>{{$admin -> accessGroup -> name}}</strong></p>
                             </div>
                         </div>
                     </div>

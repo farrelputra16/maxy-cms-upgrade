@@ -6,8 +6,9 @@ use App\Jobs\GoKampusDataSyncJob;
 use App\Models\AccessMaster;
 use App\Models\CourseClass;
 use App\Models\Partnership;
+use App\Models\User;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Foundation\Auth\User;
+// use Illuminate\Foundation\Auth\User;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -16,6 +17,7 @@ class DashboardController extends Controller
     {
         $accessMaster = AccessMaster::count();
         $user = User::count();
+        $loggedInUserId = auth()->user()->id;
 
         // ambil data active class
         // $active_class_list = [
@@ -37,6 +39,12 @@ class DashboardController extends Controller
             ->where('date_end', '>', $now)
             ->get();
 
+            $admin = User::with('accessGroup')
+            ->where('id', $loggedInUserId) // Filter berdasarkan user yang login
+            ->first(); // Karena hanya satu user, gunakan first()
+        // dd($admin);
+
+
         return view('dashboard.index-v2', [
             'accessMaster' => $accessMaster,
             'user' => $user,
@@ -44,6 +52,7 @@ class DashboardController extends Controller
             'totalStu' => $totalStu,
             'stuActive' => $stuActive,
             'partnerships' => $partnerships,
+            'admin' => $admin
         ]);
     }
     public function getDashboard2()
