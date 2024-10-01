@@ -104,8 +104,11 @@
                                     <option value="2" @if ($data->payment_status == 2) selected @endif>
                                         Partial
                                     </option>
-                                    <option value="4" @if ($data->payment_status == 4) selected @endif>
+                                    <option value="3" @if ($data->payment_status == 3) selected @endif>
                                         Cancelled
+                                    </option>
+                                    <option value="4" @if ($data->payment_status == 4) selected @endif>
+                                        Unknown Status
                                     </option>
                                 </select>
                             </div>
@@ -154,8 +157,7 @@
                             <label for="input-description" class="col-md-2 col-form-label">Description
                                 <small>(Admin)</small></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="description"
-                                    value="{{ $data->description }}" id="input-description">
+                                <textarea id="elm1" type="text" name="description">{{ $data->description }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
