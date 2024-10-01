@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Modules\Enrollment\Entities\CourseClassMember;
+use Modules\Attendance\Entities\CourseClassAttendance;
+
 
 class MemberAttendance extends Model
 {

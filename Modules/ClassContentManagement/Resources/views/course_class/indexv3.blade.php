@@ -94,7 +94,6 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditCourseClass', ['id' => $item->id]) }}"
                                             class="btn btn-primary rounded">Edit</a>
                                         <a href="{{ route('getCourseClassModule', ['id' => $item->id]) }}"
@@ -105,7 +104,6 @@
                                             class="btn btn-outline-primary rounded">Attendence</a>
                                         <a href="{{ route('getCourseClassScoring', ['id' => $item->id]) }}"
                                             class="btn btn-outline-primary rounded">Scoring</a>
-                                        {{-- </div> --}}
                                     </td>
                                 </tr>
                             @endforeach

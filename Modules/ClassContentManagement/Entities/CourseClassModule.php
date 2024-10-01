@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Illuminate\Support\Facades\Auth;
 use DB;
+use Modules\Attendance\Entities\CourseClassAttendance;
 
 class CourseClassModule extends Model
 {
@@ -29,7 +30,7 @@ class CourseClassModule extends Model
         'updated_at',
         'updated_id'
     ];
-    
+
     protected static function newFactory()
     {
         return \Modules\ClassContentManagement\Database\factories\CourseClassModuleFactory::new();
@@ -65,7 +66,7 @@ class CourseClassModule extends Model
                     'cc.batch AS course_class_batch',
                     'cm.course_module_parent_id as parent_id',
                     'c.name AS course_name'
-                )  
+                )
                 ->join('course_module as cm', 'cm.id', '=', 'ccmod.course_module_id')
                 ->join('course_class as cc', 'cc.id', '=', 'ccmod.course_class_id')
                 ->join('course as c', 'c.id', '=', 'cm.course_id')
@@ -82,7 +83,7 @@ class CourseClassModule extends Model
             //         $module->parent_name = $ccmod_parent_name->name;
             //     }
             // }
-            
+
         return $ccmod;
     }
     public static function getClassModuleChildByClassId($course_class_id){
@@ -96,29 +97,29 @@ class CourseClassModule extends Model
                     'c.name AS course_name',
                     'cm.content AS course_module_content',
                     'cm.material AS course_module_material',
-                )  
+                )
                 ->join('course_module as cm', 'cm.id', '=', 'ccmod.course_module_id')
                 ->join('course_class as cc', 'cc.id', '=', 'ccmod.course_class_id')
                 ->join('course as c', 'c.id', '=', 'cm.course_id')
                 ->where('ccmod.course_class_id', $course_class_id)
                 ->where('ccmod.level', 2)
                 ->get();
-            
+
         return $ccmod;
     }
 
     public static function getAddCourseClassModule($idCourse){
         if ($idCourse !== null) {
             $allClass = DB::select('
-            SELECT 
+            SELECT
                 course_class.id AS course_class_id,
                 course_class.batch AS batch,
                 course.name AS course_name
-            FROM 
+            FROM
                 course_class
-            JOIN 
+            JOIN
                 course ON course_class.course_id = course.id
-            WHERE 
+            WHERE
                 course_class.id = :idCourse
         ', ['idCourse' => $idCourse]);
         }else{
@@ -136,22 +137,22 @@ class CourseClassModule extends Model
 
     public static function getEditCourseClassModule($request){
         $idCourseClassModule = $request->id;
-        $currentData = collect(DB::select('SELECT 
-            course_class_module.id, 
-            course_class_module.course_module_id, 
-            course_class_module.course_class_id, 
-            course_module.name AS module_name, 
+        $currentData = collect(DB::select('SELECT
+            course_class_module.id,
+            course_class_module.course_module_id,
+            course_class_module.course_class_id,
+            course_module.name AS module_name,
             course_class.batch AS class_batch,
             course.name AS course_name
             FROM course_class
-            INNER JOIN	course_class_module 
+            INNER JOIN	course_class_module
             ON course_class_module.course_class_id = course_class.id
-            INNER JOIN course_module 
+            INNER JOIN course_module
             ON course_class_module.course_module_id = course_module.id
-            INNER JOIN course 
+            INNER JOIN course
             ON course_class.course_id = course.id
             WHERE course_class_module.id = ?;', [$idCourseClassModule]))->first();
-            
+
         return $currentData;
     }
 
@@ -171,7 +172,7 @@ class CourseClassModule extends Model
             ->where('type','!=','company_profile')
             ->get();
         }
-        
+
         return $allModule;
     }
 
@@ -192,7 +193,7 @@ class CourseClassModule extends Model
                     'cc.batch AS course_class_batch',
                     'cm.course_module_parent_id as parent_id',
                     'c.name AS course_name'
-                )  
+                )
                 ->join('course_module as cm', 'cm.id', '=', 'ccmod.course_module_id')
                 ->join('course_class as cc', 'cc.id', '=', 'ccmod.course_class_id')
                 ->join('course as c', 'c.id', '=', 'cm.course_id')
@@ -209,7 +210,7 @@ class CourseClassModule extends Model
             //         $module->parent_name = $ccmod_parent_name->name;
             //     }
             // }
-            
+
         return $ccmod;
     }
 }
