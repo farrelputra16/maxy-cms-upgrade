@@ -20,7 +20,7 @@ class CertificateTemplateController extends Controller
     public function index()
     {
         $certificateTemplates = CertificateTemplate::all();
-        return view('certificatetemplate::index', compact('certificateTemplates'));
+        return view('certificatetemplate::indexv3', compact('certificateTemplates'));
     }
 
     /**
@@ -30,7 +30,7 @@ class CertificateTemplateController extends Controller
     public function create()
     {
         $courseTypes = MCourseType::all();
-        return view('certificatetemplate::create', compact('courseTypes'));
+        return view('certificatetemplate::createv3', compact('courseTypes'));
     }
 
     /**
@@ -77,7 +77,7 @@ class CertificateTemplateController extends Controller
     public function edit(CertificateTemplate $certificateTemplate)
     {
         $courseTypes = MCourseType::all();
-        return view('certificatetemplate::edit', compact('certificateTemplate', 'courseTypes'));
+        return view('certificatetemplate::editv3', compact('certificateTemplate', 'courseTypes'));
     }
 
     /**

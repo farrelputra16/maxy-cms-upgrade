@@ -21,145 +21,151 @@
     <!-- end page title -->
 
     <div class="row">
-        <div class="col-xl-4">
-            <div class="card overflow-hidden">
-                <div class="bg-primary-subtle">
-                    <div class="row">
-                        <div class="col-7">
-                            <div class="text-primary p-3">
-                                <h5 class="text-primary">Welcome Back !</h5>
-                                <p>Agent CMS Dashboard</p>
-                            </div>
-                        </div>
-                        <div class="col-5 align-self-end">
-                            <img src="{{ asset('jago-digital/assets/images/profile-img.png') }}" alt=""
-                                class="img-fluid">
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body pt-0">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="avatar-md profile-user-wid mb-4">
-                                @if (auth()->user()->profile_picture)
-                                    <img src="{{ asset('uploads/' . auth()->user()->profile_picture) }}" alt=""
-                                        class="img-thumbnail rounded-circle">
-                                @else
-                                    <img src="{{ asset('img/default_profile.png') }}" alt=""
-                                        class="img-thumbnail rounded-circle">
-                                @endif
-                            </div>
-                            <h5 class="font-size-15 text-truncate">{{ auth()->user()->name }}</h5>
-                            <p class="text-muted mb-0 text-truncate">Konsultan Edukasi</p>
-                        </div>
-
-                        <div class="col-sm-8">
-                            <div class="pt-4">
-
-                                {{-- <div class="row">
-                                    <div class="col-6">
-                                        <h5 class="font-size-15">125</h5>
-                                        <p class="text-muted mb-0">Projects</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <h5 class="font-size-15">$1245</h5>
-                                        <p class="text-muted mb-0">Revenue</p>
-                                    </div>
-                                </div>
-                                <div class="mt-4">
-                                    <a href="javascript: void(0);"
-                                        class="btn btn-primary waves-effect waves-light btn-sm">View
-                                        Profile <i class="mdi mdi-arrow-right ms-1"></i></a>
-                                </div> --}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{-- <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title mb-4">Monthly Earning</h4>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <p class="text-muted">This month</p>
-                            <h3>$34,252</h3>
-                            <p class="text-muted"><span class="text-success me-2"> 12% <i class="mdi mdi-arrow-up"></i>
-                                </span> From previous period
-                            </p>
-
-                            <div class="mt-4">
-                                <a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light btn-sm">View
-                                    More
-                                    <i class="mdi mdi-arrow-right ms-1"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mt-4 mt-sm-0">
-                                <div id="radialBar-chart" data-colors='["--bs-primary"]' class="apex-charts"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-muted mb-0">We craft digital, graphic and dimensional thinking.
-                    </p>
-                </div>
-            </div> --}}
-        </div>
         <div class="col-xl-8">
-            {{-- <div class="row">
-                <div class="col-md-4">
-                    <div class="card mini-stats-wid">
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <div class="flex-grow-1">
-                                    <p class="text-muted fw-medium">Orders</p>
-                                    <h4 class="mb-0">1,235</h4>
+            <div class="col-8">
+                <div class="card overflow-hidden">
+                    <div class="bg-primary-subtle">
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="text-primary p-3">
+                                    <h5 class="text-primary">Welcome Back !</h5>
+                                    <p>Agent CMS Dashboard</p>
                                 </div>
-
-                                <div class="flex-shrink-0 align-self-center">
-                                    <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
-                                        <span class="avatar-title">
-                                            <i class="bx bx-copy-alt font-size-24"></i>
-                                        </span>
-                                    </div>
+                            </div>
+                            <div class="col-5 align-self-end">
+                                <img src="{{ asset('jago-digital/assets/images/profile-img.png') }}" alt=""
+                                    class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="avatar-md profile-user-wid mb-4">
+                                    @if (auth()->user()->profile_picture)
+                                        <img src="{{ asset('uploads/' . auth()->user()->profile_picture) }}" alt=""
+                                            class="img-thumbnail rounded-circle">
+                                    @else
+                                        <img src="{{ asset('img/default_profile.png') }}" alt=""
+                                            class="img-thumbnail rounded-circle">
+                                    @endif
                                 </div>
+                                <h5 class="font-size-15 text-truncate">{{ auth()->user()->name }}</h5>
+                                <p class="text-muted mb-0 text-truncate">Konsultan Edukasi</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card mini-stats-wid">
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <div class="flex-grow-1">
-                                    <p class="text-muted fw-medium">Revenue</p>
-                                    <h4 class="mb-0">$35, 723</h4>
-                                </div>
-
-                                <div class="flex-shrink-0 align-self-center ">
-                                    <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                        <span class="avatar-title rounded-circle bg-primary">
-                                            <i class="bx bx-archive-in font-size-24"></i>
-                                        </span>
+            </div>
+            <br>
+            <h4 class="card-title mb-4">Leads</h4>
+            <div class="container">
+                <div class="row g-4">
+                    @foreach (['Student', 'Student', 'Student'] as $lead)
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="box" style="margin-left: 1rem;">
+                                        <img src="{{ asset('uploads/Student.png') }}" alt="Student Image" class="img-fluid">
+                                        <div class="mt-4">
+                                            <h5>{{ $lead }}</h5>
+                                            <p>There are 3 new leads</p>
+                                            <a href="javascript:void(0);"
+                                                class="btn btn-primary waves-effect waves-light btn-sm float-end me-2"
+                                                style="margin-top: 10%;">View More <i
+                                                    class="mdi mdi-arrow-right ms-1"></i></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    @endforeach
+                </div>
+            </div>
+            <br>
+            <h4 class="card-title mb-4">Partnership Expiring List</h4>
+            <div class="container">
+                <div class="card">
+                    <div class="card-body" style="height: 100%;">
+                        <div class="boxActive box">
+                            @if ($partnerships->isEmpty())
+                                <div class="alert alert-info text-center" role="alert">
+                                    No partnerships are expiring soon.
+                                </div>
+                            @else
+                                <table id="table" class="tableActive table-striped" style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th class="ticlass" style="width: 50%; text-align: left;">Partner</th>
+                                            <th class="tibatch" style="width: 20%;">Type</th>
+                                            <th class="tiaction" style="width: 30%; text-align: right;">Expiry Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($partnerships as $record)
+                                            <tr>
+                                                <td>{{ $record->Partner->name }}</td>
+                                                <td>{{ $record->MPartnershipType->name }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($record->date_end)->format('Y-m-d') }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @endif
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card mini-stats-wid">
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <div class="flex-grow-1">
-                                    <p class="text-muted fw-medium">Average Price</p>
-                                    <h4 class="mb-0">$16.2</h4>
+            </div>
+            <br>
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-8">
+                        <h4 class="card-title mb-4">Active Classes</h4>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table mb-0 table">
+                                        <thead>
+                                            <tr>
+                                                <th>Class</th>
+                                                <th>Batch</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($active_class_list as $class)
+                                                <tr>
+                                                    <td>
+                                                        {{ $class->course_name }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $class->batch }}
+                                                    </td>
+                                                    <td>
+                                                        <a href=""
+                                                            class="btn btn-primary waves-effect waves-light btn btn-primary">Detail</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
-
-                                <div class="flex-shrink-0 align-self-center">
-                                    <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                        <span class="avatar-title rounded-circle bg-primary">
-                                            <i class="bx bx-purchase-tag-alt font-size-24"></i>
-                                        </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <h4 class="card-title mb-4">Students</h4>
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="student-chart" style="height: 100%;"></div>
+                                <div class="justify-content-center row">
+                                    <div class="col-sm-4 text-center">
+                                        <h5 class="mb-0">879</h5>
+                                        <p class="text-muted text-truncate">Active</p>
+                                    </div>
+                                    <div class="col-sm-4 text center">
+                                        <h5 class="mb-0">23</h5>
+                                        <p class="text-muted text-truncate">Inactive</p>
                                     </div>
                                 </div>
                             </div>
@@ -167,32 +173,32 @@
                     </div>
                 </div>
             </div>
-            <!-- end row --> --}}
-
-            {{-- <div class="card">
+        </div>
+        <div class="col-xl-4">
+            <div class="card">
                 <div class="card-body">
-                    <div class="d-sm-flex flex-wrap">
-                        <h4 class="card-title mb-4">Email Sent</h4>
-                        <div class="ms-auto">
-                            <ul class="nav nav-pills">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Week</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Month</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="#">Year</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div id="stacked-column-chart" class="apex-charts"
-                        data-colors='["--bs-primary", "--bs-warning", "--bs-success"]' dir="ltr">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5>Schedule Today</h5>
+                    <hr>
+                    <div>
+                        <h6>Morning Huddle</h6>
+                        <p>08.30 AM</p>
+                        <hr>
+                        <h6>Schedule Today</h6>
+                        <p>01.00 PM</p>
+                        <hr>
+                        <h6>Schedule Today</h6>
+                        <p>01.00 PM</p>
+                        <hr>
+                        <h6>Schedule Today</h6>
+                        <p>01.00 PM</p>
                     </div>
                 </div>
-            </div> --}}
+            </div>
         </div>
     </div>
     <!-- end row -->
@@ -624,4 +630,82 @@
         </div>
     </div>
     <!-- end row --> --}}
+@endsection
+
+@section('style')
+
+    <style>
+        /* Menentukan tinggi untuk kalender */
+        #calendar {
+            max-width: 100%;
+            margin: 20px auto;
+            /* Menambahkan margin untuk mempercantik tampilan */
+        }
+    </style>
+
+@endsection
+
+@section('script')
+
+    <script>
+        // ApexChart
+        var options = {
+            series: [879, 23], // Data untuk chart (Active, Inactive)
+            chart: {
+                type: 'pie',
+                height: '100%', // Ubah ukuran tinggi chart
+                width: '100%' // Ubah ukuran lebar chart
+            },
+            legend: {
+                position: 'bottom',
+                horizontalAlign: 'center'
+            },
+            labels: ['Active', 'Inactive'],
+            colors: ['#00E396', '#FF4560'], // Warna untuk setiap bagian chart
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: '100%' // Lebar chart di layar kecil
+                    },
+                }
+            }]
+        };
+
+        var chart = new ApexCharts(document.querySelector("#student-chart"), options);
+        chart.render();
+    </script>
+
+    <script>
+        // calendar
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next',
+                    center: 'title',
+                    right: 'today'
+                },
+                editable: true,
+                events: [{
+                        title: 'Event 1',
+                        start: '2024-09-30'
+                    },
+                    {
+                        title: 'Event 2',
+                        start: '2024-10-01',
+                        end: '2024-10-02'
+                    }
+                ],
+                dateClick: function(info) {
+                    alert('Date: ' + info.dateStr);
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+
 @endsection

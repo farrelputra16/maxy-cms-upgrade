@@ -23,9 +23,6 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('getCourse') }}" key="t-carousel">Course</a></li>
-                        @if(env('APP_ENV') == 'local')
-                        <li><a href="{{ route('getCourseMBKM') }}" key="t-carousel">MBKM</a></li>
-                        @endif
                         <li><a href="{{ route('getCourseType') }}" key="t-testimonial">Course Type</a></li>
                         <li><a href="{{ route('getCoursePackage') }}" key="t-blog">Course Package</a></li>
                         <li><a href="{{ route('getDifficulty') }}" key="t-blog">Course Difficulty</a></li>

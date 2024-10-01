@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Blog')
+@section('title', 'Order')
 
 @section('content')
     <!-- begin page title -->
@@ -13,7 +13,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Course</li>
+                        <li class="breadcrumb-item active">Orders</li>
                     </ol>
                 </div>
                 <!-- end breadcrumb -->
@@ -28,7 +28,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Course</h4>
+                    <h4 class="card-title">Orders</h4>
                     <p class="card-title-desc">
                         This page presents a comprehensive overview of all available data, displayed in an interactive
                         and sortable DataTable format. Each row represents a unique data, providing key details such as
@@ -122,14 +122,12 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <div class="btn-group">
                                             <a href="{{ route('getEditTransOrder', ['id' => $item->id]) }}"
-                                                class="btn btn-primary">Edit</a>
+                                                class="btn btn-primary rounded">Edit</a>
                                             <a href="{{ route('getTransOrderConfirm', ['id' => $item->id]) }}"
-                                                class="btn btn-info">Proof of Payment</a>
+                                                class="btn btn-info rounded">Proof of Payment</a>
                                             {{-- <a href="{{ route('showTransOrderDetail', ['id' => $item->id]) }}"
                                                 class="btn btn-info">Detail</a> --}}
-                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -168,7 +166,7 @@
 
     <!-- FAB add starts -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddBlog') }}" target="_blank">
+        <a href="{{ route('getAddTransOrder') }}" target="_blank">
             <i class="fas fa-plus"></i>
         </a>
     </div>

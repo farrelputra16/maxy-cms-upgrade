@@ -26,7 +26,7 @@
                 <div class="active section">Profiles</div>
             </div>
             <div id="example_wrapper">
-                
+
                 <div class="container mt-5 text-center">
                     <p>Untuk mengakses halaman profil, silahkan klik <a href="{{ env('FRONTEND_APP_URL') }}/login2?redirect=lms.edit-profile">disini</a>.</p>
                     <div class="alert alert-info d-inline-block text-start" role="alert">
@@ -42,7 +42,7 @@
 
             <!-- Include JS libraries for DataTable initialization -->
             <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-            
+
             <script>
                 $(document).ready(function () {
 

@@ -27,7 +27,7 @@ class CourseClassMemberController extends Controller
         $courseClassDetail = CourseClass::getClassDetailByClassId($idCourseClass);
         $courseClassMembers = CourseClassMember::getCourseClassMember($request);
 
-        return view('enrollment::course_class_member.index', [
+        return view('enrollment::course_class_member.indexv3', [
             'users' => $users,
             'courseClassMembers' => $courseClassMembers,
             'courseClassDetail' => $courseClassDetail
@@ -51,7 +51,7 @@ class CourseClassMemberController extends Controller
 
         // dd($filteredUsers);
 
-        return view('enrollment::course_class_member.add', [
+        return view('enrollment::course_class_member.addv3', [
             'users' => $filteredUsers,
             'course_class_detail' => $course_class_detail,
             'mentors' => $mentors
@@ -61,7 +61,7 @@ class CourseClassMemberController extends Controller
     function postAddCourseClassMember(Request $request)
     {
         // dd($request->all());
-        
+
         $users = $request->users; // Mengambil semua pengguna dari permintaan
         $courseClassId = $request->course_class;
 
@@ -97,7 +97,7 @@ class CourseClassMemberController extends Controller
 
     function getEditCourseClassMember(Request $request, CourseClassMember $courseClassMember)
     {
-        return view('enrollment::course_class_member.edit', compact('courseClassMember'));
+        return view('enrollment::course_class_member.editv3', compact('courseClassMember'));
     }
 
     function postEditCourseClassMember(Request $request)

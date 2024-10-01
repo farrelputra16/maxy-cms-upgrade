@@ -1,39 +1,38 @@
 @extends('layout.main-v3')
 
-@section('title', 'Blog')
+@section('title', 'Event Type')
 
 @section('content')
-    <!-- begin page title -->
+    <!-- Begin Page Title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                 <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
 
-                <!-- begin breadcrumb -->
+                <!-- Begin Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Blog</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
+                        <li class="breadcrumb-item active">Event Type</li>
                     </ol>
                 </div>
-                <!-- end breadcrumb -->
+                <!-- End Breadcrumb -->
             </div>
         </div>
     </div>
-    <!-- end page title -->
+    <!-- End Page Title -->
 
-    <!-- begin content -->
+    <!-- Begin Content -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-
-                    <h4 class="card-title">Course</h4>
+                    <h4 class="card-title">Event Type</h4>
                     <p class="card-title-desc">
                         This page presents a comprehensive overview of all available data, displayed in an interactive
                         and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column
-                            search bar</b> features to
+                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
+                        features to
                         customize your view and quickly access the specific information you need.
                     </p>
 
@@ -42,9 +41,8 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Name</th>
-                                <th>Color</th>
-                                <th>Description</th>
+                                <th class="data-medium">Module Name</th>
+                                <th class="data-long">Description</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>
@@ -53,25 +51,16 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-
-
                         <tbody>
-                            @foreach ($data as $key => $item)
+                            @foreach ($MEventType as $key => $item)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->id }}</td>
+
                                     <td class="data-medium" data-toggle="tooltip" data-placement="top"
                                         title="{{ $item->name }}">
                                         {!! \Str::limit($item->name, 30) !!}
                                     </td>
-
-                                    <td data-toggle="tooltip" data-placement="top" title="{{ $item->color }}">
-                                        <div class="rounded w-25 h-100"
-                                            style="color: {{ $item->color }}; background-color: {{ $item->color }}">-
-                                        </div>
-                                    </td>
-
-
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->description) !!}">
                                         {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
@@ -82,16 +71,16 @@
                                     <td>{{ $item->updated_id }}</td>
                                     <td value="{{ $item->status }}">
                                         @if ($item->status == 1)
-                                            <a class="btn btn-success">Aktif</a>
+                                            <a class="btn btn-success disabled">Aktif</a>
                                         @else
-                                            <a class="btn btn-danger">Non Aktif</a>
+                                            <a class="btn btn-danger disabled">Non Aktif</a>
                                         @endif
                                     </td>
                                     <td>
-                                        <div class="btn-group">
-                                            <a href="{{ route('getEditBlogTag', ['id' => $item->id]) }}"
-                                                class="btn btn-primary">Edit</a>
-                                        </div>
+                                        {{-- <div class="btn-group"> --}}
+                                        <a href="{{ route('getEditEventType', ['id' => $item->id, 'access' => 'm_Event_type_update']) }}"
+                                            class="btn btn-primary rounded">Edit</a>
+                                        {{-- </div> --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -100,8 +89,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Name</th>
-                                <th>Color</th>
+                                <th class="data-medium">Module Name</th>
                                 <th class="data-long">Description</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
@@ -116,15 +104,15 @@
             </div>
         </div>
     </div>
-    <!-- end content -->
+    <!-- End Content -->
 
-    <!-- FAB add starts -->
+    <!-- FAB Add Starts -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddBlogTag') }}" target="_blank">
+        <a href="{{ route('getAddEventType', ['access' => 'm_Event_type_create']) }}" target="_blank">
             <i class="fas fa-plus"></i>
         </a>
     </div>
-    <!-- FAB add ends -->
+    <!-- FAB Add Ends -->
 @endsection
 
 @section('script')

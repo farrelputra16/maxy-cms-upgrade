@@ -78,7 +78,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard/synchronize', [DashboardController::class, 'synchronizeData'])->name('synchronizeData');
 
     Route::get('/profile', function () {
-        return view('profile.index');
+        return view('profile.indexv3');
     })->name('profile');
 
     // course route ###########################################################################################################

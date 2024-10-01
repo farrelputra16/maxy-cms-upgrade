@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Blog')
+@section('title', 'Course Type')
 
 @section('content')
     <!-- begin page title -->
@@ -13,7 +13,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Blog</li>
+                        <li class="breadcrumb-item active">Course Type</li>
                     </ol>
                 </div>
                 <!-- end breadcrumb -->
@@ -28,7 +28,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Course</h4>
+                    <h4 class="card-title">Course Type</h4>
                     <p class="card-title-desc">
                         This page presents a comprehensive overview of all available data, displayed in an interactive
                         and sortable DataTable format. Each row represents a unique data, providing key details such as
@@ -42,9 +42,9 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Name</th>
-                                <th>Color</th>
-                                <th>Description</th>
+                                <th class="data-medium">Name</th>
+                                <th>Slug</th>
+                                <th class="data-long">Description</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>
@@ -53,44 +53,30 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-
-
                         <tbody>
-                            @foreach ($data as $key => $item)
+                            @foreach ($mCourseType as $key => $item)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->id }}</td>
-                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->name }}">
-                                        {!! \Str::limit($item->name, 30) !!}
-                                    </td>
-
-                                    <td data-toggle="tooltip" data-placement="top" title="{{ $item->color }}">
-                                        <div class="rounded w-25 h-100"
-                                            style="color: {{ $item->color }}; background-color: {{ $item->color }}">-
-                                        </div>
-                                    </td>
-
-
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->description) !!}">
-                                        {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
-                                    </td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->slug }}</td>
+                                    <td>{{ $item->description }}</td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->created_id }}</td>
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
                                     <td value="{{ $item->status }}">
                                         @if ($item->status == 1)
-                                            <a class="btn btn-success">Aktif</a>
+                                            <a class="btn btn-success disabled">Aktif</a>
                                         @else
-                                            <a class="btn btn-danger">Non Aktif</a>
+                                            <a class="btn btn-danger disabled">Non Aktif</a>
                                         @endif
                                     </td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="{{ route('getEditBlogTag', ['id' => $item->id]) }}"
-                                                class="btn btn-primary">Edit</a>
+                                            <a href="{{ route('getEditCourseType', ['id' => $item->id, 'access' => 'm_course_type_update']) }}"
+                                                class="btn btn-primary rounded">Edit</a>
+                                            <!-- <a href="{{ route('getCourseClassChildModule', ['id' => $item->id]) }}" class="btnModul">Sertifikat Template</a> -->
                                         </div>
                                     </td>
                                 </tr>
@@ -101,7 +87,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Name</th>
-                                <th>Color</th>
+                                <th>Slug</th>
                                 <th class="data-long">Description</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
@@ -120,7 +106,7 @@
 
     <!-- FAB add starts -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddBlogTag') }}" target="_blank">
+        <a href="{{ route('getAddCourseType', ['access' => 'm_course_type_create']) }}" target="_blank">
             <i class="fas fa-plus"></i>
         </a>
     </div>
@@ -128,5 +114,6 @@
 @endsection
 
 @section('script')
+
 
 @endsection

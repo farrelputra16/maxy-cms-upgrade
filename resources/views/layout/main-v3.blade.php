@@ -13,6 +13,16 @@
     <!-- App favicon -->
     <!-- <link rel="shortcut icon" href="{{ asset('assets/cms-v3/images/favicon.ico') }}"> -->
 
+    <script src="https://unpkg.com/knockout/build/output/knockout-latest.js"></script>
+    <script src="https://unpkg.com/survey-core@1.10.5/survey.core.min.js"></script>
+    <script src="https://unpkg.com/survey-core@1.10.5/survey.i18n.min.js"></script>
+    <script src="https://unpkg.com/survey-core@1.10.5/themes/index.min.js"></script>
+    <script src="https://unpkg.com/survey-knockout-ui@1.10.5/survey-knockout-ui.min.js"></script>
+    <script src="https://unpkg.com/survey-creator-core@1.10.5/survey-creator-core.min.js"></script>
+    <script src="https://unpkg.com/survey-creator-core@1.10.5/survey-creator-core.i18n.min.js"></script>
+    <script src="https://unpkg.com/survey-creator-knockout@1.10.5/survey-creator-knockout.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/survey-core@1.10.5/defaultV2.css" />
+    <link rel="stylesheet" href="https://unpkg.com/survey-creator-core@1.10.5/survey-creator-core.css" />
 
 
     <!-- Fontawesome Icons -->
@@ -56,7 +66,8 @@
     <link href="{{ asset('assets/cms-v3/css/datatables-custom.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
     <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/0756825c13.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        crossorigin="anonymous" />
     <!-- swal -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -158,6 +169,9 @@
 
     <!-- apexcharts -->
     <script src="{{ asset('assets/cms-v3/libs/apexcharts/apexcharts.min.js') }}"></script>
+
+    <!-- FullCalendar -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
 
     <!--tinymce js-->
     <script src="{{ asset('assets/cms-v3/libs/tinymce/tinymce.min.js') }}"></script>
