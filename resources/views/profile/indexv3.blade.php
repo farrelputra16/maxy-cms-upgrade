@@ -31,6 +31,7 @@
                     <div class="mt-5 text-center">
                         <p>Untuk mengakses halaman profil, silahkan klik <a
                                 href="{{ env('FRONTEND_APP_URL') }}/login2?redirect=lms.edit-profile">disini</a>.</p>
+                        <br>
                         <div class="alert alert-info d-inline-block text-start" role="alert">
                             <strong>Langkah-langkah mengakses halaman profil:</strong>
                             <ol class="mt-2 mb-0">
