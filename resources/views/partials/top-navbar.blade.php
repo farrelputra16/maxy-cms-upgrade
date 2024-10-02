@@ -8,12 +8,11 @@
                         <img src="{{ asset('jago-digital/assets/images/logo-m.png') }}" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        @if(env('APP_ENV') == 'local')
-                        <img src="{{ asset('uploads/LogoMaxy.png') }}" alt=""
-                            height="50">
+                        @if (env('APP_ENV') == 'local')
+                            <img src="{{ asset('uploads/LogoMaxy.png') }}" alt="" height="50">
                         @else
-                        <img src="{{ asset('jago-digital/assets/images/logo-maxy-light.png') }}" alt=""
-                            height="17">
+                            <img src="{{ asset('jago-digital/assets/images/logo-maxy-light.png') }}" alt=""
+                                height="17">
                         @endif
                     </span>
                 </a>
@@ -23,12 +22,11 @@
                         <img src="{{ asset('jago-digital/assets/images/logo-m.png') }}" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        @if(env('APP_ENV') == 'local')
-                        <img src="{{ asset('uploads/LogoMaxy.png') }}" alt=""
-                            height="50">
+                        @if (env('APP_ENV') == 'local')
+                            <img src="{{ asset('uploads/LogoMaxy.png') }}" alt="" height="50">
                         @else
-                        <img src="{{ asset('jago-digital/assets/images/logo-maxy-light.png') }}" alt=""
-                            height="19">
+                            <img src="{{ asset('jago-digital/assets/images/logo-maxy-light.png') }}" alt=""
+                                height="19">
                         @endif
                     </span>
                 </a>
@@ -347,9 +345,16 @@
                             class="bx bx-lock-open font-size-16 align-middle me-1"></i> <span key="t-lock-screen">Lock
                             screen</span></a>
                     <div class="dropdown-divider"></div> --}}
-                    <a class="dropdown-item text-danger" href="{{ route('logout') }}"><i
+                    {{-- <a class="dropdown-item text-danger" href="{{ route('logout') }}"><i
                             class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span
-                            key="t-logout">Logout</span></a>
+                            key="t-logout">Logout</span></a> --}}
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="dropdown-item text-danger">
+                            <i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
+                            <span key="t-logout">Logout</span>
+                        </button>
+                    </form>
                 </div>
             </div>
 

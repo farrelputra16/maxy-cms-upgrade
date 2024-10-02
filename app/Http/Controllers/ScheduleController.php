@@ -27,9 +27,9 @@ class ScheduleController extends Controller
             // 'course_class' => $course_class,
             'academic_periods' => $academic_periods,
         ]);
-    
+
     }
-    
+
     // function postAddSchedule(Request $request){
     //     try {
     //         // return dd($request->all());
@@ -95,7 +95,7 @@ class ScheduleController extends Controller
 
     //         if ($validated){
     //             $currentData = Schedule::find($request->id);
-                
+
     //             if ($currentData) {
     //                 $currentData->delete();
 
@@ -170,10 +170,10 @@ class ScheduleController extends Controller
             'academic_periods' => $academic_periods,
             'prodi' => $prodi,
         ]);
-    
+
     }
-    
-    function getAddGeneralSchedule(Request $request){
+
+    function getAddGeneralSchedule(Request $request) {
         try {
             $period = $request->input('period');
             // Fetch schedules based on the selected academic period
@@ -198,16 +198,23 @@ class ScheduleController extends Controller
             $events = [];
 
             foreach ($schedules as $schedule) {
+                // Buat array untuk menyimpan nama mentor yang terkait dengan jadwal ini
+                $tutors = [];
+
                 foreach ($schedule->CourseClass->members as $member) {
-                    if ($member->user && $member->user->type === 'tutor' && $member->status==1) {
-                        $events[] = [
-                            'id' => $schedule->id,
-                            'title' => $schedule->CourseClass->slug.'<br>'.$member->user->name,
-                            'daysOfWeek' => [$schedule->day], // Repeat every week on this day
-                            'startTime' => date('H:i:s', strtotime($schedule->date_start)),
-                            'endTime' => date('H:i:s', strtotime($schedule->date_end))
-                        ];
+                    if ($member->user && $member->user->type === 'tutor' && $member->status == 1) {
+                        $tutors[] = $member->user->name;
                     }
+                }
+
+                if (!empty($tutors)) {
+                    $events[] = [
+                        'id' => $schedule->id,
+                        'title' => $schedule->CourseClass->slug . '<br>' . implode(', ', $tutors),
+                        'daysOfWeek' => [$schedule->day],
+                        'startTime' => date('H:i:s', strtotime($schedule->date_start)),
+                        'endTime' => date('H:i:s', strtotime($schedule->date_end))
+                    ];
                 }
             }
 
@@ -297,7 +304,7 @@ class ScheduleController extends Controller
 
             if ($validated){
                 $currentData = Schedule::find($request->id);
-                
+
                 if ($currentData) {
                     $currentData->delete();
 
