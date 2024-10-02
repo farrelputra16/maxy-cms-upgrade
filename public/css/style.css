@@ -21,7 +21,7 @@
 
 #floating-whatsapp-button a {
     display: block;
-    background-color: #25d366;
+    background-color: #556ee6;
     color: #fff;
     width: 60px;
     /* Mengubah lebar tombol */
@@ -38,6 +38,6 @@
 }
 
 #floating-whatsapp-button a:hover {
-    background-color: #128c7e;
+    background-color: #485ec4;
     /* Warna latar belakang tombol WhatsApp saat dihover */
 }
