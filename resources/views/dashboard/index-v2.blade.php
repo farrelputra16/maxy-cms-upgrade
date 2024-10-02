@@ -53,7 +53,8 @@
                                 <h5 class="font-size-15 text-truncate">{{ auth()->user()->name }}</h5>
 
                                 <p class="text-muted mb-0 text-truncate"> Role akun ini adalah:
-                                    <strong>{{ $admin->accessGroup->name }}</strong></p>
+                                    <strong>{{ $admin->accessGroup->name }}</strong>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -187,128 +188,113 @@
                     <h5>Schedule Today</h5>
                     <hr>
                     <div>
-                        @if(isset($schedules) && $schedules->isNotEmpty())
+                        @if (isset($schedules) && $schedules->isNotEmpty())
                             @foreach ($schedules as $schedule)
                                 <h6>{{ $schedule->title }}</h6>
                                 <p>{{ \Carbon\Carbon::parse($schedule->time)->format('h:i A') }}</p>
                                 <hr>
                             @endforeach
                         @else
-                            <p>No schedules available or schedules variable not defined.</p> <!-- Menampilkan pesan jika schedules kosong -->
+                            <p>You're all clear today – no schedules!</p>
+                            <!-- Menampilkan pesan jika schedules kosong -->
                         @endif
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- end row -->
-@endsection
+        @endsection
 
-@section('style')
+        @section('script')
 
-    <style>
-        /* Menentukan tinggi untuk kalender */
-        #calendar {
-            max-width: 100%;
-            margin: 20px auto;
-            /* Menambahkan margin untuk mempercantik tampilan */
-        }
-    </style>
+            <script>
+                // Ambil data dari endpoint untuk status mahasiswa
+                fetch('/student-status-data')
+                    .then(response => response.json())
+                    .then(data => {
+                        // Data yang diterima dari server
+                        var active = data.active;
+                        var inactive = data.inactive;
+                        // Memasukkan data.active ke dalam elemen HTML dengan ID 'user-active'
+                        document.getElementById('user-active').innerText = data.active;
 
-@endsection
+                        // Memasukkan data.inactive ke dalam elemen HTML dengan ID 'user-inactive'
+                        document.getElementById('user-inactive').innerText = data.inactive;
 
-@section('script')
-
-    <script>
-        // Ambil data dari endpoint untuk status mahasiswa
-        fetch('/student-status-data')
-            .then(response => response.json())
-            .then(data => {
-                // Data yang diterima dari server
-                var active = data.active;
-                var inactive = data.inactive;
-                // Memasukkan data.active ke dalam elemen HTML dengan ID 'user-active'
-                document.getElementById('user-active').innerText = data.active;
-
-                // Memasukkan data.inactive ke dalam elemen HTML dengan ID 'user-inactive'
-                document.getElementById('user-inactive').innerText = data.inactive;
-
-                // ApexChart
-                var options = {
-                    series: [active, inactive], // Data dari database (Active, Inactive)
-                    chart: {
-                        type: 'pie',
-                        height: '100%', // Ubah ukuran tinggi chart
-                        width: '100%' // Ubah ukuran lebar chart
-                    },
-                    legend: {
-                        position: 'bottom',
-                        horizontalAlign: 'center'
-                    },
-                    labels: ['Active', 'Inactive'],
-                    colors: ['#00E396', '#FF4560'], // Warna untuk setiap bagian chart
-                    responsive: [{
-                        breakpoint: 480,
-                        options: {
+                        // ApexChart
+                        var options = {
+                            series: [active, inactive], // Data dari database (Active, Inactive)
                             chart: {
-                                width: '100%' // Lebar chart di layar kecil
+                                type: 'pie',
+                                height: '100%', // Ubah ukuran tinggi chart
+                                width: '100%' // Ubah ukuran lebar chart
                             },
+                            legend: {
+                                position: 'bottom',
+                                horizontalAlign: 'center'
+                            },
+                            labels: ['Active', 'Inactive'],
+                            colors: ['#00E396', '#FF4560'], // Warna untuk setiap bagian chart
+                            responsive: [{
+                                breakpoint: 480,
+                                options: {
+                                    chart: {
+                                        width: '100%' // Lebar chart di layar kecil
+                                    },
+                                }
+                            }]
+                        };
+
+                        var chart = new ApexCharts(document.querySelector("#student-chart"), options);
+                        chart.render();
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            </script>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Ambil elemen yang berisi angka user active dan inactive
+                    var userActive = document.getElementById('user-active');
+                    var userInactive = document.getElementById('user-inactive');
+
+                    // Ambil nilai asli dari elemen tersebut
+                    var activeCount = parseInt(userActive.textContent);
+                    var inactiveCount = parseInt(userInactive.textContent);
+
+                    // Format angka dengan toLocaleString untuk menggunakan format Indonesia (id-ID)
+                    userActive.textContent = activeCount.toLocaleString('id-ID');
+                    userInactive.textContent = inactiveCount.toLocaleString('id-ID');
+                });
+            </script>
+
+            <script>
+                // calendar
+                document.addEventListener('DOMContentLoaded', function() {
+                    var calendarEl = document.getElementById('calendar');
+
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        initialView: 'dayGridMonth',
+                        headerToolbar: {
+                            left: 'prev,next',
+                            center: 'title',
+                            right: 'today'
+                        },
+                        editable: true,
+                        events: [{
+                                title: 'Event 1',
+                                start: '2024-09-30'
+                            },
+                            {
+                                title: 'Event 2',
+                                start: '2024-10-01',
+                                end: '2024-10-02'
+                            }
+                        ],
+                        dateClick: function(info) {
+                            alert('Date: ' + info.dateStr);
                         }
-                    }]
-                };
+                    });
 
-                var chart = new ApexCharts(document.querySelector("#student-chart"), options);
-                chart.render();
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    </script>
+                    calendar.render();
+                });
+            </script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Ambil elemen yang berisi angka user active dan inactive
-            var userActive = document.getElementById('user-active');
-            var userInactive = document.getElementById('user-inactive');
-
-            // Ambil nilai asli dari elemen tersebut
-            var activeCount = parseInt(userActive.textContent);
-            var inactiveCount = parseInt(userInactive.textContent);
-
-            // Format angka dengan toLocaleString untuk menggunakan format Indonesia (id-ID)
-            userActive.textContent = activeCount.toLocaleString('id-ID');
-            userInactive.textContent = inactiveCount.toLocaleString('id-ID');
-        });
-    </script>
-
-    <script>
-        // calendar
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                headerToolbar: {
-                    left: 'prev,next',
-                    center: 'title',
-                    right: 'today'
-                },
-                editable: true,
-                events: [{
-                        title: 'Event 1',
-                        start: '2024-09-30'
-                    },
-                    {
-                        title: 'Event 2',
-                        start: '2024-10-01',
-                        end: '2024-10-02'
-                    }
-                ],
-                dateClick: function(info) {
-                    alert('Date: ' + info.dateStr);
-                }
-            });
-
-            calendar.render();
-        });
-    </script>
-
-@endsection
+        @endsection
