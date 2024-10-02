@@ -17,13 +17,13 @@ class ScheduleController extends Controller
 {
     function getSchedule(){
         $academic_periods = MAcademicPeriod::where('status', 1)->get();
-        // $schedules = Schedule::with(['CourseClass'])->get();
+        $schedules = Schedule::with(['CourseClass'])->get();
         // $course_class = CourseClass::where('status', 1)
         //     ->where('status_ongoing', 1)
         //     ->get();
 
         return view('schedule.index',[
-            // 'schedules' => $schedules,
+            'schedules' => $schedules,
             // 'course_class' => $course_class,
             'academic_periods' => $academic_periods,
         ]);

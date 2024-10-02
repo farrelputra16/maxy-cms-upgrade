@@ -187,17 +187,15 @@
                     <h5>Schedule Today</h5>
                     <hr>
                     <div>
-                        <h6>Morning Huddle</h6>
-                        <p>08.30 AM</p>
-                        <hr>
-                        <h6>Schedule Today</h6>
-                        <p>01.00 PM</p>
-                        <hr>
-                        <h6>Schedule Today</h6>
-                        <p>01.00 PM</p>
-                        <hr>
-                        <h6>Schedule Today</h6>
-                        <p>01.00 PM</p>
+                        @if(isset($schedules) && $schedules->isNotEmpty())
+                            @foreach ($schedules as $schedule)
+                                <h6>{{ $schedule->title }}</h6>
+                                <p>{{ \Carbon\Carbon::parse($schedule->time)->format('h:i A') }}</p>
+                                <hr>
+                            @endforeach
+                        @else
+                            <p>No schedules available or schedules variable not defined.</p> <!-- Menampilkan pesan jika schedules kosong -->
+                        @endif
                     </div>
                 </div>
             </div>
