@@ -61,28 +61,60 @@
                 </div>
             </div>
             <br>
-            <h4 class="card-title mb-4">Leads</h4>
+            <h4 class="card-title mb-4">Total</h4>
             <div class="container">
                 <div class="row g-4">
-                    @foreach (['Student', 'Student', 'Student'] as $lead)
-                        <div class="col-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="box" style="margin-left: 1rem;">
-                                        <img src="{{ asset('uploads/Student.png') }}" alt="Student Image" class="img-fluid">
-                                        <div class="mt-4">
-                                            <h5>{{ $lead }}</h5>
-                                            <p>There are 3 new leads</p>
-                                            <a href="javascript:void(0);"
-                                                class="btn btn-primary waves-effect waves-light btn-sm float-end me-2"
-                                                style="margin-top: 10%;">View More <i
-                                                    class="mdi mdi-arrow-right ms-1"></i></a>
-                                        </div>
+                    <div class="col-md-4">
+                        <div class="mini-stats-wid card">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-muted fw-medium">Student</p>
+                                        <h4 class="mb-0">1,235</h4>
+                                    </div>
+                                    <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
+                                        <span class="avatar-title rounded-circle bg-primary">
+                                            <i class="fa-solid fa-id-badge font-size-24"></i>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mini-stats-wid card">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-muted fw-medium">University</p>
+                                        <h4 class="mb-0">1,235</h4>
+                                    </div>
+                                    <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
+                                        <span class="avatar-title rounded-circle bg-primary">
+                                            <i class="fa-solid fa-school font-size-24"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mini-stats-wid card">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-muted fw-medium">Company</p>
+                                        <h4 class="mb-0">1,235</h4>
+                                    </div>
+                                    <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
+                                        <span class="avatar-title rounded-circle bg-primary">
+                                            <i class="fa-solid fa-building font-size-24"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <br>
