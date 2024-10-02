@@ -52,7 +52,9 @@
                                 </div>
                                 <h5 class="font-size-15 text-truncate">{{ auth()->user()->name }}</h5>
 
-                                <p class="text-muted mb-0 text-truncate"> Role akun ini adalah: <strong>{{ $admin->accessGroup->name }}</strong></p>
+                                <p class="text-muted mb-0 text-truncate"> Role akun ini adalah:
+                                    <strong>{{ $admin->accessGroup->name }}</strong>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -648,49 +650,65 @@
 
 @section('script')
 
-<script>
-    // Ambil data dari endpoint untuk status mahasiswa
-    fetch('/student-status-data')
-        .then(response => response.json())
-        .then(data => {
-            // Data yang diterima dari server
-            var active = data.active;
-            var inactive = data.inactive;
-            // Memasukkan data.active ke dalam elemen HTML dengan ID 'user-active'
-            document.getElementById('user-active').innerText = data.active;
+    <script>
+        // Ambil data dari endpoint untuk status mahasiswa
+        fetch('/student-status-data')
+            .then(response => response.json())
+            .then(data => {
+                // Data yang diterima dari server
+                var active = data.active;
+                var inactive = data.inactive;
+                // Memasukkan data.active ke dalam elemen HTML dengan ID 'user-active'
+                document.getElementById('user-active').innerText = data.active;
 
-            // Memasukkan data.inactive ke dalam elemen HTML dengan ID 'user-inactive'
-            document.getElementById('user-inactive').innerText = data.inactive;
+                // Memasukkan data.inactive ke dalam elemen HTML dengan ID 'user-inactive'
+                document.getElementById('user-inactive').innerText = data.inactive;
 
-            // ApexChart
-            var options = {
-                series: [active, inactive], // Data dari database (Active, Inactive)
-                chart: {
-                    type: 'pie',
-                    height: '100%', // Ubah ukuran tinggi chart
-                    width: '100%' // Ubah ukuran lebar chart
-                },
-                legend: {
-                    position: 'bottom',
-                    horizontalAlign: 'center'
-                },
-                labels: ['Active', 'Inactive'],
-                colors: ['#00E396', '#FF4560'], // Warna untuk setiap bagian chart
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: '100%' // Lebar chart di layar kecil
-                        },
-                    }
-                }]
-            };
+                // ApexChart
+                var options = {
+                    series: [active, inactive], // Data dari database (Active, Inactive)
+                    chart: {
+                        type: 'pie',
+                        height: '100%', // Ubah ukuran tinggi chart
+                        width: '100%' // Ubah ukuran lebar chart
+                    },
+                    legend: {
+                        position: 'bottom',
+                        horizontalAlign: 'center'
+                    },
+                    labels: ['Active', 'Inactive'],
+                    colors: ['#00E396', '#FF4560'], // Warna untuk setiap bagian chart
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: '100%' // Lebar chart di layar kecil
+                            },
+                        }
+                    }]
+                };
 
-            var chart = new ApexCharts(document.querySelector("#student-chart"), options);
-            chart.render();
-        })
-        .catch(error => console.error('Error fetching data:', error));
-</script>
+                var chart = new ApexCharts(document.querySelector("#student-chart"), options);
+                chart.render();
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Ambil elemen yang berisi angka user active dan inactive
+            var userActive = document.getElementById('user-active');
+            var userInactive = document.getElementById('user-inactive');
+
+            // Ambil nilai asli dari elemen tersebut
+            var activeCount = parseInt(userActive.textContent);
+            var inactiveCount = parseInt(userInactive.textContent);
+
+            // Format angka dengan toLocaleString untuk menggunakan format Indonesia (id-ID)
+            userActive.textContent = activeCount.toLocaleString('id-ID');
+            userInactive.textContent = inactiveCount.toLocaleString('id-ID');
+        });
+    </script>
 
     <script>
         // calendar
