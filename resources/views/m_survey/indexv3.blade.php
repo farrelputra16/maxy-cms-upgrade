@@ -89,7 +89,7 @@
                                     </td>
                                     <td>
                                         {{-- <div class="btn-group"> --}}
-                                        <a href="{{ route('getEditSurevy', ['id' => $item->id, 'access' => 'm_survey_update']) }}"
+                                        <a href="{{ route('getEditSurvey', ['id' => $item->id, 'access' => 'm_survey_update']) }}"
                                             class="btn btn-primary rounded">Edit</a>
                                         <a href="{{ route('getSurveyResult', ['id' => $item->id, 'access' => 'survey_result_manage']) }}"
                                             class="btn btn-info rounded">Result</a>
