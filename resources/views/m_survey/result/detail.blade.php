@@ -27,7 +27,7 @@
 
     @if($contentData)
         @foreach($contentData as $key => $value)
-            @if($key != 'id')
+            @if($key != 'id' && $key != 'score')
                 @php
                     $formattedKey = str_replace('_', ' ', $key);
                 @endphp
@@ -44,14 +44,18 @@ A: {{ $value }}
     @endif
 </div>
 
-            <div class="field">
-                <label for="">Score</label>
-                <input type="text" value="{{ $currentData->score }}" disabled style='background-color: white;'>
+            <div class="ui form stacked">
+                <div class="field">
+                    <label for="">Score</label>
+                    <input type="text" value="{{ $currentData->score }}" disabled style='background-color: white;'>
+                </div>
             </div>
-
-            <div class="field">
-                <label for="">Created At</label>
-                <input type="text" value="{{ $currentData->created_at }}" disabled style='background-color: white;'>
+            
+            <div class="ui form stacked">
+                <div class="field">
+                    <label for="">Created At</label>
+                    <input type="text" value="{{ $currentData->created_at }}" disabled style='background-color: white;'>
+                </div>
             </div>
         </div>
     </form>
