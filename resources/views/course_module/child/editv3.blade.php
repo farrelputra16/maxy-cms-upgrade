@@ -105,14 +105,14 @@
                                             Assignment
                                         </option>
                                         @if (Route::has('getCMQuiz'))
-                                            <option value="quiz" @if ($childModule->type == 'quiz') selected @endif>Quiz
-                                            </option>
+                                            {{-- <option value="quiz" @if ($childModule->type == 'quiz') selected @endif>Quiz
+                                            </option> --}}
                                         @endif
                                     </select>
                                     <div class="" id="material">
                                         @if ($childModule->type === 'materi_pembelajaran')
                                             <div class="mb-3 row">
-                                                <label for="input-name" class="col-md-2 col-form-label">File
+                                                <label for="input-name" class="col-md-2 col-form-label" style="margin-top: 1%">File
                                                     materi_pembelajaran</label>
                                                 <div class="col-md-10">
                                                     <input class="form-control" type="file" id="formFile"
@@ -122,7 +122,7 @@
                                                 </div>
                                             </div>
                                         @elseif ($childModule->type === 'video_pembelajaran')
-                                            <label for="" class="form-label">Link
+                                            <label for="" class="form-label" style="margin-top: 1%">Link
                                                 Video</label>
                                             <input class="form-control" type="text" name="material">
                                             <label for="" class="form-label">Durasi
@@ -194,17 +194,16 @@
                     duration.innerHTML = `<input type="hidden" name="duration" value="">`;
                 } else if (typeSelector.value === 'video_pembelajaran') {
                     material.innerHTML = `
-                 <label for="" class="form-label">Link
+                 <label for="" class="form-label" style="margin-top: 1%">Link
                     Video</label>
                 <input class="form-control" type="text" name="material">
-                <label for="" class="form-label">Durasi
+                <label for="" class="form-label" style="margin-top: 1%">Durasi
                     Video</label>
                 <input class="form-control" type="number" name="duration" value="{{ $childModule->duration }}">
             `;
                     duration.innerHTML = `
                 <label for="" class="form-label" style="margin-top: 1%">Durasi Video</label>
-                <input class="form-control" type="number" name="material">
-                <input type="hidden" name="duration" @if ($childModule->type == 'asignment') value="{{ $childModule->material }}" @endif>
+                <input type="number" name="duration" value="{{ $childModule->duration }}">
             `;
                 } else if (typeSelector.value === 'assignment') {
                     material.innerHTML = `
