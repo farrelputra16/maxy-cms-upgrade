@@ -7,9 +7,10 @@ use App\Models\CoursePackage;
 use App\Models\MCourseType;
 use App\Models\MDifficultyType;
 use App\Models\Category;
-use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CourseController extends Controller
 {
@@ -75,6 +76,8 @@ class CourseController extends Controller
                 'type' => 'required',
                 'mini_fake_price' => 'nullable|numeric',
                 'mini_price' => 'nullable|numeric',
+                'credits' => 'required|numeric',
+                'duration' => 'required|numeric',
                 'short_description' => 'nullable|string|max:500',
                 'payment_link' => 'nullable|url',
                 'level' => 'nullable|numeric',
@@ -101,6 +104,8 @@ class CourseController extends Controller
                     'image' => $fileName,
                     'payment_link' => $request->payment_link,
                     'slug' => $request->slug,
+                    'credits' => $request->credits,
+                    'duration' => $request->duration,
                     'm_course_type_id' => $request->type,
                     'course_package_id' => $request->type == 2 ? null : $request->package_price,
                     'm_difficulty_type_id' => $request->level,
@@ -203,6 +208,8 @@ class CourseController extends Controller
             'type' => 'required|numeric',
             'mini_fake_price' => 'nullable|numeric',
             'mini_price' => 'nullable|numeric',
+            'credits' => 'required|numeric',
+            'duration' => 'required|numeric',
             'short_description' => 'nullable|string|max:500',
             'content' => 'nullable|string',
             'description' => 'nullable|string',
@@ -210,15 +217,13 @@ class CourseController extends Controller
             'payment_link' => 'nullable|url',
             'level' => 'nullable|numeric',
             'status' => 'nullable|boolean',
-            // 'courseCategory' => 'required|array',
-            // 'courseCategory.*' => 'exists:m_category_course,id',
         ]);
 
         //sementara
         $request->mini_fake_price=0;
         $request->mini_price=0;
         $request->short_description='';
-        $request->package_price=1;//dd($request->name);
+        $request->package_price=1;
 
         try {
             $updateData = Course::postEditCourse($request);

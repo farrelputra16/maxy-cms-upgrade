@@ -101,6 +101,18 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
+                            <label for="input-credits" class="col-md-2 col-form-label">Credits</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="number" name="credits" id="credits" value="">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="input-duration" class="col-md-2 col-form-label">duration</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="number" name="duration" id="duration" value="">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
                             <label for="input-file" class="col-md-2 col-form-label">Image</label>
                             <div class="col-md-10" style="height: 200px">
                                 <input class="form-control" type="file" name="file_image" id="input-file">

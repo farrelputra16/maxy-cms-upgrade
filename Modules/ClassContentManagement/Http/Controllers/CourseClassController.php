@@ -213,6 +213,8 @@ class CourseClassController extends Controller
         if ($validated) {
             $create = CourseClass::create([
                 'batch' => $request->batch,
+                'credits' => $request->credits,
+                'duration' => $request->duration,
                 'start_date' => $request->start,
                 'end_date' => $request->end,
                 'quota' => $request->quota,
@@ -310,6 +312,8 @@ class CourseClassController extends Controller
                 'start_date' => $request->start,
                 'end_date' => $request->end,
                 'quota' => $request->quota,
+                'credits' => $request->credits,
+                'duration' => $request->duration,
                 'course_id' => $request->course_id,
                 'announcement' => $request->announcement,
                 'content' => $request->content,

@@ -94,6 +94,22 @@
                         </div>
 
                         <div class="mb-3 row">
+                            <label for="credits" class="col-md-2 col-form-label">Credits</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="number" name="credits"
+                                    value="{{ $course_class_detail->credits }}" id="credits">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="duration" class="col-md-2 col-form-label">Durations</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="number" name="duration"
+                                    value="{{ $course_class_detail->duration }}" id="duration">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
                             <label for="announcement" class="col-md-2 col-form-label">Announcement</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="announcement" class="form-control">{{ $course_class_detail->announcement }}</textarea>

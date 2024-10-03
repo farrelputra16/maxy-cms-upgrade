@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Course extends Model
 {
@@ -72,6 +72,8 @@ class Course extends Model
 
     public static function CurrentDataCourse($idCourse){
         $currentDataCourse = collect(DB::select('SELECT course.id AS course_id,
+            course.credits AS credits,
+            course.duration AS duration,
             course.m_course_type_id AS m_course_type_id,
             course.fake_price AS fake_price,
             course.price AS price,
@@ -120,6 +122,8 @@ class Course extends Model
                     'name' => $request->name,
                     'fake_price' => null,
                     'price' => null,
+                    'credits' => $request->credits,
+                    'duration' => $request->duration,
                     'short_description' => $request->short_description,
                     'image' => $fileName,
                     'payment_link' => $request->payment_link,
@@ -141,6 +145,8 @@ class Course extends Model
                     'name' => $request->name,
                     'fake_price' => (float)$trim_mini_fake_price,
                     'price' => (float)$trim_mini_price,
+                    'credits' => $request->credits,
+                    'duration' => $request->duration,
                     'short_description' => $request->short_description,
                     'image' => $fileName,
                     'payment_link' => $request->payment_link,
@@ -162,6 +168,8 @@ class Course extends Model
                     'name' => $request->name,
                     'fake_price' => $request->mini_fake_price ? $trim_mini_fake_price : null,
                     'price' => $request->mini_price ? $trim_mini_price : null,
+                    'credits' => $request->credits,
+                    'duration' => $request->duration,
                     'short_description' => $request->short_description,
                     'content' => $request->content,
                     'image' => $fileName,

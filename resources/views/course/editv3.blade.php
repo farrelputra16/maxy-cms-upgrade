@@ -54,7 +54,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Payment</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="payment_link" placeholder="https://example.com">{{ $courses->payment_link }}</textarea>
+                                <input class="form-control" type="text" id="payment_link" name="payment_link" placeholder="https://example.com" value="{{ $courses->payment_link }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -121,6 +121,18 @@
                             <label for="input-mini-price" class="col-md-2 col-form-label">Mini Bootcamp Price</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="mini_price" id="price" value="{{ $currentDataCourse ? $currentDataCourse->price : '' }}">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="input-credits" class="col-md-2 col-form-label">Credits</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="number" name="credits" id="credits" value="{{ $currentDataCourse ? $currentDataCourse->credits : '' }}">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="input-duration" class="col-md-2 col-form-label">duration</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="number" name="duration" id="duration" value="{{ $currentDataCourse ? $currentDataCourse->duration : '' }}">
                             </div>
                         </div>
                         <div class="mb-3 row">

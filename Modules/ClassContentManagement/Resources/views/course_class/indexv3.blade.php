@@ -47,6 +47,8 @@
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Quota</th>
+                                <th>Credits</th> <!-- New Column -->
+                                <th>Duration</th> <!-- New Column -->
                                 <th>Announcement</th>
                                 <th>Content</th>
                                 <th class="data-long">Description</th>
@@ -76,6 +78,8 @@
                                     <td>{{ $item->start_date }}</td>
                                     <td>{{ $item->end_date }}</td>
                                     <td>{{ $item->quota }}</td>
+                                    <td>{{ $item->credits }}</td> <!-- New Column Data -->
+                                    <td>{{ sprintf('%02d:00:00', $item->duration) }}</td> <!-- New Column Data -->
                                     <td>{{ $item->announcement ?? '-' }}</td>
                                     <td>{!! !empty($item->content) ? \Str::limit($item->content, 30) : '-' !!}</td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
@@ -118,6 +122,8 @@
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Quota</th>
+                                <th>Credits</th> <!-- New Column Footer -->
+                                <th>Duration</th> <!-- New Column Footer -->
                                 <th>Announcement</th>
                                 <th>Content</th>
                                 <th>Description</th>

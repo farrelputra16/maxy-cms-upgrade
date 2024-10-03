@@ -45,6 +45,8 @@
                                 <th>Promo Price</th>
                                 <th>Price</th>
                                 <th>Course Type</th>
+                                <th>Credits</th>
+                                <th>Duration</th>
                                 <th class="short">Short Description</th>
                                 <th class="desc">Description</th>
                                 <th>Content</th>
@@ -98,6 +100,8 @@
                                                 -
                                         @endswitch
                                     </td>
+                                    <td>{{ $item->credits }}</td>
+                                    <td>{{ sprintf('%02d:00:00', $item->duration) }}</td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->short_description) !!}">
                                         {!! \Str::limit($item->short_description, 30) !!}
