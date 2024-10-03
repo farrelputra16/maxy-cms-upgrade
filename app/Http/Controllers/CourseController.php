@@ -62,6 +62,24 @@ class CourseController extends Controller
 
     public function postAddCourse(Request $request)
     {
+
+        $validated = $request->validate([
+            'name' => 'required',
+            'slug' => 'required',
+            'type' => 'required',
+            'mini_fake_price' => 'nullable|numeric',
+            'mini_price' => 'nullable|numeric',
+            'credits' => 'required|numeric',
+            'duration' => 'required|numeric',
+            'short_description' => 'nullable|string|max:500',
+            'payment_link' => ['nullable', 'url', 'regex:/^https:\/\/.+$/'],
+            'level' => 'nullable|numeric',
+            'content' => 'nullable|string',
+            'description' => 'nullable|string',
+            'courseCategory' => 'nullable|array',
+            'courseCategory.*' => 'exists:m_category_course,id',
+        ]);
+
         try {
             $fileName = null;
             if ($request->hasFile('file_image')) {
@@ -69,23 +87,6 @@ class CourseController extends Controller
                 $fileName = $file->getClientOriginalName();
                 $file->move(public_path('/uploads/course_img'), $fileName);
             }
-
-            $validated = $request->validate([
-                'name' => 'required',
-                'slug' => 'required',
-                'type' => 'required',
-                'mini_fake_price' => 'nullable|numeric',
-                'mini_price' => 'nullable|numeric',
-                'credits' => 'required|numeric',
-                'duration' => 'required|numeric',
-                'short_description' => 'nullable|string|max:500',
-                'payment_link' => 'nullable|url',
-                'level' => 'nullable|numeric',
-                'content' => 'nullable|string',
-                'description' => 'nullable|string',
-                'courseCategory' => 'nullable|array',
-                'courseCategory.*' => 'exists:m_category_course,id',
-            ]);
             //sementara
             $request->mini_fake_price=0;
             $request->mini_price=0;
@@ -95,7 +96,6 @@ class CourseController extends Controller
             $trim_mini_fake_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_fake_price));
             $trim_mini_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_price));
 
-            if ($validated) {
                 $create = Course::create([
                     'name' => $request->name,
                     'fake_price' => (float)$trim_mini_fake_price,
@@ -131,9 +131,13 @@ class CourseController extends Controller
                     }
                     return app(HelperController::class)->Positive('getCourse');
                 }
-            }
-        } catch (\Exception $e) {dd($e);
-            return app(HelperController::class)->Negative('getCourse');
+
+        } catch (\Exception $e) {
+            // Log error untuk ditelusuri admin/developer
+            \Log::error('Error adding course: ' . $e->getMessage());
+
+            // Kembalikan pesan error yang ramah kepada user
+            return redirect()->back()->withErrors(['error' => 'There was a problem saving the course. Please try again or contact support.']);
         }
     }
 
@@ -214,7 +218,7 @@ class CourseController extends Controller
             'content' => 'nullable|string',
             'description' => 'nullable|string',
             'file_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'payment_link' => 'nullable|url',
+            'payment_link' => ['nullable', 'url', 'regex:/^https:\/\/.+$/'],
             'level' => 'nullable|numeric',
             'status' => 'nullable|boolean',
         ]);
@@ -244,8 +248,12 @@ class CourseController extends Controller
             } else {
                 return app(HelperController::class)->Warning('getCourse');
             }
-        } catch (\Exception $e) {dd($e);
-            return app(HelperController::class)->Negative('getCourse');
+        } catch (\Exception $e) {
+            // Log error untuk ditelusuri admin/developer
+            \Log::error('Error adding course: ' . $e->getMessage());
+
+            // Kembalikan pesan error yang ramah kepada user
+            return redirect()->back()->withErrors(['error' => 'There was a problem saving the course. Please try again or contact support.']);
         }
     }
 }

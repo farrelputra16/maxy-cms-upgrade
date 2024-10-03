@@ -54,7 +54,13 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Payment</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" id="payment_link" name="payment_link" placeholder="https://example.com" value="{{ $courses->payment_link }}">
+                                <input class="form-control" type="text" name="payment_link" id="payment_link"
+                                    value="{{ $courses->payment_link }}">
+                                @if ($errors->has('payment_link'))
+                                    @foreach ($errors->get('payment_link') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">

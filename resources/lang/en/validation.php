@@ -142,8 +142,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'payment_link' => [
+            'regex' => 'The payment link must start with https://',
         ],
     ],
 
