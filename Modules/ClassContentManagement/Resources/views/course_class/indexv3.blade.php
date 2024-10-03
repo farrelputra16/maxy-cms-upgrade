@@ -80,7 +80,7 @@
                                     <td>{{ $item->quota }}</td>
                                     <td>{{ $item->credits }}</td> <!-- New Column Data -->
                                     <td>{{ sprintf('%02d:00:00', $item->duration) }}</td> <!-- New Column Data -->
-                                    <td>{{ $item->announcement ?? '-' }}</td>
+                                    <td>{!! $item->announcement ?? '-' !!}</td>
                                     <td>{!! !empty($item->content) ? \Str::limit($item->content, 30) : '-' !!}</td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->description) !!}">
