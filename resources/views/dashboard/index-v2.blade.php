@@ -70,7 +70,7 @@
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Student</p>
-                                        <h4 class="mb-0">{{ $studentCount }}</h4> <!-- Tampilkan jumlah student -->
+                                        <h4 class="mb-0" id="student_total">{{ number_format($studentCount, 0, ',', '.') }}</h4>
                                     </div>
                                     <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
                                         <span class="avatar-title rounded-circle bg-primary">
@@ -87,7 +87,7 @@
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">University</p>
-                                        <h4 class="mb-0">{{ $universityCount }}</h4> <!-- Tampilkan jumlah university -->
+                                        <h4 class="mb-0" id="university_total">{{ number_format($universityCount, 0, ',', '.') }}</h4>
                                     </div>
                                     <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
                                         <span class="avatar-title rounded-circle bg-primary">
@@ -104,7 +104,7 @@
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Company</p>
-                                        <h4 class="mb-0">{{ $companyCount }}</h4> <!-- Tampilkan jumlah company -->
+                                        <h4 class="mb-0" id="company_total">{{ $companyCount }}</h4> <!-- Tampilkan jumlah company -->
                                     </div>
                                     <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
                                         <span class="avatar-title rounded-circle bg-primary">
