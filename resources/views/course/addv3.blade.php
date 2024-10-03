@@ -121,8 +121,8 @@
                         <div class="mb-3 row">
                             <label for="input-file" class="col-md-2 col-form-label">Image</label>
                             <div class="col-md-10" style="height: 200px">
-                                <input class="form-control" type="file" name="file_image" id="input-file">
-                                <img id="frame" src="" alt="preview.." class="img-fluid h-100" />
+                                <input class="form-control" type="file" name="file_image" id="input-file" accept="image/*" onchange="previewImage()">
+                                <img id="frame" src="" alt="Preview Image" class="img-fluid h-100" />
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -168,16 +168,23 @@
         });
 
         // preview image
-        document.getElementById('input-file').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('frame').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
+        function previewImage() {
+        const input = document.getElementById('input-file');
+        const frame = document.getElementById('frame');
+
+        // Check if a file is selected and it's an image
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            // Event listener for when the file is read
+            reader.onload = function(e) {
+                frame.src = e.target.result; // Set the image source to the file
             }
-        });
+
+            // Read the selected file as a Data URL (base64)
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 
     if ($('#type_selector').val() == '') {
     $("#show_course_package").hide();
