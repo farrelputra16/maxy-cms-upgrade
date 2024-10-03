@@ -6,6 +6,7 @@ use App\Jobs\GoKampusDataSyncJob;
 use App\Models\AccessMaster;
 use App\Models\CourseClass;
 use App\Models\Partnership;
+use App\Models\Partner;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
 // use Illuminate\Foundation\Auth\User;
@@ -18,6 +19,9 @@ class DashboardController extends Controller
         $accessMaster = AccessMaster::count();
         $user = User::count();
         $loggedInUserId = auth()->user()->id;
+        $universityCount = Partner::where('type', 'UNIVERSITY')->count(); //Menghitung jumlah University
+        $companyCount = Partner::where('type', 'COMPANY')->count(); // Menghitung jumlah company
+        $studentCount = User::where('type', 'member')->count(); // Menghitung jumlah student
 
         // ambil data active class
         // $active_class_list = [
@@ -52,7 +56,10 @@ class DashboardController extends Controller
             'totalStu' => $totalStu,
             'stuActive' => $stuActive,
             'partnerships' => $partnerships,
-            'admin' => $admin
+            'admin' => $admin,
+            'universityCount' => $universityCount,
+            'companyCount' => $companyCount,
+            'studentCount' => $studentCount
         ]);
     }
     public function getDashboard2()
