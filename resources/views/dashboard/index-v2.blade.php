@@ -104,7 +104,7 @@
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Company</p>
-                                        <h4 class="mb-0" id="company_total">{{ $companyCount }}</h4> <!-- Tampilkan jumlah company -->
+                                        <h4 class="mb-0" id="company_total">{{ number_format($companyCount, 0, ',', '.') }}</h4> <!-- Tampilkan jumlah company -->
                                     </div>
                                     <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
                                         <span class="avatar-title rounded-circle bg-primary">
