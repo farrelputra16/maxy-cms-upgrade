@@ -28,7 +28,7 @@ class EventController extends Controller
     {
         $event_types = MEventType::where('status', 1)->get();
 
-        return view('event.add', [
+        return view('event.addv3', [
             'event_types' => $event_types
         ]);
     }
@@ -88,7 +88,7 @@ class EventController extends Controller
         $event = Event::find($idevent);
         $event_types = MEventType::where('status', 1)->get();
 
-        return view('event.edit', [
+        return view('event.editv3', [
             'event' => $event,
             'event_types' => $event_types,
         ]);
@@ -146,7 +146,7 @@ class EventController extends Controller
             ->where('event_id', $idevent)
             ->get(['users.name', 'event_participant.*']);
 
-        return view('event.attendance', [
+        return view('event.attendancev3', [
             'event_attendances' => $event_attendances
         ]);
     }
@@ -157,18 +157,20 @@ class EventController extends Controller
         $requirement = EventRequirement::getRequirementsByEventId($request->id);
         $event = Event::find($request->id);
 
-        return view('event.requirement.index', compact(['requirement', 'event']));
+        // dd($event);
+
+        return view('event.requirement.indexv3', compact(['requirement', 'event']));
     }
     public function getAddEventRequirement(Request $request)
     {
         // dd($request->all());
 
         $event_id = $request->event_id;
-        return view('event.requirement.add', compact(['event_id']));
+        return view('event.requirement.addv3', compact(['event_id']));
     }
     public function postAddEventRequirement(Request $request)
     {
-        // dd($request->all());
+    //    dd($request->all());
 
         try {
             $requirement = new EventRequirement();
@@ -194,7 +196,7 @@ class EventController extends Controller
 
         $requirement = EventRequirement::find($request->id);
         $event_id = $request->event_id;
-        return view('event.requirement.edit', compact(['requirement', 'event_id']));
+        return view('event.requirement.editv3', compact(['requirement', 'event_id']));
     }
     public function postEditEventRequirement(Request $request)
     {
@@ -219,14 +221,19 @@ class EventController extends Controller
 
     public function getEventVerification(Request $request)
     {
-        // dd($request->all());
+        // Ambil data requirements
         $requirement = EventParticipantRequirement::with(['EventRequirement', 'User'])
             ->where('user_id', $request->user_id)
-            ->whereHas('EventRequirement', function($query) use ($request) {
+            ->whereHas('EventRequirement', function ($query) use ($request) {
                 $query->where('event_id', $request->event_id);
             })
             ->get();
 
-        return view('event.verification', compact(['requirement']));
+        // Kirim event_id dan user_id ke view
+        return view('event.verificationv3', [
+            'requirement' => $requirement,
+            'event_id' => $request->event_id,
+            'user_id' => $request->user_id
+        ]);
     }
 }
