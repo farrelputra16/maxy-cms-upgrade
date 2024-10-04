@@ -50,7 +50,12 @@
                         <label for="input-title" class="col-md-2 col-form-label">Payment Link</label>
                         <div class="col-md-10">
                             <input class="form-control" type="text" name="payment_link"
-                                placeholder="Masukkan Payment Link">
+                                placeholder="https://example.com" value="{{ old('payment_link') }}">
+                                @if ($errors->has('payment_link'))
+                                    @foreach ($errors->get('payment_link') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                         </div>
                     </div>
                     <div class="mb-3 row">
