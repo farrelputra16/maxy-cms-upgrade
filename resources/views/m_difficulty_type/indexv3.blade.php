@@ -54,28 +54,32 @@
                         </thead>
                         <tbody>
                             @foreach ($mDifficulties as $key => $item)
-                            <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td id="description">{{ $item->description }}</td>
-                                <td>{{ $item->created_at }}</td>
-                                <td>{{ $item->created_id }}</td>
-                                <td>{{ $item->updated_at }}</td>
-                                <td>{{ $item->updated_id }}</td>
-                                <td value="{{ $item->status }}">
-                                    @if ($item->status == 1)
-                                        <a class="btn btn-success disabled">Aktif</a>
-                                    @else
-                                        <a class="btn btn-danger disabled">Non Aktif</a>
-                                    @endif
-                                </td>
-                                <td>
-                                    <div class="btn-group">
-                                        <a href="{{ route('getEditDifficultyType', ['id' => $item->id, 'access' => 'm_difficulty_type_update']) }}" class="btn btn-primary">Edit</a>
-                                    </div>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                        title="{!! strip_tags($item->description) !!}">
+                                        {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
+                                    </td>
+                                    <td>{{ $item->created_at }}</td>
+                                    <td>{{ $item->created_id }}</td>
+                                    <td>{{ $item->updated_at }}</td>
+                                    <td>{{ $item->updated_id }}</td>
+                                    <td value="{{ $item->status }}">
+                                        @if ($item->status == 1)
+                                            <a class="btn btn-success disabled">Aktif</a>
+                                        @else
+                                            <a class="btn btn-danger disabled">Non Aktif</a>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{{ route('getEditDifficultyType', ['id' => $item->id, 'access' => 'm_difficulty_type_update']) }}"
+                                                class="btn btn-primary">Edit</a>
+                                        </div>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
