@@ -60,7 +60,10 @@
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->slug }}</td>
-                                    <td>{{ $item->description }}</td>
+                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                        title="{{ strip_tags($item->description) }}">
+                                        {{ !empty($item->description) ? \Str::limit(strip_tags($item->description), 30) : '-' }}
+                                    </td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->created_id }}</td>
                                     <td>{{ $item->updated_at }}</td>
