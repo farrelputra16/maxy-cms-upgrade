@@ -13,7 +13,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourse')}}">Course</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Course</a></li>
                         <li class="breadcrumb-item active">Module List: {{ $course_detail->name }}</li>
                     </ol>
                 </div>
@@ -32,7 +32,8 @@
                     <p class="card-title-desc">
                         This page presents a comprehensive overview of all available data, displayed in an interactive
                         and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b> features to
+                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
+                        features to
                         customize your view and quickly access the specific information you need.
                     </p>
 
@@ -50,45 +51,48 @@
                                 <th>Updated At</th>
                                 <th>Updated Id</th>
                                 <th>Status</th>
-                            <th>Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($parent_modules as $key => $item)
-                            <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $item->id }}</td>
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $item->id }}</td>
 
-                                <td class="data-medium" data-toggle="tooltip" data-placement="top"
+                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
                                         title="{{ $item->name }}">
                                         {!! \Str::limit($item->name, 30) !!}
                                     </td>
 
-                                <td>{{ $item->priority }}</td>
-                                <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                title="{!! strip_tags($item->description) !!}">
-                                {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
-                            </td>                                <td>{{ Str::limit($item->content, 50) }}</td>
-                                <td>{{ $item->created_at }}</td>
-                                <td>{{ $item->created_id }}</td>
-                                <td>{{ $item->updated_at }}</td>
-                                <td>{{ $item->updated_id }}</td>
-                                <td value="{{ $item->status }}">
-                                    @if ($item->status == 1)
-                                        <a class="btn btn-success disabled">Aktif</a>
-                                    @else
-                                        <a class="btn btn-danger disabled">Non Aktif</a>
-                                    @endif
-                                </td>
-                                <td>
-                                    {{-- <div class="btn-group"> --}}
-                                        <a href="{{ route('getEditCourseModule', ['id' => $item->id, 'page_type' => $page_type]) }}" class="btn btn-primary rounded">Edit</a>
-                                        @if ($page_type == 'LMS')
-                                        <a href="{{ route('getCourseSubModule', ['course_id' => $course_detail->id, 'module_id' => $item->id, 'page_type' => 'LMS_child']) }}" class="btn btn-outline-primary rounded-end">Content</a>
+                                    <td>{{ $item->priority }}</td>
+                                    <td>{{ Str::limit(strip_tags($item->content), 50) }}</td>
+                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                        title="{{ strip_tags($item->description) }}">
+                                        {{ !empty($item->description) ? \Str::limit(strip_tags($item->description), 30) : '-' }}
+                                    </td>
+                                    <td>{{ $item->created_at }}</td>
+                                    <td>{{ $item->created_id }}</td>
+                                    <td>{{ $item->updated_at }}</td>
+                                    <td>{{ $item->updated_id }}</td>
+                                    <td value="{{ $item->status }}">
+                                        @if ($item->status == 1)
+                                            <a class="btn btn-success disabled">Aktif</a>
+                                        @else
+                                            <a class="btn btn-danger disabled">Non Aktif</a>
                                         @endif
-                                    {{-- </div> --}}
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td>
+                                        {{-- <div class="btn-group"> --}}
+                                        <a href="{{ route('getEditCourseModule', ['id' => $item->id, 'page_type' => $page_type]) }}"
+                                            class="btn btn-primary rounded">Edit</a>
+                                        @if ($page_type == 'LMS')
+                                            <a href="{{ route('getCourseSubModule', ['course_id' => $course_detail->id, 'module_id' => $item->id, 'page_type' => 'LMS_child']) }}"
+                                                class="btn btn-outline-primary rounded-end">Content</a>
+                                        @endif
+                                        {{-- </div> --}}
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
@@ -116,7 +120,8 @@
 
     <!-- FAB Add Starts -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddCourseModule', ['id' => $course_detail->id, 'page_type' => $page_type]) }}" target="_blank">
+        <a href="{{ route('getAddCourseModule', ['id' => $course_detail->id, 'page_type' => $page_type]) }}"
+            target="_blank">
             <i class="fas fa-plus"></i>
         </a>
     </div>
