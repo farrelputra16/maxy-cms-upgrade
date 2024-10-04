@@ -39,7 +39,7 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name"" id="name" placeholder="Masukkan Nama Course">
+                                <input class="form-control" type="text" name="name"" id="name" placeholder="Masukkan Nama Course Type">
                                 @if ($errors->has('name'))
                                 @foreach ($errors->get('name') as $error)
                                 <span style="color: red;">{{ $error }}</span>
