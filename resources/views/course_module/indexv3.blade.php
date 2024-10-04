@@ -66,7 +66,10 @@
                                     </td>
 
                                     <td>{{ $item->priority }}</td>
-                                    <td>{{ Str::limit(strip_tags($item->content), 50) }}</td>
+                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                        title="{{ strip_tags($item->content) }}">
+                                        {{ !empty($item->content) ? \Str::limit(strip_tags($item->content), 30) : '-' }}
+                                    </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{{ strip_tags($item->description) }}">
                                         {{ !empty($item->description) ? \Str::limit(strip_tags($item->description), 30) : '-' }}
