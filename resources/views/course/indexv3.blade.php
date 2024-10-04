@@ -115,7 +115,7 @@
                                         @if ($item->status == 1)
                                             <span class="btn btn-success disabled">Active</span>
                                         @else
-                                            <span class="btn btn-success disabled">Inactive</span>
+                                            <span class="btn btn-danger disabled">Inactive</span>
                                         @endif
                                     </td>
                                     <td>
