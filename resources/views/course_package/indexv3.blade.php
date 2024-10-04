@@ -65,8 +65,10 @@
                                     </td>
                                     <td>{{ $item->price ? 'Rp ' . number_format($item->price, 0, ',', '.') : '-' }}</td>
                                     <td id="payment_link">{{ $item->payment_link }}</td>
-                                    <td class="desc" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->description }}">{!! \Str::limit($item->description, 30) !!}</td>
+                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                        title="{{ strip_tags($item->description) }}">
+                                        {{ !empty($item->description) ? \Str::limit(strip_tags($item->description), 30) : '-' }}
+                                    </td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->created_id }}</td>
                                     <td>{{ $item->updated_at }}</td>
