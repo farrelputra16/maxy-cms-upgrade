@@ -1,69 +1,91 @@
 $(document).ready(function () {
     // Inisialisasi DataTable
-    let table = $("#datatable").DataTable({
-        dom: "Bftip",
-        scrollX: true,
-        lengthChange: false,
-        buttons: [
-            "copy",
-            "excel",
-            "pdf",
-            {
-                extend: "colvis",
-                className: "custom-colvis-btn",
-                postfixButtons: ["colvisRestore"],
-                columnText: function (dt, idx, title) {
-                    return title;
-                },
-            },
-        ],
-        searching: true,
-        columnDefs: [{ visible: false, targets: [-6, -5, -4, -3, 1] }],
-        initComplete: function () {
-            // Simpan referensi API DataTables dalam variabel
-            var api = this.api();
+    $(".table").each(function () {
+        var table = $(this);
 
-            // Iterasi setiap kolom
-            api.columns().every(function () {
-                var column = this;
-                var title = column.header().textContent; // Gunakan header() untuk mendapatkan judul kolom
-                var columnIndex = column.index();
-                var totalColumns = api.columns().count();
-                var statusColumnIndex = totalColumns - 2; // Indeks kolom status (ke-2 dari akhir)
+        // Cek apakah menggunakan server-side processing
+        var isServerProcessing = table.data("server-processing") === true;
+        var ajaxUrl = table.data('url');
+        var colVis = table.data('colvis') ? table.data('colvis') : [-6, -5, -4, -3, 1] ;
 
-                // Jika ini adalah kolom status
-                if (columnIndex === statusColumnIndex) {
-                    // Membuat elemen dropdown dengan opsi yang diinginkan
-                    var select = $(
-                        '<select class="form-control"><option value="">All</option><option value="Aktif">Aktif</option><option value="Non Aktif">Nonaktif</option></select>'
-                    )
-                        .appendTo($(column.footer()).empty())
-                        .on("change", function () {
-                            var val = $.fn.dataTable.util.escapeRegex(
-                                $(this).val()
-                            );
-                            column
-                                .search(val ? "^" + val + "$" : "", true, false)
-                                .draw();
-                        });
-                } else {
-                    // Membuat elemen input text untuk kolom lainnya
-                    $(
-                        '<input class="form-control" type="text" placeholder="Search ' +
-                            title +
-                            '" />'
-                    )
-                        .appendTo($(column.footer()).empty())
-                        .on("keyup change clear", function () {
-                            if (column.search() !== this.value) {
-                                column.search(this.value).draw();
-                            }
-                        });
+        // Inisialisasi DataTable dengan atau tanpa server-side processing
+        var tableInstance = table.DataTable({
+            dom: "Bftip",
+            scrollX: true,
+            lengthChange: false,
+            processing: isServerProcessing, // Tampilkan indikator loading jika server processing aktif
+            serverSide: isServerProcessing, // Aktifkan server-side processing sesuai kebutuhan
+            ajax: isServerProcessing ? {
+                url: ajaxUrl, // Ganti dengan URL yang sesuai
+                type: 'GET',
+                data: function (d) {
+                    // Tambahkan data tambahan jika diperlukan
+                    d.class_id = $('#classSelect').val(); // Misal mengambil class_id dari dropdown
                 }
-            });
-        },
-    });
+            } : null, // Jika tidak server-side, tidak perlu ajax
+            buttons: [
+                "copy",
+                "excel",
+                "pdf",
+                {
+                    extend: "colvis",
+                    className: "custom-colvis-btn",
+                    postfixButtons: ["colvisRestore"],
+                    columnText: function (dt, idx, title) {
+                        return title;
+                    },
+                },
+            ],
+            searching: true,
+            columnDefs: [{ visible: false, targets: colVis }],
+            initComplete: function () {
+                // Simpan referensi API DataTables
+                var api = this.api();
 
-    // Menempatkan tombol di dalam kontainer yang sesuai
-    table.buttons().container().appendTo("#datatable_wrapper .col-md-6:eq(0)");
+                // Iterasi setiap kolom
+                api.columns().every(function () {
+                    var column = this;
+                    var title = $(column.header()).text(); // Ambil judul kolom dari header
+                    var columnIndex = column.index();
+                    var totalColumns = api.columns().count();
+                    var statusColumnIndex = totalColumns - 2; // Indeks kolom status (ke-2 dari akhir)
+
+                    // Cek apakah kolom memiliki footer
+                    if ($(column.footer()).length) {
+                        if (columnIndex === statusColumnIndex) {
+                            // Membuat elemen dropdown untuk kolom status
+                            var select = $(
+                                '<select class="form-control"><option value="">All</option><option value="Aktif">Aktif</option><option value="Non Aktif">Nonaktif</option></select>'
+                            )
+                                .appendTo($(column.footer()).empty())
+                                .on("change", function () {
+                                    var val = $.fn.dataTable.util.escapeRegex(
+                                        $(this).val()
+                                    );
+                                    column
+                                        .search(
+                                            val ? "^" + val + "$" : "",
+                                            true,
+                                            false
+                                        )
+                                        .draw();
+                                });
+                        } else {
+                            // Membuat elemen input text untuk kolom lainnya
+                            $('<input class="form-control" type="text" placeholder="Search ' + title + '" />')
+                                .appendTo($(column.footer()).empty())
+                                .on("keyup change clear", function () {
+                                    if (column.search() !== this.value) {
+                                        column.search(this.value).draw();
+                                    }
+                                });
+                        }
+                    }
+                });
+            }
+        });
+
+        // Menempatkan tombol di dalam kontainer yang sesuai
+        tableInstance.buttons().container().appendTo(table.closest('.dataTables_wrapper').find('.col-md-6:eq(0)'));
+    });
 });
