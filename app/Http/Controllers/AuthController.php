@@ -24,7 +24,7 @@ class AuthController extends Controller
 
             return redirect()->route('getDashboard');
         } else {
-            return back();
+            return redirect()->back()->with('error', 'Invalid credentials');
         }
     }
 

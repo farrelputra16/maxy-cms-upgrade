@@ -51,7 +51,7 @@ class CategoryController extends Controller
         $idCategory = $request->id;
         $Category = Category::find($idCategory);
 
-        return view('category.edit',[
+        return view('category.editv3',[
             'Category' => $Category,
         ]);
     }

@@ -80,10 +80,10 @@
         <div class="col-12 col-md-6" style="padding-top:6%; padding-left:15%;">
             <h1
                 style="color: #000000; font-weight: 600; padding-bottom: 5px; font-family: Inter, sans-serif; letter-spacing: 2px; font-size: 64px">
-                @if(env('APP_ENV') == 'local')
-                Bina Karya's CMS
+                @if (env('APP_ENV') == 'local')
+                    Bina Karya's CMS
                 @else
-                Maxy's CMS
+                    Maxy's CMS
                 @endif
             </h1>
             <br>
@@ -95,6 +95,11 @@
                     <input type="email" id="email" name="email" placeholder="Enter your email"
                         style="width: 100%; height: 45px; border-radius: 25px; border-color: #1533B5; border-width: 1.5px;
                     border-style: solid; font-size: 24px; padding: 6%">
+                    @if (session('error'))
+                        <p class="text-danger">
+                            {{ session('error') }}
+                        </p>
+                    @endif
                 </div>
 
                 <div class="field" style="position: relative;">
@@ -123,10 +128,10 @@
         </div>
 
         <div class="col-6" style="height:100%">
-            @if(env('APP_ENV') == 'local')
-            <img src="{{ asset('uploads/LogoMaxy.png') }}" alt="Logo" style="height:100%; padding-left:45%">
+            @if (env('APP_ENV') == 'local')
+                <img src="{{ asset('uploads/LogoMaxy.png') }}" alt="Logo" style="height:100%; padding-left:45%">
             @else
-            <img src="{{ asset('uploads/LogoLogin.png') }}" alt="Logo" style="height:100%; padding-left:45%">
+                <img src="{{ asset('uploads/LogoLogin.png') }}" alt="Logo" style="height:100%; padding-left:45%">
             @endif
         </div>
     </div>

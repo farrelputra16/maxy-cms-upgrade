@@ -78,7 +78,9 @@
                                     </td>
                                     <td>
                                         {{-- <div class="btn-group"> --}}
-                                        <a href="{{ route('getEditCourseModule', ['id' => $item->id, 'page_type' => $page_type]) }}"
+                                        {{-- <a href="{{ route('getEditCourseModule', ['id' => $item->id, 'page_type' => $page_type]) }}"
+                                            class="btn btn-primary rounded">Edit</a> --}}
+                                        <a href="{{ route('getEditCategory', ['id' => $item->id]) }}"
                                             class="btn btn-primary rounded">Edit</a>
                                         {{-- </div> --}}
                                     </td>
@@ -108,8 +110,7 @@
 
     <!-- FAB Add Starts -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddCategory') }}"
-            target="_blank">
+        <a href="{{ route('getAddCategory') }}" target="_blank">
             <i class="fas fa-plus"></i>
         </a>
     </div>
