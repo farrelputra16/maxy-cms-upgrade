@@ -170,7 +170,7 @@
                             <label for="input-description" class="col-md-2 col-form-label">Short Description</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="short_description"
-                                    value="{{ $courses->short_description }}" id="input-description">
+                                    value="{{ strip_tags($courses->short_description) }}" id="input-description">
                             </div>
                         </div>
 
