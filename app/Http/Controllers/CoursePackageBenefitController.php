@@ -20,12 +20,12 @@ class CoursePackageBenefitController extends Controller
 
         if (!$request->filled('id')) {
             $coursePackageBenefits = CoursePackageBenefit::getCoursePackageBenefit();
-            return view('course_package_benefit.index', ['coursePackageBenefits' => $coursePackageBenefits , 'Packagenama' => $Packagenama]);
+            return view('course_package_benefit.indexv3', ['coursePackageBenefits' => $coursePackageBenefits, 'Packagenama' => $Packagenama]);
         } else {
             $idCPB = $request->id;
             // $coursePackageBenefits = CoursePackageBenefit::where('course_package_id', $idCPB)->get();
             $coursePackageBenefits = CoursePackageBenefit::getCoursePackageBenefit($idCPB);
-            return view('course_package_benefit.index', ['coursePackageBenefits' => $coursePackageBenefits, 'idCPB' => $idCPB, 'Packagenama' => $Packagenama]);
+            return view('course_package_benefit.indexv3', ['coursePackageBenefits' => $coursePackageBenefits, 'idCPB' => $idCPB, 'Packagenama' => $Packagenama]);
         }
 
     }
@@ -35,12 +35,12 @@ class CoursePackageBenefitController extends Controller
 
         if (!$request->filled('idCPB')) {
             $coursePackage = CoursePackage::all();
-            return view('course_package_benefit.add', ['allCoursePackages' => $coursePackage]);
+            return view('course_package_benefit.addv3', ['allCoursePackages' => $coursePackage]);
         } else {
             $idCPB = $request->idCPB;
             $coursePackage = CoursePackage::where('id', $idCPB)->get();
 
-            return view('course_package_benefit.add', ['allCoursePackages' => $coursePackage, 'idCPB' => $idCPB]);
+            return view('course_package_benefit.addv3', ['allCoursePackages' => $coursePackage, 'idCPB' => $idCPB]);
         }
 
     }
@@ -97,7 +97,7 @@ class CoursePackageBenefitController extends Controller
         // return dd($currentData);
         $allCoursePackages = CoursePackage::where('id', '!=', $currentData->course_package_id)->get();
 
-        return view('course_package_benefit.edit', [
+        return view('course_package_benefit.editv3', [
             'currentData' => $currentData,
             'allCoursePackages' => $allCoursePackages,
             'idCPB' => $idCPB,
@@ -106,10 +106,11 @@ class CoursePackageBenefitController extends Controller
 
     function postEditCoursePackageBenefit(Request $request)
     {
-        // dd($request);
+        // Validasi input
         $validated = $request->validate([
-            'name' => 'required',
-            'course_package_id' => 'required'
+            'name' => 'required|string|max:255',
+            'course_package_id' => 'required|exists:course_package,id',
+            'description' => 'nullable|string',
         ]);
 
         if ($validated) {
@@ -129,21 +130,13 @@ class CoursePackageBenefitController extends Controller
             // }
 
             if ($updated) {
-                // dd($request->course_package_id);
-                if ($request->filled('idCPB')) {
-                    app(HelperController::class)->Positive('getCoursePackageBenefit', ['id' => $request->course_package_id]);
-                    return redirect()->route('getCoursePackageBenefit', ['id' => $request->course_package_id]);
-                } else {
-                    return app(HelperController::class)->Positive('getCoursePackageBenefit', ['id' => $request->course_package_id]);
-                }
-
+                // Redirect kembali dengan parameter course_id dan page_type
+                return redirect()->route('getCoursePackageBenefit', [
+                    'course_id' => $request->course_id,
+                    'page_type' => $request->page_type
+                ])->with('success', 'Course Package Benefit updated successfully.');
             } else {
-                if ($request->filled('idCPB')) {
-                    app(HelperController::class)->Negative('getCoursePackageBenefit', ['id' => $request->course_package_id]);
-                    return redirect()->route('getCoursePackageBenefit', ['id' => $request->course_package_id]);
-                } else {
-                    return app(HelperController::class)->Negative('getCoursePackageBenefit', ['id' => $request->course_package_id]);
-                }
+                return redirect()->back()->with('error', 'Failed to update Course Package Benefit.');
             }
         }
 
