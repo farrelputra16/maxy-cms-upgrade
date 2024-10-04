@@ -73,6 +73,7 @@
             updateStylesheet("app-style", baseUrl + "assets/css/app.min.css");
             s("html").attr("data-bs-theme", "light");
             sessionStorage.setItem("is_visited", "light-mode-switch");
+            window.location.reload();
         } else if (
             1 == s("#dark-mode-switch").prop("checked") &&
             "dark-mode-switch" === e
@@ -86,6 +87,7 @@
             updateStylesheet("app-style", baseUrl + "assets/css/app.min.css");
             s("html").attr("data-bs-theme", "dark");
             sessionStorage.setItem("is_visited", "dark-mode-switch");
+            window.location.reload();
         }
     }
 

@@ -33,7 +33,8 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form action="{{ route('postEditVoucher', ['id' => request()->query('id')])}}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('postEditVoucher', ['id' => request()->query('id')]) }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
@@ -45,48 +46,48 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Code</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="code"
-                                    value="{{ $currentData->nickname }}" id="code">
+                                <input class="form-control" type="text" name="code" value="{{ $currentData->code }}"
+                                    id="code">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Waktu Mulai</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="datetime-local" name="start_date" id="start_date" value="{{ $currentData->start_date }}">
+                                <input class="form-control" type="datetime-local" name="start_date" id="start_date"
+                                    value="{{ $currentData->start_date }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Waktu Berakhir</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="datetime-local" name="end_date" id="end_date" value="{{ $currentData->end_date }}">
+                                <input class="form-control" type="datetime-local" name="end_date" id="end_date"
+                                    value="{{ $currentData->end_date }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Discount Type</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="discount_type" id="type_selector">
-                                    @if ($currentData->discount_type == 'PERCENTAGE')
-                                    <option value="PERCENTAGE">PERCENTAGE</option>
-                                    <option value="FIXED">FIXED</option>
-                                    @elseif ($currentData->discount_type == 'FIXED')
-                                    <option value="PERCENTAGE">PERCENTAGE</option>
-                                    <option value="FIXED">FIXED</option>
-                                    @endif
+                                    <option value="PERCENTAGE"
+                                        {{ $currentData->discount_type == 'PERCENTAGE' ? 'selected' : '' }}>PERCENTAGE
+                                    </option>
+                                    <option value="FIXED" {{ $currentData->discount_type == 'FIXED' ? 'selected' : '' }}>
+                                        FIXED</option>
                                 </select>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Discount</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name" value="{{ $currentData->discount }}"
-                                    id="name">
+                                <input class="form-control" type="text" name="discount"
+                                    value="{{ $currentData->discount }}" id="discount">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Max Discount</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="maxdiscount" value="{{ $currentData->max_discount }}"
-                                    id="name">
+                                <input class="form-control" type="number" name="max_discount"
+                                    value="{{ $currentData->max_discount }}" id="name">
                             </div>
                         </div>
                         <div class="mb-3 row">

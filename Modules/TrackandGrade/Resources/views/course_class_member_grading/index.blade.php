@@ -208,11 +208,11 @@
     <!-- end content -->
 
     <!-- FAB add starts -->
-    <div id="floating-whatsapp-button">
+    {{-- <div id="floating-whatsapp-button">
         <a href="{{ route('getAddBlog') }}" target="_blank">
             <i class="fas fa-plus"></i>
         </a>
-    </div>
+    </div> --}}
     <!-- FAB add ends -->
 
 @endsection
