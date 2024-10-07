@@ -45,7 +45,7 @@
                                 <th>Logo</th>
                                 <th>Type</th>
                                 <th>URL</th>
-                                <th>Address</th>
+                                <th class="data-medium">Address</th>
                                 <th>Phone</th>
                                 <th>Email</th>
                                 <th>Contact Person</th>
@@ -76,11 +76,23 @@
                                     </td>
                                     <td>{{ $item->type }}</td>
                                     <td>{{ $item->url }}</td>
-                                    <td>{{ $item->address }}</td>
-                                    <td>{{ $item->phone }}</td>
-                                    <td>{{ $item->email }}</td>
-                                    <td>{{ $item->contact_person }}</td>
-                                    <td>{{ $item->status_highlight }}</td>
+                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
+                                        title="{!! strip_tags($item->address) !!}">
+                                        {!! !empty($item->address) ? \Str::limit($item->address, 30) : '-' !!}
+                                    </td>
+                                    <td data-toggle="tooltip" data-placement="top" title="{!! strip_tags($item->phone) !!}">
+                                        {!! !empty($item->phone) ? \Str::limit($item->phone, 30) : '-' !!}
+                                    <td data-toggle="tooltip" data-placement="top" title="{!! strip_tags($item->email) !!}">
+                                        {!! !empty($item->email) ? \Str::limit($item->email, 30) : '-' !!}
+                                    <td data-toggle="tooltip" data-placement="top" title="{!! strip_tags($item->contact_person) !!}">
+                                        {!! !empty($item->contact_person) ? \Str::limit($item->contact_person, 30) : '-' !!}
+                                    <td>
+                                        @if ($item->status_highlight == 1)
+                                            <button class="btn btn-success" disabled>Aktif</button>
+                                        @else
+                                            <button class="btn btn-danger" disabled>Nonaktif</button>
+                                        @endif
+                                    </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->description) !!}">
                                         {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
@@ -98,7 +110,7 @@
                                     </td>
                                     <td>
                                         {{-- <div class="btn-group"> --}}
-                                        <a href="{{ route('getEditPartner', ['id' => $item->id,]) }}"
+                                        <a href="{{ route('getEditPartner', ['id' => $item->id]) }}"
                                             class="btn btn-primary rounded">Edit</a>
                                         {{-- </div> --}}
                                     </td>
