@@ -15,14 +15,14 @@ class CarouselController extends Controller
     function getCarousel(){
         $carousels = Carousel::all();
 
-        return view('carousel.index',[
+        return view('carousel.indexv3',[
             'carousels' => $carousels
         ]);
-    
+
     }
     function getAddCarousel(){
-        
-        return view('carousel.add');
+
+        return view('carousel.addv3');
     }
 
     function postAddCarousel(Request $request){
@@ -70,7 +70,7 @@ class CarouselController extends Controller
         $idcarousel = $request->id;
         $carousel = Carousel::find($idcarousel);
 
-        return view('carousel.edit',[
+        return view('carousel.editv3',[
             'carousel' => $carousel,
         ]);
     }
