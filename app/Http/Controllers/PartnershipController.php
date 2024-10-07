@@ -15,34 +15,37 @@ use DB;
 
 class PartnershipController extends Controller
 {
-    function getPartnership(){
+    function getPartnership()
+    {
         $partnerships = Partnership::with(['Partner', 'MPartnershipType'])->get();
 
-        return view('partnership.index',[
+        return view('partnership.indexv3', [
             'partnerships' => $partnerships
         ]);
-    
+
     }
 
-    function getAddPartnership(){
+    function getAddPartnership()
+    {
         $partners = Partner::where('status', 1)->get();
         $partnership_types = MPartnershipType::where('status', 1)->get();
 
-        return view('partnership.add',[
+        return view('partnership.addv3', [
             'partners' => $partners,
             'partnership_types' => $partnership_types,
         ]);
     }
 
-    function postAddPartnership(Request $request){
+    function postAddPartnership(Request $request)
+    {
         // return dd($request);
-        $validated= $request->validate([
+        $validated = $request->validate([
             'date_start' => 'required|date|after_or_equal:today',
             'date_end' => 'required|date|after_or_equal:tomorrow',
             'file' => 'required',
         ]);
 
-        if ($validated){
+        if ($validated) {
             $file = '';
             $create = Partnership::create([
                 'm_partner_id' => $request->partner,
@@ -55,7 +58,7 @@ class PartnershipController extends Controller
                 'created_id' => Auth::user()->id,
                 'updated_id' => Auth::user()->id,
             ]);
-            if ($create){
+            if ($create) {
                 if ($request->hasFile('file')) {
                     $file = $request->file('file');
                     $file_name = $create->id;
@@ -65,10 +68,10 @@ class PartnershipController extends Controller
                     }
                     $file->move($destinationPath, $file_name);
                 }
-                $updateData = Partnership::where('id', $create->id)->update([ 'file' => $file_name ]);
-                if ($updateData){
+                $updateData = Partnership::where('id', $create->id)->update(['file' => $file_name]);
+                if ($updateData) {
                     return app(HelperController::class)->Positive('getPartnership');
-                } else{
+                } else {
                     return app(HelperController::class)->Warning('getPartnership');
                 }
             }
@@ -77,28 +80,31 @@ class PartnershipController extends Controller
             return redirect()->back()->withErrors($validated)->withInput();
     }
 
-    function getEditPartnership(Request $request){
+    function getEditPartnership(Request $request)
+    {
+
         $idpartnership = $request->id;
         $partnership = Partnership::find($idpartnership);
         $partners = Partner::where('status', 1)->get();
         $partnership_types = MPartnershipType::where('status', 1)->get();
 
-        return view('partnership.edit',[
+        return view('partnership.editv3', [
             'partnership' => $partnership,
             'partners' => $partners,
             'partnership_types' => $partnership_types,
         ]);
     }
 
-    function postEditPartnership(Request $request){//dd($request);
+    function postEditPartnership(Request $request)
+    {
         $idpartnership = $request->id;
 
-        $validated= $request->validate([
+        $validated = $request->validate([
             'date_start' => 'required|date|after_or_equal:today',
             'date_end' => 'required|date|after_or_equal:tomorrow',
         ]);
 
-        if ($validated){
+        if ($validated) {
             $updateData = Partnership::where('id', $idpartnership)
                 ->update([
                     'm_partner_id' => $request->partner,
@@ -110,7 +116,7 @@ class PartnershipController extends Controller
                     'updated_id' => Auth::user()->id,
                 ]);
 
-            if ($updateData){
+            if ($updateData) {
                 if ($request->hasFile('file')) {
                     $file = $request->file('file');
                     $file_name = $idpartnership;
@@ -121,7 +127,7 @@ class PartnershipController extends Controller
                     $file->move($destinationPath, $file_name);
                 }
                 return app(HelperController::class)->Positive('getPartnership');
-            } else{
+            } else {
                 return app(HelperController::class)->Warning('getPartnership');
             }
         } else
