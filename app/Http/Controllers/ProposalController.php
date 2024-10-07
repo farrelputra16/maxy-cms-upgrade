@@ -15,7 +15,7 @@ class ProposalController extends Controller
     function getProposal()
     {
         $proposals = Proposal::with(['User', 'MProposalStatus', 'MProposalType'])->get();
-        return view('proposal.index', compact('proposals'));
+        return view('proposal.indexv3', compact('proposals'));
     }
 
     function getEditProposal(Request $request){
@@ -23,7 +23,7 @@ class ProposalController extends Controller
         $status = MProposalStatus::where('status', 1)->get();
         //dd($currentData);
         // dd($current_course_class_proposal);
-        return view('proposal.edit', [
+        return view('proposal.editv3', [
             'currentData' => $currentData,
             'status' => $status,
         ]);
@@ -31,7 +31,7 @@ class ProposalController extends Controller
 
     function postEditProposal(Request $request){
         $idProposal = $request->id;
-    
+
         $updateData = Proposal::where('id', $idProposal)
             ->update([
                 'm_proposal_status_id' => $request->status,
