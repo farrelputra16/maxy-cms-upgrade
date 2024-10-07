@@ -8,9 +8,10 @@ use App\Models\AccessGroup;
 use App\Models\MProvince;
 use App\Models\Partner;
 use Maatwebsite\Excel\Facades\Excel;
-use DB;
 use Illuminate\Support\Facades\Auth;
 use App\Imports\UserImport;
+use App\Models\CourseClassMember;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -42,11 +43,153 @@ class UserController extends Controller
             ->where('user_id', $request->id)
             ->where('type', 'ibu')
             ->first();
-        //dd($users);
+        $members = CourseClassMember::with('courseClass.course')
+        ->where('user_id', $request->id)
+        ->get();
 
-        return view('user.profile', ['currentData' => $users, 'father' => $father, 'mother' => $mother]);
+        $courseData = []; // Initialize an array to store course and category data
+        $categoryIds = []; // Initialize an array to track category IDs that have been added
+        
+        foreach($members as $member) {
+            $courseId = $member->courseClass->course->id;
+            $categoryData = DB::table('course_category')
+                ->where('course_id', $courseId)
+                ->select('category_id')
+                ->get();
+            
+            foreach ($categoryData as $category) {
+                $categoryName = DB::table('m_category_course')
+                    ->where('id', $category->category_id)
+                    ->value('name'); // Get category name based on category_id
+
+                if (!array_key_exists($categoryName, $courseData)) {
+                    // Initialize a new category entry with the category name
+                    $courseData[$categoryName] = [
+                        'category_id' => $category->category_id,
+                        'category_name' => $categoryName,
+                        'course_names' => [] // Initialize an array for course names
+                    ];
+                }
+
+                // Add the course name to the respective category
+                if (!in_array($member->courseClass->course->name, $courseData[$categoryName]['course_names'])) {
+                    $courseData[$categoryName]['course_names'][] = $member->courseClass->course->name; // Add the course name if it's not already added
+                }
+            }
+        }
+        // dd($users);
+        $portfolios = DB::table("user_portfolio")
+            ->where("user_id", $request->id)
+            ->get();
+
+        $courses = $this->getCourseData($request);
+        $bimbinganData = $this->getBimbinganData($request);
+
+        return view('user.profile', ['currentData' => $users, 'father' => $father, 'mother' => $mother, 'courseData' => $courseData, 'portfolios' => $portfolios, 'bimbinganData' => $bimbinganData, 'courses' => $courses]);
     }
 
+    private function getCourseData($user)
+    {
+        // Ambil data CourseClassMember dengan relasi courseClass
+        $members = CourseClassMember::with('courseClass.course')
+            ->where('user_id', $user->id)
+            ->get();
+
+        $courseData = []; // Inisialisasi array untuk menyimpan data kursus dan kategori
+
+        foreach ($members as $member) {
+            // Ambil course_id dari course_class
+            $courseId = $member->courseClass->course->id;
+
+            $schedule = DB::table('schedule')
+                ->where('course_class_id', $member->course_class_id)
+                ->value('m_academic_period_id');
+
+            $periode = DB::table('m_academic_period')
+                ->where('id', $schedule)
+                ->value('name');
+
+            // Query ke tabel course_category untuk mendapatkan category_id berdasarkan course_id
+            $categoryData = DB::table('course_category')
+                ->where('course_id', $courseId)
+                ->select('category_id')
+                ->get();
+
+            // Ambil nama kategori berdasarkan category_id
+            foreach ($categoryData as $category) {
+                $categoryName = DB::table('m_category_course')
+                    ->where('id', $category->category_id)
+                    ->value('name'); // Ambil nama kategori berdasarkan category_id
+
+                $courseData[] = [
+                    'course_name' => $member->courseClass->slug,
+                    'category_id' => $category->category_id,
+                    'category_name' => $categoryName,
+                    'sks' => $member->courseClass->course->sks,
+                    'periode' => $periode
+                ];
+            }
+        }
+
+        return $courseData;
+    }
+
+    private function getBimbinganData($user)
+    {
+        $mentors = CourseClassMember::with('courseClass.course')
+            ->where('mentor_id', $user->id)
+            ->get();
+
+        $bimbinganData = []; // Inisialisasi array bimbinganData
+
+        foreach ($mentors as $mentor) {
+            $courseName = $mentor->courseClass->slug;
+
+            // Query ke tabel course_category untuk mendapatkan category_id berdasarkan course_id
+            $categoryData = DB::table('course_category')
+                ->where('course_id', $mentor->courseClass->course->id)
+                ->value('category_id');
+
+            $categoryName = DB::table('m_category_course')
+                ->where('id', $categoryData)
+                ->value('name'); // Ambil nama kategori berdasarkan category_id
+
+            $schedule = DB::table('schedule')
+                ->where('course_class_id', $mentor->course_class_id)
+                ->value('m_academic_period_id');
+
+            $periode = DB::table('m_academic_period')
+                ->where('id', $schedule)
+                ->value('name');
+
+            // Buat kombinasi key dari course_name, category_name, dan jobdesc
+            $courseCategoryJobdescKey = $courseName . '_' . $categoryName . '_' . $mentor->jobdesc;
+
+            // Cek apakah courseCategoryJobdescKey sudah ada di $bimbinganData
+            if (!isset($bimbinganData[$courseCategoryJobdescKey])) {
+                // Jika belum ada, inisialisasi data dengan jumlah mahasiswa 1
+                $bimbinganData[$courseCategoryJobdescKey] = [
+                    'category_name' => $categoryName,
+                    'course_name' => $courseName,
+                    'jobdesc' => $mentor->jobdesc,
+                    'course_id' => $mentor->courseClass->course->id,
+                    'mentor_id' => $mentor->mentor_id,
+                    'user_id' => $mentor->user_id,
+                    'jumlah_mahasiswa' => 1,
+                    'periode' => $periode
+                ];
+            } else {
+                // Jika course_name sudah ada, tambahkan jumlah mahasiswa
+                $bimbinganData[$courseCategoryJobdescKey]['jumlah_mahasiswa']++;
+            }
+        }
+
+        // Mengubah array bimbinganData dari associative array menjadi indexed array
+        $bimbinganData = array_values($bimbinganData);
+
+        return $bimbinganData;
+    }
+    
     function getAddUser()
     {
         $allAccessGroups = AccessGroup::all();
