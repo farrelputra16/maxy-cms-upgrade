@@ -4,159 +4,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css/bootstrap-multiselect.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+    <!-- Fontawesome Icons -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <!-- BoxIcons Css -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Material Design Icons Css -->
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
 
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
-    <script type="text/javascript" src="{{ asset('js/bootstrap-multiselect.js') }}"></script>
-    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
-    <script src="https://unpkg.com/alpinejs@3.13.10/dist/cdn.min.js" defer></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
-    <script type="text/javascript" src="{{ asset('js/bootstrap-multiselect.js') }}"></script>
+    <!-- Bootstrap Css -->
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+    <!-- App js -->
+    <script src="{{ asset('assets/js/plugin.js') }}"></script>
+    <!-- Custom Css -->
+    <link href="{{ asset('assets/css/datatables-custom.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/0756825c13.js" crossorigin="anonymous"></script>
+    <!-- swal -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <style>
-        @media screen and (max-width: 766px) {
-            .field {
-                text-align: left;
-                padding-left: 10px;
-            }
-        }
-
-        @media only screen and (max-width: 428px) {
-            .col-6 {
-                width: 100%;
-                padding-left: 0;
-                padding-right: 0;
-            }
-
-            h1 {
-                text-align: center;
-                font-size: 20px;
-            }
-
-            .field {
-                margin-bottom: 15px;
-            }
-
-            input[type="email"],
-            input[type="password"] {
-                width: calc(100% - 20px);
-                margin-right: 10px;
-                padding-left: 5px;
-            }
-
-            #loginBtn {
-                width: 100%;
-                margin-top: 10px;
-            }
-
-            .field a {
-                font-size: 10px;
-            }
-        }
-    </style>
-
+    <title>Login - Maxy</title>
 </head>
 
 <body>
-    <div class="row" style="height:100vh">
-        <div class="col-12 col-md-6" style="padding-top:6%; padding-left:15%;">
-            <h1
-                style="color: #000000; font-weight: 600; padding-bottom: 5px; font-family: Inter, sans-serif; letter-spacing: 2px; font-size: 64px">
-                @if (env('APP_ENV') == 'local')
-                    Bina Karya's CMS
-                @else
-                    Maxy's CMS
-                @endif
-            </h1>
-            <br>
+    <section style="height: 100vh">
+        <div class="container h-100">
+            <div class="row justify-content-center align-items-center h-100">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="overflow-hidden card">
+                        <div class="bg-primary-subtle">
+                            <div class="row">
+                                <div class="col-7 col">
+                                    <div class="text-primary p-4">
+                                        <h5 class="text-primary">Welcome Back!</h5>
+                                        <p>Sign in to continue to CMS</p>
+                                    </div>
+                                </div>
+                                <div class="col-5 align-self-end col"><img
+                                        src="{{ asset('assets/images/profile-img.png') }}" alt=""
+                                        class="img-fluid"></div>
+                            </div>
+                        </div>
+                        <div class="pt-0 card-body">
+                            <div class="auth-logo"><a class="auth-logo-light" href="/">
+                                    <div class="avatar-md profile-user-wid mb-4"><span
+                                            class="avatar-title rounded-circle bg-light"><img
+                                                src="{{ asset('assets/images/logo-m.png') }}" alt=""
+                                                class="rounded-circle" height="34"></span></div>
+                                </a><a class="auth-logo-dark" href="/">
+                                    <div class="avatar-md profile-user-wid mb-4"><span
+                                            class="avatar-title rounded-circle bg-light"><img
+                                                src="{{ asset('assets/images/logo-m.png') }}" alt=""
+                                                class="rounded-circle" height="34"></span></div>
+                                </a></div>
+                                @if ($errors->any())
+                                    <div class="alert alert-danger" role="alert">
+                                        <ul class="mb-0">
+                                            @foreach ($errors->all() as $error)
+                                                <i class="fas fa-exclamation-circle"></i> {{ $error }}</i>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
 
-            <form class="ui form" method="post" action="{{ route('login') }}">
-                @csrf
-                <div class="field" style="margin-bottom: 20px;">
-                    <label style="font-size: 28px; font-weight: bold;">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email"
-                        style="width: 100%; height: 45px; border-radius: 25px; border-color: #1533B5; border-width: 1.5px;
-                    border-style: solid; font-size: 24px; padding: 6%">
-                    @if (session('error'))
-                        <p class="text-danger">
-                            {{ session('error') }}
-                        </p>
-                    @endif
-                </div>
-
-                <div class="field" style="position: relative;">
-                    <label style="font-size: 28px; font-weight: bold; padding-bottom: 10px;">Password</label>
-                    <div style="position: relative;">
-                        <input type="password" id="pw" name="password" placeholder="Enter your password"
-                            style="width: 100%; height: 45px; border-radius: 25px; border-color: #1533B5; border-width: 1.5px;
-                        border-style: solid; font-size: 24px; padding: 6%;">
-
-                        <span style="height: 45px; margin-left: -50px;">
-                            <img src="{{ asset('uploads/eyeLogin.png') }}" alt="showPw"
-                                style="height: 100%; margin-top: 3vh" id="showPw">
-                        </span>
+                            <div class="p-2">
+                                <form class="form-horizontal" {{ route('login') }} method="post">
+                                    @csrf
+                                    <div class="mb-3"><label class="form-label form-label">Username</label><input
+                                            name="email" id="email" placeholder="Enter username" type="text"
+                                            class="form-control form-control" aria-invalid="false" value=""></div>
+                                    <div class="mb-3"><label class="form-label form-label">Password</label>
+                                        <div class="input-group auth-pass-inputgroup"><input name="password"
+                                                placeholder="Enter Password" id="password" type="password"
+                                                class="form-control" aria-invalid="false" value=""><button
+                                                class="btn btn-light " type="button" id="password-addon"><i
+                                                    class="mdi mdi-eye-outline"></i></button></div>
+                                    </div>
+                                    <div class="mt-3 d-grid"><button class="btn btn-primary btn-block "
+                                            type="submit">Log In</button></div>
+                                    {{-- <div class="mt-4 text-center">
+                                        <h5 class="font-size-14 mb-3">Sign in with</h5>
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item"><a
+                                                    class="social-list-item bg-primary text-white border-primary"
+                                                    href="/pages-login"><i class="mdi mdi-facebook"></i></a></li>
+                                            <li class="list-inline-item"><a
+                                                    class="social-list-item bg-info text-white border-info"
+                                                    href="/pages-login"><i class="mdi mdi-twitter"></i></a></li>
+                                            <li class="list-inline-item"><a
+                                                    class="social-list-item bg-danger text-white border-danger"
+                                                    href="/pages-login"><i class="mdi mdi-google"></i></a></li>
+                                        </ul>
+                                    </div> --}}
+                                    {{-- <div class="mt-4 text-center"><a class="text-muted" href="/pages-forgot-pwd"><i
+                                                class="mdi mdi-lock me-1"></i> Forgot your password?</a></div> --}}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5 text-center">
+                        <p>© 2024 Maxy Academy</p>
                     </div>
                 </div>
-
-                <div class="field" style="padding-top: 10px; text-align: right">
-                    <a href="https://wa.me/+62895631388845/?text=hello"
-                        style="font-size: 12px; color: #4056A1; font-weight: bold;">Forget
-                        Password</a>
-                </div>
-
-                <button id="loginBtn" class="ui button primary" type="submit"
-                    style="margin-top: 50px; width: 100%; background-color: #4056A1; color: #FFF; border-radius:30px; font-size: 28px;">Login</button>
-            </form>
+            </div>
         </div>
-
-        <div class="col-6" style="height:100%">
-            @if (env('APP_ENV') == 'local')
-                <img src="{{ asset('uploads/LogoMaxy.png') }}" alt="Logo" style="height:100%; padding-left:45%">
-            @else
-                <img src="{{ asset('uploads/LogoLogin.png') }}" alt="Logo" style="height:100%; padding-left:45%">
-            @endif
-        </div>
-    </div>
+    </section>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const loginBtn = document.getElementById('loginBtn');
+        const passwordInput = document.getElementById('password');
+        const passwordInputBtn = document.getElementById('password-addon');
 
-            loginBtn.addEventListener('click', function() {
-                loginBtn.style.backgroundColor = '#FBB041';
-            });
-
-            const pwInput = document.getElementById('pw');
-            const showPw = document.getElementById('showPw');
-
-            showPw.addEventListener('click', function() {
-                if (pwInput.type === 'password') {
-                    pwInput.type = 'text';
-                    showPw.src = "{{ asset('uploads/eyeLoginHidden.png') }}";
-                } else {
-                    pwInput.type = 'password';
-                    showPw.src = "{{ asset('uploads/eyeLogin.png') }}";
-                }
-            });
-        });
+        passwordInputBtn.addEventListener('click', () => {
+            passwordInput.type == 'password' ? passwordInput.type = 'text' : passwordInput.type = 'password';
+        })
     </script>
 </body>
 
