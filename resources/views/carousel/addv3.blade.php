@@ -104,7 +104,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Add Event</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Add Carousel</button>
                             </div>
                         </div>
                     </form>
