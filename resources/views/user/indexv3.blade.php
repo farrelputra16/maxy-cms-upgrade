@@ -42,13 +42,13 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Member</th>
-                                <th>Email</th>
+                                <th class="data-medium">Member</th>
+                                <th class="data-medium">Email</th>
                                 <th>Access Group</th>
-                                <th>Description</th>
+                                <th class="data-long">Description</th>
                                 <th>Date Of Birth</th>
                                 <th>Phone</th>
-                                <th>Address</th>
+                                <th class="data-long">Address</th>
                                 <th>University</th>
                                 <th>Major</th>
                                 <th>Semester</th>
@@ -74,25 +74,37 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->id }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->email }}</td>
+                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
+                                        title="{{ $item->name }}">
+                                        {!! \Str::limit($item->name, 30) !!}
+                                    </td>
+                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
+                                        title="{{ $item->email }}">
+                                        {!! \Str::limit($item->email, 30) !!}
+                                    </td>
                                     <td>{{ $item->accessgroup }}</td>
-                                    <td>{{ $item->description }}</td>
-                                    <td>{{ $item->date_of_birth }}</td>
+                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                        title="{!! strip_tags($item->description) !!}">
+                                        {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
+                                    </td>
+                                    <td>{!! !empty($item->date_of_birth) ? \Str::limit($item->date_of_birth, 30) : '-' !!}</td>
                                     <td>{{ $item->phone }}</td>
-                                    <td>{{ $item->address }}</td>
-                                    <td>{{ $item->university }}</td>
-                                    <td>{{ $item->major }}</td>
-                                    <td>{{ $item->semester }}</td>
-                                    <td>{{ $item->city }}</td>
-                                    <td>{{ $item->country }}</td>
+                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                        title="{!! strip_tags($item->address) !!}">
+                                        {!! !empty($item->address) ? \Str::limit($item->address, 30) : '-' !!}
+                                    </td>
+                                    <td>{!! !empty($item->university) ? \Str::limit($item->university, 30) : '-' !!}</td>
+                                    <td>{!! !empty($item->major) ? \Str::limit($item->major, 30) : '-' !!}</td>
+                                    <td>{!! !empty($item->semester) ? \Str::limit($item->semester, 30) : '-' !!}</td>
+                                    <td>{!! !empty($item->city) ? \Str::limit($item->city, 30) : '-' !!}</td>
+                                    <td>{!! !empty($item->country) ? \Str::limit($item->country, 30) : '-' !!}</td>
                                     <td>{{ $item->level }}</td>
-                                    <td>{{ $item->supervisor_name }}</td>
-                                    <td>{{ $item->supervisor_email }}</td>
-                                    <td>{{ $item->ipk }}</td>
-                                    <td>{{ $item->religion }}</td>
-                                    <td>{{ $item->hobby }}</td>
-                                    <td>{{ $item->citizenship_status }}</td>
+                                    <td>{!! !empty($item->supervisor_name) ? \Str::limit($item->supervisor_name, 30) : '-' !!}</td>
+                                    <td>{!! !empty($item->supervisor_email) ? \Str::limit($item->supervisor_email, 30) : '-' !!}</td>
+                                    <td>{!! !empty($item->ipk) ? \Str::limit($item->ipk, 30) : '-' !!}</td>
+                                    <td>{!! !empty($item->religion) ? \Str::limit($item->religion, 30) : '-' !!}</td>
+                                    <td>{!! !empty($item->hobby) ? \Str::limit($item->hobby, 30) : '-' !!}</td>
+                                    <td>{!! !empty($item->citizenship_status) ? \Str::limit($item->citizenship_status, 30) : '-' !!}</td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->created_id }}</td>
                                     <td>{{ $item->updated_at }}</td>
@@ -145,7 +157,7 @@
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
-                        </thead>
+                            </thead>
                             </tr>
                         </tfoot>
                     </table>
@@ -165,10 +177,5 @@
 @endsection
 
 @section('script')
-
-    $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-    });
-
 
 @endsection
