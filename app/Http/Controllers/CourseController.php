@@ -7,6 +7,7 @@ use App\Models\CoursePackage;
 use App\Models\MCourseType;
 use App\Models\MDifficultyType;
 use App\Models\Category;
+use App\Models\CourseCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -233,8 +234,10 @@ class CourseController extends Controller
         try {
             $updateData = Course::postEditCourse($request);
             if ($updateData) {
-                DB::table('course_category')->where('course_id', $request->id)->delete();
-                $categories = $request->input('courseCategory');
+                if(CourseCategory::where('course_id', $request->id)->exists()) {
+                    DB::table('course_category')->where('course_id', $request->id)->delete();
+                }//dd($request->all());
+               $categories = $request->input('courseCategory');
                 if ($categories) {
                     foreach ($categories as $categoryId) {
                         DB::table('course_category')->insert([
