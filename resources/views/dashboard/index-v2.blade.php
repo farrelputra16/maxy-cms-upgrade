@@ -141,7 +141,7 @@
                                             <tr>
                                                 <td>{{ $record->Partner->name }}</td>
                                                 <td>{{ $record->MPartnershipType->name }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($record->date_end)->format('Y-m-d') }}</td>
+                                                <td style="text-align: right">{{ \Carbon\Carbon::parse($record->date_end)->format('Y-m-d') }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
