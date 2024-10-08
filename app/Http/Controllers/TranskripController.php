@@ -13,6 +13,6 @@ class TranskripController extends Controller
     function getTranskrip()
     {
         $data = Transkrip::with(['User', 'CourseClass', 'MScore', 'CourseClass.Schedule.MAcademicPeriod'])->get();
-        return view('transkrip.index', compact('data'));
+        return view('transkrip.indexv3', compact('data'));
     }
 }
