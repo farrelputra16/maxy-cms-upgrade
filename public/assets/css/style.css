@@ -1,0 +1,281 @@
+#description {
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#table_content {
+    overflow-x: scroll;
+}
+
+#floating-add-button {
+    position: fixed;
+    bottom: 50px;
+    /* Sesuaikan dengan posisi vertikal yang Anda inginkan */
+    right: 70px;
+    /* Sesuaikan dengan posisi horizontal yang Anda inginkan */
+    z-index: 1000;
+    /* Pastikan z-index cukup tinggi untuk menampilkan tombol di atas elemen lain */
+}
+
+#floating-add-button a {
+    display: block;
+    background-color: #25d366;
+    color: #fff;
+    width: 60px;
+    /* Mengubah lebar tombol */
+    height: 60px;
+    /* Mengubah tinggi tombol */
+    line-height: 60px;
+    /* Mengubah vertikal teks di tengah tombol */
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    font-size: 24px;
+    /* Mengubah ukuran font teks */
+}
+
+#floating-add-button a:hover {
+    background-color: #128c7e;
+    /* Warna latar belakang tombol WhatsApp saat dihover */
+}
+
+.timeline-step {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8%;
+}
+
+.timeline-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #dc3545; /* Default merah untuk no report */
+    color: white;
+    font-size: 18px;
+    margin-right: 10px;
+    position: relative;
+}
+
+.timeline-icon.has-report {
+    background-color: #28a745; /* Hijau jika ada laporan */
+}
+
+.timeline-icon::before {
+    content: '\f00d'; /* FontAwesome X icon */
+    font-family: 'FontAwesome';
+}
+
+.timeline-icon.has-report::before {
+    content: '\f00c'; /* FontAwesome check icon */
+    font-family: 'FontAwesome';
+}
+
+.timeline-content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50%;
+}
+
+/* Mengubah kursor menjadi pointer saat hover pada kolom Grade */
+#datatable td.grade-column {
+    cursor: pointer; /* Kursor berubah menjadi pointer */
+}
+
+/* CSS untuk memusatkan teks di dalam sel tabel */
+.table td, .table th {
+    text-align: center; /* Memusatkan teks di dalam sel tabel */
+}
+
+.timeline-horizontal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Pastikan elemen vertikalnya terpusat */
+    margin: 20px 0;
+    margin-top: 10%;
+    padding: 0;
+    list-style-type: none;
+    position: relative;
+}
+
+.timeline-horizontal::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #f5c575;
+    z-index: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.timeline-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Pastikan elemen di dalamnya sejajar secara vertikal */
+    position: relative;
+    z-index: 1;
+    width: 20%;
+}
+
+.timeline-icon {
+    background: linear-gradient(145deg, #da9c41, #f0a74a);
+    border: 2px solid #f5c575;
+    border-radius: 50%;
+    width: 70px; /* Ukuran lingkaran */
+    height: 70px; /* Ukuran lingkaran */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px; /* Beri sedikit jarak dengan teks */
+    z-index: 2;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
+    background-color: #7b7a7a;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+/* Efek hover pada lingkaran */
+.timeline-icon:hover {
+    transform: scale(1.2);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Konten di bawah timeline */
+.timeline-content {
+    margin-top: 10px; /* Mengatur jarak antara lingkaran dan teks */
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    width: 120px;
+}
+
+.timeline-content p {
+    margin: 0;
+    font-size: 12px;
+    color: #6c757d;
+}
+
+/* Tambahkan ini untuk memastikan ikon selalu berada di atas teks */
+.timeline-step {
+    text-align: center; /* Pusatkan seluruh elemen di setiap langkah */
+}
+
+/* Icon Check for Report */
+.timeline-icon.has-report::before {
+    content: '\f00c'; /* FontAwesome check icon */
+    font-family: 'FontAwesome';
+    color: #ffffff; /* Warna hijau untuk centang */
+    font-size: 40px;
+    background-color: transparent; /* Tanpa background */
+    width: auto;
+    height: auto;
+}
+
+.progress-container {
+    text-align: center;
+    margin-top: 5px;
+    cursor: pointer; /* Menunjukkan bahwa elemen bisa diklik */
+    position: relative; /* Tambahkan relative positioning untuk hover-text */
+}
+
+.circular-progress {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    background: conic-gradient(#da9c41 0% 25%, #ccc 25% 100%); /* Default 25% */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 25%;
+    transition: background 0.3s ease; /* Transisi halus saat hover */
+}
+
+.circular-progress:hover {
+    background: conic-gradient(#da9c41 0% 100%, #ccc 100% 100%); /* Warna saat di-hover */
+}
+
+.circular-progress:hover .progress-value {
+    opacity: 0; /* Sembunyikan progress-value dengan transparansi saat hover */
+}
+
+.circular-progress:hover .hover-text {
+    opacity: 1; /* Tampilkan teks saat hover dengan transparansi */
+    visibility: visible; /* Pastikan teks terlihat */
+}
+
+.progress-value {
+    position: absolute;
+    font-size: 10px;
+    font-weight: bold;
+    transition: opacity 0.3s ease; /* Transisi halus untuk opacity */
+}
+
+.hover-text {
+    position: absolute;
+    font-size: 8px; /* Sedikit lebih besar untuk keterbacaan */
+    color: #fff; /* Warna teks putih agar kontras dengan latar belakang */
+    background-color: #2a3042; /* Latar belakang gelap untuk kontras */
+    border-radius: 15px; /* Sudut melengkung untuk tampilan yang lebih lembut */
+    padding: 5px 10px; /* Spasi di sekitar teks */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Bayangan untuk memberikan efek kedalaman */
+    z-index: 1;
+    width: 50px; /* Lebar teks yang lebih besar */
+    height: 50px; /* Tinggi yang sama dengan progress circle */
+    display: flex;
+    align-items: center; /* Pusatkan teks secara vertikal */
+    justify-content: center; /* Pusatkan teks secara horizontal */
+    opacity: 0; /* Mulai dengan teks tersembunyi */
+    visibility: hidden; /* Mulai dengan teks tersembunyi */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Transisi halus untuk opacity dan visibility */
+}
+
+.circular-progress::before {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.alert {
+    padding: 15px; /* Kurangi padding agar lebih sederhana */
+    border-radius: 5px; /* Sedikit border-radius untuk halus */
+    font-size: 14px; /* Ukuran font lebih kecil untuk tampilan yang rapi */
+}
+
+.alert ul {
+    margin: 0; /* Hilangkan margin pada ul */
+    padding-left: 15px; /* Sedikit padding pada list */
+}
+
+.alert li {
+    list-style-type: none; /* Hilangkan tanda list untuk tampilan lebih bersih */
+}
+
+.alert-danger {
+    background-color: #f8d7da; /* Warna latar belakang soft */
+    border-color: #f5c2c7; /* Warna border soft */
+    color: #842029; /* Warna teks merah sederhana */
+}
