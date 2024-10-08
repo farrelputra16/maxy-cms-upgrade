@@ -78,7 +78,7 @@
                             <div class="p-2">
                                 <form class="form-horizontal" {{ route('login') }} method="post">
                                     @csrf
-                                    <div class="mb-3"><label class="form-label form-label">Username</label><input
+                                    <div class="mb-3"><label class="form-label form-label">Email</label><input
                                             name="email" id="email" placeholder="Enter username" type="text"
                                             class="form-control form-control" aria-invalid="false" value=""></div>
                                     <div class="mb-3"><label class="form-label form-label">Password</label>
