@@ -27,7 +27,7 @@ class CourseController extends Controller
                 $query->where('name', 'MBKM');
             })
             ->get();
-        return view('course.MBKM.index', ['courses' => $courses]);
+        return view('course.MBKM.indexv3', ['courses' => $courses]);
     }
 
     function getAddCourse()
@@ -52,7 +52,7 @@ class CourseController extends Controller
         $allCourseDifficulty = MDifficultyType::all();
         $allCourseCategory = Category::where('status', 1)->get();
 
-        return view('course.MBKM.add', [
+        return view('course.MBKM.addv3', [
             'allPackagePrices' => $allPackagePrices,
             'allCourseTypes' => $allCourseTypes,
             'allCourseDifficulty' => $allCourseDifficulty,
@@ -69,8 +69,8 @@ class CourseController extends Controller
             'type' => 'required',
             'mini_fake_price' => 'nullable|numeric',
             'mini_price' => 'nullable|numeric',
-            'credits' => 'required|numeric',
-            'duration' => 'required|numeric',
+            'credits' => 'nullable|numeric',
+            'duration' => 'nullable|numeric',
             'short_description' => 'nullable|string|max:500',
             'payment_link' => ['nullable', 'url', 'regex:/^https:\/\/.+$/'],
             'level' => 'nullable|numeric',
@@ -191,7 +191,7 @@ class CourseController extends Controller
             $allCoursePackages = CoursePackage::where('id', '!=', $currentCoursePackages->course_package_id)->get();
         }//dd($selectedCategoryId);
 
-        return view('course.MBKM.edit', [
+        return view('course.MBKM.editv3', [
             'courses' => $courses,
             'currentDataCourse' => $currentDataCourse,
             'allCourseTypes' => $allCourseTypes,
@@ -206,14 +206,15 @@ class CourseController extends Controller
 
     function postEditCourse(Request $request)
     {
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
             'type' => 'required|numeric',
             'mini_fake_price' => 'nullable|numeric',
             'mini_price' => 'nullable|numeric',
-            'credits' => 'required|numeric',
-            'duration' => 'required|numeric',
+            'credits' => 'nullable|numeric',
+            'duration' => 'nullable|numeric',
             'short_description' => 'nullable|string|max:500',
             'content' => 'nullable|string',
             'description' => 'nullable|string',
