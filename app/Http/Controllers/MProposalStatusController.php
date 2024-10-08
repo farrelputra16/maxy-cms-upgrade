@@ -11,11 +11,11 @@ class MProposalStatusController extends Controller
 {
     function getProposalStatus(){
         $MProposalStatus = MProposalStatus::all();
-        return view('m_proposal_status.index', ['MProposalStatus' => $MProposalStatus]);
+        return view('m_proposal_status.indexv3', ['MProposalStatus' => $MProposalStatus]);
     }
 
     function getAddProposalStatus(){
-        return view('m_proposal_status.add');
+        return view('m_proposal_status.addv3');
     }
 
     function postAddProposalStatus(Request $request){
@@ -41,7 +41,7 @@ class MProposalStatusController extends Controller
 
     function getEditProposalStatus(Request $request){
         $currentData = MProposalStatus::find($request->id);
-        return view('m_proposal_status.edit', ['currentData' => $currentData]);
+        return view('m_proposal_status.editv3', ['currentData' => $currentData]);
     }
 
     function postEditProposalStatus(Request $request){
