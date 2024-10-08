@@ -68,6 +68,13 @@
                                 <textarea id="elm1" name="description"></textarea>
                             </div>
                         </div>
+                        <!-- Input for Job Description -->
+                        <div class="mb-3 row">
+                            <label for="jobdesc" class="col-md-2 col-form-label">Job Description</label>
+                            <div class="col-md-10">
+                                <input type="text" name="jobdesc" id="jobdesc" class="form-control" value="" placeholder="Enter Job Description">
+                            </div>
+                        </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">

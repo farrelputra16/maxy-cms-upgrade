@@ -40,6 +40,7 @@
                         @csrf
                         <input type="hidden" name="id" value="{{ $courseClassMember->id }}">
                         <input type="hidden" name="cc_id" value="{{ $courseClassMember->course_class_id }}">
+                        <input type="hidden" name="mentor_id" value="{{ $users }}">
 
                         <div class="mb-3 row">
                             <label for="dailyScore" class="col-md-2 col-form-label">Daily Score</label>
@@ -118,6 +119,17 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <!-- Input for Job Description -->
+                        @if($mentor != 2)    
+                            <div class="mb-3 row">
+                                <label for="jobdesc" class="col-md-2 col-form-label">Job Description</label>
+                                <div class="col-md-10">
+                                    <input type="text" name="jobdesc" id="jobdesc" class="form-control" value="{{ $courseClassMember->jobdesc }}" placeholder="Enter Job Description">
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">

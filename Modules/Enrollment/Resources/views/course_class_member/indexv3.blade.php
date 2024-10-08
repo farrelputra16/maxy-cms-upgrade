@@ -51,6 +51,7 @@
                                 <th>Updated At</th>
                                 <th>Updated Id</th>
                                 <th>Status</th>
+                                <th>Jobdesc</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -76,6 +77,14 @@
                                         @endif
                                     </td>
                                     <td>
+                                        {{-- Tampilkan jobdesc jika user_id ada di mentor_id --}}
+                                        @if ($item->jobdesc != null)
+                                            {{ $item->jobdesc }}
+                                        @else
+                                            <p>Tidak ada jobdesc</p>
+                                        @endif
+                                    </td>
+                                    <td>
                                         {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditCourseClassMember', $item->id) }}"
                                             class="btn btn-primary rounded">Edit</a>
@@ -97,6 +106,7 @@
                                 <th>Updated At</th>
                                 <th>Updated Id</th>
                                 <th>Status</th>
+                                <th>Jobdesc</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>

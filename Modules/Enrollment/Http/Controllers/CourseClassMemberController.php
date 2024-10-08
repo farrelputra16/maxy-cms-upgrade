@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Modules\Enrollment\Entities\CourseClassMember;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Modules\Enrollment\Http\Requests\CourseClassMemberRequest;
 use Modules\Enrollment\Imports\CourseClassMemberImport;
 use Modules\ClassContentManagement\Entities\CourseClass;
@@ -49,8 +50,6 @@ class CourseClassMemberController extends Controller
                 ->select('id', 'name', 'email')
                 ->get();
 
-        // dd($filteredUsers);
-
         return view('enrollment::course_class_member.addv3', [
             'users' => $filteredUsers,
             'course_class_detail' => $course_class_detail,
@@ -60,7 +59,6 @@ class CourseClassMemberController extends Controller
 
     function postAddCourseClassMember(Request $request)
     {
-        // dd($request->all());
 
         $users = $request->users; // Mengambil semua pengguna dari permintaan
         $courseClassId = $request->course_class;
@@ -77,11 +75,12 @@ class CourseClassMemberController extends Controller
                     'course_class_id' => $courseClassId,
                     'description' => $request->description,
                     'mentor_id' => $request->mentor,
+                    'jobdesc' => $request->jobdesc,
                     'status' => $request->status ? 1 : 0,
                     'created_id' => auth()->id(),
                     'updated_id' => auth()->id(),
                 ]);
-
+                
                 // create ccml user joined class
 
             }
@@ -97,12 +96,16 @@ class CourseClassMemberController extends Controller
 
     function getEditCourseClassMember(Request $request, CourseClassMember $courseClassMember)
     {
-        return view('enrollment::course_class_member.editv3', compact('courseClassMember'));
+        $users = $courseClassMember->user_id;
+        // dd($courseClassMember);
+        $mentor = User::where('id', $users)
+            ->value('access_group_id');
+
+        return view('enrollment::course_class_member.editv3', compact('courseClassMember', 'users', 'mentor'));
     }
 
     function postEditCourseClassMember(Request $request)
     {
-        // dd($request->all());
         $update = CourseClassMember::where('id', $request->id)
         ->update([
             'daily_score' => $request->daily_score,
@@ -111,13 +114,14 @@ class CourseClassMemberController extends Controller
             'hackathon_2_score' => $request->hackathon_2_score,
             'internship_score' => $request->internship_score,
             'final_score' => $request->final_score,
+            'jobdesc' => $request->jobdesc,
             'description' => $request->description,
             'status' => $request->status ? 1 : 0,
             'updated_at' => now(),
             'updated_id' => Auth::user()->id,
         ]);
 
-        if($update){
+        if($update) {
             return redirect()->route('getCourseClassMember', ['id' => $request->cc_id])->with('success', 'Member data updated successfully');
         } else {
             return redirect()->route('getCourseClassMember', ['id' => $request->cc_id])->with('error', 'Failed to update member data');

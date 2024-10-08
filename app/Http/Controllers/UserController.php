@@ -136,18 +136,23 @@ class UserController extends Controller
 
     private function getBimbinganData($user)
     {
-        $mentors = CourseClassMember::with('courseClass.course')
+        $members = CourseClassMember::with('courseClass.course')
             ->where('mentor_id', $user->id)
             ->get();
 
         $bimbinganData = []; // Inisialisasi array bimbinganData
 
-        foreach ($mentors as $mentor) {
-            $courseName = $mentor->courseClass->slug;
+        foreach ($members as $member) {
+            $courseName = $member->courseClass->slug;
+
+            $mentorJob = CourseClassMember::with('courseClass.course')
+            ->where('course_class_id', $member->course_class_id)
+            ->where('user_id', $user->id)
+            ->value('jobdesc');
 
             // Query ke tabel course_category untuk mendapatkan category_id berdasarkan course_id
             $categoryData = DB::table('course_category')
-                ->where('course_id', $mentor->courseClass->course->id)
+                ->where('course_id', $member->courseClass->course->id)
                 ->value('category_id');
 
             $categoryName = DB::table('m_category_course')
@@ -155,7 +160,7 @@ class UserController extends Controller
                 ->value('name'); // Ambil nama kategori berdasarkan category_id
 
             $schedule = DB::table('schedule')
-                ->where('course_class_id', $mentor->course_class_id)
+                ->where('course_class_id', $member->course_class_id)
                 ->value('m_academic_period_id');
 
             $periode = DB::table('m_academic_period')
@@ -163,24 +168,24 @@ class UserController extends Controller
                 ->value('name');
 
             // Buat kombinasi key dari course_name, category_name, dan jobdesc
-            $courseCategoryJobdescKey = $courseName . '_' . $categoryName . '_' . $mentor->jobdesc;
+            $courseCategory = $courseName . '_' . $categoryName;
 
-            // Cek apakah courseCategoryJobdescKey sudah ada di $bimbinganData
-            if (!isset($bimbinganData[$courseCategoryJobdescKey])) {
+            // Cek apakah courseCategory sudah ada di $bimbinganData
+            if (!isset($bimbinganData[$courseCategory])) {
                 // Jika belum ada, inisialisasi data dengan jumlah mahasiswa 1
-                $bimbinganData[$courseCategoryJobdescKey] = [
+                $bimbinganData[$courseCategory] = [
                     'category_name' => $categoryName,
                     'course_name' => $courseName,
-                    'jobdesc' => $mentor->jobdesc,
-                    'course_id' => $mentor->courseClass->course->id,
-                    'mentor_id' => $mentor->mentor_id,
-                    'user_id' => $mentor->user_id,
+                    'course_id' => $member->courseClass->course->id,
+                    'mentor_id' => $member->mentor_id,
+                    'jobdesc' => $mentorJob,
+                    'user_id' => $member->user_id,
                     'jumlah_mahasiswa' => 1,
                     'periode' => $periode
                 ];
             } else {
                 // Jika course_name sudah ada, tambahkan jumlah mahasiswa
-                $bimbinganData[$courseCategoryJobdescKey]['jumlah_mahasiswa']++;
+                $bimbinganData[$courseCategory]['jumlah_mahasiswa']++;
             }
         }
 

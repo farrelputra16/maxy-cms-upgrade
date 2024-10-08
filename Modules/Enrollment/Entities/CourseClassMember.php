@@ -34,6 +34,7 @@ class CourseClassMember extends Model
                 ->select(
                     'course_class_member.id AS id',
                     'course_class_member.description AS description',
+                    'course_class_member.jobdesc AS jobdesc',
                     'course_class_member.status AS status',
                     'course_class_member.created_at AS created_at',
                     'course_class_member.created_id AS created_id',
