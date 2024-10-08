@@ -11,11 +11,11 @@ class MProposalTypeController extends Controller
 {
     function getProposalType(){
         $MProposalType = MProposalType::all();
-        return view('m_proposal_type.index', ['MProposalType' => $MProposalType]);
+        return view('m_proposal_type.indexv3', ['MProposalType' => $MProposalType]);
     }
 
     function getAddProposalType(){
-        return view('m_proposal_type.add');
+        return view('m_proposal_type.addv3');
     }
 
     function postAddProposalType(Request $request){
@@ -41,7 +41,7 @@ class MProposalTypeController extends Controller
 
     function getEditProposalType(Request $request){
         $currentData = MProposalType::find($request->id);
-        return view('m_proposal_type.edit', ['currentData' => $currentData]);
+        return view('m_proposal_type.editv3', ['currentData' => $currentData]);
     }
 
     function postEditProposalType(Request $request){
