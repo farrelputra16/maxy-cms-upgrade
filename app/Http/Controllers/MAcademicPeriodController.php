@@ -11,11 +11,11 @@ class MAcademicPeriodController extends Controller
 {
     function getAcademicPeriod(){
         $MAcademicPeriod = MAcademicPeriod::all();
-        return view('m_academic_period.index', ['MAcademicPeriod' => $MAcademicPeriod]);
+        return view('m_academic_period.indexv3', ['MAcademicPeriod' => $MAcademicPeriod]);
     }
 
     function getAddAcademicPeriod(){
-        return view('m_academic_period.add');
+        return view('m_academic_period.addv3');
     }
 
     function postAddAcademicPeriod(Request $request){
@@ -45,7 +45,7 @@ class MAcademicPeriodController extends Controller
 
     function getEditAcademicPeriod(Request $request){
         $currentData = MAcademicPeriod::find($request->id);
-        return view('m_academic_period.edit', ['currentData' => $currentData]);
+        return view('m_academic_period.editv3', ['currentData' => $currentData]);
     }
 
     function postEditAcademicPeriod(Request $request){
