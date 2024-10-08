@@ -49,14 +49,14 @@ class UserController extends Controller
 
         $courseData = []; // Initialize an array to store course and category data
         $categoryIds = []; // Initialize an array to track category IDs that have been added
-        
+
         foreach($members as $member) {
             $courseId = $member->courseClass->course->id;
             $categoryData = DB::table('course_category')
                 ->where('course_id', $courseId)
                 ->select('category_id')
                 ->get();
-            
+
             foreach ($categoryData as $category) {
                 $categoryName = DB::table('m_category_course')
                     ->where('id', $category->category_id)
@@ -194,7 +194,7 @@ class UserController extends Controller
 
         return $bimbinganData;
     }
-    
+
     function getAddUser()
     {
         $allAccessGroups = AccessGroup::all();
@@ -217,6 +217,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users,email|email',
+            'phone' => 'required|regex:/^[0-9]{10,15}$/',
             'password' => 'required|min:5',
             'access_group' => 'required',
         ]);
@@ -294,6 +295,7 @@ class UserController extends Controller
         $validate = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
+            'phone' => 'required|regex:/^[0-9]{10,15}$/',
             'password' => 'required',
             'access_group' => 'required',
         ]);

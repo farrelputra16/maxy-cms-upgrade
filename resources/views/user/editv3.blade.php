@@ -77,7 +77,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Phone</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="phone" value="{{ $currentData->phone }}"
-                                    id="phone">
+                                    id="phone" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @if ($errors->has('phone'))
                                     @foreach ($errors->get('phone') as $error)
                                         <span style="color: red;">{{ $error }}</span>
