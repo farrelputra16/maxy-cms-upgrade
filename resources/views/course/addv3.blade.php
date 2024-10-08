@@ -39,11 +39,12 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name"" id="name" placeholder="Masukkan Nama Course">
+                                <input class="form-control" type="text" name="name"" id="name"
+                                    placeholder="Masukkan Nama Course">
                                 @if ($errors->has('name'))
-                                @foreach ($errors->get('name') as $error)
-                                <span style="color: red;">{{ $error }}</span>
-                                @endforeach
+                                    @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
                                 @endif
                             </div>
                         </div>
@@ -52,9 +53,9 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug"" id="slug">
                                 @if ($errors->has('slug'))
-                                @foreach ($errors->get('slug') as $error)
-                                <span style="color: red;">{{ $error }}</span>
-                                @endforeach
+                                    @foreach ($errors->get('slug') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
                                 @endif
                             </div>
                         </div>
@@ -73,8 +74,7 @@
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Difficulty</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="level"
-                                    data-placeholder="Choose ...">
+                                <select class="form-control select2" name="level" data-placeholder="Choose ...">
                                     <option>Select</option>
                                     @foreach ($allCourseDifficulty as $item)
                                         <option value="{{ $item->id }}"> {{ $item->name }} </option>
@@ -85,25 +85,38 @@
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Course Type</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="type"
-                                    data-placeholder="Choose ..." id="type_selector">
+                                <select class="form-control select2" name="type" data-placeholder="Choose ..."
+                                    id="type_selector">
                                     <option>-- Pilih Tipe Course --</option>
                                     @foreach ($allCourseTypes as $item)
                                         <option value="{{ $item->id }}"> {{ $item->name }} </option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('type'))
-                                @foreach ($errors->get('type') as $error)
-                                <span style="color: red;">{{ $error }}</span>
-                                @endforeach
+                                    @foreach ($errors->get('type') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
                                 @endif
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="input-tag" class="col-md-2 col-form-label">Course Category</label>
+                            <div class="col-md-10">
+                                <select class="form-control select2 multiple" name="courseCategory[]" data-placeholder="Choose ..."
+                                    id="type_selector" multiple="multiple">
+                                    @foreach ($allCourseCategory as $courseCategory)
+                                        <option value="{{ $courseCategory->id }}">{{ $courseCategory->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="input-short-description" class="col-md-2 col-form-label">Short Description</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="short_description" id="short_description" placeholder="Masukkan Short Description">
+                                <input class="form-control" type="text" name="short_description" id="short_description"
+                                    placeholder="Masukkan Short Description">
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -115,13 +128,15 @@
                         <div class="mb-3 row">
                             <label for="input-duration" class="col-md-2 col-form-label">Duration</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="duration" id="duration" value="">
+                                <input class="form-control" type="number" name="duration" id="duration"
+                                    value="">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-file" class="col-md-2 col-form-label">Image</label>
                             <div class="col-md-10" style="height: 200px">
-                                <input class="form-control" type="file" name="file_image" id="input-file" accept="image/*" onchange="previewImage()">
+                                <input class="form-control" type="file" name="file_image" id="input-file"
+                                    accept="image/*" onchange="previewImage()">
                                 <img id="frame" src="" alt="Preview Image" class="img-fluid h-100" />
                             </div>
                         </div>
@@ -169,88 +184,88 @@
 
         // preview image
         function previewImage() {
-        const input = document.getElementById('input-file');
-        const frame = document.getElementById('frame');
+            const input = document.getElementById('input-file');
+            const frame = document.getElementById('frame');
 
-        // Check if a file is selected and it's an image
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
+            // Check if a file is selected and it's an image
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
 
-            // Event listener for when the file is read
-            reader.onload = function(e) {
-                frame.src = e.target.result; // Set the image source to the file
+                // Event listener for when the file is read
+                reader.onload = function(e) {
+                    frame.src = e.target.result; // Set the image source to the file
+                }
+
+                // Read the selected file as a Data URL (base64)
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        if ($('#type_selector').val() == '') {
+            $("#show_course_package").hide();
+            $("#show_course_mini_price").hide();
+            $("#show_course_mini_fake_price").hide();
+        }
+        $('#type_selector').change(function() {
+            var responseID = $(this).val();
+            if (responseID == 1) {
+                $("#show_course_mini_fake_price").hide();
+                $("#show_course_mini_price").hide();
+                $("#show_course_package").show();
+            } else if (responseID == 3) {
+                $("#show_course_mini_fake_price").show();
+                $("#show_course_mini_price").show();
+                $("#show_course_package").hide();
+            } else {
+                $("#show_course_mini_fake_price").hide();
+                $("#show_course_mini_price").hide();
+                $("#show_course_package").hide();
+            }
+        })
+
+        var rupiah = document.getElementById('mini_price');
+        rupiah.addEventListener('keyup', function(e) {
+            rupiah.value = formatRupiah(this.value, 'Rp. ');
+        });
+
+        function formatRupiah(angka, prefix) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
             }
 
-            // Read the selected file as a Data URL (base64)
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    if ($('#type_selector').val() == '') {
-    $("#show_course_package").hide();
-    $("#show_course_mini_price").hide();
-    $("#show_course_mini_fake_price").hide();
-    }
-    $('#type_selector').change(function() {
-        var responseID = $(this).val();
-        if (responseID == 1) {
-            $("#show_course_mini_fake_price").hide();
-            $("#show_course_mini_price").hide();
-            $("#show_course_package").show();
-        } else if (responseID == 3) {
-            $("#show_course_mini_fake_price").show();
-            $("#show_course_mini_price").show();
-            $("#show_course_package").hide();
-        } else {
-            $("#show_course_mini_fake_price").hide();
-            $("#show_course_mini_price").hide();
-            $("#show_course_package").hide();
-        }
-    })
-
-    var rupiah = document.getElementById('mini_price');
-    rupiah.addEventListener('keyup', function(e) {
-        rupiah.value = formatRupiah(this.value, 'Rp. ');
-    });
-
-    function formatRupiah(angka, prefix) {
-        var number_string = angka.replace(/[^,\d]/g, '').toString(),
-            split = number_string.split(','),
-            sisa = split[0].length % 3,
-            rupiah = split[0].substr(0, sisa),
-            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-        if (ribuan) {
-            separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
         }
 
-        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-    }
+        var rupiah1 = document.getElementById('fake_price');
+        rupiah1.addEventListener('keyup', function(e) {
+            rupiah1.value = formatRupiah(this.value, 'Rp. ');
+        });
 
-    var rupiah1 = document.getElementById('fake_price');
-    rupiah1.addEventListener('keyup', function(e) {
-        rupiah1.value = formatRupiah(this.value, 'Rp. ');
-    });
+        function formatRupiah(angka, prefix) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah1 = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
 
-    function formatRupiah(angka, prefix) {
-        var number_string = angka.replace(/[^,\d]/g, '').toString(),
-            split = number_string.split(','),
-            sisa = split[0].length % 3,
-            rupiah1 = split[0].substr(0, sisa),
-            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah1 += separator + ribuan.join('.');
+            }
 
-        if (ribuan) {
-            separator = sisa ? '.' : '';
-            rupiah1 += separator + ribuan.join('.');
+            rupiah1 = split[1] != undefined ? rupiah1 + ',' + split[1] : rupiah1;
+            return prefix == undefined ? rupiah1 : (rupiah1 ? 'Rp. ' + rupiah1 : '');
         }
 
-        rupiah1 = split[1] != undefined ? rupiah1 + ',' + split[1] : rupiah1;
-        return prefix == undefined ? rupiah1 : (rupiah1 ? 'Rp. ' + rupiah1 : '');
-    }
-
-    CKEDITOR.replace('content');
-    CKEDITOR.replace('description');
+        CKEDITOR.replace('content');
+        CKEDITOR.replace('description');
     </script>
 @endsection

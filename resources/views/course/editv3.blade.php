@@ -99,7 +99,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Type</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Course Type</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="type" id="type_selector"
                                     data-placeholder="Choose ...">
@@ -111,6 +111,19 @@
                                     @endif
                                     @foreach ($allCourseTypes as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="input-tag" class="col-md-2 col-form-label">Course Category</label>
+                            <div class="col-md-10">
+                                <select class="form-control select2 multiple" name="courseCategory[]"
+                                    data-placeholder="Choose ..." id="type_selector" multiple="multiple">
+                                    @foreach ($allCourseCategory as $courseCategory)
+                                        <option value="{{ $courseCategory->id }}"
+                                            @if ($selectedCategoryId->contains('category_id', $courseCategory->id)) selected @endif>{{ $courseCategory->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -138,7 +151,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-duration" class="col-md-2 col-form-label">duration</label>
+                            <label for="input-duration" class="col-md-2 col-form-label">Duration</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration" id="duration"
                                     value="{{ $currentDataCourse ? $currentDataCourse->duration : '' }}">
