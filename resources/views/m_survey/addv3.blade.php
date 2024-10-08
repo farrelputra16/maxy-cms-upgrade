@@ -3,8 +3,8 @@
 @section('title', 'Add Survey')
 
 @section('style')
-<!-- survey builder -->
-<script src="https://unpkg.com/knockout/build/output/knockout-latest.js"></script>
+    <!-- survey builder -->
+    {{-- <script src="https://unpkg.com/knockout/build/output/knockout-latest.js"></script>
 <script src="https://unpkg.com/survey-core@1.10.5/survey.core.min.js"></script>
 <script src="https://unpkg.com/survey-core@1.10.5/survey.i18n.min.js"></script>
 <script src="https://unpkg.com/survey-core@1.10.5/themes/index.min.js"></script>
@@ -13,7 +13,18 @@
 <script src="https://unpkg.com/survey-creator-core@1.10.5/survey-creator-core.i18n.min.js"></script>
 <script src="https://unpkg.com/survey-creator-knockout@1.10.5/survey-creator-knockout.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/survey-core@1.10.5/defaultV2.css" />
-<link rel="stylesheet" href="https://unpkg.com/survey-creator-core@1.10.5/survey-creator-core.css" />
+<link rel="stylesheet" href="https://unpkg.com/survey-creator-core@1.10.5/survey-creator-core.css" /> --}}
+
+    <script src="{{ asset('assets/cms-v3/libs/knockout/build/output/knockout-latest.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/survey-core/survey.core.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/survey-core/survey.i18n.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/survey-core/themes/index.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/survey-knockout-ui/survey-knockout-ui.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/survey-creator-core/survey-creator-core.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/survey-creator-core/survey-creator-core.i18n.min.js') }}"></script>
+    <script src="{{ asset('assets/cms-v3/libs/survey-creator-knockout/survey-creator-knockout.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('assets/cms-v3/libs/survey-core/defaultV2.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/cms-v3/libs/survey-creator-core/survey-creator-core.css') }}" />
 @endsection
 
 @section('content')
@@ -95,7 +106,7 @@
                         </div>
                         <div class="mb-3 row">
                             <input type="hidden" name='survey' id='survey'>
-                            <div id="surveyCreatorContainer" style="position: absolute; height: 100%; width: 100%">
+                            <div id="surveyCreatorContainer" style="position: relative; height: 100%; width: 100%">
                             </div>
                         </div>
                         <div class="mb-3 row justify-content-end">
@@ -112,27 +123,35 @@
 @endsection
 
 @section('script')
-<script>
-    // const options = {
-    //     showLogicTab: true
-    // };
-    const creator = new SurveyCreator.SurveyCreator(options);
-    //Automatically save survey definition on changing. Hide "Save" button
-    creator.isAutoSave = true;
-    //Show state button here
-    creator.showState = true;
+    <script>
+        // const options = {
+        //     showLogicTab: true
+        // };
+        const creator = new SurveyCreator.SurveyCreator(options);
+        //Automatically save survey definition on changing. Hide "Save" button
+        creator.isAutoSave = true;
+        //Show state button here
+        creator.showState = true;
 
-    var localStorageName = "SaveLoadSurveyCreatorExample";
-    //Setting this callback will make visible the "Save" button
-    creator.saveSurveyFunc = (saveNo, callback) => {
-        $('#survey').val(JSON.stringify(creator.JSON));
-        console.log(JSON.stringify(creator.JSON));
-    };
+        var localStorageName = "SaveLoadSurveyCreatorExample";
+        //Setting this callback will make visible the "Save" button
+        creator.saveSurveyFunc = (saveNo, callback) => {
+            $('#survey').val(JSON.stringify(creator.JSON));
+            console.log(JSON.stringify(creator.JSON));
+        };
 
-    var defaultJSON = { pages: [{ name: 'page1', elements: [{ type: 'text', name: "q1" }] }] };
-    creator.text = window.localStorage.getItem(localStorageName) || JSON.stringify(defaultJSON);
-    //If you get JSON from your database then you can use creator.JSON property
-    // creator.JSON = "sss";
-    creator.render("surveyCreatorContainer");
-</script>
+        var defaultJSON = {
+            pages: [{
+                name: 'page1',
+                elements: [{
+                    type: 'text',
+                    name: "q1"
+                }]
+            }]
+        };
+        creator.text = window.localStorage.getItem(localStorageName) || JSON.stringify(defaultJSON);
+        //If you get JSON from your database then you can use creator.JSON property
+        // creator.JSON = "sss";
+        creator.render("surveyCreatorContainer");
+    </script>
 @endsection
