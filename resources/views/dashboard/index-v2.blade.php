@@ -177,8 +177,8 @@
                                                         {{ $class->batch }}
                                                     </td>
                                                     <td>
-                                                        <a href=""
-                                                            class="btn btn-primary waves-effect waves-light btn btn-primary">Detail</a>
+                                                        <a href="{{ route('getCourseClassModule', ['id' => $class->id, 'batch' => $class->batch]) }}"
+                                                           class="btn btn-primary waves-effect waves-light">Detail</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
