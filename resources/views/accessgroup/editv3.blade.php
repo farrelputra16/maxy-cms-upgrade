@@ -56,7 +56,7 @@
                                 <select class="form-control select2 select2-multiple" multiple="multiple"
                                     name="access_master_old[]" id="access_master_old">
                                     @foreach ($currentData as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}
+                                        <option value="{{ $key }}" selected>{{ $value }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -67,7 +67,7 @@
                             <div class="col-md-10">
                                 <select class="form-control select2 select2-multiple" multiple="multiple"
                                     name="access_master_available[]" id="access_master_available">
-                                    @foreach ($currentData as $key => $value)
+                                    @foreach ($allAccessMaster as $key => $value)
                                         <option value="{{ $key }}">{{ $value }}
                                         </option>
                                     @endforeach

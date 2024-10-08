@@ -68,13 +68,19 @@ class AccessGroupController extends Controller
     function postEditAccessGroup(Request $request)
     {
         $idAccessGroup = $request->id;
+        $access_group = AccessGroup::find($idAccessGroup);
 
-        if ($request->access_master_old && $request->access_master_available) {
-            $removeUpdate = AccessGroupDetail::RemoveUpdate($request);
+        $currentAccess = $access_group->AccessMaster()->pluck('access_master_id')->toArray();
+        $oldAccess = $request->access_master_old ?? [];
+
+        if (array_diff($currentAccess, $oldAccess) !== [] && $request->access_master_available) {
+            // $removeUpdate = AccessGroupDetail::RemoveUpdate($request);
+            $removedAccess = array_diff($currentAccess, $oldAccess);
+            $removeUpdate = $access_group->AccessMaster()->detach($removedAccess);
 
             $access_master = $request->get('access_master_available');
 
-            $access_group = AccessGroup::find($idAccessGroup);
+            // $access_group = AccessGroup::find($idAccessGroup);
 
             AccessGroup::postEditAccessGroup($request);
 
@@ -84,8 +90,10 @@ class AccessGroupController extends Controller
             } else {
                 return app(HelperController::class)->Negative('getAccessGroup');
             }
-        } else if ($request->access_master_old) {
-            $removeUpdate = AccessGroupDetail::RemoveUpdate($request);
+        } else if (array_diff($currentAccess, $oldAccess) !== []) {
+            $removedAccess = array_diff($currentAccess, $oldAccess);
+            $removeUpdate = $access_group->AccessMaster()->detach($removedAccess);
+            // $removeUpdate = AccessGroupDetail::RemoveUpdate($request);
 
             AccessGroup::postEditAccessGroup($request);
 
@@ -96,7 +104,7 @@ class AccessGroupController extends Controller
             }
         } else if ($request->access_master_available) {
             $access_master = $request->get('access_master_available');
-            $access_group = AccessGroup::find($idAccessGroup);
+            // $access_group = AccessGroup::find($idAccessGroup);
             AccessGroup::postEditAccessGroup($request);
             if ($access_group) {
                 $access_group->AccessMaster()->attach($access_master);
