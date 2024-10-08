@@ -39,8 +39,8 @@
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Course</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="course_id"
-                                data-placeholder="Choose ..." id="type_selector">
+                                <select class="form-control select2" name="course_id" data-placeholder="Choose ..."
+                                    id="type_selector">
                                     @foreach ($allCourses as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
@@ -126,6 +126,21 @@
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description"></textarea>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="ongoing" class="col-md-2 col-form-label">Ongoing</label>
+                            <div class="col-md-10">
+                                <select class="form-control select2" name="ongoing" data-placeholder="Choose ..."
+                                    id="ongoing">
+                                    <option value="" disabled selected>Choose ...</option>
+                                    <option value="0" @if (isset($course_class_detail) && $course_class_detail->status_ongoing == 0) selected @endif>Not Started
+                                    </option>
+                                    <option value="1" @if (isset($course_class_detail) && $course_class_detail->status_ongoing == 1) selected @endif>Ongoing
+                                    </option>
+                                    <option value="2" @if (isset($course_class_detail) && $course_class_detail->status_ongoing == 2) selected @endif>Completed
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
