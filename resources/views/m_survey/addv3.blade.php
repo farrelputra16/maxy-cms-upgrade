@@ -101,10 +101,9 @@
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>
+                        <br>
                         <div class="mb-3 row">
-                            <label for="" class="col-md-2 col-form-label">Survey</label>
-                        </div>
-                        <div class="mb-3 row">
+                            <h4>Survey</h4>
                             <input type="hidden" name='survey' id='survey'>
                             <div id="surveyCreatorContainer" style="position: relative; height: 100%; width: 100%">
                             </div>
