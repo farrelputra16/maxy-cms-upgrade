@@ -37,7 +37,7 @@
                         {{-- <input type="text" name="img_keep" value="{{ $blog->cover_img }}" hidden> --}}
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name</label>
+                            <label for="name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"" id="name"
                                     placeholder="Masukkan Nama Course">
@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
+                            <label for="slug" class="col-md-2 col-form-label">Slug</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug"" id="slug">
                                 @if ($errors->has('slug'))
@@ -103,20 +103,12 @@
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Course Category</label>
                             <div class="col-md-10">
-                                <select class="form-control select2 multiple" name="courseCategory[]" data-placeholder="Choose ..."
-                                    id="type_selector" multiple="multiple">
+                                <select class="form-control select2 multiple" name="courseCategory[]"
+                                    data-placeholder="Choose ..." id="type_selector" multiple="multiple">
                                     @foreach ($allCourseCategory as $courseCategory)
                                         <option value="{{ $courseCategory->id }}">{{ $courseCategory->name }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
-                            <label for="input-short-description" class="col-md-2 col-form-label">Short Description</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="short_description" id="short_description"
-                                    placeholder="Masukkan Short Description">
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -144,6 +136,12 @@
                             <label for="input-content" class="col-md-2 col-form-label">Content</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="content"></textarea>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="input-short-description" class="col-md-2 col-form-label">Short Description</label>
+                            <div class="col-md-10">
+                                <textarea id="elm1" name="short_description"></textarea>
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -176,11 +174,12 @@
 @section('script')
     <script>
         // autofill slug
-        document.getElementById('input-name').addEventListener('input', function() {
+        document.getElementById('name').addEventListener('input', function() {
             var name = this.value;
             var slug = name.toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
-            document.getElementById('input-slug').value = slug;
+            document.getElementById('slug').value = slug;
         });
+
 
         // preview image
         function previewImage() {

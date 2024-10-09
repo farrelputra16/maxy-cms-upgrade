@@ -174,19 +174,17 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
+                            <label for="input-short-description" class="col-md-2 col-form-label">Short Description</label>
+                            <div class="col-md-10">
+                                <textarea id="elm1" name="short_description">{{ strip_tags($courses->short_description) }}</textarea>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description">{{ $courses->description }}</textarea>
                             </div>
                         </div>
-                        <div class="mb-3 row">
-                            <label for="input-description" class="col-md-2 col-form-label">Short Description</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="short_description"
-                                    value="{{ strip_tags($courses->short_description) }}" id="input-description">
-                            </div>
-                        </div>
-
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
