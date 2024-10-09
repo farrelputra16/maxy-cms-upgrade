@@ -49,8 +49,8 @@
                                 <th>Quota</th>
                                 <th>Credits</th> <!-- New Column -->
                                 <th>Duration</th> <!-- New Column -->
-                                <th>Announcement</th>
-                                <th>Content</th>
+                                <th class="data-long">Announcement</th>
+                                <th class="data-long">Content</th>
                                 <th class="data-long">Description</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
@@ -80,8 +80,14 @@
                                     <td>{{ $item->quota }}</td>
                                     <td>{{ $item->credits }}</td> <!-- New Column Data -->
                                     <td>{{ sprintf('%02d:00:00', $item->duration) }}</td> <!-- New Column Data -->
-                                    <td>{!! $item->announcement ?? '-' !!}</td>
-                                    <td>{!! !empty($item->content) ? \Str::limit($item->content, 30) : '-' !!}</td>
+                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                        title="{!! strip_tags($item->announcement) !!}">
+                                        {!! !empty($item->announcement) ? \Str::limit($item->announcement, 30) : '-' !!}
+                                    </td>
+                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                        title="{!! strip_tags($item->content) !!}">
+                                        {!! !empty($item->content) ? \Str::limit($item->content, 30) : '-' !!}
+                                    </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->description) !!}">
                                         {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
