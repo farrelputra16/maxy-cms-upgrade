@@ -85,7 +85,7 @@ class UserController extends Controller
         $courses = $this->getCourseData($request);
         $bimbinganData = $this->getBimbinganData($request);
 
-        return view('user.profile', ['currentData' => $users, 'father' => $father, 'mother' => $mother, 'courseData' => $courseData, 'portfolios' => $portfolios, 'bimbinganData' => $bimbinganData, 'courses' => $courses]);
+        return view('user.profilev3', ['currentData' => $users, 'father' => $father, 'mother' => $mother, 'courseData' => $courseData, 'portfolios' => $portfolios, 'bimbinganData' => $bimbinganData, 'courses' => $courses]);
     }
 
     private function getCourseData($user)
