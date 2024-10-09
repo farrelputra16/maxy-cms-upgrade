@@ -45,7 +45,7 @@ class MSurveyController extends Controller
 
     function getEditSurvey(Request $request){
         $currentData = MSurvey::find($request->id);//dd($currentData);
-        return view('m_survey.edit', ['currentData' => $currentData]);
+        return view('m_survey.editv3', ['currentData' => $currentData]);
     }
 
     function postEditSurvey(Request $request){//dd($request->all());
