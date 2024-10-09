@@ -27,7 +27,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Class Module</h4>
+                    <h4 class="card-title">Class Module: {{ $course_detail->name }} Batch {{ $batch_number }}</h4>
                     <p class="card-title-desc">
                         This page presents a comprehensive overview of all available data, displayed in an interactive
                         and sortable DataTable format. Each row represents a unique data, providing key details such as

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
+use App\Models\Course;
 use Modules\ClassContentManagement\Entities\CourseClassModule;
 use Modules\ClassContentManagement\Entities\CourseClass;
 use App\Http\Controllers\HelperController;
@@ -29,21 +30,32 @@ class CourseClassModuleController extends Controller
     {
         $course_class_id = $request->id;
 
-        // Ambil detail kelas berdasarkan class_id dan batch
-        $class_detail = CourseClass::where('id', $course_class_id)->first();
+        // Ambil detail kelas berdasarkan class_id
+    $class_detail = CourseClass::where('id', $course_class_id)->first();
 
-        if (!$class_detail) {
-            abort(404, 'Class not found');
-        }
+    if (!$class_detail) {
+        abort(404, 'Class not found');
+    }
 
-        $course_detail = CourseClass::getCourseDetailByClassId($course_class_id);
-        $courseClassModules = CourseClassModule::getClassModuleParentByClassId($course_class_id);
+    // Ambil detail course berdasarkan course_id yang ada di class_detail
+    $course_detail = Course::find($class_detail->course_id);
+
+    if (!$course_detail) {
+        abort(404, 'Course not found');
+    }
+
+    // Ambil nama batch dari course_detail
+    $batch_number = $class_detail->batch; // Ambil nama batch langsung dari kolom course
+
+    // Ambil module berdasarkan class_id
+    $courseClassModules = CourseClassModule::getClassModuleParentByClassId($course_class_id);
 
         return view('classcontentmanagement::course_class_module.indexv3', [
             'courseclassmodules' => $courseClassModules,
             'course_class_id' => $course_class_id,
             'course_detail' => $course_detail,
             'class_detail' => $class_detail,
+            'batch_number' => $batch_number, // Mengirim detail batch ke view
         ]);
     }
 
