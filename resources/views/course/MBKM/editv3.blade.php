@@ -165,10 +165,9 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-description" class="col-md-2 col-form-label">Short Description</label>
+                            <label for="input-short-description" class="col-md-2 col-form-label">Short Description</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="short_description"
-                                    value="{{ strip_tags($courses->short_description) }}" id="input-description">
+                                <textarea id="elm1" name="short_description">{{ strip_tags($courses->short_description) }}</textarea>
                             </div>
                         </div>
                         <div class="mb-3 row">

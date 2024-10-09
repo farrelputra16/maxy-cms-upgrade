@@ -102,19 +102,12 @@
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Course Category</label>
                             <div class="col-md-10">
-                                <select class="form-control select2 multiple" name="courseCategory[]" data-placeholder="Choose ..."
-                                    id="type_selector" multiple="multiple">
+                                <select class="form-control select2 multiple" name="courseCategory[]"
+                                    data-placeholder="Choose ..." id="type_selector" multiple="multiple">
                                     @foreach ($allCourseCategory as $courseCategory)
                                         <option value="{{ $courseCategory->id }}">{{ $courseCategory->name }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-short-description" class="col-md-2 col-form-label">Short Description</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="short_description" id="short_description"
-                                    placeholder="Masukkan Short Description">
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -129,6 +122,12 @@
                             <label for="input-content" class="col-md-2 col-form-label">Content</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="content"></textarea>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="input-short-description" class="col-md-2 col-form-label">Short Description</label>
+                            <div class="col-md-10">
+                                <textarea id="elm1" name="short_description"></textarea>
                             </div>
                         </div>
                         <div class="mb-3 row">
