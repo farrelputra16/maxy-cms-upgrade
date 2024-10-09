@@ -27,8 +27,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getPartnership') }}">Partnerships</a></li>
-                        <li class="breadcrumb-item active">Edit Partnership</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getSurvey') }}">Survey</a></li>
+                        <li class="breadcrumb-item active">Edit Survey</li>
                     </ol>
                 </div>
 
@@ -42,7 +42,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Partnership</h4>
+                    <h4 class="card-title">Edit: {{ $currentData->name }}</h4>
                     <p class="card-title-desc">This page allows you to update a data's information by modifying the data
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
