@@ -130,7 +130,7 @@ class CourseController extends Controller
                             ]);
                         }
                     }
-                    return app(HelperController::class)->Positive('getCourse');
+                    return redirect()->route('getCourse')->with('success', 'Course added successfully!');
                 }
 
         } catch (\Exception $e) {
@@ -248,7 +248,7 @@ class CourseController extends Controller
                         ]);
                     }
                 }
-                return app(HelperController::class)->Positive('getCourse');
+                return redirect()->route('getCourse')->with('success', 'Course updated successfully!');
             } else {
                 return app(HelperController::class)->Warning('getCourse');
             }
