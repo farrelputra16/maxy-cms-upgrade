@@ -89,7 +89,7 @@ class VoucherController extends Controller
                 'end_date' => $request->end_date,
                 'discount_type' => $request->discount_type,
                 'discount' => $request->discount,
-                'max_discount' => $request->maxdiscount,
+                'max_discount' => $request->max_discount,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => auth()->user()->id,
