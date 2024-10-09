@@ -113,7 +113,7 @@ class AccessGroupController extends Controller
                 return app(HelperController::class)->Negative('getAccessGroup');
             }
         } else {
-            $updateOther = AccessGroupDetail::postEditAccessGroup($request);
+            $updateOther = AccessGroup::postEditAccessGroup($request);
             if ($updateOther) {
                 return app(HelperController::class)->Positive('getAccessGroup');
             }
