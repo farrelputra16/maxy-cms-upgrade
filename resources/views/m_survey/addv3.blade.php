@@ -69,7 +69,7 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Date Expired</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="datetime-local" id="expired_date" name="name">
+                                <input class="form-control" type="datetime-local" id="expired_date" name="expired_date">
                                 @if ($errors->has('expired_date'))
                                     @foreach ($errors->get('expired_date') as $error)
                                         <span style="color: red;">{{ $error }}</span>
