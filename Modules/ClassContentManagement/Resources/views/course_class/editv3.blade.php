@@ -70,6 +70,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="quota"
                                     value="{{ $course_class_detail->quota }}" id="quota">
+                                @if ($errors->has('quota'))
+                                    @foreach ($errors->get('quota') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
 
