@@ -84,10 +84,12 @@
                                     <td>
                                         <a href="{{ route('certificate-templates.edit', $certificateTemplate->id) }}"
                                             class="btn btn-primary">Edit</a>
-                                        <a href="{{ route('certificate-templates.destroy', $certificateTemplate->id) }}"
-                                            class="btn btn-danger">Delete</a>
-                                        @csrf
-                                        @method('DELETE')
+                                        <!-- Delete Form -->
+                                        <form action="{{ route('certificate-templates.destroy', $certificateTemplate->id) }}" method="POST" style="display:inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this template?')">Delete</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
