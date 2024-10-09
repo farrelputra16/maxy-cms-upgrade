@@ -53,7 +53,18 @@
                                     value="{{ $course_class_detail->batch }}" id="batch">
                             </div>
                         </div>
-
+                        <div class="mb-3 row">
+                            <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" name="slug" id="slug"
+                                    value="{{ $course_class_detail->slug }}">
+                                @if ($errors->has('slug'))
+                                    @foreach ($errors->get('slug') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
                         <div class="mb-3 row">
                             <label for="quota" class="col-md-2 col-form-label">Quota</label>
                             <div class="col-md-10">

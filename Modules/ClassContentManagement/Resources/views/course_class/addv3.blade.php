@@ -65,6 +65,17 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
+                            <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" name="slug"" id="slug">
+                                @if ($errors->has('slug'))
+                                    @foreach ($errors->get('slug') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Start Date</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="start" id="date">

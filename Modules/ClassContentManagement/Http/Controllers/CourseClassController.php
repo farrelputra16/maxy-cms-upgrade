@@ -108,7 +108,8 @@ class CourseClassController extends Controller
                         });
                     })
                     ->count();
-                $attendance_score = $totalCount > 0 ? ($absentCount / $totalCount) * 100 : 0;;
+                $attendance_score = $totalCount > 0 ? ($absentCount / $totalCount) * 100 : 0;
+                ;
                 $score = $attendance_score * $attendance_percentage / 100;
                 $course_module_percentage = CourseClassModule::with(['CourseClass', 'CourseModule'])
                     ->where('course_class_id', $request->id)
@@ -203,16 +204,21 @@ class CourseClassController extends Controller
 
     public function postAddCourseClass(Request $request)
     {
+        // Validasi input termasuk slug
         $validated = $request->validate([
             'batch' => 'required',
+            'slug' => 'required|unique:course_class,slug', // Pastikan slug unik
             'start' => 'required',
             'end' => 'required',
             'quota' => 'required|integer|gte:1'
         ]);
 
+        // Jika validasi berhasil
         if ($validated) {
+            // Input data ke database
             $create = CourseClass::create([
                 'batch' => $request->batch,
+                'slug' => $request->slug, // Slug disimpan di database
                 'credits' => $request->credits,
                 'duration' => $request->duration,
                 'start_date' => $request->start,
@@ -227,11 +233,13 @@ class CourseClassController extends Controller
                 'updated_id' => Auth::user()->id
             ]);
 
+            // Redirect atau feedback berdasarkan hasil create
             if ($create) {
                 return app(HelperController::class)->Positive('getCourseClass');
             }
         }
     }
+
 
     public function postDuplicateCourseClass(Request $request)
     {
@@ -300,15 +308,24 @@ class CourseClassController extends Controller
         ]);
     }
 
-
-    function postEditCourseClass(Request $request)
+    public function postEditCourseClass(Request $request)
     {
-        // dd($request->all());
+        // Validasi input termasuk slug
+        $validated = $request->validate([
+            'batch' => 'required',
+            'slug' => 'required|unique:course_class,slug,' . $request->id, // Slug unik kecuali milik sendiri
+            'start' => 'required',
+            'end' => 'required',
+            'quota' => 'required|integer|gte:1'
+        ]);
+
+        // Update data course class
         $courseClassId = $request->id;
 
         $updateData = CourseClass::where('id', $courseClassId)
             ->update([
                 'batch' => $request->batch,
+                'slug' => $request->slug, // Slug disimpan di database
                 'start_date' => $request->start,
                 'end_date' => $request->end,
                 'quota' => $request->quota,
@@ -324,60 +341,8 @@ class CourseClassController extends Controller
                 'updated_id' => auth()->user()->id
             ]);
 
+        // Redirect atau feedback berdasarkan hasil update
         if ($updateData) {
-            if ($request->ongoing == 2) {
-                $members = CourseClassMember::where('course_class_id', $request->id)->get();
-                foreach ($members as $member) {
-                    $data = Transkrip::where('user_id', $member->user_id)
-                        ->where('course_class_id', $request->id)
-                        ->exists();
-                    $attendance_percentage = CourseClass::where('id', $request->id)->value('percentage') ?? 0;
-                    $courseClassId = $request->id;
-                    $absentCount = MemberAttendance::where('user_id', $member->user_id)
-                        ->whereNull('attended_at')
-                        ->whereHas('CourseClassAttendance', function ($query) use ($courseClassId) {
-                            $query->whereHas('CourseClassModule', function ($query) use ($courseClassId) {
-                                $query->where('course_class_id', $courseClassId);
-                            });
-                        })
-                        ->count();
-                    $totalCount = MemberAttendance::where('user_id', $member->user_id)
-                        ->whereHas('CourseClassAttendance', function ($query) use ($courseClassId) {
-                            $query->whereHas('CourseClassModule', function ($query) use ($courseClassId) {
-                                $query->where('course_class_id', $courseClassId);
-                            });
-                        })
-                        ->count();
-                    $attendance_score = $totalCount > 0 ? ($absentCount / $totalCount) * 100 : 0;;
-                    $score = $attendance_score * $attendance_percentage / 100;
-                    $course_module_percentage = CourseClassModule::with(['CourseClass', 'CourseModule'])
-                        ->where('course_class_id', $request->id)
-                        ->whereHas('CourseModule', function ($query) {
-                            $query->where('type', 'assignment');
-                        })
-                        ->orderBy('course_class_module.id')
-                        ->get();
-                    foreach ($course_module_percentage as $item) {
-                        $item->grade = CourseClassMemberGrading::where('course_class_module_id', $item->id)
-                            ->where('user_id', $member->user_id)
-                            ->value('grade')
-                            ?? 0;
-                        $score += $item->grade * $item->percentage / 100;
-                    }
-                    $score_id = MScore::where('range_start', '<=', $score)->where('range_end', '>', $score)->first();
-                    if ($data) {
-                        $data->update(['m_score_id' => $score_id->id, 'updated_id' => Auth::user()->id]);
-                    } else {
-                        $create = Transkrip::create([
-                            'user_id' => $member->user_id,
-                            'course_class_id' => $request->id,
-                            'm_score_id' => $score_id->id,
-                            'created_id' => Auth::user()->id,
-                            'updated_id' => Auth::user()->id
-                        ]);
-                    }
-                }
-            }
             return app(HelperController::class)->Positive('getCourseClass');
         } else {
             return app(HelperController::class)->Warning('getCourseClass');
