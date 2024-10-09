@@ -28,10 +28,9 @@ class CourseClassModuleController extends Controller
     function getCourseClassParentModule(Request $request)
     {
         $course_class_id = $request->id;
-        $batch = $request->batch; // Menangkap batch dari query string
 
         // Ambil detail kelas berdasarkan class_id dan batch
-        $class_detail = CourseClass::where('id', $course_class_id)->where('batch', $batch)->first();
+        $class_detail = CourseClass::where('id', $course_class_id)->first();
 
         if (!$class_detail) {
             abort(404, 'Class not found');
@@ -45,7 +44,6 @@ class CourseClassModuleController extends Controller
             'course_class_id' => $course_class_id,
             'course_detail' => $course_detail,
             'class_detail' => $class_detail,
-            'batch' => $batch, // Pass batch to the view if needed
         ]);
     }
 
