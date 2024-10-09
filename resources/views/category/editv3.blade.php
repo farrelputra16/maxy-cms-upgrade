@@ -27,7 +27,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Category</h4>
+                    <h4 class="card-title">Edit: {{ $Category->name }}</h4>
                     <p class="card-title-desc">This page allows you to update a data's information by modifying the data
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the participants.</p>
