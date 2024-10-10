@@ -82,15 +82,15 @@
                                     <td>{{ sprintf('%02d:00:00', $item->duration) }}</td> <!-- New Column Data -->
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->announcement) !!}">
-                                        {!! !empty($item->announcement) ? \Str::limit($item->announcement, 30) : '-' !!}
+                                        {!! !empty($item->announcement) ? \Str::limit(strip_tags($item->content), 30) : '-' !!}
                                     </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->content) !!}">
-                                        {!! !empty($item->content) ? \Str::limit($item->content, 30) : '-' !!}
+                                        {!! !empty($item->content) ? \Str::limit(strip_tags($item->content), 30) : '-' !!}
                                     </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->description) !!}">
-                                        {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
+                                        {!! !empty($item->description) ? \Str::limit(strip_tags($item->content), 30) : '-' !!}
                                     </td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->created_id }}</td>
