@@ -70,13 +70,13 @@
                                     <td>{{ $proposal->updated_at }}</td>
                                     <td>{{ $proposal->updated_id }}</td>
                                     <td>
-                                        @if ($proposal->m_proposal_status_id == 3)
+                                        @if ($proposal->m_proposal_status_id == 6)
                                             <span class="btn btn-danger disabled">{{ $proposal->MProposalStatus->name }}</span>
-                                        @elseif ($proposal->m_proposal_status_id == 2)
+                                        @elseif ($proposal->m_proposal_status_id == 7)
                                             <span class="btn btn-success disabled">{{ $proposal->MProposalStatus->name }}</span>
-                                        @elseif ($proposal->m_proposal_status_id == 1)
+                                        @elseif ($proposal->m_proposal_status_id == 8)
                                             <span class="btn btn-warning disabled">{{ $proposal->MProposalStatus->name }}</span>
-                                        @elseif ($proposal->m_proposal_status_id == 4)
+                                        @elseif ($proposal->m_proposal_status_id == 9)
                                             <span class="btn btn-primary disabled">{{ $proposal->MProposalStatus->name }}</span>
                                         @endif
                                     </td>
