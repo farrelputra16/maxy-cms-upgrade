@@ -135,12 +135,14 @@
                         </tfoot>
                     </table>
                     <!-- Modal -->
-                    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
+                        aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="confirmationModalLabel">Confirm Deletion</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     Are you sure you want to delete this item?
@@ -160,5 +162,69 @@
 @endsection
 
 @section('script')
+
+    <script>
+        // Listen for clicks on elements with the class 'delete-button'
+        document.querySelectorAll('.delete-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Get the ID and course_class_module_id from the clicked button's data attributes
+                let id = this.getAttribute('data-id');
+                let course_class_module_id = this.getAttribute('data-course_class_module_id');
+
+                // Show the confirmation modal (Bootstrap example)
+                var confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+                confirmationModal.show();
+
+                // Handle the confirm-delete button inside the modal
+                document.getElementById('confirm-delete').addEventListener('click', function() {
+                    // Send the request when the user confirms
+                    fetch('/courseclassmodule/child/journal/delete', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': "{{ csrf_token() }}" // CSRF token from Blade
+                            },
+                            body: JSON.stringify({
+                                id: id, // Pass the correct ID here
+                                course_class_module_id: course_class_module_id // And the correct course_class_module_id
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                confirmationModal.hide();
+                                Swal.fire({
+                                    title: 'Deleted!',
+                                    text: 'Journal entry deleted/restored successfully.',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        // Refresh the page after the alert is closed
+                                        location.reload();
+                                    }
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'Failed to delete the journal entry. Please try again.',
+                                    icon: 'error',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'An error occurred. Please try again.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        });
+                });
+            });
+        });
+    </script>
 
 @endsection
