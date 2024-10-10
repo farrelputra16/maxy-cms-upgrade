@@ -125,9 +125,9 @@
                                             <label for="" class="form-label" style="margin-top: 1%">Link
                                                 Video</label>
                                             <input class="form-control" type="text" name="material">
-                                            <label for="" class="form-label">Durasi
+                                            <label for="" class="form-label" style="margin-top: 1%">Durasi
                                                 Video</label>
-                                            <input type="number" name="duration" value="{{ $childModule->duration }}">
+                                            <input class="form-control" type="number" name="duration" value="{{ $childModule->duration }}">
                                         @else
                                             <label for="" class="form-label" style="margin-top: 1%">File
                                                 Assignment</label>
