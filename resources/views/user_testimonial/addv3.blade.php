@@ -76,7 +76,7 @@
                                 <select class="form-control select2" name="course_class_id" id="type_selector">
                                     <option selected value="">-- Pilih Batch Course Class --</option>
                                     @foreach ($allcourseclass as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->slug }}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('course_class_id'))
