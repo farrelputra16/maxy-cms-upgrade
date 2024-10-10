@@ -315,7 +315,7 @@
                     <div class="sectionCourse">Proposal</div>
                 </div>
                 <div class="col-2">
-                    
+
                 </div>
             </div>
         </div>
@@ -344,13 +344,13 @@
                                 <td>{{ $proposal->name }}</td>
                                 <td>{{ $proposal->User->name }}</td>
                                 <td>
-                                    @if ($proposal->m_proposal_status_id == 6)
+                                    @if ($proposal->m_proposal_status_id == 3)
                                     <span class="badge text-bg-danger" style="padding: 15%; font-size: smaller; ">{{ $proposal->MProposalStatus->name }}</span>
-                                    @elseif ($proposal->m_proposal_status_id == 7)
+                                    @elseif ($proposal->m_proposal_status_id == 2)
                                     <span class="badge text-bg-success" style="padding: 15%; font-size: smaller; ">{{ $proposal->MProposalStatus->name }}</span>
-                                    @elseif ($proposal->m_proposal_status_id == 8)
+                                    @elseif ($proposal->m_proposal_status_id == 1)
                                     <span class="badge text-bg-warning" style="padding: 15%; font-size: smaller; ">{{ $proposal->MProposalStatus->name }}</span>
-                                    @elseif ($proposal->m_proposal_status_id == 9)
+                                    @elseif ($proposal->m_proposal_status_id == 4)
                                     <span class="badge text-bg-primary" style="padding: 15%; font-size: smaller; ">{{ $proposal->MProposalStatus->name }}</span>
                                     @endif
                                 </td>
