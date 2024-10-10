@@ -44,7 +44,7 @@
                                 <th class="data-medium">Package Name</th>
                                 <th>Fake Price</th>
                                 <th>Price</th>
-                                <th>Payment Link</th>
+                                <th class="data-medium">Payment Link</th>
                                 <th class="data-long">Description</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
@@ -64,7 +64,10 @@
                                     <td>{{ $item->fake_price ? 'Rp ' . number_format($item->fake_price, 0, ',', '.') : '-' }}
                                     </td>
                                     <td>{{ $item->price ? 'Rp ' . number_format($item->price, 0, ',', '.') : '-' }}</td>
-                                    <td id="payment_link">{{ $item->payment_link }}</td>
+                                    <td id="payment_link" class="data-medium" data-toggle="tooltip" data-placement="top"
+                                        title="{{ strip_tags($item->payment_link) }}">
+                                        {{ !empty($item->payment_link) ? \Str::limit(strip_tags($item->payment_link), 30) : '-' }}
+                                    </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{{ strip_tags($item->description) }}">
                                         {{ !empty($item->description) ? \Str::limit(strip_tags($item->description), 30) : '-' }}

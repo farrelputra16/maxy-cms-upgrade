@@ -58,8 +58,8 @@
                                 <th class="data-medium">Course Module</th>
                                 <th>Priority</th>
                                 <th>Type</th>
-                                <th>Content</th>
-                                <th>Material</th>
+                                <th class="data-long">Content</th>
+                                <th class="data-long">Material</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th class="data-long">Description</th>
@@ -79,8 +79,14 @@
                                     <td class="batch" scope="row">{{ $item->course_module_name }}</td>
                                     <td>{{ $item->priority }} </td>
                                     <td>{{ $item->type }}</td>
-                                    <td>{{ substr($item->course_module_content, 0, 25) }}</td>
-                                    <td>{{ substr($item->course_module_material, 0, 25) }}</td>
+                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                        title="{!! strip_tags($item->course_module_content) !!}">
+                                        {!! !empty($item->course_module_content) ? \Str::limit($item->course_module_content, 30) : '-' !!}
+                                    </td>
+                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                        title="{!! strip_tags($item->course_module_material) !!}">
+                                        {!! !empty($item->course_module_material) ? \Str::limit($item->course_module_material, 30) : '-' !!}
+                                    </td>
                                     <td>{{ $item->start_date }}</td>
                                     <td>{{ $item->end_date }}</td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"

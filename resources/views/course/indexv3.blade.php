@@ -41,15 +41,15 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="course-name">Course Name</th>
+                                <th class="data-medium">Course Name</th>
                                 <th>Promo Price</th>
                                 <th>Price</th>
                                 <th>Course Type</th>
                                 <th>Credits</th>
                                 <th>Duration</th>
-                                <th class="short">Short Description</th>
-                                <th class="desc">Description</th>
-                                <th>Content</th>
+                                <th class="data-long">Short Description</th>
+                                <th class="data-long">Description</th>
+                                <th class="data-long">Content</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th>Status</th>
@@ -61,8 +61,10 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->id }}</td>
-                                    <td class="course-name" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->name }}">{{ $item->name }}</td>
+                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
+                                        title="{{ $item->name }}">
+                                        {!! \Str::limit($item->name, 30) !!}
+                                    </td>
                                     <td>{{ $item->fake_price ? 'Rp ' . number_format($item->fake_price, 0, ',', '.') : '-' }}
                                     </td>
                                     <td>{{ $item->price ? 'Rp ' . number_format($item->price, 0, ',', '.') : '-' }}</td>
@@ -104,11 +106,16 @@
                                     <td>{{ sprintf('%02d:00:00', $item->duration) }}</td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->short_description) !!}">
-                                        {!! \Str::limit($item->short_description, 30) !!}
+                                        {{ !empty($item->short_description) ? \Str::limit(strip_tags($item->short_description), 30) : '-' }}
                                     </td>
-                                    <td class="desc" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->description }}">{!! \Str::limit($item->description, 30) !!}</td>
-                                    <td class="content" title="{{ $item->content }}">{{ $item->content }}</td>
+                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                        title="{!! strip_tags($item->description) !!}">
+                                        {{ !empty($item->description) ? \Str::limit(strip_tags($item->description), 30) : '-' }}
+                                    </td>
+                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                        title="{!! strip_tags($item->content) !!}">
+                                        {{ !empty($item->content) ? \Str::limit(strip_tags($item->content), 30) : '-' }}
+                                    </td>
                                     <td>{{ $item->created_at->format('Y-m-d H:i') }}</td>
                                     <td>{{ $item->updated_at->format('Y-m-d H:i') }}</td>
                                     <td>
