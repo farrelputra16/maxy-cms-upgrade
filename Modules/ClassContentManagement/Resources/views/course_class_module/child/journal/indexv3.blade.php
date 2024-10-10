@@ -91,6 +91,19 @@
                                         {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getAddJournalCourseClassChildModule', ['id' => $item->id, 'user_id' => $item->User->id, 'course_class_module_id' => $parent_module->id]) }}"
                                             class="btn btn-primary rounded">Reply</a>
+                                        @if ($item->status == 1)
+                                            <button type="button" class="btn btn-danger delete-button"
+                                                data-id="{{ $item->id }}"
+                                                data-course_class_module_id="{{ $parent_module->id }}">
+                                                Delete
+                                            </button>
+                                        @else
+                                            <button type="button" class="btn btn-success delete-button"
+                                                data-id="{{ $item->id }}"
+                                                data-course_class_module_id="{{ $parent_module->id }}">
+                                                Restore
+                                            </button>
+                                        @endif
                                         <form
                                             action="{{ route('postRejectJournalCourseClassChildModule', ['id' => $item->id, 'course_class_module_id' => $parent_module->id]) }}"
                                             method="POST" style="display:inline;">
@@ -121,20 +134,29 @@
                             </tr>
                         </tfoot>
                     </table>
+                    <!-- Modal -->
+                    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmationModalLabel">Confirm Deletion</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete this item?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                    <button type="button" class="btn btn-primary" id="confirm-delete">Yes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- End Content -->
-
-    <!-- FAB Add Starts -->
-    <div id="floating-whatsapp-button">
-        <a href="" target="_blank"
-            data-toggle="tooltip" title="Add Journal">
-            <i class="fas fa-plus"></i>
-        </a>
-    </div>
-    <!-- FAB Add Ends -->
 @endsection
 
 @section('script')
