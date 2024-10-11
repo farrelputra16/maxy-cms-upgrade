@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\CourseModule;
 use App\Models\MCourseType;
+use App\Models\MSurvey;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
@@ -227,12 +228,14 @@ class CourseModuleController extends Controller
         $parentModule = CourseModule::find($childModule->course_module_parent_id);
         $course_detail = Course::getCourseDetailByCourseId($parentModule->course_id);
         $course_type = MCourseType::find($course_detail->m_course_type_id);
+        $quiz = MSurvey::where('type', 1)->get();
 
         // dd($childModule);
         return view('course_module.child.editv3', [
             'childModule' => $childModule,
             'parentModule' => $parentModule,
             'course_type' => $course_type,
+            'quiz' => $quiz
         ]);
     }
 

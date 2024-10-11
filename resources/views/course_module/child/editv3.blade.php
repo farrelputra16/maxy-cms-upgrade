@@ -101,13 +101,10 @@
                                             @if ($childModule->type == 'materi_pembelajaran') selected @endif>materi_pembelajaran</option>
                                         <option value="video_pembelajaran"
                                             @if ($childModule->type == 'video_pembelajaran') selected @endif>video_pembelajaran</option>
-                                        <option value="assignment" @if ($childModule->type == 'assignment') selected @endif>
-                                            Assignment
-                                        </option>
-                                        @if (Route::has('getCMQuiz'))
-                                            {{-- <option value="quiz" @if ($childModule->type == 'quiz') selected @endif>Quiz
-                                            </option> --}}
-                                        @endif
+                                        <option value="assignment" 
+                                            @if ($childModule->type == 'assignment') selected @endif>Assignment</option>
+                                        <option value="quiz" 
+                                            @if ($childModule->type == 'quiz') selected @endif>Quiz</option>
                                     </select>
                                     <div class="" id="material">
                                         @if ($childModule->type === 'materi_pembelajaran')
@@ -128,28 +125,44 @@
                                             <label for="" class="form-label" style="margin-top: 1%">Durasi
                                                 Video</label>
                                             <input class="form-control" type="number" name="duration" value="{{ $childModule->duration }}">
-                                        @else
+                                        @elseif($childModule->type === 'assignment')
                                             <label for="" class="form-label" style="margin-top: 1%">File
                                                 Assignment</label>
                                             <input class="form-control" type="file" id="formFile" name="material">
                                             <input type="hidden" name="duration"
                                                 @if ($childModule->type == 'asignment') value="{{ $childModule->material }}" @endif>
                                             <input type="hidden" name="duration" value="">
+                                        @elseif($childModule->type === 'quiz')
+                                            <label for="" class="form-label" style="margin-top: 1%"></label>
                                         @endif
                                     </div>
                                 </div>
                         @endif
                 </div>
-                <div class="mb-3 row">
-                    <label for="input-content" class="col-md-2 col-form-label">Content</label>
-                    <div class="col-md-10">
-                        <textarea id="elm1" name="content">{{ $childModule->content }}</textarea>
+                <div id="content">
+                    <div class="mb-3 row" id="">
+                        <label for="input-content" class="col-md-2 col-form-label">Content</label>
+                        <div class="col-md-10">
+                            <textarea id="elm1" name="content">{{ $childModule->content }}</textarea>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                        <div class="col-md-10">
+                            <textarea id="elm1" name="description">{{ $childModule->description }}</textarea>
+                        </div>
                     </div>
                 </div>
-                <div class="mb-3 row">
-                    <label for="input-content" class="col-md-2 col-form-label">Description</label>
-                    <div class="col-md-10">
-                        <textarea id="elm1" name="description">{{ $childModule->description }}</textarea>
+                <div id="quiz-content">
+                    <div class="mb-3 row">
+                        <label for="input-content" class="col-md-2 col-form-label">Content</label>
+                        <div class="col-md-10">
+                            <select class="form-control select2" name="content" id="">
+                                @foreach ($quiz as $item)
+                                <option value="{{ config('app.frontend_app_url').'/lms/survey/'.$item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
@@ -180,10 +193,28 @@
             var typeSelector = document.getElementById('type_selector');
             var material = document.getElementById('material');
             var duration = document.getElementById('duration');
+            var contentDiv = document.getElementById('content');
+            var quizContentDiv = document.getElementById('quiz-content');
 
+            if (typeSelector.value === 'quiz') {
+                    contentDiv.style.display = 'none';
+                    quizContentDiv.style.display = 'block';
+                } else {
+                    contentDiv.style.display = 'block';
+                    quizContentDiv.style.display = 'none';
+                }
             // Menambahkan event listener untuk perubahan pada elemen select
             typeSelector.addEventListener('change', function() {
                 console.log(typeSelector.value)
+
+                if (typeSelector.value === 'quiz') {
+                    contentDiv.style.display = 'none';
+                    quizContentDiv.style.display = 'block';
+                } else {
+                    contentDiv.style.display = 'block';
+                    quizContentDiv.style.display = 'none';
+                }
+
                 // Memeriksa apakah opsi yang dipilih adalah "assignment"
                 if (typeSelector.value === 'materi_pembelajaran') {
                     material.innerHTML = `
@@ -211,8 +242,10 @@
                 <input class="form-control" type="file" id="formFile" name="material">
                 <input type="hidden" name="duration" @if ($childModule->type == 'asignment') value="{{ $childModule->material }}" @endif>
             `;
-                    duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-                }
+            } else if (typeSelector.value === 'quiz') {
+                material.innerHTML = '';
+                duration.innerHTML = `<input type="hidden" name="duration" value="">`;
+            }
             });
         </script>
     @endif
