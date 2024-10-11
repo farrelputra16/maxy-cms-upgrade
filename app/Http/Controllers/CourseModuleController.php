@@ -148,12 +148,13 @@ class CourseModuleController extends Controller
         $course_detail = Course::getCourseDetailByCourseId($request->course_id);
         $parent = CourseModule::find($request->id);
         $course_type = MCourseType::find($course_detail->m_course_type_id);
-
+        $quiz = MSurvey::where('type', 1)->get();
         // dd($course_type);
         return view('course_module.child.addv3', [
             'course_type' => $course_type,
             'parent' => $parent,
             'page_type' => $request->page_type,
+            'quiz' => $quiz
             // 'allChildHave' => $childModules
         ]);
     }
@@ -162,7 +163,7 @@ class CourseModuleController extends Controller
     {
         // dd($request->all());
         $parentModule = CourseModule::find($request->parentId);
-
+        
         if (isset($request->rapid) & $request->rapid == 1) {
             $create = CourseModule::create([
                 'name' => $request->name,
@@ -174,6 +175,23 @@ class CourseModuleController extends Controller
                 'course_module_parent_id' => $parentModule->id,
                 'type' => 'materi_pembelajaran',
                 'content' => $request->content,
+                'description' => $request->description,
+                'status' => $request->status ? 1 : 0,
+                'created_id' => Auth::user()->id,
+                'updated_id' => Auth::user()->id,
+            ]);
+        } elseif ($request->type == 'quiz'){
+            $material = '';
+            $create = CourseModule::create([
+                'name' => $request->name,
+                'priority' => $request->priority,
+                'level' => 2,
+                'course_id' => $parentModule->course_id,
+                'course_module_parent_id' => $parentModule->id,
+                'type' => $request->type,
+                'material' => $material,
+                'duration' => $request->duration,
+                'content' => $request->quiz_content,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => Auth::user()->id,

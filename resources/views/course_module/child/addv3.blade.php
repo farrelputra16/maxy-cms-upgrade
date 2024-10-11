@@ -85,20 +85,18 @@
                                     <option value="video_pembelajaran">Video Pembelajaran</option>
                                     <option value="assignment">Assignment</option>
                                     <option value="form">Form</option>
-                                    @if (Route::has('getCMQuiz'))
                                     <option value="quiz">Quiz</option>
-                                    @endif
                                 </select>
                             </div>
                         </div>
                         <div class="field" id="material"></div>
                         <div class="field" id="duration"></div>
-                        <div class="mb-3 row">
+                        {{-- <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"" placeholder="Masukkan Nama Course Module">
                             </div>
-                        </div>
+                        </div> --}}
                         @endif
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
@@ -140,11 +138,13 @@
         var typeSelector = document.getElementById('type_selector');
         var material = document.getElementById('material');
         var duration = document.getElementById('duration');
+        var quizContentDiv = document.getElementById('quiz-content');
 
         // Menambahkan event listener untuk perubahan pada elemen select
         typeSelector.addEventListener('change', function() {
             // Memeriksa apakah opsi yang dipilih adalah "assignment"
             if (typeSelector.value === 'materi_pembelajaran') {
+                
                 material.innerHTML = `
                 <div class="mb-3 row">
                     <label for="input-title" class="col-md-2 col-form-label">File Materi Pembelajaran</label>
@@ -155,6 +155,7 @@
             `;
                 duration.innerHTML = `<input type="hidden" name="duration" value="">`;
             } else if (typeSelector.value === 'video_pembelajaran') {
+                
                 material.innerHTML = `
                 <div class="mb-3 row">
                     <label for="input-title" class="col-md-2 col-form-label">Link Video</label>
@@ -172,6 +173,7 @@
                 </div>
             `;
             } else if (typeSelector.value === 'assignment') {
+                
                 material.innerHTML = `
                 <div class="mb-3 row">
                     <label for="input-title" class="col-md-2 col-form-label">File Assignment</label>
@@ -182,7 +184,22 @@
             `;
                 duration.innerHTML = `<input type="hidden" name="duration" value="">`;
             } else if (typeSelector.value === 'form' || typeSelector.value === 'quiz' || typeSelector.value === "placeholder") {
-                material.innerHTML = ``;
+                material.innerHTML = `
+                <div class="mb-3 row" id="quiz-content">
+                    <label for="quiz_content" class="col-md-2 col-form-label">Quiz</label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" name="quiz_content" id="quiz_content" required>
+                            @foreach ($quiz as $item)
+                            <option value="{{ config('app.frontend_app_url').'/lms/survey/'.$item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                `;
+                // Inisialisasi Select2
+                $(document).ready(function() {
+                    $('#quiz_content').select2();  // Reinitialize select2 on dynamically added select element
+                });
                 duration.innerHTML = `<input type="hidden" name="duration" value="">`;
             }
         });
