@@ -101,9 +101,9 @@
                                             @if ($childModule->type == 'materi_pembelajaran') selected @endif>materi_pembelajaran</option>
                                         <option value="video_pembelajaran"
                                             @if ($childModule->type == 'video_pembelajaran') selected @endif>video_pembelajaran</option>
-                                        <option value="assignment" 
+                                        <option value="assignment"
                                             @if ($childModule->type == 'assignment') selected @endif>Assignment</option>
-                                        <option value="quiz" 
+                                        <option value="quiz"
                                             @if ($childModule->type == 'quiz') selected @endif>Quiz</option>
                                     </select>
                                     <div class="" id="material">
@@ -168,7 +168,7 @@
                 <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                     <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                     <div class="col-md-10 d-flex align-items-center">
-                        <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd" name="status">
+                        <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd" name="status" {{ $childModule->status == 1 ? 'checked' : '' }}>
                         <label class="m-0">Aktif</label>
                     </div>
                 </div>
