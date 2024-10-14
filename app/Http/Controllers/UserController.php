@@ -31,9 +31,18 @@ class UserController extends Controller
         // $users = User::with(['UserCertificate', 'UserEducation', 'UserPortofolio', 'MProvince', 'UserExperience', 'UserLanguage', 'UserLanguage.MLanguage', 'courseClassMembers.courseClass'])
         //     ->find($request->id);
 
-        $users = User::with(['UserCertificate', 'UserEducation', 'UserPortofolio', 'MProvince', 'UserExperience', 'UserLanguage', 'UserLanguage.MLanguage', 'courseClassMembers.courseClass' => function ($query) {
+        $users = User::with([
+            'UserCertificate',
+            'UserEducation',
+            'UserPortofolio',
+            'MProvince',
+            'UserExperience',
+            'UserLanguage',
+            'UserLanguage.MLanguage',
+            'courseClassMembers.courseClass' => function ($query) {
                 $query->where('status_ongoing', '>', 0);
-            }])
+            }
+        ])
             ->find($request->id);
         $father = DB::table('user_parent')
             ->where('user_id', $request->id)
@@ -44,13 +53,13 @@ class UserController extends Controller
             ->where('type', 'ibu')
             ->first();
         $members = CourseClassMember::with('courseClass.course')
-        ->where('user_id', $request->id)
-        ->get();
+            ->where('user_id', $request->id)
+            ->get();
 
         $courseData = []; // Initialize an array to store course and category data
         $categoryIds = []; // Initialize an array to track category IDs that have been added
 
-        foreach($members as $member) {
+        foreach ($members as $member) {
             $courseId = $member->courseClass->course->id;
             $categoryData = DB::table('course_category')
                 ->where('course_id', $courseId)
@@ -146,9 +155,9 @@ class UserController extends Controller
             $courseName = $member->courseClass->slug;
 
             $mentorJob = CourseClassMember::with('courseClass.course')
-            ->where('course_class_id', $member->course_class_id)
-            ->where('user_id', $user->id)
-            ->value('jobdesc');
+                ->where('course_class_id', $member->course_class_id)
+                ->where('user_id', $user->id)
+                ->value('jobdesc');
 
             // Query ke tabel course_category untuk mendapatkan category_id berdasarkan course_id
             $categoryData = DB::table('course_category')
@@ -215,12 +224,15 @@ class UserController extends Controller
 
 
         $validated = $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|regex:/^[a-zA-Z\s]*$/',
             'email' => 'required|unique:users,email|email',
             'phone' => 'required|regex:/^[0-9]{10,15}$/',
             'password' => 'required|min:5',
             'access_group' => 'required',
         ]);
+
+        // Sanitasi input dengan strip_tags
+        $name = strip_tags($request->input('name'));
 
         if ($request->hasFile('file_image')) {
             $file = $request->file('file_image');
@@ -231,7 +243,7 @@ class UserController extends Controller
         if ($validated) {
             $passwordcrpyt = bcrypt($validated['password']);
             $create = User::create([
-                'name' => $request->name,
+                'name' => $name,
                 'email' => $request->email,
                 'password' => $passwordcrpyt,
                 'access_group_id' => $request->access_group,
@@ -293,7 +305,7 @@ class UserController extends Controller
     function postEditUser(Request $request)
     {
         $validate = $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|regex:/^[a-zA-Z\s]*$/',
             'email' => 'required|email',
             'phone' => 'required|regex:/^[0-9]{10,15}$/',
             'password' => 'required',
@@ -301,6 +313,9 @@ class UserController extends Controller
         ]);
 
         // return dd($request);
+
+        // Sanitasi input dengan strip_tags
+        $name = strip_tags($request->input('name'));
 
         if ($validate) {
             $users = User::where('id', $request->id)->first();
@@ -311,7 +326,7 @@ class UserController extends Controller
 
                 $update = User::where('id', $request->id)
                     ->update([
-                        'name' => $request->name,
+                        'name' => $name,
                         'email' => $request->email,
                         'password' => $request->password != $users->password ? bcrypt($request->password) : $request->password,
                         'access_group_id' => $request->access_group,
