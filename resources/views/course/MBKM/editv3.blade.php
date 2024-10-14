@@ -32,7 +32,8 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form action="{{ route('postEditCourse', ['id' => request()->query('id')]) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('postEditCourse', ['id' => request()->query('id')]) }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <input type="text" name="img_keep" value="{{ $courses->image }}" hidden>
 
@@ -106,7 +107,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">MBKM Type</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Type</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="type" data-placeholder="Choose ..."
                                     id="type_selector">
@@ -140,14 +141,16 @@
                                 Price</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="mini_fake_price" id="fake_price"
-                                    value="{{ $currentDataCourse ? $currentDataCourse->fake_price : '' }}">
+                                    value="{{ $currentDataCourse ? $currentDataCourse->fake_price : '' }}"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-mini-price" class="col-md-2 col-form-label">Mini Bootcamp Price</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="mini_price" id="price"
-                                    value="{{ $currentDataCourse ? $currentDataCourse->price : '' }}">
+                                    value="{{ $currentDataCourse ? $currentDataCourse->price : '' }}"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -155,7 +158,8 @@
                             <div class="col-md-10" style="height: 200px">
                                 <input class="form-control" type="file" name="file_image" id="input-file"
                                     accept="image/*" onchange="previewImage()">
-                                <img id="frame" src="{{ asset('uploads/course_img/' . $courses->image) }}" alt="Preview Image" class="img-fluid h-100" />
+                                <img id="frame" src="{{ asset('uploads/course_img/' . $courses->image) }}"
+                                    alt="Preview Image" class="img-fluid h-100" />
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -225,11 +229,26 @@
             }
         }
 
-        if ($('#type_selector').val() == '') {
-            $("#show_course_package").hide();
-            $("#show_course_mini_price").hide();
-            $("#show_course_mini_fake_price").hide();
+        function preview() {
+            frame.src = URL.createObjectURL(event.target.files[0]);
+            if ($('#type_selector').val() == 1) {
+                console.log("Bootcamp");
+                $('#mini_fake_price').hide();
+                $('#mini_price').hide();
+                $('#course_package').show();
+            } else if ($('#type_selector').val() == 3) {
+                console.log("Mini Bootcamp");
+                $('#course_package').hide();
+                $('#mini_fake_price').show();
+                $('#mini_price').show();
+            } else {
+                console.log("Rapid Onboarding atau Hackathon atau Prakerja atau MSIB");
+                $('#mini_fake_price').hide();
+                $('#mini_price').hide();
+                $('#course_package').hide();
+            }
         }
+
         $('#type_selector').change(function() {
             var responseID = $(this).val();
             if (responseID == 1) {
@@ -289,7 +308,24 @@
             return prefix == undefined ? rupiah1 : (rupiah1 ? 'Rp. ' + rupiah1 : '');
         }
 
-        CKEDITOR.replace('content');
-        CKEDITOR.replace('description');
+        function slugify(text) {
+            return text.toString().toLowerCase()
+                .replace(/\s+/g, '-')
+                .replace(/[^\w\-]+/g, '')
+                .replace(/\-\-+/g, '-')
+                .replace(/^-+/, '')
+                .replace(/-+$/, '');
+        }
+
+        document.getElementById('name').addEventListener('input', function() {
+            // Ambil nilai dari input nama
+            const nameValue = this.value;
+
+            // Buat slug berdasarkan nilai nama
+            const slugValue = slugify(nameValue);
+
+            // Set nilai slug ke input slug
+            document.getElementsByName('slug')[0].value = slugValue;
+        });
     </script>
 @endsection
