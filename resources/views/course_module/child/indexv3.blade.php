@@ -13,8 +13,10 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourse')}}">Course</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseModule', ['course_id' => $parent_module_detail->course_id, 'page_type' => 'LMS'])}}">Course Module</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Course</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getCourseModule', ['course_id' => $parent_module_detail->course_id, 'page_type' => 'LMS']) }}">Course
+                                Module</a></li>
                         <li class="breadcrumb-item active">Course Child: {{ $parent_module_detail->name }}</li>
                     </ol>
                 </div>
@@ -23,16 +25,16 @@
         </div>
     </div>
 
-    @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
     @endif
 
-    @if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
     @endif
     <!-- End Page Title -->
 
@@ -45,7 +47,8 @@
                     <p class="card-title-desc">
                         This page presents a comprehensive overview of all available data, displayed in an interactive
                         and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b> features to
+                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
+                        features to
                         customize your view and quickly access the specific information you need.
                     </p>
 
@@ -57,7 +60,8 @@
                                 <th class="data-medium">Module Name</th>
                                 <th>Priority</th>
                                 <th>Type</th>
-                                <th>Material</th>
+                                <th class="data-long">Material</th>
+                                <th class="data-long">Content</th>
                                 <th class="data-long">Description</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
@@ -69,43 +73,54 @@
                         </thead>
                         <tbody>
                             @foreach ($sub_modules as $key => $item)
-                            <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $item->id }}</td>
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $item->id }}</td>
 
-                                <td class="data-medium" data-toggle="tooltip" data-placement="top"
+                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
                                         title="{{ $item->name }}">
                                         {!! \Str::limit($item->name, 30) !!}
                                     </td>
 
-                                <td>{{ $item->priority }}</td>
-                                <td>{{ $item->type }}</td>
-                                <td>{{ $item->material }}</td>
-                                <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                title="{!! strip_tags($item->description) !!}">
-                                {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
-                                <td>{{ $item->created_at }}</td>
-                                <td>{{ $item->created_id }}</td>
-                                <td>{{ $item->updated_at }}</td>
-                                <td>{{ $item->updated_id }}</td>
-                                <td value="{{ $item->status }}">
-                                    @if ($item->status == 1)
-                                        <a class="btn btn-success disabled">Aktif</a>
-                                    @else
-                                        <a class="btn btn-danger disabled">Non Aktif</a>
-                                    @endif
-                                </td>
-                                <td>
-                                    {{-- <div class="btn-group"> --}}
-                                        <a href="{{ route('getEditChildModule', ['id' => $item->id]) }}" class="btn btn-primary rounded">Edit</a>
-                                        @if ($item->type == 'Quiz')
-                                        <a href="{{ route('getCMQuiz', ['id' => $item->id]) }}" class="btn btn-info">Questions</a>
-                                        @elseif ($item->type == 'form')
-                                        <a href="{{ route('getCMForm', ['id' => $item->id]) }}" class="btn btn-info">Questions</a>
+                                    <td>{{ $item->priority }}</td>
+                                    <td>{{ $item->type }}</td>
+                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                        title="{{ strip_tags($item->material) }}">
+                                        {{ !empty($item->material) ? \Str::limit(strip_tags($item->material), 10) : '-' }}
+                                    </td>
+                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                        title="{{ strip_tags($item->content) }}">
+                                        {{ !empty($item->content) ? \Str::limit(strip_tags($item->content), 30) : '-' }}
+                                    </td>
+                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                        title="{{ strip_tags($item->description) }}">
+                                        {{ !empty($item->description) ? \Str::limit(strip_tags($item->description), 30) : '-' }}
+                                    </td>
+                                    <td>{{ $item->created_at }}</td>
+                                    <td>{{ $item->created_id }}</td>
+                                    <td>{{ $item->updated_at }}</td>
+                                    <td>{{ $item->updated_id }}</td>
+                                    <td value="{{ $item->status }}">
+                                        @if ($item->status == 1)
+                                            <a class="btn btn-success disabled">Aktif</a>
+                                        @else
+                                            <a class="btn btn-danger disabled">Non Aktif</a>
                                         @endif
-                                    {{-- </div> --}}
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td>
+                                        {{-- <div class="btn-group"> --}}
+                                        <a href="{{ route('getEditChildModule', ['id' => $item->id]) }}"
+                                            class="btn btn-primary rounded">Edit</a>
+                                        @if ($item->type == 'Quiz')
+                                            <a href="{{ route('getCMQuiz', ['id' => $item->id]) }}"
+                                                class="btn btn-info">Questions</a>
+                                        @elseif ($item->type == 'form')
+                                            <a href="{{ route('getCMForm', ['id' => $item->id]) }}"
+                                                class="btn btn-info">Questions</a>
+                                        @endif
+                                        {{-- </div> --}}
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
@@ -116,6 +131,7 @@
                                 <th>Priority</th>
                                 <th>Type</th>
                                 <th>Material</th>
+                                <th class="data-long">Content</th>
                                 <th class="data-long">Description</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
@@ -134,7 +150,8 @@
 
     <!-- FAB Add Starts -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddCourseChildModule', ['id' => $parent_module_detail->id, 'course_id' => $course_detail->id, 'page_type' => $page_type]) }}" target="_blank">
+        <a href="{{ route('getAddCourseChildModule', ['id' => $parent_module_detail->id, 'course_id' => $course_detail->id, 'page_type' => $page_type]) }}"
+            target="_blank">
             <i class="fas fa-plus"></i>
         </a>
     </div>
