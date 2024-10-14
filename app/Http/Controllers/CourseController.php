@@ -89,49 +89,49 @@ class CourseController extends Controller
                 $file->move(public_path('/uploads/course_img'), $fileName);
             }
             //sementara
-            $request->mini_fake_price=0;
-            $request->mini_price=0;
-            $request->short_description='';
-            $request->package_price=1;
+            $request->mini_fake_price = 0;
+            $request->mini_price = 0;
+            $request->short_description = '';
+            $request->package_price = 1;
 
             $trim_mini_fake_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_fake_price));
             $trim_mini_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_price));
 
-                $create = Course::create([
-                    'name' => $request->name,
-                    'fake_price' => (float)$trim_mini_fake_price,
-                    'price' => (float)$trim_mini_price,
-                    'short_description' => $request->short_description,
-                    'image' => $fileName,
-                    'payment_link' => $request->payment_link,
-                    'slug' => $request->slug,
-                    'credits' => $request->credits,
-                    'duration' => $request->duration,
-                    'm_course_type_id' => $request->type,
-                    'course_package_id' => $request->type == 2 ? null : $request->package_price,
-                    'm_difficulty_type_id' => $request->level,
-                    'content' => $request->content,
-                    'description' => $request->description,
-                    'status' => $request->status == '' ? 0 : 1,
-                    'created_id' => Auth::user()->id,
-                    'updated_id' => Auth::user()->id
-                ]);
+            $create = Course::create([
+                'name' => $request->name,
+                'fake_price' => (float) $trim_mini_fake_price,
+                'price' => (float) $trim_mini_price,
+                'short_description' => $request->short_description,
+                'image' => $fileName,
+                'payment_link' => $request->payment_link,
+                'slug' => $request->slug,
+                'credits' => $request->credits,
+                'duration' => $request->duration,
+                'm_course_type_id' => $request->type,
+                'course_package_id' => $request->type == 2 ? null : $request->package_price,
+                'm_difficulty_type_id' => $request->level,
+                'content' => $request->content,
+                'description' => $request->description,
+                'status' => $request->status == '' ? 0 : 1,
+                'created_id' => Auth::user()->id,
+                'updated_id' => Auth::user()->id
+            ]);
 
-                if ($create) {
-                    $categories = $request->input('courseCategory');
+            if ($create) {
+                $categories = $request->input('courseCategory');
 
-                    if ($categories) {
-                        foreach ($categories as $categoryId) {
-                            DB::table('course_category')->insert([
-                                'course_id' => $create->id,
-                                'category_id' => $categoryId,
-                                'created_id' => Auth::user()->id,
-                                'updated_id' => Auth::user()->id
-                            ]);
-                        }
+                if ($categories) {
+                    foreach ($categories as $categoryId) {
+                        DB::table('course_category')->insert([
+                            'course_id' => $create->id,
+                            'category_id' => $categoryId,
+                            'created_id' => Auth::user()->id,
+                            'updated_id' => Auth::user()->id
+                        ]);
                     }
-                    return redirect()->route('getCourse')->with('success', 'Course added successfully!');
                 }
+                return redirect()->route('getCourse')->with('success', 'Course added successfully!');
+            }
 
         } catch (\Exception $e) {
             // Log error untuk ditelusuri admin/developer
@@ -212,32 +212,29 @@ class CourseController extends Controller
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
             'type' => 'required|numeric',
-            'mini_fake_price' => 'nullable|numeric',
-            'mini_price' => 'nullable|numeric',
-            'credits' => 'nullable|numeric',
-            'duration' => 'nullable|numeric',
-            'short_description' => 'nullable|string|max:500',
-            'content' => 'nullable|string',
-            'description' => 'nullable|string',
-            'file_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'payment_link' => ['nullable', 'url', 'regex:/^https:\/\/.+$/'],
-            'level' => 'nullable|numeric',
-            'status' => 'nullable|boolean',
-        ]);
 
-        //sementara
-        $request->mini_fake_price=0;
-        $request->mini_price=0;
-        $request->short_description='';
-        $request->package_price=1;
+            //gatau kenapa, tapi validasi dibawah ngebuat ga bisa input ke db
+
+            // 'mini_fake_price' => 'nullable|regex:/^[0-9]{10,15}$/',
+            // 'mini_price' => 'nullable|regex:/^[0-9]{10,15}$/',
+            // 'credits' => 'nullable|numeric',
+            // 'duration' => 'nullable|numeric',
+            // 'short_description' => 'required|string|max:500',
+            // 'content' => 'nullable|string',
+            // 'description' => 'nullable|string',
+            // 'file_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // 'payment_link' => ['required', 'url', 'regex:/^https:\/\/.+$/'],
+            // 'level' => 'required|numeric',
+            // 'status' => 'required|boolean',
+        ]);
 
         try {
             $updateData = Course::postEditCourse($request);
             if ($updateData) {
-                if(CourseCategory::where('course_id', $request->id)->exists()) {
+                if (CourseCategory::where('course_id', $request->id)->exists()) {
                     DB::table('course_category')->where('course_id', $request->id)->delete();
                 }//dd($request->all());
-               $categories = $request->input('courseCategory');
+                $categories = $request->input('courseCategory');
                 if ($categories) {
                     foreach ($categories as $categoryId) {
                         DB::table('course_category')->insert([
@@ -248,16 +245,24 @@ class CourseController extends Controller
                         ]);
                     }
                 }
-                return redirect()->route('getCourse')->with('success', 'Course updated successfully!');
+                // Cek apakah course type adalah MBKM
+                $courseType = MCourseType::find($request->type);
+                if ($courseType && $courseType->name === 'MBKM') {
+                    // Jika tipe adalah MBKM, redirect ke halaman index MBKM
+                    return redirect()->route('getCourseMBKM')->with('success', 'Course updated successfully!');
+                } else {
+                    // Jika bukan MBKM, redirect ke halaman index course biasa
+                    return redirect()->route('getCourse')->with('success', 'Course updated successfully!');
+                }
             } else {
                 return app(HelperController::class)->Warning('getCourse');
             }
         } catch (\Exception $e) {
-            // Log error untuk ditelusuri admin/developer
-            \Log::error('Error adding course: ' . $e->getMessage());
+            // Log error untuk developer/admin
+            \Log::error('Error updating course: ' . $e->getMessage());
 
             // Kembalikan pesan error yang ramah kepada user
-            return redirect()->back()->withErrors(['error' => 'There was a problem saving the course. Please try again or contact support.']);
+            return redirect()->back()->withErrors(['error' => 'There was a problem updating the course. Please try again or contact support.']);
         }
     }
 }
