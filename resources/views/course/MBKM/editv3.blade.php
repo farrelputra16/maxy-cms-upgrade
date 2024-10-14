@@ -107,10 +107,10 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Type</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">MBKM Type</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="type" data-placeholder="Choose ..."
-                                    id="type_selector">
+                                    id="type_selector" disabled>
                                     <option>-- Pilih Tipe Course --</option>
                                     @if ($currentDataCourse)
                                         <option selected value="{{ $currentDataCourse->m_course_type_id }}">

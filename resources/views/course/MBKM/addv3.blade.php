@@ -85,13 +85,17 @@
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">MBKM Type</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="type" data-placeholder="Choose ..."
-                                    id="type_selector">
-                                    <option>-- Pilih Tipe Course --</option>
+                                <select class="form-control select2" name="type" id="type_selector" readonly>
+                                    <!-- Tampilkan hanya opsi MBKM -->
                                     @foreach ($allCourseTypes as $item)
-                                        <option value="{{ $item->id }}"> {{ $item->name }} </option>
+                                        @if($item->name == 'MBKM')
+                                            <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
+                                <!-- Kirim nilai type yang readonly ke server via hidden input jika ingin mencegah modifikasi -->
+                                <input type="hidden" name="type" value="{{ $allCourseTypes->where('name', 'MBKM')->first()->id }}">
+
                                 @if ($errors->has('type'))
                                     @foreach ($errors->get('type') as $error)
                                         <span style="color: red;">{{ $error }}</span>
