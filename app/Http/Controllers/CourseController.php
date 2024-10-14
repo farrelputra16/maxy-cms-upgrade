@@ -130,7 +130,16 @@ class CourseController extends Controller
                         ]);
                     }
                 }
-                return redirect()->route('getCourse')->with('success', 'Course added successfully!');
+                $courseType = MCourseType::find($request->type);
+                if ($courseType && $courseType->name === 'MBKM') {
+                    // Jika tipe adalah MBKM, redirect ke halaman index MBKM
+                    return redirect()->route('getCourseMBKM')->with('success', 'Course updated successfully!');
+                } else {
+                    // Jika bukan MBKM, redirect ke halaman index course biasa
+                    return redirect()->route('getCourse')->with('success', 'Course updated successfully!');
+                }
+            } else {
+                return app(HelperController::class)->Warning('getCourse');
             }
 
         } catch (\Exception $e) {
