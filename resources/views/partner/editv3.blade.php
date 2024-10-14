@@ -32,16 +32,16 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form action="{{ route('postEditPartner', ['id' => request()->query('id'), 'logo_dump' => $partners->logo]) }}" method="post"
-                        enctype="multipart/form-data">
+                    <form
+                        action="{{ route('postEditPartner', ['id' => request()->query('id'), 'logo_dump' => $partners->logo]) }}"
+                        method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="text" name="img_keep" value="{{ $partners->logo }}" hidden>
 
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name"
-                                    value="{{ $partners->name }}">
+                                <input class="form-control" type="text" name="name" value="{{ $partners->name }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -63,8 +63,7 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Email</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="email"
-                                    value="{{ $partners->email }}">
+                                <input class="form-control" type="text" name="email" value="{{ $partners->email }}">
                                 @if ($errors->has('email'))
                                     @foreach ($errors->get('email') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -75,8 +74,8 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Phone</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="phone"
-                                    value="{{ $partners->phone }}">
+                                <input class="form-control" type="text" name="phone" value="{{ $partners->phone }}"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @if ($errors->has('email'))
                                     @foreach ($errors->get('email') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -87,8 +86,9 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Contact Person</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="contact_person"
-                                    value="{{ $partners->contact_person }}">
+                                <input class="form-control" type="text" name="contact_person"
+                                    value="{{ $partners->contact_person }}"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @if ($errors->has('email'))
                                     @foreach ($errors->get('email') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -99,8 +99,7 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">URL</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="url"
-                                    value="{{ $partners->url }}">
+                                <input class="form-control" type="text" name="url" value="{{ $partners->url }}">
                                 @if ($errors->has('email'))
                                     @foreach ($errors->get('email') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -133,8 +132,9 @@
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Highlight</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    value="1" {{ $partners->status_highlight == 1 ? 'checked' : '' }} name="status_highlight">
-                                    <label class="m-0">Aktif</label>
+                                    value="1" {{ $partners->status_highlight == 1 ? 'checked' : '' }}
+                                    name="status_highlight">
+                                <label class="m-0">Aktif</label>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
@@ -142,7 +142,7 @@
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
                                     value="1" {{ $partners->status == 1 ? 'checked' : '' }} name="status">
-                                    <label class="m-0">Aktif</label>
+                                <label class="m-0">Aktif</label>
                             </div>
                         </div>
                         <div class="mb-3 row justify-content-end">
@@ -160,10 +160,10 @@
 
 @section('script')
 
-<script>
-    function preview() {
-        frame.src = URL.createObjectURL(event.target.files[0]);
-    }
-</script>
+    <script>
+        function preview() {
+            frame.src = URL.createObjectURL(event.target.files[0]);
+        }
+    </script>
 
 @endsection

@@ -73,8 +73,9 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Phone</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="phone"
-                                    placeholder="Masukkan No Telepon Partner">
+                                <input class="form-control" type="text" name="phone"
+                                    placeholder="Masukkan No Telepon Partner"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @if ($errors->has('phone'))
                                     @foreach ($errors->get('phone') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -96,8 +97,9 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Contact Person</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="contact_person"
-                                    placeholder="Masukkan Contact Person">
+                                <input class="form-control" type="text" name="contact_person"
+                                    placeholder="Masukkan Contact Person"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @if ($errors->has('contact_person'))
                                     @foreach ($errors->get('contact_person') as $error)
                                         <span style="color: red;">{{ $error }}</span>
