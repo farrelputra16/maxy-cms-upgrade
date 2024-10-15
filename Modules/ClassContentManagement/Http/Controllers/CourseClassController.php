@@ -55,6 +55,7 @@ class CourseClassController extends Controller
 
     function getCourseClassScoring(Request $request)
     {
+        // dd($request->all());
         $classes = CourseClassModule::with(['CourseClass', 'CourseModule'])
             ->where('course_class_id', $request->id)
             ->whereHas('CourseModule', function ($query) {
@@ -62,7 +63,11 @@ class CourseClassController extends Controller
             })
             ->orderBy('course_class_module.id')
             ->get();
-        // dd($classes[0]->CourseClass);
+
+        // $coba = CourseClassModule::with(['CourseClass', 'CourseModule'])
+        // ->where('course_class_id', $request->id)
+        // ->get();
+        // dd($coba->toArray());
 
         return view('classcontentmanagement::course_class.scoring', [
             'classes' => $classes,
@@ -71,7 +76,8 @@ class CourseClassController extends Controller
     }
 
     public function postCourseClassScoring(Request $request)
-    { //dd($request->all());
+    { 
+        //dd($request->all());
         try {
             $updateData = CourseClass::where('id', $request->id)
                 ->update([
@@ -92,6 +98,7 @@ class CourseClassController extends Controller
                     ->where('course_class_id', $request->id)
                     ->first();
                 $attendance_percentage = CourseClass::where('id', $request->id)->value('percentage') ?? 0;
+                // dd($attendance_percentage);
                 $courseClassId = $request->id;
                 $absentCount = MemberAttendance::where('user_id', $member->user_id)
                     ->whereNull('attended_at')
@@ -108,8 +115,8 @@ class CourseClassController extends Controller
                         });
                     })
                     ->count();
+                // dd($absentCount, $totalCount, $courseClassId);
                 $attendance_score = $totalCount > 0 ? ($absentCount / $totalCount) * 100 : 0;
-                ;
                 $score = $attendance_score * $attendance_percentage / 100;
                 $course_module_percentage = CourseClassModule::with(['CourseClass', 'CourseModule'])
                     ->where('course_class_id', $request->id)
@@ -125,8 +132,16 @@ class CourseClassController extends Controller
                         ?? 0;
                     $score += $item->grade * $item->percentage / 100;
                 }
-                $score_id = MScore::where('range_start', '<=', $score)->where('range_end', '>', $score)->first();
+                // dd($score);
+                $score = ceil($score);
+                $score = min($score, 100); // Pastikan nilai maksimum adalah 100
+                $score_id = MScore::where('range_start', '<=', $score)->where('range_end', '>=', $score)->first();
+                if ($score_id == null) {
+                    dd($score, $score_id, $data);
+                }
                 if ($data) {
+                    // dd($score_id->id);
+                    // dd($data);
                     $data->update(['m_score_id' => $score_id->id, 'updated_id' => Auth::user()->id]);
                 } else {
                     $create = Transkrip::create([
