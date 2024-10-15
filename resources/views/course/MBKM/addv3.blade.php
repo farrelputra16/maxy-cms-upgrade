@@ -107,6 +107,11 @@
                                         <option value="{{ $courseCategory->id }}">{{ $courseCategory->name }}</option>
                                     @endforeach
                                 </select>
+                                @if ($errors->has('courseCategory[]'))
+                                    @foreach ($errors->get('courseCategory[]') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -121,18 +126,33 @@
                             <label for="input-content" class="col-md-2 col-form-label">Content</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="content"></textarea>
+                                @if ($errors->has('content'))
+                                    @foreach ($errors->get('content') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-short-description" class="col-md-2 col-form-label">Short Description</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="short_description"></textarea>
+                                @if ($errors->has('short_description'))
+                                    @foreach ($errors->get('short_description') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description"></textarea>
+                                @if ($errors->has('description'))
+                                    @foreach ($errors->get('description') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
