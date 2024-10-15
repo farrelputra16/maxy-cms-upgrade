@@ -46,12 +46,22 @@
                             <label for="input-title" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"" placeholder="Masukkan Nama Course Module">
+                                @if ($errors->has('name'))
+                                    @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Priority</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority">
+                                @if ($errors->has('priority'))
+                                    @foreach ($errors->get('priority') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         @if ($course_type->slug == 'rapid-onboarding')
@@ -80,7 +90,6 @@
                             <div class="col-md-10">
                                 <select class="form-control" name="type"
                                 id="type_selector" required>
-                                    <option selected value="placeholder">-- Pilih Tipe Modul --</option>
                                     <option value="materi_pembelajaran">Materi Pembelajaran</option>
                                     <option value="video_pembelajaran">Video Pembelajaran</option>
                                     <option value="assignment">Assignment</option>
@@ -144,7 +153,7 @@
         typeSelector.addEventListener('change', function() {
             // Memeriksa apakah opsi yang dipilih adalah "assignment"
             if (typeSelector.value === 'materi_pembelajaran') {
-                
+
                 material.innerHTML = `
                 <div class="mb-3 row">
                     <label for="input-title" class="col-md-2 col-form-label">File Materi Pembelajaran</label>
@@ -155,7 +164,7 @@
             `;
                 duration.innerHTML = `<input type="hidden" name="duration" value="">`;
             } else if (typeSelector.value === 'video_pembelajaran') {
-                
+
                 material.innerHTML = `
                 <div class="mb-3 row">
                     <label for="input-title" class="col-md-2 col-form-label">Link Video</label>
@@ -173,7 +182,7 @@
                 </div>
             `;
             } else if (typeSelector.value === 'assignment') {
-                
+
                 material.innerHTML = `
                 <div class="mb-3 row">
                     <label for="input-title" class="col-md-2 col-form-label">File Assignment</label>

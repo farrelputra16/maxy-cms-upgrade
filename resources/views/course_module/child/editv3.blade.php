@@ -47,6 +47,11 @@
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" value="{{ $childModule->name }}">
+                                @if ($errors->has('name'))
+                                    @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -54,6 +59,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="priority"
                                     value="{{ $childModule->priority }}">
+                                @if ($errors->has('priority'))
+                                    @foreach ($errors->get('priority') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         @if ($course_type->slug == 'rapid-onboarding')
@@ -101,21 +111,23 @@
                                             @if ($childModule->type == 'materi_pembelajaran') selected @endif>materi_pembelajaran</option>
                                         <option value="video_pembelajaran"
                                             @if ($childModule->type == 'video_pembelajaran') selected @endif>video_pembelajaran</option>
-                                        <option value="assignment"
-                                            @if ($childModule->type == 'assignment') selected @endif>Assignment</option>
-                                        <option value="quiz"
-                                            @if ($childModule->type == 'quiz') selected @endif>Quiz</option>
+                                        <option value="assignment" @if ($childModule->type == 'assignment') selected @endif>
+                                            Assignment</option>
+                                        <option value="quiz" @if ($childModule->type == 'quiz') selected @endif>Quiz
+                                        </option>
                                     </select>
                                     <div class="" id="material">
                                         @if ($childModule->type === 'materi_pembelajaran')
                                             <div class="mb-3 row">
-                                                <label for="input-name" class="col-md-2 col-form-label" style="margin-top: 1%">File
+                                                <label for="input-name" class="col-md-2 col-form-label"
+                                                    style="margin-top: 1%">File
                                                     materi_pembelajaran</label>
                                                 <div class="col-md-10">
                                                     <input class="form-control" type="file" id="formFile"
                                                         name="material">
                                                     <p class="pt-2">{{ $childModule->material }}</p>
-                                                    <input class="form-control" type="hidden" name="duration" value="">
+                                                    <input class="form-control" type="hidden" name="duration"
+                                                        value="">
                                                 </div>
                                             </div>
                                         @elseif ($childModule->type === 'video_pembelajaran')
@@ -124,7 +136,8 @@
                                             <input class="form-control" type="text" name="material">
                                             <label for="" class="form-label" style="margin-top: 1%">Durasi
                                                 Video</label>
-                                            <input class="form-control" type="number" name="duration" value="{{ $childModule->duration }}">
+                                            <input class="form-control" type="number" name="duration"
+                                                value="{{ $childModule->duration }}">
                                         @elseif($childModule->type === 'assignment')
                                             <label for="" class="form-label" style="margin-top: 1%">File
                                                 Assignment</label>
@@ -159,7 +172,8 @@
                         <div class="col-md-10">
                             <select class="form-control select2" name="content" id="">
                                 @foreach ($quiz as $item)
-                                <option value="{{ config('app.frontend_app_url').'/lms/survey/'.$item->id }}">{{ $item->name }}</option>
+                                    <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}">
+                                        {{ $item->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -168,7 +182,8 @@
                 <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                     <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                     <div class="col-md-10 d-flex align-items-center">
-                        <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd" name="status" {{ $childModule->status == 1 ? 'checked' : '' }}>
+                        <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd" name="status"
+                            {{ $childModule->status == 1 ? 'checked' : '' }}>
                         <label class="m-0">Aktif</label>
                     </div>
                 </div>
@@ -197,12 +212,12 @@
             var quizContentDiv = document.getElementById('quiz-content');
 
             if (typeSelector.value === 'quiz') {
-                    contentDiv.style.display = 'none';
-                    quizContentDiv.style.display = 'block';
-                } else {
-                    contentDiv.style.display = 'block';
-                    quizContentDiv.style.display = 'none';
-                }
+                contentDiv.style.display = 'none';
+                quizContentDiv.style.display = 'block';
+            } else {
+                contentDiv.style.display = 'block';
+                quizContentDiv.style.display = 'none';
+            }
             // Menambahkan event listener untuk perubahan pada elemen select
             typeSelector.addEventListener('change', function() {
                 console.log(typeSelector.value)
@@ -242,10 +257,10 @@
                 <input class="form-control" type="file" id="formFile" name="material">
                 <input type="hidden" name="duration" @if ($childModule->type == 'asignment') value="{{ $childModule->material }}" @endif>
             `;
-            } else if (typeSelector.value === 'quiz') {
-                material.innerHTML = '';
-                duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-            }
+                } else if (typeSelector.value === 'quiz') {
+                    material.innerHTML = '';
+                    duration.innerHTML = `<input type="hidden" name="duration" value="">`;
+                }
             });
         </script>
     @endif
