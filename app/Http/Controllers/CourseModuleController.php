@@ -159,15 +159,20 @@ class CourseModuleController extends Controller
         ]);
     }
 
-    function postAddChildModule(Request $request)
+    public function postAddChildModule(Request $request)
     {
-        // dd($request->all());
+        // Validasi input yang diperlukan
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'priority' => 'required|integer',
+        ]);
+
         $parentModule = CourseModule::find($request->parentId);
-        
-        if (isset($request->rapid) & $request->rapid == 1) {
+
+        if (isset($request->rapid) && $request->rapid == 1) {
             $create = CourseModule::create([
-                'name' => $request->name,
-                'priority' => $request->priority,
+                'name' => $validated['name'],
+                'priority' => $validated['priority'],
                 'level' => 2,
                 'html' => $request->html,
                 'js' => $request->js,
@@ -180,11 +185,11 @@ class CourseModuleController extends Controller
                 'created_id' => Auth::user()->id,
                 'updated_id' => Auth::user()->id,
             ]);
-        } elseif ($request->type == 'quiz'){
+        } elseif ($request->type == 'quiz') {
             $material = '';
             $create = CourseModule::create([
-                'name' => $request->name,
-                'priority' => $request->priority,
+                'name' => $validated['name'],
+                'priority' => $validated['priority'],
                 'level' => 2,
                 'course_id' => $parentModule->course_id,
                 'course_module_parent_id' => $parentModule->id,
@@ -203,9 +208,8 @@ class CourseModuleController extends Controller
                 if ($request->hasFile('material')) {
                     $file = $request->file('material');
                     $material = $file->getClientOriginalName();
-                    // $destinationPath = public_path('/uploads/course_module/' . $parentModule->id);
                     $destinationPath = public_path('/fe/public/files');
-                    if (!File::exists($destinationPath)) { // create folder jika blm ada
+                    if (!File::exists($destinationPath)) {
                         File::makeDirectory($destinationPath, 0777, true, true);
                     }
                     $file->move($destinationPath, $material);
@@ -215,8 +219,8 @@ class CourseModuleController extends Controller
             }
 
             $create = CourseModule::create([
-                'name' => $request->name,
-                'priority' => $request->priority,
+                'name' => $validated['name'],
+                'priority' => $validated['priority'],
                 'level' => 2,
                 'course_id' => $parentModule->course_id,
                 'course_module_parent_id' => $parentModule->id,
@@ -231,13 +235,13 @@ class CourseModuleController extends Controller
             ]);
         }
 
-
         if ($create) {
             return redirect()->route('getCourseSubModule', ['course_id' => $parentModule->course_id, 'module_id' => $parentModule->id, 'page_type' => 'LMS_child'])->with('success', 'Sukses Update Module');
         } else {
             return redirect()->route('getCourseSubModule', ['course_id' => $parentModule->course_id, 'module_id' => $parentModule->id, 'page_type' => 'LMS_child'])->with('error', 'Gagal Update Modul, silahkan coba lagi');
         }
     }
+
 
     function getEditChildModule(Request $request)
     {
@@ -262,11 +266,17 @@ class CourseModuleController extends Controller
         // dd($request->all());
         $module_detail = CourseModule::find($request->id);
 
+        // Validasi input yang diperlukan
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'priority' => 'required|integer',
+        ]);
+
         if (isset($request->rapid) & $request->rapid == 1) {
             $update = CourseModule::where('id', '=', $request->id)
                 ->update([
-                    'name' => $request->name,
-                    'priority' => $request->priority,
+                    'name' => $validated['name'],
+                    'priority' => $validated['priority'],
                     'html' => $request->html,
                     'js' => $request->js,
                     'type' => $request->type,
