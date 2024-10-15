@@ -306,7 +306,7 @@
                     </form>
                     <br>
                     @if (Route::has('user.import-csv'))
-                        <h4>Add Multiple Users by uploading CSV File</h4>
+                        <h4>Add Multiple Users by Uploading CSV File</h4>
                         <form action="{{ route('user.import-csv') }}" method="post" enctype="multipart/form-data"
                             class="dropzone text-center" id="csv-upload">
                             @csrf
