@@ -75,7 +75,6 @@
                             <label for="input-tag" class="col-md-2 col-form-label">Difficulty</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="level" data-placeholder="Choose ...">
-                                    <option>Select</option>
                                     @foreach ($allCourseDifficulty as $item)
                                         <option value="{{ $item->id }}"> {{ $item->name }} </option>
                                     @endforeach

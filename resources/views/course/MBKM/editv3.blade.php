@@ -16,7 +16,6 @@
                         <li class="breadcrumb-item active">Edit MBKM</li>
                     </ol>
                 </div>
-
             </div>
         </div>
     </div>
@@ -77,6 +76,7 @@
                             <label for="input-tag" class="col-md-2 col-form-label">Difficulty</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="level" data-placeholder="Choose ...">
+                                    {{-- <option>Select</option> --}}
                                     @if ($currentDataCourse)
                                         <option selected value="{{ $currentDataCourse->m_difficulty_type_id }}">
                                             {{ $currentDataCourse->course_difficulty }}
@@ -143,6 +143,11 @@
                                 <input class="form-control" type="text" name="mini_fake_price" id="fake_price"
                                     value="{{ $currentDataCourse ? $currentDataCourse->fake_price : '' }}"
                                     oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                @if ($errors->has('mini_fake_price'))
+                                    @foreach ($errors->get('mini_fake_price') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -151,6 +156,11 @@
                                 <input class="form-control" type="text" name="mini_price" id="price"
                                     value="{{ $currentDataCourse ? $currentDataCourse->price : '' }}"
                                     oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                @if ($errors->has('mini_price'))
+                                    @foreach ($errors->get('mini_price') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -166,18 +176,33 @@
                             <label for="input-content" class="col-md-2 col-form-label">Content</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="content">{{ $courses->content }}</textarea>
+                                @if ($errors->has('content'))
+                                    @foreach ($errors->get('content') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-short-description" class="col-md-2 col-form-label">Short Description</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="short_description">{{ strip_tags($courses->short_description) }}</textarea>
+                                @if ($errors->has('short_description'))
+                                    @foreach ($errors->get('short_description') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description">{{ $courses->description }}</textarea>
+                                @if ($errors->has('description'))
+                                    @foreach ($errors->get('description') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
@@ -265,67 +290,5 @@
                 $("#show_course_package").hide();
             }
         })
-
-        var rupiah = document.getElementById('mini_price');
-        rupiah.addEventListener('keyup', function(e) {
-            rupiah.value = formatRupiah(this.value, 'Rp. ');
-        });
-
-        function formatRupiah(angka, prefix) {
-            var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                split = number_string.split(','),
-                sisa = split[0].length % 3,
-                rupiah = split[0].substr(0, sisa),
-                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-            if (ribuan) {
-                separator = sisa ? '.' : '';
-                rupiah += separator + ribuan.join('.');
-            }
-
-            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-            return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-        }
-
-        var rupiah1 = document.getElementById('fake_price');
-        rupiah1.addEventListener('keyup', function(e) {
-            rupiah1.value = formatRupiah(this.value, 'Rp. ');
-        });
-
-        function formatRupiah(angka, prefix) {
-            var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                split = number_string.split(','),
-                sisa = split[0].length % 3,
-                rupiah1 = split[0].substr(0, sisa),
-                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-            if (ribuan) {
-                separator = sisa ? '.' : '';
-                rupiah1 += separator + ribuan.join('.');
-            }
-
-            rupiah1 = split[1] != undefined ? rupiah1 + ',' + split[1] : rupiah1;
-            return prefix == undefined ? rupiah1 : (rupiah1 ? 'Rp. ' + rupiah1 : '');
-        }
-
-        function slugify(text) {
-            return text.toString().toLowerCase()
-                .replace(/\s+/g, '-')
-                .replace(/[^\w\-]+/g, '')
-                .replace(/\-\-+/g, '-')
-                .replace(/^-+/, '')
-                .replace(/-+$/, '');
-        }
-
-        document.getElementById('name').addEventListener('input', function() {
-            // Ambil nilai dari input nama
-            const nameValue = this.value;
-
-            // Buat slug berdasarkan nilai nama
-            const slugValue = slugify(nameValue);
-
-            // Set nilai slug ke input slug
-            document.getElementsByName('slug')[0].value = slugValue;
-        });
     </script>
 @endsection

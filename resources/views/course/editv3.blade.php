@@ -134,6 +134,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="mini_fake_price" id="fake_price"
                                     value="{{ $currentDataCourse ? $currentDataCourse->fake_price : '' }}">
+                                @if ($errors->has('mini_fake_price'))
+                                    @foreach ($errors->get('mini_fake_price') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -141,6 +146,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="mini_price" id="price"
                                     value="{{ $currentDataCourse ? $currentDataCourse->price : '' }}">
+                                @if ($errors->has('mini_price'))
+                                    @foreach ($errors->get('mini_price') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -148,6 +158,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="credits" id="credits"
                                     value="{{ $currentDataCourse ? $currentDataCourse->credits : '' }}">
+                                @if ($errors->has('credits'))
+                                    @foreach ($errors->get('credits') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -155,6 +170,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration" id="duration"
                                     value="{{ $currentDataCourse ? $currentDataCourse->duration : '' }}">
+                                @if ($errors->has('duration'))
+                                    @foreach ($errors->get('duration') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
