@@ -37,7 +37,13 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name"" placeholder="Masukkan Nama Event Type">
+                                <input class="form-control" type="text" name="name"
+                                    placeholder="Masukkan Nama Event Type">
+                                @if ($errors->has('name'))
+                                    @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
