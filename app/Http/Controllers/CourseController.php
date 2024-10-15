@@ -53,11 +53,16 @@ class CourseController extends Controller
         $allCourseDifficulty = MDifficultyType::all();
         $allCourseCategory = Category::where('status', 1)->get();
 
+
+        // Ambil ID berdasarkan slug 'mbkm'
+        $mbkmType = DB::table('m_course_type')->where('slug', 'mbkm')->first();
+
         return view('course.MBKM.addv3', [
             'allPackagePrices' => $allPackagePrices,
             'allCourseTypes' => $allCourseTypes,
             'allCourseDifficulty' => $allCourseDifficulty,
             'allCourseCategory' => $allCourseCategory,
+            'mbkmTypeId' => $mbkmType ? $mbkmType->id : null // Kirim ID MBKM ke view
         ]);
     }
 
