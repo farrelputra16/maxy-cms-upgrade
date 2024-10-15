@@ -20,7 +20,8 @@ class MCourseTypeController extends Controller
 
     function postAddCourseType(Request $request){
         $validate = $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'slug' => 'required'
         ]);
 
         if ($validate){
@@ -47,7 +48,8 @@ class MCourseTypeController extends Controller
 
     function postEditCourseType(Request $request){
         $validate = $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'slug' => 'required'
         ]);
 
         if($validate){

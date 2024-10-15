@@ -41,6 +41,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" value="{{ $currentData->name }}"
                                     id="name">
+                                @if ($errors->has('name'))
+                                    @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -61,7 +66,7 @@
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
                                     value="1" {{ $currentData->status == 1 ? 'checked' : '' }} name="status">
-                                    <label>Aktif</label>
+                                <label>Aktif</label>
                             </div>
                         </div>
                         <div class="mb-3 row justify-content-end">
@@ -78,5 +83,5 @@
 @endsection
 
 @section('script')
-    
+
 @endsection

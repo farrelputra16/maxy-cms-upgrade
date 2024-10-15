@@ -39,11 +39,12 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name"" id="name" placeholder="Masukkan Nama Course Type">
+                                <input class="form-control" type="text" name="name"" id="name"
+                                    placeholder="Masukkan Nama Course Type">
                                 @if ($errors->has('name'))
-                                @foreach ($errors->get('name') as $error)
-                                <span style="color: red;">{{ $error }}</span>
-                                @endforeach
+                                    @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
                                 @endif
                             </div>
                         </div>
@@ -52,9 +53,9 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug"" id="slug">
                                 @if ($errors->has('slug'))
-                                @foreach ($errors->get('slug') as $error)
-                                <span style="color: red;">{{ $error }}</span>
-                                @endforeach
+                                    @foreach ($errors->get('slug') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
                                 @endif
                             </div>
                         </div>
@@ -86,5 +87,14 @@
 @endsection
 
 @section('script')
+
+    <script>
+        // autofill slug
+        document.getElementById('name').addEventListener('input', function() {
+            var name = this.value;
+            var slug = name.toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
+            document.getElementById('slug').value = slug;
+        });
+    </script>
 
 @endsection
