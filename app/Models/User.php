@@ -72,6 +72,37 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // Mutators to automatically sanitize output for potential XSS fields
+    public function getNameAttribute($value)
+    {
+        return strip_tags($value);
+    }
+
+    public function getEmailAttribute($value)
+    {
+        return strip_tags($value);
+    }
+
+    public function getNicknameAttribute($value)
+    {
+        return strip_tags($value);
+    }
+
+    public function getAddressAttribute($value)
+    {
+        return strip_tags($value);
+    }
+
+    public function getSupervisorNameAttribute($value)
+    {
+        return strip_tags($value);
+    }
+
+    public function getSupervisorEmailAttribute($value)
+    {
+        return strip_tags($value);
+    }
+
     public function Transkrip(){
         return $this->hasMany(Transkrip::class, 'user_id');
     }
