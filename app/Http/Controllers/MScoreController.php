@@ -21,6 +21,8 @@ class MScoreController extends Controller
     function postAddScore(Request $request){
         $validate = $request->validate([
             'name' => 'required',
+            'range_start' => 'required',
+            'range_end' => 'required',
         ]);
 
         if ($validate){
@@ -49,6 +51,8 @@ class MScoreController extends Controller
     function postEditScore(Request $request){
         $validate = $request->validate([
             'name' => 'required',
+            'range_start' => 'required',
+            'range_end' => 'required',
         ]);
 
         if($validate){

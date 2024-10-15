@@ -39,6 +39,11 @@
                             <label for="input-title" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="input-title">
+                                @if ($errors->has('name'))
+                                    @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
 
@@ -46,6 +51,11 @@
                             <label for="input-title" class="col-md-2 col-form-label">Range Start</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="range_start" id="input-title">
+                                @if ($errors->has('range_start'))
+                                    @foreach ($errors->get('range_start') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
 
@@ -53,6 +63,11 @@
                             <label for="input-title" class="col-md-2 col-form-label">Range End</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="range_end" id="input-title">
+                                @if ($errors->has('range_end'))
+                                    @foreach ($errors->get('range_end') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
 
@@ -60,15 +75,16 @@
                             <label for="input-description" class="col-md-2 col-form-label">Description
                                 <small>(Admin)</small></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="description" id="input-description">
+                                <textarea type="text" name="description" id="elm1"></textarea>
                             </div>
                         </div>
 
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
-                            <div class="col-md-10" style="display: flex; align-items: center;">
+                            <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status" style="left: 0;">
+                                    name="status">
+                                <label class="m-0">Aktif</label>
                             </div>
                         </div>
 
