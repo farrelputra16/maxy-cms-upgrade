@@ -273,5 +273,42 @@
                 toggleFieldsByCourseType(selectedValue);
             });
         });
+
+        $(document).ready(function() {
+            // Format input "Mini Bootcamp Fake Price" to Rupiah on load and when typing
+            var fakePriceInput = document.getElementById('fake_price');
+            if (fakePriceInput.value) {
+                fakePriceInput.value = formatRupiah(fakePriceInput.value, 'Rp. '); // Format when page loads
+            }
+            fakePriceInput.addEventListener('keyup', function(e) {
+                fakePriceInput.value = formatRupiah(this.value, 'Rp. ');
+            });
+
+            // Format input "Mini Bootcamp Price" to Rupiah on load and when typing
+            var miniPriceInput = document.getElementById('price');
+            if (miniPriceInput.value) {
+                miniPriceInput.value = formatRupiah(miniPriceInput.value, 'Rp. '); // Format when page loads
+            }
+            miniPriceInput.addEventListener('keyup', function(e) {
+                miniPriceInput.value = formatRupiah(this.value, 'Rp. ');
+            });
+
+            // Function to format numbers into Rupiah format
+            function formatRupiah(angka, prefix) {
+                var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                    split = number_string.split(','),
+                    sisa = split[0].length % 3,
+                    rupiah = split[0].substr(0, sisa),
+                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                if (ribuan) {
+                    separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
+                }
+
+                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+            }
+        });
     </script>
 @endsection
