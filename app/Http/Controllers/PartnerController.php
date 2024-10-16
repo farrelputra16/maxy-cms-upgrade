@@ -40,8 +40,8 @@ class PartnerController extends Controller
             'url' => 'required',
             'address' => 'required',
             'email' => 'required',
-            'phone' => 'required|number',
-            'contact_person' => 'required|number',
+            'phone' => 'required|numeric',
+            'contact_person' => 'required|numeric',
         ]);
 
         if ($validate){
