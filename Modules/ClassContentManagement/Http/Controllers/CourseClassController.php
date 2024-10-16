@@ -76,7 +76,7 @@ class CourseClassController extends Controller
     }
 
     public function postCourseClassScoring(Request $request)
-    { 
+    {
         //dd($request->all());
         try {
             // Mengubah nilai kosong atau null pada attendance menjadi 0
@@ -226,7 +226,7 @@ class CourseClassController extends Controller
 
         $courseList = Course::all();
 
-        return view('classcontentmanagement::course_class.duplicate', [
+        return view('classcontentmanagement::course_class.duplicatev3', [
             'course_list' => $courseList,
             'class_list' => $classList
         ]);
