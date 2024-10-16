@@ -230,23 +230,7 @@ class CourseController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
-            'type' => 'required',
-            'mini_fake_price' => 'nullable',
-            'mini_price' => 'nullable',
-            'credits' => 'nullable|numeric',
-            'duration' => 'nullable|numeric',
-            'short_description' => 'required|string|max:500',
-            'content' => 'nullable|string',
-            'description' => 'nullable|string',
-            'file_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'payment_link' => ['required', 'url', 'regex:/^https:\/\/.+$/'],
-            'level' => 'required|numeric',
-            'status' => 'required|boolean',
         ]);
-
-        if ($validated['course_type'] === 'MBKM') {
-            dd($validated);
-        }
 
         try {
             $updateData = Course::postEditCourse($request);
