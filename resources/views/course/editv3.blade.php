@@ -16,7 +16,6 @@
                         <li class="breadcrumb-item active">Edit Course: {{ $courses->name }}</li>
                     </ol>
                 </div>
-
             </div>
         </div>
     </div>
@@ -67,7 +66,6 @@
                             <label for="input-tag" class="col-md-2 col-form-label">Difficulty</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="level" data-placeholder="Choose ...">
-                                    {{-- <option>Select</option> --}}
                                     @if ($currentDataCourse)
                                         <option selected value="{{ $currentDataCourse->m_difficulty_type_id }}">
                                             {{ $currentDataCourse->course_difficulty }}
@@ -80,30 +78,10 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Package</label>
-                            <div class="col-md-10">
-                                <select class="form-control select2" name="package" data-placeholder="Choose ...">
-                                    {{-- <option>Select</option> --}}
-                                    @if ($currentCoursePackages)
-                                        <option selected value="{{ $item->course_package_id }}">
-                                            {{ $item->course_package_name }} -Rp. {{ $item->course_package_price }}
-                                        </option>
-                                    @elseif ($currentCoursePackages == null)
-                                        <option selected value="">Tidak ada paket yang dipilih</option>
-                                    @endif
-                                    @foreach ($allCoursePackages as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }} - Rp. {{ $item->price }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Course Type</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="type" id="type_selector"
                                     data-placeholder="Choose ...">
-                                    {{-- <option>Select</option> --}}
                                     @if ($currentDataCourse)
                                         <option selected value="{{ $currentDataCourse->m_course_type_id }}">
                                             {{ $currentDataCourse->course_type_name }}
@@ -119,7 +97,7 @@
                             <label for="input-tag" class="col-md-2 col-form-label">Course Category</label>
                             <div class="col-md-10">
                                 <select class="form-control select2 multiple" name="courseCategory[]"
-                                    data-placeholder="Choose ..." id="type_selector" multiple="multiple">
+                                    data-placeholder="Choose ..." id="course_category_selector" multiple="multiple">
                                     @foreach ($allCourseCategory as $courseCategory)
                                         <option value="{{ $courseCategory->id }}"
                                             @if ($selectedCategoryId->contains('category_id', $courseCategory->id)) selected @endif>{{ $courseCategory->name }}
@@ -128,7 +106,26 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="mb-3 row">
+                        <div id="show_course_package" class="mb-3 row">
+                            <label for="input-package" class="col-md-2 col-form-label">Package</label>
+                            <div class="col-md-10">
+                                <select class="form-control select2" name="package" data-placeholder="Choose ...">
+                                    @if ($currentCoursePackages)
+                                        <option selected value="{{ $currentCoursePackages->course_package_id }}">
+                                            {{ $currentCoursePackages->course_package_name }} - Rp.
+                                            {{ $currentCoursePackages->course_package_price }}
+                                        </option>
+                                    @else
+                                        <option selected value="">Tidak ada paket yang dipilih</option>
+                                    @endif
+                                    @foreach ($allCoursePackages as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }} - Rp. {{ $item->price }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div id="show_course_mini_fake_price" class="mb-3 row">
                             <label for="input-mini-fake-price" class="col-md-2 col-form-label">Mini Bootcamp Fake
                                 Price</label>
                             <div class="col-md-10">
@@ -141,7 +138,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="mb-3 row">
+                        <div id="show_course_mini_price" class="mb-3 row">
                             <label for="input-mini-price" class="col-md-2 col-form-label">Mini Bootcamp Price</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="mini_price" id="price"
@@ -228,139 +225,53 @@
 
 @section('script')
     <script>
-        // autofill slug
-        document.getElementById('input-name').addEventListener('input', function() {
-            var name = this.value;
-            var slug = name.toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
-            document.getElementById('input-slug').value = slug;
-        });
-
-        function previewImage() {
-            const input = document.getElementById('input-file');
-            const frame = document.getElementById('frame');
-
-            // Check if a file is selected and it's an image
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-
-                // Event listener for when the file is read
-                reader.onload = function(e) {
-                    frame.src = e.target.result; // Set the image source to the new selected file
-                }
-
-                // Read the selected file as a Data URL (base64)
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
         $(document).ready(function() {
-            $('.js-example-basic-multiple').select2();
-        });
+            // autofill slug
+            document.getElementById('name').addEventListener('input', function() {
+                var name = this.value;
+                var slug = name.toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
+                document.getElementById('slug').value = slug;
+            });
 
-        function preview() {
-            frame.src = URL.createObjectURL(event.target.files[0]);
-            if ($('#type_selector').val() == 1) {
-                console.log("Bootcamp");
-                $('#mini_fake_price').hide();
-                $('#mini_price').hide();
-                $('#course_package').show();
-            } else if ($('#type_selector').val() == 3) {
-                console.log("Mini Bootcamp");
-                $('#course_package').hide();
-                $('#mini_fake_price').show();
-                $('#mini_price').show();
-            } else {
-                console.log("Rapid Onboarding atau Hackathon atau Prakerja atau MSIB");
-                $('#mini_fake_price').hide();
-                $('#mini_price').hide();
-                $('#course_package').hide();
-            }
-        }
+            // preview image
+            function previewImage() {
+                const input = document.getElementById('input-file');
+                const frame = document.getElementById('frame');
 
-        $('#type_selector').change(function() {
-            let val = $(this).val();
-            if (val == 1) {
-                $('#mini_fake_price').hide();
-                $('#mini_price').hide();
-                $('#course_package').show();
-            } else if (val == 3) {
-                $('#course_package').hide();
-                $('#mini_fake_price').show();
-                $('#mini_price').show();
-            } else {
-                $('#mini_fake_price').hide();
-                $('#mini_price').hide();
-                $('#course_package').hide()
-            }
-        })
-
-        var rupiah = document.getElementById('fake_price');
-        rupiah.addEventListener('keyup', function(e) {
-            rupiah.value = formatRupiah(this.value, 'Rp. ');
-        });
-
-        function formatRupiah(angka, prefix) {
-            var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                split = number_string.split(','),
-                sisa = split[0].length % 3,
-                rupiah = split[0].substr(0, sisa),
-                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-            if (ribuan) {
-                separator = sisa ? '.' : '';
-                rupiah += separator + ribuan.join('.');
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        frame.src = e.target.result;
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
             }
 
-            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-            return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-        }
-
-        var rupiah1 = document.getElementById('price');
-        rupiah1.addEventListener('keyup', function(e) {
-            rupiah1.value = formatRupiah(this.value, 'Rp. ');
-        });
-
-        function formatRupiah(angka, prefix) {
-            var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                split = number_string.split(','),
-                sisa = split[0].length % 3,
-                rupiah1 = split[0].substr(0, sisa),
-                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-            if (ribuan) {
-                separator = sisa ? '.' : '';
-                rupiah1 += separator + ribuan.join('.');
+            function toggleFieldsByCourseType(value) {
+                if (value == 1) { // Bootcamp
+                    $("#show_course_package").show();
+                    $("#show_course_mini_price").hide();
+                    $("#show_course_mini_fake_price").hide();
+                } else if (value == 3) { // Mini Bootcamp
+                    $("#show_course_package").hide();
+                    $("#show_course_mini_price").show();
+                    $("#show_course_mini_fake_price").show();
+                } else {
+                    $("#show_course_package").hide();
+                    $("#show_course_mini_price").hide();
+                    $("#show_course_mini_fake_price").hide();
+                }
             }
 
-            rupiah1 = split[1] != undefined ? rupiah1 + ',' + split[1] : rupiah1;
-            return prefix == undefined ? rupiah1 : (rupiah1 ? 'Rp. ' + rupiah1 : '');
-        }
+            // Saat halaman dimuat pertama kali, jalankan logika untuk menentukan tampilan awal berdasarkan nilai `type_selector`
+            const initialTypeValue = $('#type_selector').val();
+            toggleFieldsByCourseType(initialTypeValue);
 
-        // CK EDITOR
-        CKEDITOR.replace('short_description');
-        CKEDITOR.replace('content');
-        CKEDITOR.replace('description');
-
-        // Fungsi untuk membuat slug berdasarkan nama yang diberikan
-        function slugify(text) {
-            return text.toString().toLowerCase()
-                .replace(/\s+/g, '-')
-                .replace(/[^\w\-]+/g, '')
-                .replace(/\-\-+/g, '-')
-                .replace(/^-+/, '')
-                .replace(/-+$/, '');
-        }
-
-        // Event listener untuk input nama
-        document.getElementById('name').addEventListener('input', function() {
-            // Ambil nilai dari input nama
-            const nameValue = this.value;
-
-            // Buat slug berdasarkan nilai nama
-            const slugValue = slugify(nameValue);
-
-            // Set nilai slug ke input slug
-            document.getElementsByName('slug')[0].value = slugValue;
+            // Event listener saat user mengubah pilihan di select type
+            $('#type_selector').on('change', function() {
+                const selectedValue = $(this).val();
+                toggleFieldsByCourseType(selectedValue);
+            });
         });
     </script>
 @endsection

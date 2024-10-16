@@ -37,12 +37,15 @@ class CourseController extends Controller
         $allCourseTypes = MCourseType::all();
         $allCourseDifficulty = MDifficultyType::all();
         $allCourseCategory = Category::where('status', 1)->get();
+        $allCoursePackages = CoursePackage::all();
+
 
         return view('course.addv3', [
             'allPackagePrices' => $allPackagePrices,
             'allCourseTypes' => $allCourseTypes,
             'allCourseDifficulty' => $allCourseDifficulty,
             'allCourseCategory' => $allCourseCategory,
+            'allCoursePackages' => $allCoursePackages
         ]);
     }
 
@@ -52,6 +55,7 @@ class CourseController extends Controller
         $allCourseTypes = MCourseType::all();
         $allCourseDifficulty = MDifficultyType::all();
         $allCourseCategory = Category::where('status', 1)->get();
+        $allCoursePackages = CoursePackage::all();
 
 
         // Ambil ID berdasarkan slug 'mbkm'
@@ -62,6 +66,7 @@ class CourseController extends Controller
             'allCourseTypes' => $allCourseTypes,
             'allCourseDifficulty' => $allCourseDifficulty,
             'allCourseCategory' => $allCourseCategory,
+            'allCoursePackages' => $allCoursePackages,
             'mbkmTypeId' => $mbkmType ? $mbkmType->id : null // Kirim ID MBKM ke view
         ]);
     }
@@ -221,33 +226,35 @@ class CourseController extends Controller
 
     function postEditCourse(Request $request)
     {
-
+        // Validasi input
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
-            'type' => 'required|numeric',
-
-            //gatau kenapa, tapi validasi dibawah ngebuat ga bisa input ke db
-
-            // 'mini_fake_price' => 'nullable|regex:/^[0-9]{10,15}$/',
-            // 'mini_price' => 'nullable|regex:/^[0-9]{10,15}$/',
-            // 'credits' => 'nullable|numeric',
-            // 'duration' => 'nullable|numeric',
-            // 'short_description' => 'required|string|max:500',
-            // 'content' => 'nullable|string',
-            // 'description' => 'nullable|string',
-            // 'file_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // 'payment_link' => ['required', 'url', 'regex:/^https:\/\/.+$/'],
-            // 'level' => 'required|numeric',
-            // 'status' => 'required|boolean',
+            'type' => 'required',
+            'mini_fake_price' => 'nullable',
+            'mini_price' => 'nullable',
+            'credits' => 'nullable|numeric',
+            'duration' => 'nullable|numeric',
+            'short_description' => 'required|string|max:500',
+            'content' => 'nullable|string',
+            'description' => 'nullable|string',
+            'file_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'payment_link' => ['required', 'url', 'regex:/^https:\/\/.+$/'],
+            'level' => 'required|numeric',
+            'status' => 'required|boolean',
         ]);
+
+        if ($validated['course_type'] === 'MBKM') {
+            dd($validated);
+        }
 
         try {
             $updateData = Course::postEditCourse($request);
             if ($updateData) {
                 if (CourseCategory::where('course_id', $request->id)->exists()) {
                     DB::table('course_category')->where('course_id', $request->id)->delete();
-                }//dd($request->all());
+                }
+
                 $categories = $request->input('courseCategory');
                 if ($categories) {
                     foreach ($categories as $categoryId) {
@@ -259,13 +266,12 @@ class CourseController extends Controller
                         ]);
                     }
                 }
+
                 // Cek apakah course type adalah MBKM
                 $courseType = MCourseType::find($request->type);
                 if ($courseType && $courseType->name === 'MBKM') {
-                    // Jika tipe adalah MBKM, redirect ke halaman index MBKM
                     return redirect()->route('getCourseMBKM')->with('success', 'Course updated successfully!');
                 } else {
-                    // Jika bukan MBKM, redirect ke halaman index course biasa
                     return redirect()->route('getCourse')->with('success', 'Course updated successfully!');
                 }
             } else {
