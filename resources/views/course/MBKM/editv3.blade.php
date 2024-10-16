@@ -93,8 +93,8 @@
                             <div class="col-md-10">
                                 <select class="form-control select2" name="package" data-placeholder="Choose ...">
                                     @if ($currentCoursePackages)
-                                        <option selected value="{{ $item->course_package_id }}">
-                                            {{ $item->course_package_name }} -Rp. {{ $item->course_package_price }}
+                                        <option selected value="{{ $currentCoursePackages->course_package_id }}">
+                                            {{ $currentCoursePackages->course_package_name }} -Rp. {{ $currentCoursePackages->course_package_price }}
                                         </option>
                                     @elseif ($currentCoursePackages == null)
                                         <option selected value="">Tidak ada paket yang dipilih</option>
@@ -110,16 +110,12 @@
                             <label for="input-tag" class="col-md-2 col-form-label">MBKM Type</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="type" data-placeholder="Choose ..."
-                                    id="type_selector" disabled>
-                                    <option>-- Pilih Tipe Course --</option>
+                                    id="type_selector">
                                     @if ($currentDataCourse)
                                         <option selected value="{{ $currentDataCourse->m_course_type_id }}">
                                             {{ $currentDataCourse->course_type_name }}
                                         </option>
                                     @endif
-                                    @foreach ($allCourseTypes as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -229,10 +225,10 @@
 @section('script')
     <script>
         // autofill slug
-        document.getElementById('input-name').addEventListener('input', function() {
+        document.getElementById('name').addEventListener('input', function() {
             var name = this.value;
             var slug = name.toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
-            document.getElementById('input-slug').value = slug;
+            document.getElementById('slug').value = slug;
         });
 
         // preview image
