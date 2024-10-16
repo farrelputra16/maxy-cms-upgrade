@@ -32,7 +32,7 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form action="{{ route('postAddEventType') }}" method="post" enctype="multipart/form-data">
+                    <form id="addEventType" action="{{ route('postAddEventType') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Name</label>
@@ -62,7 +62,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Add Event Type</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addEventType">Add Event Type</button>
                             </div>
                         </div>
                     </form>

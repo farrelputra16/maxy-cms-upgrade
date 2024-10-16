@@ -32,7 +32,7 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form action="{{ route('postAddCourseClass') }}" method="post" enctype="multipart/form-data">
+                    <form id="addCourseClass" action="{{ route('postAddCourseClass') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         {{-- <input type="text" name="img_keep" value="{{ $blog->cover_img }}" hidden> --}}
 
@@ -164,7 +164,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Add Course</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCourseClass">Add Course</button>
                             </div>
                         </div>
                     </form>

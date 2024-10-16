@@ -33,7 +33,7 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form action="{{ route('postAddCarousel') }}" method="post" enctype="multipart/form-data">
+                    <form id="addCarousel" action="{{ route('postAddCarousel') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
@@ -104,7 +104,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Add Carousel</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCarousel">Add Carousel</button>
                             </div>
                         </div>
                     </form>

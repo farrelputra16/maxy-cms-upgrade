@@ -33,7 +33,7 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form action="{{ route('postAddTransOrder') }}" method="post" enctype="multipart/form-data">
+                    <form id="addPaymentOrder" action="{{ route('postAddTransOrder') }}" method="post" enctype="multipart/form-data">
                         @csrf
 
                         <br>
@@ -221,7 +221,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Add Payment Order</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addPaymentOrder">Add Payment Order</button>
                             </div>
                         </div>
                     </form>

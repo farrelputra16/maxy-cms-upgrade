@@ -32,7 +32,7 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form action="{{ route('postAddBlog') }}" method="post" enctype="multipart/form-data">
+                    <form id="addBlog" action="{{ route('postAddBlog') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         {{-- <input type="text" name="img_keep" value="{{ $blog->cover_img }}" hidden> --}}
 
@@ -89,7 +89,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Submit</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addBlog">Submit</button>
                             </div>
                         </div>
                     </form>

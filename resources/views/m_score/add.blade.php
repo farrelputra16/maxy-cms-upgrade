@@ -33,7 +33,7 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form action="{{ route('postAddScore') }}" method="post">
+                    <form id="addScore" action="{{ route('postAddScore') }}" method="post">
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Name</label>
@@ -90,7 +90,7 @@
 
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Submit</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addScore">Submit</button>
                             </div>
                         </div>
                     </form>
