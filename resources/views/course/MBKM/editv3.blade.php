@@ -89,24 +89,6 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Package</label>
-                            <div class="col-md-10">
-                                <select class="form-control select2" name="package" data-placeholder="Choose ...">
-                                    @if ($currentCoursePackages)
-                                        <option selected value="{{ $currentCoursePackages->course_package_id }}">
-                                            {{ $currentCoursePackages->course_package_name }} -Rp. {{ $currentCoursePackages->course_package_price }}
-                                        </option>
-                                    @elseif ($currentCoursePackages == null)
-                                        <option selected value="">Tidak ada paket yang dipilih</option>
-                                    @endif
-                                    @foreach ($allCoursePackages as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }} - Rp. {{ $item->price }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">MBKM Type</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="type" data-placeholder="Choose ..."
@@ -130,33 +112,6 @@
                                         </option>
                                     @endforeach
                                 </select>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-mini-fake-price" class="col-md-2 col-form-label">Mini Bootcamp Fake
-                                Price</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="mini_fake_price" id="fake_price"
-                                    value="{{ $currentDataCourse ? $currentDataCourse->fake_price : '' }}"
-                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                                @if ($errors->has('mini_fake_price'))
-                                    @foreach ($errors->get('mini_fake_price') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-mini-price" class="col-md-2 col-form-label">Mini Bootcamp Price</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="mini_price" id="price"
-                                    value="{{ $currentDataCourse ? $currentDataCourse->price : '' }}"
-                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                                @if ($errors->has('mini_price'))
-                                    @foreach ($errors->get('mini_price') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
