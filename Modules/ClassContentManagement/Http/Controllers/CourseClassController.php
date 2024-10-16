@@ -79,16 +79,25 @@ class CourseClassController extends Controller
     { 
         //dd($request->all());
         try {
+            // Mengubah nilai kosong atau null pada attendance menjadi 0
+            $attendance = $request->attendance ?? 0;
+
+            // Update attendance percentage
             $updateData = CourseClass::where('id', $request->id)
                 ->update([
-                    'percentage' => $request->attendance,
+                    'percentage' => $attendance,
                 ]);
+
             $data = $request->all();
 
+            // Ubah nilai kosong atau null pada setiap module percentage menjadi 0
             foreach ($data as $id => $percentage) {
                 if (!is_numeric($id)) {
                     continue;
                 }
+                // Ubah nilai kosong menjadi 0
+                $percentage = $percentage ?? 0;
+
                 CourseClassModule::where('id', $id)->update(['percentage' => $percentage]);
             }
 
@@ -97,8 +106,9 @@ class CourseClassController extends Controller
                 $data = Transkrip::where('user_id', $member->user_id)
                     ->where('course_class_id', $request->id)
                     ->first();
+
                 $attendance_percentage = CourseClass::where('id', $request->id)->value('percentage') ?? 0;
-                // dd($attendance_percentage);
+
                 $courseClassId = $request->id;
                 $absentCount = MemberAttendance::where('user_id', $member->user_id)
                     ->whereNull('attended_at')
@@ -108,6 +118,7 @@ class CourseClassController extends Controller
                         });
                     })
                     ->count();
+
                 $totalCount = MemberAttendance::where('user_id', $member->user_id)
                     ->whereHas('CourseClassAttendance', function ($query) use ($courseClassId) {
                         $query->whereHas('CourseClassModule', function ($query) use ($courseClassId) {
@@ -115,9 +126,10 @@ class CourseClassController extends Controller
                         });
                     })
                     ->count();
-                // dd($absentCount, $totalCount, $courseClassId);
+
                 $attendance_score = $totalCount > 0 ? ($absentCount / $totalCount) * 100 : 0;
                 $score = $attendance_score * $attendance_percentage / 100;
+
                 $course_module_percentage = CourseClassModule::with(['CourseClass', 'CourseModule'])
                     ->where('course_class_id', $request->id)
                     ->whereHas('CourseModule', function ($query) {
@@ -125,23 +137,25 @@ class CourseClassController extends Controller
                     })
                     ->orderBy('course_class_module.id')
                     ->get();
+
                 foreach ($course_module_percentage as $item) {
+                    // Ubah nilai kosong menjadi 0 jika grade null
                     $item->grade = CourseClassMemberGrading::where('course_class_module_id', $item->id)
                         ->where('user_id', $member->user_id)
-                        ->value('grade')
-                        ?? 0;
+                        ->value('grade') ?? 0;
+
                     $score += $item->grade * $item->percentage / 100;
                 }
-                // dd($score);
+
                 $score = ceil($score);
                 $score = min($score, 100); // Pastikan nilai maksimum adalah 100
                 $score_id = MScore::where('range_start', '<=', $score)->where('range_end', '>=', $score)->first();
+
                 if ($score_id == null) {
                     dd($score, $score_id, $data);
                 }
+
                 if ($data) {
-                    // dd($score_id->id);
-                    // dd($data);
                     $data->update(['m_score_id' => $score_id->id, 'updated_id' => Auth::user()->id]);
                 } else {
                     $create = Transkrip::create([
@@ -153,6 +167,7 @@ class CourseClassController extends Controller
                     ]);
                 }
             }
+
             return app(HelperController::class)->Positive('getCourseClass');
         } catch (Exception $e) {
             dd($e);
