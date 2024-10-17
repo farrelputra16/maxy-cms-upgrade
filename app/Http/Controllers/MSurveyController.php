@@ -22,6 +22,7 @@ class MSurveyController extends Controller
     function postAddSurvey(Request $request){//dd($request->all());
         $validate = $request->validate([
             'name' => 'required',
+            'survey' => 'required',
         ]);
 
         if ($validate){

@@ -53,6 +53,9 @@ class AccessMasterController extends Controller
     }
 
     function postEditAccessMaster(Request $request){
+        $validated = $request->validate([
+            'name' => 'required'
+        ]);
         $idaccessmaster = $request->id;
 
         $updateData = AccessMaster::postEditAccessMaster($request);

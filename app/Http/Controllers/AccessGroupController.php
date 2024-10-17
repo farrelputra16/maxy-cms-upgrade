@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AccessGroupController extends Controller
 {
+/*************  ✨ Codeium Command ⭐  *************/
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+/******  00ed2cb6-076e-4b7b-9f3f-77fec8966bae  *******/
     function getAccessGroup()
     {
         $accessgroups = AccessGroup::all();
@@ -67,6 +74,10 @@ class AccessGroupController extends Controller
 
     function postEditAccessGroup(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'required',
+        ]);
+        
         $idAccessGroup = $request->id;
         $access_group = AccessGroup::find($idAccessGroup);
 

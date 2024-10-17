@@ -57,6 +57,11 @@ class CategoryController extends Controller
     }
 
     function postEditCategory(Request $request){
+
+        $validated= $request->validate([
+            'name' => 'required',
+        ]);
+        
         $idCategory = $request->id;
 
         $updateData = Category::where('id', $idCategory)
