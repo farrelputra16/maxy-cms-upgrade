@@ -42,6 +42,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="title" value="{{ $data->title }}"
                                     id="input-title">
+                                @if ($errors->has('title'))
+                                    @foreach ($errors->get('title') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -49,21 +54,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug" value="{{ $data->slug }}"
                                     id="input-slug" readonly>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Content</label>
-                            <div class="col-md-10">
-                                <textarea id="elm1" name="content">{{ $data->content }}</textarea>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-file" class="col-md-2 col-form-label">Cover Image</label>
-                            <div class="col-md-10" style="height: 200px">
-                                <input class="form-control" type="file" name="file_image" id="input-file">
-                                <img id="frame"
-                                    src="{{ asset('uploads/blog/' . $data->slug . '/' . $data->cover_img) }}"
-                                    class="img-fluid h-100" />
+                                @if ($errors->has('slug'))
+                                    @foreach ($errors->get('slug') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -81,11 +76,36 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
+                            <label for="input-file" class="col-md-2 col-form-label">Cover Image</label>
+                            <div class="col-md-10" style="height: 200px">
+                                <input class="form-control" type="file" name="file_image" id="input-file">
+                                <img id="frame"
+                                    src="{{ asset('uploads/blog/' . $data->slug . '/' . $data->cover_img) }}"
+                                    class="img-fluid h-100" />
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="input-content" class="col-md-2 col-form-label">Content</label>
+                            <div class="col-md-10">
+                                <textarea id="elm1" name="content">{{ $data->content }}</textarea>
+                                @if ($errors->has('content'))
+                                    @foreach ($errors->get('content') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
                             <label for="input-description" class="col-md-2 col-form-label">Description
                                 <small>(Admin)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="description"
                                     value="{{ $data->description }}" id="input-description">
+                                @if ($errors->has('description'))
+                                    @foreach ($errors->get('description') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
