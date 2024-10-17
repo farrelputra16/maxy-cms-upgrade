@@ -109,9 +109,14 @@
                                 <select class="form-control select2 multiple" name="courseCategory[]"
                                     data-placeholder="Choose ..." id="course_category_selector" multiple="multiple">
                                     @foreach ($allCourseCategory as $courseCategory)
-                                        <option value="{{ $courseCategory->id }}"</option>
+                                        <option value="{{ $courseCategory->id }}">{{ $courseCategory->name }}</option>
                                     @endforeach
                                 </select>
+                                @if ($errors->has('courseCategory[]'))
+                                    @foreach ($errors->get('courseCategory[]') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
 
