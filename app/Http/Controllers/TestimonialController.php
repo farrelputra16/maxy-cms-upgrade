@@ -102,6 +102,14 @@ class TestimonialController extends Controller
     function postEditTestimonial(Request $request){
         $idtestimonial = $request->id;
 
+        $validated= $request->validate([
+            'stars' => 'required',
+            'role' => 'required',
+            'user_id' => 'required',
+            'course_class_id' => 'required',
+            'content' => 'required',
+        ]);
+
         $updateData = Testimonial::where('id', $idtestimonial)
             ->update([
                 'stars' => $request->stars,

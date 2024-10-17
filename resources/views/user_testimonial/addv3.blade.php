@@ -40,6 +40,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="number" min="1" max="5" name="stars"
                                     id="stars">
+                                @if ($errors->has('stars'))
+                                    @foreach ($errors->get('stars') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
