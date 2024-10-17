@@ -33,40 +33,64 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form id="addRedeemCode" action="{{ route('postAddRedeemCode') }}" method="post" enctype="multipart/form-data">
+                    <form id="addRedeemCode" action="{{ route('postAddRedeemCode') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name"
-                                    id="name" placeholder="Masukkan Nama Voucher">
+                                <input class="form-control" type="text" name="name" id="name"
+                                    placeholder="Masukkan Nama Voucher">
+                                @if ($errors->has('name'))
+                                    @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Code</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="code"
-                                    id="code" placeholder="Masukkan Kode Voucher">
+                                <input class="form-control" type="text" name="code" id="code"
+                                    placeholder="Masukkan Kode Voucher">
+                                @if ($errors->has('code'))
+                                    @foreach ($errors->get('code') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Quota</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="quota"
-                                    id="quota">
+                                <input class="form-control" type="number" name="quota" id="quota">
+                                @if ($errors->has('quota'))
+                                    @foreach ($errors->get('quota') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Type</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="type"
-                                    placeholder="Masukkan Type">
+                                <input class="form-control" type="text" name="type" placeholder="Masukkan Type">
+                                @if ($errors->has('type'))
+                                    @foreach ($errors->get('type') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Expired Date</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" name="expired_date">
+                                @if ($errors->has('expired_date'))
+                                    @foreach ($errors->get('expired_date') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -85,7 +109,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addRedeemCode">Add Redeem Code</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addRedeemCode">Add Redeem Code</button>
                             </div>
                         </div>
                     </form>

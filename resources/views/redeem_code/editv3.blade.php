@@ -42,6 +42,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     value="{{ $currentData->name }}">
+                                @if ($errors->has('name'))
+                                    @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -49,6 +54,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="code" id="code"
                                     value="{{ $currentData->code }}">
+                                @if ($errors->has('code'))
+                                    @foreach ($errors->get('code') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -56,12 +66,22 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="quota" id="quota"
                                     value="{{ $currentData->quota }}">
+                                @if ($errors->has('quota'))
+                                    @foreach ($errors->get('quota') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Type</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="type" value="{{ $currentData->type }}">
+                                @if ($errors->has('type'))
+                                    @foreach ($errors->get('type') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -69,6 +89,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" name="expired_date"
                                     value="{{ $currentData->expired_date }}">
+                                @if ($errors->has('expired_date'))
+                                    @foreach ($errors->get('expired_date') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -76,7 +101,8 @@
                             <div class="col-md-10">
                                 <select class="form-control select2" name="access_master_old[]" id="type_selector">
                                     @foreach ($current_course_class_redeem_code as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }} - Batch{{ $item->batch }}
+                                        <option value="{{ $item->id }}">{{ $item->name }} -
+                                            Batch{{ $item->batch }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -123,12 +149,12 @@
 
 @section('script')
 
-<script>
-    $('#hapus, #tambah').multiselect({
-        maxHeight: 300,
-        includeSelectAllOption: true,
-        enableFiltering: true,
-    });
-</script>
+    <script>
+        $('#hapus, #tambah').multiselect({
+            maxHeight: 300,
+            includeSelectAllOption: true,
+            enableFiltering: true,
+        });
+    </script>
 
 @endsection
