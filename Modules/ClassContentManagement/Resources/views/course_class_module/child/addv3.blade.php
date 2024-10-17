@@ -49,7 +49,7 @@
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_module_id" data-placeholder="Choose ..."
                                     id="type_selector">
-                                    <option>-- Pilih Tipe Course --</option>
+                                    <option value="0">-- Pilih Tipe Course --</option>
                                     @foreach ($child_cm_list as $item)
                                     <option value="{{ $item->id }}">[{{ $item->type }}] {{ $item->name }}</option>
                                     @endforeach

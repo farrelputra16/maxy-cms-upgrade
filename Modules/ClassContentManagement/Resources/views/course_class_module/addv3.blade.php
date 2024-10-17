@@ -53,7 +53,7 @@
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_module_id" data-placeholder="Choose ..."
                                     id="type_selector">
-                                    <option>-- Pilih Tipe Course --</option>
+                                    <option value="0">-- Pilih Tipe Course --</option>
                                     @foreach ($allModules as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach

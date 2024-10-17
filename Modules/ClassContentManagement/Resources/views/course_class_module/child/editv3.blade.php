@@ -82,8 +82,8 @@
                             <div class="col-md-10">
                                 <input class="form-control" id="date" type="date" name="start"
                                     value="{{ \Carbon\Carbon::parse($child_detail->start_date)->format('Y-m-d') }}">
-                                @if ($errors->has('priority'))
-                                    @foreach ($errors->get('priority') as $error)
+                                @if ($errors->has('start'))
+                                    @foreach ($errors->get('start') as $error)
                                         <span style="color: red;">{{ $error }}</span>
                                     @endforeach
                                 @endif
@@ -94,18 +94,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" id="date" type="date" name="end"
                                     value="{{ \Carbon\Carbon::parse($child_detail->end_date)->format('Y-m-d') }}">
-                                @if ($errors->has('priority'))
-                                    @foreach ($errors->get('priority') as $error)
+                                @if ($errors->has('end'))
+                                    @foreach ($errors->get('end') as $error)
                                         <span style="color: red;">{{ $error }}</span>
                                     @endforeach
                                 @endif
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Priority</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="priority"
-                                    value="{{ $child_detail->priority }}">
                             </div>
                         </div>
                         <div class="card m-5 p-5" style="border-radius: 25px; border: 1px solid #b0bad8;">

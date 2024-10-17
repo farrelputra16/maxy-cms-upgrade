@@ -80,6 +80,14 @@ class CourseClassModuleController extends Controller
     public function postAddCourseClassModule(Request $request)
     {
         // dd($request->all());
+        $validated = $request->validate([
+            'course_module_id' => 'required|not_in:0',
+            'start' => 'required',
+            'end' => 'required',
+        ], [
+            'course_module_id.not_in' => 'You must select a valid course module.',
+        ]);
+
         $create = CourseClassModule::create([
             'start_date' => $request->start,
             'end_date' => $request->end,
@@ -125,6 +133,12 @@ class CourseClassModuleController extends Controller
     function postEditCourseClassModule(Request $request)
     {
         // dd($request->all());
+        $validated = $request->validate([
+            'start' => 'required',
+            'end' => 'required',
+            'level' => 'required',
+        ]);
+
         $course_class_module_id = $request->id;
 
         $updateData = CourseClassModule::where('id', $course_class_module_id)
@@ -198,6 +212,13 @@ class CourseClassModuleController extends Controller
     function postAddCourseClassChildModule(Request $request)
     {
         // dd($request->all()); // dapat course_class_module_id parent nya
+        $validated = $request->validate([
+            'course_module_id' => 'required|not_in:0',
+            'start' => 'required',
+            'end' => 'required',
+        ], [
+            'course_module_id.not_in' => 'You must select a valid course module.',
+        ]);
 
         $create = CourseClassModule::create([
             'start_date' => $request->start,
@@ -359,6 +380,11 @@ class CourseClassModuleController extends Controller
     function postEditCourseClassChildModule(Request $request)
     {
         // dd($request->all());
+        $validated = $request->validate([
+            'start' => 'required',
+            'end' => 'required',
+            'priority' => 'required',
+        ]);
 
         $update = CourseClassModule::where('id', $request->id)
             ->update([
