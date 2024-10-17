@@ -40,6 +40,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" value="{{ $data->name }}"
                                     id="input-title">
+                                @if ($errors->has('name'))
+                                    @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
 
@@ -48,6 +53,11 @@
                             <div class="col-md-10">
                                 <input class="form-control color-picker" type="text" name="color"
                                     value="{{ $data->color }}" id="input-color">
+                                @if ($errors->has('color'))
+                                    @foreach ($errors->get('color') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
 
@@ -55,8 +65,8 @@
                             <label for="input-description" class="col-md-2 col-form-label">Description
                                 <small>(Admin)</small></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="description"
-                                    value="{{ $data->description }}" id="input-description">
+                                <textarea type="text" name="description"
+                                    id="elm1">{{ $data->description }}</textarea>
                             </div>
                         </div>
 

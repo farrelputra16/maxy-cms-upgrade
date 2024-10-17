@@ -33,12 +33,18 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form id="addBlogTag" action="{{ route('postAddBlogTag') }}" method="post" enctype="multipart/form-data">
+                    <form id="addBlogTag" action="{{ route('postAddBlogTag') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="input-title">
+                                @if ($errors->has('name'))
+                                    @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
 
@@ -46,6 +52,11 @@
                             <label for="input-color" class="col-md-2 col-form-label">Color</label>
                             <div class="col-md-10">
                                 <input class="form-control color-picker" type="text" name="color" id="input-color">
+                                @if ($errors->has('color'))
+                                    @foreach ($errors->get('color') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
 
@@ -53,7 +64,7 @@
                             <label for="input-description" class="col-md-2 col-form-label">Description
                                 <small>(Admin)</small></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="description" id="input-description">
+                                <textarea id="elm1" type="text" name="description"></textarea>
                             </div>
                         </div>
 
@@ -67,7 +78,8 @@
 
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addBlogTag">Submit</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addBlogTag">Submit</button>
                             </div>
                         </div>
                     </form>
