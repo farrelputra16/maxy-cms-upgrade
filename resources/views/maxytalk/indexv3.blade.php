@@ -79,7 +79,7 @@
                                         title="{!! strip_tags($item->description) !!}">
                                         {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
                                     </td>
-                                    <td><img src="/img/maxytalk/{{ $item->img }}" alt="Image" style="max-width: 200px; max-height: 150px;"></td>
+                                    <td><img src="/uploads/maxytalk/{{ $item->img }}" alt="Image" style="max-width: 200px; max-height: 150px;"></td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->created_id }}</td>
                                     <td>{{ $item->updated_at }}</td>

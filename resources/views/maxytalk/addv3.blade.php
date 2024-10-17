@@ -33,7 +33,8 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form id="addMaxyTalk" action="{{ route('postAddMaxyTalk') }}" method="post" enctype="multipart/form-data">
+                    <form id="addMaxyTalk" action="{{ route('postAddMaxyTalk') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
@@ -121,6 +122,21 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
+                            <label for="input-file" class="col-md-2 col-form-label">Image</label>
+                            <div class="col-md-10" style="height: 200px">
+                                <input class="form-control" type="file" name="img" id="input-file" accept="image/*"
+                                    onchange="previewImage()">
+                                <img id="frame" src="" alt="Preview Image" class="img-fluid h-100"
+                                    style="display: none;" />
+                                <br>
+                                @if ($errors->has('img'))
+                                    @foreach ($errors->get('img') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description" id="description"></textarea>
@@ -136,7 +152,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addMaxyTalk">Add Maxy Talk</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addMaxyTalk">Add Maxy Talk</button>
                             </div>
                         </div>
                     </form>
@@ -147,5 +164,26 @@
 @endsection
 
 @section('script')
+
+    <script>
+        function previewImage() {
+            const input = document.getElementById('input-file');
+            const frame = document.getElementById('frame');
+
+            // Cek apakah ada file yang dipilih
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                // Ketika file selesai dibaca
+                reader.onload = function(e) {
+                    frame.src = e.target.result; // Atur sumber gambar ke file yang dipilih
+                    frame.style.display = 'block'; // Tampilkan gambar pratinjau
+                }
+
+                // Baca file sebagai URL
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 
 @endsection

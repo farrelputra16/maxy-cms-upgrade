@@ -11,7 +11,8 @@ use App\Models\User;
 class MaxyTalkController extends Controller
 {
     //
-    function getMaxyTalk(){
+    function getMaxyTalk()
+    {
         $maxytalk = MaxyTalk::all();
 
         return view('maxytalk.indexv3', [
@@ -19,7 +20,8 @@ class MaxyTalkController extends Controller
         ]);
     }
 
-    function getAddMaxyTalk(){
+    function getAddMaxyTalk()
+    {
         $maxytalk = MaxyTalk::all();
         $users = User::all();
 
@@ -29,33 +31,47 @@ class MaxyTalkController extends Controller
         ]);
     }
 
-    function postAddMaxyTalk(Request $request){
+    public function postAddMaxyTalk(Request $request)
+    {
         $validate = $request->validate([
             'name' => 'required',
             'datestart' => 'required',
             'dateend' => 'required',
-            'userid' => 'required'
+            'userid' => 'required',
+            'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048' // Validasi untuk gambar
         ]);
 
-        if($validate){
+        if ($validate) {
+            // Handling image upload
+            $fileName = '';
+            if ($request->hasFile('img')) {
+                $file = $request->file('img');
+                $extension = $file->getClientOriginalExtension();
+                $fileName = time() . '.' . $extension; // Nama file unik
+                $file->move(public_path('/uploads/maxytalk/'), $fileName); // Pindahkan ke direktori
+            }
+
+            // Create MaxyTalk entry
             $create = MaxyTalk::create([
                 'name' => $request->name,
                 'start_date' => $request->datestart,
                 'end_date' => $request->dateend,
                 'register_link' => $request->registration,
-                'priority'=>$request->priority,
+                'priority' => $request->priority,
                 'users_id' => $request->userid,
                 'maxy_talk_parent_id' => $request->parentsid,
                 'description' => $request->description,
                 'status' => $request->status == 1 ? 1 : 0,
+                'img' => $fileName, // Simpan nama file gambar
                 'created_id' => Auth::user()->id,
                 'updated_id' => Auth::user()->id
             ]);
 
-            if ($create){
+            if ($create) {
                 return app(HelperController::class)->Positive('getMaxyTalk');
             }
             return app(HelperController::class)->Negative('getMaxyTalk');
         }
     }
+
 }
