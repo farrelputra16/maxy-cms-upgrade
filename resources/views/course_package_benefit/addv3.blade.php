@@ -61,7 +61,6 @@
                             <label for="input-tag" class="col-md-2 col-form-label">ID Course Package</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_package_id" data-placeholder="Choose ...">
-                                    <option>Select</option>
                                     @foreach ($allCoursePackages as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
