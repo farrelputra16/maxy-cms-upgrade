@@ -32,7 +32,7 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form action="{{ route('postAddCourseModule', ['page_type' => $page_type]) }}" method="post" enctype="multipart/form-data">
+                    <form id="addCourseModule" action="{{ route('postAddCourseModule', ['page_type' => $page_type]) }}" method="post" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
@@ -46,12 +46,22 @@
                             <label for="input-title" class="col-md-2 col-form-label">Module Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"" placeholder="Masukkan Nama Course Module">
+                                @if ($errors->has('name'))
+                                    @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Day / Priority</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority">
+                                @if ($errors->has('priority'))
+                                    @foreach ($errors->get('priority') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         @if ($page_type == 'company_profile')
@@ -78,7 +88,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Add Course Module</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCourseModule">Add Course Module</button>
                             </div>
                         </div>
                     </form>

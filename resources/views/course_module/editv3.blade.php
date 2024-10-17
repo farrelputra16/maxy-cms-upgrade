@@ -41,12 +41,22 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" value="{{ $module_detail->name }}"
                                     id="name">
+                                @if ($errors->has('name'))
+                                    @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Day / Priority</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority" value="{{ $module_detail->priority }}">
+                                @if ($errors->has('priority'))
+                                    @foreach ($errors->get('priority') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">

@@ -65,6 +65,11 @@ class CourseModuleController extends Controller
     function postAddCourseModule(Request $request)
     {
         // dd($request->all());
+        $validate = $request->validate([
+            'name' => 'required',
+            'priority' => 'required',
+        ]);
+
         $level = 1;
         $type = '';
 
@@ -113,6 +118,10 @@ class CourseModuleController extends Controller
     function postEditCourseModule(Request $request)
     {
         // dd($request->all());
+        $validate = $request->validate([
+            'name' => 'required',
+            'priority' => 'required',
+        ]);
         $course_detail = Course::getCourseDetailByCourseId($request->course_id);
         $update = CourseModule::where('id', $request->id)
             ->update([
