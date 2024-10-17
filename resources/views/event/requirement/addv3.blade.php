@@ -33,7 +33,7 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form action="{{ route('postAddEventRequirement') }}" method="post" enctype="multipart/form-data">
+                    <form id="addEventRequirement" action="{{ route('postAddEventRequirement') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="event_id" value="{{ $event_id }}">
                         <div class="mb-3 row">
@@ -83,7 +83,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Add Requirement</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addEventRequirement">Add Requirement</button>
                             </div>
                         </div>
                     </form>

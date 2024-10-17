@@ -171,6 +171,9 @@ class EventController extends Controller
     public function postAddEventRequirement(Request $request)
     {
     //    dd($request->all());
+        $validate = $request->validate([
+            'name' => 'required',
+        ]);
 
         try {
             $requirement = new EventRequirement();
@@ -201,6 +204,9 @@ class EventController extends Controller
     public function postEditEventRequirement(Request $request)
     {
         // dd($request->all());
+        $validate = $request->validate([
+            'name' => 'required',
+        ]);
 
         try {
             $requirement = EventRequirement::find($request->id);
