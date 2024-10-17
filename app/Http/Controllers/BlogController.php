@@ -155,14 +155,16 @@ class BlogController extends Controller
     }
     public function postAddBlogTag(Request $request)
     {
-        // dd($request->all());
+        // Validasi input
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'color' => 'required|string|max:8',  // Validasi untuk warna
+            'description' => 'nullable|string',  // Deskripsi opsional
+            'status' => 'nullable|boolean',      // Status boolean, default ke 0 jika kosong
+        ]);
 
         try {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-            ]);
-
-            // add new data to database
+            // Tambahkan data baru ke database
             $create = MBlogTag::create([
                 'name' => $request->name,
                 'color' => $request->color,
@@ -172,11 +174,12 @@ class BlogController extends Controller
                 'updated_id' => Auth::user()->id
             ]);
 
-            return redirect()->route('getBlogTag')->with('success', 'data updated successfully.');
+            return redirect()->route('getBlogTag')->with('success', 'Data successfully created.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'failed to save data, ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to save data: ' . $e->getMessage());
         }
     }
+
     public function getEditBlogTag(Request $request)
     {
         $data = MBlogTag::find($request->id);
@@ -184,17 +187,20 @@ class BlogController extends Controller
     }
     public function postEditBlogTag(Request $request)
     {
-        // dd($request->all());
-        try {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-            ]);
+        // Validasi input
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'color' => 'required|string|max:8',  // Validasi untuk warna
+            'description' => 'nullable|string',  // Deskripsi opsional
+            'status' => 'nullable|boolean',      // Status opsional
+        ]);
 
-            // update database
+        try {
+            // Temukan tag berdasarkan ID
             $blogTag = MBlogTag::find($request->id);
 
             if ($blogTag) {
-                // Update blog
+                // Update data blog tag
                 $blogTag->name = $request->name;
                 $blogTag->color = $request->color;
                 $blogTag->description = $request->description;
@@ -203,10 +209,13 @@ class BlogController extends Controller
                 $blogTag->updated_id = Auth::user()->id;
                 $blogTag->save();
 
-                return redirect()->route('getBlogTag')->with('success', 'data updated successfully.');
+                return redirect()->route('getBlogTag')->with('success', 'Data updated successfully.');
+            } else {
+                return redirect()->back()->with('error', 'Blog tag not found.');
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'failed to save data, ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to save data: ' . $e->getMessage());
         }
     }
+
 }
