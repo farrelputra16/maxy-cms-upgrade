@@ -33,13 +33,19 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form action="{{ route('postEditGeneral', ['id' => request()->query('id')]) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('postEditGeneral', ['id' => request()->query('id')]) }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     value="{{ $generals->name }}">
+                                @if ($errors->has('name'))
+                                    @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -47,6 +53,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="value" id="value"
                                     value="{{ $generals->value }}">
+                                @if ($errors->has('value'))
+                                    @foreach ($errors->get('value') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -59,7 +70,7 @@
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status" value="1" {{ $generals->status == 1 ? 'checked' : ''}}>
+                                    name="status" value="1" {{ $generals->status == 1 ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>
