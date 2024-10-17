@@ -17,7 +17,11 @@ class CourseController extends Controller
 {
     function getCourse()
     {
-        $courses = Course::with(['type'])->get();
+        $courses = Course::with(['type'])
+            ->whereHas('type', function ($q) {
+                $q->where('name', '!=', 'MBKM');
+            })
+            ->get();
         return view('course.indexv3', ['courses' => $courses]);
     }
 
@@ -73,6 +77,7 @@ class CourseController extends Controller
 
     public function postAddCourse(Request $request)
     {
+        // dd($request->all());
 
         $validated = $request->validate([
             'name' => 'required',
@@ -82,8 +87,9 @@ class CourseController extends Controller
             'mini_price' => 'nullable|numeric',
             'credits' => 'nullable|numeric',
             'duration' => 'nullable|numeric',
-            'short_description' => 'nullable|string|max:500',
-            'payment_link' => ['nullable', 'url', 'regex:/^https:\/\/.+$/'],
+            'file_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'short_description' => 'required|string|max:500',
+            'payment_link' => ['required', 'url', 'regex:/^https:\/\/.+$/'],
             'level' => 'nullable|numeric',
             'content' => 'nullable|string',
             'description' => 'nullable|string',
@@ -226,12 +232,15 @@ class CourseController extends Controller
 
     function postEditCourse(Request $request)
     {
+        // dd($request->all());
         // Validasi input
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
+            'short_description' => 'required|string|max:255',
+            'file_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
+        
         try {
             $updateData = Course::postEditCourse($request);
             if ($updateData) {

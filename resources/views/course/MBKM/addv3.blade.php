@@ -119,6 +119,12 @@
                                 <input class="form-control" type="file" name="file_image" id="input-file"
                                     accept="image/*" onchange="previewImage()">
                                 <img id="frame" src="" alt="Preview Image" class="img-fluid h-100" />
+                                <br>
+                                @if ($errors->has('file_image'))
+                                    @foreach ($errors->get('file_image') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">

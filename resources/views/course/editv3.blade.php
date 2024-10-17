@@ -182,6 +182,11 @@
                                 <img id="frame"
                                     src="{{ asset('uploads/course_img/' . $courses->slug . '/' . $courses->image) }}"
                                     class="img-fluid h-100" alt="Current Image" />
+                                    @if ($errors->has('file_image'))
+                                        @foreach ($errors->get('file_image') as $error)
+                                            <span style="color: red;">{{ $error }}</span>
+                                        @endforeach
+                                    @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -194,6 +199,11 @@
                             <label for="input-short-description" class="col-md-2 col-form-label">Short Description</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="short_description">{{ strip_tags($courses->short_description) }}</textarea>
+                                @if ($errors->has('short_description'))
+                                    @foreach ($errors->get('short_description') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">

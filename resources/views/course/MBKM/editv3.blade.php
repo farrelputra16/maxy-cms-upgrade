@@ -121,6 +121,12 @@
                                     accept="image/*" onchange="previewImage()">
                                 <img id="frame" src="{{ asset('uploads/course_img/' . $courses->image) }}"
                                     alt="Preview Image" class="img-fluid h-100" />
+                                    <br>
+                                    @if ($errors->has('file_image'))
+                                        @foreach ($errors->get('file_image') as $error)
+                                            <span style="color: red;">{{ $error }}</span>
+                                        @endforeach
+                                    @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
