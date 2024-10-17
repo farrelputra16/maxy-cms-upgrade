@@ -34,7 +34,7 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form action="{{ route('postAddCourseClassMember') }}" method="post" enctype="multipart/form-data">
+                    <form id="addCCMember" action="{{ route('postAddCourseClassMember') }}" method="post" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
@@ -85,7 +85,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Add Member</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCCMember">Add Member</button>
                             </div>
                         </div>
                     </form>
@@ -127,7 +127,7 @@
 
                                     <div class="mb-3 row justify-content-end">
                                         <div class="text-end">
-                                            <button type="submit" class="btn btn-primary w-md text-center">Add Multiple Members</button>
+                                            <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCCMember">Add Multiple Members</button>
                                         </div>
                                     </div>
 
