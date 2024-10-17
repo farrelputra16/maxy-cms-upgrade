@@ -62,7 +62,7 @@
                                         title="{{ $item->User->name }}">
                                         {!! \Str::limit($item->User->name, 30) !!}
                                     </td>
-                                    <td>{{ $item->CourseClass->Schedule->first()->MAcademicPeriod->name }}</td>
+                                    <td>{{ optional(optional($item->CourseClass->Schedule->first())->MAcademicPeriod)->name ?? 'N/A' }}</td>
                                     <td>{{ $item->CourseClass->slug }}</td>
                                     <td>{{ $item->MScore->name }}</td>
                                     <td>{{ $item->created_at }}</td>
