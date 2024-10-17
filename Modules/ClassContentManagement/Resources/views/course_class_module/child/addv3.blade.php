@@ -33,7 +33,7 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form action="{{ route('postAddCourseClassChildModule') }}" method="post" enctype="multipart/form-data">
+                    <form id="addCourseClassModuleChild" action="{{ route('postAddCourseClassChildModule') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="course_class_id" value="{{ $class_detail->id }}">
                         <input type="hidden" name="ccmod_parent_id" value="{{ $parent_ccmod_detail->id }}">
@@ -110,7 +110,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Add Child Course</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCourseClassModuleChild">Add Child Course</button>
                             </div>
                         </div>
                     </form>
