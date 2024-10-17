@@ -25,21 +25,23 @@ class BlogController extends Controller
     }
     public function postAddBlog(Request $request)
     {
-        // dd($request->all());
-        try {
-            $validated = $request->validate([
-                'title' => 'required|string|max:255',
-                'slug' => 'required|string|max:255',
-                'content' => 'nullable|string',
-                'description' => 'nullable|string',
-            ]);
+        // Validasi input
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:blogs,slug',  // Validasi slug unik
+            'content' => 'nullable|string',
+            'description' => 'nullable|string',
+            'file_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  // Validasi file gambar
+            'tag' => 'nullable|array', // Validasi tag sebagai array
+        ]);
 
-            // add new data to database
+        try {
+            // Tambahkan data baru ke database
             $blog = new MBlog();
             $blog->title = $request->title;
             $blog->slug = $request->slug;
             $blog->content = $request->content;
-            $blog->cover_img = 'temp';
+            $blog->cover_img = 'temp';  // Placeholder sementara
             $blog->status_highlight = $request->status_highlight == '' ? 0 : 1;
             $blog->description = $request->description;
             $blog->status = $request->status == '' ? 0 : 1;
@@ -47,79 +49,74 @@ class BlogController extends Controller
             $blog->updated_id = Auth::user()->id;
             $blog->save();
 
-            $blog->tags()->attach($request->tag);
+            // Hubungkan tag
+            if ($request->has('tag')) {
+                $blog->tags()->attach($request->tag);
+            }
 
-            // save cover image
-            $fileName = '';
+            // Simpan cover image jika ada
             if ($request->hasFile('file_image')) {
                 $file = $request->file('file_image');
                 $extension = $file->getClientOriginalExtension();
                 $fileName = $blog->id . '.' . $extension;
                 $directory = public_path('/uploads/blog/' . $request->slug . '/');
 
-                // Create destination folder if it doesn't exist
+                // Buat folder tujuan jika belum ada
                 if (!File::exists($directory)) {
                     File::makeDirectory($directory, 0755, true);
                 }
 
-                // Move the file to the directory
+                // Pindahkan file ke folder tujuan
                 $file->move($directory, $fileName);
+
+                // Update cover_img setelah file di-upload
+                $blog->cover_img = $fileName;
+                $blog->save();
             }
 
-            // update cover_img data
-            $blog->cover_img = $fileName;
-            $blog->save();
-
-
-            return redirect()->route('getBlog')->with('success', 'data successfully created.');
+            return redirect()->route('getBlog')->with('success', 'Data successfully created.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'failed to save data, ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to save data: ' . $e->getMessage());
         }
     }
-    public function getEditBlog(Request $request)
-    {
-        $data = MBlog::with('tags')->where('id', $request->id)->first();
-        $blogTagList = MBlogTag::where('status', 1)->get();
 
-        foreach ($blogTagList as $key => $item) {
-            foreach ($data->tags as $d) {
-                if ($d->id == $item->id) {
-                    $item->selected = true;
-                }
-            }
-        }
 
-        return view('blog.edit', compact(['data', 'blogTagList']));
-    }
     public function postEditBlog(Request $request)
     {
-        // dd($request->all());
+        // Validasi input
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:blogs,slug,' . $request->id,  // Validasi slug unik kecuali untuk blog yang sedang di-edit
+            'content' => 'nullable|string',
+            'description' => 'nullable|string',
+            'status' => 'nullable|boolean',
+            'file_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  // Validasi file gambar
+            'tag' => 'nullable|array', // Validasi tag sebagai array
+        ]);
+
         try {
-            $validated = $request->validate([
-                'title' => 'required|string|max:255',
-                'slug' => 'required|string|max:255',
-                'content' => 'nullable|string',
-                'description' => 'nullable|string',
-                'status' => 'nullable|boolean',
-            ]);
-
-            // save cover image
-            if ($request->hasFile('file_image')) {
-                $file = $request->file('file_image');
-
-                $extension = $file->getClientOriginalExtension();
-                $fileName = $request->id . '.' . $extension;
-
-                $file->move(public_path('/uploads/blog/' . $request->slug . '/'), $fileName);
-            } else {
-                $fileName = $request->img_keep;
-            }
-
-            // update database
+            // Temukan blog berdasarkan ID
             $blog = MBlog::find($request->id);
 
             if ($blog) {
-                // Update blog
+                // Tangani upload cover image
+                $fileName = $request->img_keep; // Default jika tidak ada file baru
+                if ($request->hasFile('file_image')) {
+                    $file = $request->file('file_image');
+                    $extension = $file->getClientOriginalExtension();
+                    $fileName = $blog->id . '.' . $extension;
+                    $directory = public_path('/uploads/blog/' . $request->slug . '/');
+
+                    // Buat folder jika belum ada
+                    if (!File::exists($directory)) {
+                        File::makeDirectory($directory, 0755, true);
+                    }
+
+                    // Pindahkan file ke folder yang sesuai
+                    $file->move($directory, $fileName);
+                }
+
+                // Update data blog
                 $blog->title = $request->title;
                 $blog->slug = $request->slug;
                 $blog->content = $request->content;
@@ -132,15 +129,20 @@ class BlogController extends Controller
                 $blog->save();
 
                 // Sinkronkan tag
-                $tagIds = $request->tag; // Ambil ID tag dari request
-                $blog->tags()->sync($tagIds); // Sinkronkan tag
+                if ($request->has('tag')) {
+                    $blog->tags()->sync($request->tag); // Sinkronkan tag yang di-request
+                }
 
-                return redirect()->route('getBlog')->with('success', 'data updated successfully.');
+                return redirect()->route('getBlog')->with('success', 'Data updated successfully.');
+            } else {
+                return redirect()->back()->with('error', 'Blog not found.');
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'failed to save data, ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to save data: ' . $e->getMessage());
         }
     }
+
+
     public function getBlogTag()
     {
         $data = MBlogTag::get();
