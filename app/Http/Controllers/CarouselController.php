@@ -14,7 +14,6 @@ class CarouselController extends Controller
 {
     function getCarousel(){
         $carousels = Carousel::all();
-
         return view('carousel.indexv3',[
             'carousels' => $carousels
         ]);
@@ -77,6 +76,12 @@ class CarouselController extends Controller
 
     function postEditCarousel(Request $request){
         $idcarousel = $request->id;
+
+        $validated= $request->validate([
+            'name' => 'required',
+            'short_desc' => 'required',
+            'date' => 'required',
+        ]);
 
         $updateData = Carousel::where('id', $idcarousel)
             ->update([
