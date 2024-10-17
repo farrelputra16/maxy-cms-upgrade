@@ -41,6 +41,10 @@ class AttendanceController extends Controller
     public function postAddCourseClassAttendance(Request $request)
     {
         // dd($request->all());
+        $validate = $request->validate([
+           'name' => 'required',
+        ]);
+        
         try {
             // create new class attendance
             $attendance = new CourseClassAttendance();
@@ -74,6 +78,9 @@ class AttendanceController extends Controller
     public function postEditCourseClassAttendance(Request $request)
     {
         // dd($request->all());
+        $validate = $request->validate([
+            'name' => 'required',
+         ]);
 
         try {
             // edit class attendance

@@ -44,6 +44,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" placeholder="Masukkan Nama"
                                     value="{{ $attendance->name }}" id="name">
+                                @if ($errors->has('name'))
+                                    @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">

@@ -33,7 +33,7 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form action="{{ route('postAddCourseClassAttendance') }}" method="post" enctype="multipart/form-data">
+                    <form id="addCCAttendance" action="{{ route('postAddCourseClassAttendance') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="class_id" value="{{ $class->id }}">
 
@@ -42,6 +42,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     placeholder="Masukkan Nama">
+                                @if ($errors->has('name'))
+                                    @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -73,7 +78,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Add Attendance</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCCAttendance">Add Attendance</button>
                             </div>
                         </div>
                     </form>
