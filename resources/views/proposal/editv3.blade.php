@@ -67,6 +67,11 @@
                                             @if ($currentData->m_proposal_status_id == $stat->id) selected @endif>{{ $stat->name }}</option>
                                     @endforeach
                                 </select>
+                                @if ($errors->has('status'))
+                                    @foreach ($errors->get('status') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -74,6 +79,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="proposal_grade"
                                     value="{{ $currentData->proposal_grade }}">
+                                @if ($errors->has('proposal_grade'))
+                                    @foreach ($errors->get('proposal_grade') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">

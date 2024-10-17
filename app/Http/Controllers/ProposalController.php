@@ -18,7 +18,8 @@ class ProposalController extends Controller
         return view('proposal.indexv3', compact('proposals'));
     }
 
-    function getEditProposal(Request $request){
+    function getEditProposal(Request $request)
+    {
         $currentData = Proposal::with('User')->where('id', $request->id)->first();
         $status = MProposalStatus::where('status', 1)->get();
         //dd($currentData);
@@ -29,34 +30,50 @@ class ProposalController extends Controller
         ]);
     }
 
-    function postEditProposal(Request $request){
-        $idProposal = $request->id;
+    function postEditProposal(Request $request)
+    {
+        // Validasi input
+        $validate = $request->validate([
+            'status' => 'required', // Field status harus diisi
+            'proposal_grade' => 'required|numeric', // Field grade harus diisi dan berupa angka
+        ]);
 
-        $updateData = Proposal::where('id', $idProposal)
-            ->update([
-                'm_proposal_status_id' => $request->status,
-                'proposal_grade' => $request->proposal_grade,
-                'status' => 1,
-                'updated_id' => Auth::user()->id
-            ]);
-            if ($updateData){
-                $level = ProposalBimbingan::where('proposal_id', $request->id)->where('user_id', auth()->id())->count();
+        if ($validate) {
+            $idProposal = $request->id;
+
+            $updateData = Proposal::where('id', $idProposal)
+                ->update([
+                    'm_proposal_status_id' => $request->status,
+                    'proposal_grade' => $request->proposal_grade,
+                    'status' => 1,
+                    'updated_id' => Auth::user()->id
+                ]);
+
+            if ($updateData) {
+                $level = ProposalBimbingan::where('proposal_id', $request->id)
+                    ->where('user_id', auth()->id())
+                    ->count();
+
                 $create = ProposalBimbingan::create([
                     'proposal_id' => $request->id,
                     'user_id' => auth()->id(),
                     'm_proposal_status_id' => $request->status,
-                    'level' => $level+1,
+                    'level' => $level + 1,
                     'priority' => 1,
                     'description' => $request->description,
                     'created_id' => auth()->id(),
                     'updated_id' => auth()->id(),
                 ]);
-                if ($create){
+
+                if ($create) {
                     return app(HelperController::class)->Positive('getProposal');
                 }
-                    return app(HelperController::class)->Negative('getProposal');
+
+                return app(HelperController::class)->Negative('getProposal');
             } else {
                 return app(HelperController::class)->Warning('getProposal');
             }
+        }
     }
+
 }
