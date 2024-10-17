@@ -33,13 +33,19 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form id="addVoucher" action="{{ route('postAddVoucher') }}" method="post" enctype="multipart/form-data">
+                    <form id="addVoucher" action="{{ route('postAddVoucher') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     placeholder="Masukkan Nama Voucher">
+                                @if ($errors->has('name'))
+                                    @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -47,18 +53,33 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="code" id="code"
                                     placeholder="Masukkan Kode Voucher">
+                                @if ($errors->has('code'))
+                                    @foreach ($errors->get('code') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Waktu Mulai</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" name="start_date" id="start_date">
+                                @if ($errors->has('start_date'))
+                                    @foreach ($errors->get('start_date') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Waktu Berakhir</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" name="end_date" id="end_date">
+                                @if ($errors->has('end_date'))
+                                    @foreach ($errors->get('end_date') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -69,12 +90,22 @@
                                     <option value="PERCENTAGE">PERCENTAGE</option>
                                     <option value="FIXED">FIXED</option>
                                 </select>
+                                @if ($errors->has('discount_type'))
+                                    @foreach ($errors->get('discount_type') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Discount</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="discount" id="discount">
+                                @if ($errors->has('discount'))
+                                    @foreach ($errors->get('discount') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -82,6 +113,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="maxdiscount" id="maxdiscount"
                                     placeholder="e.g. 5">
+                                @if ($errors->has('maxdiscount'))
+                                    @foreach ($errors->get('maxdiscount') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -100,7 +136,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addVoucher">Add Voucher</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addVoucher">Add Voucher</button>
                             </div>
                         </div>
                     </form>

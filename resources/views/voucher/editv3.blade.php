@@ -41,6 +41,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" value="{{ $currentData->name }}"
                                     id="name">
+                                @if ($errors->has('name'))
+                                    @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -48,6 +53,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="code" value="{{ $currentData->code }}"
                                     id="code">
+                                @if ($errors->has('code'))
+                                    @foreach ($errors->get('code') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -55,6 +65,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" name="start_date" id="start_date"
                                     value="{{ $currentData->start_date }}">
+                                @if ($errors->has('start_date'))
+                                    @foreach ($errors->get('start_date') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -62,6 +77,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" name="end_date" id="end_date"
                                     value="{{ $currentData->end_date }}">
+                                @if ($errors->has('end_date'))
+                                    @foreach ($errors->get('end_date') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -74,6 +94,11 @@
                                     <option value="FIXED" {{ $currentData->discount_type == 'FIXED' ? 'selected' : '' }}>
                                         FIXED</option>
                                 </select>
+                                @if ($errors->has('discount_type'))
+                                    @foreach ($errors->get('discount_type') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -81,6 +106,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="discount"
                                     value="{{ $currentData->discount }}" id="discount">
+                                @if ($errors->has('discount'))
+                                    @foreach ($errors->get('discount') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -88,6 +118,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="max_discount"
                                     value="{{ $currentData->max_discount }}" id="name">
+                                @if ($errors->has('max_discount'))
+                                    @foreach ($errors->get('max_discount') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">

@@ -81,7 +81,18 @@ class VoucherController extends Controller
     function postEditVoucher(Request $request){
         $idvoucher = $request->id;
 
-        $updateData = Promotion::where('id', $idvoucher)
+        $validate = $request->validate([
+            'name' => 'required',
+            'code' => 'required',
+            'start_date' =>'required',
+            'end_date' => 'required',
+            'discount_type' => 'required',
+            'discount' => 'required',
+            'maxdiscount' => 'required',
+        ]);
+
+        if($validate){
+            $updateData = Promotion::where('id', $idvoucher)
             ->update([
                 'name' => $request->name,
                 'code' => $request->code,
@@ -100,5 +111,6 @@ class VoucherController extends Controller
             } else {
                 return app(HelperController::class)->Warning('getVoucher');
             }
+        }
     }
 }
