@@ -235,9 +235,24 @@
                     if (form) {
                         form.submit(); // Kirim formulir
                     }
+
+                    // Check if there are validation errors from the server
                 });
             });
         });
+        @if ($errors->any())
+            let errorMessages = '';
+            @foreach ($errors->all() as $error)
+                errorMessages += "{{ $error }}<br>";
+            @endforeach
+            
+            // Show error using SweetAlert
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                html: errorMessages
+            });
+        @endif
     </script>
     @yield('script')
 
