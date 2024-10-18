@@ -12,13 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AccessGroupController extends Controller
 {
-/*************  ✨ Codeium Command ⭐  *************/
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-/******  00ed2cb6-076e-4b7b-9f3f-77fec8966bae  *******/
     function getAccessGroup()
     {
         $accessgroups = AccessGroup::all();
