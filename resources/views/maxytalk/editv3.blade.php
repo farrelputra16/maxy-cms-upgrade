@@ -162,7 +162,7 @@
 
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="editMaxyTalk">Update Maxy Talk</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="editMaxyTalk">Save & Update</button>
                             </div>
                         </div>
                     </form>
