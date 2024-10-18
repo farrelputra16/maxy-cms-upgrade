@@ -120,9 +120,9 @@
                                     <td>{{ $item->updated_at->format('Y-m-d H:i') }}</td>
                                     <td>
                                         @if ($item->status == 1)
-                                            <span class="btn btn-success disabled">Active</span>
+                                            <span class="btn btn-success" style="pointer-events: none;">Active</span>
                                         @else
-                                            <span class="btn btn-danger disabled">Inactive</span>
+                                            <span class="btn btn-danger" style="pointer-events: none;">Inactive</span>
                                         @endif
                                     </td>
                                     <td>

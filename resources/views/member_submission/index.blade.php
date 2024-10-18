@@ -29,9 +29,9 @@
                         <td id="description">{{ $item->description }}</td>
                         <td>
                             @if ($item->status == 1)
-                                <a class="ui tiny green label" style="text-decoration: none;">Aktif</a>
+                                <a class="btn btn-success" style="pointer-events: none;">Aktif</a>
                             @else
-                                <a class="ui tiny red label" style="text-decoration: none;">Non Aktif</a>
+                                <a class="btn btn-danger" style="pointer-events: none;">Non Aktif</a>
                             @endif
                         </td>
                         <td>

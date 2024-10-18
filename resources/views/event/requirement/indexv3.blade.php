@@ -66,16 +66,16 @@
                                     </td>
                                     <td>
                                         @if ($item->is_upload == 1)
-                                            <a class="btn btn-success disabled">Yes</a>
+                                            <a class="btn btn-success" style="pointer-events: none;">Yes</a>
                                         @else
-                                            <a class="btn btn-danger disabled">No</a>
+                                            <a class="btn btn-danger" style="pointer-events: none;">No</a>
                                         @endif
                                     </td>
                                     <td>
                                         @if ($item->is_required == 1)
-                                            <a class="btn btn-success disabled">Yes</a>
+                                            <a class="btn btn-success" style="pointer-events: none;">Yes</a>
                                         @else
-                                            <a class="btn btn-danger disabled">No</a>
+                                            <a class="btn btn-danger" style="pointer-events: none;">No</a>
                                         @endif
                                     </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
@@ -88,9 +88,9 @@
                                     <td>{{ $item->updated_id }}</td>
                                     <td value="{{ $item->status }}">
                                         @if ($item->status == 1)
-                                            <a class="btn btn-success disabled">Aktif</a>
+                                            <a class="btn btn-success" style="pointer-events: none;">Aktif</a>
                                         @else
-                                            <a class="btn btn-danger disabled">Non Aktif</a>
+                                            <a class="btn btn-danger" style="pointer-events: none;">Non Aktif</a>
                                         @endif
                                     </td>
                                     <td>

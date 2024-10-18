@@ -88,9 +88,9 @@
                                         {!! !empty($item->contact_person) ? \Str::limit($item->contact_person, 30) : '-' !!}
                                     <td>
                                         @if ($item->status_highlight == 1)
-                                            <button class="btn btn-success" disabled>Aktif</button>
+                                            <button class="btn btn-success" style="pointer-events: none;">Aktif</button>
                                         @else
-                                            <button class="btn btn-danger" disabled>Nonaktif</button>
+                                            <button class="btn btn-danger" style="pointer-events: none;">Nonaktif</button>
                                         @endif
                                     </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
@@ -103,9 +103,9 @@
                                     <td>{{ $item->updated_id }}</td>
                                     <td value="{{ $item->status }}">
                                         @if ($item->status == 1)
-                                            <a class="btn btn-success disabled">Aktif</a>
+                                            <a class="btn btn-success" style="pointer-events: none;">Aktif</a>
                                         @else
-                                            <a class="btn btn-danger disabled">Non Aktif</a>
+                                            <a class="btn btn-danger" style="pointer-events: none;">Non Aktif</a>
                                         @endif
                                     </td>
                                     <td>

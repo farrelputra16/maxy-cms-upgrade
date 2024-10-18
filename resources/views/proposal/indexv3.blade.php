@@ -71,13 +71,17 @@
                                     <td>{{ $proposal->updated_id }}</td>
                                     <td>
                                         @if ($proposal->m_proposal_status_id == 6)
-                                            <span class="btn btn-danger disabled">{{ $proposal->MProposalStatus->name }}</span>
+                                            <span class="btn btn-danger"
+                                                style="pointer-events: none;">{{ $proposal->MProposalStatus->name }}</span>
                                         @elseif ($proposal->m_proposal_status_id == 7)
-                                            <span class="btn btn-success disabled">{{ $proposal->MProposalStatus->name }}</span>
+                                            <span class="btn btn-success"
+                                                style="pointer-events: none;">{{ $proposal->MProposalStatus->name }}</span>
                                         @elseif ($proposal->m_proposal_status_id == 8)
-                                            <span class="btn btn-warning disabled">{{ $proposal->MProposalStatus->name }}</span>
+                                            <span class="btn btn-warning"
+                                                style="pointer-events: none;">{{ $proposal->MProposalStatus->name }}</span>
                                         @elseif ($proposal->m_proposal_status_id == 9)
-                                            <span class="btn btn-primary disabled">{{ $proposal->MProposalStatus->name }}</span>
+                                            <span class="btn btn-primary"
+                                                style="pointer-events: none;">{{ $proposal->MProposalStatus->name }}</span>
                                         @endif
                                     </td>
                                     <td>

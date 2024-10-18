@@ -42,7 +42,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Name</th>
-                                <th>URL</th>
+                                <th class="data-medium">URL</th>
                                 <th>Expired Date</th>
                                 <th>Type</th>
                                 <th class="data-long">Description</th>
@@ -82,9 +82,9 @@
                                     <td>{{ $item->updated_id }}</td>
                                     <td value="{{ $item->status }}">
                                         @if ($item->status == 1)
-                                            <a class="btn btn-success disabled">Aktif</a>
+                                            <a class="btn btn-success" style="pointer-events: none;">Aktif</a>
                                         @else
-                                            <a class="btn btn-danger disabled">Non Aktif</a>
+                                            <a class="btn btn-danger" style="pointer-events: none;">Non Aktif</a>
                                         @endif
                                     </td>
                                     <td>

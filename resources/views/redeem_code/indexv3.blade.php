@@ -81,9 +81,9 @@
                                     <td>{{ $redeemCode->userUpdated->name }}</td>
                                     <td value="{{ $redeemCode->status }}">
                                         @if ($redeemCode->status == 1)
-                                            <a class="btn btn-success disabled">Aktif</a>
+                                            <a class="btn btn-success" style="pointer-events: none;">Aktif</a>
                                         @else
-                                            <a class="btn btn-danger disabled">Non Aktif</a>
+                                            <a class="btn btn-danger" style="pointer-events: none;">Non Aktif</a>
                                         @endif
                                     </td>
                                     <td>

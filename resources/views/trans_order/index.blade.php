@@ -90,20 +90,20 @@
                                     <td>
                                         @if ($item->payment_status == 0)
                                             <!-- Not Completed -->
-                                            <a class="btn btn-info disabled">Not
+                                            <a class="btn btn-info" style="pointer-events: none;">Not
                                                 Completed</a>
                                         @elseif ($item->payment_status == 1)
                                             <!-- Completed -->
-                                            <a class="btn btn-success disabled">Completed</a>
+                                            <a class="btn btn-success" style="pointer-events: none;">Completed</a>
                                         @elseif ($item->payment_status == 2)
                                             <!-- Partial -->
-                                            <a class="btn btn-warning disabled">Partial</a>
+                                            <a class="btn btn-warning" style="pointer-events: none;">Partial</a>
                                         @elseif ($item->payment_status == 3)
                                             <!-- Cancelled -->
-                                            <a class="btn btn-danger disabled">Cancelled</a>
+                                            <a class="btn btn-danger" style="pointer-events: none;">Cancelled</a>
                                         @else
                                             <!-- Unknown Status -->
-                                            <a class="btn btn-dark disabled">Unknown Status</a>
+                                            <a class="btn btn-dark" style="pointer-events: none;">Unknown Status</a>
                                         @endif
                                     </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
@@ -116,17 +116,17 @@
                                     <td>{{ $item->updated_id }}</td>
                                     <td value="{{ $item->status }}">
                                         @if ($item->status == 1)
-                                            <a class="btn btn-success disabled">Aktif</a>
+                                            <a class="btn btn-success" style="pointer-events: none;">Aktif</a>
                                         @else
-                                            <a class="btn btn-danger disabled">Non Aktif</a>
+                                            <a class="btn btn-danger" style="pointer-events: none;">Non Aktif</a>
                                         @endif
                                     </td>
                                     <td>
-                                            <a href="{{ route('getEditTransOrder', ['id' => $item->id]) }}"
-                                                class="btn btn-primary rounded">Edit</a>
-                                            <a href="{{ route('getTransOrderConfirm', ['id' => $item->id]) }}"
-                                                class="btn btn-info rounded">Proof of Payment</a>
-                                            {{-- <a href="{{ route('showTransOrderDetail', ['id' => $item->id]) }}"
+                                        <a href="{{ route('getEditTransOrder', ['id' => $item->id]) }}"
+                                            class="btn btn-primary rounded">Edit</a>
+                                        <a href="{{ route('getTransOrderConfirm', ['id' => $item->id]) }}"
+                                            class="btn btn-info rounded">Proof of Payment</a>
+                                        {{-- <a href="{{ route('showTransOrderDetail', ['id' => $item->id]) }}"
                                                 class="btn btn-info">Detail</a> --}}
                                     </td>
                                 </tr>
