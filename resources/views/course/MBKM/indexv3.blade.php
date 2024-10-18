@@ -42,8 +42,6 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">MBKM Name</th>
-                                <th>Fake Price</th>
-                                <th>Price</th>
                                 <th class="data-medium">Short Description</th>
                                 <th class="data-long">Description</th>
                                 <th class="data-long">Content</th>
@@ -64,9 +62,6 @@
                                         title="{{ $item->name }}">
                                         {!! \Str::limit($item->name, 30) !!}
                                     </td>
-                                    <td>{{ $item->fake_price ? 'Rp' . number_format($item->fake_price, 0, ',', '.') : '-' }}
-                                    </td>
-                                    <td>{{ $item->price ? 'Rp' . number_format($item->price, 0, ',', '.') : '-' }}</td>
                                     <td class="data-medium" data-toggle="tooltip" data-placement="top"
                                         title="{{ $item->short_description }}">
                                         {!! !empty($item->short_description) ? \Str::limit($item->short_description, 30) : '-' !!}
@@ -105,8 +100,6 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">MBKM Name</th>
-                                <th>Fake Price</th>
-                                <th>Price</th>
                                 <th class="data-medium">Short Description</th>
                                 <th class="data-long">Description</th>
                                 <th class="data-long">Content</th>
