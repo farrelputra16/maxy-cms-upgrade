@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseClassMemberController;
 use App\Http\Controllers\CourseController;
@@ -40,11 +41,22 @@ use App\Http\Controllers\MAcademicPeriodController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\MScoreController;
 use App\Http\Controllers\TranskripController;
+use App\Http\Controllers\CourseAccredifyController;
+use App\Http\Controllers\EmailTemplateAccredifyController;
+use App\Http\Controllers\CreateEmailTemplateController;
+use App\Http\Controllers\BadgesAccredifyController;
+use App\Http\Controllers\CreateCoursesAccredifyController;
+use App\Http\Controllers\CreateBadgesAccredifyController;
+use App\Http\Controllers\CoursesAccredifyController;
+use App\Http\Controllers\CoAccreController;
+use App\Http\Controllers\CoursesController;
+
 
 // jago digital controller ###########################################################################################################
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CreateCoursesAccController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -76,7 +88,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [DashboardController::class, 'getDashboard'])->name('getDashboard');
     Route::get('/dashboard2', [DashboardController::class, 'getDashboard2'])->name('getDashboard2');
     Route::get('/dashboard/synchronize', [DashboardController::class, 'synchronizeData'])->name('synchronizeData');
-    Route::get('/student-status-data', [DashboardController::class, 'getStudentStatusData']);
+    // Route::get('/student-status-data', [DashboardController::class, 'getStudentStatusData']);
 
     Route::get('/profile', function () {
         return view('profile.indexv3');
@@ -107,7 +119,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/category/edit', [CategoryController::class, 'postEditCategory'])->name('postEditCategory')->middleware('access:category_update');
 
     // dummy attendance route ###########################################################################################################
-    Route::get('/attendance', [AttendanceController::class, 'getAttendance'])->name('getAttendance')->middleware('access:prodi_manage');
+    // Route::get('/attendance', [AttendanceController::class, 'getAttendance'])->name('getAttendance')->middleware('access:prodi_manage');
 
     //course package route ###################################################################################################
     Route::get('/course/package', [CoursePackageController::class, 'getCoursePackage'])->name('getCoursePackage')->middleware('access:course_package_manage');
@@ -295,6 +307,162 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/user/profile', [UserController::class, 'getProfileUser'])->name('getProfileUser')->middleware('access:users_read');
 
+    //Courses Accredify Dengan Penerapan Best Practice
+
+        // Rute untuk menampilkan daftar kursus
+    // Route::middleware(['web', 'auth'])->group(function () {
+
+    //     // Menampilkan daftar kursus
+    //     Route::get('/courses', [CreateCoursesAccredifyController::class, 'index'])->name('courses.index');
+    Route::get('/courses', [CreateCoursesAccredifyController::class, 'index'])->name('courses.index');
+
+
+        // Menampilkan detail kursus berdasarkan ID
+        Route::get('/courses/{id}', [CreateCoursesAccredifyController::class, 'show'])->name('courses.show');
+
+        // Rute untuk membuat kursus baru
+        Route::get('/courses/create', [CreateCoursesAccredifyController::class, 'create'])->name('courses.create');
+
+        // Rute untuk menyimpan kursus baru
+        Route::post('/courses', [CreateCoursesAccredifyController::class, 'store'])->name('courses.store');
+
+        // Rute untuk memperbarui kursus
+        Route::patch('/courses/{id}', [CreateCoursesAccredifyController::class, 'update'])->name('courses.update');
+
+        // Rute untuk menghapus kursus (jika ada fitur delete)
+        Route::delete('/courses/{id}', [CreateCoursesAccredifyController::class, 'destroy'])->name('courses.destroy');
+    });
+
+
+//     // Menampilkan daftar kursus dengan token
+// Route::get('/courses/{token}', [CreateCoursesAccredifyController::class, 'index'])->name('courses.index');
+
+// // Menampilkan detail kursus dengan token dan ID
+// Route::get('/courses/{token}/show/{id}', [CreateCoursesAccredifyController::class, 'show'])->name('courses.show');
+
+// // Rute untuk membuat kursus baru dengan token
+// Route::get('/courses/{token}/create', [CreateCoursesAccredifyController::class, 'create'])->name('courses.create');
+
+// // Rute untuk menyimpan kursus baru dengan token
+// Route::post('/courses/{token}', [CreateCoursesAccredifyController::class, 'store'])->name('courses.store');
+
+
+
+
+
+    // Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index');
+    // Route::get('/courses/{id}', [CoursesController::class, 'show'])->name('courses.show');
+
+// Route::get('/proxy/courses', function () {
+//     $response = Http::withHeaders([
+//         'Authorization' => 'Bearer ' . env('ACCREDIFY_API_KEY'), // Sesuaikan dengan otentikasi API Anda
+//         'Accept' => 'application/json'
+//     ])->get(' http://dashboard.uat.accredify.io/api/v2/courses'); // Ganti dengan URL API yang sebenarnya
+
+//     return $response->json();
+// });
+
+//     Route::get('/courses', [CoursesController::class, 'index']);
+//     Route::get('/courses/{id}', [CoursesController::class, 'show']);
+//      // Rute untuk menampilkan form pembuatan kursus
+//      Route::get('/courses/create', [CoursesController::class, 'create'])->name('courses.create');
+//     Route::get('/proxy/courses', [CoursesController::class, 'fetchCourses']);
+//     Route::get('/proxy/courses/{id}', [CoursesController::class, 'fetchCourse']);
+//     Route::get('/proxy/courses', [CoursesController::class, 'fetchCourses'])->middleware('api.auth');
+//     Route::get('/proxy/courses/{id}', [CoursesController::class, 'fetchCourse'])->middleware('api.auth');
+
+
+    // Route group for courses badges accredify
+    // Route::prefix('courses')->name('course.')->group(function () {
+        // ... (existing routes) ...
+
+        // Route::prefix('{course_id}/badges')->name('badge.')->group(function () {
+        //     Route::get('/', [CourseAccredifyController::class, 'index'])->name('indexAccredify');
+        //     Route::get('/issue', [CourseAccredifyController::class, 'create'])->name('create');
+        //     Route::post('/', [CourseAccredifyController::class, 'store'])->name('store');
+        //     // ... other badge routes ...
+        // });
+
+    //     Route::prefix('{course_id}/actions')->name('action.')->group(function () {
+    //         Route::get('/pending', [CourseAccredifyController::class, 'pending'])->name('pending');
+    //         Route::post('{action_id}/approve', [CourseAccredifyController::class, 'approve'])->name('approve');
+    //         // ... other action routes ...
+    //     });
+    // });
+
+    //Badges Courses Accredify fiks
+    // Route untuk halaman utama (redirect ke daftar kursus)
+    // Route::get('/', function () {
+    //     return redirect()->route('courses.index'); // Redirect ke daftar kursus
+    // });
+
+    // Resource routes untuk CoursesAccredifyController
+    // Route::resource('courses', CoursesAccredifyController::class);
+
+    //Courses Accredify Controller Fiks
+    // Route::get('/courses', [CoAccreController::class, 'index'])->name('courses.index');
+    // Route::get('/courses/create', [CoAccreController::class, 'create'])->name('courses.create');
+    // Route::post('/courses', [CoAccreController::class, 'store'])->name('courses.store');
+    // Route::get('/courses/{id}', [CoAccreController::class, 'show'])->name('courses.show');
+    // Route::get('/courses/{id}/edit', [CoAccreController::class, 'edit'])->name('courses.edit');
+    // Route::put('/courses/{id}', [CoAccreController::class, 'update'])->name('courses.update');
+    // Route::delete('/courses/{id}', [CoAccreController::class, 'destroy'])->name('courses.destroy');
+
+
+    // Route::get('/courses/view', [CoAccreController::class, 'index'])->name('courses.index');
+    // // Route::get('/courses/create', [CoAccreController::class, 'create'])->name('courses.create');
+    // Route::post('/courses/store', [CoAccreController::class, 'store'])->name('courses.store');
+    // Route::get('/courses/{id}', [CoAccreController::class, 'show'])->name('courses.show');
+    // Route::get('/courses/{id}/edit', [CoAccreController::class, 'edit'])->name('courses.edit');
+    // Route::put('/courses/{id}', [CoAccreController::class, 'update'])->name('courses.update');
+    // Route::delete('/courses/{id}', [CoAccreController::class, 'destroy'])->name('courses.destroy');
+
+
+    // // Rute untuk menampilkan daftar kursus
+    // Route::get('/courses/index', [CreateCoursesAccController::class, 'index'])->name('courses.index');
+
+    // // Rute untuk menampilkan form pembuatan kursus
+    // Route::get('/courses/create', [CreateCoursesAccController::class, 'create'])->name('courses.create');
+
+    // // Rute untuk menyimpan kursus
+    // Route::post('/courses/create-store', [CreateCoursesAccController::class, 'store'])->name('courses.store');
+
+
+    // Email Template Accredify
+    Route::get('/email-templates', [EmailTemplateAccredifyController::class, 'index'])->name('emailTemplatesIndex');
+
+    // Route::get('/email-templates', [EmailTemplateAccredifyController::class, 'index'])
+    // ->name('emailTemplatesIndex')
+    // ->middleware('auth');
+
+
+    // Route untuk menampilkan detail email template berdasarkan ID
+    Route::get('/email-templates/{id}', [EmailTemplateAccredifyController::class, 'show'])
+    ->name('emailTemplatesShow');
+
+    // Route untuk menampilkan form pembuatan email template
+    Route::get('/email_templates/create', [CreateEmailTemplateController::class, 'create'])
+    ->name('email_templates.create');
+
+    // Route untuk menyimpan email template yang baru dibuat
+    Route::post('/email_templates', [CreateEmailTemplateController::class, 'store'])
+    ->name('email_templates.store');
+
+    // Route untuk melakukan preview sebelum menyimpan email template
+    Route::post('/email_templates/preview', [CreateEmailTemplateController::class, 'preview'])
+    ->name('email_templates.preview');
+
+    // View and upload Badges Accredify
+    Route::get('/badges/view', [BadgesAccredifyController::class, 'index'])->name('badges.index');
+    // Fetch and view badges from Accredify API
+    Route::get('/badges-accredify/fetch', [BadgesAccredifyController::class, 'fetchBadgesFromAPI'])->name('badges.accredify.fetch');
+
+    Route::get('/badges/create', [BadgesAccredifyController::class, 'create'])->name('badges.create');
+    Route::post('/badges', [BadgesAccredifyController::class, 'store'])->name('badges.store');
+
+    Route::get('/badges/create', [CreateBadgesAccredifyController::class, 'create'])->name('badges.create');
+    // Route::post('/badges/storeaccredify', [CreateBadgesAccredifyController::class, 'store'])->name('badges.store');
+
     //                                      PARTNER
     // partner routes
     Route::get('/partner', [PartnerController::class, 'getPartner'])->name('getPartner')->middleware('access:m_partner_manage');
@@ -467,7 +635,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/blog-tag/edit', [BlogController::class, 'getEditBlogTag'])->name('getEditBlogTag');
     Route::post('/blog-tag/edit', [BlogController::class, 'postEditBlogTag'])->name('postEditBlogTag');
-});
+
 
 // bad access
 Route::get('/noauthority', function () {
