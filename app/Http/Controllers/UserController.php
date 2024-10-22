@@ -224,7 +224,7 @@ class UserController extends Controller
 
 
         $validated = $request->validate([
-            'name' => 'required|string|regex:/^[a-zA-Z\s]*$/',
+            'name' => 'required',
             'email' => 'required|unique:users,email|email',
             'phone' => 'required|regex:/^[0-9]{10,15}$/',
             'password' => 'required|min:5',
@@ -305,7 +305,7 @@ class UserController extends Controller
     function postEditUser(Request $request)
     {
         $validate = $request->validate([
-            'name' => 'required|string|regex:/^[a-zA-Z\s]*$/',
+            'name' => 'required',
             'email' => 'required|email',
             'phone' => 'required|regex:/^[0-9]{10,15}$/',
             'password' => 'required',
