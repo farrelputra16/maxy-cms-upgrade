@@ -96,6 +96,7 @@
                         <span key="t-member">Member</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('getTestimonial') }}" key="t-testimonial">Testimonial</a></li>
                         <li><a href="{{ route('getRedeemCode') }}" key="t-redeem-code">Redeem Code</a></li>
                         <li><a href="{{ route('getProposal') }}" key="t-proposal">Proposal</a></li>
                         <li><a href="{{ route('getTranskrip') }}" key="t-proposal">Transkrip</a></li>
@@ -111,7 +112,7 @@
                         <li><a href="{{ route('getCarousel') }}" key="t-carousel">Carousel</a></li>
                         <li><a href="{{ route('getEvent') }}" key="t-event">Event</a></li>
                         <li><a href="{{ route('getPartnership') }}" key="t-partnership">Partnership</a></li>
-                        <li><a href="{{ route('getTestimonial') }}" key="t-testimonial">Testimonial</a></li>
+                        <li><a href="#" key="t-testimonial">Testimonial</a></li>
                         <li><a href="{{ route('getBlog') }}" key="t-blog">Blog</a></li>
                         <li><a href="{{ route('getBlogTag') }}" key="t-blog-tag">Blog Tag</a></li>
                     </ul>
@@ -133,6 +134,47 @@
                         <span key="t-profile">Profile</span>
                     </a>
                 </li>
+
+                {{-- <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="fas fa-trophy"></i> <!-- Ikon ciamik untuk Badges -->
+                        <span key="t-badges">Badges</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('courses.index') }}" key="t-courses">Courses</a></li>
+                        <li><a href="{{ route('emailTemplatesIndex') }}" key="t-email-templates">Email Templates</a></li>
+                        <li><a href="{{ route('badges.index') }}" key="t-badge-design">Badge Design</a></li>
+                    </ul>
+                </li> --}}
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="fas fa-trophy"></i> <!-- Icon for Badges -->
+                        <span key="t-badges">Badges</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <!-- Pengecekan session token -->
+                        {{-- <li> --}}
+                            {{-- {{ dd(session('token')) }} --}}
+                            {{-- @if(session('token')) --}}
+                                {{-- <a href="{{ route('courses.index', ['token' => session('token')]) }}" key="t-courses">Courses</a> --}}
+                                {{-- <a href="{{ route('courses.index', ['token' => 'testestes']) }}" key="t-courses">Courses</a>
+                            @else
+                            <a href="{{ route('courses.index', ['token' => 'testestes']) }}" key="t-courses">Courses</a> --}}
+
+                                {{-- <a href="{{ route('courses.index', ['token' => session('token')]) }}" key="t-courses">Courses</a> --}}
+                            {{-- @endif
+                        </li> --}}
+                        <li><a href="{{ route('courses.index') }}" key="t-courses">Courses</a></li>
+                        <!-- Link Email Templates -->
+                        <li><a href="{{ route('emailTemplatesIndex') }}" key="t-email-templates">Email Templates</a></li>
+                        <!-- Link Badge Design -->
+                        <li><a href="{{ route('badges.index') }}" key="t-badge-design">Badge Design</a></li>
+                    </ul>
+                </li>
+
+
+
             </ul>
         </div>
         <!-- Sidebar -->
