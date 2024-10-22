@@ -70,9 +70,9 @@
                                     <td>{{ $item->type }} </td>
                                     <td>
                                         @if ($item->status_ongoing == 1)
-                                            <button class="btn btn-success disabled">Aktif</button>
+                                            <button class="btn btn-success" style="pointer-events: none;">Aktif</button>
                                         @else
-                                            <button class="btn btn-danger disabled">Non Aktif</button>
+                                            <button class="btn btn-danger" style="pointer-events: none;">Non Aktif</button>
                                         @endif
                                     </td>
                                     <td>{{ $item->start_date }}</td>
@@ -98,9 +98,9 @@
                                     <td>{{ $item->updated_id }}</td>
                                     <td value="{{ $item->status }}">
                                         @if ($item->status == 1)
-                                            <a class="btn btn-success disabled">Aktif</a>
+                                            <a class="btn btn-success" style="pointer-events: none;">Aktif</a>
                                         @else
-                                            <a class="btn btn-danger disabled">Non Aktif</a>
+                                            <a class="btn btn-danger" style="pointer-events: none;">Non Aktif</a>
                                         @endif
                                     </td>
                                     <td>
