@@ -70,9 +70,9 @@
                                     <td>{{ $item->type }} </td>
                                     <td>
                                         @if ($item->status_ongoing == 1)
-                                            <button class="btn btn-success" style="pointer-events: none;">Aktif</button>
+                                            <button class="btn btn-success" style="pointer-events: none;">Yes</button>
                                         @else
-                                            <button class="btn btn-danger" style="pointer-events: none;">Non Aktif</button>
+                                            <button class="btn btn-danger" style="pointer-events: none;">No</button>
                                         @endif
                                     </td>
                                     <td>{{ $item->start_date }}</td>
