@@ -50,7 +50,9 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Range Start</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="range_start" id="input-title">
+                                <input class="form-control" type="text" name="range_start" id="input-title"
+                                inputmode="numeric" pattern="[0-9]*" 
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @if ($errors->has('range_start'))
                                     @foreach ($errors->get('range_start') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -62,7 +64,9 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Range End</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="range_end" id="input-title">
+                                <input class="form-control" type="text" name="range_end" id="input-title"
+                                inputmode="numeric" pattern="[0-9]*" 
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @if ($errors->has('range_end'))
                                     @foreach ($errors->get('range_end') as $error)
                                         <span style="color: red;">{{ $error }}</span>
