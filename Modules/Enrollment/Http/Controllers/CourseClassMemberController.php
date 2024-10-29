@@ -59,6 +59,10 @@ class CourseClassMemberController extends Controller
 
     function postAddCourseClassMember(Request $request)
     {
+        $request->validate([
+            'users' => 'required',
+            'mentor' => 'required',
+        ]);
 
         $users = $request->users; // Mengambil semua pengguna dari permintaan
         $courseClassId = $request->course_class;
