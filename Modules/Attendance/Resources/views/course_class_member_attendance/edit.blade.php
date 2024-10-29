@@ -57,32 +57,42 @@
                                 </select>
                             </div>
                         </div>
+                        @if($attendance->feedback != null)    
+                            <div class="mb-3 row">
+                                <label>Feedback</label>
+                                <div class="card w-100 h-100">
+                                    <ul class="list-group list-group-flush">
+                                        @foreach (json_decode($attendance->feedback) as $item)
+                                            <li class="list-group-item">
+                                                <b>{{ $item->question }}</b>
+                                                <p>{{ $item->answer }}</p>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        @endif
                         <div class="mb-3 row">
                             <label>Feedback</label>
                             <div class="card w-100 h-100">
                                 <ul class="list-group list-group-flush">
-                                    @foreach (json_decode($attendance->feedback) as $item)
-                                        <li class="list-group-item">
-                                            <b>{{ $item->question }}</b>
-                                            <p>{{ $item->answer }}</p>
-                                        </li>
-                                    @endforeach
+                                    No Feedback
                                 </ul>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ $courses->description }}</textarea>
+                                <textarea id="elm1" name="description">{{ $class->description }}</textarea>
                             </div>
                         </div>
-                        <div class="mb-3 row">
+                        {{-- <div class="mb-3 row">
                             <label for="input-description" class="col-md-2 col-form-label">Short Description</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="short_description"
-                                    value="{{ $courses->short_description }}" id="input-description">
+                                    value="{{ $class->short_description }}" id="input-description">
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary w-md text-center">Save & Update</button>
