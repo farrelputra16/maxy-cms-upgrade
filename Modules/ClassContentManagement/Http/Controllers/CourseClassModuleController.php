@@ -82,8 +82,9 @@ class CourseClassModuleController extends Controller
         // dd($request->all());
         $validated = $request->validate([
             'course_module_id' => 'required|not_in:0',
-            'start' => 'required',
-            'end' => 'required',
+            'priority' => 'required',
+            'start' => 'required|date',
+            'end' => 'required|date|after:start',
         ], [
             'course_module_id.not_in' => 'You must select a valid course module.',
         ]);
@@ -134,8 +135,8 @@ class CourseClassModuleController extends Controller
     {
         // dd($request->all());
         $validated = $request->validate([
-            'start' => 'required',
-            'end' => 'required',
+            'start' => 'required|date',
+            'end' => 'required|date|after:start',
             'level' => 'required',
         ]);
 
@@ -214,8 +215,9 @@ class CourseClassModuleController extends Controller
         // dd($request->all()); // dapat course_class_module_id parent nya
         $validated = $request->validate([
             'course_module_id' => 'required|not_in:0',
-            'start' => 'required',
-            'end' => 'required',
+            'priority' => 'required',
+            'start' => 'required|date',
+            'end' => 'required|date|after:start',
         ], [
             'course_module_id.not_in' => 'You must select a valid course module.',
         ]);
