@@ -208,7 +208,7 @@
                         <div class="mb-3 row">
                             <label for="input-short-description" class="col-md-2 col-form-label">Short Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="short_description"></textarea>
+                                <textarea id="elm2" name="short_description" class="form-control"></textarea>
                                 @if ($errors->has('short_description'))
                                     @foreach ($errors->get('short_description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -219,7 +219,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description"></textarea>
+                                <textarea id="elm3" name="description" class="form-control"></textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -250,6 +250,19 @@
 
 @section('script')
     <script>
+        // preview image
+        function previewImage() {
+            const input = document.getElementById('input-file');
+            const frame = document.getElementById('frame');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    frame.src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
         $(document).ready(function() {
             // autofill slug
             document.getElementById('name').addEventListener('input', function() {
@@ -257,20 +270,6 @@
                 var slug = name.toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
                 document.getElementById('slug').value = slug;
             });
-
-            // preview image
-            function previewImage() {
-                const input = document.getElementById('input-file');
-                const frame = document.getElementById('frame');
-
-                if (input.files && input.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        frame.src = e.target.result;
-                    }
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
 
             function toggleFieldsByCourseType(value) {
                 if (value == 1) { // Bootcamp

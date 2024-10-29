@@ -108,7 +108,7 @@ class Course extends Model
             $file->move(public_path('/uploads/course_img'), $fileName);
         }
         else{
-            $fileName = $request->img_keep;
+            $fileName = Course::find($idCourse)->image;
         }
         $trim_mini_fake_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_fake_price));
         $trim_mini_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_price));
@@ -152,7 +152,7 @@ class Course extends Model
                     'payment_link' => $request->payment_link,
                     'slug' => $request->slug,
                     'm_course_type_id' => $request->type,
-                    'course_package_id' => $request->type == 2 ? null : $request->package_price,
+                    'course_package_id' => $request->type == 2 ? null : $request->package,
                     'm_difficulty_type_id' => $request->level,
                     'content' => $request->content,
                     'description' => $request->description,

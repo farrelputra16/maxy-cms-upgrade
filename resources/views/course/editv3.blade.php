@@ -180,7 +180,7 @@
                                 <input class="form-control" type="file" name="file_image" id="input-file"
                                     accept="image/*" onchange="previewImage()">
                                 <img id="frame"
-                                    src="{{ asset('uploads/course_img/' . $courses->slug . '/' . $courses->image) }}"
+                                    src="{{ asset('uploads/course_img/' . $courses->image) }}"
                                     class="img-fluid h-100" alt="Current Image" />
                                     @if ($errors->has('file_image'))
                                         @foreach ($errors->get('file_image') as $error)

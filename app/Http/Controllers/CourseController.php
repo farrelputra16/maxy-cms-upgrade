@@ -37,11 +37,11 @@ class CourseController extends Controller
 
     function getAddCourse()
     {
-        $allPackagePrices = CoursePackage::all();
-        $allCourseTypes = MCourseType::all();
+        $allPackagePrices = CoursePackage::where('status', 1)->get();
+        $allCourseTypes = MCourseType::where('status', 1)->get();
         $allCourseDifficulty = MDifficultyType::all();
         $allCourseCategory = Category::where('status', 1)->get();
-        $allCoursePackages = CoursePackage::all();
+        $allCoursePackages = CoursePackage::where('status', 1)->get();
 
 
         return view('course.addv3', [
@@ -55,11 +55,11 @@ class CourseController extends Controller
 
     function getAddMBKM()
     {
-        $allPackagePrices = CoursePackage::all();
-        $allCourseTypes = MCourseType::all();
-        $allCourseDifficulty = MDifficultyType::all();
+        $allPackagePrices = CoursePackage::where('status', 1)->get();
+        $allCourseTypes = MCourseType::where('status', 1)->get();
+        $allCourseDifficulty = MDifficultyType::where('status', 1)->get();
         $allCourseCategory = Category::where('status', 1)->get();
-        $allCoursePackages = CoursePackage::all();
+        $allCoursePackages = CoursePackage::where('status', 1)->get();
 
 
         // Ambil ID berdasarkan slug 'mbkm'
@@ -105,10 +105,10 @@ class CourseController extends Controller
                 $file->move(public_path('/uploads/course_img'), $fileName);
             }
             //sementara
-            $request->mini_fake_price = 0;
-            $request->mini_price = 0;
-            $request->short_description = '';
-            $request->package_price = 1;
+            // $request->mini_fake_price = 0;
+            // $request->mini_price = 0;
+            // $request->short_description = '';
+            // $request->package_price = 1;
 
             $trim_mini_fake_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_fake_price));
             $trim_mini_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_price));
@@ -124,7 +124,7 @@ class CourseController extends Controller
                 'credits' => $request->credits,
                 'duration' => $request->duration,
                 'm_course_type_id' => $request->type,
-                'course_package_id' => $request->type == 2 ? null : $request->package_price,
+                'course_package_id' => $request->type == 2 ? null : $request->package,
                 'm_difficulty_type_id' => $request->level,
                 'content' => $request->content,
                 'description' => $request->description,
@@ -177,13 +177,13 @@ class CourseController extends Controller
         $currentDataCourse = Course::CurrentDataCourse($idCourse);
         $currentCoursePackages = Course::CurrentCoursePackages($idCourse);
 
-        $allCourseTypes = MCourseType::where('id', '!=', $currentDataCourse->m_course_type_id)->get();
-        $allDifficultyTypes = MDifficultyType::where('id', '!=', $currentDataCourse->m_difficulty_type_id)->get();
+        $allCourseTypes = MCourseType::where('id', '!=', $currentDataCourse->m_course_type_id)->where('status', 1)->get();
+        $allDifficultyTypes = MDifficultyType::where('id', '!=', $currentDataCourse->m_difficulty_type_id)->where('status', 1)->get();
 
         if ($currentCoursePackages == NULL) {
-            $allCoursePackages = CoursePackage::all();
+            $allCoursePackages = CoursePackage::where('status', 1)->get();
         } else {
-            $allCoursePackages = CoursePackage::where('id', '!=', $currentCoursePackages->course_package_id)->get();
+            $allCoursePackages = CoursePackage::where('id', '!=', $currentCoursePackages->course_package_id)->where('status', 1)->get();
         }//dd($selectedCategoryId);
 
         return view('course.editv3', [
@@ -208,13 +208,13 @@ class CourseController extends Controller
         $currentDataCourse = Course::CurrentDataCourse($idCourse);
         $currentCoursePackages = Course::CurrentCoursePackages($idCourse);
 
-        $allCourseTypes = MCourseType::where('id', '!=', $currentDataCourse->m_course_type_id)->get();
-        $allDifficultyTypes = MDifficultyType::where('id', '!=', $currentDataCourse->m_difficulty_type_id)->get();
+        $allCourseTypes = MCourseType::where('id', '!=', $currentDataCourse->m_course_type_id)->where('status', 1)->get();
+        $allDifficultyTypes = MDifficultyType::where('id', '!=', $currentDataCourse->m_difficulty_type_id)->where('status', 1)->get();
 
         if ($currentCoursePackages == NULL) {
-            $allCoursePackages = CoursePackage::all();
+            $allCoursePackages = CoursePackage::where('status', 1)->get();
         } else {
-            $allCoursePackages = CoursePackage::where('id', '!=', $currentCoursePackages->course_package_id)->get();
+            $allCoursePackages = CoursePackage::where('id', '!=', $currentCoursePackages->course_package_id)->where('status', 1)->get();
         }//dd($selectedCategoryId);
 
         return view('course.MBKM.editv3', [
@@ -238,7 +238,7 @@ class CourseController extends Controller
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
             'short_description' => 'required|string|max:255',
-            'file_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         
         try {

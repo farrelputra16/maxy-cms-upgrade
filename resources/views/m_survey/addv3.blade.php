@@ -109,6 +109,14 @@
                             </div>
                         </div>
                         <div class="mb-3 row justify-content-end">
+                            <div class="text-start">
+                                Tekan tombol <b>Setting</b> untuk masuk ke bagian pengaturan <br>
+                                Tombol <b>Setting</b> dapat ditemukan di pojok kanan atas dari survey <br>
+                                Tombol <b>Setting</b> juga dapat ditemukan di pojok kanan bawah dari setiap pertanyaan yg ada <br>
+                                Untuk mengisi pertanyaan harap tuliskan di bagian <b>Question Name</b> <br>
+                                Untuk mengisi jawaban harap isi kolom <b>Value</b> pada bagian <b>Choice Options</b> <br>
+                                Jika ingin mengatur jawaban yg benar silahkan mengatur pada bagian <b>Data</b> lalu tekan <b>Set Correct Answer</b><br>
+                            </div>
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addSurvey">Add Survey</button>
                             </div>
