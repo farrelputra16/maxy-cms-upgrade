@@ -20,9 +20,15 @@ class MSurveyController extends Controller
     }
 
     function postAddSurvey(Request $request){//dd($request->all());
+        // dd($request->all());
         $validate = $request->validate([
             'name' => 'required',
-            'survey' => 'required',
+            'survey' => ['required',
+            function($attribute, $value, $fail) {
+                if ($value === '{}') {
+                    $fail('The ' . $attribute . ' field cannot be empty JSON.');
+                }
+            }],
         ]);
 
         if ($validate){
@@ -51,7 +57,13 @@ class MSurveyController extends Controller
 
     function postEditSurvey(Request $request){//dd($request->all());
         $validate = $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'survey' => ['required',
+            function($attribute, $value, $fail) {
+                if ($value === '{}') {
+                    $fail('The ' . $attribute . ' field cannot be empty JSON.');
+                }
+            }],
         ]);
 
         if($validate){
