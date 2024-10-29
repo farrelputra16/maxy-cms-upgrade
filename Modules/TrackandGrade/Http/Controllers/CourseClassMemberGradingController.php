@@ -135,6 +135,10 @@ class CourseClassMemberGradingController extends Controller
     {
         // dd($request->all());
 
+        $request->validate([
+            'grade' => 'nullable|integer|min:0|max:100',
+        ]);        
+
         try {
             $data = CourseClassMemberGrading::find($request->id);
 
