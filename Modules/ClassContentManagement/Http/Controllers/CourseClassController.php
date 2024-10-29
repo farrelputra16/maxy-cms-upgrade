@@ -63,6 +63,10 @@ class CourseClassController extends Controller
             })
             ->orderBy('course_class_module.id')
             ->get();
+        
+        if ($classes->isEmpty()) {
+            return redirect()->route('getCourseClass')->with('error', 'This class does not yet have any assignments to be assessed');
+        }
 
         // $coba = CourseClassModule::with(['CourseClass', 'CourseModule'])
         // ->where('course_class_id', $request->id)
@@ -76,7 +80,7 @@ class CourseClassController extends Controller
     }
 
     public function postCourseClassScoring(Request $request)
-    {
+    { 
         //dd($request->all());
         try {
             // Mengubah nilai kosong atau null pada attendance menjadi 0
@@ -238,10 +242,11 @@ class CourseClassController extends Controller
         $validated = $request->validate([
             'batch' => 'required',
             'slug' => 'required|unique:course_class,slug', // Pastikan slug unik
-            'start' => 'required',
-            'end' => 'required',
+            'start' => 'required|date',
+            'end' => 'required|date|after:start',
             'quota' => 'required|integer|gte:1'
         ]);
+        // dd($request->all());
 
         // Jika validasi berhasil
         if ($validated) {
@@ -344,8 +349,8 @@ class CourseClassController extends Controller
         $validated = $request->validate([
             'batch' => 'required',
             'slug' => 'required|unique:course_class,slug,' . $request->id, // Slug unik kecuali milik sendiri
-            'start' => 'required',
-            'end' => 'required',
+            'start' => 'required|date',
+            'end' => 'required|date|after:start',
             'quota' => 'required|integer|gte:1'
         ]);
 
