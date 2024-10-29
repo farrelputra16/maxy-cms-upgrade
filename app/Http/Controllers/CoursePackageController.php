@@ -26,7 +26,7 @@ class CoursePackageController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'fake' => 'required',
+            'fake' => 'required|digits_between:1,10',
             'price' => 'required',
             'payment_link' => ['nullable', 'url', 'regex:/^https:\/\/.+$/'],
         ]);
@@ -67,7 +67,7 @@ class CoursePackageController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'fake' => 'required',
+            'fake' => 'required|digits_between:1,10',
             'price' => 'required',
             'payment_link' => ['nullable', 'url', 'regex:/^https:\/\/.+$/'],
         ]);
