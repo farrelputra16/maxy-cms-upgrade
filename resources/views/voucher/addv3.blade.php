@@ -100,7 +100,7 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Discount</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="discount" id="discount">
+                                <input class="form-control" type="number" name="discount" id="discount">
                                 @if ($errors->has('discount'))
                                     @foreach ($errors->get('discount') as $error)
                                         <span style="color: red;">{{ $error }}</span>

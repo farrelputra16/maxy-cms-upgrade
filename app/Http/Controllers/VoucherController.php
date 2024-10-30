@@ -88,7 +88,7 @@ class VoucherController extends Controller
             'end_date' => 'required',
             'discount_type' => 'required',
             'discount' => 'required',
-            'maxdiscount' => 'required',
+            'max_discount' => 'required',
         ]);
 
         if($validate){
