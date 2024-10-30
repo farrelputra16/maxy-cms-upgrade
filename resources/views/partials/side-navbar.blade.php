@@ -96,7 +96,6 @@
                         <span key="t-member">Member</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('getTestimonial') }}" key="t-testimonial">Testimonial</a></li>
                         <li><a href="{{ route('getRedeemCode') }}" key="t-redeem-code">Redeem Code</a></li>
                         <li><a href="{{ route('getProposal') }}" key="t-proposal">Proposal</a></li>
                         <li><a href="{{ route('getTranskrip') }}" key="t-proposal">Transkrip</a></li>
@@ -112,7 +111,7 @@
                         <li><a href="{{ route('getCarousel') }}" key="t-carousel">Carousel</a></li>
                         <li><a href="{{ route('getEvent') }}" key="t-event">Event</a></li>
                         <li><a href="{{ route('getPartnership') }}" key="t-partnership">Partnership</a></li>
-                        <li><a href="#" key="t-testimonial">Testimonial</a></li>
+                        <li><a href="{{ route('getTestimonial') }}" key="t-testimonial">Testimonial</a></li>
                         <li><a href="{{ route('getBlog') }}" key="t-blog">Blog</a></li>
                         <li><a href="{{ route('getBlogTag') }}" key="t-blog-tag">Blog Tag</a></li>
                     </ul>
