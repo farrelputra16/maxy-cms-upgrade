@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\BlogTag;
 use App\Models\MBlog;
 use App\Models\MBlogTag;
 use Illuminate\Http\Request;
@@ -28,10 +29,10 @@ class BlogController extends Controller
         // Validasi input
         $request->validate([
             'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:blogs,slug',  // Validasi slug unik
-            'content' => 'nullable|string',
+            'slug' => 'required|string|max:255|unique:m_blog,slug',  // Validasi slug unik
+            'content' => 'required|string',
             'description' => 'nullable|string',
-            'file_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  // Validasi file gambar
+            'file_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  // Validasi file gambar
             'tag' => 'nullable|array', // Validasi tag sebagai array
         ]);
 
@@ -80,13 +81,23 @@ class BlogController extends Controller
         }
     }
 
+    public function getEditBlog(Request $request)
+    {
+        $data = MBlog::find($request->id);
+        $idBlog = $data->id;
+        $blogTagList = MBlogTag::where('status', 1)->get();
+        $currentTags = array_column(json_decode(BlogTag::CurrentBlogTags($idBlog)), 'name', 'id');
+
+        return view('blog.edit', compact('data', 'blogTagList', 'currentTags'));
+    }
+
 
     public function postEditBlog(Request $request)
     {
         // Validasi input
         $request->validate([
             'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:blogs,slug,' . $request->id,  // Validasi slug unik kecuali untuk blog yang sedang di-edit
+            'slug' => 'required|string|max:255|unique:m_blog,slug,' . $request->id,  // Validasi slug unik kecuali untuk blog yang sedang di-edit
             'content' => 'nullable|string',
             'description' => 'nullable|string',
             'status' => 'nullable|boolean',
@@ -129,8 +140,23 @@ class BlogController extends Controller
                 $blog->save();
 
                 // Sinkronkan tag
-                if ($request->has('tag')) {
-                    $blog->tags()->sync($request->tag); // Sinkronkan tag yang di-request
+                $currentTags = $blog->tags()->pluck('id')->toArray();
+                $oldTags = $request->tag_old ?? []; // tag lama yang disimpan di form
+                $newTags = $request->tag ?? []; // tag baru dari input
+
+                // Jika ada perubahan pada tag lama dan tag baru
+                if (array_diff($currentTags, $oldTags) !== []) {
+                    // Hapus tag yang sudah tidak terpakai
+                    $removedTags = array_diff($currentTags, $oldTags);
+                    $blog->tags()->detach($removedTags);
+                }
+
+                // Filter tag baru untuk hanya menyertakan tag yang belum ada di currentTags
+                $tagsToAdd = array_diff($newTags, $currentTags);
+
+                if (!empty($tagsToAdd)) {
+                    // Tambahkan tag baru yang belum ada di currentTags
+                    $blog->tags()->attach($tagsToAdd);
                 }
 
                 return redirect()->route('getBlog')->with('success', 'Data updated successfully.');
@@ -155,12 +181,12 @@ class BlogController extends Controller
     }
     public function postAddBlogTag(Request $request)
     {
+        // dd($request->all());
         // Validasi input
         $request->validate([
             'name' => 'required|string|max:255',
             'color' => 'required|string|max:8',  // Validasi untuk warna
             'description' => 'nullable|string',  // Deskripsi opsional
-            'status' => 'nullable|boolean',      // Status boolean, default ke 0 jika kosong
         ]);
 
         try {

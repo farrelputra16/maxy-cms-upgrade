@@ -62,7 +62,20 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Tags</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tags Saat Ini</label>
+                            <div class="col-md-10">
+                                <select class="form-control select2 select2-multiple" multiple="multiple" name="tag_old[]"
+                                    data-placeholder="Choose ...">
+                                    {{-- <option>Select</option> --}}
+                                    @foreach ($currentTags as $key => $value)
+                                        <option value="{{ $key }}" selected>{{ $value }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="input-tag" class="col-md-2 col-form-label">Tags Tersedia</label>
                             <div class="col-md-10">
                                 <select class="form-control select2 select2-multiple" multiple="multiple" name="tag[]"
                                     data-placeholder="Choose ...">
