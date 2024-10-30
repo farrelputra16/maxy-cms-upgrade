@@ -243,32 +243,28 @@ class CourseController extends Controller
         
         try {
             $updateData = Course::postEditCourse($request);
-            if ($updateData) {
-                if (CourseCategory::where('course_id', $request->id)->exists()) {
-                    DB::table('course_category')->where('course_id', $request->id)->delete();
-                }
+            if (CourseCategory::where('course_id', $request->id)->exists()) {
+                DB::table('course_category')->where('course_id', $request->id)->delete();
+            }
 
-                $categories = $request->input('courseCategory');
-                if ($categories) {
-                    foreach ($categories as $categoryId) {
-                        DB::table('course_category')->insert([
-                            'course_id' => $request->id,
-                            'category_id' => $categoryId,
-                            'created_id' => Auth::user()->id,
-                            'updated_id' => Auth::user()->id
-                        ]);
-                    }
+            $categories = $request->input('courseCategory');
+            if ($categories) {
+                foreach ($categories as $categoryId) {
+                    DB::table('course_category')->insert([
+                        'course_id' => $request->id,
+                        'category_id' => $categoryId,
+                        'created_id' => Auth::user()->id,
+                        'updated_id' => Auth::user()->id
+                    ]);
                 }
+            }
 
-                // Cek apakah course type adalah MBKM
-                $courseType = MCourseType::find($request->type);
-                if ($courseType && $courseType->name === 'MBKM') {
-                    return redirect()->route('getCourseMBKM')->with('success', 'Course updated successfully!');
-                } else {
-                    return redirect()->route('getCourse')->with('success', 'Course updated successfully!');
-                }
+            // Cek apakah course type adalah MBKM
+            $courseType = MCourseType::find($request->type);
+            if ($courseType && $courseType->name === 'MBKM') {
+                return redirect()->route('getCourseMBKM')->with('success', 'Course updated successfully!');
             } else {
-                return app(HelperController::class)->Warning('getCourse');
+                return redirect()->route('getCourse')->with('success', 'Course updated successfully!');
             }
         } catch (\Exception $e) {
             // Log error untuk developer/admin
