@@ -122,6 +122,8 @@
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>
+                        <input type="text" value="{{ $transOrder->course_id }}" name="course_id" hidden>
+                        <input type="text" value="{{ $transOrder->course_class_id }}" name="course_class_id" hidden>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addTransOrderConfirm">Add Orders Confirm</button>

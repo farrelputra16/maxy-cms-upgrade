@@ -77,7 +77,7 @@ class TransOrderConfirmController extends Controller
 
         if ($validate) {
             $create = TransOrderConfirm::create([
-                'order_confirm_number' => $request->order_number,
+                'order_confirm_number' => $request->name_order,
                 'date' => $request->date,
                 'image' => $fileName,
                 'amount' => (float)$trim_total,
@@ -85,6 +85,7 @@ class TransOrderConfirmController extends Controller
                 'sender_account_number' => $request->sender_account_number,
                 'm_bank_account_id' => $request->m_bank_account_id,
                 'trans_order_id' => $request->trans_order_id,
+                'course_id' => $request->course_id,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => auth()->id(),
