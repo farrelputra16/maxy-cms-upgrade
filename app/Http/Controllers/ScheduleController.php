@@ -227,13 +227,29 @@ class ScheduleController extends Controller
     function getOngoingCourseClassByCourseCategory(Request $request){
         try {
             $prodi = $request->input('prodi');
-            $course_class = CourseClass::whereHas('course.CourseCategory', function ($query) use ($prodi) {
+            $classWithTutor = CourseClass::whereHas('course.CourseCategory', function ($query) use ($prodi) {
                     $query->where('category_id', $prodi);
                 })
                 ->where('status_ongoing', 0)
+                ->whereHas('members.user', function ($query) {
+                    $query->where('type', 'tutor'); // Memastikan ada member dengan tipe 'tutor'
+                })
                 ->get();
 
-            return $course_class;
+            // Kelas yang tidak memiliki tutor
+            $classWithoutTutor = CourseClass::whereHas('course.CourseCategory', function ($query) use ($prodi) {
+                $query->where('category_id', $prodi);
+            })
+            ->where('status_ongoing', 0)
+            ->whereDoesntHave('members.user', function ($query) {
+                $query->where('type', 'tutor');
+            })
+            ->get();
+
+            return response()->json([
+                'classWithTutor' => $classWithTutor,
+                'classWithoutTutor' => $classWithoutTutor
+            ]);
         } catch (Exception $e) {
             return response()->json(['error' => $e], 500);
         }

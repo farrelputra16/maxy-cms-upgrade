@@ -48,6 +48,9 @@
 
     <div class="mb-3">
         <button type="button" class="btn btn-primary" id='publish'>Publish</button>
+        <span class="ms-2 text-muted" style="font-size: 0.9em;">
+            *Click here to publish the scheduled academic schedule
+        </span>
     </div>
 
     <div id='external-events'>
@@ -194,14 +197,24 @@
                         prodi: $('#prodi').val()
                     },
                     success: function(data) {
-                        console.log(data);
-                        //successCallback(data); <div class='fc-event' data-id=""></div>
                         $('#external-events').html('');
-                        data.forEach(item => {
+
+                        // Menampilkan kelas yang memiliki tutor
+                        data.classWithTutor.forEach(item => {
                             $('#external-events').append(
                                 `<div class='fc-event' data-id="${item.id}">${item.slug}</div>`
                             );
                         });
+
+                        // Menampilkan pesan dan kelas yang tidak memiliki tutor
+                        if (data.classWithoutTutor.length > 0) {
+                            $('#external-events').append("<br><p style='text-align: center;'><strong>The classes below cannot be added because they do not have lecturers yet</strong></p>");
+                            data.classWithoutTutor.forEach(item => {
+                                $('#external-events').append(
+                                    `<div class='fc-event no-tutor' data-id="${item.id}" style="background-color: #ffcccc; draggable: false">${item.slug}</div>`
+                                );
+                            });
+                        }
                     }
                 });
             });
@@ -242,7 +255,7 @@
 
 
             new FullCalendar.Draggable(document.getElementById('external-events'), {
-                itemSelector: '.fc-event',
+                itemSelector: '.fc-event:not(.no-tutor)',
                 eventData: function(eventEl) {
                     return {
                         title: eventEl.innerText,
