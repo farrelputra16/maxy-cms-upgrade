@@ -231,20 +231,25 @@ class ScheduleController extends Controller
                     $query->where('category_id', $prodi);
                 })
                 ->where('status_ongoing', 0)
-                ->whereHas('members.user', function ($query) {
-                    $query->where('type', 'tutor'); // Memastikan ada member dengan tipe 'tutor'
+                ->whereHas('members', function ($query) {
+                    // Ensuring the user is a tutor and has active status
+                    $query->where('status', 1)
+                        ->whereHas('user', function ($query) {
+                            $query->where('type', 'tutor'); // User type must be 'tutor'
+                        });
                 })
                 ->get();
 
-            // Kelas yang tidak memiliki tutor
+            // Extract the IDs of classes that have tutors
+            $classWithTutorIds = $classWithTutor->pluck('id')->toArray();
+
+            // Retrieve classes that are not in $classWithTutor
             $classWithoutTutor = CourseClass::whereHas('course.CourseCategory', function ($query) use ($prodi) {
-                $query->where('category_id', $prodi);
-            })
-            ->where('status_ongoing', 0)
-            ->whereDoesntHave('members.user', function ($query) {
-                $query->where('type', 'tutor');
-            })
-            ->get();
+                    $query->where('category_id', $prodi);
+                })
+                ->where('status_ongoing', 0)
+                ->whereNotIn('id', $classWithTutorIds) // Exclude IDs from $classWithTutor
+                ->get();
 
             return response()->json([
                 'classWithTutor' => $classWithTutor,
