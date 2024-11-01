@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CoursePackage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CoursePackageController extends Controller
 {
@@ -26,13 +27,28 @@ class CoursePackageController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'fake' => 'required|digits_between:1,10',
+            'fake' => 'required',
             'price' => 'required',
             'payment_link' => ['nullable', 'url', 'regex:/^https:\/\/.+$/'],
         ]);
 
         $trim_fake_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->fake));
         $trim_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->price));
+
+        // Check if the fake price exceeds 10 digits
+        if (strlen($trim_fake_price) > 10) {
+            // Throw a validation error
+            return back()->withErrors([
+                'fake' => 'Fake Price cannot exceed 10 digits.'
+            ])->withInput();
+        }
+
+        // Check if the price exceeds 10 digits
+        if (strlen($trim_price) > 15) {
+            return back()->withErrors([
+                'price' => 'Price cannot exceed 15 digits.'
+            ])->withInput();
+        }
 
         if ($validated) {
             $create = CoursePackage::create([
@@ -67,7 +83,7 @@ class CoursePackageController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'fake' => 'required|digits_between:1,10',
+            'fake' => 'required',
             'price' => 'required',
             'payment_link' => ['nullable', 'url', 'regex:/^https:\/\/.+$/'],
         ]);
@@ -78,6 +94,21 @@ class CoursePackageController extends Controller
             if (str_contains($request->fake, "Rp.") || str_contains($request->price, "Rp.")) {
                 $trim_fake_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->fake));
                 $trim_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->price));
+
+                // Check if the fake price exceeds 10 digits
+                if (strlen($trim_fake_price) > 10) {
+                    // Throw a validation error
+                    return back()->withErrors([
+                        'fake' => 'Fake Price cannot exceed 10 digits.'
+                    ])->withInput();
+                }
+
+                // Check if the price exceeds 10 digits
+                if (strlen($trim_price) > 15) {
+                    return back()->withErrors([
+                        'price' => 'Price cannot exceed 15 digits.'
+                    ])->withInput();
+                }
 
                 $updateData = CoursePackage::where('id', $idCoursePackage)
                     ->update([
