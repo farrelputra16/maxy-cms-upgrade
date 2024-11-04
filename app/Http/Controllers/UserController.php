@@ -10,8 +10,10 @@ use App\Models\Partner;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
 use App\Imports\UserImport;
+use App\Models\CourseClass;
 use App\Models\CourseClassMember;
 use Illuminate\Support\Facades\DB;
+use Modules\Enrollment\Entities\Jobdesc;
 
 class UserController extends Controller
 {
@@ -145,23 +147,24 @@ class UserController extends Controller
 
     private function getBimbinganData($user)
     {
-        $members = CourseClassMember::with('courseClass.course')
+        $members = DB::table('user_mentorships')
             ->where('mentor_id', $user->id)
             ->get();
+        
+        // dd($members);
 
         $bimbinganData = []; // Inisialisasi array bimbinganData
 
         foreach ($members as $member) {
-            $courseName = $member->courseClass->slug;
+            $courseName = CourseClass::where('id', $member->course_class_id)->value('slug');
 
-            $mentorJob = CourseClassMember::with('courseClass.course')
-                ->where('course_class_id', $member->course_class_id)
-                ->where('user_id', $user->id)
-                ->value('jobdesc');
+            $mentorJob = Jobdesc::where('id', $member->jobdesc_id)->value('jobdesc');
+
+            $courseId = CourseClass::where('id', $member->course_class_id)->value('course_id');
 
             // Query ke tabel course_category untuk mendapatkan category_id berdasarkan course_id
             $categoryData = DB::table('course_category')
-                ->where('course_id', $member->courseClass->course->id)
+                ->where('course_id', $courseId)
                 ->value('category_id');
 
             $categoryName = DB::table('m_category_course')
@@ -177,7 +180,7 @@ class UserController extends Controller
                 ->value('name');
 
             // Buat kombinasi key dari course_name, category_name, dan jobdesc
-            $courseCategory = $courseName . '_' . $categoryName;
+            $courseCategory = $courseName . '_' . $categoryName . '_' . $mentorJob;
 
             // Cek apakah courseCategory sudah ada di $bimbinganData
             if (!isset($bimbinganData[$courseCategory])) {
@@ -185,10 +188,10 @@ class UserController extends Controller
                 $bimbinganData[$courseCategory] = [
                     'category_name' => $categoryName,
                     'course_name' => $courseName,
-                    'course_id' => $member->courseClass->course->id,
+                    'course_id' => $courseId,
                     'mentor_id' => $member->mentor_id,
                     'jobdesc' => $mentorJob,
-                    'user_id' => $member->user_id,
+                    'user_id' => $member->member_id,
                     'jumlah_mahasiswa' => 1,
                     'periode' => $periode
                 ];
@@ -200,6 +203,8 @@ class UserController extends Controller
 
         // Mengubah array bimbinganData dari associative array menjadi indexed array
         $bimbinganData = array_values($bimbinganData);
+
+        // dd($bimbinganData);
 
         return $bimbinganData;
     }

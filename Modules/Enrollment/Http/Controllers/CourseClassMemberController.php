@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Modules\Enrollment\Http\Requests\CourseClassMemberRequest;
 use Modules\Enrollment\Imports\CourseClassMemberImport;
 use Modules\ClassContentManagement\Entities\CourseClass;
+use Modules\Enrollment\Entities\Jobdesc;
 
 class CourseClassMemberController extends Controller
 {
@@ -27,6 +28,7 @@ class CourseClassMemberController extends Controller
         $users = User::where('access_group_id', 2)->get();
         $courseClassDetail = CourseClass::getClassDetailByClassId($idCourseClass);
         $courseClassMembers = CourseClassMember::getCourseClassMember($request);
+        // dd($courseClassMembers);
 
         return view('enrollment::course_class_member.indexv3', [
             'users' => $users,
@@ -47,13 +49,16 @@ class CourseClassMemberController extends Controller
         $filteredUsers = $users->whereNotIn('id', $courseClassMemberIds);
 
         $mentors = User::where('access_group_id', '!=', 2)
-                ->select('id', 'name', 'email')
-                ->get();
+            ->select('id', 'name', 'email')
+            ->get();
+
+        $jobdescriptions = Jobdesc::all();
 
         return view('enrollment::course_class_member.addv3', [
             'users' => $filteredUsers,
             'course_class_detail' => $course_class_detail,
-            'mentors' => $mentors
+            'mentors' => $mentors,
+            'jobdescriptions' => $jobdescriptions
         ]);
     }
 
@@ -64,10 +69,11 @@ class CourseClassMemberController extends Controller
             'mentor' => 'required',
         ]);
 
-        $users = $request->users; // Mengambil semua pengguna dari permintaan
+        $users = $request->users;
+        $mentors = $request->mentor;
+        $jobdescs = $request->jobdesc; // Mengambil jobdesc dari permintaan
         $courseClassId = $request->course_class;
 
-        // dd($users);
         foreach ($users as $user) {
             $existingUser = CourseClassMember::checkExistingCCM($user, $courseClassId);
 
@@ -78,15 +84,21 @@ class CourseClassMemberController extends Controller
                     'user_id' => $user,
                     'course_class_id' => $courseClassId,
                     'description' => $request->description,
-                    'mentor_id' => $request->mentor,
-                    'jobdesc' => $request->jobdesc,
                     'status' => $request->status ? 1 : 0,
                     'created_id' => auth()->id(),
                     'updated_id' => auth()->id(),
                 ]);
-                
-                // create ccml user joined class
 
+                if ($created) {
+                    foreach ($mentors as $index => $mentor) {
+                        DB::table('user_mentorships')->insert([
+                            'member_id' => $user, // mentee
+                            'mentor_id' => $mentor, // mentor
+                            'course_class_id' => $courseClassId, // kelas yang terkait
+                            'jobdesc_id' => $request->jobdesc[$index],
+                        ]);
+                    }
+                }
             }
         }
 
@@ -101,15 +113,23 @@ class CourseClassMemberController extends Controller
     function getEditCourseClassMember(Request $request, CourseClassMember $courseClassMember)
     {
         $users = $courseClassMember->user_id;
+        $currentMentors = DB::table('user_mentorships')
+            ->where('member_id', $users)
+            ->select('mentor_id', 'jobdesc_id')
+            ->get();
         // dd($courseClassMember);
-        $mentor = User::where('id', $users)
-            ->value('access_group_id');
+        $mentors = User::where('access_group_id', '!=', 2)
+        ->select('id', 'name', 'email')
+        ->get();
 
-        return view('enrollment::course_class_member.editv3', compact('courseClassMember', 'users', 'mentor'));
+        $jobdescriptions = Jobdesc::all();
+
+        return view('enrollment::course_class_member.editv3', compact('courseClassMember', 'users', 'mentors', 'currentMentors', 'jobdescriptions'));
     }
 
     function postEditCourseClassMember(Request $request)
     {
+        // dd($request->all());
         $update = CourseClassMember::where('id', $request->id)
         ->update([
             'daily_score' => $request->daily_score,
@@ -126,6 +146,24 @@ class CourseClassMemberController extends Controller
         ]);
 
         if($update) {
+            // Jika update berhasil, lanjutkan ke bagian update user_mentorships
+            // Hapus semua mentor dan jobdesc lama untuk member ini di user_mentorships
+            DB::table('user_mentorships')->where('member_id', $request->member_id)->delete();
+
+            // Simpan mentor dan jobdesc baru
+            if ($request->mentor && $request->jobdesc) {
+                foreach ($request->mentor as $index => $mentorId) {
+                    if ($mentorId) { // Pastikan mentorId tidak kosong
+                        DB::table('user_mentorships')->insert([
+                            'member_id' => $request->member_id,
+                            'mentor_id' => $mentorId,
+                            'jobdesc_id' => $request->jobdesc[$index],
+                            'course_class_id' => $request->cc_id,
+                        ]);
+                    }
+                }
+            }
+
             return redirect()->route('getCourseClassMember', ['id' => $request->cc_id])->with('success', 'Member data updated successfully');
         } else {
             return redirect()->route('getCourseClassMember', ['id' => $request->cc_id])->with('error', 'Failed to update member data');

@@ -40,7 +40,7 @@
                         @csrf
                         <input type="hidden" name="id" value="{{ $courseClassMember->id }}">
                         <input type="hidden" name="cc_id" value="{{ $courseClassMember->course_class_id }}">
-                        <input type="hidden" name="mentor_id" value="{{ $users }}">
+                        <input type="hidden" name="member_id" value="{{ $users }}">
 
                         <div class="mb-3 row">
                             <label for="dailyScore" class="col-md-2 col-form-label">Daily Score</label>
@@ -120,7 +120,43 @@
                             </div>
                         </div>
 
-                        <!-- Input for Job Description -->
+                        <!-- Mentor Fields -->
+                        <div id="mentor-fields-container">
+                            @foreach ($currentMentors as $currentMentor)
+                                <div class="mb-3 row mentor-field-group">
+                                    <label for="mentor" class="col-md-2 col-form-label">Pilih Mentor: </label>
+                                    <div class="col-md-4">
+                                        <select class="form-control select2 mentor-select" name="mentor[]" data-placeholder="Pilih Mentor">
+                                            <option value="">Pilih Mentor</option>
+                                            @foreach ($mentors as $mentor)
+                                                <option value="{{ $mentor->id }}" {{ $mentor->id == $currentMentor->mentor_id ? 'selected' : '' }}>
+                                                    {{ $mentor->email }} - {{ $mentor->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <label for="jobdesc" class="col-md-2 col-form-label">Job Description</label>
+                                <div class="col-md-4">
+                                    <select name="jobdesc[]" class="form-control select2 jobdesc-select" data-placeholder="Pilih Job Description" data-placeholder="Pilih Job Description">
+                                        <option value="">Pilih Job Description</option>
+                                        @foreach ($jobdescriptions as $jobdesc)
+                                            <option value="{{ $jobdesc->id }}" {{ $jobdesc->id == $currentMentor->jobdesc_id ? 'selected' : '' }}>
+                                                {{ $jobdesc->jobdesc }}
+                                            </option>
+                                        @endforeach
+                                    </select>                                    
+                                </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10 offset-md-2">
+                                <button type="button" class="btn btn-secondary" id="add-mentor-button">Add Mentor</button>
+                                <button type="button" class="btn btn-danger" id="remove-mentor-button">Kurangi Mentor</button>
+                            </div>
+                        </div>
+                        <br>
+                        {{-- <!-- Input for Job Description -->
                         @if($mentor != 2)    
                             <div class="mb-3 row">
                                 <label for="jobdesc" class="col-md-2 col-form-label">Job Description</label>
@@ -128,7 +164,7 @@
                                     <input type="text" name="jobdesc" id="jobdesc" class="form-control" value="{{ $courseClassMember->jobdesc }}" placeholder="Enter Job Description">
                                 </div>
                             </div>
-                        @endif
+                        @endif --}}
 
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
@@ -195,6 +231,51 @@
 
     internshipScoreEl.on('input', function() {
         calculateFinalScore();
+    });
+</script>
+<script>
+    // Add event listener for the button to add a new mentor field
+    document.getElementById('add-mentor-button').addEventListener('click', function() {
+        const mentorFieldsContainer = document.getElementById('mentor-fields-container');
+        const newMentorFieldGroup = document.createElement('div');
+        newMentorFieldGroup.className = 'mb-3 row mentor-field-group';
+
+        newMentorFieldGroup.innerHTML = `
+            <label for="mentor" class="col-md-2 col-form-label">Pilih Mentor: </label>
+            <div class="col-md-4">
+                <select class="form-control select2 mentor-select" name="mentor[]" data-placeholder="Pilih Mentor">
+                    <option value="">Pilih Mentor</option>
+                    @foreach ($mentors as $mentor)
+                        <option value="{{ $mentor->id }}" data-jobdesc="{{ $jobdescriptions[$mentor->id] ?? '' }}">
+                            {{ $mentor->email }} - {{ $mentor->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <label for="jobdesc" class="col-md-2 col-form-label">Job Description</label>
+            <div class="col-md-4">
+                <select name="jobdesc[]" class="form-control select2 jobdesc-select" data-placeholder="Pilih Job Description">
+                    @foreach ($jobdescriptions as $jobdesc)
+                        <option value="{{ $jobdesc->id ?? '' }}">{{ $jobdesc->jobdesc ?? '' }}</option>
+                    @endforeach
+                </select>                                    
+            </div>
+        `;
+
+        mentorFieldsContainer.appendChild(newMentorFieldGroup);
+    });
+
+     // Event listener untuk tombol "Kurangi Mentor"
+     document.getElementById('remove-mentor-button').addEventListener('click', function() {
+        const mentorFieldsContainer = document.getElementById('mentor-fields-container');
+        const mentorFieldGroups = mentorFieldsContainer.getElementsByClassName('mentor-field-group');
+        
+        // Hanya hapus jika ada lebih dari satu field mentor
+        if (mentorFieldGroups.length > 1) {
+            mentorFieldsContainer.removeChild(mentorFieldGroups[mentorFieldGroups.length - 1]);
+        } else {
+            alert("Minimal satu mentor harus tersedia.");
+        }
     });
 </script>
 @endsection

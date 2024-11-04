@@ -40,7 +40,7 @@
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Pilih User: </label>
                             <div class="col-md-10">
-                                <select class="form-control select2 select2-multiple" multiple="multiple" name="users[]"
+                                <select class="form-control select2 multiple" multiple="multiple" name="users[]"
                                     data-placeholder="Pilih User">
                                     @foreach ($users as $item)
                                         <option value="{{ $item->id }}">{{ $item->email }} - {{ $item->name }}
@@ -49,30 +49,44 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Pilih Mentor: </label>
-                            <div class="col-md-10">
-                                <select class="form-control select2 select2-multiple" multiple="multiple" name="mentor"
-                                    id="mentor" data-placeholder="Pilih Mentor">
-                                    @foreach ($mentors as $item)
-                                        <option value="{{ $item->id }}">{{ $item->email }} - {{ $item->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                        <!-- Mentor Fields -->
+                        <div id="mentor-fields-container">
+                            <div class="mb-3 row mentor-field-group">
+                                <label for="mentor" class="col-md-2 col-form-label">Pilih Mentor: </label>
+                                <div class="col-md-4">
+                                    <select class="form-control select2 mentor-select" name="mentor[]" data-placeholder="Pilih Mentor">
+                                        <option value="">Pilih Mentor</option>
+                                        @foreach ($mentors as $mentor)
+                                            <option value="{{ $mentor->id }}">
+                                                {{ $mentor->email }} - {{ $mentor->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <label for="jobdesc" class="col-md-2 col-form-label">Job Description</label>
+                                <div class="col-md-4">
+                                    <select name="jobdesc[]" class="form-control select2 jobdesc-select" data-placeholder="Pilih Job Description">
+                                        <option value="">Pilih Job Description</option>
+                                        @foreach ($jobdescriptions as $jobdesc)
+                                            <option value="{{ $jobdesc->id ?? '' }}">{{ $jobdesc->jobdesc ?? '' }}</option>
+                                        @endforeach
+                                    </select>                                    
+                                </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-10 offset-md-2">
+                                <button type="button" class="btn btn-secondary" id="add-mentor-button">Add Mentor</button>
+                                <button type="button" class="btn btn-danger" id="remove-mentor-button">Kurangi Mentor</button>
+                            </div>
+                        </div>
+                        <br>
                         <input type="hidden" name="course_class" value="{{ $course_class_detail->id }}">
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Course Class Description</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description"></textarea>
-                            </div>
-                        </div>
-                        <!-- Input for Job Description -->
-                        <div class="mb-3 row">
-                            <label for="jobdesc" class="col-md-2 col-form-label">Job Description</label>
-                            <div class="col-md-10">
-                                <input type="text" name="jobdesc" id="jobdesc" class="form-control" value="" placeholder="Enter Job Description">
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
@@ -213,5 +227,50 @@
 @section('script')
 
     <script src="{{ URL::asset('assets/cms-v3/libs/dropzone/dropzone.min.js') }}"></script>
+    <script>
+        // Add event listener for the button to add a new mentor field
+        document.getElementById('add-mentor-button').addEventListener('click', function() {
+            const mentorFieldsContainer = document.getElementById('mentor-fields-container');
+            const newMentorFieldGroup = document.createElement('div');
+            newMentorFieldGroup.className = 'mb-3 row mentor-field-group';
+
+            newMentorFieldGroup.innerHTML = `
+                <label for="mentor" class="col-md-2 col-form-label">Pilih Mentor: </label>
+                <div class="col-md-4">
+                    <select class="form-control select2 mentor-select" name="mentor[]" data-placeholder="Pilih Mentor">
+                        <option value="">Pilih Mentor</option>
+                        @foreach ($mentors as $mentor)
+                            <option value="{{ $mentor->id }}" data-jobdesc="{{ $jobdescriptions[$mentor->id] ?? '' }}">
+                                {{ $mentor->email }} - {{ $mentor->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <label for="jobdesc" class="col-md-2 col-form-label">Job Description</label>
+                <div class="col-md-4">
+                    <select name="jobdesc[]" class="form-control select2 jobdesc-select" data-placeholder="Pilih Job Description">
+                        @foreach ($jobdescriptions as $jobdesc)
+                            <option value="{{ $jobdesc->id ?? '' }}">{{ $jobdesc->jobdesc ?? '' }}</option>
+                        @endforeach
+                    </select>                                    
+                </div>
+            `;
+
+            mentorFieldsContainer.appendChild(newMentorFieldGroup);
+        });
+
+        // Event listener untuk tombol "Kurangi Mentor"
+        document.getElementById('remove-mentor-button').addEventListener('click', function() {
+            const mentorFieldsContainer = document.getElementById('mentor-fields-container');
+            const mentorFieldGroups = mentorFieldsContainer.getElementsByClassName('mentor-field-group');
+            
+            // Hanya hapus jika ada lebih dari satu field mentor
+            if (mentorFieldGroups.length > 1) {
+                mentorFieldsContainer.removeChild(mentorFieldGroups[mentorFieldGroups.length - 1]);
+            } else {
+                alert("Minimal satu mentor harus tersedia.");
+            }
+        });
+    </script>
 
 @endsection
