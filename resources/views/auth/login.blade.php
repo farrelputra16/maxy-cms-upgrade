@@ -111,7 +111,11 @@
                         </div>
                     </div>
                     <div class="mt-5 text-center">
+                        @if (env('APP_ENV') == 'local')
+                        <p>© 2024 Bina Karya</p>
+                        @else
                         <p>© 2024 Maxy Academy</p>
+                        @endif
                     </div>
                 </div>
             </div>

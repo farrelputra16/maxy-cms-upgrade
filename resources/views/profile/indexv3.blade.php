@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Maxy Talk!')
+@section('title', 'Profile')
 
 @section('content')
     <!-- Begin Page Title -->
