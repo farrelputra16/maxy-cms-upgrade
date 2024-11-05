@@ -40,8 +40,8 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Title</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="title" value="{{ $data->title }}"
-                                    id="input-title">
+                                <input class="form-control" type="text" name="title"
+                                    value="{{ old('title', $data->title) }}" id="input-title">
                                 @if ($errors->has('title'))
                                     @foreach ($errors->get('title') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -52,8 +52,8 @@
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="slug" value="{{ $data->slug }}"
-                                    id="input-slug" readonly>
+                                <input class="form-control" type="text" name="slug"
+                                    value="{{ old('slug', $data->slug) }}" id="input-slug" readonly>
                                 @if ($errors->has('slug'))
                                     @foreach ($errors->get('slug') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -79,10 +79,10 @@
                             <div class="col-md-10">
                                 <select class="form-control select2 select2-multiple" multiple="multiple" name="tag[]"
                                     data-placeholder="Choose ...">
-                                    {{-- <option>Select</option> --}}
                                     @foreach ($blogTagList as $item)
                                         <option value="{{ $item->id }}"
-                                            @if ($item->selected) selected @endif> {{ $item->name }}
+                                            @if (in_array($item->id, old('tag', [])) || $item->selected) selected @endif>
+                                            {{ $item->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -100,7 +100,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Content</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="content">{{ $data->content }}</textarea>
+                                <textarea id="elm1" name="content">{{ old('content', $data->content) }}</textarea>
                                 @if ($errors->has('content'))
                                     @foreach ($errors->get('content') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -113,7 +113,8 @@
                                 <small>(Admin)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="description"
-                                    value="{{ $data->description }}" id="input-description">
+                                    value="{{ old('description', strip_tags($data->description)) }}"
+                                    id="input-description">
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -125,16 +126,20 @@
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Highlight</label>
                             <div class="col-md-10" style="display: flex; align-items: center;">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    value="1" {{ $data->status_highlight == 1 ? 'checked' : '' }}
-                                    name="status_highlight" style="left: 0;">
+                                    value="1" name="status_highlight"
+                                    {{ old('status_highlight', $data->status_highlight) == 1 ? 'checked' : '' }}
+                                    style="left: 0;">
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
-                            <div class="col-md-10" style="display: flex; align-items: center;">
+                            <div class="col-md-10 d-flex align-items-center">
+                                <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
+                                <input type="hidden" name="status" value="0">
+
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    value="1" {{ $data->status == 1 ? 'checked' : '' }} name="status"
-                                    style="left: 0;">
+                                    value="1" name="status"
+                                    {{ old('status', isset($data) ? $data->status : false) ? 'checked' : '' }}>
                             </div>
                         </div>
                         <div class="mb-3 row justify-content-end">

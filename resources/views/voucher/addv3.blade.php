@@ -39,8 +39,8 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name" id="name"
-                                    placeholder="Masukkan Nama Voucher">
+                                <input class="form-control" type="text" value="{{ old('name') }}" name="name"
+                                    id="name" placeholder="Masukkan Nama Voucher">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -51,8 +51,8 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Code</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="code" id="code"
-                                    placeholder="Masukkan Kode Voucher">
+                                <input class="form-control" type="text" value="{{ old('code') }}" name="code"
+                                    id="code" placeholder="Masukkan Kode Voucher">
                                 @if ($errors->has('code'))
                                     @foreach ($errors->get('code') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -63,7 +63,8 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Waktu Mulai</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="datetime-local" name="start_date" id="start_date">
+                                <input class="form-control" type="datetime-local" value="{{ old('start_date') }}"
+                                    name="start_date" id="start_date">
                                 @if ($errors->has('start_date'))
                                     @foreach ($errors->get('start_date') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -74,7 +75,8 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Waktu Berakhir</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="datetime-local" name="end_date" id="end_date">
+                                <input class="form-control" type="datetime-local" value="{{ old('end_date') }}"
+                                    name="end_date" id="end_date">
                                 @if ($errors->has('end_date'))
                                     @foreach ($errors->get('end_date') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -87,8 +89,11 @@
                             <div class="col-md-10">
                                 <select class="form-control select2" name="discount_type" id="type_selector">
                                     <option value="">-- Pilih Discount Type --</option>
-                                    <option value="PERCENTAGE">PERCENTAGE</option>
-                                    <option value="FIXED">FIXED</option>
+                                    <option value="PERCENTAGE"
+                                        {{ old('discount_type') == 'PERCENTAGE' ? 'selected' : '' }}>PERCENTAGE
+                                    </option>
+                                    <option value="FIXED" {{ old('discount_type') == 'FIXED' ? 'selected' : '' }}>FIXED
+                                    </option>
                                 </select>
                                 @if ($errors->has('discount_type'))
                                     @foreach ($errors->get('discount_type') as $error)
@@ -100,7 +105,8 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Discount</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="discount" id="discount">
+                                <input class="form-control" type="number" value="{{ old('discount') }}" name="discount"
+                                    id="discount">
                                 @if ($errors->has('discount'))
                                     @foreach ($errors->get('discount') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -111,8 +117,8 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Max Discount</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="maxdiscount" id="maxdiscount"
-                                    placeholder="e.g. 5">
+                                <input class="form-control" type="number" value="{{ old('maxdiscount') }}"
+                                    name="maxdiscount" id="maxdiscount" placeholder="e.g. 5">
                                 @if ($errors->has('maxdiscount'))
                                     @foreach ($errors->get('maxdiscount') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -123,14 +129,14 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" id="description" placeholder="Enter Description"></textarea>
+                                <textarea id="elm1" name="description" id="description" placeholder="Enter Description">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status">
+                                    name="status" {{ old('status') ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

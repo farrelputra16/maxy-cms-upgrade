@@ -39,7 +39,8 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Title</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="title" id="input-title">
+                                <input class="form-control" type="text" value="{{ old('title') }}" name="title"
+                                    id="input-title">
                                 @if ($errors->has('title'))
                                     @foreach ($errors->get('title') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -50,7 +51,8 @@
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="slug" id="input-slug" readonly>
+                                <input class="form-control" type="text" value="{{ old('slug') }}" name="slug"
+                                    id="input-slug" readonly>
                                 @if ($errors->has('slug'))
                                     @foreach ($errors->get('slug') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -65,7 +67,9 @@
                                     data-placeholder="Choose ...">
                                     <option>Select</option>
                                     @foreach ($data as $item)
-                                        <option value="{{ $item->id }}"> {{ $item->name }} </option>
+                                        <option value="{{ $item->id }}"
+                                            {{ in_array($item->id, old('tag', [])) ? 'selected' : '' }}> {{ $item->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -80,7 +84,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Content</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="content"></textarea>
+                                <textarea id="elm1" name="content">{{ old('content') }}</textarea>
                                 @if ($errors->has('content'))
                                     @foreach ($errors->get('content') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -92,7 +96,7 @@
                             <label for="input-description" class="col-md-2 col-form-label">Description
                                 <small>(Admin)</small></label>
                             <div class="col-md-10">
-                                <textarea id="elm1" type="text" name="description" id="input-description"></textarea>
+                                <textarea id="elmDesc" type="text" name="description" id="input-description">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -104,7 +108,7 @@
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10" style="display: flex; align-items: center;">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status" style="left: 0;">
+                                    name="status" style="left: 0;" {{ old('status') ? 'checked' : '' }}>
                             </div>
                         </div>
                         <div class="mb-3 row justify-content-end">
@@ -139,6 +143,37 @@
                     document.getElementById('frame').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize TinyMCE for the 'content' textarea
+            if (document.getElementById("elmDesc")) {
+                tinymce.init({
+                    selector: "textarea#elmDesc",
+                    height: 350,
+                    plugins: [
+                        "advlist",
+                        "autolink",
+                        "lists",
+                        "link",
+                        "image",
+                        "charmap",
+                        "preview",
+                        "anchor",
+                        "searchreplace",
+                        "visualblocks",
+                        "code",
+                        "fullscreen",
+                        "insertdatetime",
+                        "media",
+                        "table",
+                        "help",
+                        "wordcount",
+                    ],
+                    toolbar: "undo redo | blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+                    content_style: 'body { font-family:"Poppins",sans-serif; font-size:16px }',
+                });
             }
         });
     </script>

@@ -39,7 +39,8 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name" id="input-title">
+                                <input class="form-control" type="text" value="{{ old('name') }}" name="name"
+                                    id="input-title">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -51,7 +52,8 @@
                         <div class="mb-3 row">
                             <label for="input-color" class="col-md-2 col-form-label">Color</label>
                             <div class="col-md-10">
-                                <input class="form-control color-picker" type="text" name="color" id="input-color">
+                                <input class="form-control color-picker" type="text" value="{{ old('color') }}"
+                                    name="color" id="input-color">
                                 @if ($errors->has('color'))
                                     @foreach ($errors->get('color') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -64,7 +66,7 @@
                             <label for="input-description" class="col-md-2 col-form-label">Description
                                 <small>(Admin)</small></label>
                             <div class="col-md-10">
-                                <textarea id="elm1" type="text" name="description"></textarea>
+                                <textarea id="elm1" type="text" name="description">{{ old('description') }}</textarea>
                             </div>
                         </div>
 
@@ -72,7 +74,7 @@
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10" style="display: flex; align-items: center;">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status" style="left: 0;">
+                                    name="status" style="left: 0;" {{ old('status') ? 'checked' : '' }}>
                             </div>
                         </div>
 

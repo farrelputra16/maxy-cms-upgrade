@@ -164,7 +164,7 @@ class BlogController extends Controller
                 return redirect()->back()->with('error', 'Blog not found.');
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to save data: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to save data: ' . $e->getMessage())->withInput();
         }
     }
 
