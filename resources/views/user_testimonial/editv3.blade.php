@@ -39,7 +39,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Rating (in stars)</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" min="1" max="5" name="stars"
-                                    id="stars" value="{{ $testimonials->stars }}">
+                                    id="stars" value="{{ old('stars', $testimonials->stars) }}">
                                 @if ($errors->has('stars'))
                                     @foreach ($errors->get('stars') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -51,7 +51,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Role</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="role" id="role"
-                                    value="{{ $testimonials->role }}">
+                                    value="{{ old('role', $testimonials->role) }}">
                                 @if ($errors->has('role'))
                                     @foreach ($errors->get('role') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -68,7 +68,7 @@
                                         </option>
                                     @endif
                                     @foreach ($allmember as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}" {{ old('user_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -83,7 +83,7 @@
                                         </option>
                                     @endif
                                     @foreach ($allcourseclass as $item)
-                                        <option value="{{ $item->id }}">{{ $item->batch }}</option>
+                                        <option value="{{ $item->id }}" {{ old('course_class_id') == $item->id ? 'selected' : '' }}>{{ $item->batch }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -91,28 +91,35 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Content</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="content" id="content">{{ $testimonials->content }}</textarea>
+                                <textarea id="elm1" name="content" id="content">{{ old('content', $testimonials->content) }}</textarea>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" id="description">{{ $testimonials->description }}</textarea>
+                                <textarea id="elm2" name="description" id="description" class="form-control">{{ old('description', $testimonials->description) }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
+                                <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
+                                <input type="hidden" name="status" value="0">
+                                
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status" value="1" {{ $testimonials->status == 1 ? 'checked' : '' }}>
+                                    value="1" name="status"
+                                    {{ old('status', isset($testimonials) ? $testimonials->status : false) ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Highlight</label>
                             <div class="col-md-10 d-flex align-items-center">
+                                <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
+                                <input type="hidden" name="status_highlight" value="0">
+
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status_highlight" value="1" {{ $testimonials->status_highlight == 1 ? 'checked' : '' }}>
+                                    name="status_highlight" value="1" {{ old('status', isset($testimonials) ? $testimonials->status_highlight : false) ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

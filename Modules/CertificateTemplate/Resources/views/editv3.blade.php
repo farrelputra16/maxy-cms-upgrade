@@ -43,7 +43,7 @@
                                 <select class="form-control select2" name="m_course_type_id" id="courseType">
                                     @foreach ($courseTypes as $courseType)
                                         <option value="{{ $courseType->id }}"
-                                            {{ $certificateTemplate->m_course_type_id === $courseType->id ? 'selected' : '' }}>
+                                            {{ old('m_course_type_id', $certificateTemplate->m_course_type_id) == $courseType->id ? 'selected' : '' }}>
                                             {{ $courseType->name }}</option>
                                     @endforeach
                                 </select>
@@ -58,7 +58,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Batch</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="batch" id="batch" min="0"
-                                    value="{{ $certificateTemplate->batch }}">
+                                    value="{{ old('batch', $certificateTemplate->batch) }}">
                                 @error('batch')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -95,13 +95,13 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Template Content</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="template_content" placeholder="Ex: Telah berhasil menyelesaikan program [[class_name]]">{!! $certificateTemplate->template_content !!}</textarea>
+                                <textarea id="elm1" name="template_content" placeholder="Ex: Telah berhasil menyelesaikan program [[class_name]]">{!! old('template_content', $certificateTemplate->template_content) !!}</textarea>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{!! $certificateTemplate->description !!}</textarea>
+                                <textarea id="elm1" name="description">{!! old('description', $certificateTemplate->description) !!}</textarea>
                                 @error('description')
                                     <div class="text-danger">
                                         {{ $message }}

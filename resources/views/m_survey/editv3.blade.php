@@ -53,14 +53,14 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name" value="{{ $currentData->name }}">
+                                <input class="form-control" type="text" name="name" value="{{ old('name', $currentData->name) }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Date Expired</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" id="expired_date" name="expired_date"
-                                    value="{{ $currentData->expired_date }}">
+                                    value="{{ old('expired_date', $currentData->expired_date) }}">
                                 @if ($errors->has('expired_date'))
                                     @foreach ($errors->get('expired_date') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -71,25 +71,27 @@
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Type</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="type" data-placeholder="Choose ..."
-                                    id="type_selector">
-                                    <option value="0" @if ($currentData->type == 0) selected @endif> Evaluasi
-                                    </option>
-                                    <option value="1" @if ($currentData->type == 1) selected @endif> Quiz </option>
+                                <select class="form-control select2" name="type" data-placeholder="Choose ..." id="type_selector">
+                                    <option value="0" {{ old('type', $currentData->type) == 0 ? 'selected' : '' }}>Evaluasi</option>
+                                    <option value="1" {{ old('type', $currentData->type) == 1 ? 'selected' : '' }}>Quiz</option>
                                 </select>
                             </div>
-                        </div>
+                        </div>                        
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ $currentData->description }}</textarea>
+                                <textarea id="elm1" name="description">{{ old('description', $currentData->description) }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
+                                <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
+                                <input type="hidden" name="status" value="0">
+                                
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status" {{ $currentData->status == 1 ? 'checked' : '' }}>
+                                    value="1" name="status"
+                                    {{ old('status', isset($currentData) ? $currentData->status : false) ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

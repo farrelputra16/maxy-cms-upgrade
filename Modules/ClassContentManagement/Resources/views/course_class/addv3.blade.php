@@ -42,7 +42,7 @@
                                 <select class="form-control select2" name="course_id" data-placeholder="Choose ..."
                                     id="type_selector">
                                     @foreach ($allCourses as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}" {{ old('course_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('courseid'))
@@ -56,7 +56,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Batch</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="batch" id="batch"
-                                    placeholder="Masukkan Batch">
+                                    placeholder="Masukkan Batch" value="{{ old('batch') }}">
                                 @if ($errors->has('batch'))
                                     @foreach ($errors->get('batch') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -67,7 +67,7 @@
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="slug"" id="slug">
+                                <input class="form-control" type="text" name="slug"" id="slug" value="{{ old('slug') }}">
                                 @if ($errors->has('slug'))
                                     @foreach ($errors->get('slug') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -78,7 +78,7 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Start Date</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="date" name="start" id="date">
+                                <input class="form-control" type="date" name="start" id="date" value="{{ old('start') }}">
                                 @if ($errors->has('start'))
                                     @foreach ($errors->get('start') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -89,7 +89,7 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">End Date</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="date" name="end" id="date">
+                                <input class="form-control" type="date" name="end" id="date" value="{{ old('end') }}">
                                 @if ($errors->has('end'))
                                     @foreach ($errors->get('end') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -100,7 +100,7 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Quota</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="quota" min=0>
+                                <input class="form-control" type="number" name="quota" min=0 value="{{ old('quota') }}">
                                 @if ($errors->has('quota'))
                                     @foreach ($errors->get('quota') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -111,32 +111,32 @@
                         <div class="mb-3 row">
                             <label for="credits" class="col-md-2 col-form-label">Credits</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="credits" id="credits">
+                                <input class="form-control" type="number" name="credits" id="credits" value="{{ old('credits') }}">
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="duration" class="col-md-2 col-form-label">Durations</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="duration" id="duration">
+                                <input class="form-control" type="number" name="duration" id="duration" value="{{ old('duration') }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Announcement</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="announcement"></textarea>
+                                <textarea id="elm1" name="announcement">{{ old('announcement')}}</textarea>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Content</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="content"></textarea>
+                                <textarea id="elm2" name="content" class="form-control">{{ old('content')}}</textarea>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description"></textarea>
+                                <textarea id="elm3" name="description" class="form-control">{{ old('description')}}</textarea>
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -145,11 +145,11 @@
                                 <select class="form-control select2" name="ongoing" data-placeholder="Choose ..."
                                     id="ongoing">
                                     <option value="" disabled selected>Choose ...</option>
-                                    <option value="0" @if (isset($course_class_detail) && $course_class_detail->status_ongoing == 0) selected @endif>Not Started
+                                    <option value="0" @if (isset($course_class_detail) && $course_class_detail->status_ongoing == 0) selected @endif {{ old('ongoing') == 0 ? 'selected' : '' }}>Not Started
                                     </option>
-                                    <option value="1" @if (isset($course_class_detail) && $course_class_detail->status_ongoing == 1) selected @endif>Ongoing
+                                    <option value="1" @if (isset($course_class_detail) && $course_class_detail->status_ongoing == 1) selected @endif {{ old('ongoing') == 1 ? 'selected' : '' }}>Ongoing
                                     </option>
-                                    <option value="2" @if (isset($course_class_detail) && $course_class_detail->status_ongoing == 2) selected @endif>Completed
+                                    <option value="2" @if (isset($course_class_detail) && $course_class_detail->status_ongoing == 2) selected @endif {{ old('ongoing') == 2 ? 'selected' : '' }}>Completed
                                     </option>
                                 </select>
                             </div>
@@ -158,7 +158,7 @@
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status">
+                                    name="status" {{ old('status') ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

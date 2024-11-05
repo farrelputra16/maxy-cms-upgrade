@@ -40,8 +40,8 @@
                             <div class="col-md-10">
                                 <select class="form-control select2" name="partner" data-placeholder="Choose ...">
                                     @foreach ($partners as $item)
-                                        <option value="{{ $item->id }}"
-                                            {{ $partnership->m_partner_id == $item->id ? 'selected' : '' }}>
+                                    <option value="{{ $item->id }}"
+                                            {{ old('partner', $partnership->m_partner_id) == $item->id ? 'selected' : '' }}>
                                             {{ $item->name }} </option>
                                     @endforeach
                                 </select>
@@ -53,7 +53,7 @@
                                 <select class="form-control select2" name="partnership_type" data-placeholder="Choose ...">
                                     @foreach ($partnership_types as $item)
                                         <option value="{{ $item->id }}"
-                                            {{ $partnership->m_partnership_type_id == $item->id ? 'selected' : '' }}>
+                                            {{ old('partnership_type', $partnership->m_partnership_type_id) == $item->id ? 'selected' : '' }}>
                                             {{ $item->name }} </option>
                                     @endforeach
                                 </select>
@@ -77,7 +77,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Date Start</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="date_start" id="date_start"
-                                    value="{{ $partnership->date_start }}">
+                                    value="{{ old('date_start', $partnership->date_start) }}">
                                 @if ($errors->has('date_start'))
                                     @foreach ($errors->get('date_start') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -89,7 +89,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Date End</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="date_end" id="date_end"
-                                    value="{{ $partnership->date_end }}">
+                                    value="{{ old('date_end', $partnership->date_end) }}">
                                 @if ($errors->has('date_end'))
                                     @foreach ($errors->get('date_end') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -100,7 +100,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ $partnership->description }}</textarea>
+                                <textarea id="elm1" name="description">{{ old('description', $partnership->description) }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -111,8 +111,12 @@
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
-                                <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status" {{ $partnership->status == 1 ? 'checked' : '' }}>
+                            <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
+                            <input type="hidden" name="status" value="0">
+                                                            
+                            <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
+                                value="1" name="status"
+                                {{ old('status', isset($partnership) ? $partnership->status : false) ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

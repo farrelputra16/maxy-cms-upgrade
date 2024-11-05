@@ -1,3 +1,4 @@
+
 @extends('layout.main-v3')
 
 @section('title', 'Edit Scoring')
@@ -37,7 +38,7 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Attendance</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="attendance" value="{{ $classes[0]->CourseClass->percentage }}" id="input-title">
+                                <input class="form-control" type="number" name="attendance" value="{{ $classes[0]->CourseClass->percentage }}" id="input-title">
                             </div>
                         </div>
 
@@ -45,7 +46,7 @@
                         <div class="mb-3 row">
                             <label for="input-member" class="col-md-2 col-form-label">{{ $item->CourseModule->name }}</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="{{ $item->id }}" value="{{ $item->percentage }}" id="input-member">
+                                <input class="form-control" type="number" name="{{ $item->id }}" value="{{ $item->percentage }}" id="input-member">
                             </div>
                         </div>
                         @endforeach

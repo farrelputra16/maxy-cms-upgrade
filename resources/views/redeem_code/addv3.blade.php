@@ -40,7 +40,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                    placeholder="Masukkan Nama Voucher">
+                                    placeholder="Masukkan Nama Voucher" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -52,7 +52,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Code</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="code" id="code"
-                                    placeholder="Masukkan Kode Voucher">
+                                    placeholder="Masukkan Kode Voucher" value="{{ old('code') }}">
                                 @if ($errors->has('code'))
                                     @foreach ($errors->get('code') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -63,7 +63,7 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Quota</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="quota" id="quota">
+                                <input class="form-control" type="number" name="quota" id="quota" value="{{ old('quota') }}">
                                 @if ($errors->has('quota'))
                                     @foreach ($errors->get('quota') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -74,7 +74,7 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Type</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="type" placeholder="Masukkan Type">
+                                <input class="form-control" type="text" name="type" placeholder="Masukkan Type" value="{{ old('type') }}">
                                 @if ($errors->has('type'))
                                     @foreach ($errors->get('type') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -85,7 +85,7 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Expired Date</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="datetime-local" name="expired_date">
+                                <input class="form-control" type="datetime-local" name="expired_date" value="{{ old('expired_date') }}">
                                 @if ($errors->has('expired_date'))
                                     @foreach ($errors->get('expired_date') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -96,14 +96,14 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" id="description" placeholder="Masukkan deskripsi"></textarea>
+                                <textarea id="elm1" name="description" id="description" placeholder="Masukkan deskripsi">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status" value="1">
+                                    name="status" value="1" {{ old('status') ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

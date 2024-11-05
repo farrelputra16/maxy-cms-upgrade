@@ -38,7 +38,7 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name" id="input-title">
+                                <input class="form-control" type="text" name="name" id="input-title" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -52,7 +52,7 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="range_start" id="input-title"
                                 inputmode="numeric" pattern="[0-9]*" 
-                                oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" value="{{ old('range_start') }}">
                                 @if ($errors->has('range_start'))
                                     @foreach ($errors->get('range_start') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -66,7 +66,7 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="range_end" id="input-title"
                                 inputmode="numeric" pattern="[0-9]*" 
-                                oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" value="{{ old('range_end') }}">
                                 @if ($errors->has('range_end'))
                                     @foreach ($errors->get('range_end') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -79,7 +79,7 @@
                             <label for="input-description" class="col-md-2 col-form-label">Description
                                 <small>(Admin)</small></label>
                             <div class="col-md-10">
-                                <textarea type="text" name="description" id="elm1"></textarea>
+                                <textarea type="text" name="description" id="elm1">{{ old('description')}}</textarea>
                             </div>
                         </div>
 
@@ -87,7 +87,7 @@
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status">
+                                    name="status" {{ old('status') ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

@@ -41,7 +41,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                    placeholder="Masukkan Nama">
+                                    placeholder="Masukkan Nama" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -53,7 +53,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Date of Birth</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="birth" id="birth"
-                                    placeholder="Masukkan Tanggal Lahir">
+                                    placeholder="Masukkan Tanggal Lahir" value="{{ old('birth') }}">
                                 @if ($errors->has('birth'))
                                     @foreach ($errors->get('birth') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -65,7 +65,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Email</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="email" name="email" id="email"
-                                    placeholder="Masukkan Email">
+                                    placeholder="Masukkan Email" value="{{ old('email') }}">
                                 @if ($errors->has('email'))
                                     @foreach ($errors->get('email') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -79,7 +79,7 @@
                                 <select class="form-control select2" name="access_group" data-placeholder="Choose ..."
                                     id="type_selector">
                                     @foreach ($allAccessGroups as $item)
-                                        <option value="{{ $item->id }}">[{{ $item->id }}] {{ $item->name }}
+                                        <option value="{{ $item->id }}" {{ old('access_group') == $item->id ? 'selected' : ''}}>[{{ $item->id }}] {{ $item->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -95,7 +95,7 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="phone" id="phone"
                                     placeholder="Masukkan Nomor Telepon"
-                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');" value="{{ old('phone') }}">
                                 @if ($errors->has('phone'))
                                     @foreach ($errors->get('phone') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -107,7 +107,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Password</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="password" name="password" id="password"
-                                    placeholder="Masukkan Password">
+                                    placeholder="Masukkan Password" value="{{ old('password') }}">
                                 @if ($errors->has('password'))
                                     @foreach ($errors->get('password') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -119,7 +119,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Address</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="address" id="address"
-                                    placeholder="Masukkan Alamat">
+                                    placeholder="Masukkan Alamat" value="{{ old('address') }}">
                                 @if ($errors->has('address'))
                                     @foreach ($errors->get('address') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -131,7 +131,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Postal Code</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="postal_code" id="postal_code"
-                                    placeholder="Masukkan Kode Pos">
+                                    placeholder="Masukkan Kode Pos" value="{{ old('postal_code') }}">
                                 @if ($errors->has('postal_code'))
                                     @foreach ($errors->get('postal_code') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -147,7 +147,7 @@
                                 Pembimbing)</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="supervisor_name" id="supervisor_name"
-                                    placeholder="Masukkan Nama Dosen Pembimbing">
+                                    placeholder="Masukkan Nama Dosen Pembimbing" value="{{ old('supervisor_name') }}">
                                 @if ($errors->has('supervisor_name'))
                                     @foreach ($errors->get('supervisor_name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -160,7 +160,7 @@
                                 Pembimbing)</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="email" name="supervisor_email" id="supervisor_email"
-                                    placeholder="Masukkan Email Dosen Pembimbing">
+                                    placeholder="Masukkan Email Dosen Pembimbing" value="{{ old('supervisor_email') }}">
                                 @if ($errors->has('supervisor_email'))
                                     @foreach ($errors->get('supervisor_email') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -172,7 +172,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">University</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="university" id="university"
-                                    placeholder="Masukkan Universitas">
+                                    placeholder="Masukkan Universitas" value="{{ old('university') }}">
                                 @if ($errors->has('university'))
                                     @foreach ($errors->get('university') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -184,7 +184,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Major</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="major" id="major"
-                                    placeholder="Masukkan Jurusan">
+                                    placeholder="Masukkan Jurusan" value="{{ old('major') }}">
                                 @if ($errors->has('major'))
                                     @foreach ($errors->get('major') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -196,7 +196,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Semester</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="semester" id="semester"
-                                    placeholder="Masukkan Semester">
+                                    placeholder="Masukkan Semester" value="{{ old('semester') }}">
                                 @if ($errors->has('semester'))
                                     @foreach ($errors->get('semester') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -208,7 +208,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">City</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="city" id="city"
-                                    placeholder="Masukkan Kota">
+                                    placeholder="Masukkan Kota" value="{{ old('city') }}">
                                 @if ($errors->has('city'))
                                     @foreach ($errors->get('city') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -222,7 +222,7 @@
                                 <select class="form-control select2" name="province" data-placeholder="Choose ..."
                                     id="type_selector">
                                     @foreach ($allProvince as $item)
-                                        <option value="{{ $item->id }}">[{{ $item->id }}] {{ $item->name }}
+                                        <option value="{{ $item->id }}" {{ old('province') == $item->id ? 'selected' : ''}}>[{{ $item->id }}] {{ $item->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -237,7 +237,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Country</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="country" id="country"
-                                    placeholder="Masukkan Negara">
+                                    placeholder="Masukkan Negara" value="{{ old('country') }}">
                                 @if ($errors->has('country'))
                                     @foreach ($errors->get('country') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -249,7 +249,7 @@
                             <label for="linkedin" class="col-md-2 col-form-label">LinkedIn (Optional)</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="linkedin" id="linkedin"
-                                    placeholder="Masukkan LinkedIn">
+                                    placeholder="Masukkan LinkedIn" value="{{ old('linkedin') }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -258,7 +258,7 @@
                                 <select class="form-control select2" name="partner" id="partner_selector"
                                     data-placeholder="Choose ...">
                                     @foreach ($allPartner as $item)
-                                        <option value="{{ $item->id }}">[{{ $item->id }}] {{ $item->name }}
+                                        <option value="{{ $item->id }}" {{ old('partner') == $item->id ? 'selected' : ''}}>[{{ $item->id }}] {{ $item->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -273,28 +273,28 @@
                             <label for="input-name" class="col-md-2 col-form-label">Referral (Optional)</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="referal" id="referal"
-                                    placeholder="Masukkan Kode Referral">
+                                    placeholder="Masukkan Kode Referral" value="{{ old('referal') }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Request (Optional)</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="user_request" id="user_request"
-                                    placeholder="Masukkan Request">
+                                    placeholder="Masukkan Request" value="{{ old('user_request') }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Users Description
                                 (Optional)</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description"></textarea>
+                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status">
+                                    name="status" {{ old('status', 1) ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

@@ -40,7 +40,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"" id="name"
-                                    value="{{ $carousel->name }}">
+                                    value="{{ old('name', $carousel->name) }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -52,7 +52,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Short Description</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="short_desc"
-                                    value="{{ $carousel->short_desc }}">
+                                    value="{{ old('short_desc', $carousel->short_desc) }}">
                                 @if ($errors->has('short_desc'))
                                     @foreach ($errors->get('short_desc') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -64,7 +64,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Date</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="date" id="date"
-                                    value="{{ $carousel->date }}">
+                                    value="{{ old('date', $carousel->date) }}">
                                 @if ($errors->has('date'))
                                     @foreach ($errors->get('date') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -90,7 +90,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ $carousel->description }}</textarea>
+                                <textarea id="elm1" name="description">{{ old('description', $carousel->description) }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -101,8 +101,12 @@
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
+                                <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
+                                <input type="hidden" name="status" value="0">
+                                
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status" {{ $carousel->status == 1 ? 'checked' : '' }}>
+                                    value="1" name="status"
+                                    {{ old('status', isset($carousel) ? $carousel->status : false) ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

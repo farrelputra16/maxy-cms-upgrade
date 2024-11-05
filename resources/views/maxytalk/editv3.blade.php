@@ -37,7 +37,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                    value="{{ $maxytalk->name }}">
+                                    value="{{ old('name', $maxytalk->name) }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -50,7 +50,7 @@
                             <label for="start-date" class="col-md-2 col-form-label">Start Pendaftaran</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" name="datestart" id="start-date"
-                                    value="{{ $maxytalk->start_date }}">
+                                    value="{{ old('datestart', $maxytalk->start_date) }}">
                                 @if ($errors->has('datestart'))
                                     @foreach ($errors->get('datestart') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -63,7 +63,7 @@
                             <label for="end-date" class="col-md-2 col-form-label">End Pendaftaran</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" name="dateend" id="end-date"
-                                    value="{{ $maxytalk->end_date }}">
+                                    value="{{ old('dateend', $maxytalk->end_date) }}">
                                 @if ($errors->has('dateend'))
                                     @foreach ($errors->get('dateend') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -76,7 +76,7 @@
                             <label for="registration" class="col-md-2 col-form-label">Registration Link</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="registration" id="registration"
-                                    value="{{ $maxytalk->register_link }}">
+                                    value="{{ old('registration', $maxytalk->register_link) }}">
                                 @if ($errors->has('registration'))
                                     @foreach ($errors->get('registration') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -89,7 +89,7 @@
                             <label for="priority" class="col-md-2 col-form-label">Priority</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority" id="priority"
-                                    value="{{ $maxytalk->priority }}">
+                                    value="{{ old('priority', $maxytalk->priority) }}">
                                 @if ($errors->has('priority'))
                                     @foreach ($errors->get('priority') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -104,18 +104,20 @@
                                 <select class="form-control select2" name="userid" id="type_selector">
                                     <option value="">-- Pilih User --</option>
                                     @foreach ($users as $user)
-                                        <option value="{{ $user->id }}" {{ $maxytalk->users_id == $user->id ? 'selected' : '' }}>
+                                        <option value="{{ $user->id }}"
+                                            {{ old('userid', $maxytalk->users_id) == $user->id ? 'selected' : '' }}>
                                             {{ $user->name }}
                                         </option>
                                     @endforeach
                                 </select>
+                                
                                 @if ($errors->has('userid'))
                                     @foreach ($errors->get('userid') as $error)
                                         <span style="color: red;">{{ $error }}</span>
                                     @endforeach
                                 @endif
                             </div>
-                        </div>
+                        </div>                        
 
                         <div class="mb-3 row">
                             <label for="type_selector" class="col-md-2 col-form-label">Maxy Talk Parent (Optional)</label>
@@ -123,13 +125,14 @@
                                 <select class="form-control select2" name="parentsid" id="type_selector">
                                     <option value="">-- Pilih Parent --</option>
                                     @foreach ($maxytalk_all as $parent)
-                                        <option value="{{ $parent->id }}" {{ $maxytalk->maxy_talk_parent_id == $parent->id ? 'selected' : '' }}>
+                                        <option value="{{ $parent->id }}"
+                                            {{ old('parentsid', $maxytalk->maxy_talk_parent_id) == $parent->id ? 'selected' : '' }}>
                                             {{ $parent->name }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div>                        
 
                         <div class="mb-3 row">
                             <label for="input-file" class="col-md-2 col-form-label">Image</label>
@@ -148,14 +151,19 @@
                         <div class="mb-3 row">
                             <label for="description" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ $maxytalk->description }}</textarea>
+                                <textarea id="elm1" name="description">{{ old('description', $maxytalk->description) }}</textarea>
                             </div>
                         </div>
 
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
-                                <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd" name="status" value="1" {{ $maxytalk->status == 1 ? 'checked' : '' }}>
+                                <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
+                                <input type="hidden" name="status" value="0">
+                                
+                                <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
+                                    value="1" name="status"
+                                    {{ old('status', isset($maxytalk) ? $maxytalk->status : false) ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

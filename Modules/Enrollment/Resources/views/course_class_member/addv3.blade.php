@@ -43,7 +43,7 @@
                                 <select class="form-control select2 multiple" multiple="multiple" name="users[]"
                                     data-placeholder="Pilih User">
                                     @foreach ($users as $item)
-                                        <option value="{{ $item->id }}">{{ $item->email }} - {{ $item->name }}
+                                        <option value="{{ $item->id }}" {{ old('users') && in_array($item->id, old('users')) ? 'selected' : '' }}>{{ $item->email }} - {{ $item->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -51,28 +51,34 @@
                         </div>
                         <!-- Mentor Fields -->
                         <div id="mentor-fields-container">
-                            <div class="mb-3 row mentor-field-group">
-                                <label for="mentor" class="col-md-2 col-form-label">Pilih Mentor: </label>
-                                <div class="col-md-4">
-                                    <select class="form-control select2 mentor-select" name="mentor[]" data-placeholder="Pilih Mentor">
-                                        <option value="">Pilih Mentor</option>
-                                        @foreach ($mentors as $mentor)
-                                            <option value="{{ $mentor->id }}">
-                                                {{ $mentor->email }} - {{ $mentor->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                            @foreach(old('mentor', ['']) as $index => $oldMentor)
+                                <div class="mb-3 row mentor-field-group">
+                                    <label for="mentor" class="col-md-2 col-form-label">Pilih Mentor: </label>
+                                    <div class="col-md-4">
+                                        <select class="form-control select2 mentor-select" name="mentor[]" data-placeholder="Pilih Mentor">
+                                            <option value="">Pilih Mentor</option>
+                                            @foreach ($mentors as $mentor)
+                                                <option value="{{ $mentor->id }}" 
+                                                    {{ $oldMentor == $mentor->id ? 'selected' : '' }}>
+                                                    {{ $mentor->email }} - {{ $mentor->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <label for="jobdesc" class="col-md-2 col-form-label">Job Description</label>
+                                    <div class="col-md-4">
+                                        <select name="jobdesc[]" class="form-control select2 jobdesc-select" data-placeholder="Pilih Job Description">
+                                            <option value="">Pilih Job Description</option>
+                                            @foreach ($jobdescriptions as $jobdesc)
+                                                <option value="{{ $jobdesc->id }}" 
+                                                    {{ old('jobdesc.' . $index) == $jobdesc->id ? 'selected' : '' }}>
+                                                    {{ $jobdesc->jobdesc }}
+                                                </option>
+                                            @endforeach
+                                        </select>                                    
+                                    </div>
                                 </div>
-                                <label for="jobdesc" class="col-md-2 col-form-label">Job Description</label>
-                                <div class="col-md-4">
-                                    <select name="jobdesc[]" class="form-control select2 jobdesc-select" data-placeholder="Pilih Job Description">
-                                        <option value="">Pilih Job Description</option>
-                                        @foreach ($jobdescriptions as $jobdesc)
-                                            <option value="{{ $jobdesc->id ?? '' }}">{{ $jobdesc->jobdesc ?? '' }}</option>
-                                        @endforeach
-                                    </select>                                    
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
 
                         <div class="row">
@@ -86,14 +92,14 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Course Class Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description"></textarea>
+                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status">
+                                    name="status" {{ old('status') ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

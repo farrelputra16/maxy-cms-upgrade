@@ -547,7 +547,7 @@
                                                         <div class="row mb-4">
                                                             <div class="col-md-12">
                                                                 <label for="description">Deskripsi</label>
-                                                                <textarea name="description" class="form-control" disabled>{{ strip_tags($penelitian->description) }}</textarea>
+                                                                <textarea name="description" class="form-control" disabled>{{ $descriptionText }}</textarea>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <label for="url_portfolio">Nomor Surat Tugas</label>

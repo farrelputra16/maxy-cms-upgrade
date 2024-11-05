@@ -55,7 +55,7 @@
                                     id="type_selector">
                                     <option value="0">-- Pilih Tipe Course --</option>
                                     @foreach ($allModules as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}" {{ old('course_module_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('course_module_id'))
@@ -68,7 +68,7 @@
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">* Day</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="priority" required>
+                                <input class="form-control" type="number" name="priority" required value="{{ old('priority') }}">
                                 @if ($errors->has('priority'))
                                     @foreach ($errors->get('priority') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -79,7 +79,7 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Start Date</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="date" name="start" id="date">
+                                <input class="form-control" type="date" name="start" id="date" value="{{ old('start') }}">
                                 @if ($errors->has('start'))
                                     @foreach ($errors->get('start') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -90,7 +90,7 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">End Date</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="date" name="end" id="date">
+                                <input class="form-control" type="date" name="end" id="date" value="{{ old('end') }}">
                                 @if ($errors->has('end'))
                                     @foreach ($errors->get('end') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -101,14 +101,14 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description"></textarea>
+                                <textarea id="elm1" name="description">{{ old('description')}}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status">
+                                    name="status" {{ old('status') ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

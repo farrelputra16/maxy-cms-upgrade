@@ -37,7 +37,7 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name" value="{{ $currentData->name }}">
+                                <input class="form-control" type="text" name="name" value="{{ old('name', $currentData->name) }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -48,7 +48,7 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Date Start</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="date" name="date_start" value="{{ $currentData->date_start }}">
+                                <input class="form-control" type="date" name="date_start" value="{{ old('date_start', $currentData->date_start) }}">
                                 @if ($errors->has('date_start'))
                                     @foreach ($errors->get('date_start') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -59,7 +59,7 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Date End</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="date" name="date_end" value="{{ $currentData->date_end }}">
+                                <input class="form-control" type="date" name="date_end" value="{{ old('date_end', $currentData->date_end) }}">
                                 @if ($errors->has('date_end'))
                                     @foreach ($errors->get('date_end') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -70,7 +70,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ $currentData->description }}</textarea>
+                                <textarea id="elm1" name="description">{{ old('description', $currentData->description) }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -81,8 +81,12 @@
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
+                                <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
+                                <input type="hidden" name="status" value="0">
+                                
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status" {{ $currentData->status == 1 ? 'checked' : '' }}>
+                                    value="1" name="status"
+                                    {{ old('status', isset($currentData) ? $currentData->status : false) ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

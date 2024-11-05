@@ -48,28 +48,28 @@
                             <label for="input-batch" class="col-md-2 col-form-label">Start Date</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="start"
-                                    value="{{ \Carbon\Carbon::parse($course_class_module->start_date)->format('Y-m-d') }}">
+                                    value="{{ old('start', \Carbon\Carbon::parse($course_class_module->start_date)->format('Y-m-d')) }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-batch" class="col-md-2 col-form-label">End Date</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="end"
-                                    value="{{ \Carbon\Carbon::parse($course_class_module->end_date)->format('Y-m-d') }}">
+                                    value="{{ old('end', \Carbon\Carbon::parse($course_class_module->end_date)->format('Y-m-d')) }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Level</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="level"
-                                    value="{{ $course_class_module->level }}" id="name">
+                                    value="{{ old('level', $course_class_module->level) }}" id="name">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Prioritas</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="priority"
-                                    value="{{ $course_class_module->priority }}" id="slug" readonly>
+                                    value="{{ old('priority', $course_class_module->priority) }}" id="slug" readonly>
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -79,11 +79,11 @@
                                     {{-- <option>Select</option> --}}
                                     @foreach ($allModules as $item)
                                         @if ($item->type == '')
-                                            <option value="{{ $item->id }}"
+                                            <option value="{{ $item->id }}" {{ old('coursemodulesid') == $item->id ? 'selected' : '' }}
                                                 @if ($item->id == $course_class_module->course_module_id) selected @endif>Day {{ $item->day }}:
                                                 {{ $item->name }}</option>
                                         @else
-                                            <option value="{{ $item->id }}"
+                                            <option value="{{ $item->id }}" {{ old('coursemodulesid') == $item->id ? 'selected' : '' }}
                                                 @if ($item->id == $course_class_module->course_module_id) selected @endif>
                                                 [{{ $item->type }}]{{ $item->name }}</option>
                                         @endif
@@ -102,14 +102,18 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Course Class Module Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ $course_class_module->description }}</textarea>
+                                <textarea id="elm1" name="description">{{ old('description', $course_class_module->description) }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
+                                <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
+                                <input type="hidden" name="status" value="0">
+                                
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    value="1" {{ $course_class_module->status == 1 ? 'checked' : '' }} name="status">
+                                    value="1" name="status"
+                                    {{ old('status', isset($course_class_module) ? $course_class_module->status : false) ? 'checked' : '' }}>
                                 <label>Aktif</label>
                             </div>
                         </div>

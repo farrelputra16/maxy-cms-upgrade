@@ -53,7 +53,7 @@
                                 <select class="form-control select2" name="course_module_id" data-placeholder="Choose ...">
                                     {{-- <option>Select</option> --}}
                                     @foreach ($child_cm_list as $item)
-                                        <option value="{{ $item->id }}"
+                                        <option value="{{ $item->id }}" {{ old('course_module_id') == $item->id ? 'selected' : '' }}
                                             @if ($item->id == $child_detail->course_module_id) selected @endif>[{{ $item->type }}]
                                             {{ $item->name }}</option>
                                     @endforeach
@@ -69,7 +69,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Priority</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority"
-                                    value="{{ $child_detail->priority }}">
+                                    value="{{ old('priority', $child_detail->priority) }}">
                                 @if ($errors->has('priority'))
                                     @foreach ($errors->get('priority') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -81,7 +81,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Waktu Mulai</label>
                             <div class="col-md-10">
                                 <input class="form-control" id="date" type="date" name="start"
-                                    value="{{ \Carbon\Carbon::parse($child_detail->start_date)->format('Y-m-d') }}">
+                                    value="{{ old('start', \Carbon\Carbon::parse($child_detail->start_date)->format('Y-m-d')) }}">
                                 @if ($errors->has('start'))
                                     @foreach ($errors->get('start') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -93,7 +93,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Waktu Berakhir</label>
                             <div class="col-md-10">
                                 <input class="form-control" id="date" type="date" name="end"
-                                    value="{{ \Carbon\Carbon::parse($child_detail->end_date)->format('Y-m-d') }}">
+                                    value="{{ old('end', \Carbon\Carbon::parse($child_detail->end_date)->format('Y-m-d')) }}">
                                 @if ($errors->has('end'))
                                     @foreach ($errors->get('end') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -113,20 +113,24 @@
 
                             <div class="field">
                                 <label for=""></label>
-                                <textarea id="elm1" name="content" readonly>{{ $child_cm_detail->content }}</textarea>
+                                <textarea id="elm1" name="content" readonly>{{ old('content', $child_cm_detail->content) }}</textarea>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ $child_detail->description }}</textarea>
+                                <textarea id="elm1" name="description">{{ old('description', $child_detail->description) }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
+                                <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
+                                <input type="hidden" name="status" value="0">
+                                
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    value="1" {{ $child_detail->status == 1 ? 'checked' : '' }} name="status">
+                                    value="1" name="status"
+                                    {{ old('status', isset($child_detail) ? $child_detail->status : false) ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

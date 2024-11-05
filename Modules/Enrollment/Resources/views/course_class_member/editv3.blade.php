@@ -46,7 +46,7 @@
                             <label for="dailyScore" class="col-md-2 col-form-label">Daily Score</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="daily_score"
-                                    placeholder="Masukkan nilai harian" value="{{ $courseClassMember->daily_score }}"
+                                    placeholder="Masukkan nilai harian" value="{{ old('daily_score', $courseClassMember->daily_score) }}"
                                     id="dailyScore">
                                 @error('daily_score')
                                     <div class="text-danger">
@@ -59,7 +59,7 @@
                             <label for="absenceScore" class="col-md-2 col-form-label">Absence Score</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="absence_score"
-                                    placeholder="Masukkan nilai absensi" value="{{ $courseClassMember->absence_score }}"
+                                    placeholder="Masukkan nilai absensi" value="{{ old('absence_score', $courseClassMember->absence_score) }}"
                                     id="absenceScore">
                                 @error('absence_score')
                                     <div class="text-danger">
@@ -73,7 +73,7 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="hackathon_1_score"
                                     placeholder="Masukkan nilai hackathon ke-1"
-                                    value="{{ $courseClassMember->hackathon_1_score }}" id="hackathon1Score">
+                                    value="{{ old('hackathon_1_score', $courseClassMember->hackathon_1_score) }}" id="hackathon1Score">
                                 @error('hackathon_1_score')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -86,7 +86,7 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="hackathon_2_score"
                                     placeholder="Masukkan nilai hackathon ke-2"
-                                    value="{{ $courseClassMember->hackathon_2_score }}" id="hackathon2Score">
+                                    value="{{ old('hackathon_2_score', $courseClassMember->hackathon_2_score) }}" id="hackathon2Score">
                                 @error('hackathon_2_score')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -99,7 +99,7 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="internship_score"
                                     placeholder="Masukkan nilai internship"
-                                    value="{{ $courseClassMember->internship_score }}" id="internshipScore">
+                                    value="{{ old('internship_score', $courseClassMember->internship_score) }}" id="internshipScore">
                                 @error('internship_score')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -111,7 +111,7 @@
                             <label for="finalScore" class="col-md-2 col-form-label">Final Score</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="final_score"
-                                    value="{{ $courseClassMember->final_score }}" id="finalScore" readonly>
+                                    value="{{ old('final_score', $courseClassMember->final_score) }}" id="finalScore" readonly>
                                 @error('final_score')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -122,33 +122,36 @@
 
                         <!-- Mentor Fields -->
                         <div id="mentor-fields-container">
-                            @foreach ($currentMentors as $currentMentor)
+                            @foreach ($currentMentors as $index => $currentMentor)
                                 <div class="mb-3 row mentor-field-group">
-                                    <label for="mentor" class="col-md-2 col-form-label">Pilih Mentor: </label>
+                                    <label for="mentor_{{ $index }}" class="col-md-2 col-form-label">Pilih Mentor: </label>
                                     <div class="col-md-4">
-                                        <select class="form-control select2 mentor-select" name="mentor[]" data-placeholder="Pilih Mentor">
+                                        <select class="form-control select2 mentor-select" name="mentor[]">
                                             <option value="">Pilih Mentor</option>
                                             @foreach ($mentors as $mentor)
-                                                <option value="{{ $mentor->id }}" {{ $mentor->id == $currentMentor->mentor_id ? 'selected' : '' }}>
+                                                <option value="{{ $mentor->id }}" 
+                                                    {{ old('mentor.' . $index, $currentMentor->mentor_id) == $mentor->id ? 'selected' : '' }}>
                                                     {{ $mentor->email }} - {{ $mentor->name }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    <label for="jobdesc" class="col-md-2 col-form-label">Job Description</label>
-                                <div class="col-md-4">
-                                    <select name="jobdesc[]" class="form-control select2 jobdesc-select" data-placeholder="Pilih Job Description" data-placeholder="Pilih Job Description">
-                                        <option value="">Pilih Job Description</option>
-                                        @foreach ($jobdescriptions as $jobdesc)
-                                            <option value="{{ $jobdesc->id }}" {{ $jobdesc->id == $currentMentor->jobdesc_id ? 'selected' : '' }}>
-                                                {{ $jobdesc->jobdesc }}
-                                            </option>
-                                        @endforeach
-                                    </select>                                    
-                                </div>
+                                    <label for="jobdesc_{{ $index }}" class="col-md-2 col-form-label">Job Description</label>
+                                    <div class="col-md-4">
+                                        <select name="jobdesc[]" class="form-control select2 jobdesc-select">
+                                            <option value="">Pilih Job Description</option>
+                                            @foreach ($jobdescriptions as $jobdesc)
+                                                <option value="{{ $jobdesc->id }}" 
+                                                    {{ old('jobdesc.' . $index, $currentMentor->jobdesc_id) == $jobdesc->id ? 'selected' : '' }}>
+                                                    {{ $jobdesc->jobdesc }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
+                                                                        
                         <div class="row">
                             <div class="col-md-10 offset-md-2">
                                 <button type="button" class="btn btn-secondary" id="add-mentor-button">Add Mentor</button>
@@ -156,27 +159,17 @@
                             </div>
                         </div>
                         <br>
-                        {{-- <!-- Input for Job Description -->
-                        @if($mentor != 2)    
-                            <div class="mb-3 row">
-                                <label for="jobdesc" class="col-md-2 col-form-label">Job Description</label>
-                                <div class="col-md-10">
-                                    <input type="text" name="jobdesc" id="jobdesc" class="form-control" value="{{ $courseClassMember->jobdesc }}" placeholder="Enter Job Description">
-                                </div>
-                            </div>
-                        @endif --}}
-
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="content">{{ $courseClassMember->description }}</textarea>
+                                <textarea id="elm1" name="content">{{ old('content', $courseClassMember->description) }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    value="1" {{ $courseClassMember->status == 1 ? 'checked' : '' }} name="status">
+                                    value="1" {{ old('status', $courseClassMember->status) == 1 ? 'checked' : '' }} name="status">
                                 <label>Aktif</label>
                             </div>
                         </div>

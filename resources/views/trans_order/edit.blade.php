@@ -95,19 +95,19 @@
                             <label for="input-payment-status" class="col-md-2 col-form-label">Payment Status</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="payment_status" data-placeholder="Choose ...">
-                                    <option value="0" @if ($data->payment_status == 0) selected @endif>
+                                    <option value="0" {{ old('payment_status') == 0 ? 'selected' : '' }} @if ($data->payment_status == 0) selected @endif>
                                         Not Completed
                                     </option>
-                                    <option value="1" @if ($data->payment_status == 1) selected @endif>
+                                    <option value="1" {{ old('payment_status') == 1 ? 'selected' : '' }} @if ($data->payment_status == 1) selected @endif>
                                         Completed
                                     </option>
-                                    <option value="2" @if ($data->payment_status == 2) selected @endif>
+                                    <option value="2" {{ old('payment_status') == 2 ? 'selected' : '' }} @if ($data->payment_status == 2) selected @endif>
                                         Partial
                                     </option>
-                                    <option value="3" @if ($data->payment_status == 3) selected @endif>
+                                    <option value="3" {{ old('payment_status') == 3 ? 'selected' : '' }} @if ($data->payment_status == 3) selected @endif>
                                         Cancelled
                                     </option>
-                                    <option value="4" @if ($data->payment_status == 4) selected @endif>
+                                    <option value="4" {{ old('payment_status') == 4 ? 'selected' : '' }} @if ($data->payment_status == 4) selected @endif>
                                         Unknown Status
                                     </option>
                                 </select>
@@ -128,7 +128,7 @@
                                 <select class="form-control select2" name="class_id" data-placeholder="Choose ...">
                                     <option value="">Choose...</option>
                                     @foreach ($class_list as $key => $item)
-                                        <option value="{{ $item->id }}"
+                                        <option value="{{ $item->id }}" {{ old('class_id') == $item->id ? 'selected' : '' }}
                                             @if ($data->course_class_id == $item->id) selected @endif>
                                             {{ $item->course_name }} Batch {{ $item->batch }}
                                         </option>
@@ -163,9 +163,12 @@
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10" style="display: flex; align-items: center;">
+                                <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
+                                <input type="hidden" name="status" value="0">
+                                
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    value="1" {{ $data->status == 1 ? 'checked' : '' }} name="status"
-                                    style="left: 0;">
+                                    value="1" name="status"
+                                    {{ old('status', isset($data) ? $data->status : false) ? 'checked' : '' }}>
                             </div>
                         </div>
                         <div class="mb-3 row justify-content-end">

@@ -46,29 +46,33 @@
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name" value="{{ $accessgroups->name }}"
+                                <input class="form-control" type="text" name="name" value="{{ old('name', $accessgroups->name) }}"
                                     id="name">
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Access Master Saat Ini </label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Access Master Saat Ini</label>
                             <div class="col-md-10">
-                                <select class="form-control select2 select2-multiple" multiple="multiple"
-                                    name="access_master_old[]" id="access_master_old">
+                                <select class="form-control select2 select2-multiple" multiple="multiple" name="access_master_old[]" id="access_master_old">
+                                    @php
+                                        // Ambil nilai old jika ada, jika kosong (pada submit gagal) cek $currentData untuk pengisian pertama kali
+                                        $selectedValues = old('access_master_old', $currentData ? array_keys($currentData) : []);
+                                    @endphp
                                     @foreach ($currentData as $key => $value)
-                                        <option value="{{ $key }}" selected>{{ $value }}
+                                        <option value="{{ $key }}" {{ in_array($key, $selectedValues) ? 'selected' : '' }}>
+                                            {{ $value }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div>                                                
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Access Master Tersedia </label>
                             <div class="col-md-10">
                                 <select class="form-control select2 select2-multiple" multiple="multiple"
                                     name="access_master_available[]" id="access_master_available">
                                     @foreach ($allAccessMaster as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}
+                                        <option value="{{ $key }}" {{ in_array($key, old('access_master_available', [])) ? 'selected' : '' }}>{{ $value }}
                                         </option>
                                     @endforeach
                                 </select>

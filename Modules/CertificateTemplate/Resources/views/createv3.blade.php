@@ -43,7 +43,7 @@
                                     id="type_selector">
                                     <option value="" disabled selected>Pilih Tipe Kursus</option>
                                     @foreach ($courseTypes as $courseType)
-                                        <option value="{{ $courseType->id }}"
+                                        <option value="{{ $courseType->id }}" {{ old('m_course_type_id') == $courseType->id ? 'selected' : '' }}
                                             {{ $loop->iteration === 1 ? 'selected' : '' }}>{{ $courseType->name }}</option>
                                     @endforeach
                                 </select>
@@ -58,7 +58,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Batch</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="batch" id="batch"
-                                    placeholder="Masukkan Batch">
+                                    placeholder="Masukkan Batch" value="{{ old('batch') }}">
                                 @if ($errors->has('batch'))
                                     @foreach ($errors->get('batch') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -94,7 +94,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Template Content</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="template_content" placeholder="Ex: Telah berhasil menyelesaikan program [[class_name]]"></textarea>
+                                <textarea id="elm1" name="template_content" placeholder="Ex: Telah berhasil menyelesaikan program [[class_name]]">{{ old('template_content') }}</textarea>
                                 @error('template_content')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -105,7 +105,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description"></textarea>
+                                <textarea id="elm2" name="description" class="form-control">{{ old('description') }}</textarea>
                                 @error('description')
                                     <div class="text-danger">
                                         {{ $message }}

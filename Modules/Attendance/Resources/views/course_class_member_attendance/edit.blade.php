@@ -50,10 +50,10 @@
                             <label for="input-tag" class="col-md-2 col-form-label">Status</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="status" data-placeholder="Choose ...">
-                                    <option value="0" @if ($attendance->status == 0) selected @endif>Tidak Hadir
+                                    <option value="0" @if ($attendance->status == 0) selected @endif {{ old('status') == 0 ? 'selected' : '' }}>Tidak Hadir
                                     </option>
-                                    <option value="1" @if ($attendance->status == 1) selected @endif>Hadir</option>
-                                    <option value="2" @if ($attendance->status == 2) selected @endif>Izin</option>
+                                    <option value="1" @if ($attendance->status == 1) selected @endif {{ old('status') == 1 ? 'selected' : '' }}>Hadir</option>
+                                    <option value="2" @if ($attendance->status == 2) selected @endif {{ old('status') == 2 ? 'selected' : '' }}>Izin</option>
                                 </select>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ $class->description }}</textarea>
+                                <textarea id="elm1" name="description">{{ old('description', $class->description) }}</textarea>
                             </div>
                         </div>
                         {{-- <div class="mb-3 row">

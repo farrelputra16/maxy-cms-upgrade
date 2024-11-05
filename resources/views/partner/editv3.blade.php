@@ -41,7 +41,7 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name" value="{{ $partners->name }}">
+                                <input class="form-control" type="text" name="name" value="{{ old('name', $partners->name) }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -54,8 +54,11 @@
                             <div class="col-md-10">
                                 <select class="form-control select2" name="type" data-placeholder="Choose ..."
                                     id="type_selector">
+                                    @if($partners->type)
+                                        <option value="{{ $partners->type }}" selected>{{ $partners->type }}</option>
+                                    @endif
                                     @foreach ($partnerTypes as $partnerType)
-                                        <option value="{{ $partnerType->type }}">{{ $partnerType->type }}</option>
+                                        <option value="{{ $partnerType->type }}" {{ old('type') == $partnerType->type ? 'selected' : '' }}>{{ $partnerType->type }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -63,7 +66,7 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Email</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="email" value="{{ $partners->email }}">
+                                <input class="form-control" type="text" name="email" value="{{ old('email', $partners->email) }}">
                                 @if ($errors->has('email'))
                                     @foreach ($errors->get('email') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -74,7 +77,7 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Phone</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="phone" value="{{ $partners->phone }}"
+                                <input class="form-control" type="text" name="phone" value="{{ old('phone', $partners->phone) }}"
                                     oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @if ($errors->has('email'))
                                     @foreach ($errors->get('email') as $error)
@@ -87,7 +90,7 @@
                             <label for="input-title" class="col-md-2 col-form-label">Contact Person</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="contact_person"
-                                    value="{{ $partners->contact_person }}"
+                                    value="{{ old('contact_person', $partners->contact_person) }}"
                                     oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @if ($errors->has('email'))
                                     @foreach ($errors->get('email') as $error)
@@ -99,7 +102,7 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">URL</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="url" value="{{ $partners->url }}">
+                                <input class="form-control" type="text" name="url" value="{{ old('url', $partners->url) }}">
                                 @if ($errors->has('email'))
                                     @foreach ($errors->get('email') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -119,29 +122,36 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Address</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="address">{{ $partners->address }}</textarea>
+                                <textarea id="elm1" name="address">{{ old('address', $partners->address) }}</textarea>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ $partners->description }}</textarea>
+                                <textarea id="elm1" name="description">{{ old('description', $partners->description) }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Highlight</label>
                             <div class="col-md-10 d-flex align-items-center">
+                                <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
+                                <input type="hidden" name="status_highlight" value="0">
+
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    value="1" {{ $partners->status_highlight == 1 ? 'checked' : '' }}
-                                    name="status_highlight">
+                                    value="1" name="status_highlight"
+                                    {{ old('status_highlight', isset($partners) ? $partners->status_highlight : false) ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
+                                <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
+                                <input type="hidden" name="status" value="0">
+
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    value="1" {{ $partners->status == 1 ? 'checked' : '' }} name="status">
+                                    value="1" name="status"
+                                    {{ old('status', isset($partners) ? $partners->status : false) ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

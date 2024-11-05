@@ -41,17 +41,19 @@
                                 <select class="form-control select2" name="event_type" data-placeholder="Choose ...">
                                     @foreach ($event_types as $item)
                                         <option value="{{ $item->id }}"
-                                            {{ $event->m_event_type_id == $item->id ? 'selected' : '' }}>{{ $item->name }}
+                                            {{-- Pilih opsi berdasarkan old data atau data dari model event --}}
+                                            {{ old('event_type', $event->m_event_type_id) == $item->id ? 'selected' : '' }}>
+                                            {{ $item->name }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div>                        
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name"" id="name"
-                                    value="{{ $event->name }}">
+                                <input class="form-control" type="text" name="name" id="name"
+                                    value="{{ old('name', $event->name) }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -63,7 +65,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Start Date</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" name="date_start" id="date"
-                                    value="{{ $event->date_start }}">
+                                    value="{{ old('date_start', $event->date_start) }}">
                                 @if ($errors->has('date'))
                                     @foreach ($errors->get('date') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -75,7 +77,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">End Date</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" name="date_end" id="date"
-                                    value="{{ $event->date_end }}">
+                                    value="{{ old('date_end', $event->date_end) }}">
                                 @if ($errors->has('date'))
                                     @foreach ($errors->get('date') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -87,7 +89,7 @@
                             <label for="input-payment" class="col-md-2 col-form-label">Url</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="url" id="url"
-                                    value="{{ $event->url }}">
+                                    value="{{ old('url', $event->url) }}">
                                 @if ($errors->has('url'))
                                     @foreach ($errors->get('url') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -113,7 +115,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ $event->description }}</textarea>
+                                <textarea id="elm1" name="description">{{ old('description', $event->description) }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -124,22 +126,30 @@
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Need Verification</label>
                             <div class="col-md-10 d-flex align-items-center">
+                                <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
+                                <input type="hidden" name="need_verification" value="0">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="need_verification" {{ $event->is_need_verification == 1 ? 'checked' : '' }}>
+                                    name="need_verification" {{ old('need_verification', isset($event) ? $event->is_need_verification : false) ? 'checked' : '' }}>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Public</label>
                             <div class="col-md-10 d-flex align-items-center">
+                                <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
+                                <input type="hidden" name="public" value="0">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="public" {{ $event->is_public == 1 ? 'checked' : '' }}>
+                                    name="public" {{ old('public', isset($event) ? $event->is_public : false) ? 'checked' : '' }}>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
+                                <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
+                                <input type="hidden" name="status" value="0">
+                                
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status" {{ $event->status == 1 ? 'checked' : '' }}>
+                                    value="1" name="status"
+                                    {{ old('status', isset($event) ? $event->status : false) ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

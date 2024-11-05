@@ -39,7 +39,7 @@
                             <label for="name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                    placeholder="Masukkan Nama Course">
+                                    placeholder="Masukkan Nama Course" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -50,7 +50,7 @@
                         <div class="mb-3 row">
                             <label for="slug" class="col-md-2 col-form-label">Slug</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="slug" id="slug">
+                                <input class="form-control" type="text" name="slug" id="slug" value="{{ old('slug') }}">
                                 @if ($errors->has('slug'))
                                     @foreach ($errors->get('slug') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -75,7 +75,7 @@
                             <div class="col-md-10">
                                 <select class="form-control select2" name="level" data-placeholder="Choose ...">
                                     @foreach ($allCourseDifficulty as $item)
-                                        <option value="{{ $item->id }}"> {{ $item->name }} </option>
+                                        <option value="{{ $item->id }}" {{ old('level') == $item->id ? 'selected' : '' }}> {{ $item->name }} </option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('level'))
@@ -88,10 +88,9 @@
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Course Type</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="type" data-placeholder="Choose ..."
-                                    id="type_selector">
+                                <select class="form-control select2" name="type" data-placeholder="Choose ..." id="type_selector">
                                     @foreach ($allCourseTypes as $item)
-                                        <option value="{{ $item->id }}"> {{ $item->name }} </option>
+                                        <option value="{{ $item->id }}" {{ old('type') == $item->id ? 'selected' : '' }}> {{ $item->name }} </option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('type'))
@@ -102,14 +101,15 @@
                             </div>
                         </div>
 
-
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Course Category</label>
                             <div class="col-md-10">
                                 <select class="form-control select2 multiple" name="courseCategory[]"
                                     data-placeholder="Choose ..." id="course_category_selector" multiple="multiple">
                                     @foreach ($allCourseCategory as $courseCategory)
-                                        <option value="{{ $courseCategory->id }}">{{ $courseCategory->name }}</option>
+                                        <option value="{{ $courseCategory->id }}" {{ in_array($courseCategory->id, old('courseCategory', [])) ? 'selected' : '' }}>
+                                            {{ $courseCategory->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('courseCategory[]'))
@@ -125,18 +125,19 @@
                             <div class="col-md-10">
                                 <select class="form-control select2" name="package" data-placeholder="Choose ...">
                                     @foreach ($allCoursePackages as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }} - Rp. {{ $item->price }}
+                                        <option value="{{ $item->id }}" {{ old('package') == $item->id ? 'selected' : '' }}>
+                                            {{ $item->name }} - Rp. {{ $item->price }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
+                        
                         <div id="show_course_mini_fake_price" class="mb-3 row">
-                            <label for="input-mini-fake-price" class="col-md-2 col-form-label">Mini Bootcamp Fake
-                                Price</label>
+                            <label for="input-mini-fake-price" class="col-md-2 col-form-label">Mini Bootcamp Fake Price</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="mini_fake_price" id="fake_price"
-                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                <input class="form-control" type="text" name="mini_fake_price" id="fake_price" 
+                                       value="{{ old('mini_fake_price') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @if ($errors->has('mini_fake_price'))
                                     @foreach ($errors->get('mini_fake_price') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -144,11 +145,12 @@
                                 @endif
                             </div>
                         </div>
+                        
                         <div id="show_course_mini_price" class="mb-3 row">
                             <label for="input-mini-price" class="col-md-2 col-form-label">Mini Bootcamp Price</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="mini_price" id="price"
-                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                <input class="form-control" type="text" name="mini_price" id="price" 
+                                       value="{{ old('mini_price') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @if ($errors->has('mini_price'))
                                     @foreach ($errors->get('mini_price') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -156,11 +158,12 @@
                                 @endif
                             </div>
                         </div>
+                        
                         <div class="mb-3 row">
                             <label for="input-credits" class="col-md-2 col-form-label">Credits</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="credits" id="credits"
-                                    value="">
+                                <input class="form-control" type="number" name="credits" id="credits" 
+                                       value="{{ old('credits') }}">
                                 @if ($errors->has('credits'))
                                     @foreach ($errors->get('credits') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -168,11 +171,12 @@
                                 @endif
                             </div>
                         </div>
+                        
                         <div class="mb-3 row">
                             <label for="input-duration" class="col-md-2 col-form-label">Duration</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="duration" id="duration"
-                                    value="">
+                                <input class="form-control" type="number" name="duration" id="duration" 
+                                       value="{{ old('duration') }}">
                                 @if ($errors->has('duration'))
                                     @foreach ($errors->get('duration') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -197,7 +201,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Content</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="content"></textarea>
+                                <textarea id="elm1" name="content">{{ old('content') }}</textarea>
                                 @if ($errors->has('content'))
                                     @foreach ($errors->get('content') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -205,10 +209,11 @@
                                 @endif
                             </div>
                         </div>
+                        
                         <div class="mb-3 row">
                             <label for="input-short-description" class="col-md-2 col-form-label">Short Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm2" name="short_description" class="form-control"></textarea>
+                                <textarea id="elm2" name="short_description" class="form-control">{{ old('short_description') }}</textarea>
                                 @if ($errors->has('short_description'))
                                     @foreach ($errors->get('short_description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -216,10 +221,11 @@
                                 @endif
                             </div>
                         </div>
+                        
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm3" name="description" class="form-control"></textarea>
+                                <textarea id="elm3" name="description" class="form-control">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -227,11 +233,12 @@
                                 @endif
                             </div>
                         </div>
+                        
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
-                                <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status">
+                                <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd" name="status" 
+                                       {{ old('status') ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

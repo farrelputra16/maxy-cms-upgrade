@@ -39,7 +39,7 @@
                             <label for="input-title" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
-                                    placeholder="Masukkan Nama Partner">
+                                    placeholder="Masukkan Nama Partner" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -53,7 +53,7 @@
                                 <select class="form-control select2" name="type" data-placeholder="Choose ..."
                                     id="type_selector">
                                     @foreach ($partnerTypes as $partnerType)
-                                        <option value="{{ $partnerType->type }}">{{ $partnerType->type }}</option>
+                                        <option value="{{ $partnerType->type }}" {{ old('type') == $partnerType->type ? 'selected' : '' }}>{{ $partnerType->type }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -62,7 +62,7 @@
                             <label for="input-title" class="col-md-2 col-form-label">Email</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="email"
-                                    placeholder="Masukkan Email Partner">
+                                    placeholder="Masukkan Email Partner" value="{{ old('email') }}">
                                 @if ($errors->has('email'))
                                     @foreach ($errors->get('email') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -75,7 +75,7 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="phone"
                                     placeholder="Masukkan No Telepon Partner"
-                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');" value="{{ old('phone') }}">
                                 @if ($errors->has('phone'))
                                     @foreach ($errors->get('phone') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -86,7 +86,7 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">URL</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="url" placeholder="Masukkan Link URL">
+                                <input class="form-control" type="text" name="url" placeholder="Masukkan Link URL" value="{{ old('url') }}">
                                 @if ($errors->has('url'))
                                     @foreach ($errors->get('url') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -99,7 +99,7 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="contact_person"
                                     placeholder="Masukkan Contact Person"
-                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');" value="{{ old('contact_person') }}">
                                 @if ($errors->has('contact_person'))
                                     @foreach ($errors->get('contact_person') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -119,20 +119,20 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Address</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="address" placeholder="Masukkan Alamat Partner"></textarea>
+                                <textarea id="elm1" name="address" placeholder="Masukkan Alamat Partner">{{ old('address') }}</textarea>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" placeholder="Masukkan Deskripsi"></textarea>
+                                <textarea id="elm2" name="description" class="form-control" placeholder="Masukkan Deskripsi">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Highlight</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status_highlight">
+                                    name="status_highlight" {{ old('status_highlight') ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>
@@ -140,7 +140,7 @@
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status">
+                                    name="status" {{ old('status') ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

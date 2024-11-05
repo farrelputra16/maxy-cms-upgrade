@@ -37,7 +37,7 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name" value="{{ $data->name }}"
+                                <input class="form-control" type="text" name="name" value="{{ old('name', $data->name) }}"
                                     id="input-title">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
@@ -51,7 +51,7 @@
                             <label for="input-title" class="col-md-2 col-form-label">Range Start</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="range_start"
-                                    value="{{ $data->range_start }}" id="input-title"
+                                    value="{{ old('range_start', $data->range_start) }}" id="input-title"
                                     inputmode="numeric" pattern="[0-9]*" 
                                     oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @if ($errors->has('range_start'))
@@ -65,7 +65,7 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Range End</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="range_end" value="{{ $data->range_end }}"
+                                <input class="form-control" type="text" name="range_end" value="{{ old('range_end', $data->range_end) }}"
                                     id="input-title"
                                     inputmode="numeric" pattern="[0-9]*" 
                                     oninput="this.value = this.value.replace(/[^0-9]/g, '');">
@@ -81,16 +81,19 @@
                             <label for="input-description" class="col-md-2 col-form-label">Description
                                 <small>(Admin)</small></label>
                             <div class="col-md-10">
-                                <textarea type="text" name="description" id="elm1">{{ $data->description }}</textarea>
+                                <textarea type="text" name="description" id="elm1">{{ old('description', $data->description) }}</textarea>
                             </div>
                         </div>
 
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10" style="display: flex; align-items: center;">
+                                <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
+                                <input type="hidden" name="status" value="0">
+                                
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    value="1" {{ $data->status == 1 ? 'checked' : '' }} name="status"
-                                    style="left: 0;">
+                                    value="1" name="status"
+                                    {{ old('status', isset($data) ? $data->status : false) ? 'checked' : '' }}>
                             </div>
                         </div>
 

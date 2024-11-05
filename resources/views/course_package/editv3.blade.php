@@ -40,7 +40,7 @@
                             <label for="input-title" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                    value="{{ $coursePackages->name }}">
+                                    value="{{ old('name', $coursePackages->name) }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -52,7 +52,7 @@
                             <label for="input-title" class="col-md-2 col-form-label">Payment Link</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="payment_link"
-                                    value="{{ $coursePackages->payment_link }}">
+                                    value="{{ old('payment_link', $coursePackages->payment_link) }}">
                                 @if ($errors->has('payment_link'))
                                     @foreach ($errors->get('payment_link') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -64,7 +64,7 @@
                             <label for="input-title" class="col-md-2 col-form-label">Fake Price</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="fake" id="fake_price"
-                                    value="{{ $coursePackages->fake_price }}">
+                                    value="{{ old('fake', $coursePackages->fake_price) }}">
                                 @if ($errors->has('fak_price'))
                                     @foreach ($errors->get('fake_price') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -76,7 +76,7 @@
                             <label for="input-title" class="col-md-2 col-form-label">Price</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" id="price" name="price"
-                                    value="{{ $coursePackages->price }}">
+                                    value="{{ old('price', $coursePackages->price) }}">
                                 @if ($errors->has('price'))
                                     @foreach ($errors->get('price') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -87,17 +87,21 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ $coursePackages->description }}</textarea>
+                                <textarea id="elm1" name="description">{{ old('description', $coursePackages->description) }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
+                                <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
+                                <input type="hidden" name="status" value="0">
+                        
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    value="1" {{ $coursePackages->status == 1 ? 'checked' : '' }} name="status">
+                                    value="1" name="status"
+                                    {{ old('status', $coursePackages->status) ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
-                        </div>
+                        </div>                        
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary w-md text-center">Save & Update</button>

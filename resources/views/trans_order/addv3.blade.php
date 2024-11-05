@@ -43,7 +43,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Order Information</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="order_number" id="order_number"
-                                    placeholder="Masukkan Nomor Order">
+                                    placeholder="Masukkan Nomor Order" value="{{ old('order_number') }}">
                                 @if ($errors->has('order_number'))
                                     @foreach ($errors->get('order_number') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -54,7 +54,7 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Date</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="datetime-local" name="date" id="date">
+                                <input class="form-control" type="datetime-local" name="date" id="date" value="{{ old('date') }}">
                                 @if ($errors->has('date'))
                                     @foreach ($errors->get('date') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -72,7 +72,7 @@
                                 <select class="form-control select2" name="user_id" data-placeholder="-- Pilih User --"
                                     id="type_selector">
                                     @foreach ($idmembers as $item)
-                                        <option value="{{ $item->id }}">{{ $item->id }} - {{ $item->name }}
+                                        <option value="{{ $item->id }}" {{ old('user_id') == $item->id ? 'selected' : '' }}>{{ $item->id }} - {{ $item->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -90,7 +90,7 @@
                                     id="">
                                     <option value="">-- Pilih Course --</option>
                                     @foreach ($idcourses as $item)
-                                        <option value="{{ $item->id }}">{{ $item->id }} - {{ $item->name }}
+                                        <option value="{{ $item->id }}" {{ old('course_id') == $item->id ? 'selected' : '' }}>{{ $item->id }} - {{ $item->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -107,7 +107,7 @@
                                 <select class="form-control select2" name="course_class_id" id="">
                                     <option value="">-- Pilih Course Class --</option>
                                     @foreach ($idcourseclasses as $item)
-                                        <option value="{{ $item->id }}">{{ $item->id }} - Batch
+                                        <option value="{{ $item->id }}" {{ old('course_class_id') == $item->id ? 'selected' : '' }}>{{ $item->id }} - Batch
                                             {{ $item->batch }}
                                         </option>
                                     @endforeach
@@ -125,7 +125,7 @@
                                 <select class="form-control select2" name="course_package_id"
                                     data-placeholder="-- Pilih Course Package --" id="type_selector">
                                     @foreach ($idcoursepackages as $item)
-                                        <option value="{{ $item->id }}">{{ $item->id }} - {{ $item->name }}
+                                        <option value="{{ $item->id }}" {{ old('course_package_id') == $item->id ? 'selected' : '' }}>{{ $item->id }} - {{ $item->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -145,10 +145,10 @@
                             <div class="col-md-10">
                                 <select class="form-control select2" name="payment_status" id="type_selector">
                                     <option value="">-- Pilih Status Pembayaran --</option>
-                                    <option value="0">0 - Not Completed </option>
-                                    <option value="1">1 - Completed </option>
-                                    <option value="2">2 - Partial </option>
-                                    <option value="3">3 - Cancelled </option>
+                                    <option value="0" {{ old('payment_status') == 0 ? 'selected' : '' }}>0 - Not Completed </option>
+                                    <option value="1" {{ old('payment_status') == 1 ? 'selected' : '' }}>1 - Completed </option>
+                                    <option value="2" {{ old('payment_status') == 2 ? 'selected' : '' }}>2 - Partial </option>
+                                    <option value="3" {{ old('payment_status') == 3 ? 'selected' : '' }}>3 - Cancelled </option>
                                 </select>
                                 @if ($errors->has('payment_status'))
                                     @foreach ($errors->get('payment_status') as $error)
@@ -161,7 +161,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Total</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="total" id="total"
-                                    placeholder="Rp. 0">
+                                    placeholder="Rp. 0" value="{{ old('total') }}">
                                 @if ($errors->has('total'))
                                     @foreach ($errors->get('total') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -173,7 +173,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Discount (Max 100%)</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="discount" id="discount"
-                                    placeholder="e. g. 5" value="{{ old('discount', 0) }}">
+                                    placeholder="e. g. 5" value="{{ old('discount') }}">
                                 @if ($errors->has('discount'))
                                     @foreach ($errors->get('discount') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -185,7 +185,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">After Discount (Automatically)</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="total_after_discount" id="afterDisc"
-                                    placeholder="Rp. 0">
+                                    placeholder="Rp. 0" value="{{ old('total_after_discount') }}">
                                 @if ($errors->has('total_after_discount'))
                                     @foreach ($errors->get('total_after_discount') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -199,7 +199,7 @@
                                 <select class="form-control select2" name="m_promo_id" id="type_selector">
                                         <option value="">-- Pilih Promotion --</option>
                                     @foreach ($idpromotions as $item)
-                                        <option value="{{ $item->id }}">{{ $item->id }} - {{ $item->name }}
+                                        <option value="{{ $item->id }}" {{ old('m_promo_id') == $item->id ? 'selected' : '' }}>{{ $item->id }} - {{ $item->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -208,14 +208,14 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" id="editor">{{ $currentData->description ?? 'Tidak ada' }}</textarea>
+                                <textarea id="elm1" name="description" id="editor">{{ old('description', $currentData->description ?? 'Tidak ada') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status">
+                                    name="status" {{ old('status') ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

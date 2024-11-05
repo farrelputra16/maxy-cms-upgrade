@@ -75,13 +75,13 @@ class CourseClassMemberController extends Controller
 
         foreach ($mentors as $mentor) {
             if (is_null($mentor) || $mentor === '') {
-                return back()->with('error', 'Enrollment failed. Please enter a mentor.');
+                return back()->withInput()->with('error', 'Enrollment failed. Please enter a mentor.');
             }
         }
 
         foreach ($jobdescs as $jobdesc) {
             if (is_null($jobdesc) || $jobdesc === '') {
-                return back()->with('error', 'Failed to Enroll Member, please provide a job description for each mentor');
+                return back()->withInput()->with('error', 'Failed to Enroll Member, please provide a job description for each mentor');
             }
         }
 
@@ -145,6 +145,21 @@ class CourseClassMemberController extends Controller
     function postEditCourseClassMember(Request $request)
     {
         // dd($request->all());
+        $mentors = $request->mentor;
+        $jobdescs = $request->jobdesc; // Mengambil jobdesc dari permintaan
+
+        foreach ($mentors as $mentor) {
+            if (is_null($mentor) || $mentor === '') {
+                return back()->withInput()->with('error', 'Enrollment failed. Please enter a mentor.');
+            }
+        }
+
+        foreach ($jobdescs as $jobdesc) {
+            if (is_null($jobdesc) || $jobdesc === '') {
+                return back()->withInput()->with('error', 'Failed to Enroll Member, please provide a job description for each mentor');
+            }
+        }
+
         $update = CourseClassMember::where('id', $request->id)
         ->update([
             'daily_score' => $request->daily_score,
