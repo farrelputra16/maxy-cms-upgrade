@@ -72,6 +72,19 @@ class CourseClassMemberController extends Controller
         $users = $request->users;
         $mentors = $request->mentor;
         $jobdescs = $request->jobdesc; // Mengambil jobdesc dari permintaan
+
+        foreach ($mentors as $mentor) {
+            if (is_null($mentor) || $mentor === '') {
+                return back()->with('error', 'Enrollment failed. Please enter a mentor.');
+            }
+        }
+
+        foreach ($jobdescs as $jobdesc) {
+            if (is_null($jobdesc) || $jobdesc === '') {
+                return back()->with('error', 'Failed to Enroll Member, please provide a job description for each mentor');
+            }
+        }
+
         $courseClassId = $request->course_class;
 
         foreach ($users as $user) {
@@ -91,12 +104,14 @@ class CourseClassMemberController extends Controller
 
                 if ($created) {
                     foreach ($mentors as $index => $mentor) {
-                        DB::table('user_mentorships')->insert([
-                            'member_id' => $user, // mentee
-                            'mentor_id' => $mentor, // mentor
-                            'course_class_id' => $courseClassId, // kelas yang terkait
-                            'jobdesc_id' => $request->jobdesc[$index],
-                        ]);
+                        if ($mentor){
+                            DB::table('user_mentorships')->insert([
+                                'member_id' => $user, // mentee
+                                'mentor_id' => $mentor, // mentor
+                                'course_class_id' => $courseClassId, // kelas yang terkait
+                                'jobdesc_id' => $request->jobdesc[$index],
+                            ]);
+                        }
                     }
                 }
             }
