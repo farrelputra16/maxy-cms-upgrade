@@ -148,37 +148,6 @@
                     </ul>
                 </li>
                 @endif
-
-                <li>
-                    @if (env('APP_ENV') != 'local')
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="fas fa-trophy"></i> <!-- Icon for Badges -->
-                        <span key="t-badges">Badges</span>
-                    </a>
-                    @endif
-                    <ul class="sub-menu" aria-expanded="false">
-                        <!-- Pengecekan session token -->
-                        {{-- <li> --}}
-                            {{-- {{ dd(session('token')) }} --}}
-                            {{-- @if(session('token')) --}}
-                                {{-- <a href="{{ route('courses.index', ['token' => session('token')]) }}" key="t-courses">Courses</a> --}}
-                                {{-- <a href="{{ route('courses.index', ['token' => 'testestes']) }}" key="t-courses">Courses</a>
-                            @else
-                            <a href="{{ route('courses.index', ['token' => 'testestes']) }}" key="t-courses">Courses</a> --}}
-
-                                {{-- <a href="{{ route('courses.index', ['token' => session('token')]) }}" key="t-courses">Courses</a> --}}
-                            {{-- @endif
-                        </li> --}}
-                        <li><a href="{{ route('courses.index') }}" key="t-courses">Courses</a></li>
-                        <!-- Link Email Templates -->
-                        <li><a href="{{ route('emailTemplatesIndex') }}" key="t-email-templates">Email Templates</a></li>
-                        <!-- Link Badge Design -->
-                        <li><a href="{{ route('badges.index') }}" key="t-badge-design">Badge Design</a></li>
-                    </ul>
-                </li>
-
-
-
             </ul>
         </div>
         <!-- Sidebar -->
