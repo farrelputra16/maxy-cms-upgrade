@@ -23,7 +23,9 @@ class GenerateCertificateController extends Controller
         $certificateTemplate = CertificateTemplate::where('m_course_type_id', $courseClass->course->type->id)
                                 ->where('batch', $courseClass->batch)
                                 ->first();
-
+        if (!$certificateTemplate) {
+            return redirect()->back()->with('error', 'Template sertifikat tidak ditemukan');
+        }
         // Buka template sertifikat
         $className = \Str::upper("$classDetail->course_type_name $classDetail->course_name MAXY ACADEMY BERSERTIFIKAT");
         $templatePath = public_path('uploads/certificate/' . $courseClass->course->type->id . "/$certificateTemplate->filename");
