@@ -76,35 +76,52 @@ class CarouselController extends Controller
 
     function postEditCarousel(Request $request){
         $idcarousel = $request->id;
-
-        $validated= $request->validate([
+    
+        // Validate input
+        $validated = $request->validate([
             'name' => 'required',
             'short_desc' => 'required',
             'date' => 'required',
         ]);
-
-        $updateData = Carousel::where('id', $idcarousel)
-            ->update([
-                'name' => $request->name,
-                'short_desc' => $request->short_desc,
-                'date' => date('Y-m-d', strtotime($request->date)),
-                'description' => $request->description,
-                'status' => $request->status ? 1 : 0
-            ]);
-
-        if ($updateData){
-            if ($request->hasFile('image')) {
-                $file = $request->file('image');
-                $image = $idcarousel;
-                $destinationPath = public_path('/uploads/carousel/about-us');
-                if (!File::exists($destinationPath)) { // create folder jika blm ada
-                    File::makeDirectory($destinationPath, 0777, true, true);
-                }
-                $file->move($destinationPath, $image);
+    
+        // Retrieve the existing carousel record
+        $carousel = Carousel::find($idcarousel);
+    
+        // Handle new image upload
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $imageName = $idcarousel; // Set the filename as the carousel ID
+            $destinationPath = public_path('/uploads/carousel/about-us');
+            
+            // Create the directory if it doesn't exist
+            if (!File::exists($destinationPath)) {
+                File::makeDirectory($destinationPath, 0777, true, true);
             }
-            return app(HelperController::class)->Positive('getCarousel');
-        } else{
-            return app(HelperController::class)->Warning('getCarousel');
+    
+            // Delete the old image if it exists
+            if ($carousel->image && File::exists($destinationPath . '/' . $carousel->image)) {
+                File::delete($destinationPath . '/' . $carousel->image);
+            }
+    
+            // Move the new file to the destination path
+            $file->move($destinationPath, $imageName);
+    
+            // Update the `image` field in the database
+            $carousel->image = $imageName;
         }
-    }
+    
+        // Update other fields
+        $carousel->name = $request->name;
+        $carousel->short_desc = $request->short_desc;
+        $carousel->date = date('Y-m-d', strtotime($request->date));
+        $carousel->description = $request->description;
+        $carousel->status = $request->status ? 1 : 0;
+        $carousel->updated_id = Auth::user()->id;
+    
+        $carousel->save();
+    
+        return $carousel
+            ? app(HelperController::class)->Positive('getCarousel')
+            : app(HelperController::class)->Warning('getCarousel');
+    }        
 }
