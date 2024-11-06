@@ -68,8 +68,8 @@
                                         {!! \Str::limit($item->attendance ? $item->attendance->feedback : '-', 30) !!}
                                     </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->description) !!}">
-                                        {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
+                                        title="{!! strip_tags($item->attendance ? $item->attendance->description : '-') !!}">
+                                        {!! !empty($item->attendance) ? \Str::limit($item->attendance->description, 30) : '-' !!}
                                     </td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->created_id }}</td>

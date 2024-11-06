@@ -32,7 +32,8 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form id="addCourseClass" action="{{ route('postAddCourseClass') }}" method="post" enctype="multipart/form-data">
+                    <form id="addCourseClass" action="{{ route('postAddCourseClass') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         {{-- <input type="text" name="img_keep" value="{{ $blog->cover_img }}" hidden> --}}
 
@@ -42,7 +43,9 @@
                                 <select class="form-control select2" name="course_id" data-placeholder="Choose ..."
                                     id="type_selector">
                                     @foreach ($allCourses as $item)
-                                        <option value="{{ $item->id }}" {{ old('course_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}"
+                                            {{ old('course_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('courseid'))
@@ -67,7 +70,8 @@
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="slug"" id="slug" value="{{ old('slug') }}">
+                                <input class="form-control" type="text" name="slug"" id="slug"
+                                    value="{{ old('slug') }}">
                                 @if ($errors->has('slug'))
                                     @foreach ($errors->get('slug') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -78,7 +82,8 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Start Date</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="date" name="start" id="date" value="{{ old('start') }}">
+                                <input class="form-control" type="date" name="start" id="date"
+                                    value="{{ old('start') }}">
                                 @if ($errors->has('start'))
                                     @foreach ($errors->get('start') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -89,7 +94,8 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">End Date</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="date" name="end" id="date" value="{{ old('end') }}">
+                                <input class="form-control" type="date" name="end" id="date"
+                                    value="{{ old('end') }}">
                                 @if ($errors->has('end'))
                                     @foreach ($errors->get('end') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -100,7 +106,8 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Quota</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="quota" min=0 value="{{ old('quota') }}">
+                                <input class="form-control" type="number" name="quota" min=0
+                                    value="{{ old('quota') }}">
                                 @if ($errors->has('quota'))
                                     @foreach ($errors->get('quota') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -111,32 +118,34 @@
                         <div class="mb-3 row">
                             <label for="credits" class="col-md-2 col-form-label">Credits</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="credits" id="credits" value="{{ old('credits') }}">
+                                <input class="form-control" type="number" name="credits" id="credits"
+                                    value="{{ old('credits') }}">
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="duration" class="col-md-2 col-form-label">Durations</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="duration" id="duration" value="{{ old('duration') }}">
+                                <input class="form-control" type="number" name="duration" id="duration"
+                                    value="{{ old('duration') }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Announcement</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="announcement">{{ old('announcement')}}</textarea>
+                                <textarea id="elm1" name="announcement">{{ old('announcement') }}</textarea>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Content</label>
                             <div class="col-md-10">
-                                <textarea id="elm2" name="content" class="form-control">{{ old('content')}}</textarea>
+                                <textarea id="elm2" name="content" class="form-control">{{ old('content') }}</textarea>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm3" name="description" class="form-control">{{ old('description')}}</textarea>
+                                <textarea id="elm3" name="description" class="form-control">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -145,11 +154,14 @@
                                 <select class="form-control select2" name="ongoing" data-placeholder="Choose ..."
                                     id="ongoing">
                                     <option value="" disabled selected>Choose ...</option>
-                                    <option value="0" @if (isset($course_class_detail) && $course_class_detail->status_ongoing == 0) selected @endif {{ old('ongoing') == 0 ? 'selected' : '' }}>Not Started
+                                    <option value="0" @if (isset($course_class_detail) && $course_class_detail->status_ongoing == 0) selected @endif
+                                        {{ old('ongoing') == 0 ? 'selected' : '' }}>Not Started
                                     </option>
-                                    <option value="1" @if (isset($course_class_detail) && $course_class_detail->status_ongoing == 1) selected @endif {{ old('ongoing') == 1 ? 'selected' : '' }}>Ongoing
+                                    <option value="1" @if (isset($course_class_detail) && $course_class_detail->status_ongoing == 1) selected @endif
+                                        {{ old('ongoing') == 1 ? 'selected' : '' }}>Ongoing
                                     </option>
-                                    <option value="2" @if (isset($course_class_detail) && $course_class_detail->status_ongoing == 2) selected @endif {{ old('ongoing') == 2 ? 'selected' : '' }}>Completed
+                                    <option value="2" @if (isset($course_class_detail) && $course_class_detail->status_ongoing == 2) selected @endif
+                                        {{ old('ongoing') == 2 ? 'selected' : '' }}>Completed
                                     </option>
                                 </select>
                             </div>
@@ -164,7 +176,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCourseClass">Add Course</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addCourseClass">Add Course</button>
                             </div>
                         </div>
                     </form>

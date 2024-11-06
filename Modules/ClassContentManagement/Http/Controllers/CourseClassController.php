@@ -63,7 +63,7 @@ class CourseClassController extends Controller
             })
             ->orderBy('course_class_module.id')
             ->get();
-        
+
         if ($classes->isEmpty()) {
             return redirect()->route('getCourseClass')->with('error', 'This class does not yet have any assignments to be assessed');
         }
@@ -80,7 +80,7 @@ class CourseClassController extends Controller
     }
 
     public function postCourseClassScoring(Request $request)
-    { 
+    {
         //dd($request->all());
         try {
             // Mengubah nilai kosong atau null pada attendance menjadi 0
@@ -263,6 +263,7 @@ class CourseClassController extends Controller
                 'announcement' => $request->announcement,
                 'content' => $request->content,
                 'description' => $request->description,
+                'status_ongoing' => $request->ongoing,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => Auth::user()->id,
                 'updated_id' => Auth::user()->id

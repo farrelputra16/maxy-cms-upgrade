@@ -13,7 +13,9 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Class</a></li>
-                        <li class="breadcrumb-item"><a href="">Class Member</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getCourseClassMember', ['id' => $course_class_detail->id]) }}">Class
+                                Member</a></li>
                         <li class="breadcrumb-item active">Add New Member</li>
                     </ol>
                 </div>
@@ -34,7 +36,8 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form id="addCCMember" action="{{ route('postAddCourseClassMember') }}" method="post" enctype="multipart/form-data">
+                    <form id="addCCMember" action="{{ route('postAddCourseClassMember') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
@@ -43,7 +46,9 @@
                                 <select class="form-control select2 multiple" multiple="multiple" name="users[]"
                                     data-placeholder="Pilih User">
                                     @foreach ($users as $item)
-                                        <option value="{{ $item->id }}" {{ old('users') && in_array($item->id, old('users')) ? 'selected' : '' }}>{{ $item->email }} - {{ $item->name }}
+                                        <option value="{{ $item->id }}"
+                                            {{ old('users') && in_array($item->id, old('users')) ? 'selected' : '' }}>
+                                            {{ $item->email }} - {{ $item->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -51,14 +56,15 @@
                         </div>
                         <!-- Mentor Fields -->
                         <div id="mentor-fields-container">
-                            @foreach(old('mentor', ['']) as $index => $oldMentor)
+                            @foreach (old('mentor', ['']) as $index => $oldMentor)
                                 <div class="mb-3 row mentor-field-group">
                                     <label for="mentor" class="col-md-2 col-form-label">Pilih Mentor: </label>
                                     <div class="col-md-4">
-                                        <select class="form-control select2 mentor-select" name="mentor[]" data-placeholder="Pilih Mentor">
+                                        <select class="form-control select2 mentor-select" name="mentor[]"
+                                            data-placeholder="Pilih Mentor">
                                             <option value="">Pilih Mentor</option>
                                             @foreach ($mentors as $mentor)
-                                                <option value="{{ $mentor->id }}" 
+                                                <option value="{{ $mentor->id }}"
                                                     {{ $oldMentor == $mentor->id ? 'selected' : '' }}>
                                                     {{ $mentor->email }} - {{ $mentor->name }}
                                                 </option>
@@ -67,15 +73,16 @@
                                     </div>
                                     <label for="jobdesc" class="col-md-2 col-form-label">Job Description</label>
                                     <div class="col-md-4">
-                                        <select name="jobdesc[]" class="form-control select2 jobdesc-select" data-placeholder="Pilih Job Description">
+                                        <select name="jobdesc[]" class="form-control select2 jobdesc-select"
+                                            data-placeholder="Pilih Job Description">
                                             <option value="">Pilih Job Description</option>
                                             @foreach ($jobdescriptions as $jobdesc)
-                                                <option value="{{ $jobdesc->id }}" 
+                                                <option value="{{ $jobdesc->id }}"
                                                     {{ old('jobdesc.' . $index) == $jobdesc->id ? 'selected' : '' }}>
                                                     {{ $jobdesc->name }}
                                                 </option>
                                             @endforeach
-                                        </select>                                    
+                                        </select>
                                     </div>
                                 </div>
                             @endforeach
@@ -84,7 +91,8 @@
                         <div class="row">
                             <div class="col-md-10 offset-md-2">
                                 <button type="button" class="btn btn-secondary" id="add-mentor-button">Add Mentor</button>
-                                <button type="button" class="btn btn-danger" id="remove-mentor-button">Kurangi Mentor</button>
+                                <button type="button" class="btn btn-danger" id="remove-mentor-button">Kurangi
+                                    Mentor</button>
                             </div>
                         </div>
                         <br>
@@ -105,7 +113,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCCMember">Add Member</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addCCMember">Add Member</button>
                             </div>
                         </div>
                     </form>
@@ -147,7 +156,9 @@
 
                                     <div class="mb-3 row justify-content-end">
                                         <div class="text-end">
-                                            <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCCMember">Add Multiple Members</button>
+                                            <button type="submit"
+                                                class="btn btn-primary w-md text-center custom-btn-submit"
+                                                form="addCCMember">Add Multiple Members</button>
                                         </div>
                                     </div>
 
@@ -258,7 +269,7 @@
                         @foreach ($jobdescriptions as $jobdesc)
                             <option value="{{ $jobdesc->id ?? '' }}">{{ $jobdesc->name ?? '' }}</option>
                         @endforeach
-                    </select>                                    
+                    </select>
                 </div>
             `;
 
@@ -269,7 +280,7 @@
         document.getElementById('remove-mentor-button').addEventListener('click', function() {
             const mentorFieldsContainer = document.getElementById('mentor-fields-container');
             const mentorFieldGroups = mentorFieldsContainer.getElementsByClassName('mentor-field-group');
-            
+
             // Hanya hapus jika ada lebih dari satu field mentor
             if (mentorFieldGroups.length > 1) {
                 mentorFieldsContainer.removeChild(mentorFieldGroups[mentorFieldGroups.length - 1]);

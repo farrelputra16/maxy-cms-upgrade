@@ -171,7 +171,7 @@ class CourseClassMemberController extends Controller
             'internship_score' => $request->internship_score,
             'final_score' => $request->final_score,
             'jobdesc' => $request->jobdesc,
-            'description' => $request->description,
+            'description' => $request->content,
             'status' => $request->status ? 1 : 0,
             'updated_at' => now(),
             'updated_id' => Auth::user()->id,
