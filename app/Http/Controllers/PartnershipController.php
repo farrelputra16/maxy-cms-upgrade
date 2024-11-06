@@ -40,6 +40,7 @@ class PartnershipController extends Controller
     {
         // return dd($request);
         $validated = $request->validate([
+            'partner' => 'required',
             'date_start' => 'required|date|after_or_equal:today',
             'date_end' => 'required|date|after_or_equal:tomorrow',
             'file' => 'required',
@@ -100,6 +101,7 @@ class PartnershipController extends Controller
         $idpartnership = $request->id;
 
         $validated = $request->validate([
+            'partner' => 'required',
             'date_start' => 'required|date|after_or_equal:today',
             'date_end' => 'required|date|after_or_equal:tomorrow',
         ]);

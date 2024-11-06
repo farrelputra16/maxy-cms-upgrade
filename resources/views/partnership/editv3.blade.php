@@ -45,6 +45,11 @@
                                             {{ $item->name }} </option>
                                     @endforeach
                                 </select>
+                                @if ($errors->has('partner'))
+                                    @foreach ($errors->get('partner') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
