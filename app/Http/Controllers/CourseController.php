@@ -77,7 +77,6 @@ class CourseController extends Controller
 
     public function postAddCourse(Request $request)
     {
-        // dd($request->all());
 
         $validated = $request->validate([
             'name' => 'required',
@@ -134,7 +133,8 @@ class CourseController extends Controller
             ]);
 
             if ($create) {
-                $categories = $request->input('courseCategory');
+                session()->flash('course_added', 'Course created successfully! Please add modules for this course.');
+                $categories = $request->courseCategory;
 
                 if ($categories) {
                     foreach ($categories as $categoryId) {
@@ -163,7 +163,7 @@ class CourseController extends Controller
             \Log::error('Error adding course: ' . $e->getMessage());
 
             // Kembalikan pesan error yang ramah kepada user
-            return redirect()->back()->withErrors(['error' => 'There was a problem saving the course. Please try again or contact support.']);
+            return redirect()->back()->withErrors(['error' => 'There was a problem saving the course. Please try again or contact support.'])->withInput();
         }
     }
 
@@ -172,7 +172,10 @@ class CourseController extends Controller
         $idCourse = $request->id;
         $courses = Course::find($idCourse);
         $allCourseCategory = Category::where('status', 1)->get();
-        $selectedCategoryId = DB::table('course_category')->where('course_id', $request->id)->get('category_id');
+        $selectedCategoryId = DB::table('course_category')
+        ->where('course_id', $idCourse)
+        ->pluck('category_id')
+        ->toArray();
 
         $currentDataCourse = Course::CurrentDataCourse($idCourse);
         $currentCoursePackages = Course::CurrentCoursePackages($idCourse);
@@ -271,7 +274,7 @@ class CourseController extends Controller
             \Log::error('Error updating course: ' . $e->getMessage());
 
             // Kembalikan pesan error yang ramah kepada user
-            return redirect()->back()->withErrors(['error' => 'There was a problem updating the course. Please try again or contact support.']);
+            return redirect()->back()->withErrors(['error' => 'There was a problem updating the course. Please try again or contact support.'])->withInput();
         }
     }
 }
