@@ -38,7 +38,7 @@
                         <li><a href="{{ route('getSurvey') }}" key="t-blog">Survey</a></li>
                         <li><a href="{{ route('getAcademicPeriod') }}" key="t-blog">Academic Period</a></li>
                         <li><a href="{{ route('getScore') }}" key="t-blog">Grade</a></li>
-
+                        <li><a href="{{ route('getJobdesc') }}" key="t-blog">Jobdesc</a></li>
                     </ul>
                 </li>
 

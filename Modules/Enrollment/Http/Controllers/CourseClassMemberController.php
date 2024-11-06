@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Modules\Enrollment\Http\Requests\CourseClassMemberRequest;
 use Modules\Enrollment\Imports\CourseClassMemberImport;
 use Modules\ClassContentManagement\Entities\CourseClass;
-use Modules\Enrollment\Entities\Jobdesc;
+use App\Models\MJobdesc;
 
 class CourseClassMemberController extends Controller
 {
@@ -52,7 +52,7 @@ class CourseClassMemberController extends Controller
             ->select('id', 'name', 'email')
             ->get();
 
-        $jobdescriptions = Jobdesc::all();
+        $jobdescriptions = MJobdesc::where('status', 1)->get();
 
         return view('enrollment::course_class_member.addv3', [
             'users' => $filteredUsers,
@@ -109,7 +109,9 @@ class CourseClassMemberController extends Controller
                                 'member_id' => $user, // mentee
                                 'mentor_id' => $mentor, // mentor
                                 'course_class_id' => $courseClassId, // kelas yang terkait
-                                'jobdesc_id' => $request->jobdesc[$index],
+                                'm_jobdesc_id' => $request->jobdesc[$index],
+                                'created_id' => auth()->id(),
+                                'updated_id' => auth()->id(),
                             ]);
                         }
                     }
@@ -130,14 +132,14 @@ class CourseClassMemberController extends Controller
         $users = $courseClassMember->user_id;
         $currentMentors = DB::table('user_mentorships')
             ->where('member_id', $users)
-            ->select('mentor_id', 'jobdesc_id')
+            ->select('mentor_id', 'm_jobdesc_id')
             ->get();
         // dd($courseClassMember);
         $mentors = User::where('access_group_id', '!=', 2)
         ->select('id', 'name', 'email')
         ->get();
 
-        $jobdescriptions = Jobdesc::all();
+        $jobdescriptions = MJobdesc::all();
 
         return view('enrollment::course_class_member.editv3', compact('courseClassMember', 'users', 'mentors', 'currentMentors', 'jobdescriptions'));
     }
@@ -187,8 +189,10 @@ class CourseClassMemberController extends Controller
                         DB::table('user_mentorships')->insert([
                             'member_id' => $request->member_id,
                             'mentor_id' => $mentorId,
-                            'jobdesc_id' => $request->jobdesc[$index],
+                            'm_jobdesc_id' => $request->jobdesc[$index],
                             'course_class_id' => $request->cc_id,
+                            'created_id' => auth()->id(),
+                            'updated_id' => auth()->id(),
                         ]);
                     }
                 }

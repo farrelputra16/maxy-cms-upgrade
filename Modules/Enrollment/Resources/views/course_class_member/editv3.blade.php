@@ -142,8 +142,8 @@
                                             <option value="">Pilih Job Description</option>
                                             @foreach ($jobdescriptions as $jobdesc)
                                                 <option value="{{ $jobdesc->id }}" 
-                                                    {{ old('jobdesc.' . $index, $currentMentor->jobdesc_id) == $jobdesc->id ? 'selected' : '' }}>
-                                                    {{ $jobdesc->jobdesc }}
+                                                    {{ old('jobdesc.' . $index, $currentMentor->m_jobdesc_id) == $jobdesc->id ? 'selected' : '' }}>
+                                                    {{ $jobdesc->name }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -249,7 +249,7 @@
             <div class="col-md-4">
                 <select name="jobdesc[]" class="form-control select2 jobdesc-select" data-placeholder="Pilih Job Description">
                     @foreach ($jobdescriptions as $jobdesc)
-                        <option value="{{ $jobdesc->id ?? '' }}">{{ $jobdesc->jobdesc ?? '' }}</option>
+                        <option value="{{ $jobdesc->id ?? '' }}">{{ $jobdesc->name ?? '' }}</option>
                     @endforeach
                 </select>                                    
             </div>

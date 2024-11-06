@@ -35,6 +35,7 @@ use App\Http\Controllers\MEventTypeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\MPartnershipTypeController;
+use App\Http\Controllers\MJobdescController;
 use App\Http\Controllers\PartnershipController;
 use App\Http\Controllers\MSurveyController;
 use App\Http\Controllers\MAcademicPeriodController;
@@ -221,6 +222,15 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/partnership/type/edit', [MPartnershipTypeController::class, 'getEditPartnershipType'])->name('getEditPartnershipType')->middleware('access:m_partnership_type_update');
     Route::post('/partnership/type/edit', [MPartnershipTypeController::class, 'postEditPartnershipType'])->name('postEditPartnershipType')->middleware('access:m_partnership_type_update');
+
+    // Jobdesc
+    Route::get('/jobdesc', [MJobdescController::class, 'getJobdesc'])->name('getJobdesc')->middleware('access:m_jobdesc_manage');
+
+    Route::get('/jobdesc/add', [MJobdescController::class, 'getAddJobdesc'])->name('getAddJobdesc')->middleware('access:m_jobdesc_create');
+    Route::post('/jobdesc/add', [MJobdescController::class, 'postAddJobdesc'])->name('postAddJobdesc')->middleware('access:m_jobdesc_create');
+
+    Route::get('/jobdesc/edit', [MJobdescController::class, 'getEditJobdesc'])->name('getEditJobdesc')->middleware('access:m_jobdesc_update');
+    Route::post('/jobdesc/edit', [MJobdescController::class, 'postEditJobdesc'])->name('postEditJobdesc')->middleware('access:m_jobdesc_update');
 
     // survey
     Route::get('/survey', [MSurveyController::class, 'getSurvey'])->name('getSurvey')->middleware('access:m_survey_manage');
