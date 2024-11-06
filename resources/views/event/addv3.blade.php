@@ -13,7 +13,7 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getEvent') }}">Event</a></li>
-                        <li class="breadcrumb-item active">Add New Course</li>
+                        <li class="breadcrumb-item active">Add New Event</li>
                     </ol>
                 </div>
 
