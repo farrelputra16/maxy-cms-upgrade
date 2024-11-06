@@ -20,7 +20,9 @@ class GenerateCertificateController extends Controller
         $classDetail = CourseClass::getClassDetailByClassId($courseClass->id);
         $classModules = CourseClass::getClassKompByClassId($user->id, $courseClass->id);
 
-        $certificateTemplate = CertificateTemplate::firstWhere('m_course_type_id', $courseClass->course->type->id);
+        $certificateTemplate = CertificateTemplate::where('m_course_type_id', $courseClass->course->type->id)
+                                ->where('batch', $courseClass->batch)
+                                ->first();
 
         // Buka template sertifikat
         $className = \Str::upper("$classDetail->course_type_name $classDetail->course_name MAXY ACADEMY BERSERTIFIKAT");

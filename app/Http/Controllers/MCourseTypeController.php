@@ -20,7 +20,7 @@ class MCourseTypeController extends Controller
 
     function postAddCourseType(Request $request){
         $validate = $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|max:255',
             'slug' => 'required'
         ]);
 
@@ -48,7 +48,7 @@ class MCourseTypeController extends Controller
 
     function postEditCourseType(Request $request){
         $validate = $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|max:255',
             'slug' => 'required'
         ]);
 

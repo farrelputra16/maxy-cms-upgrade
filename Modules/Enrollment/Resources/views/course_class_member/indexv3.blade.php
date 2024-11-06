@@ -79,7 +79,7 @@
                                         @else
                                             <a class="btn btn-danger disabled">Non Aktif</a>
                                         @endif
-                                    </td>                                    
+                                    </td>
                                     <td>
                                         {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditCourseClassMember', $item->id) }}"

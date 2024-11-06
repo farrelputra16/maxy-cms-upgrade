@@ -91,7 +91,7 @@ class CourseController extends Controller
             'short_description' => 'required|string|max:500',
             'payment_link' => ['required', 'url', 'regex:/^https:\/\/.+$/'],
             'level' => 'nullable|numeric',
-            'content' => 'nullable|string',
+            'content' => 'nullable|string|max:65535',
             'description' => 'nullable|string',
             'courseCategory' => 'nullable|array',
             'courseCategory.*' => 'exists:m_category_course,id',
@@ -240,7 +240,7 @@ class CourseController extends Controller
             'short_description' => 'required|string|max:255',
             'file_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        
+
         try {
             $updateData = Course::postEditCourse($request);
             if (CourseCategory::where('course_id', $request->id)->exists()) {

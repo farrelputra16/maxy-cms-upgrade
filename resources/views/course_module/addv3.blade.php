@@ -12,7 +12,9 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseModule') }}">Course Module</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getCourseModule', ['course_id' => $course_detail->id]) }}">Course Module</a>
+                        </li>
                         <li class="breadcrumb-item active">Add Course Module</li>
                     </ol>
                 </div>
@@ -32,20 +34,24 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form id="addCourseModule" action="{{ route('postAddCourseModule', ['page_type' => $page_type]) }}" method="post" enctype="multipart/form-data">
+                    <form id="addCourseModule" action="{{ route('postAddCourseModule', ['page_type' => $page_type]) }}"
+                        method="post" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Course</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="course_name"" value="{{$course_detail->name}}" disabled>
-                                <input class="form-control" type="hidden" name="course_id" value="{{ $course_detail->id }}">
+                                <input class="form-control" type="text" name="course_name""
+                                    value="{{ $course_detail->name }}" disabled>
+                                <input class="form-control" type="hidden" name="course_id"
+                                    value="{{ $course_detail->id }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Module Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name"" placeholder="Masukkan Nama Course Module">
+                                <input class="form-control" type="text" name="name""
+                                    placeholder="Masukkan Nama Course Module">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -65,12 +71,12 @@
                             </div>
                         </div>
                         @if ($page_type == 'company_profile')
-                        <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Content</label>
-                            <div class="col-md-10">
-                                <textarea id="elm1" name="content"></textarea>
+                            <div class="mb-3 row">
+                                <label for="input-content" class="col-md-2 col-form-label">Content</label>
+                                <div class="col-md-10">
+                                    <textarea id="elm1" name="content"></textarea>
+                                </div>
                             </div>
-                        </div>
                         @endif
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
@@ -88,7 +94,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCourseModule">Add Course Module</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addCourseModule">Add Course Module</button>
                             </div>
                         </div>
                     </form>
