@@ -39,8 +39,8 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name"" id="name"
-                                    placeholder="Masukkan Nama MBKM">
+                                <input class="form-control" type="text" name="name" id="name"
+                                    placeholder="Masukkan Nama MBKM" required>
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -51,7 +51,7 @@
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="slug"" id="slug">
+                                <input class="form-control" type="text" name="slug" id="slug" readonly required>
                                 @if ($errors->has('slug'))
                                     @foreach ($errors->get('slug') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -59,7 +59,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="mb-3 row">
+                        {{-- <div class="mb-3 row">
                             <label for="input-payment" class="col-md-2 col-form-label">Payment Link</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="payment_link" id="payment_link"
@@ -70,7 +70,7 @@
                                     @endforeach
                                 @endif
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Difficulty</label>
                             <div class="col-md-10">
@@ -117,7 +117,7 @@
                             <label for="input-file" class="col-md-2 col-form-label">Image</label>
                             <div class="col-md-10" style="height: 200px">
                                 <input class="form-control" type="file" name="file_image" id="input-file"
-                                    accept="image/*" onchange="previewImage()">
+                                    accept="image/*" onchange="previewImage()" required>
                                 <img id="frame" src="" alt="Preview Image" class="img-fluid h-100" />
                                 <br>
                                 @if ($errors->has('file_image'))
@@ -141,7 +141,7 @@
                         <div class="mb-3 row">
                             <label for="input-short-description" class="col-md-2 col-form-label">Short Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm2" name="short_description" class="form-control"></textarea>
+                                <textarea id="elmDesc" name="short_description" class="form-control">{{ old('short_description') }}</textarea>
                                 @if ($errors->has('short_description'))
                                     @foreach ($errors->get('short_description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -170,7 +170,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="mbkmForm">Add MBKM</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="mbkmForm">Add MBKM</button>
                             </div>
                         </div>
                     </form>
@@ -208,6 +209,37 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize TinyMCE for the 'content' textarea
+            if (document.getElementById("elmDesc")) {
+                tinymce.init({
+                    selector: "textarea#elmDesc",
+                    height: 350,
+                    plugins: [
+                        "advlist",
+                        "autolink",
+                        "lists",
+                        "link",
+                        "image",
+                        "charmap",
+                        "preview",
+                        "anchor",
+                        "searchreplace",
+                        "visualblocks",
+                        "code",
+                        "fullscreen",
+                        "insertdatetime",
+                        "media",
+                        "table",
+                        "help",
+                        "wordcount",
+                    ],
+                    toolbar: "undo redo | blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+                    content_style: 'body { font-family:"Poppins",sans-serif; font-size:16px }',
+                });
+            }
+        });
 
         if ($('#type_selector').val() == '') {
             $("#show_course_package").hide();

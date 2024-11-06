@@ -40,7 +40,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                    value="{{ $courses->name }}">
+                                    value="{{ $courses->name }}" required>
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -52,7 +52,7 @@
                             <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug" id="slug"
-                                    value="{{ $courses->slug }}">
+                                    value="{{ $courses->slug }}" readonly required>
                                 @if ($errors->has('slug'))
                                     @foreach ($errors->get('slug') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -60,7 +60,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="mb-3 row">
+                        {{-- <div class="mb-3 row">
                             <label for="input-payment" class="col-md-2 col-form-label">Payment Link</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="payment_link" id="payment_link"
@@ -71,7 +71,7 @@
                                     @endforeach
                                 @endif
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Difficulty</label>
                             <div class="col-md-10">
@@ -119,14 +119,20 @@
                             <div class="col-md-10" style="height: 200px">
                                 <input class="form-control" type="file" name="file_image" id="input-file"
                                     accept="image/*" onchange="previewImage()">
-                                <img id="frame" src="{{ asset('uploads/course_img/' . $courses->image) }}"
-                                    alt="Preview Image" class="img-fluid h-100" />
-                                    <br>
-                                    @if ($errors->has('file_image'))
-                                        @foreach ($errors->get('file_image') as $error)
-                                            <span style="color: red;">{{ $error }}</span>
-                                        @endforeach
-                                    @endif
+
+                                <!-- Image pertama untuk gambar yang ada -->
+                                <img id="current-image" src="{{ asset('uploads/course_img/' . $courses->image) }}"
+                                    class="img-fluid h-100" alt="Current Image" />
+
+                                <!-- Image kedua untuk preview gambar baru yang diunggah -->
+                                <img id="preview-image" src="#" class="img-fluid h-100" alt="New Image"
+                                    style="display: none;" />
+
+                                @if ($errors->has('file_image'))
+                                    @foreach ($errors->get('file_image') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -143,7 +149,7 @@
                         <div class="mb-3 row">
                             <label for="input-short-description" class="col-md-2 col-form-label">Short Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="short_description">{{ strip_tags($courses->short_description) }}</textarea>
+                                <textarea id="elmDesc" name="short_description">{{ old('short_description', $courses->short_description) }}</textarea>
                                 @if ($errors->has('short_description'))
                                     @foreach ($errors->get('short_description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -154,7 +160,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ $courses->description }}</textarea>
+                                <textarea id="elm2" name="description" class="form-control">{{ $courses->description }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -195,19 +201,24 @@
         // preview image
         function previewImage() {
             const input = document.getElementById('input-file');
-            const frame = document.getElementById('frame');
+            const currentImage = document.getElementById('current-image');
+            const previewImage = document.getElementById('preview-image');
 
-            // Check if a file is selected and it's an image
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
 
-                // Event listener for when the file is read
                 reader.onload = function(e) {
-                    frame.src = e.target.result; // Set the image source to the file
+                    // Menyembunyikan gambar pertama dan menampilkan gambar preview
+                    currentImage.style.display = "none";
+                    previewImage.style.display = "block";
+                    previewImage.src = e.target.result;
                 }
 
-                // Read the selected file as a Data URL (base64)
                 reader.readAsDataURL(input.files[0]);
+            } else {
+                // Jika tidak ada file yang dipilih, kembali ke gambar pertama
+                currentImage.style.display = "block";
+                previewImage.style.display = "none";
             }
         }
 
@@ -247,5 +258,36 @@
                 $("#show_course_package").hide();
             }
         })
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize TinyMCE for the 'content' textarea
+            if (document.getElementById("elmDesc")) {
+                tinymce.init({
+                    selector: "textarea#elmDesc",
+                    height: 350,
+                    plugins: [
+                        "advlist",
+                        "autolink",
+                        "lists",
+                        "link",
+                        "image",
+                        "charmap",
+                        "preview",
+                        "anchor",
+                        "searchreplace",
+                        "visualblocks",
+                        "code",
+                        "fullscreen",
+                        "insertdatetime",
+                        "media",
+                        "table",
+                        "help",
+                        "wordcount",
+                    ],
+                    toolbar: "undo redo | blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+                    content_style: 'body { font-family:"Poppins",sans-serif; font-size:16px }',
+                });
+            }
+        });
     </script>
 @endsection

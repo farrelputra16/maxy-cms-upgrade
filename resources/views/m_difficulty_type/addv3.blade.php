@@ -32,25 +32,27 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form id="addDifficultyType" action="{{ route('postAddDifficultyType') }}" method="post" enctype="multipart/form-data">
+                    <form id="addDifficultyType" action="{{ route('postAddDifficultyType') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         {{-- <input type="text" name="img_keep" value="{{ $blog->cover_img }}" hidden> --}}
 
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name"" id="name" placeholder="Masukkan Nama Difficulty" value="{{ old('name') }}">
+                                <input class="form-control" type="text" name="name"" id="name"
+                                    placeholder="Masukkan Nama Difficulty" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
-                                @foreach ($errors->get('name') as $error)
-                                <span style="color: red;">{{ $error }}</span>
-                                @endforeach
+                                    @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
                                 @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{  old('description')}}</textarea>
+                                <textarea id="elm3" name="description" class="form-control">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
@@ -61,17 +63,18 @@
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>
-                    </div>
-                        <div class="mb-3 row justify-content-end">
-                            <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" style="margin-right: 1%" form="addDifficultyType">Add Difficulty</button>
-                            </div>
-                        </div>
-                    </form>
-
                 </div>
+                <div class="mb-3 row justify-content-end">
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                            style="margin-right: 1%" form="addDifficultyType">Add Difficulty</button>
+                    </div>
+                </div>
+                </form>
+
             </div>
-        </div> <!-- end col -->
+        </div>
+    </div> <!-- end col -->
     </div> <!-- end row -->
 @endsection
 

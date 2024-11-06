@@ -226,11 +226,7 @@
             saveButtons.forEach(saveButton => {
                 saveButton.addEventListener('click', function() {
                     if (saveButton.disabled)
-                return; // Jika tombol sudah dinonaktifkan, keluar dari fungsi
-
-                    saveButton.disabled = true; // Nonaktifkan tombol saat diklik
-                    saveButton.innerHTML =
-                        '<div class="spinner-border text-light spinner-wrapper" role="status"><span class="sr-only">Loading...</span></div>'; // Ubah tampilan tombol
+                        return; // Jika tombol sudah dinonaktifkan, keluar dari fungsi
 
                     // Mendapatkan form yang sesuai dengan tombol yang diklik
                     const formId = saveButton.getAttribute('form');
@@ -238,8 +234,14 @@
                     const form = document.getElementById(formId);
                     console.log('Form ditemukan:', form); // Debug
 
-                    if (form) {
+                    if (form && form.checkValidity()) {
+                        console.log('Form valid'); // Debug
+                        saveButton.disabled = true; // Nonaktifkan tombol saat diklik
+                        saveButton.innerHTML =
+                            '<div class="spinner-border text-light spinner-wrapper" role="status"><span class="sr-only">Loading...</span></div>'; // Ubah tampilan tombol
                         form.submit(); // Kirim formulir
+                    } else {
+                        form.reportValidity();
                     }
 
                     // Check if there are validation errors from the server

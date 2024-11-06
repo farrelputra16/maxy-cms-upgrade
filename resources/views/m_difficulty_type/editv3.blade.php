@@ -39,19 +39,19 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name" value="{{ old('name', $currentData->name) }}"
-                                    id="name">
-                                    @if ($errors->has('name'))
+                                <input class="form-control" type="text" name="name"
+                                    value="{{ old('name', $currentData->name) }}" id="name">
+                                @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
-                                    <span style="color: red;">{{ $error }}</span>
+                                        <span style="color: red;">{{ $error }}</span>
                                     @endforeach
-                                    @endif
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description', $currentData->description) }}</textarea>
+                                <textarea id="elm2" name="description" class="form-control">{{ old('description', $currentData->description) }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
@@ -59,7 +59,7 @@
                             <div class="col-md-10 d-flex align-items-center">
                                 <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
                                 <input type="hidden" name="status" value="0">
-                        
+
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
                                     value="1" name="status"
                                     {{ old('status', $currentData->status) ? 'checked' : '' }}>
@@ -80,5 +80,5 @@
 @endsection
 
 @section('script')
-    
+
 @endsection

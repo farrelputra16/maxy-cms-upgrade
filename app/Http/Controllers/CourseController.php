@@ -88,8 +88,8 @@ class CourseController extends Controller
             'credits' => 'nullable|numeric',
             'duration' => 'nullable|numeric',
             'file_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'short_description' => 'required|string|max:500',
-            'payment_link' => ['required', 'url', 'regex:/^https:\/\/.+$/'],
+            'short_description' => 'nullable|string|max:500',
+            // 'payment_link' => ['required', 'url', 'regex:/^https:\/\/.+$/'],
             'level' => 'nullable|numeric',
             'content' => 'nullable|string|max:65535',
             'description' => 'nullable|string',
@@ -119,7 +119,7 @@ class CourseController extends Controller
                 'price' => (float) $trim_mini_price,
                 'short_description' => $request->short_description,
                 'image' => $fileName,
-                'payment_link' => $request->payment_link,
+                // 'payment_link' => $request->payment_link,
                 'slug' => $request->slug,
                 'credits' => $request->credits,
                 'duration' => $request->duration,
@@ -237,7 +237,7 @@ class CourseController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
-            'short_description' => 'required|string|max:255',
+            'short_description' => 'nullable|string|max:255',
             'file_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 

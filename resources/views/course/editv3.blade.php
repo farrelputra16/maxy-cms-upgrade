@@ -39,29 +39,29 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name" 
-                                    value="{{ old('name', $courses->name) }}" id="name">
+                                <input class="form-control" type="text" name="name"
+                                    value="{{ old('name', $courses->name) }}" id="name" required>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="slug" 
-                                    value="{{ old('slug', $courses->slug) }}" id="slug" readonly>
+                                <input class="form-control" type="text" name="slug"
+                                    value="{{ old('slug', $courses->slug) }}" id="slug" readonly required>
                             </div>
                         </div>
-                        <div class="mb-3 row">
+                        {{-- <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Payment</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="payment_link" id="payment_link"
-                                    value="{{ old('payment_link', $courses->payment_link) }}">
+                                    value="{{ old('payment_link', $courses->payment_link) }}" required>
                                 @if ($errors->has('payment_link'))
                                     @foreach ($errors->get('payment_link') as $error)
                                         <span style="color: red;">{{ $error }}</span>
                                     @endforeach
                                 @endif
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Difficulty</label>
                             <div class="col-md-10">
@@ -72,7 +72,8 @@
                                         </option>
                                     @endif
                                     @foreach ($allDifficultyTypes as $item)
-                                        <option value="{{ $item->id }}" {{ old('level') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}"
+                                            {{ old('level') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -81,14 +82,15 @@
                             <label for="input-tag" class="col-md-2 col-form-label">Course Type</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="type" id="type_selector"
-                                    data-placeholder="Choose ...">
+                                    data-placeholder="Choose ..." required>
                                     @if ($currentDataCourse)
                                         <option selected value="{{ $currentDataCourse->m_course_type_id }}">
                                             {{ $currentDataCourse->course_type_name }}
                                         </option>
                                     @endif
                                     @foreach ($allCourseTypes as $item)
-                                        <option value="{{ $item->id }}" {{ old('type') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}"
+                                            {{ old('type') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -111,15 +113,17 @@
                             <label for="input-package" class="col-md-2 col-form-label">Package</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="package" data-placeholder="Choose ...">
-                                    <option value="" disabled {{ old('package', $currentCoursePackages ? '' : 'selected') }}>Pilih Paket</option>
+                                    <option value="" disabled
+                                        {{ old('package', $currentCoursePackages ? '' : 'selected') }}>Pilih Paket</option>
                                     @if ($currentCoursePackages)
-                                        <option value="{{ $currentCoursePackages->course_package_id }}" 
+                                        <option value="{{ $currentCoursePackages->course_package_id }}"
                                             {{ old('package', $currentCoursePackages->course_package_id) == $currentCoursePackages->course_package_id ? 'selected' : '' }}>
-                                            {{ $currentCoursePackages->course_package_name }} - Rp. {{ $currentCoursePackages->course_package_price }}
+                                            {{ $currentCoursePackages->course_package_name }} - Rp.
+                                            {{ $currentCoursePackages->course_package_price }}
                                         </option>
                                     @endif
                                     @foreach ($allCoursePackages as $item)
-                                        <option value="{{ $item->id }}" 
+                                        <option value="{{ $item->id }}"
                                             {{ old('package') == $item->id ? 'selected' : '' }}>
                                             {{ $item->name }} - Rp. {{ $item->price }}
                                         </option>
@@ -127,9 +131,10 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div id="show_course_mini_fake_price" class="mb-3 row">
-                            <label for="input-mini-fake-price" class="col-md-2 col-form-label">Mini Bootcamp Fake Price</label>
+                            <label for="input-mini-fake-price" class="col-md-2 col-form-label">Mini Bootcamp Fake
+                                Price</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="mini_fake_price" id="fake_price"
                                     value="{{ old('mini_fake_price', $currentDataCourse ? $currentDataCourse->fake_price : '') }}">
@@ -140,7 +145,7 @@
                                 @endif
                             </div>
                         </div>
-                        
+
                         <div id="show_course_mini_price" class="mb-3 row">
                             <label for="input-mini-price" class="col-md-2 col-form-label">Mini Bootcamp Price</label>
                             <div class="col-md-10">
@@ -153,7 +158,7 @@
                                 @endif
                             </div>
                         </div>
-                        
+
                         <div class="mb-3 row">
                             <label for="input-credits" class="col-md-2 col-form-label">Credits</label>
                             <div class="col-md-10">
@@ -166,7 +171,7 @@
                                 @endif
                             </div>
                         </div>
-                        
+
                         <div class="mb-3 row">
                             <label for="input-duration" class="col-md-2 col-form-label">Duration</label>
                             <div class="col-md-10">
@@ -184,14 +189,20 @@
                             <div class="col-md-10" style="height: 200px">
                                 <input class="form-control" type="file" name="file_image" id="input-file"
                                     accept="image/*" onchange="previewImage()">
-                                <img id="frame"
-                                    src="{{ asset('uploads/course_img/' . $courses->image) }}"
+
+                                <!-- Image pertama untuk gambar yang ada -->
+                                <img id="current-image" src="{{ asset('uploads/course_img/' . $courses->image) }}"
                                     class="img-fluid h-100" alt="Current Image" />
-                                    @if ($errors->has('file_image'))
-                                        @foreach ($errors->get('file_image') as $error)
-                                            <span style="color: red;">{{ $error }}</span>
-                                        @endforeach
-                                    @endif
+
+                                <!-- Image kedua untuk preview gambar baru yang diunggah -->
+                                <img id="preview-image" src="#" class="img-fluid h-100" alt="New Image"
+                                    style="display: none;" />
+
+                                @if ($errors->has('file_image'))
+                                    @foreach ($errors->get('file_image') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -203,7 +214,7 @@
                         <div class="mb-3 row">
                             <label for="input-short-description" class="col-md-2 col-form-label">Short Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="short_description">{{ old('short_description', strip_tags($courses->short_description)) }}</textarea>
+                                <textarea id="elmDesc" name="short_description">{{ old('short_description', $courses->short_description) }}</textarea>
                                 @if ($errors->has('short_description'))
                                     @foreach ($errors->get('short_description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -214,7 +225,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description', $courses->description) }}</textarea>
+                                <textarea id="elm3" name="description" class="form-control">{{ old('description', $courses->description) }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
@@ -222,13 +233,13 @@
                             <div class="col-md-10 d-flex align-items-center">
                                 <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
                                 <input type="hidden" name="status" value="0">
-                                
+
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
                                     value="1" name="status"
                                     {{ old('status', isset($courses) ? $courses->status : false) ? 'checked' : '' }}>
                                 <label>Aktif</label>
                             </div>
-                        </div>                                                                                                
+                        </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary w-md text-center">Save & Update</button>
@@ -244,6 +255,29 @@
 
 @section('script')
     <script>
+        function previewImage() {
+            const input = document.getElementById('input-file');
+            const currentImage = document.getElementById('current-image');
+            const previewImage = document.getElementById('preview-image');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    // Menyembunyikan gambar pertama dan menampilkan gambar preview
+                    currentImage.style.display = "none";
+                    previewImage.style.display = "block";
+                    previewImage.src = e.target.result;
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                // Jika tidak ada file yang dipilih, kembali ke gambar pertama
+                currentImage.style.display = "block";
+                previewImage.style.display = "none";
+            }
+        }
+
         $(document).ready(function() {
             // autofill slug
             document.getElementById('name').addEventListener('input', function() {
@@ -251,20 +285,6 @@
                 var slug = name.toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
                 document.getElementById('slug').value = slug;
             });
-
-            // preview image
-            function previewImage() {
-                const input = document.getElementById('input-file');
-                const frame = document.getElementById('frame');
-
-                if (input.files && input.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        frame.src = e.target.result;
-                    }
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
 
             function toggleFieldsByCourseType(value) {
                 if (value == 1) { // Bootcamp
@@ -327,6 +347,37 @@
 
                 rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
                 return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize TinyMCE for the 'content' textarea
+            if (document.getElementById("elmDesc")) {
+                tinymce.init({
+                    selector: "textarea#elmDesc",
+                    height: 350,
+                    plugins: [
+                        "advlist",
+                        "autolink",
+                        "lists",
+                        "link",
+                        "image",
+                        "charmap",
+                        "preview",
+                        "anchor",
+                        "searchreplace",
+                        "visualblocks",
+                        "code",
+                        "fullscreen",
+                        "insertdatetime",
+                        "media",
+                        "table",
+                        "help",
+                        "wordcount",
+                    ],
+                    toolbar: "undo redo | blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+                    content_style: 'body { font-family:"Poppins",sans-serif; font-size:16px }',
+                });
             }
         });
     </script>
