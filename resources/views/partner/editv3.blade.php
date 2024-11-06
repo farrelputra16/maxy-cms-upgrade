@@ -52,17 +52,20 @@
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Type</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="type" data-placeholder="Choose ..."
-                                    id="type_selector">
+                                <select class="form-control select2" name="type" data-placeholder="Choose ..." id="type_selector">
+                                    <!-- Menampilkan pilihan yang ada di database (jika ada) -->
                                     @if($partners->type)
                                         <option value="{{ $partners->type }}" selected>{{ $partners->type }}</option>
                                     @endif
-                                    @foreach ($partnerTypes as $partnerType)
-                                        <option value="{{ $partnerType->type }}" {{ old('type') == $partnerType->type ? 'selected' : '' }}>{{ $partnerType->type }}</option>
-                                    @endforeach
+                        
+                                    <!-- Menampilkan opsi statis jika type belum di-set atau pilihan lain -->
+                                    <option value="UNIVERSITY" {{ old('type', $partners->type) == 'UNIVERSITY' ? 'selected' : '' }}>UNIVERSITY</option>
+                                    <option value="COMPANY" {{ old('type', $partners->type) == 'COMPANY' ? 'selected' : '' }}>COMPANY</option>
+                                    <option value="GOVERNMENT" {{ old('type', $partners->type) == 'GOVERNMENT' ? 'selected' : '' }}>GOVERNMENT</option>
+                                    <option value="UPSKILLING" {{ old('type', $partners->type) == 'UPSKILLING' ? 'selected' : '' }}>UPSKILLING</option>
                                 </select>
                             </div>
-                        </div>
+                        </div>                        
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Email</label>
                             <div class="col-md-10">

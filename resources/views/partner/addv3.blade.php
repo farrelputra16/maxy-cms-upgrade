@@ -50,14 +50,14 @@
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Type</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="type" data-placeholder="Choose ..."
-                                    id="type_selector">
-                                    @foreach ($partnerTypes as $partnerType)
-                                        <option value="{{ $partnerType->type }}" {{ old('type') == $partnerType->type ? 'selected' : '' }}>{{ $partnerType->type }}</option>
-                                    @endforeach
+                                <select class="form-control select2" name="type" data-placeholder="Choose ..." id="type_selector">
+                                    <option value="UNIVERSITY" {{ old('type') == 'UNIVERSITY' ? 'selected' : '' }}>UNIVERSITY</option>
+                                    <option value="COMPANY" {{ old('type') == 'COMPANY' ? 'selected' : '' }}>COMPANY</option>
+                                    <option value="GOVERNMENT" {{ old('type') == 'GOVERNMENT' ? 'selected' : '' }}>GOVERNMENT</option>
+                                    <option value="UPSKILLING" {{ old('type') == 'UPSKILLING' ? 'selected' : '' }}>UPSKILLING</option>
                                 </select>
                             </div>
-                        </div>
+                        </div>                        
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Email</label>
                             <div class="col-md-10">
