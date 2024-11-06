@@ -63,7 +63,10 @@ class CourseController extends Controller
 
 
         // Ambil ID berdasarkan slug 'mbkm'
-        $mbkmType = DB::table('m_course_type')->where('slug', 'mbkm')->first();
+        $mbkmType = DB::table('m_course_type')->where('slug', 'mbkm')->where('status', 1)->first();
+        if ($mbkmType == null) {
+            return redirect()->back()->with('error', 'Course Type MBKM not found.');
+        }
 
         return view('course.MBKM.addv3', [
             'allPackagePrices' => $allPackagePrices,
@@ -71,7 +74,7 @@ class CourseController extends Controller
             'allCourseDifficulty' => $allCourseDifficulty,
             'allCourseCategory' => $allCourseCategory,
             'allCoursePackages' => $allCoursePackages,
-            'mbkmTypeId' => $mbkmType ? $mbkmType->id : null // Kirim ID MBKM ke view
+            'mbkmTypeId' => $mbkmType->id // Kirim ID MBKM ke view
         ]);
     }
 
