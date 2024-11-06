@@ -17,7 +17,6 @@
                         <li class="breadcrumb-item active">Edit Data</li>
                     </ol>
                 </div>
-
             </div>
         </div>
     </div>
@@ -40,7 +39,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                    value="{{ old('name', $generals->name) }}">
+                                    value="{{ $generals->name }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -52,9 +51,21 @@
                             <label for="input-name" class="col-md-2 col-form-label">Value</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="value" id="value"
-                                    value="{{ old('value', $generals->value) }}">
+                                    value="{{ $generals->value }}">
                                 @if ($errors->has('value'))
                                     @foreach ($errors->get('value') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                        <!-- Input untuk Gambar -->
+                        <div class="mb-3 row">
+                            <label for="input-image" class="col-md-2 col-form-label">Image</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="file" name="image" id="image">
+                                @if ($errors->has('image'))
+                                    @foreach ($errors->get('image') as $error)
                                         <span style="color: red;">{{ $error }}</span>
                                     @endforeach
                                 @endif
@@ -63,18 +74,14 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" id="description">{{ old('description', $generals->description) }}</textarea>
+                                <textarea id="elm1" name="description" id="description">{{ $generals->description }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
-                                <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
-                                <input type="hidden" name="status" value="0">
-                                
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    value="1" name="status"
-                                    {{ old('status', isset($generals) ? $generals->status : false) ? 'checked' : '' }}>
+                                    name="status" value="1" {{ $generals->status == 1 ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>

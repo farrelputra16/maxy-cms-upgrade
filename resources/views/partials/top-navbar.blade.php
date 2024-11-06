@@ -3,33 +3,34 @@
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-                <a href="{{ route('getDashboard') }}" class="logo logo-dark">
+                <a href="{{ route('getDashboard') }}" class="logo">
                     <span class="logo-sm">
-                        <img src="{{ asset('jago-digital/assets/images/logo-m.png') }}" alt="" height="22">
+                        <img src="{{ asset('storage/images/logo.png') }}" alt="" height="22">
                     </span>
                     <span class="logo-lg">
                         @if (env('APP_ENV') == 'local')
-                            <img src="{{ asset(env('APP_CLIENT_FAVICON')) }}" alt="" height="50" style="margin-top: 14%">
+                            <img src="{{ asset('storage/images/logo.png') }}" alt="sdfs" height="50">
                         @else
-                            <img src="{{ asset('jago-digital/assets/images/logo-maxy-light.png') }}" alt=""
-                                height="17">
+                        <img src="{{ asset('jago-digital/assets/images/logo-maxy-light.png') }}" alt=""
+                                height="19">
+                            
                         @endif
                     </span>
                 </a>
 
-                <a href="{{ route('getDashboard') }}" class="logo logo-light">
+                {{-- <a href="{{ route('getDashboard') }}" class="logo logo-light">
                     <span class="logo-sm">
                         <img src="{{ asset('jago-digital/assets/images/logo-m.png') }}" alt="" height="22">
                     </span>
                     <span class="logo-lg">
                         @if (env('APP_ENV') == 'local')
-                            <img src="{{ asset(env('APP_CLIENT_FAVICON')) }}" alt="" height="50">
+                            <img src="{{ asset('uploads/LogoMaxy.png') }}" alt="" height="50">
                         @else
                             <img src="{{ asset('jago-digital/assets/images/logo-maxy-light.png') }}" alt=""
                                 height="19">
                         @endif
                     </span>
-                </a>
+                </a> --}}
             </div>
 
             <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
