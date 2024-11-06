@@ -131,34 +131,70 @@
 
 @section('script')
     <script>
-        // const options = {
-        //     showLogicTab: true
-        // };
-        const creator = new SurveyCreator.SurveyCreator(options);
-        //Automatically save survey definition on changing. Hide "Save" button
-        creator.isAutoSave = true;
-        //Show state button here
-        creator.showState = true;
+        const creator = new SurveyCreator.SurveyCreator({
+            showLogicTab: true,
+            isAutoSave: true,
+            showState: true,
+        });
 
-        var localStorageName = "SaveLoadSurveyCreatorExample";
-        //Setting this callback will make visible the "Save" button
+        const localStorageName = "userSurveyData";
+        
+        // Fungsi untuk menyimpan data survey ke local storage
+        function saveSurveyData() {
+            const surveyData = JSON.stringify(creator.JSON);
+            localStorage.setItem(localStorageName, surveyData);
+            document.getElementById('survey').value = surveyData;
+        }
+
         creator.saveSurveyFunc = (saveNo, callback) => {
             $('#survey').val(JSON.stringify(creator.JSON));
             console.log(JSON.stringify(creator.JSON));
         };
 
-        var defaultJSON = {
-            pages: [{
-                name: 'page1',
-                elements: [{
-                    type: 'text',
-                    name: "q1"
+        // Event untuk menyimpan data setiap kali survey berubah
+        creator.onModified.add(saveSurveyData);
+
+        // Muat data dari local storage jika ada
+        const savedSurveyData = localStorage.getItem(localStorageName);
+        if (savedSurveyData) {
+            creator.JSON = JSON.parse(savedSurveyData);
+        } else {
+            creator.JSON = {
+                pages: [{
+                    name: 'page1',
+                    elements: [{
+                        type: 'text',
+                        name: "q1"
+                    }]
                 }]
-            }]
-        };
-        creator.text = window.localStorage.getItem(localStorageName) || JSON.stringify(defaultJSON);
-        //If you get JSON from your database then you can use creator.JSON property
-        // creator.JSON = "sss";
+            };
+        }
+
+        // Simpan data survey ke hidden field sebelum form disubmit
+        // document.getElementById('survey').addEventListener('submit', function() {
+        //     saveSurveyData();
+        // });
+
+        const isSubmitFailed = {{ $errors->any() ? 'true' : 'false' }};
+        if (isSubmitFailed) {
+            console.log("Form mengalami submit gagal.");
+            // Lakukan apa pun yang diperlukan saat submit gagal
+            creator.text = savedSurveyData;
+            document.getElementById('survey').value = creator.text;
+        } else {
+            console.log("Halaman dimuat untuk pertama kali.");
+            // Lakukan apa pun yang diperlukan pada load pertama kali
+            creator.JSON = {
+                pages: [{
+                    name: 'page1',
+                    elements: [{
+                        type: 'text',
+                        name: "q1"
+                    }]
+                }]
+            };
+        }
+
         creator.render("surveyCreatorContainer");
     </script>
 @endsection

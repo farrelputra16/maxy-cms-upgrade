@@ -55,8 +55,10 @@
                             <div class="col-md-10">
                                 <select class="form-control select2 select2-multiple" multiple="multiple" name="access_master_old[]" id="access_master_old">
                                     @php
-                                        // Ambil nilai old jika ada, jika kosong (pada submit gagal) cek $currentData untuk pengisian pertama kali
-                                        $selectedValues = old('access_master_old', $currentData ? array_keys($currentData) : []);
+                                        // Cek error di session untuk menentukan submit gagal atau load awal
+                                        $selectedValues = $errors->any() 
+                                            ? old('access_master_old', []) 
+                                            : ($currentData ? array_keys($currentData) : []);
                                     @endphp
                                     @foreach ($currentData as $key => $value)
                                         <option value="{{ $key }}" {{ in_array($key, $selectedValues) ? 'selected' : '' }}>
