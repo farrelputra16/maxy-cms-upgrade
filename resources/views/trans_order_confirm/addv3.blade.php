@@ -50,7 +50,7 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Date</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="datetime-local" name="date" id="date">
+                                <input class="form-control" type="datetime-local" name="date" id="date" value="{{ old('date') }}">
                                 @if ($errors->has('date'))
                                     @foreach ($errors->get('date') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -65,13 +65,13 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Account Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="sender_account_name" placeholder="Masukkan Account Name">
+                                <input class="form-control" type="text" name="sender_account_name" placeholder="Masukkan Account Name" value="{{ old('sender_account_name') }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Account Number</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="sender_account_number" placeholder="Masukkan Account Number">
+                                <input class="form-control" type="text" name="sender_account_number" placeholder="Masukkan Account Number" value="{{ old('sender_account_number') }}">
                             </div>
                         </div>
                         <br>
@@ -80,7 +80,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Amount</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="amount" value="" id="amount" placeholder="Rp. 0">
+                                <input class="form-control" type="text" name="amount" id="amount" placeholder="Rp. 0" value="{{ old('amount') }}">
                                 @error('amount')
                                     <div class="text-danger">
                                         {{ $errors }}
@@ -94,7 +94,7 @@
                                 <select class="form-control select2" name="m_bank_account_id" id="type_selector">
                                     <option value="">-- Pilih Bank Account --</option>
                                     @foreach ($bankAccounts as $bankAccount)
-                                        <option value="{{ $bankAccount->id }}">{{ $bankAccount->id }}
+                                        <option value="{{ $bankAccount->id }}" {{ old('m_bank_account_id') == $bankAccount->id ? 'selected' : '' }}>{{ $bankAccount->id }}
                                             - {{ $bankAccount->account_name }} - {{ $bankAccount->account_number }}</option>
                                     @endforeach
                                 </select>
@@ -111,14 +111,14 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description"></textarea>
+                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status">
+                                    name="status" {{ old('status') ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>
