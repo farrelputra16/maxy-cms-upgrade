@@ -133,4 +133,17 @@
 
 @section('script')
 
+    @if(session('parent_module_added'))
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                Swal.fire({
+                    title: 'Information!',
+                    html:"<strong>{{ session('parent_module_added') }}</strong>",
+                    icon: 'info',
+                    confirmButtonText: 'OK',
+                });
+            });
+        </script>    
+    @endif
+
 @endsection
