@@ -26,7 +26,7 @@ class MSurveyController extends Controller
             'survey' => ['required',
             function($attribute, $value, $fail) {
                 if ($value === '{}') {
-                    $fail('The ' . $attribute . ' field cannot be empty JSON.');
+                    $fail('The ' . $attribute . ' field cannot be empty');
                 }
             }],
         ]);
@@ -61,7 +61,7 @@ class MSurveyController extends Controller
             'survey' => ['required',
             function($attribute, $value, $fail) {
                 if ($value === '{}') {
-                    $fail('The ' . $attribute . ' field cannot be empty JSON.');
+                    $fail('The ' . $attribute . ' field cannot be empty');
                 }
             }],
         ]);

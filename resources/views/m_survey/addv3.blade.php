@@ -147,8 +147,23 @@
         }
 
         creator.saveSurveyFunc = (saveNo, callback) => {
-            $('#survey').val(JSON.stringify(creator.JSON));
-            console.log(JSON.stringify(creator.JSON));
+            // Cek apakah title ada dan pages kosong atau tidak didefinisikan
+            if (creator.JSON && creator.JSON.title && !creator.JSON.pages) {
+                // Jika title ada, tetapi tidak ada pages, hapus title
+                console.log("Title terdeteksi tanpa pages. Menghapus title.");
+                creator.JSON = {};
+                saveSurveyData();
+            }
+
+            // Kondisi asli untuk memastikan pages terdefinisi sebagai array
+            else if (creator.JSON && Array.isArray(creator.JSON.pages)) {
+                console.log(creator.JSON.pages.length);
+                $('#survey').val(JSON.stringify(creator.JSON));
+                console.log(JSON.stringify(creator.JSON));
+            } else {
+                console.log(0); // Jika pages tidak terdefinisi atau bukan array, output 0
+                $('#survey').val('');
+            }
         };
 
         // Event untuk menyimpan data setiap kali survey berubah

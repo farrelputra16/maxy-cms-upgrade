@@ -134,7 +134,21 @@
         
         // Fungsi untuk menyimpan data survey ke local storage
         function saveSurveyData() {
-            const surveyData = JSON.stringify(creator.JSON);
+            let surveyData;
+            
+            // Check if creator.JSON and creator.JSON.pages exist
+            if (creator.JSON && creator.JSON.pages && creator.JSON.pages.length === 0) {
+                // If there are no pages, clear the title and set JSON to an empty object
+                creator.JSON.title = "";
+                surveyData = "{}"; // Set survey data to empty JSON if no pages exist
+            } else if (creator.JSON) {
+                // Otherwise, save the current JSON
+                surveyData = JSON.stringify(creator.JSON);
+            } else {
+                // In case creator.JSON is undefined, set to empty JSON
+                surveyData = "{}";
+            }
+
             localStorage.setItem(localStorageName, surveyData);
             document.getElementById('survey').value = surveyData;
         }
@@ -142,8 +156,23 @@
         
 
         creator.saveSurveyFunc = (saveNo, callback) => {
-            $('#survey').val(JSON.stringify(creator.JSON));
-            console.log(JSON.stringify(creator.JSON));
+            // Cek apakah title ada dan pages kosong atau tidak didefinisikan
+            if (creator.JSON && creator.JSON.title && !creator.JSON.pages) {
+                // Jika title ada, tetapi tidak ada pages, hapus title
+                console.log("Title terdeteksi tanpa pages. Menghapus title.");
+                creator.JSON = {};
+                saveSurveyData();
+            }
+
+            // Kondisi asli untuk memastikan pages terdefinisi sebagai array
+            else if (creator.JSON && Array.isArray(creator.JSON.pages)) {
+                console.log(creator.JSON.pages.length);
+                $('#survey').val(JSON.stringify(creator.JSON));
+                console.log(JSON.stringify(creator.JSON));
+            } else {
+                console.log(0); // Jika pages tidak terdefinisi atau bukan array, output 0
+                $('#survey').val('');
+            }
         };
 
         // Event untuk menyimpan data setiap kali survey berubah
