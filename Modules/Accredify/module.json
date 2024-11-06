@@ -1,0 +1,13 @@
+{
+    "name": "Accredify",
+    "alias": "accredify",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Accredify\\Providers\\AccredifyServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

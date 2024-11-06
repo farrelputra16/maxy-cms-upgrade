@@ -306,335 +306,180 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/user/edit', [UserController::class, 'postEditUser'])->name('postEditUser')->middleware('access:users_update');
 
     Route::get('/user/profile', [UserController::class, 'getProfileUser'])->name('getProfileUser')->middleware('access:users_read');
+});
 
-    //Courses Accredify Dengan Penerapan Best Practice
+//                                      PARTNER
+// partner routes
+Route::get('/partner', [PartnerController::class, 'getPartner'])->name('getPartner')->middleware('access:m_partner_manage');
 
-        // Rute untuk menampilkan daftar kursus
-    // Route::middleware(['web', 'auth'])->group(function () {
+Route::get('/partner/add', [PartnerController::class, 'getAddPartner'])->name('getAddPartner')->middleware('access:m_partner_create');
+Route::post('/partner/add', [PartnerController::class, 'postAddPartner'])->name('postAddPartner')->middleware('access:m_partner_create');
 
-    //     // Menampilkan daftar kursus
-    //     Route::get('/courses', [CreateCoursesAccredifyController::class, 'index'])->name('courses.index');
-    Route::get('/courses', [CreateCoursesAccredifyController::class, 'index'])->name('courses.index');
+Route::get('/partner/edit', [PartnerController::class, 'getEditPartner'])->name('getEditPartner')->middleware('access:m_partner_update');
+Route::post('/partner/edit', [PartnerController::class, 'postEditPartner'])->name('postEditPartner')->middleware('access:m_partner_update');
 
+// partner university detail
+Route::get('/parnter/university/detail', [PartnerUniversityDetailController::class, 'getPartnerUniversityDetail'])->name('getPartnerUniversityDetail')->middleware('access:partner_university_detail_manage');
 
-        // Menampilkan detail kursus berdasarkan ID
-        Route::get('/courses/{id}', [CreateCoursesAccredifyController::class, 'show'])->name('courses.show');
+Route::get('/partner/university/add', [PartnerUniversityDetailController::class, 'getAddPartnerUniversityDetail'])->name('getAddPartnerUniversityDetail')->middleware('access:partner_university_detail_create');
+Route::post('/partner/university/add', [PartnerUniversityDetailController::class, 'postAddPartnerUniversityDetail'])->name('postAddPartnerUniversityDetail')->middleware('access:partner_university_detail_create');
 
-        // Rute untuk membuat kursus baru
-        Route::get('/courses/create', [CreateCoursesAccredifyController::class, 'create'])->name('courses.create');
+Route::get('/partner/university/edit', [PartnerUniversityDetailController::class, 'getEditPartnerUniversityDetail'])->name('getEditPartnerUniversityDetail')->middleware('access:partner_university_detail_update');
+Route::post('/partner/university/edit', [PartnerUniversityDetailController::class, 'postEditPartnerUniversityDetail'])->name('postEditPartnerUniversityDetail')->middleware('access:partner_university_detail_update');
 
-        // Rute untuk menyimpan kursus baru
-        Route::post('/courses', [CreateCoursesAccredifyController::class, 'store'])->name('courses.store');
+//                                      ORDER
+// order routes ##########################################################################################################
+Route::get('/order', [TransOrderController::class, 'getTransOrder'])->name('getTransOrder')->middleware('access:trans_order_manage');
 
-        // Rute untuk memperbarui kursus
-        Route::patch('/courses/{id}', [CreateCoursesAccredifyController::class, 'update'])->name('courses.update');
+Route::get('/order/add', [TransOrderController::class, 'getAddTransOrder'])->name('getAddTransOrder')->middleware('access:trans_order_create');
+Route::post('/order/add', [TransOrderController::class, 'postAddTransOrder'])->name('postAddTransOrder')->middleware('access:trans_order_create');
 
-        // Rute untuk menghapus kursus (jika ada fitur delete)
-        Route::delete('/courses/{id}', [CreateCoursesAccredifyController::class, 'destroy'])->name('courses.destroy');
-    });
+Route::get('/order/edit', [TransOrderController::class, 'getEditTransOrder'])->name('getEditTransOrder')->middleware('access:trans_order_update');
+Route::post('/order/edit', [TransOrderController::class, 'postEditTransOrder'])->name('postEditTransOrder')->middleware('access:trans_order_update');
 
+Route::get('/confirm/order', [TransOrderConfirmController::class, 'getTransOrderConfirm'])->name('getTransOrderConfirm')->middleware('access:trans_order_manage');
 
-//     // Menampilkan daftar kursus dengan token
-// Route::get('/courses/{token}', [CreateCoursesAccredifyController::class, 'index'])->name('courses.index');
+Route::get('/order/detail/{id}', [TransOrderController::class, 'showTransOrderDetail'])->name('showTransOrderDetail')->middleware('access:trans_order_manage');
 
-// // Menampilkan detail kursus dengan token dan ID
-// Route::get('/courses/{token}/show/{id}', [CreateCoursesAccredifyController::class, 'show'])->name('courses.show');
+Route::get('/confirm/order/add', [TransOrderConfirmController::class, 'getAddTransOrderConfirm'])->name('getAddTransOrderConfirm')->middleware('access:trans_order_create');
+Route::post('/confirm/order/add', [TransOrderConfirmController::class, 'postAddTransOrderConfirm'])->name('postAddTransOrderConfirm')->middleware('access:trans_order_create');
 
-// // Rute untuk membuat kursus baru dengan token
-// Route::get('/courses/{token}/create', [CreateCoursesAccredifyController::class, 'create'])->name('courses.create');
+Route::get('/confirm/order/edit', [TransOrderConfirmController::class, 'getEditTransOrderConfirm'])->name('getEditTransOrderConfirm')->middleware('access:trans_order_update');
+Route::post('/confirm/order/edit', [TransOrderConfirmController::class, 'postEditTransOrderConfirm'])->name('postEditTransOrderConfirm')->middleware('access:trans_order_update');
 
-// // Rute untuk menyimpan kursus baru dengan token
-// Route::post('/courses/{token}', [CreateCoursesAccredifyController::class, 'store'])->name('courses.store');
+// voucher routes ##########################################################################################################
+Route::get('/voucher', [VoucherController::class, 'getVoucher'])->name('getVoucher')->middleware('access:trans_voucher_manage');
 
+Route::get('/voucher/add', [VoucherController::class, 'getAddVoucher'])->name('getAddVoucher')->middleware('access:trans_voucher_create');
+Route::post('/voucher/add', [VoucherController::class, 'postAddVoucher'])->name('postAddVoucher')->middleware('access:trans_voucher_create');
 
+Route::get('/voucher/edit', [VoucherController::class, 'getEditVoucher'])->name('getEditVoucher')->middleware('access:trans_voucher_update');
+Route::post('/voucher/edit', [VoucherController::class, 'postEditVoucher'])->name('postEditVoucher')->middleware('access:trans_voucher_update');
 
+//                                     General
+//General Routes #########################################################################################################
+Route::get('/general', [GeneralController::class, 'getGeneral'])->name('getGeneral')->middleware('access:m_general_manage');
 
+Route::get('/general/add', [GeneralController::class, 'getAddGeneral'])->name('getAddGeneral')->middleware('access:m_general_create');
+Route::post('/general/add', [GeneralController::class, 'postAddGeneral'])->name('postAddGeneral')->middleware('access:m_general_create');
 
-    // Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index');
-    // Route::get('/courses/{id}', [CoursesController::class, 'show'])->name('courses.show');
+Route::get('/general/edit', [GeneralController::class, 'getEditGeneral'])->name('getEditGeneral')->middleware('access:m_general_update');
+Route::post('/general/edit', [GeneralController::class, 'postEditGeneral'])->name('postEditGeneral')->middleware('access:m_general_update');
 
-// Route::get('/proxy/courses', function () {
-//     $response = Http::withHeaders([
-//         'Authorization' => 'Bearer ' . env('ACCREDIFY_API_KEY'), // Sesuaikan dengan otentikasi API Anda
-//         'Accept' => 'application/json'
-//     ])->get(' http://dashboard.uat.accredify.io/api/v2/courses'); // Ganti dengan URL API yang sebenarnya
+Route::post('general/deactivate/{id}', [GeneralController::class, 'deactivateGeneral'])->name('deactivateGeneral');
 
-//     return $response->json();
-// });
+//                                     Testimonial
+//Testimonial Routes #########################################################################################################
+Route::get('/testimonial', [TestimonialController::class, 'getTestimonial'])->name('getTestimonial')->middleware('access:user_testimonial_manage');
 
-//     Route::get('/courses', [CoursesController::class, 'index']);
-//     Route::get('/courses/{id}', [CoursesController::class, 'show']);
-//      // Rute untuk menampilkan form pembuatan kursus
-//      Route::get('/courses/create', [CoursesController::class, 'create'])->name('courses.create');
-//     Route::get('/proxy/courses', [CoursesController::class, 'fetchCourses']);
-//     Route::get('/proxy/courses/{id}', [CoursesController::class, 'fetchCourse']);
-//     Route::get('/proxy/courses', [CoursesController::class, 'fetchCourses'])->middleware('api.auth');
-//     Route::get('/proxy/courses/{id}', [CoursesController::class, 'fetchCourse'])->middleware('api.auth');
+Route::get('/testimonial/add', [TestimonialController::class, 'getAddTestimonial'])->name('getAddTestimonial')->middleware('access:user_testimonial_create');
+Route::post('/testimonial/add', [TestimonialController::class, 'postAddTestimonial'])->name('postAddTestimonial')->middleware('access:user_testimonial_create');
 
+Route::get('/testimonial/edit', [TestimonialController::class, 'getEditTestimonial'])->name('getEditTestimonial')->middleware('access:user_testimonial_update');
+Route::post('/testimonial/edit', [TestimonialController::class, 'postEditTestimonial'])->name('postEditTestimonial')->middleware('access:user_testimonial_update');
 
-    // Route group for courses badges accredify
-    // Route::prefix('courses')->name('course.')->group(function () {
-        // ... (existing routes) ...
+//                                     Redeem Code
+//Redeem Code Routes #########################################################################################################
+Route::get('/redeemcode', [RedeemCodeController::class, 'getRedeemCode'])->name('getRedeemCode')->middleware('access:redeem_code_manage');
 
-        // Route::prefix('{course_id}/badges')->name('badge.')->group(function () {
-        //     Route::get('/', [CourseAccredifyController::class, 'index'])->name('indexAccredify');
-        //     Route::get('/issue', [CourseAccredifyController::class, 'create'])->name('create');
-        //     Route::post('/', [CourseAccredifyController::class, 'store'])->name('store');
-        //     // ... other badge routes ...
-        // });
+Route::get('/redeemcode/add', [RedeemCodeController::class, 'getAddRedeemCode'])->name('getAddRedeemCode')->middleware('access:redeem_code_create');
+Route::post('/redeemcode/add', [RedeemCodeController::class, 'postAddRedeemCode'])->name('postAddRedeemCode')->middleware('access:redeem_code_create');
 
-    //     Route::prefix('{course_id}/actions')->name('action.')->group(function () {
-    //         Route::get('/pending', [CourseAccredifyController::class, 'pending'])->name('pending');
-    //         Route::post('{action_id}/approve', [CourseAccredifyController::class, 'approve'])->name('approve');
-    //         // ... other action routes ...
-    //     });
-    // });
+Route::get('/redeemcode/edit', [RedeemCodeController::class, 'getEditRedeemCode'])->name('getEditRedeemCode')->middleware('access:redeem_code_update');
+Route::post('/redeemcode/edit', [RedeemCodeController::class, 'postEditRedeemCode'])->name('postEditRedeemCode')->middleware('access:redeem_code_update');
 
-    //Badges Courses Accredify fiks
-    // Route untuk halaman utama (redirect ke daftar kursus)
-    // Route::get('/', function () {
-    //     return redirect()->route('courses.index'); // Redirect ke daftar kursus
-    // });
+//                                     Proposal
+//Proposal Routes #########################################################################################################
+Route::get('/proposal', [ProposalController::class, 'getProposal'])->name('getProposal')->middleware('access:proposal_manage');
 
-    // Resource routes untuk CoursesAccredifyController
-    // Route::resource('courses', CoursesAccredifyController::class);
+Route::get('/proposal/add', [ProposalController::class, 'getAddProposal'])->name('getAddProposal')->middleware('access:proposal_create');
+Route::post('/proposal/add', [ProposalController::class, 'postAddProposal'])->name('postAddProposal')->middleware('access:proposal_create');
 
-    //Courses Accredify Controller Fiks
-    // Route::get('/courses', [CoAccreController::class, 'index'])->name('courses.index');
-    // Route::get('/courses/create', [CoAccreController::class, 'create'])->name('courses.create');
-    // Route::post('/courses', [CoAccreController::class, 'store'])->name('courses.store');
-    // Route::get('/courses/{id}', [CoAccreController::class, 'show'])->name('courses.show');
-    // Route::get('/courses/{id}/edit', [CoAccreController::class, 'edit'])->name('courses.edit');
-    // Route::put('/courses/{id}', [CoAccreController::class, 'update'])->name('courses.update');
-    // Route::delete('/courses/{id}', [CoAccreController::class, 'destroy'])->name('courses.destroy');
+Route::get('/proposal/edit', [ProposalController::class, 'getEditProposal'])->name('getEditProposal')->middleware('access:proposal_update');
+Route::post('/proposal/edit', [ProposalController::class, 'postEditProposal'])->name('postEditProposal')->middleware('access:proposal_update');
 
+//                                     Transkrip
+//Transkrip Routes #########################################################################################################
+Route::get('/transkrip', [TranskripController::class, 'getTranskrip'])->name('getTranskrip')->middleware('access:transkrip_manage');
 
-    // Route::get('/courses/view', [CoAccreController::class, 'index'])->name('courses.index');
-    // // Route::get('/courses/create', [CoAccreController::class, 'create'])->name('courses.create');
-    // Route::post('/courses/store', [CoAccreController::class, 'store'])->name('courses.store');
-    // Route::get('/courses/{id}', [CoAccreController::class, 'show'])->name('courses.show');
-    // Route::get('/courses/{id}/edit', [CoAccreController::class, 'edit'])->name('courses.edit');
-    // Route::put('/courses/{id}', [CoAccreController::class, 'update'])->name('courses.update');
-    // Route::delete('/courses/{id}', [CoAccreController::class, 'destroy'])->name('courses.destroy');
+//                                     Maxy Talks
+//Testimonial Routes #########################################################################################################
+Route::get('maxytalk', [MaxyTalkController::class, 'getMaxyTalk'])->name('getMaxyTalk')->middleware('access:maxy_talk_manage');
 
+Route::get('maxytalk/add', [MaxyTalkController::class, 'getAddMaxyTalk'])->name('getAddMaxyTalk')->middleware('access:maxy_talk_create');
+Route::post('maxytalk/add', [MaxyTalkController::class, 'postAddMaxyTalk'])->name('postAddMaxyTalk')->middleware('access:maxy_talk_create');
 
-    // // Rute untuk menampilkan daftar kursus
-    // Route::get('/courses/index', [CreateCoursesAccController::class, 'index'])->name('courses.index');
+Route::get('maxytalk/edit', [MaxyTalkController::class, 'getEditMaxyTalk'])->name('getEditMaxyTalk')->middleware('access:maxy_talk_update');
+Route::post('maxytalk/edit', [MaxyTalkController::class, 'postEditMaxyTalk'])->name('postEditMaxyTalk')->middleware('access:maxy_talk_update');
 
-    // // Rute untuk menampilkan form pembuatan kursus
-    // Route::get('/courses/create', [CreateCoursesAccController::class, 'create'])->name('courses.create');
+//                                     Carousel
+//Carousel Routes #########################################################################################################
+Route::get('/carousel', [CarouselController::class, 'getCarousel'])->name('getCarousel')->middleware('access:carousel_manage');
 
-    // // Rute untuk menyimpan kursus
-    // Route::post('/courses/create-store', [CreateCoursesAccController::class, 'store'])->name('courses.store');
+Route::get('/carousel/add', [CarouselController::class, 'getAddCarousel'])->name('getAddCarousel')->middleware('access:carousel_create');
+Route::post('/carousel/add', [CarouselController::class, 'postAddCarousel'])->name('postAddCarousel')->middleware('access:carousel_create');
 
+Route::get('/carousel/edit', [CarouselController::class, 'getEditCarousel'])->name('getEditCarousel')->middleware('access:carousel_update');
+Route::post('/carousel/edit', [CarouselController::class, 'postEditCarousel'])->name('postEditCarousel')->middleware('access:carousel_update');
 
-    // Email Template Accredify
-    Route::get('/email-templates', [EmailTemplateAccredifyController::class, 'index'])->name('emailTemplatesIndex');
+//                                     Event
+//Event Routes #########################################################################################################
+Route::get('/event', [EventController::class, 'getEvent'])->name('getEvent')->middleware('access:event_manage');
 
-    // Route::get('/email-templates', [EmailTemplateAccredifyController::class, 'index'])
-    // ->name('emailTemplatesIndex')
-    // ->middleware('auth');
+Route::get('/event/add', [EventController::class, 'getAddEvent'])->name('getAddEvent')->middleware('access:event_create');
+Route::post('/event/add', [EventController::class, 'postAddEvent'])->name('postAddEvent')->middleware('access:event_create');
 
+Route::get('/event/edit', [EventController::class, 'getEditEvent'])->name('getEditEvent')->middleware('access:event_update');
+Route::post('/event/edit', [EventController::class, 'postEditEvent'])->name('postEditEvent')->middleware('access:event_update');
 
-    // Route untuk menampilkan detail email template berdasarkan ID
-    Route::get('/email-templates/{id}', [EmailTemplateAccredifyController::class, 'show'])
-    ->name('emailTemplatesShow');
+Route::get('/event/attendance', [EventController::class, 'getAttendanceEvent'])->name('getAttendanceEvent')->middleware('access:event_attendance_read');
 
-    // Route untuk menampilkan form pembuatan email template
-    Route::get('/email_templates/create', [CreateEmailTemplateController::class, 'create'])
-    ->name('email_templates.create');
+// Event Requirement
+Route::get('/event/requirement', [EventController::class, 'getEventRequirement'])->name('getEventRequirement');
+Route::get('/event/requirement/add', [EventController::class, 'getAddEventRequirement'])->name('getAddEventRequirement');
+Route::post('/event/requirement/add', [EventController::class, 'postAddEventRequirement'])->name('postAddEventRequirement');
+Route::get('/event/requirement/edit', [EventController::class, 'getEditEventRequirement'])->name('getEditEventRequirement');
+Route::post('/event/requirement/edit', [EventController::class, 'postEditEventRequirement'])->name('postEditEventRequirement');
 
-    // Route untuk menyimpan email template yang baru dibuat
-    Route::post('/email_templates', [CreateEmailTemplateController::class, 'store'])
-    ->name('email_templates.store');
+Route::get('/event/verification', [EventController::class, 'getEventVerification'])->name('getEventVerification');
 
-    // Route untuk melakukan preview sebelum menyimpan email template
-    Route::post('/email_templates/preview', [CreateEmailTemplateController::class, 'preview'])
-    ->name('email_templates.preview');
 
-    // View and upload Badges Accredify
-    Route::get('/badges/view', [BadgesAccredifyController::class, 'index'])->name('badges.index');
-    // Fetch and view badges from Accredify API
-    Route::get('/badges-accredify/fetch', [BadgesAccredifyController::class, 'fetchBadgesFromAPI'])->name('badges.accredify.fetch');
 
-    Route::get('/badges/create', [BadgesAccredifyController::class, 'create'])->name('badges.create');
-    Route::post('/badges', [BadgesAccredifyController::class, 'store'])->name('badges.store');
+//                                     Partnership
+//Partnership Routes #########################################################################################################
+Route::get('/partnership', [PartnershipController::class, 'getPartnership'])->name('getPartnership')->middleware('access:partnership_manage');
 
-    Route::get('/badges/create', [CreateBadgesAccredifyController::class, 'create'])->name('badges.create');
-    // Route::post('/badges/storeaccredify', [CreateBadgesAccredifyController::class, 'store'])->name('badges.store');
+Route::get('/partnership/add', [PartnershipController::class, 'getAddPartnership'])->name('getAddPartnership')->middleware('access:partnership_create');
+Route::post('/partnership/add', [PartnershipController::class, 'postAddPartnership'])->name('postAddPartnership')->middleware('access:partnership_create');
 
-    //                                      PARTNER
-    // partner routes
-    Route::get('/partner', [PartnerController::class, 'getPartner'])->name('getPartner')->middleware('access:m_partner_manage');
+Route::get('/partnership/edit', [PartnershipController::class, 'getEditPartnership'])->name('getEditPartnership')->middleware('access:partnership_update');
+Route::post('/partnership/edit', [PartnershipController::class, 'postEditPartnership'])->name('postEditPartnership')->middleware('access:partnership_update');
 
-    Route::get('/partner/add', [PartnerController::class, 'getAddPartner'])->name('getAddPartner')->middleware('access:m_partner_create');
-    Route::post('/partner/add', [PartnerController::class, 'postAddPartner'])->name('postAddPartner')->middleware('access:m_partner_create');
+//Blog Routes #########################################################################################################
+Route::get('/blog', [BlogController::class, 'getBlog'])->name('getBlog');
 
-    Route::get('/partner/edit', [PartnerController::class, 'getEditPartner'])->name('getEditPartner')->middleware('access:m_partner_update');
-    Route::post('/partner/edit', [PartnerController::class, 'postEditPartner'])->name('postEditPartner')->middleware('access:m_partner_update');
+Route::get('/blog/add', [BlogController::class, 'getAddBlog'])->name('getAddBlog');
+Route::post('/blog/add', [BlogController::class, 'postAddBlog'])->name('postAddBlog');
 
-    // partner university detail
-    Route::get('/parnter/university/detail', [PartnerUniversityDetailController::class, 'getPartnerUniversityDetail'])->name('getPartnerUniversityDetail')->middleware('access:partner_university_detail_manage');
+Route::get('/blog/edit', [BlogController::class, 'getEditBlog'])->name('getEditBlog');
+Route::post('/blog/edit', [BlogController::class, 'postEditBlog'])->name('postEditBlog');
 
-    Route::get('/partner/university/add', [PartnerUniversityDetailController::class, 'getAddPartnerUniversityDetail'])->name('getAddPartnerUniversityDetail')->middleware('access:partner_university_detail_create');
-    Route::post('/partner/university/add', [PartnerUniversityDetailController::class, 'postAddPartnerUniversityDetail'])->name('postAddPartnerUniversityDetail')->middleware('access:partner_university_detail_create');
+// Blog Routes with Access Restriction (uncomment when blog development is finished) ##############################
+// Route::get('/blog', [BlogController::class, 'getBlog'])->name('getBlog')->middleware('access:blog_manage');
 
-    Route::get('/partner/university/edit', [PartnerUniversityDetailController::class, 'getEditPartnerUniversityDetail'])->name('getEditPartnerUniversityDetail')->middleware('access:partner_university_detail_update');
-    Route::post('/partner/university/edit', [PartnerUniversityDetailController::class, 'postEditPartnerUniversityDetail'])->name('postEditPartnerUniversityDetail')->middleware('access:partner_university_detail_update');
+// Route::get('/blog/add', [BlogController::class, 'getAddBlog'])->name('getAddBlog')->middleware('access:blog_create');
+// Route::post('/blog/add', [BlogController::class, 'postAddBlog'])->name('postAddBlog')->middleware('access:blog_create');
 
-    //                                      ORDER
-    // order routes ##########################################################################################################
-    Route::get('/order', [TransOrderController::class, 'getTransOrder'])->name('getTransOrder')->middleware('access:trans_order_manage');
+// Route::get('/blog/edit', [BlogController::class, 'getEditBlog'])->name('getEditBlog')->middleware('access:blog_update');
+// Route::post('/blog/edit', [BlogController::class, 'postEditBlog'])->name('postEditBlog')->middleware('access:blog_update');
 
-    Route::get('/order/add', [TransOrderController::class, 'getAddTransOrder'])->name('getAddTransOrder')->middleware('access:trans_order_create');
-    Route::post('/order/add', [TransOrderController::class, 'postAddTransOrder'])->name('postAddTransOrder')->middleware('access:trans_order_create');
+Route::get('/blog-tag', [BlogController::class, 'getBlogTag'])->name('getBlogTag');
 
-    Route::get('/order/edit', [TransOrderController::class, 'getEditTransOrder'])->name('getEditTransOrder')->middleware('access:trans_order_update');
-    Route::post('/order/edit', [TransOrderController::class, 'postEditTransOrder'])->name('postEditTransOrder')->middleware('access:trans_order_update');
+Route::get('/blog-tag/add', [BlogController::class, 'getAddBlogTag'])->name('getAddBlogTag');
+Route::post('/blog-tag/add', [BlogController::class, 'postAddBlogTag'])->name('postAddBlogTag');
 
-    Route::get('/confirm/order', [TransOrderConfirmController::class, 'getTransOrderConfirm'])->name('getTransOrderConfirm')->middleware('access:trans_order_manage');
-
-    Route::get('/order/detail/{id}', [TransOrderController::class, 'showTransOrderDetail'])->name('showTransOrderDetail')->middleware('access:trans_order_manage');
-
-    Route::get('/confirm/order/add', [TransOrderConfirmController::class, 'getAddTransOrderConfirm'])->name('getAddTransOrderConfirm')->middleware('access:trans_order_create');
-    Route::post('/confirm/order/add', [TransOrderConfirmController::class, 'postAddTransOrderConfirm'])->name('postAddTransOrderConfirm')->middleware('access:trans_order_create');
-
-    Route::get('/confirm/order/edit', [TransOrderConfirmController::class, 'getEditTransOrderConfirm'])->name('getEditTransOrderConfirm')->middleware('access:trans_order_update');
-    Route::post('/confirm/order/edit', [TransOrderConfirmController::class, 'postEditTransOrderConfirm'])->name('postEditTransOrderConfirm')->middleware('access:trans_order_update');
-
-    // voucher routes ##########################################################################################################
-    Route::get('/voucher', [VoucherController::class, 'getVoucher'])->name('getVoucher')->middleware('access:trans_voucher_manage');
-
-    Route::get('/voucher/add', [VoucherController::class, 'getAddVoucher'])->name('getAddVoucher')->middleware('access:trans_voucher_create');
-    Route::post('/voucher/add', [VoucherController::class, 'postAddVoucher'])->name('postAddVoucher')->middleware('access:trans_voucher_create');
-
-    Route::get('/voucher/edit', [VoucherController::class, 'getEditVoucher'])->name('getEditVoucher')->middleware('access:trans_voucher_update');
-    Route::post('/voucher/edit', [VoucherController::class, 'postEditVoucher'])->name('postEditVoucher')->middleware('access:trans_voucher_update');
-
-    //                                     General
-    //General Routes #########################################################################################################
-    Route::get('/general', [GeneralController::class, 'getGeneral'])->name('getGeneral')->middleware('access:m_general_manage');
-
-    Route::get('/general/add', [GeneralController::class, 'getAddGeneral'])->name('getAddGeneral')->middleware('access:m_general_create');
-    Route::post('/general/add', [GeneralController::class, 'postAddGeneral'])->name('postAddGeneral')->middleware('access:m_general_create');
-
-    Route::get('/general/edit', [GeneralController::class, 'getEditGeneral'])->name('getEditGeneral')->middleware('access:m_general_update');
-    Route::post('/general/edit', [GeneralController::class, 'postEditGeneral'])->name('postEditGeneral')->middleware('access:m_general_update');
-
-    Route::post('general/deactivate/{id}', [GeneralController::class, 'deactivateGeneral'])->name('deactivateGeneral');
-
-    //                                     Testimonial
-    //Testimonial Routes #########################################################################################################
-    Route::get('/testimonial', [TestimonialController::class, 'getTestimonial'])->name('getTestimonial')->middleware('access:user_testimonial_manage');
-
-    Route::get('/testimonial/add', [TestimonialController::class, 'getAddTestimonial'])->name('getAddTestimonial')->middleware('access:user_testimonial_create');
-    Route::post('/testimonial/add', [TestimonialController::class, 'postAddTestimonial'])->name('postAddTestimonial')->middleware('access:user_testimonial_create');
-
-    Route::get('/testimonial/edit', [TestimonialController::class, 'getEditTestimonial'])->name('getEditTestimonial')->middleware('access:user_testimonial_update');
-    Route::post('/testimonial/edit', [TestimonialController::class, 'postEditTestimonial'])->name('postEditTestimonial')->middleware('access:user_testimonial_update');
-
-    //                                     Redeem Code
-    //Redeem Code Routes #########################################################################################################
-    Route::get('/redeemcode', [RedeemCodeController::class, 'getRedeemCode'])->name('getRedeemCode')->middleware('access:redeem_code_manage');
-
-    Route::get('/redeemcode/add', [RedeemCodeController::class, 'getAddRedeemCode'])->name('getAddRedeemCode')->middleware('access:redeem_code_create');
-    Route::post('/redeemcode/add', [RedeemCodeController::class, 'postAddRedeemCode'])->name('postAddRedeemCode')->middleware('access:redeem_code_create');
-
-    Route::get('/redeemcode/edit', [RedeemCodeController::class, 'getEditRedeemCode'])->name('getEditRedeemCode')->middleware('access:redeem_code_update');
-    Route::post('/redeemcode/edit', [RedeemCodeController::class, 'postEditRedeemCode'])->name('postEditRedeemCode')->middleware('access:redeem_code_update');
-
-    //                                     Proposal
-    //Proposal Routes #########################################################################################################
-    Route::get('/proposal', [ProposalController::class, 'getProposal'])->name('getProposal')->middleware('access:proposal_manage');
-
-    Route::get('/proposal/add', [ProposalController::class, 'getAddProposal'])->name('getAddProposal')->middleware('access:proposal_create');
-    Route::post('/proposal/add', [ProposalController::class, 'postAddProposal'])->name('postAddProposal')->middleware('access:proposal_create');
-
-    Route::get('/proposal/edit', [ProposalController::class, 'getEditProposal'])->name('getEditProposal')->middleware('access:proposal_update');
-    Route::post('/proposal/edit', [ProposalController::class, 'postEditProposal'])->name('postEditProposal')->middleware('access:proposal_update');
-
-    //                                     Transkrip
-    //Transkrip Routes #########################################################################################################
-    Route::get('/transkrip', [TranskripController::class, 'getTranskrip'])->name('getTranskrip')->middleware('access:transkrip_manage');
-
-    //                                     Maxy Talks
-    //Testimonial Routes #########################################################################################################
-    Route::get('maxytalk', [MaxyTalkController::class, 'getMaxyTalk'])->name('getMaxyTalk')->middleware('access:maxy_talk_manage');
-
-    Route::get('maxytalk/add', [MaxyTalkController::class, 'getAddMaxyTalk'])->name('getAddMaxyTalk')->middleware('access:maxy_talk_create');
-    Route::post('maxytalk/add', [MaxyTalkController::class, 'postAddMaxyTalk'])->name('postAddMaxyTalk')->middleware('access:maxy_talk_create');
-
-    Route::get('maxytalk/edit', [MaxyTalkController::class, 'getEditMaxyTalk'])->name('getEditMaxyTalk')->middleware('access:maxy_talk_update');
-    Route::post('maxytalk/edit', [MaxyTalkController::class, 'postEditMaxyTalk'])->name('postEditMaxyTalk')->middleware('access:maxy_talk_update');
-
-    //                                     Carousel
-    //Carousel Routes #########################################################################################################
-    Route::get('/carousel', [CarouselController::class, 'getCarousel'])->name('getCarousel')->middleware('access:carousel_manage');
-
-    Route::get('/carousel/add', [CarouselController::class, 'getAddCarousel'])->name('getAddCarousel')->middleware('access:carousel_create');
-    Route::post('/carousel/add', [CarouselController::class, 'postAddCarousel'])->name('postAddCarousel')->middleware('access:carousel_create');
-
-    Route::get('/carousel/edit', [CarouselController::class, 'getEditCarousel'])->name('getEditCarousel')->middleware('access:carousel_update');
-    Route::post('/carousel/edit', [CarouselController::class, 'postEditCarousel'])->name('postEditCarousel')->middleware('access:carousel_update');
-
-    //                                     Event
-    //Event Routes #########################################################################################################
-    Route::get('/event', [EventController::class, 'getEvent'])->name('getEvent')->middleware('access:event_manage');
-
-    Route::get('/event/add', [EventController::class, 'getAddEvent'])->name('getAddEvent')->middleware('access:event_create');
-    Route::post('/event/add', [EventController::class, 'postAddEvent'])->name('postAddEvent')->middleware('access:event_create');
-
-    Route::get('/event/edit', [EventController::class, 'getEditEvent'])->name('getEditEvent')->middleware('access:event_update');
-    Route::post('/event/edit', [EventController::class, 'postEditEvent'])->name('postEditEvent')->middleware('access:event_update');
-
-    Route::get('/event/attendance', [EventController::class, 'getAttendanceEvent'])->name('getAttendanceEvent')->middleware('access:event_attendance_read');
-
-    // Event Requirement
-    Route::get('/event/requirement', [EventController::class, 'getEventRequirement'])->name('getEventRequirement');
-    Route::get('/event/requirement/add', [EventController::class, 'getAddEventRequirement'])->name('getAddEventRequirement');
-    Route::post('/event/requirement/add', [EventController::class, 'postAddEventRequirement'])->name('postAddEventRequirement');
-    Route::get('/event/requirement/edit', [EventController::class, 'getEditEventRequirement'])->name('getEditEventRequirement');
-    Route::post('/event/requirement/edit', [EventController::class, 'postEditEventRequirement'])->name('postEditEventRequirement');
-
-    Route::get('/event/verification', [EventController::class, 'getEventVerification'])->name('getEventVerification');
-
-
-
-    //                                     Partnership
-    //Partnership Routes #########################################################################################################
-    Route::get('/partnership', [PartnershipController::class, 'getPartnership'])->name('getPartnership')->middleware('access:partnership_manage');
-
-    Route::get('/partnership/add', [PartnershipController::class, 'getAddPartnership'])->name('getAddPartnership')->middleware('access:partnership_create');
-    Route::post('/partnership/add', [PartnershipController::class, 'postAddPartnership'])->name('postAddPartnership')->middleware('access:partnership_create');
-
-    Route::get('/partnership/edit', [PartnershipController::class, 'getEditPartnership'])->name('getEditPartnership')->middleware('access:partnership_update');
-    Route::post('/partnership/edit', [PartnershipController::class, 'postEditPartnership'])->name('postEditPartnership')->middleware('access:partnership_update');
-
-    //Blog Routes #########################################################################################################
-    Route::get('/blog', [BlogController::class, 'getBlog'])->name('getBlog');
-
-    Route::get('/blog/add', [BlogController::class, 'getAddBlog'])->name('getAddBlog');
-    Route::post('/blog/add', [BlogController::class, 'postAddBlog'])->name('postAddBlog');
-
-    Route::get('/blog/edit', [BlogController::class, 'getEditBlog'])->name('getEditBlog');
-    Route::post('/blog/edit', [BlogController::class, 'postEditBlog'])->name('postEditBlog');
-
-    // Blog Routes with Access Restriction (uncomment when blog development is finished) ##############################
-    // Route::get('/blog', [BlogController::class, 'getBlog'])->name('getBlog')->middleware('access:blog_manage');
-
-    // Route::get('/blog/add', [BlogController::class, 'getAddBlog'])->name('getAddBlog')->middleware('access:blog_create');
-    // Route::post('/blog/add', [BlogController::class, 'postAddBlog'])->name('postAddBlog')->middleware('access:blog_create');
-
-    // Route::get('/blog/edit', [BlogController::class, 'getEditBlog'])->name('getEditBlog')->middleware('access:blog_update');
-    // Route::post('/blog/edit', [BlogController::class, 'postEditBlog'])->name('postEditBlog')->middleware('access:blog_update');
-
-    Route::get('/blog-tag', [BlogController::class, 'getBlogTag'])->name('getBlogTag');
-
-    Route::get('/blog-tag/add', [BlogController::class, 'getAddBlogTag'])->name('getAddBlogTag');
-    Route::post('/blog-tag/add', [BlogController::class, 'postAddBlogTag'])->name('postAddBlogTag');
-
-    Route::get('/blog-tag/edit', [BlogController::class, 'getEditBlogTag'])->name('getEditBlogTag');
-    Route::post('/blog-tag/edit', [BlogController::class, 'postEditBlogTag'])->name('postEditBlogTag');
+Route::get('/blog-tag/edit', [BlogController::class, 'getEditBlogTag'])->name('getEditBlogTag');
+Route::post('/blog-tag/edit', [BlogController::class, 'postEditBlogTag'])->name('postEditBlogTag');
 
 
 // bad access

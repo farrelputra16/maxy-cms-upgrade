@@ -136,17 +136,18 @@
                     </a>
                 </li>
 
-                {{-- <li>
+                @if(Route::has('accredify.template.index'))
+                <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="fas fa-trophy"></i> <!-- Ikon ciamik untuk Badges -->
-                        <span key="t-badges">Badges</span>
+                        <i class='bx bx-badge-check'></i>
+                        <span key="t-accredify">Accredify</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('courses.index') }}" key="t-courses">Courses</a></li>
-                        <li><a href="{{ route('emailTemplatesIndex') }}" key="t-email-templates">Email Templates</a></li>
-                        <li><a href="{{ route('badges.index') }}" key="t-badge-design">Badge Design</a></li>
+                        <li><a href="{{ route('accredify.template.index') }}" key="t-template">Template</a></li>
+                        <li><a href="{{ route('accredify.course.index') }}" key="t-course">Courses</a></li>
                     </ul>
-                </li> --}}
+                </li>
+                @endif
 
                 <li>
                     @if (env('APP_ENV') != 'local')
