@@ -99,16 +99,20 @@
                             <label for="input-tag" class="col-md-2 col-form-label">Course Category</label>
                             <div class="col-md-10">
                                 <select class="form-control select2 multiple" name="courseCategory[]"
-                                    data-placeholder="Choose ..." id="course_category_selector" multiple="multiple">
+                                        data-placeholder="Choose ..." id="course_category_selector" multiple="multiple">
                                     @foreach ($allCourseCategory as $courseCategory)
                                         <option value="{{ $courseCategory->id }}"
-                                            @if (old('courseCategory') && in_array($courseCategory->id, old('courseCategory'))) selected @endif>
+                                            @if (old('courseCategory') && in_array($courseCategory->id, old('courseCategory')))
+                                                selected
+                                            @elseif (in_array($courseCategory->id, $selectedCategoryId))
+                                                selected
+                                            @endif>
                                             {{ $courseCategory->name }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div>                        
                         <div id="show_course_package" class="mb-3 row">
                             <label for="input-package" class="col-md-2 col-form-label">Package</label>
                             <div class="col-md-10">
