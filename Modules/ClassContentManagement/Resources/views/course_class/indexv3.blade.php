@@ -173,5 +173,21 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 });
 
+    @if(session('class_added'))
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                Swal.fire({
+                    title: 'Information!',
+                    html: "<strong>{{ session('class_added') }}</strong>",
+                    icon: 'info',
+                    confirmButtonText: 'OK',
+                    // Optional: You can also add a cancel button if you want
+                    // showCancelButton: true,
+                    // cancelButtonText: 'Close',
+                });
+            });
+        </script>
+    @endif
+
 
 @endsection

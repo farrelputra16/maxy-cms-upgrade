@@ -103,6 +103,7 @@ class CourseClassModuleController extends Controller
         ]);
 
         if ($create) {
+            session()->flash('class_module_added', 'parent class module added successfully, please add child class module');
             return redirect()->route('getCourseClassModule', ['id' => $request->course_class_id])->with('success', 'Sukses Menambahkan Modul');
         } else {
             return redirect()->route('getCourseClassModule', ['id' => $request->course_class_id])->with('failed', 'Gagal Menambahkan Modul, silahkan coba lagi');
