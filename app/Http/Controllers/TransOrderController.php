@@ -108,8 +108,8 @@ class TransOrderController extends Controller
             $update = TransOrder::where('id', $request->id)
                 ->update([
                     'payment_status' => $request->payment_status,
+                    'course_id' => $request->course,
                     'course_class_id' => $request->class_id,
-                    'course_class_id' => $request->course_class_id,
                     'description' => $request->description,
                     'status' => $request->status ? 1 : 0,
                     'updated_id' => auth()->user()->id
