@@ -120,6 +120,11 @@
                             <label for="input-content" class="col-md-2 col-form-label">Address</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="address" placeholder="Masukkan Alamat Partner">{{ old('address') }}</textarea>
+                                @if ($errors->has('address'))
+                                    @foreach ($errors->get('address') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
