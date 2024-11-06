@@ -27,12 +27,17 @@ class VoucherController extends Controller
         $validate = $request->validate([
             'name' => 'required',
             'code' => 'required',
-            'start_date' =>'required',
+            'start_date' => 'required',
             'end_date' => 'required',
             'discount_type' => 'required',
             'discount' => 'required',
             'maxdiscount' => 'required',
         ]);
+
+        // Validasi memastikan discount tidak melebihi maxdiscount
+        if ($request->input('discount') > $request->input('maxdiscount')) {
+            return back()->withErrors(['discount' => 'Discount tidak boleh lebih dari Max Discount'])->withInput();
+        }
 
         if($validate){
             $create = Promotion::create([
@@ -90,6 +95,11 @@ class VoucherController extends Controller
             'discount' => 'required',
             'max_discount' => 'required',
         ]);
+
+        // Validasi memastikan discount tidak melebihi maxdiscount
+        if ($request->input('discount') > $request->input('maxdiscount')) {
+            return back()->withErrors(['discount' => 'Discount tidak boleh lebih dari Max Discount'])->withInput();
+        }
 
         if($validate){
             $updateData = Promotion::where('id', $idvoucher)

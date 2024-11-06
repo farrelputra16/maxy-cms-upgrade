@@ -56,7 +56,7 @@
                                 <th>Updated At</th>
                                 <th>Updated Id</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                {{-- <th>Action</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -83,12 +83,12 @@
                                             <a class="btn btn-danger" style="pointer-events: none;">Non Aktif</a>
                                         @endif
                                     </td>
-                                    <td>
-                                        {{-- <div class="btn-group"> --}}
-                                        <a href="{{ route('getEditTransOrderConfirm', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
-                                        {{-- </div> --}}
-                                    </td>
+                                    {{-- <td>
+                                        <div class="btn-group">
+                                            <a href="{{ route('getEditTransOrderConfirm', ['id' => $item->id]) }}"
+                                                class="btn btn-primary rounded">Edit</a>
+                                        </div>
+                                    </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>
@@ -109,7 +109,7 @@
                                 <th>Updated At</th>
                                 <th>Updated Id</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                {{-- <th>Action</th> --}}
                             </tr>
                         </tfoot>
                     </table>
@@ -121,7 +121,8 @@
 
     <!-- FAB Add Starts -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddTransOrderConfirm', ['id' => $transOrderId]) }}" target="_blank" data-toggle="tooltip" title="Tambah Transaksi Order Confirm">
+        <a href="{{ route('getAddTransOrderConfirm', ['id' => $transOrderId]) }}" target="_blank" data-toggle="tooltip"
+            title="Tambah Transaksi Order Confirm">
             <i class="fas fa-plus"></i>
         </a>
     </div>
