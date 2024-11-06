@@ -48,32 +48,47 @@
                                         <p>Sign in to continue to CMS</p>
                                     </div>
                                 </div>
-                                <div class="col-5 align-self-end col"><img
-                                        src="{{ asset('assets/images/profile-img.png') }}" alt=""
-                                        class="img-fluid"></div>
+                                <div class="col-5 align-self-end col">
+                                    <img src="{{ asset('assets/images/profile-img.png') }}" alt=""
+                                        class="img-fluid">
+                                </div>
                             </div>
                         </div>
                         <div class="pt-0 card-body">
                             <div class="auth-logo"><a class="auth-logo-light" href="/">
                                     <div class="avatar-md profile-user-wid mb-4"><span
-                                            class="avatar-title rounded-circle bg-light"><img
-                                                src="{{ asset('assets/images/logo-m.png') }}" alt=""
-                                                class="rounded-circle" height="34"></span></div>
-                                </a><a class="auth-logo-dark" href="/">
-                                    <div class="avatar-md profile-user-wid mb-4"><span
-                                            class="avatar-title rounded-circle bg-light"><img
-                                                src="{{ asset('assets/images/logo-m.png') }}" alt=""
-                                                class="rounded-circle" height="34"></span></div>
-                                </a></div>
-                                @if ($errors->any())
-                                    <div class="alert alert-danger" role="alert">
-                                        <ul class="mb-0">
-                                            @foreach ($errors->all() as $error)
-                                                <i class="fas fa-exclamation-circle"></i> {{ $error }}</i>
-                                            @endforeach
-                                        </ul>
+                                            class="avatar-title rounded-circle bg-light">
+                                            @if (env('APP_ENV') == 'local')
+                                                <img src="{{ asset(env('APP_CLIENT_FAVICON')) }}" alt=""
+                                                    class="rounded-circle" height="54">
+                                            @else
+                                                <img src="{{ asset('assets/images/logo-m.png') }}" alt=""
+                                                    class="rounded-circle" height="34">
+                                            @endif
+                                        </span>
                                     </div>
-                                @endif
+                                </a><a class="auth-logo-dark" href="/">
+                                    <div class="avatar-md profile-user-wid mb-4">
+                                        <span class="avatar-title rounded-circle bg-light">
+                                            @if (env('APP_ENV') == 'local')
+                                                <img src="{{ asset(env('APP_CLIENT_FAVICON')) }}" alt=""
+                                                    class="rounded-circle" height="54">
+                                            @else
+                                                <img src="{{ asset('assets/images/logo-m.png') }}" alt=""
+                                                    class="rounded-circle" height="34">
+                                            @endif
+                                        </span>
+                                    </div>
+                                </a></div>
+                            @if ($errors->any())
+                                <div class="alert alert-danger" role="alert">
+                                    <ul class="mb-0">
+                                        @foreach ($errors->all() as $error)
+                                            <i class="fas fa-exclamation-circle"></i> {{ $error }}</i>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
 
                             <div class="p-2">
                                 <form class="form-horizontal" {{ route('login') }} method="post">
@@ -112,9 +127,9 @@
                     </div>
                     <div class="mt-5 text-center">
                         @if (env('APP_ENV') == 'local')
-                        <p>© 2024 Bina Karya</p>
+                            <p>© 2024 {{ env('APP_CLIENT') }}</p>
                         @else
-                        <p>© 2024 Maxy Academy</p>
+                            <p>© 2024 Maxy Academy</p>
                         @endif
                     </div>
                 </div>

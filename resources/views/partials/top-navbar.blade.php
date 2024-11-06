@@ -9,7 +9,7 @@
                     </span>
                     <span class="logo-lg">
                         @if (env('APP_ENV') == 'local')
-                            <img src="{{ asset('uploads/LogoMaxy.png') }}" alt="" height="50">
+                            <img src="{{ asset(env('APP_CLIENT_FAVICON')) }}" alt="" height="50" style="margin-top: 14%">
                         @else
                             <img src="{{ asset('jago-digital/assets/images/logo-maxy-light.png') }}" alt=""
                                 height="17">
@@ -23,7 +23,7 @@
                     </span>
                     <span class="logo-lg">
                         @if (env('APP_ENV') == 'local')
-                            <img src="{{ asset('uploads/LogoMaxy.png') }}" alt="" height="50">
+                            <img src="{{ asset(env('APP_CLIENT_FAVICON')) }}" alt="" height="50">
                         @else
                             <img src="{{ asset('jago-digital/assets/images/logo-maxy-light.png') }}" alt=""
                                 height="19">

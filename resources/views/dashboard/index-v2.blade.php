@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Dashboard | CMS Template')
+@section('title', 'Dashboard')
 
 @section('content')
     <!-- start page title -->

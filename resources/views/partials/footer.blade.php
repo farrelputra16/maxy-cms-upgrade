@@ -5,7 +5,7 @@
                 <script>
                     document.write(new Date().getFullYear())
                 </script> @if (env('APP_ENV') == 'local')
-                © Bina Karya.
+                © {{env('APP_CLIENT')}}.
                 @else
                 © Maxy Academy.
                 @endif

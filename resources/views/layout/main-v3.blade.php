@@ -10,8 +10,12 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
 
-    <!-- App favicon -->
-    <!-- <link rel="shortcut icon" href="{{ asset('assets/cms-v3/images/favicon.ico') }}"> -->
+    <!-- logo -->
+    @if (env('APP_ENV') == 'local')
+        <link rel="icon" href="{{ asset(env('APP_CLIENT_FAVICON')) }}" type="image/x-icon">
+    @else
+        <link rel="icon" href="{{ asset('img/m-logo.png') }}" type="image/x-icon">
+    @endif
 
     <script src="https://unpkg.com/knockout/build/output/knockout-latest.js"></script>
     <script src="https://unpkg.com/survey-core@1.10.5/survey.core.min.js"></script>
@@ -216,15 +220,17 @@
 
     <!-- Submit Button -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const saveButtons = document.querySelectorAll('.custom-btn-submit');
 
             saveButtons.forEach(saveButton => {
-                saveButton.addEventListener('click', function () {
-                    if (saveButton.disabled) return; // Jika tombol sudah dinonaktifkan, keluar dari fungsi
+                saveButton.addEventListener('click', function() {
+                    if (saveButton.disabled)
+                return; // Jika tombol sudah dinonaktifkan, keluar dari fungsi
 
                     saveButton.disabled = true; // Nonaktifkan tombol saat diklik
-                    saveButton.innerHTML = '<div class="spinner-border text-light spinner-wrapper" role="status"><span class="sr-only">Loading...</span></div>'; // Ubah tampilan tombol
+                    saveButton.innerHTML =
+                        '<div class="spinner-border text-light spinner-wrapper" role="status"><span class="sr-only">Loading...</span></div>'; // Ubah tampilan tombol
 
                     // Mendapatkan form yang sesuai dengan tombol yang diklik
                     const formId = saveButton.getAttribute('form');
@@ -245,7 +251,7 @@
             @foreach ($errors->all() as $error)
                 errorMessages += "{{ $error }}<br>";
             @endforeach
-            
+
             // Show error using SweetAlert
             Swal.fire({
                 icon: 'error',
