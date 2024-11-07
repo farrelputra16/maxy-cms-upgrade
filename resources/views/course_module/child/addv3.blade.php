@@ -97,11 +97,10 @@
                                 <label for="input-tag" class="col-md-2 col-form-label">Module Type</label>
                                 <div class="col-md-10">
                                     <select class="form-control" name="type" id="type_selector" required>
-                                        <option value="">Choose Module Type</option>
+                                        <option value="" disabled selected>Choose Module Type</option>
                                         <option value="materi_pembelajaran">Materi Pembelajaran</option>
                                         <option value="video_pembelajaran">Video Pembelajaran</option>
                                         <option value="assignment">Assignment</option>
-                                        <option value="form">Form</option>
                                         <option value="quiz">Quiz</option>
                                     </select>
                                     @if ($errors->has('type'))
@@ -205,8 +204,7 @@
                 </div>
             `;
                     duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-                } else if (typeSelector.value === 'form' || typeSelector.value === 'quiz' || typeSelector.value ===
-                    "placeholder") {
+                } else if (typeSelector.value === 'quiz') {
                     material.innerHTML = `
                 <div class="mb-3 row" id="quiz-content">
                     <label for="quiz_content" class="col-md-2 col-form-label">Quiz</label>

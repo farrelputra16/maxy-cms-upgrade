@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
+use Str;
 
 class CourseModuleController extends Controller
 {
@@ -262,13 +263,18 @@ class CourseModuleController extends Controller
         $course_detail = Course::getCourseDetailByCourseId($parentModule->course_id);
         $course_type = MCourseType::find($course_detail->m_course_type_id);
         $quiz = MSurvey::where('type', 1)->get();
+        $idQuiz = '';
+        if ($childModule->type == 'quiz') {
+            $idQuiz = Str::afterLast($childModule->content, '/');
+        }
 
         // dd($childModule);
         return view('course_module.child.editv3', [
             'childModule' => $childModule,
             'parentModule' => $parentModule,
             'course_type' => $course_type,
-            'quiz' => $quiz
+            'quiz' => $quiz,
+            'idQuiz' => $idQuiz
         ]);
     }
 

@@ -90,21 +90,6 @@
                             <input type="hidden" name="rapid" value="1">
                         @else
                             <div class="card m-5 p-5" style="border-radius: 25px; border: 1px solid #b0bad8;">
-                                <h3>Current:</h3>
-                                @if ($childModule->type == 'materi_pembelajaran')
-                                    Materi Pembelajaran
-                                    <a href="{{ asset('fe/public/files/' . $childModule->material) }}"
-                                        download>{{ $childModule->material }}</a>
-                                @elseif($childModule->type == 'video_pembelajaran')
-                                    Video Pembelajaran
-                                    <a href="{{ $childModule->material }}">{{ $childModule->material }}</a>
-                                @elseif($childModule->type == 'assignment')
-                                    <a href="{{ asset('fe/public/files/' . $childModule->material) }}"
-                                        download>{{ $childModule->material }}</a>
-                                    Assignment
-                                @endif
-
-                                <h3 style="margin-top: 4%">Change To:</h3>
                                 <!-- TO DO -->
                                 <div class="mb-3">
                                     <label for="input-tag">Module Type</label>
@@ -120,28 +105,29 @@
                                     </select>
                                     <div class="" id="material">
                                         @if ($childModule->type === 'materi_pembelajaran')
-                                            <div class="mb-3 row">
-                                                <label for="input-name" class="col-md-2 col-form-label"
-                                                    style="margin-top: 1%">File
-                                                    materi_pembelajaran</label>
-                                                <div class="col-md-10">
-                                                    <input class="form-control" type="file" id="formFile"
-                                                        name="material">
-                                                    <p class="pt-2">{{ $childModule->material }}</p>
-                                                    <input class="form-control" type="hidden" name="duration"
-                                                        value="">
-                                                </div>
+                                            <label for="input-name" class="col-md-2 col-form-label"
+                                                style="margin-top: 1%">Current File Materi Pembelajaran</label>
+                                            <div class="col-md-10">
+                                                <p class="pt-2">{{ $childModule->material }}</p>
+                                            <label for="input-name" class="col-md-2 col-form-label">Change File</label>
+                                                <input class="form-control" type="file" id="formFile"
+                                                    name="material">
+                                                <input class="form-control" type="hidden" name="duration"
+                                                    value="">
                                             </div>
                                         @elseif ($childModule->type === 'video_pembelajaran')
                                             <label for="" class="form-label" style="margin-top: 1%">Link
                                                 Video</label>
-                                            <input class="form-control" type="text" name="material">
+                                            <input class="form-control" type="text" name="material" value="{{ $childModule->material }}">
                                             <label for="" class="form-label" style="margin-top: 1%">Durasi
                                                 Video</label>
                                             <input class="form-control" type="number" name="duration"
                                                 value="{{ $childModule->duration }}">
                                         @elseif($childModule->type === 'assignment')
-                                            <label for="" class="form-label" style="margin-top: 1%">File
+                                            <label for="input-name" class="col-md-2 col-form-label"
+                                            style="margin-top: 1%">Current File Assignment</label>
+                                            <p class="pt-2">{{ $childModule->material }}</p>
+                                            <label for="" class="form-label" style="margin-top: 1%"> Change File
                                                 Assignment</label>
                                             <input class="form-control" type="file" id="formFile" name="material">
                                             <input type="hidden" name="duration"
@@ -149,6 +135,11 @@
                                             <input type="hidden" name="duration" value="">
                                         @elseif($childModule->type === 'quiz')
                                             <label for="" class="form-label" style="margin-top: 1%"></label>
+                                            <select class="form-control select2" name="quiz_content" id="quiz_content" required>
+                                                @foreach ($quiz as $item)
+                                                <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}" @if($item->id == $idQuiz) selected @endif>{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
                                         @endif
                                     </div>
                                 </div>
