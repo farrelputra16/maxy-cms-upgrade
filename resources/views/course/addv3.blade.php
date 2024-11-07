@@ -175,7 +175,7 @@
                             <label for="input-credits" class="col-md-2 col-form-label">Credits</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="credits" id="credits"
-                                    value="{{ old('credits') }}">
+                                    value="{{ old('credits') }}" min="0">
                                 @if ($errors->has('credits'))
                                     @foreach ($errors->get('credits') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -188,7 +188,7 @@
                             <label for="input-duration" class="col-md-2 col-form-label">Duration</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration" id="duration"
-                                    value="{{ old('duration') }}">
+                                    value="{{ old('duration') }}" min="0">
                                 @if ($errors->has('duration'))
                                     @foreach ($errors->get('duration') as $error)
                                         <span style="color: red;">{{ $error }}</span>

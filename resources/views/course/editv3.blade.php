@@ -112,7 +112,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>                        
+                        </div>
                         <div id="show_course_package" class="mb-3 row">
                             <label for="input-package" class="col-md-2 col-form-label">Package</label>
                             <div class="col-md-10">
@@ -167,7 +167,7 @@
                             <label for="input-credits" class="col-md-2 col-form-label">Credits</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="credits" id="credits"
-                                    value="{{ old('credits', $currentDataCourse ? $currentDataCourse->credits : '') }}">
+                                    value="{{ old('credits', $currentDataCourse ? $currentDataCourse->credits : '') }}" min="0">
                                 @if ($errors->has('credits'))
                                     @foreach ($errors->get('credits') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -180,7 +180,7 @@
                             <label for="input-duration" class="col-md-2 col-form-label">Duration</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration" id="duration"
-                                    value="{{ old('duration', $currentDataCourse ? $currentDataCourse->duration : '') }}">
+                                    value="{{ old('duration', $currentDataCourse ? $currentDataCourse->duration : '') }}" min="0">
                                 @if ($errors->has('duration'))
                                     @foreach ($errors->get('duration') as $error)
                                         <span style="color: red;">{{ $error }}</span>
