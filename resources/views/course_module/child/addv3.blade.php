@@ -64,7 +64,7 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Priority</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="priority">
+                                <input class="form-control" type="number" name="priority" min="1">
                                 @if ($errors->has('priority'))
                                     @foreach ($errors->get('priority') as $error)
                                         <span style="color: red;">{{ $error }}</span>

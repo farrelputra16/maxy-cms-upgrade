@@ -175,7 +175,7 @@ class CourseModuleController extends Controller
         // Validasi input yang diperlukan
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'priority' => 'required|integer',
+            'priority' => 'required|integer|min:1',
             'type' => 'required',
         ]);
 
@@ -286,7 +286,7 @@ class CourseModuleController extends Controller
         // Validasi input yang diperlukan
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'priority' => 'required|integer',
+            'priority' => 'required|integer|min:1',
         ]);
 
         if (isset($request->rapid) & $request->rapid == 1) {
