@@ -8,9 +8,11 @@ use App\Models\Schedule;
 use App\Models\CourseClass;
 use App\Models\MAcademicPeriod;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Support\Facades\File;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use Auth;
 
 class ScheduleController extends Controller
@@ -114,6 +116,7 @@ class ScheduleController extends Controller
     function getAddSchedule(Request $request){
         try {
             $period = $request->input('period');
+            $userId = Auth::user()->id;
             // Fetch schedules based on the selected academic period
             // $schedules = Schedule::with(['CourseClass'])->where('m_academic_period_id', $period)->get();
 
@@ -127,9 +130,7 @@ class ScheduleController extends Controller
             //     ];
             // });
 
-            $schedules = Schedule::with(['CourseClass.members.user' => function ($query) {
-                $query->where('type', 'tutor');
-            }])
+            $schedules = Schedule::with('CourseClass')
             ->where('m_academic_period_id', $period)
             ->where('status', 1)
             ->get();
@@ -137,16 +138,22 @@ class ScheduleController extends Controller
             $events = [];
 
             foreach ($schedules as $schedule) {
-                foreach ($schedule->CourseClass->members as $member) {
-                    if ($member->user && $member->user->type === 'tutor' && $member->status==1 && $member->user->id==Auth::user()->id) {
-                        $events[] = [
-                            'id' => $schedule->id,
-                            'title' => $schedule->CourseClass->slug.'<br>'.$member->user->name,
-                            'daysOfWeek' => [$schedule->day], // Repeat every week on this day
-                            'startTime' => date('H:i:s', strtotime($schedule->date_start)),
-                            'endTime' => date('H:i:s', strtotime($schedule->date_end))
-                        ];
-                    }
+                // Ambil data mentor dari tabel user_mentorships terkait CourseClass
+                $mentors = DB::table('user_mentorships')
+                    ->where('course_class_id', $schedule->CourseClass->id)
+                    ->where('mentor_id', $userId)
+                    ->pluck('mentor_id');
+    
+                if ($mentors->isNotEmpty()) {
+                    $mentorNames = User::whereIn('id', $mentors)->pluck('name')->implode(', ');
+    
+                    $events[] = [
+                        'id' => $schedule->id,
+                        'title' => $schedule->CourseClass->slug . '<br>' . $mentorNames,
+                        'daysOfWeek' => [$schedule->day],
+                        'startTime' => date('H:i:s', strtotime($schedule->date_start)),
+                        'endTime' => date('H:i:s', strtotime($schedule->date_end)),
+                    ];
                 }
             }
 
@@ -189,9 +196,7 @@ class ScheduleController extends Controller
             //     ];
             // });
 
-            $schedules = Schedule::with(['CourseClass.members.user' => function ($query) {
-                $query->where('type', 'tutor');
-            }])
+            $schedules = Schedule::with('CourseClass')
             ->where('m_academic_period_id', $period)
             ->get();
 
@@ -201,10 +206,13 @@ class ScheduleController extends Controller
                 // Buat array untuk menyimpan nama mentor yang terkait dengan jadwal ini
                 $tutors = [];
 
-                foreach ($schedule->CourseClass->members as $member) {
-                    if ($member->user && $member->user->type === 'tutor' && $member->status == 1) {
-                        $tutors[] = $member->user->name;
-                    }
+                $userMentorships = DB::table('user_mentorships')
+                    ->select('mentor_id')
+                    ->where('course_class_id', $schedule->CourseClass->id)
+                    ->get();
+                
+                foreach ($userMentorships as $userMentorship) {
+                    $tutors[] = User::find($userMentorship->mentor_id)->name;
                 }
 
                 if (!empty($tutors)) {
@@ -231,12 +239,9 @@ class ScheduleController extends Controller
                     $query->where('category_id', $prodi);
                 })
                 ->where('status_ongoing', 0)
-                ->whereHas('members', function ($query) {
-                    // Ensuring the user is a tutor and has active status
-                    $query->where('status', 1)
-                        ->whereHas('user', function ($query) {
-                            $query->where('type', 'tutor'); // User type must be 'tutor'
-                        });
+                ->whereIn('id', function ($query) {
+                    $query->select('course_class_id')
+                          ->from('user_mentorships');
                 })
                 ->get();
 
