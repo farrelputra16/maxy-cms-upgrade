@@ -14,7 +14,43 @@ class ProposalController extends Controller
 {
     function getProposal()
     {
-        $proposals = Proposal::with(['User', 'MProposalStatus', 'MProposalType'])->get();
+        // $proposals = Proposal::with(['User', 'MProposalStatus', 'MProposalType'])->get();
+
+        $user = DB::table('users')
+            ->leftJoin('access_group', 'users.access_group_id', '=', 'access_group.id')
+            ->where('users.id', Auth::user()->id)
+            ->select('users.id', 'users.name', 'access_group.name as access_group_name')
+            ->first();
+
+        if ($user) {
+            $user->member = DB::table('user_mentorships')
+                ->where('mentor_id', $user->id)
+                ->get();
+        }
+
+        $proposals = null;
+        if ($user->access_group_name == 'super') {
+            $proposals = DB::table('proposal')
+                ->leftJoin('users', 'proposal.student_id', '=', 'users.id')
+                ->leftJoin('m_proposal_status', 'proposal.m_proposal_status_id', '=', 'm_proposal_status.id')
+                ->leftJoin('m_proposal_type', 'proposal.m_proposal_type_id', '=', 'm_proposal_type.id')
+                ->select('proposal.*', 'users.id as user_id', 'users.name as user_name', 'm_proposal_status.name as status', 'm_proposal_type.name as type')
+                ->get();
+        } else {
+            foreach ($user->member as $member) {
+                $item = DB::table('proposal')
+                    ->leftJoin('users', 'proposal.student_id', '=', 'users.id')
+                    ->leftJoin('m_proposal_status', 'proposal.m_proposal_status_id', '=', 'm_proposal_status.id')
+                    ->leftJoin('m_proposal_type', 'proposal.m_proposal_type_id', '=', 'm_proposal_type.id')
+                    ->where('student_id', $member->member_id)
+                    ->select('proposal.*', 'users.id as user_id', 'users.name as user_name', 'm_proposal_status.name as status', 'm_proposal_type.name as type')
+                    ->get();
+                $proposals = $item;
+            }
+        }
+
+        // dd($proposals);
+
         return view('proposal.indexv3', compact('proposals'));
     }
 

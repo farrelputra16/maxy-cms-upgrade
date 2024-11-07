@@ -58,8 +58,8 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $proposal->id }}</td>
                                     <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $proposal->User->name }}">
-                                        {!! \Str::limit($proposal->User->name, 30) !!}
+                                        title="{{ $proposal->user_name }}">
+                                        {!! \Str::limit($proposal->user_name, 30) !!}
                                     </td>
                                     <td class="data-medium" data-toggle="tooltip" data-placement="top"
                                         title="{{ $proposal->name }}">
@@ -72,20 +72,19 @@
                                     <td>
                                         @if ($proposal->m_proposal_status_id == 6)
                                             <span class="btn btn-danger"
-                                                style="pointer-events: none;">{{ $proposal->MProposalStatus->name }}</span>
+                                                style="pointer-events: none;">{{ $proposal->status }}</span>
                                         @elseif ($proposal->m_proposal_status_id == 7)
                                             <span class="btn btn-success"
-                                                style="pointer-events: none;">{{ $proposal->MProposalStatus->name }}</span>
+                                                style="pointer-events: none;">{{ $proposal->status }}</span>
                                         @elseif ($proposal->m_proposal_status_id == 8)
                                             <span class="btn btn-warning"
-                                                style="pointer-events: none;">{{ $proposal->MProposalStatus->name }}</span>
+                                                style="pointer-events: none;">{{ $proposal->status }}</span>
                                         @elseif ($proposal->m_proposal_status_id == 9)
                                             <span class="btn btn-primary"
-                                                style="pointer-events: none;">{{ $proposal->MProposalStatus->name }}</span>
+                                                style="pointer-events: none;">{{ $proposal->status }}</span>
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditProposal', ['id' => $proposal->id]) }}"
                                             class="btn btn-primary rounded">Edit</a>
                                     </td>

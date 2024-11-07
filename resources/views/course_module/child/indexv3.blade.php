@@ -111,13 +111,13 @@
                                         {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditChildModule', ['id' => $item->id]) }}"
                                             class="btn btn-primary rounded">Edit</a>
-                                        @if ($item->type == 'Quiz')
+                                        {{-- @if ($item->type == 'Quiz')
                                             <a href="{{ route('getCMQuiz', ['id' => $item->id]) }}"
                                                 class="btn btn-info">Questions</a>
                                         @elseif ($item->type == 'form')
                                             <a href="{{ route('getCMForm', ['id' => $item->id]) }}"
                                                 class="btn btn-info">Questions</a>
-                                        @endif
+                                        @endif --}}
                                         {{-- </div> --}}
                                     </td>
                                 </tr>

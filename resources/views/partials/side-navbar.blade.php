@@ -26,19 +26,21 @@
                         @if (env('APP_ENV') == 'local')
                             <li><a href="{{ route('getCourseMBKM') }}" key="t-carousel">MBKM</a></li>
                         @endif
-                        <li><a href="{{ route('getCourseType') }}" key="t-testimonial">Course Type</a></li>
-                        <li><a href="{{ route('getCoursePackage') }}" key="t-blog">Course Package</a></li>
-                        <li><a href="{{ route('getDifficulty') }}" key="t-blog">Course Difficulty</a></li>
-                        <li><a href="{{ route('getPartner') }}" key="t-blog">Partners</a></li>
-                        <li><a href="{{ route('getCategory') }}" key="t-blog">Category</a></li>
-                        <li><a href="{{ route('getProposalType') }}" key="t-blog">Proposal Type</a></li>
-                        <li><a href="{{ route('getProposalStatus') }}" key="t-blog">Proposal Status</a></li>
-                        <li><a href="{{ route('getEventType') }}" key="t-blog">Event Type</a></li>
-                        <li><a href="{{ route('getPartnershipType') }}" key="t-blog">Partnership Type</a></li>
-                        <li><a href="{{ route('getSurvey') }}" key="t-blog">Survey</a></li>
-                        <li><a href="{{ route('getAcademicPeriod') }}" key="t-blog">Academic Period</a></li>
-                        <li><a href="{{ route('getScore') }}" key="t-blog">Grade</a></li>
-                        <li><a href="{{ route('getJobdesc') }}" key="t-blog">Jobdesc</a></li>
+                        @if ($userAccess == 'super')
+                            <li><a href="{{ route('getCourseType') }}" key="t-testimonial">Course Type</a></li>
+                            <li><a href="{{ route('getCoursePackage') }}" key="t-blog">Course Package</a></li>
+                            <li><a href="{{ route('getDifficulty') }}" key="t-blog">Course Difficulty</a></li>
+                            <li><a href="{{ route('getPartner') }}" key="t-blog">Partners</a></li>
+                            <li><a href="{{ route('getCategory') }}" key="t-blog">Category</a></li>
+                            <li><a href="{{ route('getProposalType') }}" key="t-blog">Proposal Type</a></li>
+                            <li><a href="{{ route('getProposalStatus') }}" key="t-blog">Proposal Status</a></li>
+                            <li><a href="{{ route('getEventType') }}" key="t-blog">Event Type</a></li>
+                            <li><a href="{{ route('getPartnershipType') }}" key="t-blog">Partnership Type</a></li>
+                            <li><a href="{{ route('getSurvey') }}" key="t-blog">Survey</a></li>
+                            <li><a href="{{ route('getAcademicPeriod') }}" key="t-blog">Academic Period</a></li>
+                            <li><a href="{{ route('getScore') }}" key="t-blog">Grade</a></li>
+                            <li><a href="{{ route('getJobdesc') }}" key="t-blog">Jobdesc</a></li>
+                        @endif
                     </ul>
                 </li>
 
@@ -68,28 +70,30 @@
                     </ul>
                 </li>
 
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class='bx bx-lock-open'></i>
-                        <span key="t-user-access">User & Access</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('getUser') }}" key="t-user">Users</a></li>
-                        <li><a href="{{ route('getAccessGroup') }}" key="t-access-group">Access Group</a></li>
-                        <li><a href="{{ route('getAccessMaster') }}" key="t-access-master">Access Master</a></li>
-                    </ul>
-                </li>
+                @if ($userAccess == 'super')
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class='bx bx-lock-open'></i>
+                            <span key="t-user-access">User & Access</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('getUser') }}" key="t-user">Users</a></li>
+                            <li><a href="{{ route('getAccessGroup') }}" key="t-access-group">Access Group</a></li>
+                            <li><a href="{{ route('getAccessMaster') }}" key="t-access-master">Access Master</a></li>
+                        </ul>
+                    </li>
 
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class='bx bx-cart'></i>
-                        <span key="t-transaction">Transaction</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('getTransOrder') }}" key="t-order">Order</a></li>
-                        <li><a href="{{ route('getVoucher') }}" key="t-voucher">Vouchers</a></li>
-                    </ul>
-                </li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class='bx bx-cart'></i>
+                            <span key="t-transaction">Transaction</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('getTransOrder') }}" key="t-order">Order</a></li>
+                            <li><a href="{{ route('getVoucher') }}" key="t-voucher">Vouchers</a></li>
+                        </ul>
+                    </li>
+                @endif
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -97,7 +101,9 @@
                         <span key="t-member">Member</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('getRedeemCode') }}" key="t-redeem-code">Redeem Code</a></li>
+                        @if ($userAccess == 'super')
+                            <li><a href="{{ route('getRedeemCode') }}" key="t-redeem-code">Redeem Code</a></li>
+                        @endif
                         <li><a href="{{ route('getProposal') }}" key="t-proposal">Proposal</a></li>
                         <li><a href="{{ route('getTranskrip') }}" key="t-proposal">Transkrip</a></li>
                     </ul>
@@ -109,29 +115,33 @@
                         <span key="t-content">Content</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        @if (env('APP_ENV') != 'local')
-                            <li><a href="{{ route('getCarousel') }}" key="t-carousel">Carousel</a></li>
+                        @if ($userAccess == 'super')
+                            @if (env('APP_ENV') != 'local')
+                                <li><a href="{{ route('getCarousel') }}" key="t-carousel">Carousel</a></li>
+                            @endif
+                            <li><a href="{{ route('getEvent') }}" key="t-event">Event</a></li>
+                            <li><a href="{{ route('getPartnership') }}" key="t-partnership">Partnership</a></li>
+                            <li><a href="{{ route('getTestimonial') }}" key="t-testimonial">Testimonial</a></li>
                         @endif
-                        <li><a href="{{ route('getEvent') }}" key="t-event">Event</a></li>
-                        <li><a href="{{ route('getPartnership') }}" key="t-partnership">Partnership</a></li>
-                        <li><a href="{{ route('getTestimonial') }}" key="t-testimonial">Testimonial</a></li>
                         <li><a href="{{ route('getBlog') }}" key="t-blog">Blog</a></li>
                         <li><a href="{{ route('getBlogTag') }}" key="t-blog-tag">Blog Tag</a></li>
                     </ul>
                 </li>
 
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class='bx bx-cog'></i>
-                        <span key="t-setting">Settings</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('getGeneral') }}" key="t-general">General</a></li>
-                        @if (env('APP_ENV') != 'local')
-                            <li><a href="{{ route('getMaxyTalk') }}" key="t-maxy-talk">Maxy Talk</a></li>
-                        @endif
-                    </ul>
-                </li>
+                @if ($userAccess == 'super')
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class='bx bx-cog'></i>
+                            <span key="t-setting">Settings</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('getGeneral') }}" key="t-general">General</a></li>
+                            @if (env('APP_ENV') != 'local')
+                                <li><a href="{{ route('getMaxyTalk') }}" key="t-maxy-talk">Maxy Talk</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
                 <li>
                     <a href="{{ route('profile') }}" class="waves-effect">
                         <i class="bx bx-info-circle"></i>

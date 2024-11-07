@@ -43,8 +43,20 @@ class AppServiceProvider extends ServiceProvider
                     ->where('access_group.id', '=', Auth::user()->access_group_id)
                     ->get();
 
-                $view->with('broGotAccessMaster', $broGotAccessMaster);
+                $view->with('broGotAccessMaster', $broGotAccessMaster)
+                    ->with('userAccess', $this->getUserAccess());
             }
         });
+
+    }
+
+    function getUserAccess()
+    {
+        return DB::table('users')
+            ->leftJoin('access_group', 'users.access_group_id', '=', 'access_group.id')
+            ->where('users.id', Auth::user()->id)
+            ->select('access_group.name as access_group_name')
+            ->first()
+            ->access_group_name;
     }
 }
