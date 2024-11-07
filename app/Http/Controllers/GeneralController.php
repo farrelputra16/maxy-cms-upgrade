@@ -56,25 +56,26 @@ class GeneralController extends Controller
 
     function postEditGeneral(Request $request){
         $idgeneral = $request->id;
-    
+
         $validate = $request->validate([
             'name' => 'required',
             'value' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-    
+
+
         if ($validate) {
             $imagePath = $request->value; // Default to the value from the request
-    
+
             // Mengecek apakah ada file gambar yang diupload
             if ($request->hasFile('image')) {
                 // Ambil file gambar yang diupload
                 $image = $request->file('image');
-                
+
                 // Rename file gambar menjadi 'logo.png' dan simpan path-nya
-                $imagePath = $image->storeAs('images', 'logo.png', 'public');
+                $imagePath = $image->storeAs('/images', 'logo.png', 'public');
             }
-    
+
             // Update data pada tabel General dengan menyimpan path gambar di kolom `value`
             $update = General::where('id', $idgeneral)
                 ->update([
@@ -84,14 +85,14 @@ class GeneralController extends Controller
                     'status' => $request->status ? 1 : 0,
                     'updated_id' => Auth::user()->id,
                 ]);
-    
+
             if ($update) {
                 return app(HelperController::class)->Positive('getGeneral');
             } else {
                 return app(HelperController::class)->Warning('getGeneral');
             }
         }
-    }    
+    }
 
     function deactivateGeneral(Request $request, $id) {
         $general = General::find($id);

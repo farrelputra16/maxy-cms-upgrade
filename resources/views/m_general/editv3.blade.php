@@ -47,30 +47,56 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Value</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="value" id="value"
-                                    value="{{ $generals->value }}">
-                                @if ($errors->has('value'))
-                                    @foreach ($errors->get('value') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
+                        @if ($generals->name == 'logo' || $generals->name == 'icon')
+                            <div class="mb-3 row">
+                                <label for="input-value" class="col-md-2 col-form-label">Current {{ $generals->name }}</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" name="value" id="value"
+                                        value="{{ $generals->value }}">
+                                    @if ($errors->has('value'))
+                                        @foreach ($errors->get('value') as $error)
+                                            <span style="color: red;">{{ $error }}</span>
+                                        @endforeach
+                                    @endif
+                                    <img class="mt-2 img-fluid w-25" src="{{ asset('storage/' .  $generals->value) }}" alt="logo">
+                                </div>
                             </div>
-                        </div>
+
+
+                        @else
+                            <div class="mb-3 row">
+                                <label for="input-value" class="col-md-2 col-form-label">Value</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" name="value" id="value"
+                                        value="{{ $generals->value }}">
+                                    @if ($errors->has('value'))
+                                        @foreach ($errors->get('value') as $error)
+                                            <span style="color: red;">{{ $error }}</span>
+                                        @endforeach
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
+
                         <!-- Input untuk Gambar -->
-                        <div class="mb-3 row">
-                            <label for="input-image" class="col-md-2 col-form-label">Image</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="file" name="image" id="image">
-                                @if ($errors->has('image'))
-                                    @foreach ($errors->get('image') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
+                        @if ($generals->name == 'logo' || $generals->name == 'icon')
+                            <div class="mb-3 row">
+                                <label for="input-image" class="col-md-2 col-form-label">Image</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="file" name="image" id="image">
+                                    @if ($errors->has('image'))
+                                        @foreach ($errors->get('image') as $error)
+                                            <span style="color: red;">{{ $error }}</span>
+                                        @endforeach
+                                    @endif
+                                </div>
                             </div>
-                        </div>
+                        
+                        @else
+                            <input type="text" name="image" hidden value="{{ $generals->image }}">
+                        @endif
+
+
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
@@ -87,7 +113,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Add General</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Save & Update
+                                    General</button>
                             </div>
                         </div>
                     </form>
