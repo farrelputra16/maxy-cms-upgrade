@@ -95,6 +95,11 @@
                             <label for="input-content" class="col-md-2 col-form-label">Content</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="content" id="content">{{  old('content')}}</textarea>
+                                @if ($errors->has('content'))
+                                    @foreach ($errors->get('content') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
