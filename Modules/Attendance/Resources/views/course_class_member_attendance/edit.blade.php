@@ -74,15 +74,16 @@
                                     </ul>
                                 </div>
                             </div>
-                        @endif
-                        <div class="mb-3 row">
-                            <label>Feedback</label>
-                            <div class="card w-100 h-100">
-                                <ul class="list-group list-group-flush">
-                                    No Feedback
-                                </ul>
+                        @else
+                            <div class="mb-3 row">
+                                <label>Feedback</label>
+                                <div class="card w-100 h-100">
+                                    <ul class="list-group list-group-flush">
+                                        No Feedback
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
