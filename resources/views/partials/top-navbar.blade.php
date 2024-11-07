@@ -5,15 +5,14 @@
             <div class="navbar-brand-box">
                 <a href="{{ route('getDashboard') }}" class="logo">
                     <span class="logo-sm">
-                        <img src="{{ asset('storage/images/logo.png') }}" alt="" height="22">
+                        <img src="{{ asset('uploads/images/logo.png') }}" alt="" height="22">
                     </span>
                     <span class="logo-lg">
                         @if (env('APP_ENV') == 'local')
-                            <img src="{{ asset('storage/images/logo.png') }}" alt="sdfs" height="50">
+                            <img src="{{ asset('uploads/images/logo.png') }}" alt="sdfs" height="50">
                         @else
-                        <img src="{{ asset('jago-digital/assets/images/logo-maxy-light.png') }}" alt=""
+                            <img src="{{ asset('jago-digital/assets/images/logo-maxy-light.png') }}" alt=""
                                 height="19">
-                            
                         @endif
                     </span>
                 </a>

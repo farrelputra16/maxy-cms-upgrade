@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\General;
+use Illuminate\Support\Facades\File;
 
 class GeneralController extends Controller
 {
@@ -60,7 +61,7 @@ class GeneralController extends Controller
         $validate = $request->validate([
             'name' => 'required',
             'value' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'image' => 'nullable|image|mimes:png|max:2048'
         ]);
 
 
@@ -68,12 +69,22 @@ class GeneralController extends Controller
             $imagePath = $request->value; // Default to the value from the request
 
             // Mengecek apakah ada file gambar yang diupload
-            if ($request->hasFile('image')) {
-                // Ambil file gambar yang diupload
-                $image = $request->file('image');
+            // if ($request->hasFile('image')) {
+            //     // Ambil file gambar yang diupload
+            //     $image = $request->file('image');
 
-                // Rename file gambar menjadi 'logo.png' dan simpan path-nya
-                $imagePath = $image->storeAs('/images', 'logo.png', 'public');
+            //     // Rename file gambar menjadi 'logo.png' dan simpan path-nya
+            //     $imagePath = $image->storeAs('/images', 'logo.png', 'public');
+            // }
+
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $fileName = 'logo.png';
+                $destinationPath = public_path('/uploads/images');
+                if (!File::exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, 0777, true, true);
+                }
+                $file->move($destinationPath, $fileName);
             }
 
             // Update data pada tabel General dengan menyimpan path gambar di kolom `value`
