@@ -49,7 +49,8 @@
                         </div>
                         @if ($generals->name == 'logo' || $generals->name == 'icon')
                             <div class="mb-3 row">
-                                <label for="input-value" class="col-md-2 col-form-label">Current {{ $generals->name }}</label>
+                                <label for="input-value" class="col-md-2 col-form-label">Current
+                                    {{ $generals->name }}</label>
                                 <div class="col-md-10">
                                     <input class="form-control" type="text" name="value" id="value"
                                         value="{{ $generals->value }}">
@@ -58,11 +59,10 @@
                                             <span style="color: red;">{{ $error }}</span>
                                         @endforeach
                                     @endif
-                                    <img class="mt-2 img-fluid w-25" src="{{ asset('storage/' .  $generals->value) }}" alt="logo">
+                                    <img class="mt-2 img-fluid w-25" src="{{ asset('uploads/' . $generals->value) }}"
+                                        alt="logo">
                                 </div>
                             </div>
-
-
                         @else
                             <div class="mb-3 row">
                                 <label for="input-value" class="col-md-2 col-form-label">Value</label>
@@ -91,7 +91,6 @@
                                     @endif
                                 </div>
                             </div>
-                        
                         @else
                             <input type="text" name="image" hidden value="{{ $generals->image }}">
                         @endif
