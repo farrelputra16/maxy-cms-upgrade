@@ -3,6 +3,19 @@
 @section('title', 'MBKM')
 
 @section('content')
+    <!-- Begin notification -->
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+    <!-- End notification -->
     <!-- Begin Page Title -->
     <div class="row">
         <div class="col-12">
