@@ -13,9 +13,15 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Course</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseModule') }}">Course Module</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getCourseModule', ['course_id' => $parent->course_id, 'page_type' => 'LMS']) }}">Course
+                                Module</a></li>
                         <li class="breadcrumb-item active">Add New Child Module</li>
                     </ol>
+
+                    {{-- @php
+                        dd($parent);
+                    @endphp --}}
                 </div>
 
             </div>
@@ -33,19 +39,21 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form action="{{ route('postAddChildModule', ['parentId' => $parent->id, 'page_type' => $page_type]) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('postAddChildModule', ['parentId' => $parent->id, 'page_type' => $page_type]) }}"
+                        method="post" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Parent Module</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" value="{{$parent->name}}" disabled>
+                                <input class="form-control" type="text" value="{{ $parent->name }}" disabled>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name"" placeholder="Masukkan Nama Course Module">
+                                <input class="form-control" type="text" name="name""
+                                    placeholder="Masukkan Nama Course Module">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -65,42 +73,47 @@
                             </div>
                         </div>
                         @if ($course_type->slug == 'rapid-onboarding')
-                        <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">HTML</label>
-                            <div class="col-md-10">
-                                <textarea id="elm1" name="html"></textarea>
+                            <div class="mb-3 row">
+                                <label for="input-content" class="col-md-2 col-form-label">HTML</label>
+                                <div class="col-md-10">
+                                    <textarea id="elm1" name="html"></textarea>
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">JS</label>
-                            <div class="col-md-10">
-                                <textarea id="elm1" name="js"></textarea>
+                            <div class="mb-3 row">
+                                <label for="input-content" class="col-md-2 col-form-label">JS</label>
+                                <div class="col-md-10">
+                                    <textarea id="elm1" name="js"></textarea>
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Content</label>
-                            <div class="col-md-10">
-                                <textarea id="elm1" name="content"></textarea>
+                            <div class="mb-3 row">
+                                <label for="input-content" class="col-md-2 col-form-label">Content</label>
+                                <div class="col-md-10">
+                                    <textarea id="elm1" name="content"></textarea>
+                                </div>
                             </div>
-                        </div>
-                        <input type="hidden" name="rapid" value="1">
+                            <input type="hidden" name="rapid" value="1">
                         @else
-                        <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Module Type</label>
-                            <div class="col-md-10">
-                                <select class="form-control" name="type"
-                                id="type_selector" required>
-                                    <option value="materi_pembelajaran">Materi Pembelajaran</option>
-                                    <option value="video_pembelajaran">Video Pembelajaran</option>
-                                    <option value="assignment">Assignment</option>
-                                    <option value="form">Form</option>
-                                    <option value="quiz">Quiz</option>
-                                </select>
+                            <div class="mb-3 row">
+                                <label for="input-tag" class="col-md-2 col-form-label">Module Type</label>
+                                <div class="col-md-10">
+                                    <select class="form-control" name="type" id="type_selector" required>
+                                        <option value="">Choose Module Type</option>
+                                        <option value="materi_pembelajaran">Materi Pembelajaran</option>
+                                        <option value="video_pembelajaran">Video Pembelajaran</option>
+                                        <option value="assignment">Assignment</option>
+                                        <option value="form">Form</option>
+                                        <option value="quiz">Quiz</option>
+                                    </select>
+                                    @if ($errors->has('type'))
+                                        @foreach ($errors->get('type') as $error)
+                                            <span style="color: red;">{{ $error }}</span>
+                                        @endforeach
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                        <div class="field" id="material"></div>
-                        <div class="field" id="duration"></div>
-                        {{-- <div class="mb-3 row">
+                            <div class="field" id="material"></div>
+                            <div class="field" id="duration"></div>
+                            {{-- <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"" placeholder="Masukkan Nama Course Module">
@@ -136,25 +149,25 @@
 
 @section('script')
 
-<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 
     <script>
         CKEDITOR.replace('content');
     </script>
 
-    @if($course_type->slug != 'rapid-onboarding')
-    <script>
-        var typeSelector = document.getElementById('type_selector');
-        var material = document.getElementById('material');
-        var duration = document.getElementById('duration');
-        var quizContentDiv = document.getElementById('quiz-content');
+    @if ($course_type->slug != 'rapid-onboarding')
+        <script>
+            var typeSelector = document.getElementById('type_selector');
+            var material = document.getElementById('material');
+            var duration = document.getElementById('duration');
+            var quizContentDiv = document.getElementById('quiz-content');
 
-        // Menambahkan event listener untuk perubahan pada elemen select
-        typeSelector.addEventListener('change', function() {
-            // Memeriksa apakah opsi yang dipilih adalah "assignment"
-            if (typeSelector.value === 'materi_pembelajaran') {
+            // Menambahkan event listener untuk perubahan pada elemen select
+            typeSelector.addEventListener('change', function() {
+                // Memeriksa apakah opsi yang dipilih adalah "assignment"
+                if (typeSelector.value === 'materi_pembelajaran') {
 
-                material.innerHTML = `
+                    material.innerHTML = `
                 <div class="mb-3 row">
                     <label for="input-title" class="col-md-2 col-form-label">File Materi Pembelajaran</label>
                     <div class="col-md-10">
@@ -162,10 +175,10 @@
                     </div>
                 </div>
             `;
-                duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-            } else if (typeSelector.value === 'video_pembelajaran') {
+                    duration.innerHTML = `<input type="hidden" name="duration" value="">`;
+                } else if (typeSelector.value === 'video_pembelajaran') {
 
-                material.innerHTML = `
+                    material.innerHTML = `
                 <div class="mb-3 row">
                     <label for="input-title" class="col-md-2 col-form-label">Link Video</label>
                     <div class="col-md-10">
@@ -173,7 +186,7 @@
                     </div>
                 </div>
             `;
-                duration.innerHTML = `
+                    duration.innerHTML = `
                 <div class="mb-3 row">
                     <label for="input-title" class="col-md-2 col-form-label">Durasi Video</label>
                     <div class="col-md-10">
@@ -181,9 +194,9 @@
                     </div>
                 </div>
             `;
-            } else if (typeSelector.value === 'assignment') {
+                } else if (typeSelector.value === 'assignment') {
 
-                material.innerHTML = `
+                    material.innerHTML = `
                 <div class="mb-3 row">
                     <label for="input-title" class="col-md-2 col-form-label">File Assignment</label>
                     <div class="col-md-10">
@@ -191,28 +204,30 @@
                     </div>
                 </div>
             `;
-                duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-            } else if (typeSelector.value === 'form' || typeSelector.value === 'quiz' || typeSelector.value === "placeholder") {
-                material.innerHTML = `
+                    duration.innerHTML = `<input type="hidden" name="duration" value="">`;
+                } else if (typeSelector.value === 'form' || typeSelector.value === 'quiz' || typeSelector.value ===
+                    "placeholder") {
+                    material.innerHTML = `
                 <div class="mb-3 row" id="quiz-content">
                     <label for="quiz_content" class="col-md-2 col-form-label">Quiz</label>
                     <div class="col-md-10">
                         <select class="form-control select2" name="quiz_content" id="quiz_content" required>
                             @foreach ($quiz as $item)
-                            <option value="{{ config('app.frontend_app_url').'/lms/survey/'.$item->id }}">{{ $item->name }}</option>
+                            <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
                 `;
-                // Inisialisasi Select2
-                $(document).ready(function() {
-                    $('#quiz_content').select2();  // Reinitialize select2 on dynamically added select element
-                });
-                duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-            }
-        });
-    </script>
+                    // Inisialisasi Select2
+                    $(document).ready(function() {
+                        $('#quiz_content')
+                            .select2(); // Reinitialize select2 on dynamically added select element
+                    });
+                    duration.innerHTML = `<input type="hidden" name="duration" value="">`;
+                }
+            });
+        </script>
     @endif
 
 @endsection

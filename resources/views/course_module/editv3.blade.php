@@ -12,7 +12,10 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseModule') }}">Course Module</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getCourseModule', ['course_id' => $module_detail->course_id]) }}">Course
+                                Module</a>
+                        </li>
                         <li class="breadcrumb-item active">Edit Module: {{ $module_detail->name }}</li>
                     </ol>
                 </div>
@@ -32,8 +35,9 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form action="{{ route('postEditCourseModule', ['id' => $module_detail->id, 'page_type' => $page_type, 'course_id' => $module_detail->course_id]) }}" method="post"
-                        enctype="multipart/form-data">
+                    <form
+                        action="{{ route('postEditCourseModule', ['id' => $module_detail->id, 'page_type' => $page_type, 'course_id' => $module_detail->course_id]) }}"
+                        method="post" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
@@ -51,7 +55,8 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Day / Priority</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="priority" value="{{ $module_detail->priority }}">
+                                <input class="form-control" type="number" name="priority"
+                                    value="{{ $module_detail->priority }}">
                                 @if ($errors->has('priority'))
                                     @foreach ($errors->get('priority') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -70,7 +75,7 @@
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
                                     value="1" {{ $module_detail->status == 1 ? 'checked' : '' }} name="status">
-                                    <label class="m-0">Aktif</label>
+                                <label class="m-0">Aktif</label>
                             </div>
                         </div>
                         <div class="mb-3 row justify-content-end">

@@ -13,7 +13,9 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Course</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseModule') }}">Course Module</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getCourseModule', ['course_id' => $parentModule->course_id, 'page_type' => 'LMS']) }}">Course
+                                Module</a></li>
                         <li class="breadcrumb-item active">Edit Child Module For: {{ $parentModule->name }}</li>
                     </ol>
                 </div>
