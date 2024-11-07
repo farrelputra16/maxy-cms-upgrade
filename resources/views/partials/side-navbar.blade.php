@@ -23,8 +23,8 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('getCourse') }}" key="t-carousel">Course</a></li>
-                        @if(env('APP_ENV') == 'local')
-                        <li><a href="{{ route('getCourseMBKM') }}" key="t-carousel">MBKM</a></li>
+                        @if (env('APP_ENV') == 'local')
+                            <li><a href="{{ route('getCourseMBKM') }}" key="t-carousel">MBKM</a></li>
                         @endif
                         <li><a href="{{ route('getCourseType') }}" key="t-testimonial">Course Type</a></li>
                         <li><a href="{{ route('getCoursePackage') }}" key="t-blog">Course Package</a></li>
@@ -63,7 +63,8 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('getSchedule') }}" key="t-schedule">Schedule</a></li>
-                        <li><a href="{{ route('getGeneralSchedule') }}" key="t-general-schedule">General Schedule</a></li>
+                        <li><a href="{{ route('getGeneralSchedule') }}" key="t-general-schedule">General Schedule</a>
+                        </li>
                     </ul>
                 </li>
 
@@ -108,7 +109,9 @@
                         <span key="t-content">Content</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('getCarousel') }}" key="t-carousel">Carousel</a></li>
+                        @if (env('APP_ENV') != 'local')
+                            <li><a href="{{ route('getCarousel') }}" key="t-carousel">Carousel</a></li>
+                        @endif
                         <li><a href="{{ route('getEvent') }}" key="t-event">Event</a></li>
                         <li><a href="{{ route('getPartnership') }}" key="t-partnership">Partnership</a></li>
                         <li><a href="{{ route('getTestimonial') }}" key="t-testimonial">Testimonial</a></li>
@@ -125,7 +128,7 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('getGeneral') }}" key="t-general">General</a></li>
                         @if (env('APP_ENV') != 'local')
-                        <li><a href="{{ route('getMaxyTalk') }}" key="t-maxy-talk">Maxy Talk</a></li>
+                            <li><a href="{{ route('getMaxyTalk') }}" key="t-maxy-talk">Maxy Talk</a></li>
                         @endif
                     </ul>
                 </li>
@@ -136,17 +139,17 @@
                     </a>
                 </li>
 
-                @if(Route::has('accredify.template.index'))
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class='bx bx-badge-check'></i>
-                        <span key="t-accredify">Accredify</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('accredify.template.index') }}" key="t-template">Template</a></li>
-                        <li><a href="{{ route('accredify.course.index') }}" key="t-course">Courses</a></li>
-                    </ul>
-                </li>
+                @if (Route::has('accredify.template.index'))
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class='bx bx-badge-check'></i>
+                            <span key="t-accredify">Accredify</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('accredify.template.index') }}" key="t-template">Template</a></li>
+                            <li><a href="{{ route('accredify.course.index') }}" key="t-course">Courses</a></li>
+                        </ul>
+                    </li>
                 @endif
             </ul>
         </div>
