@@ -100,7 +100,7 @@
         <div class="main-content">
             <div class="page-content">
                 <div class="container-fluid">
-                    <!-- Begin notification -->
+                    {{-- <!-- Begin notification -->
                     @if (session('success'))
                         <div class="alert alert-success">
                             {{ session('success') }}
@@ -112,7 +112,7 @@
                             {{ session('error') }}
                         </div>
                     @endif
-                    <!-- End notification -->
+                    <!-- End notification --> --}}
 
                     @yield('content')
                 </div>
