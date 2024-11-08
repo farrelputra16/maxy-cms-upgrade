@@ -121,7 +121,9 @@
                             @endif
                             <li><a href="{{ route('getEvent') }}" key="t-event">Event</a></li>
                             <li><a href="{{ route('getPartnership') }}" key="t-partnership">Partnership</a></li>
+                            @if (env('APP_ENV') != 'local')
                             <li><a href="{{ route('getTestimonial') }}" key="t-testimonial">Testimonial</a></li>
+                            @endif
                         @endif
                         <li><a href="{{ route('getBlog') }}" key="t-blog">Blog</a></li>
                         <li><a href="{{ route('getBlogTag') }}" key="t-blog-tag">Blog Tag</a></li>
