@@ -237,7 +237,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm3" name="description" class="form-control">{{ old('description') }}</textarea>
+                                <textarea id="elm1" name="description" class="form-control">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
