@@ -14,6 +14,7 @@ use Modules\Enrollment\Http\Requests\CourseClassMemberRequest;
 use Modules\Enrollment\Imports\CourseClassMemberImport;
 use Modules\ClassContentManagement\Entities\CourseClass;
 use App\Models\MJobdesc;
+use App\Models\Partner;
 
 class CourseClassMemberController extends Controller
 {
@@ -47,18 +48,22 @@ class CourseClassMemberController extends Controller
         $courseClassMemberIds = collect($courseClassMembers)->pluck('user_id')->toArray();
         // Filter out users with the same 'id' as in $courseClassMemberIds
         $filteredUsers = $users->whereNotIn('id', $courseClassMemberIds);
+        $partners = Partner::where('status', 1)->get();
 
         $mentors = User::where('access_group_id', '!=', 2)
             ->select('id', 'name', 'email')
             ->get();
 
         $jobdescriptions = MJobdesc::where('status', 1)->get();
+        $mbkmType = DB::table('m_course_type')->where('slug', 'mbkm')->where('status', 1)->value('id');
 
         return view('enrollment::course_class_member.addv3', [
             'users' => $filteredUsers,
             'course_class_detail' => $course_class_detail,
             'mentors' => $mentors,
-            'jobdescriptions' => $jobdescriptions
+            'jobdescriptions' => $jobdescriptions,
+            'partners' => $partners,
+            'mbkmType' => $mbkmType
         ]);
     }
 
@@ -68,7 +73,7 @@ class CourseClassMemberController extends Controller
             'users' => 'required',
             'mentor' => 'required',
         ]);
-
+        
         $users = $request->users;
         $mentors = $request->mentor;
         $jobdescs = $request->jobdesc; // Mengambil jobdesc dari permintaan
@@ -92,6 +97,16 @@ class CourseClassMemberController extends Controller
 
             if ($existingUser) {
                 return redirect()->route('getCourseClassMember', ['id' => $courseClassId])->with('error', 'Failed to Enroll Member, user already exists');
+            } else if ($request->partner) {
+                $created = CourseClassMember::create([
+                    'user_id' => $user,
+                    'course_class_id' => $courseClassId,
+                    'description' => $request->description,
+                    'status' => $request->status ? 1 : 0,
+                    'm_partner_id' => $request->partner,
+                    'created_id' => auth()->id(),
+                    'updated_id' => auth()->id(),
+                ]);
             } else {
                 $created = CourseClassMember::create([
                     'user_id' => $user,
@@ -129,6 +144,7 @@ class CourseClassMemberController extends Controller
 
     function getEditCourseClassMember(Request $request, CourseClassMember $courseClassMember)
     {
+        $course_class_detail = CourseClass::getClassDetailByClassId($courseClassMember->course_class_id);
         $users = $courseClassMember->user_id;
         $currentMentors = DB::table('user_mentorships')
             ->where('member_id', $users)
@@ -140,8 +156,10 @@ class CourseClassMemberController extends Controller
         ->get();
 
         $jobdescriptions = MJobdesc::all();
+        $partners = Partner::where('status', 1)->get();
+        $mbkmType = DB::table('m_course_type')->where('slug', 'mbkm')->where('status', 1)->value('id');
 
-        return view('enrollment::course_class_member.editv3', compact('courseClassMember', 'users', 'mentors', 'currentMentors', 'jobdescriptions'));
+        return view('enrollment::course_class_member.editv3', compact('courseClassMember', 'course_class_detail', 'users', 'mentors', 'currentMentors', 'jobdescriptions', 'partners', 'mbkmType'));
     }
 
     function postEditCourseClassMember(Request $request)
@@ -162,20 +180,38 @@ class CourseClassMemberController extends Controller
             }
         }
 
-        $update = CourseClassMember::where('id', $request->id)
-        ->update([
-            'daily_score' => $request->daily_score,
-            'absence_score' => $request->absence_score,
-            'hackathon_1_score' => $request->hackathon_1_score,
-            'hackathon_2_score' => $request->hackathon_2_score,
-            'internship_score' => $request->internship_score,
-            'final_score' => $request->final_score,
-            'jobdesc' => $request->jobdesc,
-            'description' => $request->content,
-            'status' => $request->status ? 1 : 0,
-            'updated_at' => now(),
-            'updated_id' => Auth::user()->id,
+        if ($request->partner) {
+            $update = CourseClassMember::where('id', $request->id)
+            ->update([
+                'daily_score' => $request->daily_score,
+                'absence_score' => $request->absence_score,
+                'hackathon_1_score' => $request->hackathon_1_score,
+                'hackathon_2_score' => $request->hackathon_2_score,
+                'internship_score' => $request->internship_score,
+                'final_score' => $request->final_score,
+                'jobdesc' => $request->jobdesc,
+                'm_partner_id' => $request->partner,
+                'description' => $request->content,
+                'status' => $request->status ? 1 : 0,
+                'updated_at' => now(),
+                'updated_id' => Auth::user()->id,
         ]);
+        } else {
+            $update = CourseClassMember::where('id', $request->id)
+            ->update([
+                'daily_score' => $request->daily_score,
+                'absence_score' => $request->absence_score,
+                'hackathon_1_score' => $request->hackathon_1_score,
+                'hackathon_2_score' => $request->hackathon_2_score,
+                'internship_score' => $request->internship_score,
+                'final_score' => $request->final_score,
+                'jobdesc' => $request->jobdesc,
+                'description' => $request->content,
+                'status' => $request->status ? 1 : 0,
+                'updated_at' => now(),
+                'updated_id' => Auth::user()->id,
+            ]);
+        }
 
         if($update) {
             // Jika update berhasil, lanjutkan ke bagian update user_mentorships

@@ -96,6 +96,22 @@
                             </div>
                         </div>
                         <br>
+                        @if ($course_class_detail->course_type_id == $mbkmType)
+                            <div class="mb-3 row">
+                                <label for="input-tag" class="col-md-2 col-form-label">Pilih Partner: </label>
+                                <div class="col-md-10">
+                                    <select class="form-control select2" name="partner" data-placeholder="Pilih Partner" required>
+                                        <option value="">Pilih Partner</option>
+                                        @foreach ($partners as $item)
+                                            <option value="{{ $item->id }}"
+                                                {{ old('partner') == $item->id ? 'selected' : '' }}>
+                                                {{ $item->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        @endif
                         <input type="hidden" name="course_class" value="{{ $course_class_detail->id }}">
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Course Class Description</label>
