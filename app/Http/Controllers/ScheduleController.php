@@ -238,7 +238,7 @@ class ScheduleController extends Controller
             $classWithTutor = CourseClass::whereHas('course.CourseCategory', function ($query) use ($prodi) {
                     $query->where('category_id', $prodi);
                 })
-                ->where('status_ongoing', 0)
+                ->where('status_ongoing','!=', 2)
                 ->whereIn('id', function ($query) {
                     $query->select('course_class_id')
                           ->from('user_mentorships');
@@ -252,7 +252,7 @@ class ScheduleController extends Controller
             $classWithoutTutor = CourseClass::whereHas('course.CourseCategory', function ($query) use ($prodi) {
                     $query->where('category_id', $prodi);
                 })
-                ->where('status_ongoing', 0)
+                ->where('status_ongoing', '!=', 2)
                 ->whereNotIn('id', $classWithTutorIds) // Exclude IDs from $classWithTutor
                 ->get();
 
