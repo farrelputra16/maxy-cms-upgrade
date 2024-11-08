@@ -42,7 +42,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Name</th>
+                                <th>Grade Level</th>
                                 <th>Range Start</th>
                                 <th>Range End</th>
                                 <th>Description</th>
@@ -95,7 +95,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Name</th>
+                                <th class="data-medium">Grade Level</th>
                                 <th>Range Start</th>
                                 <th>Range End</th>
                                 <th class="data-long">Description</th>

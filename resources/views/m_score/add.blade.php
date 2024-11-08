@@ -36,7 +36,7 @@
                     <form id="addScore" action="{{ route('postAddScore') }}" method="post">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Grade Level</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="input-title" value="{{ old('name') }}">
                                 @if ($errors->has('name'))

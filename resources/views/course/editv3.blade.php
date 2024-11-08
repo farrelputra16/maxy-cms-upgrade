@@ -37,7 +37,7 @@
                         <input type="text" name="img_keep" value="{{ $courses->file_image }}" hidden>
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Name Course</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $courses->name) }}" id="name" required>
@@ -164,7 +164,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-credits" class="col-md-2 col-form-label">Credits</label>
+                            <label for="input-credits" class="col-md-2 col-form-label">Credits<small>(sks)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="credits" id="credits"
                                     value="{{ old('credits', $currentDataCourse ? $currentDataCourse->credits : '') }}"
@@ -178,7 +178,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-duration" class="col-md-2 col-form-label">Duration</label>
+                            <label for="input-duration" class="col-md-2 col-form-label">Duration<small>(in minute)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration" id="duration"
                                     value="{{ old('duration', $currentDataCourse ? $currentDataCourse->duration : '') }}"
@@ -212,7 +212,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Content</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Content<small>(isi)</small></label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="content">{{ old('content', $courses->content) }}</textarea>
                             </div>

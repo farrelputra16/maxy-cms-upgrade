@@ -35,7 +35,7 @@
                     <form action="{{ route('postEditScore', ['id' => request()->query('id')]) }}" method="post">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Grade Level</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" value="{{ old('name', $data->name) }}"
                                     id="input-title">
