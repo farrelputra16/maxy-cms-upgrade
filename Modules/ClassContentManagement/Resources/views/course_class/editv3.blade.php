@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Event Type')
+@section('title', 'Edit Course Class')
 
 @section('content')
     <!-- start page title -->

@@ -396,14 +396,20 @@ class UserController extends Controller
     function importCSV(Request $request)
     {
         $request->validate([
-            'csv_file' => 'required|file|mimes:csv,txt', // Hanya menerima file CSV
+            'file' => 'required|file|mimes:csv,txt', // Hanya menerima file CSV
         ]);
 
-        // Proses impor file CSV
-        $import = new UserImport(); // Ganti dengan nama import yang sesuai
-        Excel::import($import, $request->file('csv_file'));
+        try {
+            // Proses impor file CSV
+            $import = new UserImport(); // Ganti dengan nama import yang sesuai
+            Excel::import($import, $request->file('file'));
 
-        // Redirect dengan pesan sukses jika berhasil
-        return redirect()->route('getUser')->with('success', 'Data berhasil diimpor dari file CSV.');
+            // Redirect dengan pesan sukses jika berhasil
+            return redirect()->route('getUser')->with('success', 'Data berhasil diimpor dari file CSV.');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            dd('Validation Exception', $e->getMessage()); // Tambahkan pesan ini
+        } catch (\Exception $e) {
+            dd('Exception', $e->getMessage()); // Tambahkan pesan ini
+        }
     }
 }
