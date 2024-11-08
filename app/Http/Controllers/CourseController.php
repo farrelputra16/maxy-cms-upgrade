@@ -209,7 +209,7 @@ class CourseController extends Controller
         $idCourse = $request->id;
         $courses = Course::find($idCourse);
         $allCourseCategory = Category::where('status', 1)->get();
-        $selectedCategoryId = DB::table('course_category')->where('course_id', $request->id)->get('category_id');
+        $selectedCategoryId = DB::table('course_category')->where('course_id', $request->id)->pluck('category_id')->toArray();
 
         $currentDataCourse = Course::CurrentDataCourse($idCourse);
         $currentCoursePackages = Course::CurrentCoursePackages($idCourse);
