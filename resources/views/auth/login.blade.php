@@ -84,9 +84,16 @@
                                 <div class="alert alert-danger" role="alert">
                                     <ul class="mb-0">
                                         @foreach ($errors->all() as $error)
-                                            <i class="fas fa-exclamation-circle"></i> {{ $error }}</i>
+                                            <li class="list-unstyled">
+                                                <i class="fas fa-exclamation-circle"></i> {{ $error }}</i>
+                                            </li>
                                         @endforeach
                                     </ul>
+                                </div>
+                            @endif
+                            @if (session('error'))
+                                <div class="alert alert-danger">
+                                    <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
                                 </div>
                             @endif
 
