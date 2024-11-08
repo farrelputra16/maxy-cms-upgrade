@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    @if (session('success'))
+    {{-- @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
@@ -35,7 +35,7 @@
         <div class="alert alert-danger">
             {{ session('error') }}
         </div>
-    @endif
+    @endif --}}
     <!-- End Page Title -->
 
     <!-- Begin Content -->

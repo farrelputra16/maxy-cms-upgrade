@@ -3,7 +3,7 @@
 @section('title', 'MBKM')
 
 @section('content')
-    <!-- Begin notification -->
+    {{-- <!-- Begin notification -->
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -15,7 +15,7 @@
             {{ session('error') }}
         </div>
     @endif
-    <!-- End notification -->
+    <!-- End notification --> --}}
     <!-- Begin Page Title -->
     <div class="row">
         <div class="col-12">
@@ -140,5 +140,20 @@
 @endsection
 
 @section('script')
-
+    <!-- Add custom scripts here if needed -->
+    @if(session('course_added'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            Swal.fire({
+                title: 'Information!',
+                html: "<strong>{{ session('course_added') }}</strong>",
+                icon: 'info',
+                confirmButtonText: 'OK',
+                // Optional: You can also add a cancel button if you want
+                // showCancelButton: true,
+                // cancelButtonText: 'Close',
+            });
+        });
+    </script>
+    @endif
 @endsection

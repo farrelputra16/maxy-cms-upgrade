@@ -58,17 +58,21 @@
     @yield('style')
 
     <!-- Bootstrap Css -->
-    <link href="{{ asset('assets/cms-v3/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet"
+    {{-- <link href="{{ asset('assets/cms-v3/css/bootstrap.min.css') }}" id="bootstrapd-style" rel="stylesheet"
+        type="text/css" /> --}}
+        <link href="{{ asset('assets/css/bootstrap.css') }}" id="bootstrapd-style" rel="stylesheet"
         type="text/css" />
     <!-- Icons Css -->
     <link href="{{ asset('assets/cms-v3/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
-    <link href="{{ asset('assets/cms-v3/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+    {{-- <link href="{{ asset('assets/cms-v3/css/app.min.css') }}" id="apps-style" rel="stylesheet" type="text/css" /> --}}
+    <link href="{{ asset('assets/css/app.css') }}" id="apps-style" rel="stylesheet" type="text/css" />
     <!-- App js -->
     <script src="{{ asset('assets/cms-v3/js/plugin.js') }}"></script>
     <!-- Custom Css -->
     <link href="{{ asset('assets/cms-v3/css/datatables-custom.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
+    {{-- <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" /> --}}
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         crossorigin="anonymous" />
@@ -100,7 +104,7 @@
         <div class="main-content">
             <div class="page-content">
                 <div class="container-fluid">
-                    {{-- <!-- Begin notification -->
+                    <!-- Begin notification -->
                     @if (session('success'))
                         <div class="alert alert-success">
                             {{ session('success') }}
@@ -112,7 +116,7 @@
                             {{ session('error') }}
                         </div>
                     @endif
-                    <!-- End notification --> --}}
+                    <!-- End notification -->
 
                     @yield('content')
                 </div>
