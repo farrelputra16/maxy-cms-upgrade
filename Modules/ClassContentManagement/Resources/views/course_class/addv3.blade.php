@@ -104,7 +104,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Quota</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Quota<small> (per person)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="quota" min=0
                                     value="{{ old('quota') }}">
@@ -116,7 +116,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="credits" class="col-md-2 col-form-label">Credits</label>
+                            <label for="credits" class="col-md-2 col-form-label">Credits<small> (SKS)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="credits" id="credits"
                                     value="{{ old('credits') }}">
@@ -124,7 +124,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="duration" class="col-md-2 col-form-label">Durations</label>
+                            <label for="duration" class="col-md-2 col-form-label">Duration <small> (in minutes)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration" id="duration"
                                     value="{{ old('duration') }}">

@@ -47,7 +47,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="class">Batch</th>
-                                <th class="type">Type</th>
+                                <th class="type">Course Type</th>
                                 <th>Ongoing</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>

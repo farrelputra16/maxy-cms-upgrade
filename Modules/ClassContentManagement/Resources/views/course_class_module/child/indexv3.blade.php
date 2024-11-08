@@ -44,7 +44,7 @@
                                 <th>Priority</th>
                                 <th>Type</th>
                                 <th class="data-long">Content</th>
-                                <th class="data-long">Material</th>
+                                <th class="data-long">Course Material</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th class="data-long">Description</th>
@@ -108,7 +108,7 @@
                                 <th>Priority</th>
                                 <th>Type</th>
                                 <th>Content</th>
-                                <th>Material</th>
+                                <th>Module Material</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Description</th>

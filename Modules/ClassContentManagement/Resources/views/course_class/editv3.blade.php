@@ -66,7 +66,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="quota" class="col-md-2 col-form-label">Quota</label>
+                            <label for="quota" class="col-md-2 col-form-label">Quota<small> (per person)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="quota"
                                     value="{{ old('quota', $course_class_detail->quota) }}" id="quota">
@@ -110,7 +110,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="credits" class="col-md-2 col-form-label">Credits</label>
+                            <label for="credits" class="col-md-2 col-form-label">Credits<small> (SKS)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="credits"
                                     value="{{ old('credits', $course_class_detail->credits) }}" id="credits">
@@ -118,7 +118,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="duration" class="col-md-2 col-form-label">Durations</label>
+                            <label for="duration" class="col-md-2 col-form-label">Duration<small> (in minutes)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration"
                                     value="{{ old('duration', $course_class_detail->duration) }}" id="duration">
@@ -166,7 +166,7 @@
                             <div class="col-md-10 d-flex align-items-center">
                                 <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
                                 <input type="hidden" name="status" value="0">
-                                
+
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
                                     value="1" name="status"
                                     {{ old('status', isset($course_class_detail) ? $course_class_detail->status : false) ? 'checked' : '' }}>
