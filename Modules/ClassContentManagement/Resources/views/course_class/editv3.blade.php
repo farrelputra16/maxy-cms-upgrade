@@ -57,7 +57,7 @@
                             <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug" id="slug"
-                                    value="{{ old('slug', $course_class_detail->slug) }}">
+                                    value="{{ old('slug', $course_class_detail->slug) }}" readonly>
                                 @if ($errors->has('slug'))
                                     @foreach ($errors->get('slug') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -100,7 +100,8 @@
                                 <select class="form-control select2" name="course_id" data-placeholder="Choose ..."
                                     id="course_id">
                                     @foreach ($course_list as $items)
-                                        <option value="{{ $items->id }}" {{ old('course_id') == $items->id ? 'selected' : '' }}
+                                        <option value="{{ $items->id }}"
+                                            {{ old('course_id') == $items->id ? 'selected' : '' }}
                                             @if ($items->id == $course_class_detail->course_id) selected @endif>
                                             {{ $items->name }}
                                         </option>
@@ -118,7 +119,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="duration" class="col-md-2 col-form-label">Duration<small> (in minutes)</small></label>
+                            <label for="duration" class="col-md-2 col-form-label">Duration<small> (in
+                                    minutes)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration"
                                     value="{{ old('duration', $course_class_detail->duration) }}" id="duration">
@@ -151,11 +153,15 @@
                             <div class="col-md-10">
                                 <select class="form-control select2" name="ongoing" data-placeholder="Choose ..."
                                     id="ongoing">
-                                    <option value="0" {{ old('ongoing') == 0 ? 'selected' : '' }}@if ($course_class_detail->status_ongoing == 0) selected @endif>Not Started
+                                    <option value="0"
+                                        {{ old('ongoing') == 0 ? 'selected' : '' }}@if ($course_class_detail->status_ongoing == 0) selected @endif>
+                                        Not Started
                                     </option>
-                                    <option value="1" {{ old('ongoing') == 1 ? 'selected' : '' }} @if ($course_class_detail->status_ongoing == 1) selected @endif>Ongoing
+                                    <option value="1" {{ old('ongoing') == 1 ? 'selected' : '' }}
+                                        @if ($course_class_detail->status_ongoing == 1) selected @endif>Ongoing
                                     </option>
-                                    <option value="2" {{ old('ongoing') == 2 ? 'selected' : '' }} @if ($course_class_detail->status_ongoing == 2) selected @endif>Completed
+                                    <option value="2" {{ old('ongoing') == 2 ? 'selected' : '' }}
+                                        @if ($course_class_detail->status_ongoing == 2) selected @endif>Completed
                                     </option>
                                 </select>
                             </div>
@@ -189,4 +195,23 @@
 
 @section('script')
     <!-- Tambahkan skrip tambahan di sini jika diperlukan -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const batchInput = document.getElementById('batch');
+            const slugInput = document.getElementById('slug');
+
+            // Ambil slug awal dari PHP untuk dasar slug
+            const baseSlug = "{{ $course_class_detail->slug }}".split('-')[0];
+
+            function updateSlug() {
+                const batchValue = batchInput.value;
+
+                // Update slug berdasarkan slug dasar + batch
+                slugInput.value = batchValue ? `${baseSlug}-${batchValue}` : baseSlug;
+            }
+
+            // Event listener untuk mengubah slug ketika batch diubah
+            batchInput.addEventListener('input', updateSlug);
+        });
+    </script>
 @endsection

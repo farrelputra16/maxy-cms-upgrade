@@ -43,7 +43,7 @@
                                 <select class="form-control select2" name="course_id" data-placeholder="Choose ..."
                                     id="type_selector">
                                     @foreach ($allCourses as $item)
-                                        <option value="{{ $item->id }}"
+                                        <option value="{{ $item->id }}" data-slug="{{ $item->slug }}"
                                             {{ old('course_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}
                                         </option>
                                     @endforeach
@@ -71,7 +71,7 @@
                             <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug"" id="slug"
-                                    value="{{ old('slug') }}">
+                                    value="{{ old('slug') }}" readonly>
                                 @if ($errors->has('slug'))
                                     @foreach ($errors->get('slug') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -104,7 +104,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Quota<small> (per person)</small></label>
+                            <label for="input-name" class="col-md-2 col-form-label">Quota<small> (per
+                                    person)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="quota" min=0
                                     value="{{ old('quota') }}">
@@ -124,7 +125,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="duration" class="col-md-2 col-form-label">Duration <small> (in minutes)</small></label>
+                            <label for="duration" class="col-md-2 col-form-label">Duration <small> (in
+                                    minutes)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration" id="duration"
                                     value="{{ old('duration') }}">
@@ -189,5 +191,30 @@
 @endsection
 
 @section('script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const batchInput = document.getElementById('batch');
+            const slugInput = document.getElementById('slug');
 
+            function updateSlug() {
+                const selectedCourse = $('#type_selector').find(':selected');
+                const courseSlug = selectedCourse.data('slug') || '';
+                const batchValue = batchInput.value;
+
+                if (courseSlug && batchValue) {
+                    slugInput.value = `${courseSlug}-${batchValue}`;
+                } else {
+                    slugInput.value = '';
+                }
+            }
+
+            // Select2 change event listener
+            $('#type_selector').on('change', function() {
+                batchInput.value = ''; // Clear batch input when course changes
+                updateSlug();
+            });
+
+            batchInput.addEventListener('input', updateSlug);
+        });
+    </script>
 @endsection
