@@ -58,15 +58,15 @@
     @yield('style')
 
     <!-- Bootstrap Css -->
-    {{-- <link href="{{ asset('assets/cms-v3/css/bootstrap.min.css') }}" id="bootstrapd-style" rel="stylesheet"
-        type="text/css" /> --}}
-        <link href="{{ asset('assets/css/bootstrap.css') }}" id="bootstrapd-style" rel="stylesheet"
+    <link href="{{ asset('assets/cms-v3/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet"
         type="text/css" />
+        {{-- <link href="{{ asset('assets/css/bootstrap.css') }}" id="bootstrapd-style" rel="stylesheet"
+        type="text/css" /> --}}
     <!-- Icons Css -->
     <link href="{{ asset('assets/cms-v3/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
-    {{-- <link href="{{ asset('assets/cms-v3/css/app.min.css') }}" id="apps-style" rel="stylesheet" type="text/css" /> --}}
-    <link href="{{ asset('assets/css/app.css') }}" id="apps-style" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/cms-v3/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+    {{-- <link href="{{ asset('assets/css/app.css') }}" id="apps-style" rel="stylesheet" type="text/css" /> --}}
     <!-- App js -->
     <script src="{{ asset('assets/cms-v3/js/plugin.js') }}"></script>
     <!-- Custom Css -->
