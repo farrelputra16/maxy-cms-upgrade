@@ -54,7 +54,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">MBKM Name</th>
+                                <th class="data-medium">MBKM Program</th>
                                 <th class="data-medium">Short Description</th>
                                 <th class="data-long">Description</th>
                                 <th class="data-long">Content</th>
@@ -112,7 +112,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">MBKM Name</th>
+                                <th class="data-medium">MBKM Program</th>
                                 <th class="data-medium">Short Description</th>
                                 <th class="data-long">Description</th>
                                 <th class="data-long">Content</th>

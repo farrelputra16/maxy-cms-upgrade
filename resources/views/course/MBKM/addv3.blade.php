@@ -37,7 +37,7 @@
                         {{-- <input type="text" name="img_keep" value="{{ $blog->cover_img }}" hidden> --}}
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Name MBKM</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     placeholder="Masukkan Nama MBKM" value="{{ old('name') }}" required>
@@ -101,7 +101,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Course Category</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Course Category<small>(Prodi)</small></label>
                             <div class="col-md-10">
                                 <select class="form-control select2 multiple" name="courseCategory[]"
                                     data-placeholder="Choose ..." id="type_selector" multiple="multiple">
@@ -133,7 +133,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Content</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Content <small>(isi)</small></label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="content">{{ old('content') }}</textarea>
                                 @if ($errors->has('content'))
