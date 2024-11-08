@@ -35,70 +35,100 @@ class PageController extends Controller
 
     // Save the page content
     public function savePageContent(Request $request)
-{
-    $request->validate([
-        'content.*' => 'required|string',
-        'image.*' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-    ]);
+    {
+        $request->validate([
+            'content.*' => 'required|string',
+            'image.*' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+        ]);
 
-    for ($i = 0; $i < count($request->page_id); $i++) {
-        $imagePath = null;
-        if ($request->hasFile('image.' . $i)) {
-            $imagePath = $request->file('image.' . $i)->storeAs('m_pages', $request->file('image.' . $i)->getClientOriginalName(), 'public');
-        }
+        for ($i = 0; $i < count($request->page_id); $i++) {
+            $imagePath = null;
+            if ($request->hasFile('image.' . $i)) {
+                $imagePath = $request->file('image.' . $i)->storeAs('m_pages', $request->file('image.' . $i)->getClientOriginalName(), 'public');
+            } elseif(isset($request->oldImage[$i])) {
 
-        $orderBy = 1;  // default order
-        if ($request->page_id[$i] == 3) {
-            if ($request->section_name[$i] == 'blog-trending') {
-                $orderBy = 2;
-            } elseif ($request->section_name[$i] == 'blog-small') {
-                $orderBy = 1;
+
+                $imagePath = $request->oldImage[$i];
+            }
+
+            $orderBy = 1;  // default order
+            if ($request->page_id[$i] == 3) {
+
+
+                if ($request->section_name[$i] == 'blog-trending') {
+                    $orderBy = $request->order[$i] == 2 ? 1 : 2;
+                } elseif ($request->section_name[$i] == 'blog-small') {
+                    $orderBy = $request->order[$i] == 2 ? 1 : 2;
+                }
+            }
+
+            if ($request->section_name[$i] == 'hero') {
+                MPageContent::updateOrCreate(
+                    [
+                        'page_id' => $request->page_id[$i],
+                        'section_name' => $request->section_name[$i],
+                    ],
+                    [
+                        'content' => $request->content[$i],
+
+                        'image' => $imagePath,
+                    ]
+                );
+            } elseif ($request->section_name[$i] == 'blog-trending' || $request->section_name[$i] == 'blog-small') {
+                MPageContent::updateOrCreate(
+                    [
+                        'page_id' => $request->page_id[$i],
+                        'section_name' => $request->section_name[$i],
+                    ],
+                    [
+                        'order' => $orderBy,
+                    ]
+                );
+            } else {
+                MPageContent::updateOrCreate(
+                    [
+                        'page_id' => $request->page_id[$i],
+                        'section_name' => $request->section_name[$i],
+                    ],
+                    [
+                        'content' => $request->content[$i],
+                        'order_by' => $orderBy,
+                        'image' => $imagePath,
+                    ]
+                );
             }
         }
 
-        MPageContent::updateOrCreate(
-            [
-                'page_id' => $request->page_id[$i],
-                'section_name' => $request->section_name[$i],
-            ],
-            [
-                'content' => $request->section_name[$i] != 'banner' ? $request->content[$i] : null,
-                'image' => $imagePath,
-                'order_by' => $orderBy,
-            ]
-        );
+        return redirect()->back()->with('success', 'All page content saved successfully.');
     }
 
-    return redirect()->back()->with('success', 'All page content saved successfully.');
-}
+    public function updateBlogOrder(Request $request)
+    {
+        $request->validate([
+            'section1' => 'required|string',
+            'section2' => 'required|string',
+        ]);
 
-public function updateBlogOrder(Request $request)
-{
-    $request->validate([
-        'section1' => 'required|string',
-        'section2' => 'required|string',
-    ]);
+        // Define new order values
+        $orderData = [
+            'blog-small' => 1,
+            'blog-trending' => 2,
+        ];
 
-    // Define new order values
-    $orderData = [
-        'blog-small' => 1,
-        'blog-trending' => 2,
-    ];
+        // Swap order if necessary
+        if ($request->section1 == 'blog-trending') {
+            $orderData['blog-small'] = 2;
+            $orderData['blog-trending'] = 1;
+        }
 
-    // Swap order if necessary
-    if ($request->section1 == 'blog-trending') {
-        $orderData['blog-small'] = 2;
-        $orderData['blog-trending'] = 1;
+        // Update the database
+        MPageContent::where('page_id', 3)->where('section_name', 'blog-small')
+            ->update(['order_by' => $orderData['blog-small']]);
+        MPageContent::where('page_id', 3)->where('section_name', 'blog-trending')
+            ->update(['order_by' => $orderData['blog-trending']]);
+
+        return response()->json(['success' => true, 'message' => 'Order updated successfully']);
     }
-
-    // Update the database
-    MPageContent::where('page_id', 3)->where('section_name', 'blog-small')
-        ->update(['order_by' => $orderData['blog-small']]);
-    MPageContent::where('page_id', 3)->where('section_name', 'blog-trending')
-        ->update(['order_by' => $orderData['blog-trending']]);
-
-    return response()->json(['success' => true, 'message' => 'Order updated successfully']);
-}
 
 
 

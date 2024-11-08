@@ -41,6 +41,7 @@
                             <h4 class="card-title">Section {{ $section->section_name }}</h4>
                             <input type="hidden" name="page_id[]" value="{{ $section->page_id }}">
                             <input type="hidden" name="section_name[]" value="{{ $section->section_name }}">
+                            <input type="hidden" name="order[]" value="{{ $section->order }}">
 
                             <div class="mb-3 row">
                                 <label for="input-content" class="col-md-2 col-form-label">Display</label>
@@ -63,6 +64,7 @@
                             @endif
 
                             @if ($section->section_name == 'hero' || $section->section_name == 'banner')
+                                    <input type="text" name="oldImage[]" hidden value="{{ $section->image }}">
                                 <div class="mb-3 row">
                                     <label for="input-content" class="col-md-2 col-form-label">Image</label>
                                     <div class="col-md-10">
