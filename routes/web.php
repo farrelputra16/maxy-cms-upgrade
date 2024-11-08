@@ -51,6 +51,7 @@ use App\Http\Controllers\CreateBadgesAccredifyController;
 use App\Http\Controllers\CoursesAccredifyController;
 use App\Http\Controllers\CoAccreController;
 use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\PageController;
 
 
 // jago digital controller ###########################################################################################################
@@ -377,6 +378,21 @@ Route::get('/general/edit', [GeneralController::class, 'getEditGeneral'])->name(
 Route::post('/general/edit', [GeneralController::class, 'postEditGeneral'])->name('postEditGeneral')->middleware('access:m_general_update');
 
 Route::post('general/deactivate/{id}', [GeneralController::class, 'deactivateGeneral'])->name('deactivateGeneral');
+
+//
+// Settings Pages
+#########################################################################################################
+Route::get('/pages', [PageController::class, 'getPages'])->name('getPages');
+
+Route::get('/pages/edit', [PageController::class, 'getEditPage'])->name('getEditPage');
+
+Route::get('/pages/show', [PageController::class, 'showPage'])->name('getShowPage');
+
+Route::post('/save-page-content', [PageController::class, 'savePageContent'])->name('savePageContent');
+
+Route::post('/update-blog-order', [PageController::class, 'updateBlogOrder'])->name('update.blog.order');
+
+
 
 //                                     Testimonial
 //Testimonial Routes #########################################################################################################
