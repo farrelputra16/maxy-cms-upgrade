@@ -45,6 +45,9 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Name</th>
+                                @if ($courseClassDetail->course_type_id == $mbkmType)
+                                    <th>Partner</th>
+                                @endif
                                 <th class="data-long">Description</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
@@ -60,6 +63,9 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->id }}</td>
                                     <td class="batch" scope="row">{{ $item->user_name }}</td>
+                                    @if ($courseClassDetail->course_type_id == $mbkmType)
+                                        <td>{{$item->partner_name}}</td>
+                                    @endif
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->description) !!}">
                                         {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
@@ -91,6 +97,9 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th>Name</th>
+                                @if ($courseClassDetail->course_type_id == $mbkmType)
+                                    <th>Partner</th>
+                                @endif
                                 <th>Description</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>

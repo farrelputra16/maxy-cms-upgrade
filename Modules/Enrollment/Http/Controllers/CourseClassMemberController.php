@@ -28,13 +28,20 @@ class CourseClassMemberController extends Controller
         $idCourseClass = $request->id;
         $users = User::where('access_group_id', 2)->get();
         $courseClassDetail = CourseClass::getClassDetailByClassId($idCourseClass);
-        $courseClassMembers = CourseClassMember::getCourseClassMember($request);
+        // dd($courseClassDetail);
+        $mbkmType = DB::table('m_course_type')->where('slug', 'mbkm')->where('status', 1)->value('id');
+        if ($courseClassDetail->course_type_id == $mbkmType) {
+            $courseClassMembers = CourseClassMember::getCourseClassMemberMbkm($request);
+        } else {
+            $courseClassMembers = CourseClassMember::getCourseClassMember($request);
+        }
         // dd($courseClassMembers);
 
         return view('enrollment::course_class_member.indexv3', [
             'users' => $users,
             'courseClassMembers' => $courseClassMembers,
-            'courseClassDetail' => $courseClassDetail
+            'courseClassDetail' => $courseClassDetail,
+            'mbkmType' => $mbkmType
         ]);
     }
 
@@ -189,7 +196,6 @@ class CourseClassMemberController extends Controller
                 'hackathon_2_score' => $request->hackathon_2_score,
                 'internship_score' => $request->internship_score,
                 'final_score' => $request->final_score,
-                'jobdesc' => $request->jobdesc,
                 'm_partner_id' => $request->partner,
                 'description' => $request->content,
                 'status' => $request->status ? 1 : 0,
@@ -205,7 +211,6 @@ class CourseClassMemberController extends Controller
                 'hackathon_2_score' => $request->hackathon_2_score,
                 'internship_score' => $request->internship_score,
                 'final_score' => $request->final_score,
-                'jobdesc' => $request->jobdesc,
                 'description' => $request->content,
                 'status' => $request->status ? 1 : 0,
                 'updated_at' => now(),

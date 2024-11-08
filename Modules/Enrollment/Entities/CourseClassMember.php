@@ -106,6 +106,88 @@ class CourseClassMember extends Model
         return $courseClassMembers;
     }
 
+    public static function getCourseClassMemberMbkm($request)
+    {
+        $idCourse = $request->id;
+
+        if ($idCourse !== null) {
+            $courseClassMembers = DB::table('course_class_member')
+                ->select(
+                    'course_class_member.id AS id',
+                    'course_class_member.description AS description',
+                    'course_class_member.status AS status',
+                    'course_class_member.created_at AS created_at',
+                    'course_class_member.created_id AS created_id',
+                    'course_class_member.updated_at AS updated_at',
+                    'course_class_member.updated_id AS updated_id',
+                    'users.id AS user_id',
+                    'users.name AS user_name',
+                    'course_class.batch AS course_class_batch',
+                    'course.name AS course_name',
+                    'm_partner.name AS partner_name'
+                )
+                ->join('users', 'course_class_member.user_id', '=', 'users.id')
+                ->join('course_class', 'course_class_member.course_class_id', '=', 'course_class.id')
+                ->join('course', 'course_class.course_id', '=', 'course.id')
+                ->leftjoin('m_partner', 'course_class_member.m_partner_id', '=', 'm_partner.id')
+                ->leftJoin('user_mentorships', function ($join) {
+                    $join->on('course_class_member.user_id', '=', 'user_mentorships.mentor_id')
+                        ->where('users.type', '=', 'tutor'); // Hanya ambil jobdesc jika user bertipe tutor
+                })
+                ->where('course_class_member.course_class_id', $idCourse)
+                ->groupBy(
+                    'course_class_member.id',
+                    'course_class_member.description',
+                    'course_class_member.status',
+                    'course_class_member.created_at',
+                    'course_class_member.created_id',
+                    'course_class_member.updated_at',
+                    'course_class_member.updated_id',
+                    'users.id',
+                    'users.name',
+                    'course_class.batch',
+                    'course.name'
+                )
+                ->get();
+        } else {
+            $courseClassMembers = collect(DB::select('SELECT
+                course_class_member.id AS id,
+                course_class_member.description AS description,
+                course_class_member.status AS status,
+                course_class_member.created_at AS created_at,
+                course_class_member.created_id AS created_id,
+                course_class_member.updated_at AS updated_at,
+                course_class_member.updated_id AS updated_id,
+                users.id AS user_id,
+                users.name AS user_name,
+                course_class.batch AS course_class_batch,
+                course.name AS course_name,
+                FROM course_class_member
+                JOIN users ON course_class_member.user_id = users.id
+                JOIN course_class ON course_class_member.course_class_id = course_class.id
+                JOIN course ON course_class.course_id = course.id
+                LEFT JOIN user_mentorships ON course_class_member.user_id = user_mentorships.member_id
+                    AND users.user_type = "tutor"
+                WHERE course_class_member.user_id = users.id
+                AND course_class_member.course_class_id = course_class.id
+                AND course_class.course_id = course.id
+                GROUP BY
+                    course_class_member.id,
+                    course_class_member.description,
+                    course_class_member.status,
+                    course_class_member.created_at,
+                    course_class_member.created_id,
+                    course_class_member.updated_at,
+                    course_class_member.updated_id,
+                    users.id,
+                    users.name,
+                    course_class.batch,
+                    course.name
+            '));
+        }
+        return $courseClassMembers;
+    }
+
     public static function getEditCourseClassMember($request){
 
         $currentData = collect(DB::select('SELECT
