@@ -50,18 +50,20 @@
                                     value="{{ old('slug', $courses->slug) }}" id="slug" readonly required>
                             </div>
                         </div>
-                        {{-- <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Payment</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="payment_link" id="payment_link"
-                                    value="{{ old('payment_link', $courses->payment_link) }}" required>
-                                @if ($errors->has('payment_link'))
-                                    @foreach ($errors->get('payment_link') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
+                        @if (env('APP_ENV') != 'local')
+                            <div class="mb-3 row">
+                                <label for="input-content" class="col-md-2 col-form-label">Payment</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" name="payment_link" id="payment_link"
+                                        value="{{ old('payment_link', $courses->payment_link) }}" required>
+                                    @if ($errors->has('payment_link'))
+                                        @foreach ($errors->get('payment_link') as $error)
+                                            <span style="color: red;">{{ $error }}</span>
+                                        @endforeach
+                                    @endif
+                                </div>
                             </div>
-                        </div> --}}
+                        @endif
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Difficulty</label>
                             <div class="col-md-10">
@@ -99,14 +101,12 @@
                             <label for="input-tag" class="col-md-2 col-form-label">Course Category</label>
                             <div class="col-md-10">
                                 <select class="form-control select2 multiple" name="courseCategory[]"
-                                        data-placeholder="Choose ..." id="course_category_selector" multiple="multiple">
+                                    data-placeholder="Choose ..." id="course_category_selector" multiple="multiple">
                                     @foreach ($allCourseCategory as $courseCategory)
                                         <option value="{{ $courseCategory->id }}"
-                                            @if (old('courseCategory') && in_array($courseCategory->id, old('courseCategory')))
-                                                selected
+                                            @if (old('courseCategory') && in_array($courseCategory->id, old('courseCategory'))) selected
                                             @elseif (in_array($courseCategory->id, $selectedCategoryId))
-                                                selected
-                                            @endif>
+                                                selected @endif>
                                             {{ $courseCategory->name }}
                                         </option>
                                     @endforeach
@@ -167,7 +167,8 @@
                             <label for="input-credits" class="col-md-2 col-form-label">Credits</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="credits" id="credits"
-                                    value="{{ old('credits', $currentDataCourse ? $currentDataCourse->credits : '') }}" min="0">
+                                    value="{{ old('credits', $currentDataCourse ? $currentDataCourse->credits : '') }}"
+                                    min="0">
                                 @if ($errors->has('credits'))
                                     @foreach ($errors->get('credits') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -180,7 +181,8 @@
                             <label for="input-duration" class="col-md-2 col-form-label">Duration</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration" id="duration"
-                                    value="{{ old('duration', $currentDataCourse ? $currentDataCourse->duration : '') }}" min="0">
+                                    value="{{ old('duration', $currentDataCourse ? $currentDataCourse->duration : '') }}"
+                                    min="0">
                                 @if ($errors->has('duration'))
                                     @foreach ($errors->get('duration') as $error)
                                         <span style="color: red;">{{ $error }}</span>

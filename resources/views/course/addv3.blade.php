@@ -60,18 +60,20 @@
                                 @endif
                             </div>
                         </div>
-                        {{-- <div class="mb-3 row">
-                            <label for="input-payment" class="col-md-2 col-form-label">Payment Link</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="payment_link" id="payment_link"
-                                    value="{{ old('payment_link') }}" placeholder="https://example.com" required>
-                                @if ($errors->has('payment_link'))
-                                    @foreach ($errors->get('payment_link') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
+                        @if (env('APP_ENV') != 'local')
+                            <div class="mb-3 row">
+                                <label for="input-payment" class="col-md-2 col-form-label">Payment Link</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" name="payment_link" id="payment_link"
+                                        value="{{ old('payment_link') }}" placeholder="https://example.com" required>
+                                    @if ($errors->has('payment_link'))
+                                        @foreach ($errors->get('payment_link') as $error)
+                                            <span style="color: red;">{{ $error }}</span>
+                                        @endforeach
+                                    @endif
+                                </div>
                             </div>
-                        </div> --}}
+                        @endif
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Difficulty</label>
                             <div class="col-md-10">

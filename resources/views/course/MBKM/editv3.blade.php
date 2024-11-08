@@ -60,18 +60,20 @@
                                 @endif
                             </div>
                         </div>
-                        {{-- <div class="mb-3 row">
-                            <label for="input-payment" class="col-md-2 col-form-label">Payment Link</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="payment_link" id="payment_link"
-                                    value="{{ $courses->payment_link }}">
-                                @if ($errors->has('payment_link'))
-                                    @foreach ($errors->get('payment_link') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
+                        @if (env('APP_ENV') != 'local')
+                            <div class="mb-3 row">
+                                <label for="input-payment" class="col-md-2 col-form-label">Payment Link</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" name="payment_link" id="payment_link"
+                                        value="{{ $courses->payment_link }}">
+                                    @if ($errors->has('payment_link'))
+                                        @foreach ($errors->get('payment_link') as $error)
+                                            <span style="color: red;">{{ $error }}</span>
+                                        @endforeach
+                                    @endif
+                                </div>
                             </div>
-                        </div> --}}
+                        @endif
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Difficulty</label>
                             <div class="col-md-10">
@@ -83,7 +85,8 @@
                                         </option>
                                     @endif
                                     @foreach ($allDifficultyTypes as $item)
-                                        <option value="{{ $item->id }}" {{ old('level') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}"
+                                            {{ old('level') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -108,11 +111,9 @@
                                     data-placeholder="Choose ..." id="type_selector" multiple="multiple">
                                     @foreach ($allCourseCategory as $courseCategory)
                                         <option value="{{ $courseCategory->id }}"
-                                            @if (old('courseCategory') && in_array($courseCategory->id, old('courseCategory')))
-                                                selected
+                                            @if (old('courseCategory') && in_array($courseCategory->id, old('courseCategory'))) selected
                                             @elseif (in_array($courseCategory->id, $selectedCategoryId))
-                                                selected
-                                            @endif>
+                                                selected @endif>
                                             {{ $courseCategory->name }}
                                         </option>
                                     @endforeach
