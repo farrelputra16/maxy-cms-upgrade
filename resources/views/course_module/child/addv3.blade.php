@@ -53,7 +53,7 @@
                             <label for="input-title" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name""
-                                    placeholder="Masukkan Nama Course Module">
+                                    placeholder="Masukkan Nama Course Module" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -64,7 +64,7 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Priority</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="priority" min="1">
+                                <input class="form-control" type="number" name="priority" min="1" value="{{ old('priority') }}">
                                 @if ($errors->has('priority'))
                                     @foreach ($errors->get('priority') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -76,19 +76,19 @@
                             <div class="mb-3 row">
                                 <label for="input-content" class="col-md-2 col-form-label">HTML</label>
                                 <div class="col-md-10">
-                                    <textarea id="elm1" name="html"></textarea>
+                                    <textarea id="elm1" name="html">{{ old('html') }}</textarea>
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label for="input-content" class="col-md-2 col-form-label">JS</label>
                                 <div class="col-md-10">
-                                    <textarea id="elm1" name="js"></textarea>
+                                    <textarea id="elm1" name="js">{{ old('js') }}</textarea>
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label for="input-content" class="col-md-2 col-form-label">Content</label>
                                 <div class="col-md-10">
-                                    <textarea id="elm1" name="content"></textarea>
+                                    <textarea id="elm1" name="content">{{ old('content') }}</textarea>
                                 </div>
                             </div>
                             <input type="hidden" name="rapid" value="1">
@@ -97,11 +97,11 @@
                                 <label for="input-tag" class="col-md-2 col-form-label">Module Type</label>
                                 <div class="col-md-10">
                                     <select class="form-control" name="type" id="type_selector" required>
-                                        <option value="" disabled selected>Choose Module Type</option>
-                                        <option value="materi_pembelajaran">Materi Pembelajaran</option>
-                                        <option value="video_pembelajaran">Video Pembelajaran</option>
-                                        <option value="assignment">Assignment</option>
-                                        <option value="quiz">Quiz</option>
+                                        <option value="" disabled {{ old('type') == '' ? 'selected' : '' }}>Choose Module Type</option>
+                                        <option value="materi_pembelajaran" {{ old('type') == 'materi_pembelajaran' ? 'selected' : '' }}>Materi Pembelajaran</option>
+                                        <option value="video_pembelajaran" {{ old('type') == 'video_pembelajaran' ? 'selected' : '' }}>Video Pembelajaran</option>
+                                        <option value="assignment" {{ old('type') == 'assignment' ? 'selected' : '' }}>Assignment</option>
+                                        <option value="quiz" {{ old('type') == 'quiz' ? 'selected' : '' }}>Quiz</option>
                                     </select>
                                     @if ($errors->has('type'))
                                         @foreach ($errors->get('type') as $error)
@@ -109,7 +109,7 @@
                                         @endforeach
                                     @endif
                                 </div>
-                            </div>
+                            </div>                        
                             <div class="field" id="material"></div>
                             <div class="field" id="duration"></div>
                             {{-- <div class="mb-3 row">
@@ -122,14 +122,14 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description"></textarea>
+                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status">
+                                    name="status" {{ old('status') ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>
