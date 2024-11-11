@@ -1,36 +1,34 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Certificate Template')
+@section('title', 'Edit Template Sertifikat')
 
 @section('content')
-    <!-- start page title -->
+    <!-- Mulai Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Edit Template Sertifikat</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="certificate-templates.index">Template</a></li>
-                        <li class="breadcrumb-item active">Edit Certificate Template</li>
+                        <li class="breadcrumb-item"><a href="{{ route('certificate-templates.index') }}">Template</a></li>
+                        <li class="breadcrumb-item active">Edit Template Sertifikat</li>
                     </ol>
                 </div>
-
             </div>
         </div>
     </div>
-    <!-- end page title -->
+    <!-- Akhir Judul Halaman -->
 
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-
-                    <h4 class="card-title">Edit Certificate Template</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Form Edit Template Sertifikat</h4>
+                    <p class="card-title-desc">Gunakan form di bawah ini untuk memperbarui informasi template sertifikat.
+                        Pastikan semua informasi yang Anda masukkan akurat agar sertifikat yang dihasilkan sesuai dengan
+                        kebutuhan peserta kursus.</p>
 
                     <form action="{{ route('certificate-templates.update', $certificateTemplate->id) }}" method="post"
                         enctype="multipart/form-data">
@@ -38,84 +36,85 @@
                         @method('PUT')
 
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Course Type</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Kursus</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="m_course_type_id" id="courseType">
                                     @foreach ($courseTypes as $courseType)
                                         <option value="{{ $courseType->id }}"
                                             {{ old('m_course_type_id', $certificateTemplate->m_course_type_id) == $courseType->id ? 'selected' : '' }}>
-                                            {{ $courseType->name }}</option>
+                                            {{ $courseType->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 @error('m_course_type_id')
-                                    <div class="text-danger">
-                                        {{ $message }}
-                                    </div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
+
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Batch</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="batch" id="batch" min="0"
-                                    value="{{ old('batch', $certificateTemplate->batch) }}">
+                                    value="{{ old('batch', $certificateTemplate->batch) }}"
+                                    placeholder="Masukkan nomor batch">
                                 @error('batch')
-                                    <div class="text-danger">
-                                        {{ $message }}
-                                    </div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="Image" class="col-md-2 col-form-label">Sample</label>
+                            <label for="Image" class="col-md-2 col-form-label">Contoh Template</label>
                             <div class="col-md-10">
                                 <img src="{{ asset('uploads/certificate/template_example.png') }}" class="img-fluid"
-                                    alt="" />
+                                    alt="Contoh Template Sertifikat" />
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="Image" class="col-md-2 col-form-label">Template</label>
+                            <label for="Image" class="col-md-2 col-form-label">Unggah Template</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="file" name="filename" id="templateImage"
                                     accept=".png">
-                                <small>* Accepted File Type: .png</small>
-                                <div class="position-relative d-flex flex-column justify-content-center align-items-center">
-                                    <img id="sourceImage" class="img-fluid" alt=""
+                                <small>* Format file yang diterima: .png</small>
+                                <div
+                                    class="position-relative d-flex flex-column justify-content-center align-items-center mt-2">
+                                    <img id="sourceImage" class="img-fluid" alt="Pratinjau Template"
                                         src="{{ asset('uploads/certificate/' . $certificateTemplate->m_course_type_id . '/' . $certificateTemplate->filename) }}" />
-                                    <img id="originalImage" class="img-fluid position-absolute" alt=""
+                                    <img id="originalImage" class="img-fluid position-absolute" alt="Pratinjau Template"
                                         src="{{ asset('uploads/certificate/' . $certificateTemplate->m_course_type_id . '/' . $certificateTemplate->filename) }}" />
                                 </div>
                                 @error('filename')
-                                    <div class="text-danger">
-                                        {{ $message }}
-                                    </div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Template Content</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Isi Template</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="template_content" placeholder="Ex: Telah berhasil menyelesaikan program [[class_name]]">{!! old('template_content', $certificateTemplate->template_content) !!}</textarea>
+                                <textarea id="elm1" name="template_content"
+                                    placeholder="Contoh: Telah berhasil menyelesaikan program [[class_name]]">{{ old('template_content', $certificateTemplate->template_content) }}</textarea>
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{!! old('description', $certificateTemplate->description) !!}</textarea>
+                                <textarea id="elm2" name="description" class="form-control" placeholder="Tambahkan deskripsi template (opsional)">{{ old('description', $certificateTemplate->description) }}</textarea>
                                 @error('description')
-                                    <div class="text-danger">
-                                        {{ $message }}
-                                    </div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
+
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Save & Update</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Simpan & Perbarui</button>
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div> <!-- end col -->
@@ -126,6 +125,7 @@
     <script>
         $(function() {
             let editors = {};
+
             $("#templateImage").change(function() {
                 let file = this.files[0];
                 let reader = new FileReader();
@@ -140,16 +140,6 @@
 
             let sourceImage, targetRoot, maState;
 
-            // Correctly pass the JSON string from Blade to JavaScript
-            // maState = {
-            //     {
-            //         Js::from($certificateTemplate - > marker_state)
-            //     }
-            // };
-
-            maState = JSON.parse(maState);
-
-            // save references to the original image and its parent div (positioning root)
             function setSourceImage(source) {
                 sourceImage = source;
                 targetRoot = source.parentElement;
@@ -158,20 +148,14 @@
             function showMarkerArea(target) {
                 const markerArea = new markerjs2.MarkerArea(sourceImage);
                 markerArea.availableMarkerTypes = ["CaptionFrameMarker"];
-
-                // since the container div is set to position: relative it is now our positioning root
-                // and we have to let marker.js know that
                 markerArea.targetRoot = targetRoot;
                 markerArea.addEventListener("render", (event) => {
                     target.src = event.dataUrl;
-                    // save the state of MarkerArea
                     maState = event.state;
-                    console.log(maState);
                 });
 
                 markerArea.show();
 
-                // if previous state is present - restore it
                 if (maState) {
                     markerArea.restoreState(maState);
                 }

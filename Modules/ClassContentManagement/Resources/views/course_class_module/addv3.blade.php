@@ -1,22 +1,21 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add Course Class Module')
+@section('title', 'Tambah Modul Kelas Kursus')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Add New Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Data Baru</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClassModule') }}">Course Module</a></li>
-                        <li class="breadcrumb-item active">Add New Course Module</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClassModule') }}">Modul Kursus</a></li>
+                        <li class="breadcrumb-item active">Tambah Modul Kelas Kursus</li>
                     </ol>
                 </div>
-
             </div>
         </div>
     </div>
@@ -26,36 +25,35 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    <h4 class="card-title">Tambah Modul Kelas Kursus</h4>
+                    <p class="card-title-desc">Halaman ini memungkinkan Anda untuk menambahkan informasi modul kursus baru.
+                        Pastikan semua data yang Anda masukkan sudah benar untuk memberikan pengalaman belajar terbaik
+                        kepada peserta kursus.</p>
 
-                    <h4 class="card-title">Add New Course</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
-
-                    <form id="addCourseClassModule" action="{{ route('postAddCourseClassModule') }}" method="post" enctype="multipart/form-data">
+                    <form id="addCourseClassModule" action="{{ route('postAddCourseClassModule') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
 
+                        <input type="hidden" name="course_class_id" value="{{ $course_class_id }}">
+
                         <div class="mb-3 row">
-                            <div class="col-md-10">
-                                <input class="form-control" type="hidden" name="course_class_id"
-                                    value="{{ $course_class_id }}">
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Class</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Kelas</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text"
-                                value="{{ $classDetail->course_name }} Batch {{ $classDetail->batch}}" disabled>
+                                    value="{{ $classDetail->course_name }} Batch {{ $classDetail->batch }}" disabled>
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Course Module</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Modul Kursus</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="course_module_id" data-placeholder="Choose ..."
-                                    id="type_selector">
-                                    <option value="0">-- Pilih Tipe Course --</option>
+                                <select class="form-control select2" name="course_module_id"
+                                    data-placeholder="Pilih Modul Kursus" id="type_selector">
+                                    <option value="0">-- Pilih Tipe Modul --</option>
                                     @foreach ($allModules as $item)
-                                        <option value="{{ $item->id }}" {{ old('course_module_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}"
+                                            {{ old('course_module_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('course_module_id'))
@@ -65,10 +63,12 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="input-slug" class="col-md-2 col-form-label">* Day</label>
+                            <label for="input-slug" class="col-md-2 col-form-label">* Hari</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="priority" required value="{{ old('priority') }}">
+                                <input class="form-control" type="number" name="priority" required
+                                    value="{{ old('priority') }}">
                                 @if ($errors->has('priority'))
                                     @foreach ($errors->get('priority') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -76,10 +76,12 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Start Date</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Mulai</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="date" name="start" id="date" value="{{ old('start') }}">
+                                <input class="form-control" type="date" name="start" id="date"
+                                    value="{{ old('start') }}">
                                 @if ($errors->has('start'))
                                     @foreach ($errors->get('start') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -87,10 +89,12 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">End Date</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Selesai</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="date" name="end" id="date" value="{{ old('end') }}">
+                                <input class="form-control" type="date" name="end" id="date"
+                                    value="{{ old('end') }}">
                                 @if ($errors->has('end'))
                                     @foreach ($errors->get('end') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -98,12 +102,14 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description')}}</textarea>
+                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
                             </div>
                         </div>
+
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
@@ -112,9 +118,11 @@
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>
+
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCourseClassModule">Add Parent Course</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addCourseClassModule">Tambah Modul</button>
                             </div>
                         </div>
                     </form>

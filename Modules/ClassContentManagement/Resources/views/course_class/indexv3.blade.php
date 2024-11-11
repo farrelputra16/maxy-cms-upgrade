@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Course Class')
+@section('title', 'Daftar Kelas Kursus')
 
 @section('content')
     @if (session('error'))
@@ -8,37 +8,36 @@
             {{ session('error') }}
         </div>
     @endif
-    <!-- Begin Page Title -->
+
+    <!-- Mulai Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
+                <h4 class="mb-sm-0 font-size-18">Manajemen Kelas Kursus</h4>
 
-                <!-- Begin Breadcrumb -->
+                <!-- Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Course Class</li>
+                        <li class="breadcrumb-item active">Daftar Kelas</li>
                     </ol>
                 </div>
-                <!-- End Breadcrumb -->
+                <!-- Akhir Breadcrumb -->
             </div>
         </div>
     </div>
-    <!-- End Page Title -->
+    <!-- Akhir Judul Halaman -->
 
-    <!-- Begin Content -->
+    <!-- Mulai Konten -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Class</h4>
+                    <h4 class="card-title">Daftar Kelas Kursus</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
-                        features to
-                        customize your view and quickly access the specific information you need.
+                        Lihat dan kelola semua kelas kursus di sini. Setiap baris menunjukkan detail penting seperti nama
+                        kelas, tipe kursus, jadwal, kuota, dan status. Gunakan fitur <b>pengurutan dan pencarian</b> untuk
+                        menemukan kelas yang Anda butuhkan dengan cepat.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -46,23 +45,23 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="class">Batch</th>
-                                <th class="type">Course Type</th>
-                                <th>Ongoing</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>Quota</th>
-                                <th>Credits</th> <!-- New Column -->
-                                <th>Duration</th> <!-- New Column -->
-                                <th class="data-long">Announcement</th>
-                                <th class="data-long">Content</th>
-                                <th class="data-long">Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Angkatan</th>
+                                <th>Tipe Kursus</th>
+                                <th>Berjalan</th>
+                                <th>Mulai</th>
+                                <th>Selesai</th>
+                                <th>Kuota</th>
+                                <th>SKS</th>
+                                <th>Durasi</th>
+                                <th>Pengumuman</th>
+                                <th>Konten</th>
+                                <th>Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>Id Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Id Pembaruan</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,55 +69,49 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->id }}</td>
-                                    <td class="batch" scope="row">{{ $item->course_name }} Batch {{ $item->batch }}
-                                    </td>
-                                    <td>{{ $item->type }} </td>
+                                    <td>{{ $item->course_name }} Batch {{ $item->batch }}</td>
+                                    <td>{{ $item->type }}</td>
                                     <td>
-                                        @if ($item->status_ongoing == 1)
-                                            <button class="btn btn-success" style="pointer-events: none;">Yes</button>
-                                        @else
-                                            <button class="btn btn-danger" style="pointer-events: none;">No</button>
-                                        @endif
+                                        <span class="badge {{ $item->status_ongoing == 1 ? 'bg-success' : 'bg-danger' }}">
+                                            {{ $item->status_ongoing == 1 ? 'Ya' : 'Tidak' }}
+                                        </span>
                                     </td>
                                     <td>{{ $item->start_date }}</td>
                                     <td>{{ $item->end_date }}</td>
                                     <td>{{ $item->quota }}</td>
-                                    <td>{{ $item->credits }}</td> <!-- New Column Data -->
-                                    <td>{{ sprintf('%02d:00:00', $item->duration) }}</td> <!-- New Column Data -->
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->announcement) !!}">
-                                        {!! !empty($item->announcement) ? \Str::limit(strip_tags($item->content), 30) : '-' !!}
+                                    <td>{{ $item->credits }}</td>
+                                    <td>{{ sprintf('%02d:00:00', $item->duration) }}</td>
+                                    <td class="data-long" data-toggle="tooltip"
+                                        title="{{ strip_tags($item->announcement) }}">
+                                        {{ \Str::limit(strip_tags($item->announcement), 30, '...') }}
                                     </td>
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->content) !!}">
-                                        {!! !empty($item->content) ? \Str::limit(strip_tags($item->content), 30) : '-' !!}
+                                    <td class="data-long" data-toggle="tooltip" title="{{ strip_tags($item->content) }}">
+                                        {{ \Str::limit(strip_tags($item->content), 30, '...') }}
                                     </td>
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->description) !!}">
-                                        {!! !empty($item->description) ? \Str::limit(strip_tags($item->content), 30) : '-' !!}
+                                    <td class="data-long" data-toggle="tooltip"
+                                        title="{{ strip_tags($item->description) }}">
+                                        {{ \Str::limit(strip_tags($item->description), 30, '...') }}
                                     </td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->created_id }}</td>
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
-                                    <td value="{{ $item->status }}">
-                                        @if ($item->status == 1)
-                                            <a class="btn btn-success" style="pointer-events: none;">Aktif</a>
-                                        @else
-                                            <a class="btn btn-danger" style="pointer-events: none;">Non Aktif</a>
-                                        @endif
+                                    <td>
+                                        <span class="badge {{ $item->status == 1 ? 'bg-success' : 'bg-danger' }}">
+                                            {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
+                                        </span>
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditCourseClass', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary btn-sm">Ubah</a>
                                         <a href="{{ route('getCourseClassModule', ['id' => $item->id]) }}"
-                                            class="btn btn-info rounded">Module</a>
+                                            class="btn btn-info btn-sm">Modul</a>
                                         <a href="{{ route('getCourseClassMember', ['id' => $item->id]) }}"
-                                            class="btn btn-info rounded">Member</a>
+                                            class="btn btn-info btn-sm">Anggota</a>
                                         <a href="{{ route('getCourseClassAttendance', ['id' => $item->id]) }}"
-                                            class="btn btn-outline-primary rounded">Attendence</a>
+                                            class="btn btn-outline-primary btn-sm">Absensi</a>
                                         <a href="{{ route('getCourseClassScoring', ['id' => $item->id]) }}"
-                                            class="btn btn-outline-primary rounded">Scoring</a>
+                                            class="btn btn-outline-primary btn-sm">Penilaian</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -127,23 +120,23 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Batch</th>
-                                <th>Type</th>
-                                <th>Ongoing</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>Quota</th>
-                                <th>Credits</th> <!-- New Column Footer -->
-                                <th>Duration</th> <!-- New Column Footer -->
-                                <th>Announcement</th>
-                                <th>Content</th>
-                                <th>Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Angkatan</th>
+                                <th>Tipe Kursus</th>
+                                <th>Berjalan</th>
+                                <th>Mulai</th>
+                                <th>Selesai</th>
+                                <th>Kuota</th>
+                                <th>SKS</th>
+                                <th>Durasi</th>
+                                <th>Pengumuman</th>
+                                <th>Konten</th>
+                                <th>Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>Id Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Id Pembaruan</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -151,43 +144,37 @@
             </div>
         </div>
     </div>
-    <!-- End Content -->
+    <!-- Akhir Konten -->
 
-    <!-- FAB Add Starts -->
-    <div id="floating-whatsapp-button" style='margin-bottom: 5%;'>
-        <a href="{{ route('getAddCourseClass') }}" target="_blank" data-toggle="tooltip" title="Add New Course Class">
-            <i class="fas fa-plus"></i>
-        </a>
+    <!-- Tombol Aksi Tambah -->
+    <div class="fab-container">
+        <div id="floating-add-button" class="fab">
+            <a href="{{ route('getAddCourseClass') }}" target="_blank" title="Tambah Kelas">
+                <i class="fas fa-plus"></i>
+            </a>
+        </div>
+        <div id="floating-duplicate-button" class="fab">
+            <a href="{{ route('getDuplicateCourseClass') }}" target="_blank" title="Duplikat Kelas">
+                <i class="fa-solid fa-copy"></i>
+            </a>
+        </div>
     </div>
-    <div id="floating-whatsapp-button">
-        <a href="{{ route('getDuplicateCourseClass') }}" target="_blank" data-toggle="tooltip" title="Duplicate Course Class">
-            <i class="fa-solid fa-copy"></i>
-        </a>
-    </div>
-    <!-- FAB Add Ends -->
+    <!-- Akhir Tombol Aksi Tambah -->
 @endsection
 
 @section('script')
+    <script>
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
 
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-});
-
-    @if(session('class_added'))
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                Swal.fire({
-                    title: 'Information!',
-                    html: "<strong>{{ session('class_added') }}</strong>",
-                    icon: 'info',
-                    confirmButtonText: 'OK',
-                    // Optional: You can also add a cancel button if you want
-                    // showCancelButton: true,
-                    // cancelButtonText: 'Close',
-                });
+        @if (session('class_added'))
+            Swal.fire({
+                title: 'Informasi',
+                text: "{{ session('class_added') }}",
+                icon: 'info',
+                confirmButtonText: 'OK',
             });
-        </script>
-    @endif
-
-
+        @endif
+    </script>
 @endsection

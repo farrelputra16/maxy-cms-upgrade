@@ -1,37 +1,39 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Member Attendance')
+@section('title', 'Edit Kehadiran Anggota Kelas')
 
 @section('content')
-    <!-- start page title -->
+    <!-- Mulai Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Edit Kehadiran</h4>
 
+                <!-- Mulai Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Class</a></li>
-                        <li class="breadcrumb-item"><a href="">Attendance</a></li>
-                        <li class="breadcrumb-item active">Edit Member Attendance</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Presensi</a></li>
+                        <li class="breadcrumb-item active">Edit Kehadiran Anggota Kelas</li>
                     </ol>
                 </div>
-
+                <!-- Akhir Breadcrumb -->
             </div>
         </div>
     </div>
-    <!-- end page title -->
+    <!-- Akhir Judul Halaman -->
 
+    <!-- Mulai Konten -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title"> Edit Member Attendance:{{ $attendance->user_name }}</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Edit Kehadiran: {{ $attendance->user_name }}</h4>
+                    <p class="card-title-desc">Silakan perbarui data kehadiran anggota kelas dengan memastikan semua
+                        informasi yang dimasukkan benar dan akurat. Hal ini akan membantu dalam menciptakan pengalaman
+                        belajar yang optimal bagi peserta.</p>
 
                     <form action="{{ route('postEditMemberAttendance') }}" method="post" enctype="multipart/form-data">
                         @csrf
@@ -40,16 +42,17 @@
                         <input type="hidden" name="class_attendance_id" value="{{ $class_attendance_id }}">
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Anggota</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" placeholder="Masukkan Nama"
                                     value="{{ $attendance->user_name }}" id="name" disabled>
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Status</label>
+                            <label for="input-status" class="col-md-2 col-form-label">Status Kehadiran</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="status" data-placeholder="Choose ...">
+                                <select class="form-control select2" name="status" data-placeholder="Pilih Status">
                                     <option value="0" @if ($attendance->status == 0) selected @endif
                                         {{ old('status') == 0 ? 'selected' : '' }}>Tidak Hadir
                                     </option>
@@ -60,53 +63,53 @@
                                 </select>
                             </div>
                         </div>
+
                         @if ($attendance->feedback != null)
                             <div class="mb-3 row">
-                                <label>Feedback</label>
-                                <div class="card w-100 h-100">
-                                    <ul class="list-group list-group-flush">
-                                        @foreach (json_decode($attendance->feedback) as $item)
-                                            <li class="list-group-item">
-                                                <b>{{ $item->question }}</b>
-                                                <p>{{ $item->answer }}</p>
-                                            </li>
-                                        @endforeach
-                                    </ul>
+                                <label class="col-md-2 col-form-label">Umpan Balik</label>
+                                <div class="col-md-10">
+                                    <div class="card w-100 h-100">
+                                        <ul class="list-group list-group-flush">
+                                            @foreach (json_decode($attendance->feedback) as $item)
+                                                <li class="list-group-item">
+                                                    <b>{{ $item->question }}</b>
+                                                    <p>{{ $item->answer }}</p>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         @else
                             <div class="mb-3 row">
-                                <label>Feedback</label>
-                                <div class="card w-100 h-100">
-                                    <ul class="list-group list-group-flush">
-                                        No Feedback
-                                    </ul>
+                                <label class="col-md-2 col-form-label">Umpan Balik</label>
+                                <div class="col-md-10">
+                                    <div class="card w-100 h-100">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">Belum Ada Umpan Balik</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         @endif
+
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-description" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description', $class->description) }}</textarea>
+                                <textarea id="elm1" name="description" placeholder="Tambahkan deskripsi jika diperlukan">{{ old('description', $class->description) }}</textarea>
                             </div>
                         </div>
-                        {{-- <div class="mb-3 row">
-                            <label for="input-description" class="col-md-2 col-form-label">Short Description</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="short_description"
-                                    value="{{ $class->short_description }}" id="input-description">
-                            </div>
-                        </div> --}}
+
                         <div class="mb-3 row justify-content-end">
-                            <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Save & Update</button>
+                            <div class="col-md-10 text-end">
+                                <button type="submit" class="btn btn-primary w-md text-center">Simpan Perubahan</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-        </div> <!-- end col -->
-    </div> <!-- end row -->
+        </div> <!-- akhir kolom -->
+    </div> <!-- akhir baris -->
 @endsection
 
 @section('script')

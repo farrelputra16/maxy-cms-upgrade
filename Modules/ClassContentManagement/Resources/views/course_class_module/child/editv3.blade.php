@@ -1,24 +1,23 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Course Class Module')
+@section('title', 'Edit Modul Child Kelas Kursus')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Child Module</h4>
+                <h4 class="mb-sm-0 font-size-18">Edit Modul Child</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Class</a></li>
-                        <li class="breadcrumb-item"><a>Module List</a></li>
-                        <li class="breadcrumb-item"><a>Content</a></li>
-                        <li class="breadcrumb-item active"><a>Edit Content</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
+                        <li class="breadcrumb-item"><a>Daftar Modul</a></li>
+                        <li class="breadcrumb-item"><a>Konten</a></li>
+                        <li class="breadcrumb-item active"><a>Edit Konten</a></li>
                     </ol>
                 </div>
-
             </div>
         </div>
     </div>
@@ -29,10 +28,10 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Child Module</small></h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Edit Modul Child</h4>
+                    <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi modul anak dengan
+                        mengedit data yang tercantum di bawah ini. Pastikan semua informasi yang Anda masukkan akurat untuk
+                        memberikan pengalaman belajar terbaik bagi peserta kursus.</p>
 
                     <form action="{{ route('postEditCourseClassChildModule', ['id' => $child_detail->id]) }}" method="post"
                         enctype="multipart/form-data">
@@ -41,19 +40,19 @@
                         <input type="hidden" name="ccmod_parent_id" value="{{ $parent_ccmod_detail->id }}">
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Class</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Kelas</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text"
                                     value="{{ $class_detail->course_name }} Batch {{ $class_detail->batch }}" disabled>
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Course Module</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Modul Kursus</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="course_module_id" data-placeholder="Choose ...">
-                                    {{-- <option>Select</option> --}}
+                                <select class="form-control select2" name="course_module_id" data-placeholder="Pilih ...">
                                     @foreach ($child_cm_list as $item)
-                                        <option value="{{ $item->id }}" {{ old('course_module_id') == $item->id ? 'selected' : '' }}
+                                        <option value="{{ $item->id }}"
+                                            {{ old('course_module_id') == $item->id ? 'selected' : '' }}
                                             @if ($item->id == $child_detail->course_module_id) selected @endif>[{{ $item->type }}]
                                             {{ $item->name }}</option>
                                     @endforeach
@@ -66,7 +65,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Priority</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Prioritas</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority"
                                     value="{{ old('priority', $child_detail->priority) }}">
@@ -103,7 +102,7 @@
                         </div>
                         <div class="card m-5 p-5" style="border-radius: 25px; border: 1px solid #b0bad8;">
                             <a href="{{ route('getEditChildModule', ['id' => $child_cm_detail->id]) }}">
-                                <h3>Material <i class="fa fa-edit"></i></h3>
+                                <h3>Materi <i class="fa fa-edit"></i></h3>
                             </a>
                             <div class="field">
                                 <label for=""></label>
@@ -117,7 +116,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description">{{ old('description', $child_detail->description) }}</textarea>
                             </div>
@@ -127,7 +126,7 @@
                             <div class="col-md-10 d-flex align-items-center">
                                 <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
                                 <input type="hidden" name="status" value="0">
-                                
+
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
                                     value="1" name="status"
                                     {{ old('status', isset($child_detail) ? $child_detail->status : false) ? 'checked' : '' }}>
@@ -136,15 +135,14 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Save & Update</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Simpan & Perbarui</button>
                             </div>
                         </div>
-                </div>
-                </form>
+                    </form>
 
+                </div>
             </div>
-        </div>
-    </div> <!-- end col -->
+        </div> <!-- end col -->
     </div> <!-- end row -->
 @endsection
 

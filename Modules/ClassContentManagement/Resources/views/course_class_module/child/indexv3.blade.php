@@ -1,21 +1,21 @@
 @extends('layout.main-v3')
 
-@section('title', 'Course Class Module')
+@section('title', 'Modul Kelas Kursus')
 
 @section('content')
     <!-- Begin Page Title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
+                <h4 class="mb-sm-0 font-size-18">Modul Child untuk Modul Kelas Kursus</h4>
 
                 <!-- Begin Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Class</a></li>
-                        <li class="breadcrumb-item"><a>Module List</a></li>
-                        <li class="breadcrumb-item active">Content: {{ $parent_module->detail->name }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
+                        <li class="breadcrumb-item"><a>Daftar Modul</a></li>
+                        <li class="breadcrumb-item active">Konten: {{ $parent_module->detail->name }}</li>
                     </ol>
                 </div>
                 <!-- End Breadcrumb -->
@@ -26,13 +26,16 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Child Modules: {{ $parent_module->detail->name }}</h4>
+                    <h4 class="card-title">Modul Child dalam: {{ $parent_module->detail->name }}</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
-                        features to
-                        customize your view and quickly access the specific information you need.
+                        Halaman ini menyediakan tampilan terorganisir dari semua modul anak yang termasuk dalam modul utama
+                        ini.
+                        Setiap baris menampilkan detail utama tentang modul, seperti nama, prioritas, tipe, konten, materi
+                        kursus,
+                        dan jadwal. Gunakan fitur <b>pengaturan kolom, pengurutan, dan pencarian</b> untuk menyesuaikan
+                        tampilan
+                        sesuai kebutuhan dan menemukan modul tertentu dengan cepat. Sebagai contoh, klik pada judul kolom
+                        untuk mengurutkan data, atau arahkan kursor ke teks terpotong untuk melihat deskripsi lengkap.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -40,20 +43,20 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Course Module</th>
-                                <th>Priority</th>
-                                <th>Type</th>
-                                <th class="data-long">Content</th>
-                                <th class="data-long">Course Material</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th class="data-long">Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th class="data-medium">Modul Kursus</th>
+                                <th>Prioritas</th>
+                                <th>Tipe</th>
+                                <th class="data-long">Konten</th>
+                                <th class="data-long">Materi Kursus</th>
+                                <th>Tanggal Mulai</th>
+                                <th>Tanggal Selesai</th>
+                                <th class="data-long">Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>Id Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Id Pembaru</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,7 +65,8 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->id }}</td>
                                     <td class="batch" scope="row">{{ $item->course_module_name }}</td>
-                                    <td>{{ $item->priority }} </td>
+                                    <td data-toggle="tooltip" data-placement="top" title="Urutan prioritas dalam modul">
+                                        {{ $item->priority }} </td>
                                     <td>{{ $item->type }}</td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->course_module_content) !!}">
@@ -84,9 +88,9 @@
                                     <td>{{ $item->updated_id }}</td>
                                     <td value="{{ $item->status }}">
                                         @if ($item->status == 1)
-                                            <a class="btn btn-success disabled">Aktif</a>
+                                            <a class="btn btn-success" style="pointer-events: none;">Aktif</a>
                                         @else
-                                            <a class="btn btn-danger disabled">Non Aktif</a>
+                                            <a class="btn btn-danger" style="pointer-events: none;">Tidak Aktif</a>
                                         @endif
                                     </td>
                                     <td>
@@ -94,7 +98,7 @@
                                         <a href="{{ route('getEditCourseClassChildModule', ['id' => $item->id, 'parent_id' => $parent_module->id]) }}"
                                             class="btn btn-primary rounded">Edit</a>
                                         <a href="{{ route('getJournalCourseClassChildModule', ['id' => $item->id]) }}"
-                                            class="btn btn-outline-primary rounded">Journal</a>
+                                            class="btn btn-outline-primary rounded">Kelola Jurnal</a>
                                         {{-- </div> --}}
                                     </td>
                                 </tr>
@@ -104,20 +108,20 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Course Module</th>
-                                <th>Priority</th>
-                                <th>Type</th>
-                                <th>Content</th>
-                                <th>Module Material</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Modul Kursus</th>
+                                <th>Prioritas</th>
+                                <th>Tipe</th>
+                                <th>Konten</th>
+                                <th>Materi Kursus</th>
+                                <th>Tanggal Mulai</th>
+                                <th>Tanggal Selesai</th>
+                                <th>Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>Id Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Id Pembaru</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -130,7 +134,7 @@
     <!-- FAB Add Starts -->
     <div id="floating-whatsapp-button">
         <a href="{{ route('getAddCourseClassChildModule', ['id' => $parent_module->id]) }}" target="_blank"
-            data-toggle="tooltip" title="Add Class Module">
+            data-toggle="tooltip" title="Tambah Modul Anak">
             <i class="fas fa-plus"></i>
         </a>
     </div>

@@ -1,47 +1,48 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add Class Attendance')
+@section('title', 'Tambah Presensi Kelas')
 
 @section('content')
-    <!-- start page title -->
+    <!-- Mulai Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Add New Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Data Presensi</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Class</a></li>
-                        <li class="breadcrumb-item"><a href="">Attendance</a></li>
-                        <li class="breadcrumb-item active">Add New Attendance</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Presensi</a></li>
+                        <li class="breadcrumb-item active">Tambah Presensi Baru</li>
                     </ol>
                 </div>
-
             </div>
         </div>
     </div>
-    <!-- end page title -->
+    <!-- Akhir Judul Halaman -->
 
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    <h4 class="card-title">Tambah Presensi Kelas Baru</h4>
+                    <p class="card-title-desc">
+                        Halaman ini memungkinkan Anda untuk menambahkan data presensi baru. Pastikan semua informasi yang
+                        Anda masukkan akurat agar dapat memberikan pengalaman pembelajaran yang terbaik bagi peserta kursus.
+                    </p>
 
-                    <h4 class="card-title">Add New Attendance</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
-
-                    <form id="addCCAttendance" action="{{ route('postAddCourseClassAttendance') }}" method="post" enctype="multipart/form-data">
+                    <form id="addCCAttendance" action="{{ route('postAddCourseClassAttendance') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="class_id" value="{{ $class->id }}">
 
+                        <!-- Nama Presensi -->
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Presensi</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                    placeholder="Masukkan Nama" value="{{ old('name') }}">
+                                    placeholder="Masukkan Nama Presensi" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -49,36 +50,44 @@
                                 @endif
                             </div>
                         </div>
+
+                        <!-- Pilih Hari Modul -->
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Day</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Hari</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="day" data-placeholder="Choose ..."
+                                <select class="form-control select2" name="day" data-placeholder="Pilih Hari ..."
                                     id="type_selector">
                                     @foreach ($class->parent_modules as $item)
-                                        <option value="{{ $item->id }}" {{ old('day') == $item->id ? 'selected' : '' }}> Day {{ $item->priority }} :
-                                            {{ $item->module_name }}
-                                        </option>
+                                        <option value="{{ $item->id }}" {{ old('day') == $item->id ? 'selected' : '' }}>
+                                            Hari {{ $item->priority }} : {{ $item->module_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
+
+                        <!-- Deskripsi Presensi -->
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
+                                <textarea id="elm1" name="description" placeholder="Deskripsikan Presensi (opsional)">{{ old('description') }}</textarea>
                             </div>
                         </div>
+
+                        <!-- Status Aktif -->
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
-                                <input class="form-check-input p-0 m-0" type="checkbox" value="1" id="SwitchCheckSizemd"
-                                    name="status" {{ old('status') ? 'checked' : '' }}>
+                                <input class="form-check-input p-0 m-0" type="checkbox" value="1"
+                                    id="SwitchCheckSizemd" name="status" {{ old('status') ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>
+
+                        <!-- Tombol Submit -->
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCCAttendance">Add Attendance</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addCCAttendance">Tambahkan Presensi</button>
                             </div>
                         </div>
                     </form>
@@ -90,5 +99,4 @@
 @endsection
 
 @section('script')
-
 @endsection

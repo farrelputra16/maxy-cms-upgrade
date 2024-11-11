@@ -1,121 +1,106 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add Certificate Template')
+@section('title', 'Tambah Template Sertifikat')
 
 @section('content')
-    <!-- start page title -->
+    <!-- Mulai Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Add New Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Template Sertifikat Baru</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="certificate-templates.index">Template</a></li>
-                        <li class="breadcrumb-item active">Add Certificate Template</li>
+                        <li class="breadcrumb-item"><a href="{{ route('certificate-templates.index') }}">Template</a></li>
+                        <li class="breadcrumb-item active">Tambah Template Sertifikat</li>
                     </ol>
                 </div>
-
             </div>
         </div>
     </div>
-    <!-- end page title -->
+    <!-- Akhir Judul Halaman -->
 
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-
-                    <h4 class="card-title">Add Certificate Template</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Form Tambah Template Sertifikat</h4>
+                    <p class="card-title-desc">Isi form di bawah ini untuk membuat template sertifikat baru. Pastikan informasi yang Anda masukkan benar agar sertifikat yang dihasilkan sesuai dengan kebutuhan peserta kursus.</p>
 
                     <form id="addTemplate" action="{{ route('certificate-templates.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        {{-- <input type="text" name="img_keep" value="{{ $blog->cover_img }}" hidden> --}}
 
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Course Type</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Kursus</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="m_course_type_id" data-placeholder="Choose ..."
-                                    id="type_selector">
+                                <select class="form-control select2" name="m_course_type_id" data-placeholder="Pilih Tipe Kursus" id="type_selector">
                                     <option value="" disabled selected>Pilih Tipe Kursus</option>
                                     @foreach ($courseTypes as $courseType)
-                                        <option value="{{ $courseType->id }}" {{ old('m_course_type_id') == $courseType->id ? 'selected' : '' }}
-                                            {{ $loop->iteration === 1 ? 'selected' : '' }}>{{ $courseType->name }}</option>
+                                        <option value="{{ $courseType->id }}" {{ old('m_course_type_id') == $courseType->id ? 'selected' : '' }}>{{ $courseType->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('m_course_type_id')
-                                    <div class="text-danger">
-                                        {{ $message }}
-                                    </div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
+
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Batch</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="batch" id="batch"
-                                    placeholder="Masukkan Batch" value="{{ old('batch') }}">
-                                @if ($errors->has('batch'))
-                                    @foreach ($errors->get('batch') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
+                                <input class="form-control" type="number" name="batch" id="batch" placeholder="Masukkan nomor batch" value="{{ old('batch') }}">
+                                @error('batch')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="Image" class="col-md-2 col-form-label">Sample</label>
+                            <label for="Image" class="col-md-2 col-form-label">Contoh Template</label>
                             <div class="col-md-10">
-                                <img src="{{ asset('uploads/certificate/template_example.png') }}" class="img-fluid"
-                                    alt="" />
+                                <img src="{{ asset('uploads/certificate/template_example.png') }}" class="img-fluid" alt="Contoh Template Sertifikat" />
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="Image" class="col-md-2 col-form-label">Template</label>
+                            <label for="Image" class="col-md-2 col-form-label">Unggah Template</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="file" name="filename" id="templateImage"
-                                    accept=".png">
-                                <small>* Accepted File Type: .png</small>
+                                <input class="form-control" type="file" name="filename" id="templateImage" accept=".png">
+                                <small>* Hanya menerima file dengan format .png</small>
                                 <div class="position-relative d-flex flex-column justify-content-center align-items-center">
-                                    <img id="sourceImage" class="img-fluid" alt="" src="" />
-                                    <img id="originalImage" class="img-fluid position-absolute" alt=""
-                                        src="" />
+                                    <img id="sourceImage" class="img-fluid" alt="Pratinjau Template" src="" />
+                                    <img id="originalImage" class="img-fluid position-absolute" alt="Pratinjau Template" src="" />
                                 </div>
                                 @error('filename')
-                                    <div class="text-danger">
-                                        {{ $message }}
-                                    </div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Template Content</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Isi Template</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="template_content" placeholder="Ex: Telah berhasil menyelesaikan program [[class_name]]">{{ old('template_content') }}</textarea>
+                                <textarea id="elm1" name="template_content" placeholder="Contoh: Telah menyelesaikan program [[class_name]]">{{ old('template_content') }}</textarea>
                                 @error('template_content')
-                                    <div class="text-danger">
-                                        {{ $message }}
-                                    </div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm2" name="description" class="form-control">{{ old('description') }}</textarea>
+                                <textarea id="elm2" name="description" class="form-control" placeholder="Deskripsi template sertifikat">{{ old('description') }}</textarea>
                                 @error('description')
-                                    <div class="text-danger">
-                                        {{ $message }}
-                                    </div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
+
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addTemplate">Add Template</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addTemplate">Simpan Template</button>
                             </div>
                         </div>
                     </form>
@@ -127,7 +112,6 @@
 @endsection
 
 @section('script')
-
     <script>
         $(function() {
             let editors = {};
@@ -146,7 +130,6 @@
 
             let sourceImage, targetRoot, maState;
 
-            // save references to the original image and its parent div (positioning root)
             function setSourceImage(source) {
                 sourceImage = source;
                 targetRoot = source.parentElement;
@@ -156,19 +139,14 @@
                 const markerArea = new markerjs2.MarkerArea(sourceImage);
                 markerArea.availableMarkerTypes = ["CaptionFrameMarker"];
 
-                // since the container div is set to position: relative it is now our positioning root
-                // end we have to let marker.js know that
                 markerArea.targetRoot = targetRoot;
                 markerArea.addEventListener("render", (event) => {
                     target.src = event.dataUrl;
-                    // save the state of MarkerArea
                     maState = event.state;
-                    console.log(maState);
                 });
 
                 markerArea.show();
 
-                // if previous state is present - restore it
                 if (maState) {
                     markerArea.restoreState(maState);
                 }
@@ -214,5 +192,4 @@
             }
         })
     </script>
-
 @endsection

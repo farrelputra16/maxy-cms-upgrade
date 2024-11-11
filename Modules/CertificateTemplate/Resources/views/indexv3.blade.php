@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Certificate Template')
+@section('title', 'Template Sertifikat')
 
 @section('content')
     <!-- Begin Page Title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
+                <h4 class="mb-sm-0 font-size-18">Ikhtisar Data</h4>
 
                 <!-- Begin Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Certificate Template</li>
+                        <li class="breadcrumb-item active">Template Sertifikat</li>
                     </ol>
                 </div>
                 <!-- End Breadcrumb -->
@@ -27,29 +27,30 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Certificate Templates</h4>
+                    <h4 class="card-title">Template Sertifikat</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
-                        features to
-                        customize your view and quickly access the specific information you need.
+                        Halaman ini menampilkan semua template sertifikat dalam tabel interaktif yang terorganisir. Setiap
+                        baris memberikan informasi penting mengenai setiap template, seperti jenis kursus, batch, status
+                        penanda, dan konten template. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian</b>
+                        untuk menyesuaikan tampilan Anda dan menemukan template tertentu dengan cepat. Arahkan kursor ke
+                        teks yang terpotong untuk melihat deskripsi lengkap.
                     </p>
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
+                        data-colvis="[1, 6, 7, 8, 9]">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Course Type - Batch</th>
-                                <th>Image</th>
-                                <th>Marker State</th>
-                                <th>Template Content</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
-                                <th>Action</th>
+                                <th>Jenis Kursus - Batch</th>
+                                <th>Gambar</th>
+                                <th>Status Penanda</th>
+                                <th>Konten Template</th>
+                                <th>Dibuat Pada</th>
+                                <th>ID Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>ID Pembaruan</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,7 +65,8 @@
                                             alt="{{ $certificateTemplate->filename }}" width="225">
                                     </td>
                                     <td class="text-wrap">{{ \Str::limit($certificateTemplate->marker_state) }}</td>
-                                    <td id="description" class="text-wrap">{!! !empty($certificateTemplate->template_content) ? \Str::limit($certificateTemplate->template_content) : '-' !!}</td>
+                                    <td id="description" class="text-wrap" data-toggle="tooltip" data-placement="top"
+                                        title="{{ $certificateTemplate->template_content }}">{!! !empty($certificateTemplate->template_content) ? \Str::limit($certificateTemplate->template_content) : '-' !!}</td>
                                     <td>{{ $certificateTemplate->created_at }}</td>
                                     <td>{{ $certificateTemplate->created_id }}</td>
                                     <td>{{ $certificateTemplate->updated_at }}</td>
@@ -73,10 +75,13 @@
                                         <a href="{{ route('certificate-templates.edit', $certificateTemplate->id) }}"
                                             class="btn btn-primary">Edit</a>
                                         <!-- Delete Form -->
-                                        <form action="{{ route('certificate-templates.destroy', $certificateTemplate->id) }}" method="POST" style="display:inline-block;">
+                                        <form
+                                            action="{{ route('certificate-templates.destroy', $certificateTemplate->id) }}"
+                                            method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this template?')">Delete</button>
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus template ini?')">Hapus</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -86,15 +91,15 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Course Type - Batch</th>
-                                <th>Image</th>
-                                <th>Marker State</th>
-                                <th>Template Content</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
-                                <th>Action</th>
+                                <th>Jenis Kursus - Batch</th>
+                                <th>Gambar</th>
+                                <th>Status Penanda</th>
+                                <th>Konten Template</th>
+                                <th>Dibuat Pada</th>
+                                <th>ID Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>ID Pembaruan</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -107,7 +112,7 @@
     <!-- FAB Add Starts -->
     <div id="floating-whatsapp-button">
         <a href="{{ route('certificate-templates.create') }}" target="_blank" data-toggle="tooltip"
-            title="Add Certificate">
+            title="Tambah Sertifikat">
             <i class="fas fa-plus"></i>
         </a>
     </div>

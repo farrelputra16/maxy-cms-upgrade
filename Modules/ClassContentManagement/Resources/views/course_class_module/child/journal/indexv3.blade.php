@@ -1,22 +1,22 @@
 @extends('layout.main-v3')
 
-@section('title', 'Course Class Module Journal')
+@section('title', 'Jurnal Modul Kelas Kursus')
 
 @section('content')
     <!-- Begin Page Title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
+                <h4 class="mb-sm-0 font-size-18">Entri Jurnal untuk {{ $parent_module->detail->name }}</h4>
 
                 <!-- Begin Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Class</a></li>
-                        <li class="breadcrumb-item"><a>Module List</a></li>
-                        <li class="breadcrumb-item">Content: {{ $parent_module->detail->name }}</li>
-                        <li class="breadcrumb-item active">Journal</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
+                        <li class="breadcrumb-item"><a>Daftar Modul</a></li>
+                        <li class="breadcrumb-item">Konten: {{ $parent_module->detail->name }}</li>
+                        <li class="breadcrumb-item active">Jurnal</li>
                     </ol>
                 </div>
                 <!-- End Breadcrumb -->
@@ -25,30 +25,19 @@
     </div>
     <!-- End Page Title -->
 
-    {{-- @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif --}}
-
     <!-- Begin Content -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Child Modules: {{ $parent_module->detail->name }} Journal</h4>
+                    <h4 class="card-title">Entri Jurnal: Modul Anak dari {{ $parent_module->detail->name }}</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
-                        features to
-                        customize your view and quickly access the specific information you need.
+                        Halaman ini memungkinkan Anda untuk melihat dan mengelola entri jurnal yang terkait dengan setiap
+                        modul anak dalam kelas kursus ini. Setiap entri mencakup detail penting seperti nama penulis,
+                        catatan, dan status. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian</b> untuk
+                        menyesuaikan tampilan Anda dan dengan cepat menemukan entri tertentu. Misalnya, klik pada header
+                        kolom untuk mengurutkan data atau arahkan kursor ke teks yang terpotong untuk melihat deskripsi
+                        lengkap.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -56,14 +45,14 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Name</th>
-                                <th class="data-long">Notes</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th class="data-medium">Nama</th>
+                                <th class="data-long">Catatan</th>
+                                <th>Dibuat Pada</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Diperbarui Oleh</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -82,26 +71,25 @@
                                     <td>{{ $item->updated_id }}</td>
                                     <td value="{{ $item->status }}">
                                         @if ($item->status == 1)
-                                            <a class="btn btn-success disabled">Aktif</a>
+                                            <a class="btn btn-success" style="pointer-events: none;">Aktif</a>
                                         @else
-                                            <a class="btn btn-danger disabled">Non Aktif</a>
+                                            <a class="btn btn-danger" style="pointer-events: none;">Tidak Aktif</a>
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getAddJournalCourseClassChildModule', ['id' => $item->id, 'user_id' => $item->User->id, 'course_class_module_id' => $parent_module->id]) }}"
-                                            class="btn btn-primary rounded">Reply</a>
+                                            class="btn btn-primary rounded">Balas</a>
                                         @if ($item->status == 1)
                                             <button type="button" class="btn btn-danger delete-button"
                                                 data-id="{{ $item->id }}"
                                                 data-course_class_module_id="{{ $parent_module->id }}">
-                                                Delete
+                                                Hapus
                                             </button>
                                         @else
                                             <button type="button" class="btn btn-success delete-button"
                                                 data-id="{{ $item->id }}"
                                                 data-course_class_module_id="{{ $parent_module->id }}">
-                                                Restore
+                                                Pulihkan
                                             </button>
                                         @endif
                                         <form
@@ -109,12 +97,11 @@
                                             method="POST" style="display:inline;">
                                             @csrf
                                             @if ($item->status == 1)
-                                                <button type="submit" class="btn btn-danger">Reject</button>
+                                                <button type="submit" class="btn btn-danger">Tolak</button>
                                             @else
-                                                <button type="submit" class="btn btn-success">Accept</button>
+                                                <button type="submit" class="btn btn-success">Terima</button>
                                             @endif
                                         </form>
-                                        {{-- </div> --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -123,14 +110,14 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Name</th>
-                                <th>Notes</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Nama</th>
+                                <th>Catatan</th>
+                                <th>Dibuat Pada</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Diperbarui Oleh</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -140,16 +127,16 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="confirmationModalLabel">Confirm Deletion</h5>
+                                    <h5 class="modal-title" id="confirmationModalLabel">Hapus Entri Jurnal</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    Are you sure you want to delete this item?
+                                    Apakah Anda yakin ingin menghapus entri jurnal ini? Tindakan ini tidak dapat dibatalkan.
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                    <button type="button" class="btn btn-primary" id="confirm-delete">Yes</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    <button type="button" class="btn btn-primary" id="confirm-delete">Hapus</button>
                                 </div>
                             </div>
                         </div>
@@ -164,29 +151,29 @@
 @section('script')
 
     <script>
-        // Listen for clicks on elements with the class 'delete-button'
+        // Dengar klik pada elemen dengan class 'delete-button'
         document.querySelectorAll('.delete-button').forEach(button => {
             button.addEventListener('click', function() {
-                // Get the ID and course_class_module_id from the clicked button's data attributes
+                // Dapatkan ID dan course_class_module_id dari atribut data button yang diklik
                 let id = this.getAttribute('data-id');
                 let course_class_module_id = this.getAttribute('data-course_class_module_id');
 
-                // Show the confirmation modal (Bootstrap example)
+                // Tampilkan modal konfirmasi
                 var confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
                 confirmationModal.show();
 
-                // Handle the confirm-delete button inside the modal
+                // Tangani tombol konfirmasi hapus di dalam modal
                 document.getElementById('confirm-delete').addEventListener('click', function() {
-                    // Send the request when the user confirms
+                    // Kirim permintaan saat pengguna mengkonfirmasi
                     fetch('/courseclassmodule/child/journal/delete', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': "{{ csrf_token() }}" // CSRF token from Blade
+                                'X-CSRF-TOKEN': "{{ csrf_token() }}"
                             },
                             body: JSON.stringify({
-                                id: id, // Pass the correct ID here
-                                course_class_module_id: course_class_module_id // And the correct course_class_module_id
+                                id: id,
+                                course_class_module_id: course_class_module_id
                             })
                         })
                         .then(response => response.json())
@@ -194,20 +181,19 @@
                             if (data.success) {
                                 confirmationModal.hide();
                                 Swal.fire({
-                                    title: 'Deleted!',
-                                    text: 'Journal entry deleted/restored successfully.',
+                                    title: 'Berhasil!',
+                                    text: 'Entri jurnal berhasil dihapus/dipulihkan.',
                                     icon: 'success',
                                     confirmButtonText: 'OK'
                                 }).then((result) => {
                                     if (result.isConfirmed) {
-                                        // Refresh the page after the alert is closed
                                         location.reload();
                                     }
                                 });
                             } else {
                                 Swal.fire({
-                                    title: 'Error!',
-                                    text: 'Failed to delete the journal entry. Please try again.',
+                                    title: 'Gagal!',
+                                    text: 'Gagal menghapus entri jurnal. Coba lagi.',
                                     icon: 'error',
                                     confirmButtonText: 'OK'
                                 });
@@ -217,7 +203,7 @@
                             console.error('Error:', error);
                             Swal.fire({
                                 title: 'Error!',
-                                text: 'An error occurred. Please try again.',
+                                text: 'Terjadi kesalahan. Silakan coba lagi.',
                                 icon: 'error',
                                 confirmButtonText: 'OK'
                             });
