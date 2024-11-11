@@ -1,12 +1,12 @@
 <?php
 
 namespace Modules\Enrollment\Imports;
-use DB;
 use Modules\Enrollment\Entities\CourseClassMember;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CourseClassMemberImport implements ToModel, WithHeadingRow
 {
@@ -22,18 +22,15 @@ class CourseClassMemberImport implements ToModel, WithHeadingRow
             ->where('slug', $row['course_class_slug'])
             ->first();
 
-        // dd($course_class->id);
-
         // Sesuaikan dengan kolom dalam file CSV dan model CourseClassMember
         return new CourseClassMember([
             'user_id' => $user->id, // Sesuaikan dengan kolom dalam file CSV
             'course_class_id' => $course_class->id, // Sesuaikan dengan kolom dalam file CSV
-            'mentor_id' => $row['mentor_id'],
             'status' => 1,
             'created_at' => now(),
             'created_id' => Auth::user()->id, // Mengisi kolom "created_id" dengan ID pengguna saat ini
             'updated_at' => now(),
-            'updated_id' => Auth::user()->id, 
+            'updated_id' => Auth::user()->id,
         ]);
     }
 }

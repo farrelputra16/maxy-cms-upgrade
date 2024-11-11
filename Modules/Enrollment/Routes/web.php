@@ -4,6 +4,8 @@ use Modules\Enrollment\Http\Controllers\CourseClassMemberController;
 use Modules\Enrollment\Http\Controllers\CourseClassMemberFinalScoreController;
 use Modules\Enrollment\Http\Controllers\GenerateCertificateController;
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

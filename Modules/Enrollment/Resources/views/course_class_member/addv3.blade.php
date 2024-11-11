@@ -32,9 +32,9 @@
 
                     <h4 class="card-title">Add Member for Class: {{ $course_class_detail->course_name }}
                         Batch {{ $course_class_detail->batch }}</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <p class="card-title-desc">Halaman ini dapat digunakan untuk menambahkan member baru ke dalam kelas.
+                        Anda dapat menambahkan member satu per satu atau beberapa member sekaligus menggunakan fitur impor
+                        data dari file CSV.</p>
 
                     <form id="addCCMember" action="{{ route('postAddCourseClassMember') }}" method="post"
                         enctype="multipart/form-data">
@@ -100,7 +100,8 @@
                             <div class="mb-3 row">
                                 <label for="input-tag" class="col-md-2 col-form-label">Pilih Partner: </label>
                                 <div class="col-md-10">
-                                    <select class="form-control select2" name="partner" data-placeholder="Pilih Partner" required>
+                                    <select class="form-control select2" name="partner" data-placeholder="Pilih Partner"
+                                        required>
                                         <option value="">Pilih Partner</option>
                                         @foreach ($partners as $item)
                                             <option value="{{ $item->id }}"
@@ -135,19 +136,42 @@
                         </div>
                     </form>
                     <br>
+
+
+                    <!-- CSV upload form -->
                     <h4>Add Multiple Members by uploading CSV File</h4>
                     <div class="row">
                         <div class="col-12">
-                            <div class="">
-                                <div class="">
+                            <div class="card">
+                                <div class="card-body">
                                     <div class="mb-5">
-                                        <form action="{{ route('course-class-member.import-csv') }}"
-                                            enctype="multipart/form-data" class="dropzone text-center" id="csv-upload">
+                                        <form action="{{ route('course-class-member.import-csv') }}" method="POST" enctype="multipart/form-data">
+                                            @method('POST')
+                                            @csrf
+
+                                            
+                                            <div class="mb-3">
+                                                <label for="csv_file" class="form-label">Upload CSV here</label>
+                                                <br>
+                                                <small>Sample: <i class="fa fa-file" aria-hidden="true"></i> <a
+                                                    href="{{ asset('csv/addccmember.csv') }}" download>CSV
+                                                    Example (Click to Download)</a></small>
+                                                <input class="form-control" type="file" id="csv_file" name="csv_file">
+                                              </div>
+
+                                            <button type="submit" class="btn btn-primary">Add Multiple Members</button>
+                                        </form>
+                                        {{-- <form action="{{ route('course-class-member.import-csv') }}"
+                                            enctype="multipart/form-data" class="dropzone text-center" id="csv-upload"
+                                            method="POST">
+                                            @method('POST')
+                                            @csrf
                                             <div class="row justify-content-center align-items-center"
                                                 style="height: 100%;">
                                                 <div class="col-6">
                                                     <div class="fallback">
-                                                        <input name="csv_file" type="file" id="csv_file" accept=".csv">
+                                                        <input name="csv_file" type="file" id="csv_file"
+                                                            accept=".csv">
                                                         @error('csv_file')
                                                             <span style="color: red;">{{ $message }}</span>
                                                         @enderror
@@ -157,117 +181,127 @@
                                                         <div class="mb-3">
                                                             <i class="mdi mdi-cloud-upload display-4 text-muted"></i>
                                                         </div>
-
                                                         <h4>Drop files here or click to upload.</h4>
                                                         <br>
-                                                        <small>sample: <i class="fa fa-file" aria-hidden="true"></i> <a
-                                                                href="{{ asset('csv/addccmember.csv') }}" download>csv
-                                                                example
-                                                                (click me to download)</a></small>
+                                                        <small>Sample: <i class="fa fa-file" aria-hidden="true"></i> <a
+                                                                href="{{ asset('csv/addccmember.csv') }}" download>CSV
+                                                                Example (Click to Download)</a></small>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form><!-- end form -->
-                                    </div>
 
-                                    <div class="mb-3 row justify-content-end">
-                                        <div class="text-end">
-                                            <button type="submit"
-                                                class="btn btn-primary w-md text-center custom-btn-submit"
-                                                form="addCCMember">Add Multiple Members</button>
-                                        </div>
+                                            <!-- Align button at the bottom-right -->
+                                            <div class="row mt-4">
+                                                <div class="col-12 text-end">
+                                                    <button type="submit"
+                                                        class="btn btn-primary w-md text-center custom-btn-submit">Add
+                                                        Multiple Members</button>
+                                                </div>
+                                            </div>
+                                        </form><!-- end form --> --}}
                                     </div>
-
                                 </div><!-- end cardbody -->
                             </div><!-- end card -->
                         </div> <!-- end col -->
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4>List Mentor</h4>
-                                <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Id</th>
-                                            <th class="data-medium">Name</th>
-                                            <th>Email</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($mentors as $key => $item)
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>List Mentor</h4>
+                                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                                        <thead>
                                             <tr>
-                                                <td>{{ $key + 1 }}</td>
-                                                <td>{{ $item->id }}</td>
-                                                <td class="batch" scope="row">{{ $item->name }}</td>
-                                                <td>{{ $item->email }}</td>
+                                                <th>No</th>
+                                                <th>Id</th>
+                                                <th class="data-medium">Name</th>
+                                                <th>Email</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Id</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($mentors as $key => $item)
+                                                <tr>
+                                                    <td>{{ $key + 1 }}</td>
+                                                    <td>{{ $item->id }}</td>
+                                                    <td class="batch" scope="row">{{ $item->name }}</td>
+                                                    <td>{{ $item->email }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Id</th>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div> <!-- end col -->
-    </div> <!-- end row -->
-@endsection
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    @endsection
 
-@section('style')
+    @section('style')
 
-    <style>
-        #csv-upload {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 30%;
-        }
+        <style>
+            #csv-upload {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 30%;
+            }
 
-        .dz-message {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+            /* #csv-upload input[type="file"] {
+                display: block;
+                margin: 0 auto;
+                padding: 10px;
+                border-radius: 4px;
+                border: 1px solid #ccc;
+            }
 
-        #csv-upload .dz-message h4 {
-            font-size: 18px;
-            font-weight: bold;
-            white-space: nowrap;
-        }
+            #csv-upload label {
+                margin-bottom: 10px;
+                font-weight: bold;
+            } */
 
-        #csv-upload .dz-message small {
-            font-size: 14px;
-            color: #666;
-            white-space: nowrap;
-        }
-    </style>
+            .dz-message {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
 
-@endsection
+            #csv-upload .dz-message h4 {
+                font-size: 18px;
+                font-weight: bold;
+                white-space: nowrap;
+            }
 
-@section('script')
+            #csv-upload .dz-message small {
+                font-size: 14px;
+                color: #666;
+                white-space: nowrap;
+            }
+        </style>
 
-    <script src="{{ URL::asset('assets/cms-v3/libs/dropzone/dropzone.min.js') }}"></script>
-    <script>
-        // Add event listener for the button to add a new mentor field
-        document.getElementById('add-mentor-button').addEventListener('click', function() {
-            const mentorFieldsContainer = document.getElementById('mentor-fields-container');
-            const newMentorFieldGroup = document.createElement('div');
-            newMentorFieldGroup.className = 'mb-3 row mentor-field-group';
+    @endsection
 
-            newMentorFieldGroup.innerHTML = `
+    @section('script')
+
+        <script src="{{ URL::asset('assets/cms-v3/libs/dropzone/dropzone.min.js') }}"></script>
+        <script>
+            // Add event listener for the button to add a new mentor field
+            document.getElementById('add-mentor-button').addEventListener('click', function() {
+                const mentorFieldsContainer = document.getElementById('mentor-fields-container');
+                const newMentorFieldGroup = document.createElement('div');
+                newMentorFieldGroup.className = 'mb-3 row mentor-field-group';
+
+                newMentorFieldGroup.innerHTML = `
                 <label for="mentor" class="col-md-2 col-form-label">Pilih Mentor: </label>
                 <div class="col-md-4">
                     <select class="form-control select2 mentor-select" name="mentor[]" data-placeholder="Pilih Mentor">
@@ -289,21 +323,21 @@
                 </div>
             `;
 
-            mentorFieldsContainer.appendChild(newMentorFieldGroup);
-        });
+                mentorFieldsContainer.appendChild(newMentorFieldGroup);
+            });
 
-        // Event listener untuk tombol "Kurangi Mentor"
-        document.getElementById('remove-mentor-button').addEventListener('click', function() {
-            const mentorFieldsContainer = document.getElementById('mentor-fields-container');
-            const mentorFieldGroups = mentorFieldsContainer.getElementsByClassName('mentor-field-group');
+            // Event listener untuk tombol "Kurangi Mentor"
+            document.getElementById('remove-mentor-button').addEventListener('click', function() {
+                const mentorFieldsContainer = document.getElementById('mentor-fields-container');
+                const mentorFieldGroups = mentorFieldsContainer.getElementsByClassName('mentor-field-group');
 
-            // Hanya hapus jika ada lebih dari satu field mentor
-            if (mentorFieldGroups.length > 1) {
-                mentorFieldsContainer.removeChild(mentorFieldGroups[mentorFieldGroups.length - 1]);
-            } else {
-                alert("Minimal satu mentor harus tersedia.");
-            }
-        });
-    </script>
+                // Hanya hapus jika ada lebih dari satu field mentor
+                if (mentorFieldGroups.length > 1) {
+                    mentorFieldsContainer.removeChild(mentorFieldGroups[mentorFieldGroups.length - 1]);
+                } else {
+                    alert("Minimal satu mentor harus tersedia.");
+                }
+            });
+        </script>
 
-@endsection
+    @endsection

@@ -32,11 +32,8 @@
                     <h4 class="card-title">Class Member on Class: {{ $courseClassDetail->course_name }} Batch
                         {{ $courseClassDetail->batch }}</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
-                        features to
-                        customize your view and quickly access the specific information you need.
+                        Halaman ini menampilkan seluruh data member pada kelas <b>{{ $courseClassDetail->course_name }}</b>. Anda dapat mengakses data member secara
+                        langsung melalui tabel di bawah ini.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
