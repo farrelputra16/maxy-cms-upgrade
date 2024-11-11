@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Child Course')
+@section('title', 'Edit Modul Child Kursus')
 
 @section('content')
     <!-- start page title -->
@@ -12,11 +12,11 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Course</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Kursus</a></li>
                         <li class="breadcrumb-item"><a
                                 href="{{ route('getCourseModule', ['course_id' => $parentModule->course_id, 'page_type' => 'LMS']) }}">Course
                                 Module</a></li>
-                        <li class="breadcrumb-item active">Edit Child Module For: {{ $parentModule->name }}</li>
+                        <li class="breadcrumb-item active">Edit Modul Child: {{ $parentModule->name }}</li>
                     </ol>
                 </div>
 
@@ -30,23 +30,34 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Child Module For: {{ $parentModule->name }}</small></h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Edit Modul Child untuk: {{ $parentModule->name }}</small></h4>
+                    <p class="card-title-desc">
+                        Halaman ini memungkinkan Anda untuk memperbarui informasi modul anak dalam kursus.
+                        Isi data dengan lengkap dan pastikan akurat untuk memberikan pengalaman belajar terbaik bagi
+                        peserta.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li>Isi <b>Nama Modul</b> dengan judul yang sesuai.</li>
+                        <li>Atur <b>Prioritas</b> untuk menentukan urutan tampil modul dalam kursus.</li>
+                        <li>Pilih <b>Jenis Modul</b> dan isi konten tambahan yang diperlukan.</li>
+                        <li>Tambahkan deskripsi yang menjelaskan isi dari modul ini.</li>
+                        <li>Klik <b>Simpan & Perbarui</b> untuk menyimpan perubahan.</li>
+                    </ul>
+                    </p>
 
                     <form action="{{ route('postEditChildModule', ['id' => $childModule->id]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Parent Module</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Modul Induk</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" value="{{ $parentModule->name }}" disabled>
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Modul</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" value="{{ $childModule->name }}">
                                 @if ($errors->has('name'))
@@ -57,7 +68,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Priority</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Prioritas</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="priority"
                                     value="{{ $childModule->priority }}" min="1">
@@ -82,7 +93,7 @@
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="input-content" class="col-md-2 col-form-label">Content</label>
+                                <label for="input-content" class="col-md-2 col-form-label">Konten</label>
                                 <div class="col-md-10">
                                     <textarea id="elm1" name="content">{{ $childModule->content }}</textarea>
                                 </div>
@@ -92,7 +103,7 @@
                             <div class="card m-5 p-5" style="border-radius: 25px; border: 1px solid #b0bad8;">
                                 <!-- TO DO -->
                                 <div class="mb-3">
-                                    <label for="input-tag">Module Type</label>
+                                    <label for="input-tag">Tipe Modul</label>
                                     <select name="type" class="form-control" id="type_selector">
                                         <option value="materi_pembelajaran"
                                             @if ($childModule->type == 'materi_pembelajaran') selected @endif>materi_pembelajaran</option>
@@ -106,38 +117,40 @@
                                     <div class="" id="material">
                                         @if ($childModule->type === 'materi_pembelajaran')
                                             <label for="input-name" class="col-md-2 col-form-label"
-                                                style="margin-top: 1%">Current File Materi Pembelajaran</label>
+                                                style="margin-top: 1%">File Saat Ini Materi Pembelajaran</label>
                                             <div class="col-md-10">
                                                 <p class="pt-2">{{ $childModule->material }}</p>
-                                            <label for="input-name" class="col-md-2 col-form-label">Change File</label>
-                                                <input class="form-control" type="file" id="formFile"
-                                                    name="material">
-                                                <input class="form-control" type="hidden" name="duration"
-                                                    value="">
+                                                <label for="input-name" class="col-md-2 col-form-label">Ganti File</label>
+                                                <input class="form-control" type="file" id="formFile" name="material">
+                                                <input class="form-control" type="hidden" name="duration" value="">
                                             </div>
                                         @elseif ($childModule->type === 'video_pembelajaran')
                                             <label for="" class="form-label" style="margin-top: 1%">Link
                                                 Video</label>
-                                            <input class="form-control" type="text" name="material" value="{{ $childModule->material }}">
+                                            <input class="form-control" type="text" name="material"
+                                                value="{{ $childModule->material }}">
                                             <label for="" class="form-label" style="margin-top: 1%">Durasi
                                                 Video</label>
                                             <input class="form-control" type="number" name="duration"
                                                 value="{{ $childModule->duration }}">
                                         @elseif($childModule->type === 'assignment')
                                             <label for="input-name" class="col-md-2 col-form-label"
-                                            style="margin-top: 1%">Current File Assignment</label>
+                                                style="margin-top: 1%">File Penugasan Saat Ini</label>
                                             <p class="pt-2">{{ $childModule->material }}</p>
-                                            <label for="" class="form-label" style="margin-top: 1%"> Change File
-                                                Assignment</label>
+                                            <label for="" class="form-label" style="margin-top: 1%"> Ganti File Penugasan</label>
                                             <input class="form-control" type="file" id="formFile" name="material">
                                             <input type="hidden" name="duration"
                                                 @if ($childModule->type == 'asignment') value="{{ $childModule->material }}" @endif>
                                             <input type="hidden" name="duration" value="">
                                         @elseif($childModule->type === 'quiz')
                                             <label for="" class="form-label" style="margin-top: 1%"></label>
-                                            <select class="form-control select2" name="quiz_content" id="quiz_content" required>
+                                            <select class="form-control select2" name="quiz_content" id="quiz_content"
+                                                required>
                                                 @foreach ($quiz as $item)
-                                                <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}" @if($item->id == $idQuiz) selected @endif>{{ $item->name }}</option>
+                                                    <option
+                                                        value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}"
+                                                        @if ($item->id == $idQuiz) selected @endif>
+                                                        {{ $item->name }}</option>
                                                 @endforeach
                                             </select>
                                         @endif
@@ -147,13 +160,13 @@
                 </div>
                 <div id="content">
                     <div class="mb-3 row" id="">
-                        <label for="input-content" class="col-md-2 col-form-label">Content</label>
+                        <label for="input-content" class="col-md-2 col-form-label">Konten</label>
                         <div class="col-md-10">
                             <textarea id="elm1" name="content">{{ $childModule->content }}</textarea>
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                        <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                         <div class="col-md-10">
                             <textarea id="elm1" name="description">{{ $childModule->description }}</textarea>
                         </div>
@@ -161,7 +174,7 @@
                 </div>
                 <div id="quiz-content">
                     <div class="mb-3 row">
-                        <label for="input-content" class="col-md-2 col-form-label">Content</label>
+                        <label for="input-content" class="col-md-2 col-form-label">Konten Quiz</label>
                         <div class="col-md-10">
                             <select class="form-control select2" name="content" id="">
                                 @foreach ($quiz as $item)
@@ -182,7 +195,7 @@
                 </div>
                 <div class="mb-3 row justify-content-end">
                     <div class="text-end">
-                        <button type="submit" class="btn btn-primary w-md text-center">Save & Update</button>
+                        <button type="submit" class="btn btn-primary w-md text-center">Simpan & Perbarui</button>
                     </div>
                 </div>
                 </form>
@@ -246,7 +259,7 @@
             `;
                 } else if (typeSelector.value === 'assignment') {
                     material.innerHTML = `
-                <label for="" class="form-label" style="margin-top: 1%">File Assignment</label>
+                <label for="" class="form-label" style="margin-top: 1%">File Penugasan</label>
                 <input class="form-control" type="file" id="formFile" name="material">
                 <input type="hidden" name="duration" @if ($childModule->type == 'asignment') value="{{ $childModule->material }}" @endif>
             `;

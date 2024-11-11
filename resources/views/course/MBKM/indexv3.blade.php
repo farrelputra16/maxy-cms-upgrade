@@ -3,64 +3,64 @@
 @section('title', 'MBKM')
 
 @section('content')
-    {{-- <!-- Begin notification -->
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-    <!-- End notification --> --}}
-    <!-- Begin Page Title -->
+    <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                 <h4 class="mb-sm-0 font-size-18">Ringkasan Data MBKM</h4>
 
-                <!-- Begin Breadcrumb -->
+                <!-- Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
                         <li class="breadcrumb-item active">MBKM</li>
                     </ol>
                 </div>
-                <!-- End Breadcrumb -->
+                <!-- Akhir Breadcrumb -->
             </div>
         </div>
     </div>
-    <!-- End Page Title -->
+    <!-- Akhir Judul Halaman -->
 
-    <!-- Begin Content -->
+    <!-- Konten -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">MBKM</h4>
                     <p class="card-title-desc">
-                        Halaman ini memberikan gambaran umum program MBKM yang tersedia. 
-                        Anda dapat melihat informasi utama, seperti nama program, deskripsi, dan status aktif. 
-                        Gunakan fitur pencarian dan pengurutan untuk mengakses data dengan mudah. 
-                        Tabel ini juga menyediakan opsi untuk mengedit data atau melihat daftar modul yang terkait dengan program.
-                    </p>                    
+                        Halaman ini memberikan gambaran umum mengenai program MBKM yang tersedia. Anda dapat melihat
+                        informasi inti dari setiap program, termasuk nama, ringkasan, dan status aktif.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li><strong>Mencari Data:</strong> Gunakan kolom pencarian untuk menemukan program MBKM berdasarkan
+                            nama atau deskripsi.</li>
+                        <li><strong>Mengurutkan Kolom:</strong> Klik pada judul kolom untuk mengurutkan data berdasarkan
+                            kriteria tertentu seperti "Tanggal Dibuat" atau "Status".</li>
+                        <li><strong>Mengedit Data:</strong> Klik tombol <em>Edit</em> di kolom "Tindakan" untuk mengubah
+                            informasi program MBKM yang ada.</li>
+                        <li><strong>Melihat Daftar Modul:</strong> Gunakan tombol <em>Daftar Modul</em> untuk melihat atau
+                            menambahkan modul terkait dengan program yang dipilih.</li>
+                        <li><strong>Menambah Data Baru:</strong> Klik tombol <em>Tambah Program MBKM</em> (+) di pojok kanan
+                            bawah untuk membuka form penambahan data program baru. Isi form dengan lengkap, lalu klik
+                            <em>Simpan</em> untuk menambah data program MBKM baru ke dalam daftar.</li>
+                    </ul>
+                    </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">MBKM Program</th>
+                                <th class="data-medium">Program MBKM</th>
                                 <th class="data-medium">Ringkasan Singkat</th>
                                 <th class="data-long">Detail Ringkasan</th>
                                 <th class="data-long">Konten Tambahan</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Waktu Dibuat</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Waktu Diperbarui</th>
+                                <th>Diperbarui Oleh</th>
                                 <th>Status</th>
                                 <th>Tindakan</th>
                             </tr>
@@ -98,11 +98,10 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditMBKM', ['id' => $item->id]) }}"
                                             class="btn btn-primary rounded">Edit</a>
                                         <a href="{{ route('getCourseModule', ['course_id' => $item->id, 'page_type' => 'LMS']) }}"
-                                            class="btn btn-outline-primary rounded">Modules List</a>
+                                            class="btn btn-outline-primary rounded">Daftar Modul</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -111,14 +110,14 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">MBKM Program</th>
+                                <th class="data-medium">Program MBKM</th>
                                 <th class="data-medium">Ringkasan Singkat</th>
-                                <th class="data-long">Detail Ringkasan</th>    
+                                <th class="data-long">Detail Ringkasan</th>
                                 <th class="data-long">Konten Tambahan</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Waktu Dibuat</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Waktu Diperbarui</th>
+                                <th>Diperbarui Oleh</th>
                                 <th>Status</th>
                                 <th>Tindakan</th>
                             </tr>
@@ -128,31 +127,28 @@
             </div>
         </div>
     </div>
-    <!-- End Content -->
-    <!-- FAB Add Starts -->
+    <!-- Akhir Konten -->
+
+    <!-- FAB untuk Tambah -->
     <div id="floating-whatsapp-button">
         <a href="{{ route('getAddMBKM') }}" target="_blank">
             <i class="fas fa-plus"></i>
         </a>
     </div>
-    <!-- FAB Add Ends -->
+    <!-- Akhir FAB -->
 @endsection
 
 @section('script')
-    <!-- Add custom scripts here if needed -->
-    @if(session('course_added'))
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            Swal.fire({
-                title: 'Information!',
-                html: "<strong>{{ session('course_added') }}</strong>",
-                icon: 'info',
-                confirmButtonText: 'OK',
-                // Optional: You can also add a cancel button if you want
-                // showCancelButton: true,
-                // cancelButtonText: 'Close',
+    @if (session('course_added'))
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    title: 'Informasi!',
+                    html: "<strong>{{ session('course_added') }}</strong>",
+                    icon: 'info',
+                    confirmButtonText: 'OK',
+                });
             });
-        });
-    </script>
+        </script>
     @endif
 @endsection

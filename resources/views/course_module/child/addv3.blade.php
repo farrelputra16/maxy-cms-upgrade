@@ -1,59 +1,66 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add Child Module')
+@section('title', 'Tambah Modul Child')
 
 @section('content')
-    <!-- start page title -->
+    <!-- Awal Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Add New Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Data Baru</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Course</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Kursus</a></li>
                         <li class="breadcrumb-item"><a
-                                href="{{ route('getCourseModule', ['course_id' => $parent->course_id, 'page_type' => 'LMS']) }}">Course
-                                Module</a></li>
-                        <li class="breadcrumb-item active">Add New Child Module</li>
+                                href="{{ route('getCourseModule', ['course_id' => $parent->course_id, 'page_type' => 'LMS']) }}">Modul
+                                Kursus</a></li>
+                        <li class="breadcrumb-item active">Tambah Modul Child Baru</li>
                     </ol>
-
-                    {{-- @php
-                        dd($parent);
-                    @endphp --}}
                 </div>
-
             </div>
         </div>
     </div>
-    <!-- end page title -->
+    <!-- Akhir Judul Halaman -->
 
+    <!-- Awal Konten -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Add New Child Module</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Tambah Modul Child Baru</h4>
+                    <p class="card-title-desc">
+                        Halaman ini memungkinkan Anda untuk menambahkan modul child pada kursus yang ada. Isi data-data
+                        dengan lengkap dan pastikan informasinya akurat agar pengalaman belajar peserta kursus maksimal.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li>Isi <b>Nama Modul</b> dengan judul yang sesuai dan singkat.</li>
+                        <li>Atur <b>Prioritas</b> untuk menentukan urutan tampil modul.</li>
+                        <li>Pilih <b>Jenis Modul</b> yang sesuai, kemudian isi konten tambahan yang muncul berdasarkan jenis
+                            tersebut.</li>
+                        <li>Pastikan untuk menambahkan deskripsi yang menjelaskan modul ini.</li>
+                        <li>Klik <b>Tambah Modul Child</b> untuk menyimpan data yang telah diisi.</li>
+                    </ul>
+                    </p>
 
                     <form action="{{ route('postAddChildModule', ['parentId' => $parent->id, 'page_type' => $page_type]) }}"
                         method="post" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Parent Module</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Modul Induk</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" value="{{ $parent->name }}" disabled>
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Nama Modul</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name""
-                                    placeholder="Masukkan Nama Course Module" value="{{ old('name') }}">
+                                <input class="form-control" type="text" name="name"
+                                    placeholder="Masukkan Nama Modul Child" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -62,9 +69,10 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Priority</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Prioritas</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="priority" min="1" value="{{ old('priority') }}">
+                                <input class="form-control" type="number" name="priority" min="1"
+                                    value="{{ old('priority') }}">
                                 @if ($errors->has('priority'))
                                     @foreach ($errors->get('priority') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -86,7 +94,7 @@
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="input-content" class="col-md-2 col-form-label">Content</label>
+                                <label for="input-content" class="col-md-2 col-form-label">Konten</label>
                                 <div class="col-md-10">
                                     <textarea id="elm1" name="content">{{ old('content') }}</textarea>
                                 </div>
@@ -94,14 +102,20 @@
                             <input type="hidden" name="rapid" value="1">
                         @else
                             <div class="mb-3 row">
-                                <label for="input-tag" class="col-md-2 col-form-label">Module Type</label>
+                                <label for="input-tag" class="col-md-2 col-form-label">Jenis Modul</label>
                                 <div class="col-md-10">
                                     <select class="form-control" name="type" id="type_selector" required>
-                                        <option value="" disabled {{ old('type') == '' ? 'selected' : '' }}>Choose Module Type</option>
-                                        <option value="materi_pembelajaran" {{ old('type') == 'materi_pembelajaran' ? 'selected' : '' }}>Materi Pembelajaran</option>
-                                        <option value="video_pembelajaran" {{ old('type') == 'video_pembelajaran' ? 'selected' : '' }}>Video Pembelajaran</option>
-                                        <option value="assignment" {{ old('type') == 'assignment' ? 'selected' : '' }}>Assignment</option>
-                                        <option value="quiz" {{ old('type') == 'quiz' ? 'selected' : '' }}>Quiz</option>
+                                        <option value="" disabled {{ old('type') == '' ? 'selected' : '' }}>Pilih
+                                            Jenis Modul</option>
+                                        <option value="materi_pembelajaran"
+                                            {{ old('type') == 'materi_pembelajaran' ? 'selected' : '' }}>Materi
+                                            Pembelajaran</option>
+                                        <option value="video_pembelajaran"
+                                            {{ old('type') == 'video_pembelajaran' ? 'selected' : '' }}>Video Pembelajaran
+                                        </option>
+                                        <option value="assignment" {{ old('type') == 'assignment' ? 'selected' : '' }}>
+                                            Tugas</option>
+                                        <option value="quiz" {{ old('type') == 'quiz' ? 'selected' : '' }}>Kuis</option>
                                     </select>
                                     @if ($errors->has('type'))
                                         @foreach ($errors->get('type') as $error)
@@ -109,18 +123,12 @@
                                         @endforeach
                                     @endif
                                 </div>
-                            </div>                        
+                            </div>
                             <div class="field" id="material"></div>
                             <div class="field" id="duration"></div>
-                            {{-- <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Name</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="name"" placeholder="Masukkan Nama Course Module">
-                            </div>
-                        </div> --}}
                         @endif
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description">{{ old('description') }}</textarea>
                             </div>
@@ -135,19 +143,17 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Add Child Module</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Tambah Modul Child</button>
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
-        </div> <!-- end col -->
-    </div> <!-- end row -->
+        </div> <!-- akhir col -->
+    </div> <!-- akhir row -->
 @endsection
 
 @section('script')
-
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 
     <script>
@@ -159,73 +165,61 @@
             var typeSelector = document.getElementById('type_selector');
             var material = document.getElementById('material');
             var duration = document.getElementById('duration');
-            var quizContentDiv = document.getElementById('quiz-content');
 
-            // Menambahkan event listener untuk perubahan pada elemen select
             typeSelector.addEventListener('change', function() {
-                // Memeriksa apakah opsi yang dipilih adalah "assignment"
                 if (typeSelector.value === 'materi_pembelajaran') {
-
                     material.innerHTML = `
-                <div class="mb-3 row">
-                    <label for="input-title" class="col-md-2 col-form-label">File Materi Pembelajaran</label>
-                    <div class="col-md-10">
-                        <input class="form-control" type="file" id="formFile" name="material">
-                    </div>
-                </div>
-            `;
+                        <div class="mb-3 row">
+                            <label class="col-md-2 col-form-label">File Materi Pembelajaran</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="file" name="material">
+                            </div>
+                        </div>
+                    `;
                     duration.innerHTML = `<input type="hidden" name="duration" value="">`;
                 } else if (typeSelector.value === 'video_pembelajaran') {
-
                     material.innerHTML = `
-                <div class="mb-3 row">
-                    <label for="input-title" class="col-md-2 col-form-label">Link Video</label>
-                    <div class="col-md-10">
-                        <input class="form-control" type="text" name="material"" placeholder="Masukkan Link Video">
-                    </div>
-                </div>
-            `;
+                        <div class="mb-3 row">
+                            <label class="col-md-2 col-form-label">Link Video</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" name="material" placeholder="Masukkan Link Video">
+                            </div>
+                        </div>
+                    `;
                     duration.innerHTML = `
-                <div class="mb-3 row">
-                    <label for="input-title" class="col-md-2 col-form-label">Durasi Video</label>
-                    <div class="col-md-10">
-                        <input class="form-control" type="number" name="duration"" placeholder="00:00">
-                    </div>
-                </div>
-            `;
+                        <div class="mb-3 row">
+                            <label class="col-md-2 col-form-label">Durasi Video</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="number" name="duration" placeholder="Durasi dalam menit">
+                            </div>
+                        </div>
+                    `;
                 } else if (typeSelector.value === 'assignment') {
-
                     material.innerHTML = `
-                <div class="mb-3 row">
-                    <label for="input-title" class="col-md-2 col-form-label">File Assignment</label>
-                    <div class="col-md-10">
-                        <input class="form-control" type="file" id="formFile" name="material">
-                    </div>
-                </div>
-            `;
+                        <div class="mb-3 row">
+                            <label class="col-md-2 col-form-label">File Tugas</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="file" name="material">
+                            </div>
+                        </div>
+                    `;
                     duration.innerHTML = `<input type="hidden" name="duration" value="">`;
                 } else if (typeSelector.value === 'quiz') {
                     material.innerHTML = `
-                <div class="mb-3 row" id="quiz-content">
-                    <label for="quiz_content" class="col-md-2 col-form-label">Quiz</label>
-                    <div class="col-md-10">
-                        <select class="form-control select2" name="quiz_content" id="quiz_content" required>
-                            @foreach ($quiz as $item)
-                            <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                `;
-                    // Inisialisasi Select2
-                    $(document).ready(function() {
-                        $('#quiz_content')
-                            .select2(); // Reinitialize select2 on dynamically added select element
-                    });
+                        <div class="mb-3 row">
+                            <label class="col-md-2 col-form-label">Pilih Kuis</label>
+                            <div class="col-md-10">
+                                <select class="form-control select2" name="quiz_content" required>
+                                    @foreach ($quiz as $item)
+                                    <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    `;
                     duration.innerHTML = `<input type="hidden" name="duration" value="">`;
                 }
             });
         </script>
     @endif
-
 @endsection

@@ -26,14 +26,21 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit MBKM Program</h4>
-                    <p>Halaman ini memungkinkan Anda memperbarui informasi program MBKM yang sudah ada. 
-                        Pastikan semua detail yang dimasukkan akurat untuk mendukung pengalaman belajar terbaik bagi peserta. 
-                        Lengkapi setiap kolom, termasuk nama program, tingkat kesulitan, kategori kursus, dan tautan pembayaran jika diperlukan. 
-                        Setelah semua detail terisi, klik <b>'Save & Update'</b> untuk menyimpan perubahan.
+                    <h4 class="card-title">Edit Program MBKM</h4>
+                    <p class="card-title-desc">
+                        Halaman ini memungkinkan Anda memperbarui informasi program MBKM yang ada.
+                        Pastikan semua detail yang dimasukkan akurat untuk memberikan pengalaman belajar terbaik bagi
+                        peserta.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li>Lengkapi setiap kolom sesuai kebutuhan, seperti nama program, tingkat kesulitan, kategori
+                            kursus, dan tautan pembayaran.</li>
+                        <li>Untuk mengganti gambar, unggah gambar baru melalui kolom "Gambar" dan lihat pratinjau.</li>
+                        <li>Gunakan tombol <b>'Save & Update'</b> setelah semua detail terisi untuk menyimpan perubahan.
+                        </li>
+                    </ul>
                     </p>
-                    
-
 
                     <form action="{{ route('postEditCourse', ['id' => request()->query('id')]) }}" method="post"
                         enctype="multipart/form-data">
@@ -66,7 +73,7 @@
                         </div>
                         @if (env('APP_ENV') != 'local')
                             <div class="mb-3 row">
-                                <label for="input-payment" class="col-md-2 col-form-label">Payment Link</label>
+                                <label for="input-payment" class="col-md-2 col-form-label">Tautan Pembayaran</label>
                                 <div class="col-md-10">
                                     <input class="form-control" type="text" name="payment_link" id="payment_link"
                                         value="{{ $courses->payment_link }}">
@@ -79,10 +86,9 @@
                             </div>
                         @endif
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Tingkat Kesulitan <small>(Program MBKM)</small></label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tingkat Kesulitan</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="level" data-placeholder="Choose ...">
-                                    {{-- <option>Select</option> --}}
                                     @if ($currentDataCourse)
                                         <option selected value="{{ $currentDataCourse->m_difficulty_type_id }}">
                                             {{ $currentDataCourse->course_difficulty }}
@@ -109,7 +115,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Kategori Kursus<small>(prodi)</small></label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Kategori Kursus</label>
                             <div class="col-md-10">
                                 <select class="form-control select2 multiple" name="courseCategory[]"
                                     data-placeholder="Choose ..." id="type_selector" multiple="multiple">
@@ -126,28 +132,23 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-file" class="col-md-2 col-form-label">Gambar</label>
-                            <div class="col-md-10" style="height: 250px;"> <!-- Tinggi div container ditambah -->
+                            <div class="col-md-10" style="height: 250px;">
                                 <input class="form-control" type="file" name="file_image" id="input-file"
                                     accept="image/*" onchange="previewImage()">
-                        
-                                <!-- Image pertama untuk gambar yang ada, tambahkan style untuk margin dan tinggi maksimal -->
                                 <img id="current-image" src="{{ asset('uploads/course_img/' . $courses->image) }}"
-                                    class="img-fluid" alt="Current Image" 
+                                    class="img-fluid" alt="Current Image"
                                     style="margin-top: 10px; max-height: 200px; object-fit: contain;" />
-                        
-                                <!-- Image kedua untuk preview gambar baru yang diunggah, atur juga style agar konsisten -->
                                 <img id="preview-image" src="#" class="img-fluid" alt="New Image"
                                     style="display: none; margin-top: 10px; max-height: 200px; object-fit: contain;" />
-                        
                                 @if ($errors->has('file_image'))
                                     @foreach ($errors->get('file_image') as $error)
                                         <span style="color: red;">{{ $error }}</span>
                                     @endforeach
                                 @endif
                             </div>
-                        </div>                        
+                        </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Konten Tambahan<small>(isi)</small></label>
+                            <label for="input-content" class="col-md-2 col-form-label">Konten Tambahan</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="content">{{ old('content', $courses->content) }}</textarea>
                                 @if ($errors->has('content'))
@@ -182,9 +183,7 @@
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
-                                <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
                                 <input type="hidden" name="status" value="0">
-
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
                                     value="1" name="status"
                                     {{ old('status', isset($courses) ? $courses->status : false) ? 'checked' : '' }}>
@@ -200,8 +199,8 @@
 
                 </div>
             </div>
-        </div> <!-- end col -->
-    </div> <!-- end row -->
+        </div>
+    </div>
 @endsection
 
 @section('script')

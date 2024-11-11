@@ -1,39 +1,44 @@
 @extends('layout.main-v3')
 
-@section('title', 'Course')
+@section('title', 'Kursus')
 
 @section('content')
-    <!-- Begin Page Title -->
+    <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
+                <h4 class="mb-sm-0 font-size-18">Ringkasan Data</h4>
 
-                <!-- Begin Breadcrumb -->
+                <!-- Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Course</li>
+                        <li class="breadcrumb-item active">Kursus</li>
                     </ol>
                 </div>
-                <!-- End Breadcrumb -->
+                <!-- Akhir Breadcrumb -->
             </div>
         </div>
     </div>
-    <!-- End Page Title -->
+    <!-- Akhir Judul Halaman -->
 
-    <!-- Begin Content -->
+    <!-- Konten -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Course</h4>
+                    <h4 class="card-title">Kursus</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
-                        features to
-                        customize your view and quickly access the specific information you need.
+                        Halaman ini menampilkan daftar kursus secara menyeluruh dalam format tabel interaktif yang dapat
+                        diurutkan. Setiap baris berisi informasi penting seperti nama kursus, deskripsi, harga, tipe kursus,
+                        dan status. Anda dapat menggunakan <b>fitur visibilitas kolom, pengurutan, dan pencarian kolom</b>
+                        untuk menyesuaikan tampilan sesuai kebutuhan. <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li>Gunakan ikon <b>+ Tambah</b> untuk menambahkan kursus baru.</li>
+                        <li>Klik <b>Edit</b> pada setiap baris untuk mengubah informasi kursus.</li>
+                        <li>Pilih <b>Modules List</b> untuk melihat daftar modul dari setiap kursus.</li>
+                    </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -41,19 +46,19 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Course Name</th>
-                                <th>Promo Price</th>
-                                <th>Price</th>
-                                <th>Course Type</th>
-                                <th>Credits</th>
-                                <th>Duration</th>
-                                <th class="data-long">Short Description</th>
-                                <th class="data-long">Description</th>
-                                <th class="data-long">Content</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
+                                <th class="data-medium">Nama Kursus</th>
+                                <th>Harga Promo</th>
+                                <th>Harga</th>
+                                <th>Jenis Kursus</th>
+                                <th>SKS</th>
+                                <th>Durasi</th>
+                                <th class="data-long">Deskripsi Singkat</th>
+                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Konten</th>
+                                <th>Dibuat Pada</th>
+                                <th>Diperbarui Pada</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -120,18 +125,16 @@
                                     <td>{{ $item->updated_at->format('Y-m-d H:i') }}</td>
                                     <td>
                                         @if ($item->status == 1)
-                                            <span class="btn btn-success" style="pointer-events: none;">Active</span>
+                                            <span class="btn btn-success" style="pointer-events: none;">Aktif</span>
                                         @else
-                                            <span class="btn btn-danger" style="pointer-events: none;">Inactive</span>
+                                            <span class="btn btn-danger" style="pointer-events: none;">Nonaktif</span>
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditCourse', ['id' => $item->id]) }}"
                                             class="btn btn-primary rounded">Edit</a>
                                         <a href="{{ route('getCourseModule', ['course_id' => $item->id, 'page_type' => 'LMS']) }}"
-                                            class="btn btn-outline-primary rounded-end">Modules List</a>
-                                        {{-- </div> --}}
+                                            class="btn btn-outline-primary rounded-end">Daftar Modul</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -140,17 +143,17 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Course Name</th>
-                                <th>Promo Price</th>
-                                <th>Price</th>
-                                <th>Course Type</th>
-                                <th>Short Description</th>
-                                <th>Description</th>
-                                <th>Content</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
+                                <th>Nama Kursus</th>
+                                <th>Harga Promo</th>
+                                <th>Harga</th>
+                                <th>Jenis Kursus</th>
+                                <th>Deskripsi Singkat</th>
+                                <th>Deskripsi</th>
+                                <th>Konten</th>
+                                <th>Dibuat Pada</th>
+                                <th>Diperbarui Pada</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -158,30 +161,27 @@
             </div>
         </div>
     </div>
-    <!-- End Content -->
+    <!-- Akhir Konten -->
 
-    <!-- FAB Add Starts -->
+    <!-- Tombol Tambah Kursus -->
     <div id="floating-whatsapp-button">
         <a href="{{ route('getAddCourse') }}" target="_blank">
             <i class="fas fa-plus"></i>
         </a>
     </div>
-    <!-- FAB Add Ends -->
+    <!-- Akhir Tombol Tambah Kursus -->
 @endsection
 
 @section('script')
-    <!-- Add custom scripts here if needed -->
-    @if(session('course_added'))
+    <!-- Tambahkan skrip kustom di sini jika diperlukan -->
+    @if (session('course_added'))
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener("DOMContentLoaded", function() {
                 Swal.fire({
-                    title: 'Information!',
+                    title: 'Informasi!',
                     html: "<strong>{{ session('course_added') }}</strong>",
                     icon: 'info',
                     confirmButtonText: 'OK',
-                    // Optional: You can also add a cancel button if you want
-                    // showCancelButton: true,
-                    // cancelButtonText: 'Close',
                 });
             });
         </script>

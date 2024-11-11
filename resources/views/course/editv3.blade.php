@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Course')
+@section('title', 'Edit Kursus')
 
 @section('content')
     <!-- start page title -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Course</a></li>
-                        <li class="breadcrumb-item active">Edit Course: {{ $courses->name }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Kursus</a></li>
+                        <li class="breadcrumb-item active">Edit Kursus: {{ $courses->name }}</li>
                     </ol>
                 </div>
             </div>
@@ -27,9 +27,9 @@
                 <div class="card-body">
 
                     <h4 class="card-title">{{ $courses->name }} <small>[ ID: {{ $courses->id }} ]</small></h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi kursus. Pastikan
+                        semua data yang dimasukkan sudah benar untuk memberikan pengalaman belajar terbaik bagi peserta
+                        kursus.</p>
 
                     <form action="{{ route('postEditCourse', ['id' => request()->query('id')]) }}" method="post"
                         enctype="multipart/form-data">
@@ -37,7 +37,7 @@
                         <input type="text" name="img_keep" value="{{ $courses->file_image }}" hidden>
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name Course</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Name Kursus</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $courses->name) }}" id="name">
@@ -52,7 +52,7 @@
                         </div>
                         @if (env('APP_ENV') != 'local')
                             <div class="mb-3 row">
-                                <label for="input-content" class="col-md-2 col-form-label">Payment</label>
+                                <label for="input-content" class="col-md-2 col-form-label">Link Pembayaran</label>
                                 <div class="col-md-10">
                                     <input class="form-control" type="text" name="payment_link" id="payment_link"
                                         value="{{ old('payment_link', $courses->payment_link) }}">
@@ -65,9 +65,9 @@
                             </div>
                         @endif
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Difficulty</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tingkat Kesulitan</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="level" data-placeholder="Choose ...">
+                                <select class="form-control select2" name="level" data-placeholder="Pilih ...">
                                     @if ($currentDataCourse)
                                         <option selected value="{{ $currentDataCourse->m_difficulty_type_id }}">
                                             {{ $currentDataCourse->course_difficulty }}
@@ -81,10 +81,10 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Course Type</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Kursus</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="type" id="type_selector"
-                                    data-placeholder="Choose ...">
+                                    data-placeholder="Pilih ...">
                                     @if ($currentDataCourse)
                                         <option selected value="{{ $currentDataCourse->m_course_type_id }}">
                                             {{ $currentDataCourse->course_type_name }}
@@ -98,10 +98,10 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Course Category</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Kategori Kursus</label>
                             <div class="col-md-10">
                                 <select class="form-control select2 multiple" name="courseCategory[]"
-                                    data-placeholder="Choose ..." id="course_category_selector" multiple="multiple">
+                                    data-placeholder="Pilih ..." id="course_category_selector" multiple="multiple">
                                     @foreach ($allCourseCategory as $courseCategory)
                                         <option value="{{ $courseCategory->id }}"
                                             @if (old('courseCategory') && in_array($courseCategory->id, old('courseCategory'))) selected
@@ -114,9 +114,9 @@
                             </div>
                         </div>
                         <div id="show_course_package" class="mb-3 row">
-                            <label for="input-package" class="col-md-2 col-form-label">Package</label>
+                            <label for="input-package" class="col-md-2 col-form-label">Paket Kursus</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="package" data-placeholder="Choose ...">
+                                <select class="form-control select2" name="package" data-placeholder="Pilih ...">
                                     <option value="" disabled
                                         {{ old('package', $currentCoursePackages ? '' : 'selected') }}>Pilih Paket</option>
                                     @if ($currentCoursePackages)
@@ -164,7 +164,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-credits" class="col-md-2 col-form-label">Credits<small>(sks)</small></label>
+                            <label for="input-credits" class="col-md-2 col-form-label">Kredit <small>(SKS)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="credits" id="credits"
                                     value="{{ old('credits', $currentDataCourse ? $currentDataCourse->credits : '') }}"
@@ -178,7 +178,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-duration" class="col-md-2 col-form-label">Duration<small>(in minute)</small></label>
+                            <label for="input-duration" class="col-md-2 col-form-label">Durasi <small>(dalam
+                                    menit)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration" id="duration"
                                     value="{{ old('duration', $currentDataCourse ? $currentDataCourse->duration : '') }}"
@@ -191,7 +192,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-file" class="col-md-2 col-form-label">Image</label>
+                            <label for="input-file" class="col-md-2 col-form-label">Gambar</label>
                             <div class="col-md-10" style="height: 200px">
                                 <input class="form-control" type="file" name="file_image" id="input-file"
                                     accept="image/*" onchange="previewImage()">
@@ -212,13 +213,13 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Content<small>(isi)</small></label>
+                            <label for="input-content" class="col-md-2 col-form-label">Konten <small>(isi)</small></label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="content">{{ old('content', $courses->content) }}</textarea>
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-short-description" class="col-md-2 col-form-label">Short Description</label>
+                            <label for="input-short-description" class="col-md-2 col-form-label">Deskripsi Pendek</label>
                             <div class="col-md-10">
                                 <textarea id="elmDesc" name="short_description">{{ old('short_description', $courses->short_description) }}</textarea>
                                 @if ($errors->has('short_description'))
@@ -229,7 +230,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm3" name="description" class="form-control">{{ old('description', $courses->description) }}</textarea>
                             </div>
@@ -248,7 +249,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Save & Update</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Simpan & Perbarui</button>
                             </div>
                         </div>
                     </form>

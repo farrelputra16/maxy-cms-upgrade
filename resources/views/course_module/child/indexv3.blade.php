@@ -1,59 +1,58 @@
 @extends('layout.main-v3')
 
-@section('title', 'Course Module')
+@section('title', 'Modul Anak Kursus')
 
 @section('content')
-    <!-- Begin Page Title -->
+    <!-- Awal Halaman Judul -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
+                <h4 class="mb-sm-0 font-size-18">Ringkasan Data</h4>
 
-                <!-- Begin Breadcrumb -->
+                <!-- Awal Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
                         @if ($bcMBKM == true)
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseMBKM') }}">MBKM</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('getCourseMBKM') }}">MBKM</a></li>
                         @else
-                        <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Course</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Kursus</a></li>
                         @endif
                         <li class="breadcrumb-item"><a
-                                href="{{ route('getCourseModule', ['course_id' => $parent_module_detail->course_id, 'page_type' => 'LMS']) }}">Course
-                                Module</a></li>
-                        <li class="breadcrumb-item active">Course Child: {{ $parent_module_detail->name }}</li>
+                                href="{{ route('getCourseModule', ['course_id' => $parent_module_detail->course_id, 'page_type' => 'LMS']) }}">Modul
+                                Kursus</a></li>
+                        <li class="breadcrumb-item active">Modul Anak: {{ $parent_module_detail->name }}</li>
                     </ol>
                 </div>
-                <!-- End Breadcrumb -->
+                <!-- Akhir Breadcrumb -->
             </div>
         </div>
     </div>
+    <!-- Akhir Halaman Judul -->
 
-    {{-- @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif --}}
-    <!-- End Page Title -->
-
-    <!-- Begin Content -->
+    <!-- Awal Konten -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Course Child Module: {{ $parent_module_detail->name }}</h4>
+                    <h4 class="card-title">Modul Anak untuk Kursus: {{ $parent_module_detail->name }}</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
-                        features to
-                        customize your view and quickly access the specific information you need.
+                        Halaman ini menyediakan ringkasan lengkap dari semua data modul anak yang tersedia, disajikan dalam
+                        format tabel interaktif. Anda dapat melihat detail utama, seperti nama modul, prioritas, jenis, dan
+                        status. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk menyesuaikan
+                        tampilan dan mencari informasi yang Anda butuhkan dengan cepat.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li>Pilih kolom tertentu yang ingin ditampilkan atau disembunyikan untuk menyesuaikan tampilan data.
+                        </li>
+                        <li>Gunakan fitur pengurutan untuk mengurutkan data berdasarkan kolom tertentu, seperti prioritas
+                            atau tanggal.</li>
+                        <li>Gunakan pencarian kolom untuk menemukan modul tertentu berdasarkan kata kunci.</li>
+                        <li>Klik tombol <b>Edit</b> untuk memperbarui informasi modul atau mengubah status aktif/nonaktif
+                            modul.</li>
+                        <li>Gunakan tombol <b>Tambah</b> di sudut kanan bawah untuk menambahkan modul anak baru.</li>
+                    </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -61,18 +60,18 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Module Name</th>
-                                <th>Priority</th>
-                                <th>Type</th>
-                                <th class="data-long">Material</th>
-                                <th class="data-long">Content</th>
-                                <th class="data-long">Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th class="data-medium">Nama Modul</th>
+                                <th>Prioritas</th>
+                                <th>Jenis</th>
+                                <th class="data-long">Materi</th>
+                                <th class="data-long">Konten</th>
+                                <th class="data-long">Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>Id Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Id Pembaruan</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -112,17 +111,8 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditChildModule', ['id' => $item->id]) }}"
                                             class="btn btn-primary rounded">Edit</a>
-                                        {{-- @if ($item->type == 'Quiz')
-                                            <a href="{{ route('getCMQuiz', ['id' => $item->id]) }}"
-                                                class="btn btn-info">Questions</a>
-                                        @elseif ($item->type == 'form')
-                                            <a href="{{ route('getCMForm', ['id' => $item->id]) }}"
-                                                class="btn btn-info">Questions</a>
-                                        @endif --}}
-                                        {{-- </div> --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -131,18 +121,18 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Module Name</th>
-                                <th>Priority</th>
-                                <th>Type</th>
-                                <th>Material</th>
-                                <th class="data-long">Content</th>
-                                <th class="data-long">Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Nama Modul</th>
+                                <th>Prioritas</th>
+                                <th>Jenis</th>
+                                <th>Materi</th>
+                                <th>Konten</th>
+                                <th>Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>Id Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Id Pembaruan</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -150,16 +140,16 @@
             </div>
         </div>
     </div>
-    <!-- End Content -->
+    <!-- Akhir Konten -->
 
-    <!-- FAB Add Starts -->
+    <!-- FAB Tambah Mulai -->
     <div id="floating-whatsapp-button">
         <a href="{{ route('getAddCourseChildModule', ['id' => $parent_module_detail->id, 'course_id' => $course_detail->id, 'page_type' => $page_type]) }}"
             target="_blank">
             <i class="fas fa-plus"></i>
         </a>
     </div>
-    <!-- FAB Add Ends -->
+    <!-- FAB Tambah Selesai -->
 @endsection
 
 @section('script')
