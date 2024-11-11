@@ -28,15 +28,13 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Add New Data</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Tambah Data Umum Baru</h4>
+                    <p class="card-title-desc">Halaman ini digunakan untuk menambahkan data umum baru. Lengkapi input di bawah untuk menambahkan data baru.</p>
 
                     <form id="addGeneral" action="{{ route('postAddGeneral') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     placeholder="Masukkan Nama" value="{{ old('name') }}">
@@ -48,7 +46,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Value</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Isi</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="value" id="value"
                                     placeholder="Masukkan Value" value="{{ old('value') }}">
@@ -60,7 +58,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description" id="description">{{ old('description')}}</textarea>
                                 @if ($errors->has('description'))

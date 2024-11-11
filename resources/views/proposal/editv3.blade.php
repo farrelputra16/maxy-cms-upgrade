@@ -29,9 +29,7 @@
                 <div class="card-body">
 
                     <h4 class="card-title">Edit Proposal</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <p class="card-title-desc">Halaman ini digunakan untuk memperbarui informasi proposal.</p>
 
                     <form action="{{ route('postEditProposal', ['id' => request()->query('id')]) }}" method="post"
                         enctype="multipart/form-data">
@@ -45,14 +43,14 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ $currentData->User->name }}" disabled>
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">URL</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Link URL</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="url"
                                     value="{{ $currentData->proposal_url }}" disabled>
@@ -75,7 +73,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Grade</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nilai</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="proposal_grade"
                                     value="{{ $currentData->proposal_grade }}">
@@ -87,7 +85,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description">{{ $currentData->description }}</textarea>
                                 @if ($errors->has('description'))

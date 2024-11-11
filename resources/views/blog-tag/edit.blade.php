@@ -27,16 +27,14 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">{{ $data->name }} <small>[ ID: {{ $data->id }} ]</small></h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Edit Tag Blog</h4>
+                    <p class="card-title-desc">Halaman ini digunakan memperbarui data tag blog yang sudah ada.</p>
 
                     <form action="{{ route('postEditBlogTag', ['id' => request()->query('id')]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Nama</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $data->name) }}" id="input-title">
@@ -49,7 +47,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-color" class="col-md-2 col-form-label">Color</label>
+                            <label for="input-color" class="col-md-2 col-form-label">Warna</label>
                             <div class="col-md-10">
                                 <input class="form-control color-picker" type="text" name="color"
                                     value="{{ old('color', $data->color) }}" id="input-color">
@@ -62,7 +60,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-description" class="col-md-2 col-form-label">Description
+                            <label for="input-description" class="col-md-2 col-form-label">Deskripsi
                                 <small>(Admin)</small></label>
                             <div class="col-md-10">
                                 <textarea type="text" name="description" id="elm1">{{ old('description', $data->description) }}</textarea>

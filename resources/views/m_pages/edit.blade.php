@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit General Data')
+@section('title', 'Edit Pages')
 
 @section('content')
     <!-- start page title -->
@@ -9,13 +9,13 @@
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                 <h4 class="mb-sm-0 font-size-18">
                     @if (isset($pageContents) && $pageContents->first()->page_id == 1)
-                        Edit Pages - Home
+                        Edit Halaman - Home
                     @elseif (isset($pageContents) && $pageContents->first()->page_id == 2)
-                        Edit Pages - Browse Courses
+                        Edit Halaman - Browse Courses
                     @elseif (isset($pageContents) && $pageContents->first()->page_id == 3)
-                        Edit Pages - Blog
+                        Edit Halaman - Blog
                     @else
-                        Edit Pages - No Content Available
+                        Edit Halaman - No Content Available
                     @endif
                 </h4>
                 <div class="page-title-right">
@@ -38,13 +38,13 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Section {{ $section->section_name }}</h4>
+                            <h4 class="card-title">Bagian {{ $section->section_name }}</h4>
                             <input type="hidden" name="page_id[]" value="{{ $section->page_id }}">
                             <input type="hidden" name="section_name[]" value="{{ $section->section_name }}">
                             <input type="hidden" name="order[]" value="{{ $section->order }}">
 
                             <div class="mb-3 row">
-                                <label for="input-content" class="col-md-2 col-form-label">Display</label>
+                                <label for="input-content" class="col-md-2 col-form-label">Tampilan </label>
                                 <div class="col-md-10">
                                     <img src="{{ asset('assets/m_pages/' . $section->section_name . '.PNG') }}"
                                         alt="image section" class="img-fluid border border-3 rounded">
@@ -56,7 +56,7 @@
                                     $section->section_name != 'blog-small' &&
                                     $section->section_name != 'blog-trending')
                                 <div class="mb-3 row">
-                                    <label for="input-content" class="col-md-2 col-form-label">Text</label>
+                                    <label for="input-content" class="col-md-2 col-form-label">Teks</label>
                                     <div class="col-md-10">
                                         <textarea id="elm1" name="content[]" class="form-control">{{ $section->content }}</textarea>
                                     </div>
@@ -66,7 +66,7 @@
                             @if ($section->section_name == 'hero' || $section->section_name == 'banner')
                                 <input type="text" name="oldImage[]" hidden value="{{ $section->image }}">
                                 <div class="mb-3 row">
-                                    <label for="input-content" class="col-md-2 col-form-label">Image</label>
+                                    <label for="input-content" class="col-md-2 col-form-label">Gambar</label>
                                     <div class="col-md-10">
                                         <input class="form-control" type="file" name="image[]"
                                             id="image-{{ $index }}">
@@ -82,7 +82,7 @@
         <!-- Save button outside the loop -->
         <div class="mb-3 d-flex justify-content-end">
             @if (isset($pageContents) && $pageContents->first()->page_id == 3)
-                <button type="submit" class="btn btn-primary">Switch Order Blog</button>
+                <button type="submit" class="btn btn-primary">Tukar Urutan Blog</button>
             @elseif (isset($pageContents) && $pageContents->first()->page_id == 2)
                 <button type="submit" class="btn btn-primary">Save & Update Blog</button>
             @else

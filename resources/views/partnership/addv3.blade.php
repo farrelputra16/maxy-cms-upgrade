@@ -28,10 +28,8 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Add New Partnership</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Tambah Data Kerjasama Baru</h4>
+                    <p class="card-title-desc">Halaman ini digunakan untuk menambahkan data kerja sama baru.</p>
 
                     <form id="addPartnership" action="{{ route('postAddPartnership') }}" method="post" enctype="multipart/form-data">
                         @csrf
@@ -51,7 +49,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Partnership Type</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Kerjasama</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="partnership_type" data-placeholder="Choose ...">
                                     @foreach ($partnership_types as $item)
@@ -61,11 +59,11 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-file" class="col-md-2 col-form-label">File</label>
+                            <label for="input-file" class="col-md-2 col-form-label">Gambar</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="file" name="file" id="file" accept="image/*"
                                     onchange="previewImage()">
-                                <p class="text-muted mb-0 text-truncate">recommended size max 5mb</p>
+                                <p class="text-muted mb-0 text-truncate">Gambar yang direkomendasikan maksimal 5MB.</p>
                                 @if ($errors->has('file'))
                                     @foreach ($errors->get('file') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -74,7 +72,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Date Start</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Mulai</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="date_start" id="date_start" value="{{ old('date_start') }}">
                                 @if ($errors->has('date_start'))
@@ -85,7 +83,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Date End</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Akhir</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="date_end" id="date_end" value="{{ old('date_end') }}">
                                 @if ($errors->has('date_end'))
@@ -96,7 +94,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))

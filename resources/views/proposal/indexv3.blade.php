@@ -28,28 +28,24 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Proposals</h4>
+                    <h4 class="card-title">Proposal</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
-                        features to
-                        customize your view and quickly access the specific information you need.
+                        Halaman ini menampilkan table untuk melakukan manajemen proposal.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Id</th>
-                                <th class="data-medium">Name</th>
-                                <th class="data-medium">Title</th>
-                                <th>Created At</th>
+                                <th>ID</th>
+                                <th class="data-medium">Nama</th>
+                                <th class="data-medium">Judul</th>
+                                <th>Tanggal Pembuatan</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>
                                 <th>Updated Id</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -83,7 +79,7 @@
                                             <span class="btn btn-primary"
                                                 style="pointer-events: none;">{{ $proposal->status }}</span>
                                         @else
-                                            <span class="btn btn-info" 
+                                            <span class="btn btn-info"
                                                 style="pointer-events: none;">{{ $proposal->status }}</span>
                                         @endif
                                     </td>

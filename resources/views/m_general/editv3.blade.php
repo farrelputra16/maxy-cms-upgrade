@@ -28,15 +28,13 @@
                 <div class="card-body">
 
                     <h4 class="card-title">Edit Data: {{ $generals->name }} </h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <p class="card-title-desc">Halaman ini digunakan untuk memperbarui data {{$generals->name}}.</p>
 
                     <form action="{{ route('postEditGeneral', ['id' => request()->query('id')]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     value="{{ $generals->name }}">
@@ -65,7 +63,7 @@
                             </div>
                         @else
                             <div class="mb-3 row">
-                                <label for="input-value" class="col-md-2 col-form-label">Value</label>
+                                <label for="input-value" class="col-md-2 col-form-label">Isi</label>
                                 <div class="col-md-10">
                                     <input class="form-control" type="text" name="value" id="value"
                                         value="{{ $generals->value }}">
@@ -81,7 +79,7 @@
                         <!-- Input untuk Gambar -->
                         @if ($generals->name == 'logo' || $generals->name == 'icon')
                             <div class="mb-3 row">
-                                <label for="input-image" class="col-md-2 col-form-label">Image</label>
+                                <label for="input-image" class="col-md-2 col-form-label">Gambar</label>
                                 <div class="col-md-10">
                                     <input class="form-control" type="file" name="image" id="image">
                                     @if ($errors->has('image'))
@@ -97,7 +95,7 @@
 
 
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description" id="description">{{ $generals->description }}</textarea>
                             </div>

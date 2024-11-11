@@ -28,16 +28,14 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Add New Redeem Code</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Tambahkan Kode Redeem Baru</h4>
+                    <p class="card-title-desc">Halaman ini digunakan untuk menambahkan kode redeem baru.</p>
 
                     <form id="addRedeemCode" action="{{ route('postAddRedeemCode') }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     placeholder="Masukkan Nama Voucher" value="{{ old('name') }}">
@@ -49,7 +47,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Code</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Kode</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="code" id="code"
                                     placeholder="Masukkan Kode Voucher" value="{{ old('code') }}">
@@ -61,7 +59,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Quota</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Kuota</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="quota" id="quota" value="{{ old('quota') }}">
                                 @if ($errors->has('quota'))
@@ -72,7 +70,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Type</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tipe</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="type" placeholder="Masukkan Type" value="{{ old('type') }}">
                                 @if ($errors->has('type'))
@@ -83,7 +81,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Expired Date</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Kadaluarsa</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" name="expired_date" value="{{ old('expired_date') }}">
                                 @if ($errors->has('expired_date'))
@@ -94,7 +92,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description" id="description" placeholder="Masukkan deskripsi">{{ old('description') }}</textarea>
                             </div>

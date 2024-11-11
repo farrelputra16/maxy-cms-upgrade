@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'General Settings')
+@section('title', 'Pages Settings')
 
 @section('content')
     <!-- Begin Page Title -->
@@ -28,22 +28,23 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Pages Settings</h4>
+                    <h4 class="card-title">Pengaturan Halaman</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format.
+                        Halaman ini digunakan untuk melakukan pengaturan halaman yang ada di website frontpage Bina Karya.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                             <tr>
-                                <th>Page</th>
-                                <th>Action</th>
+                                <th>No</th>
+                                <th>Halaman</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                                 @foreach ($sections as $section)
                                     <tr>
+                                        <td>{{ $loop->iteration }}</td>
                                         {{-- Page Name --}}
                                         <td>
                                             @if ($section->page_id == 1)
@@ -56,8 +57,8 @@
                                                 Unknown Page
                                             @endif
                                         </td>
-                
-                    
+
+
                                         {{-- Edit Button --}}
                                         <td>
                                             <a href="{{ route('getEditPage', ['id' => $section->page_id]) }}" class="btn btn-primary rounded">Edit</a>
@@ -67,12 +68,13 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Page</th>
-                                <th>Action</th>
+                                <th>No</th>
+                                <th>Halaman</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>
-                    
+
                 </div>
             </div>
         </div>

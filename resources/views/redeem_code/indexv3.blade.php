@@ -28,33 +28,28 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Member Testimonial</h4>
-                    <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
-                        features to
-                        customize your view and quickly access the specific information you need.
+                    <h4 class="card-title">Redeem Code</h4>
+                    <p class="card-title-desc">Halaman ini menampilkan table untuk melakukan manajemen kode redeem. Detail terkait redeem code dapat diakses melalui tombol action edit.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Id</th>
-                                <th class="data-medium">Code</th>
-                                <th>Quota</th>
-                                <th>Type</th>
-                                <th>Expired Date</th>
-                                <th class="data-long">Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
+                                <th>ID</th>
+                                <th class="data-medium">Kode</th>
+                                <th>Kuota</th>
+                                <th>Tipe</th>
+                                <th>Waktu Kadaluarsa</th>
+                                <th class="data-long">Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>ID Pembuatan</th>
                                 <th>Created By</th>
                                 <th>Updated At</th>
                                 <th>Updated Id</th>
                                 <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -29,16 +29,14 @@
                 <div class="card-body">
 
                     <h4 class="card-title">Edit Redeem Code: {{ $currentData->name }}</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <p class="card-title-desc">Halaman ini digunakan untuk memperbarui informasi redeem code.</p>
 
                     <form action="{{ route('postEditRedeemCode') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="text" name="id" value="{{ $currentData->id }}" style="display: none;">
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     value="{{ old('name', $currentData->name) }}">
@@ -50,7 +48,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Code</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Kode</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="code" id="code"
                                     value="{{ old('code', $currentData->code) }}">
@@ -62,7 +60,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Quota</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Kuota</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="quota" id="quota"
                                     value="{{ old('quota', $currentData->quota) }}">
@@ -74,7 +72,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Type</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tipe</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="type" value="{{ old('type', $currentData->type) }}">
                                 @if ($errors->has('type'))
@@ -85,7 +83,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Expired Date</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Waktu Kadaluarsa</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" name="expired_date"
                                     value="{{ old('expired_date', $currentData->expired_date) }}">
@@ -122,7 +120,7 @@
                             </div>
                         </div> --}}
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description" id="description">{{ old('description', $currentData->description) }}</textarea>
                             </div>
@@ -132,7 +130,7 @@
                             <div class="col-md-10 d-flex align-items-center">
                                 <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
                                 <input type="hidden" name="status" value="0">
-                                
+
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
                                     value="1" name="status"
                                     {{ old('status', isset($currentData) ? $currentData->status : false) ? 'checked' : '' }}>

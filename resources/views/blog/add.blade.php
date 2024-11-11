@@ -27,17 +27,15 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Add New Blog</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Tambah Blog Baru</h4>
+                    <p class="card-title-desc">Halaman ini digunakan untuk membuat data blog yang baru.</p>
 
                     <form id="addBlog" action="{{ route('postAddBlog') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         {{-- <input type="text" name="img_keep" value="{{ $blog->cover_img }}" hidden> --}}
 
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Title</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Judul</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" value="{{ old('title') }}" name="title"
                                     id="input-title">
@@ -75,14 +73,14 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-file" class="col-md-2 col-form-label">Cover Image</label>
+                            <label for="input-file" class="col-md-2 col-form-label">Gambar Cover</label>
                             <div class="col-md-10" style="height: 200px">
                                 <input class="form-control" type="file" name="file_image" id="input-file">
                                 <img id="frame" src="" alt="preview.." class="img-fluid h-100" />
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Content</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Konten</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="content">{{ old('content') }}</textarea>
                                 @if ($errors->has('content'))
@@ -93,7 +91,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-description" class="col-md-2 col-form-label">Description
+                            <label for="input-description" class="col-md-2 col-form-label">Deskripsi
                                 <small>(Admin)</small></label>
                             <div class="col-md-10">
                                 <textarea id="elmDesc" type="text" name="description" id="input-description">{{ old('description') }}</textarea>

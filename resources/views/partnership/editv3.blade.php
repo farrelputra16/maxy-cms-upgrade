@@ -28,10 +28,8 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Partnership</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Edit Data Kerjasama</h4>
+                    <p class="card-title-desc">Halaman ini digunakan untuk memperbarui informasi rekan kerjasama.</p>
 
                     <form action="{{ route('postEditPartnership', ['id' => request()->query('id')]) }}" method="post" enctype="multipart/form-data">
                         @csrf
@@ -53,7 +51,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Partnership Type</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Kerjasama</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="partnership_type" data-placeholder="Choose ...">
                                     @foreach ($partnership_types as $item)
@@ -65,10 +63,10 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-file" class="col-md-2 col-form-label">File</label>
+                            <label for="input-file" class="col-md-2 col-form-label">Gambar</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="file" name="file" id="file">
-                                <p class="text-muted mb-0 text-truncate">recommended size max 5mb</p>
+                                <p class="text-muted mb-0 text-truncate">Ukuran yang direkomendasikan maksimal 5MB.</p>
                                 <img id="frame" src="{{ asset('uploads/partnership/' . $partnership->file) }}"
                                     width="100px" height="auto" alt="image" />
                                 @if ($errors->has('file'))
@@ -79,7 +77,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Date Start</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Mulai</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="date_start" id="date_start"
                                     value="{{ old('date_start', $partnership->date_start) }}">
@@ -91,7 +89,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Date End</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Akhir</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="date_end" id="date_end"
                                     value="{{ old('date_end', $partnership->date_end) }}">
@@ -103,7 +101,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description">{{ old('description', $partnership->description) }}</textarea>
                                 @if ($errors->has('description'))
@@ -118,7 +116,7 @@
                             <div class="col-md-10 d-flex align-items-center">
                             <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
                             <input type="hidden" name="status" value="0">
-                                                            
+
                             <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
                                 value="1" name="status"
                                 {{ old('status', isset($partnership) ? $partnership->status : false) ? 'checked' : '' }}>

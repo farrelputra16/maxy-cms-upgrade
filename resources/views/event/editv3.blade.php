@@ -28,15 +28,13 @@
                 <div class="card-body">
 
                     <h4 class="card-title">Edit Event</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <p class="card-title-desc">Halaman ini digunakan untuk memperbarui informasi event.</p>
 
                     <form action="{{ route('postEditEvent', ['id' => request()->query('id')]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Event Type</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Kegiatan</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="event_type" data-placeholder="Choose ...">
                                     @foreach ($event_types as $item)
@@ -48,9 +46,9 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>                        
+                        </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     value="{{ old('name', $event->name) }}">
@@ -62,7 +60,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Start Date</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Mulai</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" name="date_start" id="date"
                                     value="{{ old('date_start', $event->date_start) }}">
@@ -74,7 +72,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">End Date</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Akhir</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" name="date_end" id="date"
                                     value="{{ old('date_end', $event->date_end) }}">
@@ -86,7 +84,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-payment" class="col-md-2 col-form-label">Url</label>
+                            <label for="input-payment" class="col-md-2 col-form-label">Link URL</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="url" id="url"
                                     value="{{ old('url', $event->url) }}">
@@ -98,11 +96,11 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-file" class="col-md-2 col-form-label">Image</label>
+                            <label for="input-file" class="col-md-2 col-form-label">Gambar</label>
                             <div class="col-md-10" style="height: 200px">
                                 <input class="form-control" type="file" name="image" id="image" accept="image/*"
                                     onchange="previewImage()">
-                                <p class="text-muted mb-0 text-truncate">recommended size max 5mb</p>
+                                <p class="text-muted mb-0 text-truncate">Ukuran yang direkomendasikan maksimal 5MB.</p>
                                 <img id="frame" src="{{ asset('uploads/event/' . $event->image) }}" alt="Preview Image"
                                     class="img-fluid h-100" />
                                 @if ($errors->has('image'))
@@ -113,7 +111,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description">{{ old('description', $event->description) }}</textarea>
                                 @if ($errors->has('description'))
@@ -124,7 +122,7 @@
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
-                            <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Need Verification</label>
+                            <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Verifikasi</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
                                 <input type="hidden" name="need_verification" value="0">
@@ -133,7 +131,7 @@
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
-                            <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Public</label>
+                            <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Publik</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
                                 <input type="hidden" name="public" value="0">
@@ -146,7 +144,7 @@
                             <div class="col-md-10 d-flex align-items-center">
                                 <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
                                 <input type="hidden" name="status" value="0">
-                                
+
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
                                     value="1" name="status"
                                     {{ old('status', isset($event) ? $event->status : false) ? 'checked' : '' }}>

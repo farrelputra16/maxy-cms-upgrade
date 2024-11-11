@@ -28,13 +28,9 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Course</h4>
+                    <h4 class="card-title">Data Blog</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column
-                            search bar</b> features to
-                        customize your view and quickly access the specific information you need.
+                        Halaman ini menampilkan table yang berisi data blog.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -42,19 +38,19 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Title</th>
+                                <th>Judul</th>
                                 <th>Slug</th>
-                                <th>Content</th>
+                                <th>Konten</th>
                                 {{-- <th>Cover Image</th> --}}
                                 <th>Tags</th>
                                 <th>Highlight</th>
-                                <th>Description</th>
+                                <th>Deskripsi</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>
                                 <th>Updated Id</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>

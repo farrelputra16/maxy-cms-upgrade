@@ -28,13 +28,9 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Partnerships</h4>
+                    <h4 class="card-title">Data Kerjasama</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
-                        features to
-                        customize your view and quickly access the specific information you need.
+                        Halaman ini menampilkan table yang berisi data rekan kerjasama.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -43,18 +39,18 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Partner</th>
-                                <th class="data-medium">Partnership Type</th>
+                                <th class="data-medium">Tipe Partner</th>
                                 <th>File</th>
-                                <th class="data-medium">Short Description</th>
-                                <th>Date Start</th>
-                                <th>Date End</th>
-                                <th class="data-long">Description</th>
+                                <th class="data-medium">Deskripsi Singkat</th>
+                                <th>Tanggal Mulai</th>
+                                <th>Tanggal Akhir</th>
+                                <th class="data-long">Deskripsi</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>
                                 <th>Updated Id</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -28,13 +28,9 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">General Settings</h4>
+                    <h4 class="card-title">Pengaturan Umum</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
-                        features to
-                        customize your view and quickly access the specific information you need.
+                        Halaman ini menampilkan seluruh data umum terkait dengan settingan yang ada seperti logo instansi, alamat instansi, kontak instansi, dll.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -42,15 +38,15 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Name</th>
-                                <th class="data-medium">Value</th>
-                                <th class="data-long">Description</th>
+                                <th class="data-medium">Nama</th>
+                                <th class="data-medium">Isi</th>
+                                <th class="data-long">Deskripsi</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>
                                 <th>Updated Id</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>

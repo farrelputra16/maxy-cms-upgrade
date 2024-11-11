@@ -28,13 +28,9 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Transkip</h4>
+                    <h4 class="card-title">Transkrip</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
-                        features to
-                        customize your view and quickly access the specific information you need.
+                        Halaman ini menampilkan table yang berisi data transkrip siswa.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
@@ -43,10 +39,10 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Student</th>
-                                <th>Period</th>
-                                <th>Course Class</th>
-                                <th>Score</th>
+                                <th class="data-medium">Nama</th>
+                                <th>Periode</th>
+                                <th>Kelas Kursus</th>
+                                <th>Nilai   </th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>
