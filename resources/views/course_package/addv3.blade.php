@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add Course Package')
+@section('title', 'Tambah Paket Kursus')
 
 @section('content')
 <!-- start page title -->
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0 font-size-18">Add New Course Package</h4>
+            <h4 class="mb-sm-0 font-size-18">Tambah Paket Kursus</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('getCoursePackage') }}">Course Module</a></li>
-                    <li class="breadcrumb-item active">Add Course Package</li>
+                    <li class="breadcrumb-item"><a href="{{ route('getCoursePackage') }}">Modul Kursus</a></li>
+                    <li class="breadcrumb-item active">Tambah Paket Kursus</li>
                 </ol>
             </div>
 
@@ -27,18 +27,19 @@
         <div class="card">
             <div class="card-body">
 
-                <h4 class="card-title">Add Course Package</h4>
-                <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                    listed below. Ensure that all the information you enter is accurate to provide the best learning
-                    experience for the course participants.</p>
+                <h4 class="card-title">Tambah Paket Kursus</h4>
+                <p class="card-title-desc">
+                    Halaman ini memungkinkan Anda untuk menambahkan paket kursus baru. 
+                    Isi informasi berikut untuk membuat paket kursus yang sesuai dengan kebutuhan Anda.
+                </p>
 
                 <form id="addCoursePackage" action="{{ route('postAddCoursePackage') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="mb-3 row">
-                        <label for="input-title" class="col-md-2 col-form-label">Name</label>
+                        <label for="input-title" class="col-md-2 col-form-label">Nama Paket Kursus</label>
                         <div class="col-md-10">
-                            <input class="form-control" type="text" name="name"" placeholder=" Masukkan Nama Package" value="{{ old('name') }}">
+                            <input class="form-control" type="text" name="name"" placeholder=" Masukkan Nama Paket" value="{{ old('name') }}">
                             @if ($errors->has('name'))
                             @foreach ($errors->get('name') as $error)
                             <span style="color: red;">{{ $error }}</span>
@@ -47,7 +48,7 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="input-title" class="col-md-2 col-form-label">Payment Link</label>
+                        <label for="input-title" class="col-md-2 col-form-label">Link Pembayaran</label>
                         <div class="col-md-10">
                             <input class="form-control" type="text" name="payment_link"
                                 placeholder="https://example.com" value="{{ old('payment_link') }}">
@@ -59,7 +60,7 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="input-title" class="col-md-2 col-form-label">Fake Price</label>
+                        <label for="input-title" class="col-md-2 col-form-label">Harga Fiktif</label>
                         <div class="col-md-10">
                             <input class="form-control" type="text" name="fake" id="fake_price"
                                 placeholder="Masukkan Fake Price" value="{{ old('fake') }}">
@@ -71,7 +72,7 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="input-title" class="col-md-2 col-form-label">Price</label>
+                        <label for="input-title" class="col-md-2 col-form-label">Harga</label>
                         <div class="col-md-10">
                             <input class="form-control" type="text" id="price" name="price"
                                 placeholder="Masukkan Price" value="{{ old('price') }}">
@@ -83,7 +84,7 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                        <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                         <div class="col-md-10">
                             <textarea id="elm1" name="description">{{  old('description') }}</textarea>
                         </div>
@@ -98,7 +99,7 @@
                     </div>
                     <div class="mb-3 row justify-content-end">
                         <div class="text-end">
-                            <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCoursePackage">Add Course Package</button>
+                            <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCoursePackage">Tambah Paket Kursus</button>
                         </div>
                     </div>
                 </form>

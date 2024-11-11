@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Course Package')
+@section('title', 'Edit Paket Kursus')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Course Package</h4>
+                <h4 class="mb-sm-0 font-size-18">Edit Paket Kursus</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCoursePackage') }}">Course Package</a></li>
-                        <li class="breadcrumb-item active">Edit Course Package: {{ $coursePackages->name }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCoursePackage') }}">Paket Kursus</a></li>
+                        <li class="breadcrumb-item active">Edit Paket Kursus: {{ $coursePackages->name }}</li>
                     </ol>
                 </div>
 
@@ -26,18 +26,23 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-
                     <h4 class="card-title">{{ $coursePackages->name }} <small>[ ID: {{ $coursePackages->id }} ]</small></h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
-
+                    <p class="card-title-desc">
+                        Halaman ini memungkinkan Anda memperbarui informasi paket kursus. 
+                        Pastikan detail yang dimasukkan akurat agar peserta mendapatkan pengalaman belajar terbaik.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                        <ul>
+                            <li>Isi kolom Nama Paket Kursus, Link Pembayaran, Deskrips, dan kolom lainnya sesuai kebutuhan.</li>
+                            <li>Setelah semua detail terisi, gunakan tombol <strong>'Simpan & Perbarui'</strong> untuk menyimpan perubahan.</li>
+                        </ul>
+                    </p>                    
                     <form action="{{ route('postEditCoursePackage', ['id' => $coursePackages->id]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Nama Paket Kursus</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     value="{{ old('name', $coursePackages->name) }}">
@@ -49,7 +54,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Payment Link</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Link Pembayaran</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="payment_link"
                                     value="{{ old('payment_link', $coursePackages->payment_link) }}">
@@ -61,7 +66,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Fake Price</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Harga Fiktif</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="fake" id="fake_price"
                                     value="{{ old('fake', $coursePackages->fake_price) }}">
@@ -73,7 +78,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Price</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Harga</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" id="price" name="price"
                                     value="{{ old('price', $coursePackages->price) }}">
@@ -85,7 +90,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description">{{ old('description', $coursePackages->description) }}</textarea>
                             </div>
@@ -104,7 +109,7 @@
                         </div>                        
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Save & Update</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Simpan & Perbarui</button>
                             </div>
                         </div>
                     </form>

@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Course')
+@section('title', 'Edit Kursus')
 
 @section('content')
     <!-- start page title -->
@@ -12,10 +12,10 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCoursePackage') }}">Course Package</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCoursePackageBenefit') }}">Course package
-                                Benefit</a></li>
-                        <li class="breadcrumb-item active">Edit Course Package Benefit</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCoursePackage') }}">Paket Kursus</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCoursePackageBenefit') }}">Manfaat Paket
+                                Kursus</a></li>
+                        <li class="breadcrumb-item active">Edit Manfaat Paket Kursus</li>
                     </ol>
                 </div>
 
@@ -29,10 +29,18 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Course Package Benefit: {{ $currentData->name }}</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Edit Manfaat Paket Kursus: {{ $currentData->name }}</h4>
+                    <p class="card-title-desc">
+                        Halaman ini memungkinkan Anda untuk memperbarui informasi manfaat dari paket kursus. 
+                        Pastikan semua detail yang dimasukkan akurat agar peserta mendapatkan pengalaman belajar terbaik.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                        <ul>
+                            <li>Isi kolom Nama Manfaat Paket Kursus, ID Paket Kursus, dan Deskripsi Manfaat sesuai kebutuhan.</li>
+                            <li>Setelah semua detail terisi, gunakan tombol <strong>'Simpan & Perbarui'</strong> untuk menyimpan perubahan yang telah Anda buat.</li>
+                        </ul>
+                    </p>
+                    
 
                     <form action="{{ route('postEditCoursePackageBenefit', ['id' => request()->query('id')]) }}"
                         method="post" enctype="multipart/form-data">
@@ -58,7 +66,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Manfaat Paket Kursus</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" value="{{ $currentData->name }}">
                                 @if ($errors->has('name'))
@@ -69,7 +77,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">ID Course Package</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">ID Paket Kursus</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_package_id">
                                     @if ($currentData != null)
@@ -88,7 +96,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description">{{ $currentData->description }}</textarea>
                             </div>
@@ -103,7 +111,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Save & Update</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Simpan & Perbarui</button>
                             </div>
                         </div>
                     </form>
