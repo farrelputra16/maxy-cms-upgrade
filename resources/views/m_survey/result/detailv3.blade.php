@@ -63,27 +63,29 @@
                             <div class="col-md-10">
                                 @php
                                     $contentData = json_decode($currentData->content, true); // Decode JSON data
+                                    $hasData = false; // Flag to track if there are valid items
                                 @endphp
-
+                        
                                 @if ($contentData)
                                     @foreach ($contentData as $key => $value)
                                         @if ($key != 'id' && $key != 'score')
                                             @php
                                                 $formattedKey = str_replace('_', ' ', $key);
+                                                $hasData = true; // Set flag to true if valid data is found
                                             @endphp
-                                            <div class="mb-3 row">
-                                                <div class="col-md-10">
-                                                    <textarea id="elm1" readonly>
-    Q: {{ $formattedKey }}{{ substr($formattedKey, -1) == '?' ? '' : '?' }}
-    A: {{ $value }}
-                    </textarea>
+                                            <div class="mb-3 p-3 border rounded bg-light">
+                                                <p class="font-weight-bold mb-1">Q: {{ $formattedKey }}{{ substr($formattedKey, -1) == '?' ? '' : '?' }}</p>
+                                                <p class="mb-0">A: {{ $value }}</p>
+                                            </div>
                                         @endif
+                                    @endforeach
+                                @endif
+                        
+                                @if (!$hasData)
+                                    <div class="alert alert-secondary" role="alert">Tidak ada data.</div>
+                                @endif
                             </div>
-                        </div>
-                        @endforeach
-                    @else
-                        <textarea readonly>Tidak ada data.</textarea>
-                        @endif
+                        </div>                                                
                     </form>
                 </div>
             </div>
