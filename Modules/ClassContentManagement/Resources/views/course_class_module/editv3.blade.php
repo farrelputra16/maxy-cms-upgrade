@@ -66,10 +66,10 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-slug" class="col-md-2 col-form-label">Prioritas</label>
+                            <label for="input-slug" class="col-md-2 col-form-label">* Day</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="priority"
-                                    value="{{ old('priority', $course_class_module->priority) }}" id="slug" readonly>
+                                    value="{{ old('priority', $course_class_module->priority) }}" id="slug">
                             </div>
                         </div>
                         <div class="mb-3 row">
