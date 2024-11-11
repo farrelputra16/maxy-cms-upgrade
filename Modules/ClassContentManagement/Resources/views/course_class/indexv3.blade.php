@@ -146,20 +146,18 @@
     </div>
     <!-- Akhir Konten -->
 
-    <!-- Tombol Aksi Tambah -->
-    <div class="fab-container">
-        <div id="floating-add-button" class="fab">
-            <a href="{{ route('getAddCourseClass') }}" target="_blank" title="Tambah Kelas">
-                <i class="fas fa-plus"></i>
-            </a>
-        </div>
-        <div id="floating-duplicate-button" class="fab">
-            <a href="{{ route('getDuplicateCourseClass') }}" target="_blank" title="Duplikat Kelas">
-                <i class="fa-solid fa-copy"></i>
-            </a>
-        </div>
+    <!-- FAB Add Starts -->
+    <div id="floating-whatsapp-button" style='margin-bottom: 5%;'>
+        <a href="{{ route('getAddCourseClass') }}" target="_blank" data-toggle="tooltip" title="Add New Course Class">
+            <i class="fas fa-plus"></i>
+        </a>
     </div>
-    <!-- Akhir Tombol Aksi Tambah -->
+    <div id="floating-whatsapp-button">
+        <a href="{{ route('getDuplicateCourseClass') }}" target="_blank" data-toggle="tooltip" title="Duplicate Course Class">
+            <i class="fa-solid fa-copy"></i>
+        </a>
+    </div>
+    <!-- FAB Add Ends -->
 @endsection
 
 @section('script')
