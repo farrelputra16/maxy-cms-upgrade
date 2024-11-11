@@ -82,6 +82,9 @@
                                         @elseif ($proposal->m_proposal_status_id == 9)
                                             <span class="btn btn-primary"
                                                 style="pointer-events: none;">{{ $proposal->status }}</span>
+                                        @else
+                                            <span class="btn btn-info" 
+                                                style="pointer-events: none;">{{ $proposal->status }}</span>
                                         @endif
                                     </td>
                                     <td>
