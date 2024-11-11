@@ -1,13 +1,13 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tambah Konfirmasi Pesanan Transaksi')
+@section('title', 'Edit Konfirmasi Pesanan Transaksi')
 
 @section('content')
     <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Tambah Data Baru</h4>
+                <h4 class="mb-sm-0 font-size-18">Edit Data</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
@@ -15,7 +15,7 @@
                         <li class="breadcrumb-item"><a>Transaksi</a></li>
                         <li class="breadcrumb-item"><a href="">Pesanan</a></li>
                         <li class="breadcrumb-item"><a href="">Bukti Pembayaran</a></li>
-                        <li class="breadcrumb-item active">Tambah Bukti Pembayaran Baru</li>
+                        <li class="breadcrumb-item active">Edit Bukti Pembayaran</li>
                     </ol>
                 </div>
             </div>
@@ -28,31 +28,30 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Tambah Bukti Pembayaran Baru</h4>
-                    <p class="card-title-desc">Halaman ini memungkinkan Anda untuk menambahkan bukti pembayaran baru dengan mengisi data yang diperlukan di bawah ini. Pastikan semua informasi yang Anda masukkan akurat untuk menunjang pengalaman belajar peserta kursus.</p>
+                    <h4 class="card-title">Edit Bukti Pembayaran</h4>
+                    <p class="card-title-desc">Gunakan halaman ini untuk memperbarui informasi bukti pembayaran. Pastikan
+                        semua data yang Anda masukkan akurat untuk memberikan pengalaman terbaik bagi peserta kursus.</p>
 
-                    <form id="addTransOrderConfirm" action="{{ route('postAddTransOrderConfirm') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('postEditTransOrderConfirm', ['id' => request()->query('id')]) }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
-
+                        <input type="text" name="img_keep" value="{{ $currentData->image }}" hidden>
+                        <input type="text" name="m_bank" value="{{ $m_bank_account_now->m_bank_id }}" hidden>
+                        <input type="text" name="idtransorder" value="{{ $idtransorder }}" hidden>
                         <h4 class="ui dividing header">Informasi Pesanan</h4>
                         <hr>
-                        <input type="hidden" name="trans_order_id" value="{{ $transOrder->id }}">
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nomor Pesanan</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" value="{{ $transOrder->order_number }}"
-                                    name="name_order" id="orderNumber" placeholder="Masukkan Nomor Pesanan" readonly>
+                                <input class="form-control" type="text" value="{{ $currentData->order_confirm_number }}"
+                                    name="name_order" id="orderNumber">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Tanggal</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="datetime-local" name="date" id="date" value="{{ old('date') }}">
-                                @if ($errors->has('date'))
-                                    @foreach ($errors->get('date') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
+                                <input class="form-control" type="datetime-local" name="date" id="date"
+                                    value="{{ $currentData->date }}">
                             </div>
                         </div>
 
@@ -62,13 +61,15 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nama Akun</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="sender_account_name" placeholder="Masukkan Nama Akun" value="{{ old('sender_account_name') }}">
+                                <input class="form-control" type="text" name="sender_account_name"
+                                    value="{{ $currentData->sender_account_name }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Nomor Akun</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="sender_account_number" placeholder="Masukkan Nomor Akun" value="{{ old('sender_account_number') }}">
+                                <input class="form-control" type="text" name="sender_account_number"
+                                    value="{{ $currentData->sender_account_number }}">
                             </div>
                         </div>
                         <br>
@@ -77,7 +78,8 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Jumlah</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="amount" id="amount" placeholder="Rp. 0" value="{{ old('amount') }}">
+                                <input class="form-control" type="text" name="amount" value="" id="amount"
+                                    placeholder="Rp. 0">
                                 @error('amount')
                                     <div class="text-danger">
                                         {{ $errors }}
@@ -91,8 +93,9 @@
                                 <select class="form-control select2" name="m_bank_account_id" id="type_selector">
                                     <option value="">-- Pilih Rekening Bank --</option>
                                     @foreach ($bankAccounts as $bankAccount)
-                                        <option value="{{ $bankAccount->id }}" {{ old('m_bank_account_id') == $bankAccount->id ? 'selected' : '' }}>{{ $bankAccount->id }}
-                                            - {{ $bankAccount->account_name }} - {{ $bankAccount->account_number }}</option>
+                                        <option value="{{ $bankAccount->id }}">{{ $bankAccount->id }}
+                                            - {{ $bankAccount->account_name }} - {{ $bankAccount->account_number }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -108,29 +111,28 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
+                                <textarea id="elm1" name="description"></textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status" {{ old('status') ? 'checked' : '' }}>
+                                    name="status">
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>
-                        <input type="text" value="{{ $transOrder->course_id }}" name="course_id" hidden>
-                        <input type="text" value="{{ $transOrder->course_class_id }}" name="course_class_id" hidden>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addTransOrderConfirm">Tambah Konfirmasi Pesanan</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Tambah Konfirmasi
+                                    Pesanan</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-        </div> <!-- end col -->
-    </div> <!-- end row -->
+        </div> <!-- akhir kolom -->
+    </div> <!-- akhir baris -->
 @endsection
 
 @section('script')

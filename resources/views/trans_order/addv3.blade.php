@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add Transcation Order')
+@section('title', 'Tambah Pesanan Transaksi')
 
 @section('content')
     <!-- start page title -->
@@ -12,9 +12,9 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a>Payments</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getTransOrder') }}">Orders</a></li>
-                        <li class="breadcrumb-item active">Add Transaction Order</li>
+                        <li class="breadcrumb-item"><a>Pembayaran</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getTransOrder') }}">Pesanan</a></li>
+                        <li class="breadcrumb-item active">Tambah Pesanan Transaksi</li>
                     </ol>
                 </div>
 
@@ -28,22 +28,22 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Add New Transaction Order</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Tambah Pesanan Transaksi Baru</h4>
+                    <p class="card-title-desc">Isi data pesanan transaksi baru dengan benar agar proses dapat berjalan
+                        lancar.</p>
 
-                    <form id="addPaymentOrder" action="{{ route('postAddTransOrder') }}" method="post" enctype="multipart/form-data">
+                    <form id="addPaymentOrder" action="{{ route('postAddTransOrder') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
 
                         <br>
-                        <h4 class="ui dividing header">Order Information</h4>
+                        <h4 class="ui dividing header">Informasi Pesanan</h4>
                         <hr>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Order Information</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nomor Pesanan</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="order_number" id="order_number"
-                                    placeholder="Masukkan Nomor Order" value="{{ old('order_number') }}">
+                                    placeholder="Masukkan Nomor Pesanan" value="{{ old('order_number') }}">
                                 @if ($errors->has('order_number'))
                                     @foreach ($errors->get('order_number') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -52,9 +52,10 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Date</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="datetime-local" name="date" id="date" value="{{ old('date') }}">
+                                <input class="form-control" type="datetime-local" name="date" id="date"
+                                    value="{{ old('date') }}">
                                 @if ($errors->has('date'))
                                     @foreach ($errors->get('date') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -64,15 +65,17 @@
                         </div>
 
                         <br>
-                        <h4 class="ui dividing header">User Information</h4>
+                        <h4 class="ui dividing header">Informasi Pengguna</h4>
                         <hr>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">User</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Nama Pengguna</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="user_id" data-placeholder="-- Pilih User --"
                                     id="type_selector">
                                     @foreach ($idmembers as $item)
-                                        <option value="{{ $item->id }}" {{ old('user_id') == $item->id ? 'selected' : '' }}>{{ $item->id }} - {{ $item->name }}
+                                        <option value="{{ $item->id }}"
+                                            {{ old('user_id') == $item->id ? 'selected' : '' }}>{{ $item->id }} -
+                                            {{ $item->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -84,13 +87,15 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Course</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Kursus</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_id" data-placeholder="-- Pilih Course --"
                                     id="">
-                                    <option value="">-- Pilih Course --</option>
+                                    <option value="">-- Pilih Kursus --</option>
                                     @foreach ($idcourses as $item)
-                                        <option value="{{ $item->id }}" {{ old('course_id') == $item->id ? 'selected' : '' }}>{{ $item->id }} - {{ $item->name }}
+                                        <option value="{{ $item->id }}"
+                                            {{ old('course_id') == $item->id ? 'selected' : '' }}>{{ $item->id }} -
+                                            {{ $item->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -102,12 +107,14 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Course Class</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Kelas Kursus</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_class_id" id="">
-                                    <option value="">-- Pilih Course Class --</option>
+                                    <option value="">-- Pilih Kelas Kursus --</option>
                                     @foreach ($idcourseclasses as $item)
-                                        <option value="{{ $item->id }}" {{ old('course_class_id') == $item->id ? 'selected' : '' }}>{{ $item->id }} - Batch
+                                        <option value="{{ $item->id }}"
+                                            {{ old('course_class_id') == $item->id ? 'selected' : '' }}>
+                                            {{ $item->id }} - Batch
                                             {{ $item->batch }}
                                         </option>
                                     @endforeach
@@ -120,12 +127,14 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Course Package</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Paket Kursus</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_package_id"
                                     data-placeholder="-- Pilih Course Package --" id="type_selector">
                                     @foreach ($idcoursepackages as $item)
-                                        <option value="{{ $item->id }}" {{ old('course_package_id') == $item->id ? 'selected' : '' }}>{{ $item->id }} - {{ $item->name }}
+                                        <option value="{{ $item->id }}"
+                                            {{ old('course_package_id') == $item->id ? 'selected' : '' }}>
+                                            {{ $item->id }} - {{ $item->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -138,17 +147,20 @@
                         </div>
 
                         <br>
-                        <h4 class="ui dividing header">Payment Information</h4>
+                        <h4 class="ui dividing header">Informasi Pembayaran</h4>
                         <hr>
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Status Pembayaran</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="payment_status" id="type_selector">
                                     <option value="">-- Pilih Status Pembayaran --</option>
-                                    <option value="0" {{ old('payment_status') == 0 ? 'selected' : '' }}>0 - Not Completed </option>
-                                    <option value="1" {{ old('payment_status') == 1 ? 'selected' : '' }}>1 - Completed </option>
-                                    <option value="2" {{ old('payment_status') == 2 ? 'selected' : '' }}>2 - Partial </option>
-                                    <option value="3" {{ old('payment_status') == 3 ? 'selected' : '' }}>3 - Cancelled </option>
+                                    <option value="0" {{ old('payment_status') == 0 ? 'selected' : '' }}>0 - Belum Lunas </option>
+                                    <option value="1" {{ old('payment_status') == 1 ? 'selected' : '' }}>1 - Lunas
+                                    </option>
+                                    <option value="2" {{ old('payment_status') == 2 ? 'selected' : '' }}>2 - Sebagian
+                                    </option>
+                                    <option value="3" {{ old('payment_status') == 3 ? 'selected' : '' }}>3 - Dibatalkan
+                                    </option>
                                 </select>
                                 @if ($errors->has('payment_status'))
                                     @foreach ($errors->get('payment_status') as $error)
@@ -158,7 +170,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Total</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Total Pembayaran</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="total" id="total"
                                     placeholder="Rp. 0" value="{{ old('total') }}">
@@ -170,7 +182,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Discount (Max 100%)</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Diskon (Maks 100%)</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="discount" id="discount"
                                     placeholder="e. g. 5" value="{{ old('discount') }}">
@@ -182,7 +194,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">After Discount (Automatically)</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Total Setelah Diskon (Otomatis)</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="total_after_discount" id="afterDisc"
                                     placeholder="Rp. 0" value="{{ old('total_after_discount') }}">
@@ -194,19 +206,21 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Promotion (Optional)</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Referral (Optional)</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="m_promo_id" id="type_selector">
-                                        <option value="">-- Pilih Promotion --</option>
+                                    <option value="">-- Pilih Promotion --</option>
                                     @foreach ($idpromotions as $item)
-                                        <option value="{{ $item->id }}" {{ old('m_promo_id') == $item->id ? 'selected' : '' }}>{{ $item->id }} - {{ $item->name }}
+                                        <option value="{{ $item->id }}"
+                                            {{ old('m_promo_id') == $item->id ? 'selected' : '' }}>{{ $item->id }} -
+                                            {{ $item->name }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description" id="editor">{{ old('description', $currentData->description ?? 'Tidak ada') }}</textarea>
                             </div>
@@ -221,7 +235,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addPaymentOrder">Add Payment Order</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addPaymentOrder">Simpan Pesanan Pembayaran</button>
                             </div>
                         </div>
                     </form>

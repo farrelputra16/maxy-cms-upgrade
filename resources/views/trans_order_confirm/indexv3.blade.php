@@ -1,41 +1,37 @@
 @extends('layout.main-v3')
 
-@section('title', 'Trans Order Confirm')
+@section('title', 'Konfirmasi Pesanan Transaksi')
 
 @section('content')
-    <!-- Begin Page Title -->
+    <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
+                <h4 class="mb-sm-0 font-size-18">Ringkasan Data</h4>
 
-                <!-- Begin Breadcrumb -->
+                <!-- Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a>Transcation</a></li>
-                        <li class="breadcrumb-item"><a>Orders</a></li>
-                        <li class="breadcrumb-item active">Proof of Payment</li>
+                        <li class="breadcrumb-item"><a>Transaksi</a></li>
+                        <li class="breadcrumb-item"><a>Pesanan</a></li>
+                        <li class="breadcrumb-item active">Bukti Pembayaran</li>
                     </ol>
                 </div>
-                <!-- End Breadcrumb -->
+                <!-- Akhir Breadcrumb -->
             </div>
         </div>
     </div>
-    <!-- End Page Title -->
+    <!-- Akhir Judul Halaman -->
 
-    <!-- Begin Content -->
+    <!-- Konten -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Proof of Payment</h4>
+                    <h4 class="card-title">Bukti Pembayaran</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
-                        features to
-                        customize your view and quickly access the specific information you need.
+                        Halaman ini menampilkan ringkasan lengkap dari semua data yang tersedia dalam format tabel interaktif yang dapat diurutkan. Setiap baris mencakup detail penting seperti nama, deskripsi, dan status. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk menyesuaikan tampilan dan mengakses informasi yang Anda butuhkan dengan cepat.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -43,20 +39,20 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Order Confirm Number</th>
-                                <th>Date</th>
-                                <th>Amount</th>
-                                <th>Sender Account Name</th>
-                                <th>Sender Account Number</th>
-                                <th>Sender Bank</th>
-                                <th>Trans Order Id</th>
-                                <th>Bank Account Id</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Nomor Konfirmasi Pesanan</th>
+                                <th>Tanggal</th>
+                                <th>Jumlah</th>
+                                <th>Nama Akun Pengirim</th>
+                                <th>Nomor Akun Pengirim</th>
+                                <th>Bank Pengirim</th>
+                                <th>ID Pesanan Transaksi</th>
+                                <th>ID Akun Bank</th>
+                                <th>Dibuat Pada</th>
+                                <th>ID Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>ID Pembaruan</th>
                                 <th>Status</th>
-                                {{-- <th>Action</th> --}}
+                                {{-- <th>Aksi</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -96,20 +92,20 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Order Confirm Number</th>
-                                <th>Date</th>
-                                <th>Amount</th>
-                                <th>Sender Account Name</th>
-                                <th>Sender Account Number</th>
-                                <th>Sender Bank</th>
-                                <th>Trans Order Id</th>
-                                <th>Bank Account Id</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Nomor Konfirmasi Pesanan</th>
+                                <th>Tanggal</th>
+                                <th>Jumlah</th>
+                                <th>Nama Akun Pengirim</th>
+                                <th>Nomor Akun Pengirim</th>
+                                <th>Bank Pengirim</th>
+                                <th>ID Pesanan Transaksi</th>
+                                <th>ID Akun Bank</th>
+                                <th>Dibuat Pada</th>
+                                <th>ID Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>ID Pembaruan</th>
                                 <th>Status</th>
-                                {{-- <th>Action</th> --}}
+                                {{-- <th>Aksi</th> --}}
                             </tr>
                         </tfoot>
                     </table>
@@ -117,16 +113,15 @@
             </div>
         </div>
     </div>
-    <!-- End Content -->
+    <!-- Akhir Konten -->
 
-    <!-- FAB Add Starts -->
+    <!-- Tombol Tambah Transaksi -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddTransOrderConfirm', ['id' => $transOrderId]) }}" target="_blank" data-toggle="tooltip"
-            title="Tambah Transaksi Order Confirm">
+        <a href="{{ route('getAddTransOrderConfirm', ['id' => $transOrderId]) }}" target="_blank" data-toggle="tooltip" title="Tambah Konfirmasi Pesanan">
             <i class="fas fa-plus"></i>
         </a>
     </div>
-    <!-- FAB Add Ends -->
+    <!-- Akhir Tombol Tambah Transaksi -->
 @endsection
 
 @section('script')
