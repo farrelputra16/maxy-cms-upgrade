@@ -7,8 +7,8 @@ use App\Models\CourseModule;
 use App\Models\MCourseType;
 use App\Models\MSurvey;
 use Auth;
-use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
@@ -25,11 +25,21 @@ class CourseModuleController extends Controller
         $course_detail = Course::getCourseDetailByCourseId($course_id);
         $parent_modules = CourseModule::getCourseModuleParentByCourseId($course_id, $request->page_type);
 
+        $mbkmType = DB::table('m_course_type')->where('slug', 'mbkm')->where('status', 1)->first();
+
+        $bcMBKM = false;
+
+        if ($mbkmType) {            
+            if ($course_detail->m_course_type_id == $mbkmType->id) {
+                $bcMBKM = true;
+            }
+        }
         // dd($parent_modules);
         return view('course_module.indexv3', [
             'parent_modules' => $parent_modules,
             'course_detail' => $course_detail,
             'page_type' => $request->page_type,
+            'bcMBKM' => $bcMBKM,
         ]);
     }
     function getCourseSubModule(Request $request)
@@ -42,12 +52,23 @@ class CourseModuleController extends Controller
         $sub_modules = CourseModule::getCourseModuleChildByParentId($module_id);
         $parent_module_detail = CourseModule::getCourseModuleDetailByModuleId($module_id);
 
+        $mbkmType = DB::table('m_course_type')->where('slug', 'mbkm')->where('status', 1)->first();
+
+        $bcMBKM = false;
+
+        if ($mbkmType) {            
+            if ($course_detail->m_course_type_id == $mbkmType->id) {
+                $bcMBKM = true;
+            }
+        }
+
         // dd($sub_modules);
         return view('course_module.child.indexv3', [
             'sub_modules' => $sub_modules,
             'course_detail' => $course_detail,
             'parent_module_detail' => $parent_module_detail,
             'page_type' => $request->page_type,
+            'bcMBKM' => $bcMBKM,
         ]);
     }
 
@@ -67,7 +88,7 @@ class CourseModuleController extends Controller
     {
         // dd($request->all());
         $validate = $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|max:255',
             'priority' => 'required',
         ]);
 
@@ -121,7 +142,7 @@ class CourseModuleController extends Controller
     {
         // dd($request->all());
         $validate = $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|max:255',
             'priority' => 'required',
         ]);
         $course_detail = Course::getCourseDetailByCourseId($request->course_id);

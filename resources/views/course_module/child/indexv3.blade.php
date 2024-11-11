@@ -13,7 +13,11 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
+                        @if ($bcMBKM == true)
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseMBKM') }}">MBKM</a></li>
+                        @else
                         <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Course</a></li>
+                        @endif
                         <li class="breadcrumb-item"><a
                                 href="{{ route('getCourseModule', ['course_id' => $parent_module_detail->course_id, 'page_type' => 'LMS']) }}">Course
                                 Module</a></li>
