@@ -7,13 +7,13 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Add New Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Data Baru</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCourseMBKM') }}">MBKM</a></li>
-                        <li class="breadcrumb-item active">Add New MBKM</li>
+                        <li class="breadcrumb-item active">Tambah MBKM Baru</li>
                     </ol>
                 </div>
 
@@ -27,17 +27,19 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Add New MBKM</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Tambah MBKM Baru</h4>
+                    <p class="card-title-desc">
+                        Silakan lengkapi informasi kursus di bawah ini. 
+                        Pastikan data yang Anda masukkan benar agar peserta kursus mendapatkan pengalaman belajar yang terbaik.
+                    </p>
+                    
 
                     <form id="mbkmForm" action="{{ route('postAddCourse') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         {{-- <input type="text" name="img_keep" value="{{ $blog->cover_img }}" hidden> --}}
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name MBKM</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama MBKM</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     placeholder="Masukkan Nama MBKM" value="{{ old('name') }}" required>
@@ -61,7 +63,7 @@
                         </div>
                         @if (env('APP_ENV') != 'local')
                             <div class="mb-3 row">
-                                <label for="input-payment" class="col-md-2 col-form-label">Payment Link</label>
+                                <label for="input-payment" class="col-md-2 col-form-label">Tautan Pembayaran</label>
                                 <div class="col-md-10">
                                     <input class="form-control" type="text" name="payment_link" id="payment_link"
                                         value="{{ old('payment_link') }}" placeholder="https://example.com">
@@ -74,7 +76,7 @@
                             </div>
                         @endif
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Difficulty</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tingkat Kesulitan <small>(Program MBKM)</small></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="level" data-placeholder="Choose ...">
                                     @foreach ($allCourseDifficulty as $item)
@@ -85,7 +87,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">MBKM Type</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Jenis MBKM</label>
                             <div class="col-md-10">
                                 <!-- Menampilkan nilai MBKM yang sudah dipilih dan tidak bisa diubah -->
                                 <input class="form-control" type="text" value="MBKM" disabled>
@@ -101,7 +103,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Course Category<small>(Prodi)</small></label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Kategori Kursus<small>(Prodi)</small></label>
                             <div class="col-md-10">
                                 <select class="form-control select2 multiple" name="courseCategory[]"
                                     data-placeholder="Choose ..." id="type_selector" multiple="multiple">
@@ -119,11 +121,15 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-file" class="col-md-2 col-form-label">Image</label>
-                            <div class="col-md-10" style="height: 200px">
+                            <label for="input-file" class="col-md-2 col-form-label">Gambar</label>
+                            <div class="col-md-10">
                                 <input class="form-control" type="file" name="file_image" id="input-file"
                                     accept="image/*" onchange="previewImage()" required>
-                                <img id="frame" src="" alt="Preview Image" class="img-fluid h-100" />
+                        
+                                <!-- Preview gambar yang dipilih -->
+                                <img id="frame" src="" alt="Preview Image" class="img-fluid"
+                                    style="margin-top: 20px; max-height: 180px; object-fit: contain; display: block;" />
+                        
                                 <br>
                                 @if ($errors->has('file_image'))
                                     @foreach ($errors->get('file_image') as $error)
@@ -131,9 +137,9 @@
                                     @endforeach
                                 @endif
                             </div>
-                        </div>
+                        </div>                                                                     
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Content <small>(isi)</small></label>
+                            <label for="input-content" class="col-md-2 col-form-label">Konten Tambahan<small>(isi)</small></label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="content">{{ old('content') }}</textarea>
                                 @if ($errors->has('content'))
@@ -144,7 +150,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-short-description" class="col-md-2 col-form-label">Short Description</label>
+                            <label for="input-short-description" class="col-md-2 col-form-label">Ringkasan Singkat</label>
                             <div class="col-md-10">
                                 <textarea id="elmDesc" name="short_description" class="form-control">{{ old('short_description') }}</textarea>
                                 @if ($errors->has('short_description'))
@@ -155,7 +161,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Detail Ringkasan</label>
                             <div class="col-md-10">
                                 <textarea id="elm3" name="description" class="form-control">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
@@ -176,7 +182,7 @@
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
-                                    form="mbkmForm">Add MBKM</button>
+                                    form="mbkmForm">Tambah MBKM</button>
                             </div>
                         </div>
                     </form>

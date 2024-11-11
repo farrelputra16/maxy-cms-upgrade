@@ -26,10 +26,14 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit MBKM</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Edit MBKM Program</h4>
+                    <p>Halaman ini memungkinkan Anda memperbarui informasi program MBKM yang sudah ada. 
+                        Pastikan semua detail yang dimasukkan akurat untuk mendukung pengalaman belajar terbaik bagi peserta. 
+                        Lengkapi setiap kolom, termasuk nama program, tingkat kesulitan, kategori kursus, dan tautan pembayaran jika diperlukan. 
+                        Setelah semua detail terisi, klik <b>'Save & Update'</b> untuk menyimpan perubahan.
+                    </p>
+                    
+
 
                     <form action="{{ route('postEditCourse', ['id' => request()->query('id')]) }}" method="post"
                         enctype="multipart/form-data">
@@ -37,7 +41,7 @@
                         <input type="text" name="img_keep" value="{{ $courses->image }}" hidden>
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name MBKM</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama MBKM</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     value="{{ old('name', $courses->name) }}" required>
@@ -75,7 +79,7 @@
                             </div>
                         @endif
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Difficulty</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tingkat Kesulitan <small>(Program MBKM)</small></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="level" data-placeholder="Choose ...">
                                     {{-- <option>Select</option> --}}
@@ -92,7 +96,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">MBKM Type</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Jenis MBKM</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="type" data-placeholder="Choose ..."
                                     id="type_selector">
@@ -105,7 +109,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Course Category<small>(prodi)</small></label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Kategori Kursus<small>(prodi)</small></label>
                             <div class="col-md-10">
                                 <select class="form-control select2 multiple" name="courseCategory[]"
                                     data-placeholder="Choose ..." id="type_selector" multiple="multiple">
@@ -121,28 +125,29 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-file" class="col-md-2 col-form-label">Image</label>
-                            <div class="col-md-10" style="height: 200px">
+                            <label for="input-file" class="col-md-2 col-form-label">Gambar</label>
+                            <div class="col-md-10" style="height: 250px;"> <!-- Tinggi div container ditambah -->
                                 <input class="form-control" type="file" name="file_image" id="input-file"
                                     accept="image/*" onchange="previewImage()">
-
-                                <!-- Image pertama untuk gambar yang ada -->
+                        
+                                <!-- Image pertama untuk gambar yang ada, tambahkan style untuk margin dan tinggi maksimal -->
                                 <img id="current-image" src="{{ asset('uploads/course_img/' . $courses->image) }}"
-                                    class="img-fluid h-100" alt="Current Image" />
-
-                                <!-- Image kedua untuk preview gambar baru yang diunggah -->
-                                <img id="preview-image" src="#" class="img-fluid h-100" alt="New Image"
-                                    style="display: none;" />
-
+                                    class="img-fluid" alt="Current Image" 
+                                    style="margin-top: 10px; max-height: 200px; object-fit: contain;" />
+                        
+                                <!-- Image kedua untuk preview gambar baru yang diunggah, atur juga style agar konsisten -->
+                                <img id="preview-image" src="#" class="img-fluid" alt="New Image"
+                                    style="display: none; margin-top: 10px; max-height: 200px; object-fit: contain;" />
+                        
                                 @if ($errors->has('file_image'))
                                     @foreach ($errors->get('file_image') as $error)
                                         <span style="color: red;">{{ $error }}</span>
                                     @endforeach
                                 @endif
                             </div>
-                        </div>
+                        </div>                        
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Content <small>(isi)</small></label>
+                            <label for="input-content" class="col-md-2 col-form-label">Konten Tambahan<small>(isi)</small></label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="content">{{ old('content', $courses->content) }}</textarea>
                                 @if ($errors->has('content'))
@@ -153,7 +158,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-short-description" class="col-md-2 col-form-label">Short Description</label>
+                            <label for="input-short-description" class="col-md-2 col-form-label">Ringkasan Singkat</label>
                             <div class="col-md-10">
                                 <textarea id="elmDesc" name="short_description">{{ old('short_description', $courses->short_description) }}</textarea>
                                 @if ($errors->has('short_description'))
@@ -164,7 +169,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Detail Ringkasan</label>
                             <div class="col-md-10">
                                 <textarea id="elm2" name="description" class="form-control">{{ old('description', $courses->description) }}</textarea>
                                 @if ($errors->has('description'))
