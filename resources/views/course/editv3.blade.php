@@ -40,14 +40,14 @@
                             <label for="input-name" class="col-md-2 col-form-label">Name Course</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
-                                    value="{{ old('name', $courses->name) }}" id="name" required>
+                                    value="{{ old('name', $courses->name) }}" id="name">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug"
-                                    value="{{ old('slug', $courses->slug) }}" id="slug" readonly required>
+                                    value="{{ old('slug', $courses->slug) }}" id="slug" readonly>
                             </div>
                         </div>
                         @if (env('APP_ENV') != 'local')
@@ -55,7 +55,7 @@
                                 <label for="input-content" class="col-md-2 col-form-label">Payment</label>
                                 <div class="col-md-10">
                                     <input class="form-control" type="text" name="payment_link" id="payment_link"
-                                        value="{{ old('payment_link', $courses->payment_link) }}" required>
+                                        value="{{ old('payment_link', $courses->payment_link) }}">
                                     @if ($errors->has('payment_link'))
                                         @foreach ($errors->get('payment_link') as $error)
                                             <span style="color: red;">{{ $error }}</span>
@@ -84,7 +84,7 @@
                             <label for="input-tag" class="col-md-2 col-form-label">Course Type</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="type" id="type_selector"
-                                    data-placeholder="Choose ..." required>
+                                    data-placeholder="Choose ...">
                                     @if ($currentDataCourse)
                                         <option selected value="{{ $currentDataCourse->m_course_type_id }}">
                                             {{ $currentDataCourse->course_type_name }}

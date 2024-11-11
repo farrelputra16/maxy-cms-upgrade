@@ -40,7 +40,7 @@
                             <label for="name" class="col-md-2 col-form-label">Name Course</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                    placeholder="Masukkan Nama Course" value="{{ old('name') }}" required>
+                                    placeholder="Masukkan Nama Course" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -51,7 +51,7 @@
                         <div class="mb-3 row">
                             <label for="slug" class="col-md-2 col-form-label">Slug</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="slug" id="slug" readonly required
+                                <input class="form-control" type="text" name="slug" id="slug" readonly
                                     value="{{ old('slug') }}">
                                 @if ($errors->has('slug'))
                                     @foreach ($errors->get('slug') as $error)
@@ -65,7 +65,7 @@
                                 <label for="input-payment" class="col-md-2 col-form-label">Payment Link</label>
                                 <div class="col-md-10">
                                     <input class="form-control" type="text" name="payment_link" id="payment_link"
-                                        value="{{ old('payment_link') }}" placeholder="https://example.com" required>
+                                        value="{{ old('payment_link') }}" placeholder="https://example.com">
                                     @if ($errors->has('payment_link'))
                                         @foreach ($errors->get('payment_link') as $error)
                                             <span style="color: red;">{{ $error }}</span>
@@ -95,7 +95,7 @@
                             <label for="input-tag" class="col-md-2 col-form-label">Course Type</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="type" data-placeholder="Choose ..."
-                                    id="type_selector" required>
+                                    id="type_selector">
                                     @foreach ($allCourseTypes as $item)
                                         <option value="{{ $item->id }}"
                                             {{ old('type') == $item->id ? 'selected' : '' }}> {{ $item->name }}
@@ -202,7 +202,7 @@
                             <label for="input-file" class="col-md-2 col-form-label">Image</label>
                             <div class="col-md-10" style="height: 200px">
                                 <input class="form-control" type="file" name="file_image" id="input-file"
-                                    accept="image/*" onchange="previewImage()" required>
+                                    accept="image/*" onchange="previewImage()">
                                 <img id="frame" src="" alt="Preview Image" class="img-fluid h-100" />
                                 <br>
                                 @if ($errors->has('file_image'))
