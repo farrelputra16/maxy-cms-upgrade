@@ -211,9 +211,9 @@ class UserController extends Controller
 
     function getAddUser()
     {
-        $allAccessGroups = AccessGroup::all();
+        $allAccessGroups = AccessGroup::where('status', 1)->get();
         $allProvince = MProvince::all();
-        $allPartner = Partner::all();
+        $allPartner = Partner::where('status', 1)->get();
 
         return view('user.addv3', [
             'allAccessGroups' => $allAccessGroups,
@@ -295,9 +295,11 @@ class UserController extends Controller
 
         // return dd($currentData);
 
-        $allAccessGroups = AccessGroup::where('id', '<>', $currentData->access_group_id)->get();
+        $allAccessGroups = AccessGroup::where('id', '<>', $currentData->access_group_id)
+        ->where('status', 1)
+        ->get();
         $allProvince = MProvince::all();
-        $allPartner = Partner::all();
+        $allPartner = Partner::where('status', 1)->get();
 
         return view('user.editv3', [
             'currentData' => $currentData,
