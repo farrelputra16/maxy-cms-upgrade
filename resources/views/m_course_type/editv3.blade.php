@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Course Type')
+@section('title', 'Edit Jenis Kursus')
 
 @section('content')
     <!-- start page title -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseType') }}">Course Type</a></li>
-                        <li class="breadcrumb-item active">Edit Course Type: {{ $currentData->name }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseType') }}">Jenis Kursus</a></li>
+                        <li class="breadcrumb-item active">Edit Jenis Kursus: {{ $currentData->name }}</li>
                     </ol>
                 </div>
 
@@ -26,18 +26,24 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-
                     <h4 class="card-title">{{ $currentData->name }} <small>[ ID: {{ $currentData->id }} ]</small></h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
-
+                    <p class="card-title-desc">
+                        Halaman ini memungkinkan Anda memperbarui informasi jenis kursus. 
+                        Pastikan detail yang dimasukkan akurat agar peserta mendapatkan pengalaman belajar terbaik.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li>Isi kolom "Nama Jenis Kursus," "Slug," dan "Deskripsi" sesuai kebutuhan.</li>
+                        <li>Setelah semua detail terisi, gunakan tombol <strong>'Save & Update'</strong> untuk menyimpan perubahan.</li>
+                    </ul>
+                    </p>
+                </div>
                     <form action="{{ route('postEditCourseType', ['id' => request()->query('id')]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Jenis Kursus</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $currentData->name) }}" id="name">
@@ -56,7 +62,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description">{{ old('description', $currentData->description) }}</textarea>
                             </div>
