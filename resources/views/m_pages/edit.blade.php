@@ -64,7 +64,7 @@
                             @endif
 
                             @if ($section->section_name == 'hero' || $section->section_name == 'banner')
-                                    <input type="text" name="oldImage[]" hidden value="{{ $section->image }}">
+                                <input type="text" name="oldImage[]" hidden value="{{ $section->image }}">
                                 <div class="mb-3 row">
                                     <label for="input-content" class="col-md-2 col-form-label">Image</label>
                                     <div class="col-md-10">
@@ -83,8 +83,10 @@
         <div class="mb-3 d-flex justify-content-end">
             @if (isset($pageContents) && $pageContents->first()->page_id == 3)
                 <button type="submit" class="btn btn-primary">Switch Order Blog</button>
-            @else
+            @elseif (isset($pageContents) && $pageContents->first()->page_id == 2)
                 <button type="submit" class="btn btn-primary">Save & Update Blog</button>
+            @else
+                <button type="submit" class="btn btn-primary">Save & Update</button>
             @endif
         </div>
     </form>
