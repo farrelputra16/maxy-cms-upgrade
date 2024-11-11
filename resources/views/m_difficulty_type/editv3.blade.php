@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Difficulty Type')
+@section('title', 'Edit Tingkat Kesulitan')
 
 @section('content')
     <!-- start page title -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getDifficulty') }}">Course Type</a></li>
-                        <li class="breadcrumb-item active">Edit Course Type: {{ $currentData->name }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getDifficulty') }}">Jenis Kursus</a></li>
+                        <li class="breadcrumb-item active">Edit Jenis Kursus: {{ $currentData->name }}</li>
                     </ol>
                 </div>
 
@@ -28,16 +28,24 @@
                 <div class="card-body">
 
                     <h4 class="card-title">{{ $currentData->name }} <small>[ ID: {{ $currentData->id }} ]</small></h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <p class="card-title-desc">
+                        Halaman ini memungkinkan Anda untuk memperbarui informasi tingkat kesulitan pada paket kursus. 
+                        Pastikan semua detail yang dimasukkan akurat agar peserta dapat memahami dengan jelas tingkat kesulitan yang akan mereka hadapi.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                        <ul>
+                            <li><strong>Nama Tingkat Kesulitan:</strong> Isi kolom dengan nama tingkat kesulitan (misalnya, Mudah, Menengah, Sulit) yang sesuai.</li>
+                            <li><strong>Deskripsi:</strong> Jelaskan secara singkat deskripsi tingkat kesulitan tersebut, seperti level keterampilan atau tantangan yang dihadapi peserta.</li>
+                            <li>Setelah semua detail terisi, gunakan tombol <strong>'Simpan & Perbarui'</strong> untuk menyimpan perubahan yang telah Anda buat.</li>
+                        </ul>
+                    </p>                    
 
                     <form action="{{ route('postEditDifficultyType', ['id' => request()->query('id')]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Tingkat Kesulitan</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $currentData->name) }}" id="name">
@@ -49,7 +57,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm2" name="description" class="form-control">{{ old('description', $currentData->description) }}</textarea>
                             </div>
@@ -68,7 +76,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Save & Update</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Simpan & Perbarui</button>
                             </div>
                         </div>
                     </form>
