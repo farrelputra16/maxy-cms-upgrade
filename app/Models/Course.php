@@ -133,7 +133,7 @@ class Course extends Model
                     'm_difficulty_type_id' => $request->level,
                     'content' => $request->content,
                     'description' => $request->description,
-                    'status' => $request->status == '' ? 0 : 1,
+                    'status' => $request->status == 0 ? 0 : 1,
                     'created_id' => Auth::user()->id,
                     'updated_id' => Auth::user()->id
             ]));
@@ -156,7 +156,7 @@ class Course extends Model
                     'm_difficulty_type_id' => $request->level,
                     'content' => $request->content,
                     'description' => $request->description,
-                    'status' => $request->status == '' ? 0 : 1,
+                    'status' => $request->status == 0 ? 0 : 1,
                     'created_id' => Auth::user()->id,
                     'updated_id' => Auth::user()->id
             ]));
@@ -179,7 +179,7 @@ class Course extends Model
                     'course_package_id' => $request->package ? $request->package : null,
                     'm_difficulty_type_id' => $request->level,
                     'description' => $request->description,
-                    'status' => $request->status == '' ? 0 : 1,
+                    'status' => $request->status == 0 ? 0 : 1,
                     'created_id' => Auth::user()->id,
                     'updated_id' => Auth::user()->id
             ]));
