@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
 use Modules\ClassContentManagement\Entities\CourseClass;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class CourseClassMember extends Model
 {
