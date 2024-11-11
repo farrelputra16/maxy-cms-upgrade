@@ -151,7 +151,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addPartner">Add Course Module</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addPartner">Add Partners</button>
                             </div>
                         </div>
                     </form>

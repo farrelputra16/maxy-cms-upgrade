@@ -13,7 +13,7 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getPartner') }}">Partners</a></li>
-                        <li class="breadcrumb-item active">Edit Module: {{ $partners->name }}</li>
+                        <li class="breadcrumb-item active">Edit Partner: {{ $partners->name }}</li>
                     </ol>
                 </div>
 
