@@ -244,7 +244,8 @@ class CourseClassController extends Controller
             'slug' => 'required|unique:course_class,slug', // Pastikan slug unik
             'start' => 'required|date',
             'end' => 'required|date|after:start',
-            'quota' => 'required|integer|gte:1'
+            'quota' => 'required|integer|gte:1',
+            'ongoing' => 'required',
         ]);
         // dd($request->all());
 
@@ -353,7 +354,8 @@ class CourseClassController extends Controller
             'slug' => 'required|unique:course_class,slug,' . $request->id, // Slug unik kecuali milik sendiri
             'start' => 'required|date',
             'end' => 'required|date|after:start',
-            'quota' => 'required|integer|gte:1'
+            'quota' => 'required|integer|gte:1',
+            'ongoing' => 'required',
         ]);
 
         // Update data course class

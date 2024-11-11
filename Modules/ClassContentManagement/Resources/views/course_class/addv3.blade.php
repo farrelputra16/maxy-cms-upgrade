@@ -157,6 +157,9 @@
                                     </option>
                                     <option value="2" {{ old('ongoing') == '2' ? 'selected' : '' }}>Selesai</option>
                                 </select>
+                                @error('ongoing')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
