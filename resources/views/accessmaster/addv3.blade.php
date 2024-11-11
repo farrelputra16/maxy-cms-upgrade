@@ -1,46 +1,45 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add Access Master')
+@section('title', 'Tambah Hak Akses Utama')
 
 @section('content')
-    <!-- start page title -->
+    <!-- Mulai Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Add New Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Data Baru</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a>Users & Access</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getAccessMaster') }}">Access Master</a></li>
-                        <li class="breadcrumb-item active">Add Access Master</li>
+                        <li class="breadcrumb-item"><a>Pengguna & Akses</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getAccessMaster') }}">Hak Akses Utama</a></li>
+                        <li class="breadcrumb-item active">Tambah Hak Akses Utama</li>
                     </ol>
                 </div>
-
             </div>
         </div>
     </div>
-    <!-- end page title -->
+    <!-- Selesai Judul Halaman -->
 
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Add New Access Master</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Tambah Hak Akses Utama Baru</h4>
+                    <p class="card-title-desc">Halaman ini memungkinkan Anda untuk menambahkan hak akses baru. Pastikan data
+                        yang dimasukkan sudah benar agar hak akses ini dapat digunakan secara optimal oleh pengguna.</p>
 
-                    <form id="addAccessMaster" action="{{ route('postAddAccessMaster') }}" method="post" enctype="multipart/form-data">
+                    <form id="addAccessMaster" action="{{ route('postAddAccessMaster') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Hak Akses</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                    placeholder="Masukkan Nama Access Master" value="{{ old('name') }}">
+                                    placeholder="Masukkan Nama Hak Akses" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -48,12 +47,14 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-description" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
+                                <textarea id="elm1" name="description" placeholder="Masukkan deskripsi hak akses jika diperlukan">{{ old('description') }}</textarea>
                             </div>
                         </div>
+
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
@@ -62,9 +63,11 @@
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>
+
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addAccessMaster">Add Access Master</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addAccessMaster">Simpan Hak Akses Utama</button>
                             </div>
                         </div>
                     </form>

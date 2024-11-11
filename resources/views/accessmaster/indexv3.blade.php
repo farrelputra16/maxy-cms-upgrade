@@ -1,40 +1,39 @@
 @extends('layout.main-v3')
 
-@section('title', 'Access Master')
+@section('title', 'Hak Akses Utama')
 
 @section('content')
-    <!-- Begin Page Title -->
+    <!-- Mulai Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
+                <h4 class="mb-sm-0 font-size-18">Ringkasan Data</h4>
 
-                <!-- Begin Breadcrumb -->
+                <!-- Mulai Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a>Users & Access</a></li>
-                        <li class="breadcrumb-item active">Access Master</li>
+                        <li class="breadcrumb-item"><a>Pengguna & Akses</a></li>
+                        <li class="breadcrumb-item active">Hak Akses Utama</li>
                     </ol>
                 </div>
-                <!-- End Breadcrumb -->
+                <!-- Selesai Breadcrumb -->
             </div>
         </div>
     </div>
-    <!-- End Page Title -->
+    <!-- Selesai Judul Halaman -->
 
-    <!-- Begin Content -->
+    <!-- Mulai Konten -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Access Master</h4>
+                    <h4 class="card-title">Hak Akses Utama</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
-                        features to
-                        customize your view and quickly access the specific information you need.
+                        Halaman ini memberikan tampilan lengkap semua data hak akses utama yang tersedia dalam format tabel
+                        interaktif. Setiap baris mewakili data spesifik, seperti nama, deskripsi, dan status. Gunakan fitur
+                        <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk menyesuaikan tampilan sesuai
+                        kebutuhan dan menemukan data yang Anda perlukan dengan cepat.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -42,14 +41,14 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Access Master Name</th>
-                                <th class="data-long">Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Nama Hak Akses</th>
+                                <th>Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Diperbarui Oleh</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -74,10 +73,8 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditAccessMaster', ['id' => $item->id]) }}"
                                             class="btn btn-primary rounded">Edit</a>
-                                        {{-- </div> --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -86,14 +83,14 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Access Master Name</th>
-                                <th>Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Nama Hak Akses</th>
+                                <th>Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Diperbarui Oleh</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -101,15 +98,15 @@
             </div>
         </div>
     </div>
-    <!-- End Content -->
+    <!-- Selesai Konten -->
 
-    <!-- FAB Add Starts -->
+    <!-- Mulai FAB Tambah -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddAccessMaster') }}" target="_blank" data-toggle="tooltip" title="Add Access Master">
+        <a href="{{ route('getAddAccessMaster') }}" target="_blank" data-toggle="tooltip" title="Tambah Hak Akses Utama">
             <i class="fas fa-plus"></i>
         </a>
     </div>
-    <!-- FAB Add Ends -->
+    <!-- Selesai FAB Tambah -->
 @endsection
 
 @section('script')

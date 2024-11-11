@@ -1,40 +1,39 @@
 @extends('layout.main-v3')
 
-@section('title', 'User')
+@section('title', 'Pengguna')
 
 @section('content')
-    <!-- Begin Page Title -->
+    <!-- Mulai Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
+                <h4 class="mb-sm-0 font-size-18">Ringkasan Data</h4>
 
-                <!-- Begin Breadcrumb -->
+                <!-- Breadcrumb Mulai -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a>Users & Access</a></li>
-                        <li class="breadcrumb-item active">User</li>
+                        <li class="breadcrumb-item"><a>Pengguna & Akses</a></li>
+                        <li class="breadcrumb-item active">Pengguna</li>
                     </ol>
                 </div>
-                <!-- End Breadcrumb -->
+                <!-- Breadcrumb Selesai -->
             </div>
         </div>
     </div>
-    <!-- End Page Title -->
+    <!-- Judul Halaman Selesai -->
 
-    <!-- Begin Content -->
+    <!-- Mulai Konten -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Users</h4>
+                    <h4 class="card-title">Data Pengguna</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
-                        features to
-                        customize your view and quickly access the specific information you need.
+                        Halaman ini menampilkan data lengkap semua pengguna dalam format tabel interaktif yang dapat
+                        disortir. Setiap baris menunjukkan informasi utama seperti nama, email, dan status. Gunakan fitur
+                        <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk menyesuaikan tampilan dan menemukan
+                        informasi yang Anda butuhkan dengan cepat.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -42,31 +41,31 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Member</th>
-                                <th class="data-medium">Email</th>
-                                <th>Access Group</th>
-                                <th class="data-long">Description</th>
-                                <th>Date Of Birth</th>
-                                <th>Phone</th>
-                                <th class="data-long">Address</th>
-                                <th>University</th>
-                                <th>Major</th>
+                                <th>Nama Anggota</th>
+                                <th>Email</th>
+                                <th>Grup Akses</th>
+                                <th>Deskripsi</th>
+                                <th>Tanggal Lahir</th>
+                                <th>Telepon</th>
+                                <th>Alamat</th>
+                                <th>Universitas</th>
+                                <th>Jurusan</th>
                                 <th>Semester</th>
-                                <th>City</th>
-                                <th>Country</th>
+                                <th>Kota</th>
+                                <th>Negara</th>
                                 <th>Level</th>
-                                <th>supervisor_name</th>
-                                <th>supervisor_email</th>
+                                <th>Nama Pembimbing</th>
+                                <th>Email Pembimbing</th>
                                 <th>IPK</th>
-                                <th>Religion</th>
-                                <th>Hobby</th>
-                                <th>Citizenship Status</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Agama</th>
+                                <th>Hobi</th>
+                                <th>Status Kewarganegaraan</th>
+                                <th>Dibuat Pada</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Diperbarui Oleh</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -117,12 +116,10 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditUser', ['id' => $item->id]) }}"
                                             class="btn btn-primary rounded">Edit</a>
                                         <a href="{{ route('getProfileUser', ['id' => $item->id]) }}"
-                                            class="btn btn-outline-primary rounded">Profile</a>
-                                        {{-- </div> --}}
+                                            class="btn btn-outline-primary rounded">Profil</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -131,33 +128,31 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Member</th>
+                                <th>Nama Anggota</th>
                                 <th>Email</th>
-                                <th>Access Group</th>
-                                <th>Description</th>
-                                <th>Date Of Birth</th>
-                                <th>Phone</th>
-                                <th>Address</th>
-                                <th>University</th>
-                                <th>Major</th>
+                                <th>Grup Akses</th>
+                                <th>Deskripsi</th>
+                                <th>Tanggal Lahir</th>
+                                <th>Telepon</th>
+                                <th>Alamat</th>
+                                <th>Universitas</th>
+                                <th>Jurusan</th>
                                 <th>Semester</th>
-                                <th>City</th>
-                                <th>Country</th>
+                                <th>Kota</th>
+                                <th>Negara</th>
                                 <th>Level</th>
-                                <th>supervisor_name</th>
-                                <th>supervisor_email</th>
+                                <th>Nama Pembimbing</th>
+                                <th>Email Pembimbing</th>
                                 <th>IPK</th>
-                                <th>Religion</th>
-                                <th>Hobby</th>
-                                <th>Citizenship Status</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Agama</th>
+                                <th>Hobi</th>
+                                <th>Status Kewarganegaraan</th>
+                                <th>Dibuat Pada</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Diperbarui Oleh</th>
                                 <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -165,15 +160,15 @@
             </div>
         </div>
     </div>
-    <!-- End Content -->
+    <!-- Konten Selesai -->
 
-    <!-- FAB Add Starts -->
+    <!-- FAB Tambah Mulai -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddUser') }}" target="_blank" data-toggle="tooltip" title="Add User">
+        <a href="{{ route('getAddUser') }}" target="_blank" data-toggle="tooltip" title="Tambah Pengguna">
             <i class="fas fa-plus"></i>
         </a>
     </div>
-    <!-- FAB Add Ends -->
+    <!-- FAB Tambah Selesai -->
 @endsection
 
 @section('script')

@@ -1,23 +1,22 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add New User')
+@section('title', 'Tambah Pengguna Baru')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Add New Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Data Pengguna Baru</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a>Users & Access</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getUser') }}">Users</a></li>
-                        <li class="breadcrumb-item active">Add New User</li>
+                        <li class="breadcrumb-item"><a>Pengguna & Akses</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getUser') }}">Pengguna</a></li>
+                        <li class="breadcrumb-item active">Tambah Pengguna Baru</li>
                     </ol>
                 </div>
-
             </div>
         </div>
     </div>
@@ -28,17 +27,15 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Add New User</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Tambah Pengguna Baru</h4>
+                    <p class="card-title-desc">Isi formulir berikut untuk menambahkan data pengguna baru. Pastikan informasi
+                        yang diisi sudah benar agar pengalaman belajar peserta tetap optimal.</p>
 
                     <form id="addUser" action="{{ route('postAddUser') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        {{-- <input type="text" name="img_keep" value="{{ $blog->cover_img }}" hidden> --}}
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     placeholder="Masukkan Nama" value="{{ old('name') }}">
@@ -49,8 +46,9 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Date of Birth</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Lahir</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="birth" id="birth"
                                     placeholder="Masukkan Tanggal Lahir" value="{{ old('birth') }}">
@@ -61,6 +59,7 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Email</label>
                             <div class="col-md-10">
@@ -73,14 +72,16 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Role</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Peran</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="access_group" data-placeholder="Choose ..."
+                                <select class="form-control select2" name="access_group" data-placeholder="Pilih Peran ..."
                                     id="type_selector">
                                     @foreach ($allAccessGroups as $item)
-                                        <option value="{{ $item->id }}" {{ old('access_group') == $item->id ? 'selected' : ''}}>[{{ $item->id }}] {{ $item->name }}
-                                        </option>
+                                        <option value="{{ $item->id }}"
+                                            {{ old('access_group') == $item->id ? 'selected' : '' }}>[{{ $item->id }}]
+                                            {{ $item->name }}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('access_group'))
@@ -90,8 +91,9 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Phone</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nomor Telepon</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="phone" id="phone"
                                     placeholder="Masukkan Nomor Telepon"
@@ -103,11 +105,12 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Password</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Kata Sandi</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="password" name="password" id="password"
-                                    placeholder="Masukkan Password" value="{{ old('password') }}">
+                                    placeholder="Masukkan Kata Sandi" value="{{ old('password') }}">
                                 @if ($errors->has('password'))
                                     @foreach ($errors->get('password') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -115,8 +118,9 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Address</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Alamat</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="address" id="address"
                                     placeholder="Masukkan Alamat" value="{{ old('address') }}">
@@ -127,8 +131,9 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Postal Code</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Kode Pos</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="postal_code" id="postal_code"
                                     placeholder="Masukkan Kode Pos" value="{{ old('postal_code') }}">
@@ -139,157 +144,15 @@
                                 @endif
                             </div>
                         </div>
-                        <br>
-                        <hr>
-                        <br>
+
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Supervisor Name (Nama Dosen
-                                Pembimbing)</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="supervisor_name" id="supervisor_name"
-                                    placeholder="Masukkan Nama Dosen Pembimbing" value="{{ old('supervisor_name') }}">
-                                @if ($errors->has('supervisor_name'))
-                                    @foreach ($errors->get('supervisor_name') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Supervisor Email (Email Dosen
-                                Pembimbing)</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="email" name="supervisor_email" id="supervisor_email"
-                                    placeholder="Masukkan Email Dosen Pembimbing" value="{{ old('supervisor_email') }}">
-                                @if ($errors->has('supervisor_email'))
-                                    @foreach ($errors->get('supervisor_email') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">University</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="university" id="university"
-                                    placeholder="Masukkan Universitas" value="{{ old('university') }}">
-                                @if ($errors->has('university'))
-                                    @foreach ($errors->get('university') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Major</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="major" id="major"
-                                    placeholder="Masukkan Jurusan" value="{{ old('major') }}">
-                                @if ($errors->has('major'))
-                                    @foreach ($errors->get('major') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Semester</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="number" name="semester" id="semester"
-                                    placeholder="Masukkan Semester" value="{{ old('semester') }}">
-                                @if ($errors->has('semester'))
-                                    @foreach ($errors->get('semester') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">City</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="city" id="city"
-                                    placeholder="Masukkan Kota" value="{{ old('city') }}">
-                                @if ($errors->has('city'))
-                                    @foreach ($errors->get('city') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Province</label>
-                            <div class="col-md-10">
-                                <select class="form-control select2" name="province" data-placeholder="Choose ..."
-                                    id="type_selector">
-                                    @foreach ($allProvince as $item)
-                                        <option value="{{ $item->id }}" {{ old('province') == $item->id ? 'selected' : ''}}>[{{ $item->id }}] {{ $item->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @if ($errors->has('province'))
-                                    @foreach ($errors->get('province') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Country</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="country" id="country"
-                                    placeholder="Masukkan Negara" value="{{ old('country') }}">
-                                @if ($errors->has('country'))
-                                    @foreach ($errors->get('country') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="linkedin" class="col-md-2 col-form-label">LinkedIn (Optional)</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="linkedin" id="linkedin"
-                                    placeholder="Masukkan LinkedIn" value="{{ old('linkedin') }}">
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="partner" class="col-md-2 col-form-label">Partner</label>
-                            <div class="col-md-10">
-                                <select class="form-control select2" name="partner" id="partner_selector"
-                                    data-placeholder="Choose ...">
-                                    @foreach ($allPartner as $item)
-                                        <option value="{{ $item->id }}" {{ old('partner') == $item->id ? 'selected' : ''}}>[{{ $item->id }}] {{ $item->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @if ($errors->has('partner'))
-                                    @foreach ($errors->get('partner') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Referral (Optional)</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="referal" id="referal"
-                                    placeholder="Masukkan Kode Referral" value="{{ old('referal') }}">
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Request (Optional)</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="user_request" id="user_request"
-                                    placeholder="Masukkan Request" value="{{ old('user_request') }}">
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Users Description
-                                (Optional)</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi Pengguna
+                                (Opsional)</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description">{{ old('description') }}</textarea>
                             </div>
                         </div>
+
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
@@ -298,15 +161,18 @@
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>
+
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addUser">Add User</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addUser">Simpan Pengguna</button>
                             </div>
                         </div>
                     </form>
                     <br>
+
                     @if (Route::has('user.import-csv'))
-                        <h4>Add Multiple Users by Uploading CSV File</h4>
+                        <h4>Tambah Banyak Pengguna Melalui Unggah File CSV</h4>
                         <form action="{{ route('user.import-csv') }}" method="post" enctype="multipart/form-data"
                             class="dropzone text-center" id="csv-upload">
                             @csrf
@@ -322,11 +188,11 @@
                                         <div class="mb-3">
                                             <i class="mdi mdi-cloud-upload display-4 text-muted"></i>
                                         </div>
-                                        <h4>Drop files here or click to upload.</h4>
+                                        <h4>Seret file ke sini atau klik untuk unggah.</h4>
                                         <br>
-                                        <small>sample: <i class="fa fa-file" aria-hidden="true"></i> <a
-                                                href="{{ asset('csv/useraddexample.csv') }}" download>csv example
-                                                (click me to download)</a></small>
+                                        <small>Contoh: <i class="fa fa-file" aria-hidden="true"></i> <a
+                                                href="{{ asset('csv/useraddexample.csv') }}" download>contoh CSV (klik
+                                                untuk unduh)</a></small>
                                     </div>
                                 </div>
                             </div>
@@ -369,7 +235,5 @@
 @endsection
 
 @section('script')
-
     <script src="{{ URL::asset('assets/cms-v3/libs/dropzone/dropzone.min.js') }}"></script>
-
 @endsection
