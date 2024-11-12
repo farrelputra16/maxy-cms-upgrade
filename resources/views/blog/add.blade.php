@@ -77,6 +77,11 @@
                             <div class="col-md-10" style="height: 200px">
                                 <input class="form-control" type="file" name="file_image" id="input-file">
                                 <img id="frame" src="" alt="preview.." class="img-fluid h-100" />
+                                @if ($errors->has('file_image'))
+                                    @foreach ($errors->get('file_image') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">

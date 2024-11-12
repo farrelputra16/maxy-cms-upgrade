@@ -64,6 +64,11 @@
                                 <small>(Admin)</small></label>
                             <div class="col-md-10">
                                 <textarea type="text" name="description" id="elm1">{{ old('description', $data->description) }}</textarea>
+                                @if ($errors->has('description'))
+                                    @foreach ($errors->get('description') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
 

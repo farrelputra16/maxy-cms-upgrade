@@ -93,6 +93,11 @@
                                 <img id="frame"
                                     src="{{ asset('uploads/blog/' . $data->slug . '/' . $data->cover_img) }}"
                                     class="img-fluid h-100" />
+                                @if ($errors->has('file_image'))
+                                    @foreach ($errors->get('file_image') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">

@@ -30,8 +30,8 @@ class BlogController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:m_blog,slug',  // Validasi slug unik
-            'content' => 'required|string',
-            'description' => 'nullable|string',
+            'content' => 'required|string|max:16777215',
+            'description' => 'nullable|string|max:65535',
             'file_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  // Validasi file gambar
             'tag' => 'nullable|array', // Validasi tag sebagai array
         ]);
@@ -98,8 +98,8 @@ class BlogController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:m_blog,slug,' . $request->id,  // Validasi slug unik kecuali untuk blog yang sedang di-edit
-            'content' => 'nullable|string',
-            'description' => 'nullable|string',
+            'content' => 'nullable|string|max:16777215',
+            'description' => 'nullable|string|max:65535',
             'status' => 'nullable|boolean',
             'file_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  // Validasi file gambar
             'tag' => 'nullable|array', // Validasi tag sebagai array
@@ -186,7 +186,7 @@ class BlogController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'color' => 'required|string|max:8',  // Validasi untuk warna
-            'description' => 'nullable|string',  // Deskripsi opsional
+            'description' => 'nullable|string|max:65535',  // Deskripsi opsional
         ]);
 
         try {
@@ -217,7 +217,7 @@ class BlogController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'color' => 'required|string|max:8',  // Validasi untuk warna
-            'description' => 'nullable|string',  // Deskripsi opsional
+            'description' => 'nullable|string|max:65535',  // Deskripsi opsional
             'status' => 'nullable|boolean',      // Status opsional
         ]);
 
