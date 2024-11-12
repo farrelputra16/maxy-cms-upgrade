@@ -44,8 +44,8 @@
                             <div class="row">
                                 <div class="col-7 col">
                                     <div class="text-primary p-4">
-                                        <h5 class="text-primary">Welcome Back!</h5>
-                                        <p>Sign in to continue to CMS</p>
+                                        <h5 class="text-primary">Selamat Datang Kembali!</h5>
+                                        <p>Masuk untuk melanjutkan ke CMS</p>
                                     </div>
                                 </div>
                                 <div class="col-5 align-self-end col">
@@ -101,17 +101,17 @@
                                 <form class="form-horizontal" {{ route('login') }} method="post">
                                     @csrf
                                     <div class="mb-3"><label class="form-label form-label">Email</label><input
-                                            name="email" id="email" placeholder="Enter email" type="text"
+                                            name="email" id="email" placeholder="Masukkan email" type="text"
                                             class="form-control form-control" aria-invalid="false" value=""></div>
-                                    <div class="mb-3"><label class="form-label form-label">Password</label>
+                                    <div class="mb-3"><label class="form-label form-label">Kata Sandi</label>
                                         <div class="input-group auth-pass-inputgroup"><input name="password"
-                                                placeholder="Enter Password" id="password" type="password"
+                                                placeholder="Masukkan Kata Sandi" id="password" type="password"
                                                 class="form-control" aria-invalid="false" value=""><button
                                                 class="btn btn-light " type="button" id="password-addon"><i
                                                     class="mdi mdi-eye-outline"></i></button></div>
                                     </div>
                                     <div class="mt-3 d-grid"><button class="btn btn-primary btn-block "
-                                            type="submit">Log In</button></div>
+                                            type="submit">Masuk</button></div>
                                     {{-- <div class="mt-4 text-center">
                                         <h5 class="font-size-14 mb-3">Sign in with</h5>
                                         <ul class="list-inline">
