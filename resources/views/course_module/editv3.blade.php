@@ -68,7 +68,7 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority"
                                     value="{{ old('priority', $module_detail->priority) }}"
-                                    placeholder="Masukkan Urutan Prioritas">
+                                    placeholder="Masukkan Urutan Prioritas" min="1">
                                 @if ($errors->has('priority'))
                                     @foreach ($errors->get('priority') as $error)
                                         <span style="color: red;">{{ $error }}</span>

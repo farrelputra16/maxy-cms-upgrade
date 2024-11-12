@@ -71,7 +71,7 @@
                             <label for="input-title" class="col-md-2 col-form-label">Hari / Prioritas</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority"
-                                    placeholder="Masukkan Urutan Prioritas" value="{{ old('priority') }}">
+                                    placeholder="Masukkan Urutan Prioritas" value="{{ old('priority') }}" min="1">
                                 @if ($errors->has('priority'))
                                     @foreach ($errors->get('priority') as $error)
                                         <span style="color: red;">{{ $error }}</span>
