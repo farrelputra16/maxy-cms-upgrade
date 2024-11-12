@@ -28,7 +28,8 @@ class AccessGroupController extends Controller
     {
 
         $validated = $request->validate([
-            'name' => 'required',
+            'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
+            'description' => 'nullable|string|max:65535',
             'access_master' => 'required|array|min:1',
         ]);
 
@@ -68,7 +69,8 @@ class AccessGroupController extends Controller
     function postEditAccessGroup(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required',
+            'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
+            'description' => 'nullable|string|max:65535',
         ]);
         
         $idAccessGroup = $request->id;
