@@ -72,9 +72,11 @@
                                     <td>{{ $item->course_name }} Batch {{ $item->batch }}</td>
                                     <td>{{ $item->type }}</td>
                                     <td>
-                                        <span class="badge {{ $item->status_ongoing == 1 ? 'bg-success' : 'bg-danger' }}">
-                                            {{ $item->status_ongoing == 1 ? 'Ya' : 'Tidak' }}
-                                        </span>
+                                        @if ($item->status_ongoing == 1)
+                                            <span class="btn btn-success" style="pointer-events: none;">Aktif</span>
+                                        @else
+                                            <span class="btn btn-danger" style="pointer-events: none;">Nonaktif</span>
+                                        @endif
                                     </td>
                                     <td>{{ $item->start_date }}</td>
                                     <td>{{ $item->end_date }}</td>
@@ -97,9 +99,11 @@
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
                                     <td>
-                                        <span class="badge {{ $item->status == 1 ? 'bg-success' : 'bg-danger' }}">
-                                            {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
-                                        </span>
+                                        @if ($item->status == 1)
+                                            <span class="btn btn-success" style="pointer-events: none;">Aktif</span>
+                                        @else
+                                            <span class="btn btn-danger" style="pointer-events: none;">Nonaktif</span>
+                                        @endif
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditCourseClass', ['id' => $item->id]) }}"
@@ -153,7 +157,8 @@
         </a>
     </div>
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getDuplicateCourseClass') }}" target="_blank" data-toggle="tooltip" title="Duplicate Course Class">
+        <a href="{{ route('getDuplicateCourseClass') }}" target="_blank" data-toggle="tooltip"
+            title="Duplicate Course Class">
             <i class="fa-solid fa-copy"></i>
         </a>
     </div>
