@@ -1,43 +1,46 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add Proposal Type')
+@section('title', 'Tambah Jenis Proposal')
 
 @section('content')
-    <!-- start page title -->
+    <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Add New Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Data Baru</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getProposalType') }}">Proposal Type</a></li>
-                        <li class="breadcrumb-item active">Add New Proposal Type</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getProposalType') }}">Jenis Proposal</a></li>
+                        <li class="breadcrumb-item active">Tambah Jenis Proposal Baru</li>
                     </ol>
                 </div>
 
             </div>
         </div>
     </div>
-    <!-- end page title -->
+    <!-- Akhir Judul Halaman -->
 
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Add New Proposal Type</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Tambah Jenis Proposal Baru</h4>
+                    <p class="card-title-desc">
+                        Di halaman ini, Anda dapat menambahkan jenis proposal baru dengan mengisi nama dan deskripsinya.
+                        Setelah selesai, klik "Tambah Jenis Proposal" untuk menyimpan data baru.
+                    </p>
+
 
                     <form id="addProposalType" action="" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name" placeholder="Masukkan Nama Proposal Type" value="{{ old('name') }}">
+                                <input class="form-control" type="text" name="name"
+                                    placeholder="Masukkan Nama Jenis Proposal" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -46,9 +49,9 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
+                                <textarea id="elm1" name="description" placeholder="Masukkan Deskripsi Jenis Proposal">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -66,7 +69,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addProposalType">Add Proposal Type</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addProposalType">Tambah Jenis Proposal</button>
                             </div>
                         </div>
                     </form>
