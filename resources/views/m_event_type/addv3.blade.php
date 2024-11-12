@@ -1,44 +1,47 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add Event Type')
+@section('title', 'Tambah Tipe Event')
 
 @section('content')
-    <!-- start page title -->
+    <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Add New Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Data Baru</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getEventType') }}">Event Type</a></li>
-                        <li class="breadcrumb-item active">Add Event Type</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getEventType') }}">Tipe Event</a></li>
+                        <li class="breadcrumb-item active">Tambah Tipe Event</li>
                     </ol>
                 </div>
 
             </div>
         </div>
     </div>
-    <!-- end page title -->
+    <!-- Akhir Judul Halaman -->
 
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Add Event Type</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Tambah Tipe Event</h4>
+                    <p class="card-title-desc">
+                        Di halaman ini, Anda dapat menambahkan tipe event baru dengan mengisi nama dan deskripsinya. Setelah
+                        selesai, klik "Tambah Tipe Event" untuk menyimpan data baru.
+                    </p>
 
-                    <form id="addEventType" action="{{ route('postAddEventType') }}" method="post" enctype="multipart/form-data">
+
+                    <form id="addEventType" action="{{ route('postAddEventType') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Nama</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
-                                    placeholder="Masukkan Nama Event Type" value="{{ old('name') }}">
+                                    placeholder="Masukkan Nama Tipe Event" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -47,9 +50,9 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
+                                <textarea id="elm1" name="description" placeholder="Masukkan Deskripsi Tipe Event">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
@@ -62,7 +65,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addEventType">Add Event Type</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addEventType">Tambah Tipe Event</button>
                             </div>
                         </div>
                     </form>
