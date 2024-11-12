@@ -24,7 +24,8 @@ class AccessMasterController extends Controller
 
     public function PostAddAccessMaster(Request $request){
         $validated = $request->validate([
-            'name' => 'required'
+            'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
+            'description' => 'nullable|string|max:65535'
         ]);
 
         if ($validated){
@@ -54,7 +55,8 @@ class AccessMasterController extends Controller
 
     function postEditAccessMaster(Request $request){
         $validated = $request->validate([
-            'name' => 'required'
+            'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
+            'description' => 'nullable|string|max:65535'
         ]);
         $idaccessmaster = $request->id;
 
