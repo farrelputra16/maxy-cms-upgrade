@@ -1,40 +1,39 @@
 @extends('layout.main-v3')
 
-@section('title', 'Grade')
+@section('title', 'Tingkat Nilai')
 
 @section('content')
-    <!-- begin page title -->
+    <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
+                <h4 class="mb-sm-0 font-size-18">Ringkasan Data</h4>
 
-                <!-- begin breadcrumb -->
+                <!-- Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Grade</li>
+                        <li class="breadcrumb-item active">Tingkat Nilai</li>
                     </ol>
                 </div>
-                <!-- end breadcrumb -->
+                <!-- Akhir Breadcrumb -->
             </div>
         </div>
     </div>
-    <!-- end page title -->
+    <!-- Akhir Judul Halaman -->
 
-    <!-- begin content -->
+    <!-- Konten Utama -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Grade</h4>
+                    <h4 class="card-title">Tingkat Nilai</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column
-                            search bar</b> features to
-                        customize your view and quickly access the specific information you need.
+                        Halaman ini menyajikan ringkasan data secara komprehensif, ditampilkan dalam format DataTable
+                        interaktif yang dapat diurutkan. Setiap baris mewakili data unik, memberikan detail seperti nama,
+                        deskripsi, dan status. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk
+                        menyesuaikan tampilan dan mengakses informasi spesifik dengan cepat.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -42,19 +41,18 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Grade Level</th>
-                                <th>Range Start</th>
-                                <th>Range End</th>
-                                <th>Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Tingkat Nilai</th>
+                                <th>Rentang Awal</th>
+                                <th>Rentang Akhir</th>
+                                <th>Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>ID Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>ID Pembaruan</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
-
 
                         <tbody>
                             @foreach ($data as $key => $item)
@@ -95,16 +93,16 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Grade Level</th>
-                                <th>Range Start</th>
-                                <th>Range End</th>
-                                <th class="data-long">Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Tingkat Nilai</th>
+                                <th>Rentang Awal</th>
+                                <th>Rentang Akhir</th>
+                                <th>Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>ID Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>ID Pembaruan</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -112,15 +110,15 @@
             </div>
         </div>
     </div>
-    <!-- end content -->
+    <!-- Akhir Konten Utama -->
 
-    <!-- FAB add starts -->
+    <!-- Tombol Tambah -->
     <div id="floating-whatsapp-button">
         <a href="{{ route('getAddScore') }}" target="_blank">
             <i class="fas fa-plus"></i>
         </a>
     </div>
-    <!-- FAB add ends -->
+    <!-- Akhir Tombol Tambah -->
 @endsection
 
 @section('script')
