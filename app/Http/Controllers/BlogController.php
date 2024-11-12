@@ -230,7 +230,7 @@ class BlogController extends Controller
                 $blogTag->name = $request->name;
                 $blogTag->color = $request->color;
                 $blogTag->description = $request->description;
-                $blogTag->status = $request->status == '' ? 0 : 1;
+                $blogTag->status = $request->status == 0 ? 0 : 1;
                 $blogTag->created_id = Auth::user()->id;
                 $blogTag->updated_id = Auth::user()->id;
                 $blogTag->save();
