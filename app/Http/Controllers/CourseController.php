@@ -32,6 +32,7 @@ class CourseController extends Controller
                 $query->where('name', 'MBKM');
             })
             ->get();
+        // dd($courses);
         return view('course.MBKM.indexv3', ['courses' => $courses]);
     }
 
@@ -82,14 +83,14 @@ class CourseController extends Controller
     {
 
         $validated = $request->validate([
-            'name' => 'required',
+            'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
             'slug' => 'required',
             'type' => 'required',
-            'mini_fake_price' => 'nullable|numeric',
-            'mini_price' => 'nullable|numeric',
+            'mini_fake_price' => 'nullable|string',
+            'mini_price' => 'nullable|string',
             'credits' => 'nullable|numeric|min:0',
             'duration' => 'nullable|numeric|min:0',
-            'file_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'short_description' => 'nullable|string|max:500',
             'payment_link' => env('APP_ENV') != 'local' ? ['required', 'url', 'regex:/^https:\/\/.+$/'] : 'nullable',
             'level' => 'nullable|numeric',
@@ -100,21 +101,19 @@ class CourseController extends Controller
         ]);
 
         try {
+            // Proses upload file gambar
             $fileName = null;
             if ($request->hasFile('file_image')) {
                 $file = $request->file('file_image');
                 $fileName = $file->getClientOriginalName();
                 $file->move(public_path('/uploads/course_img'), $fileName);
             }
-            //sementara
-            // $request->mini_fake_price = 0;
-            // $request->mini_price = 0;
-            // $request->short_description = '';
-            // $request->package_price = 1;
 
-            $trim_mini_fake_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_fake_price));
-            $trim_mini_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_price));
+            // Bersihkan simbol "Rp." dan karakter non-angka dari harga
+            $trim_mini_fake_price = preg_replace('/[^\d]/', '', $request->mini_fake_price);
+            $trim_mini_price = preg_replace('/[^\d]/', '', $request->mini_price);
 
+            // Simpan data course ke database
             $create = Course::create([
                 'name' => $request->name,
                 'fake_price' => (float) $trim_mini_fake_price,
@@ -149,12 +148,12 @@ class CourseController extends Controller
                         ]);
                     }
                 }
+
+                // Redirect berdasarkan tipe course
                 $courseType = MCourseType::find($request->type);
                 if ($courseType && $courseType->name === 'MBKM') {
-                    // Jika tipe adalah MBKM, redirect ke halaman index MBKM
                     return redirect()->route('getCourseMBKM')->with('success', 'Course updated successfully!');
                 } else {
-                    // Jika bukan MBKM, redirect ke halaman index course biasa
                     return redirect()->route('getCourse')->with('success', 'Course updated successfully!');
                 }
             } else {
@@ -162,10 +161,7 @@ class CourseController extends Controller
             }
 
         } catch (\Exception $e) {
-            // Log error untuk ditelusuri admin/developer
             \Log::error('Error adding course: ' . $e->getMessage());
-
-            // Kembalikan pesan error yang ramah kepada user
             return redirect()->back()->withErrors(['error' => 'There was a problem saving the course. Please try again or contact support.'])->withInput();
         }
     }
@@ -243,6 +239,8 @@ class CourseController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
+            'mini_fake_price' => 'nullable|string',
+            'mini_price' => 'nullable|string',
             'credits' => 'nullable|numeric|min:0',
             'duration' => 'nullable|numeric|min:0',
             'short_description' => 'nullable|string|max:255',

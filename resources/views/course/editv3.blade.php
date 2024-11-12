@@ -113,55 +113,58 @@
                                 </select>
                             </div>
                         </div>
-                        <div id="show_course_package" class="mb-3 row">
-                            <label for="input-package" class="col-md-2 col-form-label">Paket Kursus</label>
-                            <div class="col-md-10">
-                                <select class="form-control select2" name="package" data-placeholder="Pilih ...">
-                                    <option value="" disabled
-                                        {{ old('package', $currentCoursePackages ? '' : 'selected') }}>Pilih Paket</option>
-                                    @if ($currentCoursePackages)
-                                        <option value="{{ $currentCoursePackages->course_package_id }}"
-                                            {{ old('package', $currentCoursePackages->course_package_id) == $currentCoursePackages->course_package_id ? 'selected' : '' }}>
-                                            {{ $currentCoursePackages->course_package_name }} - Rp.
-                                            {{ $currentCoursePackages->course_package_price }}
-                                        </option>
+                        
+                        @if (env('APP_ENV') != 'local')
+                            <div id="show_course_package" class="mb-3 row">
+                                <label for="input-package" class="col-md-2 col-form-label">Paket Kursus</label>
+                                <div class="col-md-10">
+                                    <select class="form-control select2" name="package" data-placeholder="Pilih ...">
+                                        <option value="" disabled
+                                            {{ old('package', $currentCoursePackages ? '' : 'selected') }}>Pilih Paket</option>
+                                        @if ($currentCoursePackages)
+                                            <option value="{{ $currentCoursePackages->course_package_id }}"
+                                                {{ old('package', $currentCoursePackages->course_package_id) == $currentCoursePackages->course_package_id ? 'selected' : '' }}>
+                                                {{ $currentCoursePackages->course_package_name }} - Rp.
+                                                {{ $currentCoursePackages->course_package_price }}
+                                            </option>
+                                        @endif
+                                        @foreach ($allCoursePackages as $item)
+                                            <option value="{{ $item->id }}"
+                                                {{ old('package') == $item->id ? 'selected' : '' }}>
+                                                {{ $item->name }} - Rp. {{ $item->price }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="show_course_mini_fake_price" class="mb-3 row">
+                                <label for="input-mini-fake-price" class="col-md-2 col-form-label">Mini Bootcamp Fake
+                                    Price</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" name="mini_fake_price" id="fake_price"
+                                        value="{{ old('mini_fake_price', $currentDataCourse ? $currentDataCourse->fake_price : '') }}">
+                                    @if ($errors->has('mini_fake_price'))
+                                        @foreach ($errors->get('mini_fake_price') as $error)
+                                            <span style="color: red;">{{ $error }}</span>
+                                        @endforeach
                                     @endif
-                                    @foreach ($allCoursePackages as $item)
-                                        <option value="{{ $item->id }}"
-                                            {{ old('package') == $item->id ? 'selected' : '' }}>
-                                            {{ $item->name }} - Rp. {{ $item->price }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div id="show_course_mini_fake_price" class="mb-3 row">
-                            <label for="input-mini-fake-price" class="col-md-2 col-form-label">Mini Bootcamp Fake
-                                Price</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="mini_fake_price" id="fake_price"
-                                    value="{{ old('mini_fake_price', $currentDataCourse ? $currentDataCourse->fake_price : '') }}">
-                                @if ($errors->has('mini_fake_price'))
-                                    @foreach ($errors->get('mini_fake_price') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
+                            <div id="show_course_mini_price" class="mb-3 row">
+                                <label for="input-mini-price" class="col-md-2 col-form-label">Mini Bootcamp Price</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" name="mini_price" id="price"
+                                        value="{{ old('mini_price', $currentDataCourse ? $currentDataCourse->price : '') }}">
+                                    @if ($errors->has('mini_price'))
+                                        @foreach ($errors->get('mini_price') as $error)
+                                            <span style="color: red;">{{ $error }}</span>
+                                        @endforeach
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-
-                        <div id="show_course_mini_price" class="mb-3 row">
-                            <label for="input-mini-price" class="col-md-2 col-form-label">Mini Bootcamp Price</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="mini_price" id="price"
-                                    value="{{ old('mini_price', $currentDataCourse ? $currentDataCourse->price : '') }}">
-                                @if ($errors->has('mini_price'))
-                                    @foreach ($errors->get('mini_price') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
+                        @endif
 
                         <div class="mb-3 row">
                             <label for="input-credits" class="col-md-2 col-form-label">Kredit <small>(SKS)</small></label>
@@ -284,7 +287,7 @@
                 previewImage.style.display = "none";
             }
         }
-
+        
         $(document).ready(function() {
             // autofill slug
             document.getElementById('name').addEventListener('input', function() {
@@ -292,70 +295,77 @@
                 var slug = name.toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
                 document.getElementById('slug').value = slug;
             });
-
-            function toggleFieldsByCourseType(value) {
-                if (value == 1) { // Bootcamp
-                    $("#show_course_package").show();
-                    $("#show_course_mini_price").hide();
-                    $("#show_course_mini_fake_price").hide();
-                } else if (value == 3) { // Mini Bootcamp
-                    $("#show_course_package").hide();
-                    $("#show_course_mini_price").show();
-                    $("#show_course_mini_fake_price").show();
-                } else {
-                    $("#show_course_package").hide();
-                    $("#show_course_mini_price").hide();
-                    $("#show_course_mini_fake_price").hide();
-                }
-            }
-
-            // Saat halaman dimuat pertama kali, jalankan logika untuk menentukan tampilan awal berdasarkan nilai `type_selector`
-            const initialTypeValue = $('#type_selector').val();
-            toggleFieldsByCourseType(initialTypeValue);
-
-            // Event listener saat user mengubah pilihan di select type
-            $('#type_selector').on('change', function() {
-                const selectedValue = $(this).val();
-                toggleFieldsByCourseType(selectedValue);
-            });
-        });
-
-        $(document).ready(function() {
-            // Format input "Mini Bootcamp Fake Price" to Rupiah on load and when typing
-            var fakePriceInput = document.getElementById('fake_price');
-            if (fakePriceInput.value) {
-                fakePriceInput.value = formatRupiah(fakePriceInput.value, 'Rp. '); // Format when page loads
-            }
-            fakePriceInput.addEventListener('keyup', function(e) {
-                fakePriceInput.value = formatRupiah(this.value, 'Rp. ');
-            });
-
-            // Format input "Mini Bootcamp Price" to Rupiah on load and when typing
-            var miniPriceInput = document.getElementById('price');
-            if (miniPriceInput.value) {
-                miniPriceInput.value = formatRupiah(miniPriceInput.value, 'Rp. '); // Format when page loads
-            }
-            miniPriceInput.addEventListener('keyup', function(e) {
-                miniPriceInput.value = formatRupiah(this.value, 'Rp. ');
-            });
-
-            // Function to format numbers into Rupiah format
-            function formatRupiah(angka, prefix) {
-                var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                    split = number_string.split(','),
-                    sisa = split[0].length % 3,
-                    rupiah = split[0].substr(0, sisa),
-                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-                if (ribuan) {
-                    separator = sisa ? '.' : '';
-                    rupiah += separator + ribuan.join('.');
+            
+            if (env('APP_ENV') != 'local') {
+                function toggleFieldsByCourseType(value) {
+                    if (value == 1) { // Bootcamp
+                        $("#show_course_package").show();
+                        $("#show_course_mini_price").hide();
+                        $("#show_course_mini_fake_price").hide();
+                    } else if (value == 3) { // Mini Bootcamp
+                        $("#show_course_package").hide();
+                        $("#show_course_mini_price").show();
+                        $("#show_course_mini_fake_price").show();
+                    } else {
+                        $("#show_course_package").hide();
+                        $("#show_course_mini_price").hide();
+                        $("#show_course_mini_fake_price").hide();
+                    }
                 }
 
-                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+                // Saat halaman dimuat pertama kali, jalankan logika untuk menentukan tampilan awal berdasarkan nilai `type_selector`
+                const initialTypeValue = $('#type_selector').val();
+                toggleFieldsByCourseType(initialTypeValue);
+
+                // Event listener saat user mengubah pilihan di select type
+                $('#type_selector').on('change', function() {
+                    const selectedValue = $(this).val();
+                    toggleFieldsByCourseType(selectedValue);
+                    $('#fake_price').val('');
+                    $('#price').val('');
+                    $("select[name='package']").val('');
+                });
             }
         });
+
+        if (env('APP_ENV') != 'local') {
+            $(document).ready(function() {
+                // Format input "Mini Bootcamp Fake Price" to Rupiah on load and when typing
+                var fakePriceInput = document.getElementById('fake_price');
+                if (fakePriceInput.value) {
+                    fakePriceInput.value = formatRupiah(fakePriceInput.value, 'Rp. '); // Format when page loads
+                }
+                fakePriceInput.addEventListener('keyup', function(e) {
+                    fakePriceInput.value = formatRupiah(this.value, 'Rp. ');
+                });
+
+                // Format input "Mini Bootcamp Price" to Rupiah on load and when typing
+                var miniPriceInput = document.getElementById('price');
+                if (miniPriceInput.value) {
+                    miniPriceInput.value = formatRupiah(miniPriceInput.value, 'Rp. '); // Format when page loads
+                }
+                miniPriceInput.addEventListener('keyup', function(e) {
+                    miniPriceInput.value = formatRupiah(this.value, 'Rp. ');
+                });
+
+                // Function to format numbers into Rupiah format
+                function formatRupiah(angka, prefix) {
+                    var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                        split = number_string.split(','),
+                        sisa = split[0].length % 3,
+                        rupiah = split[0].substr(0, sisa),
+                        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                    if (ribuan) {
+                        separator = sisa ? '.' : '';
+                        rupiah += separator + ribuan.join('.');
+                    }
+
+                    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                    return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+                }
+            });
+        }
 
         document.addEventListener("DOMContentLoaded", function() {
             // Initialize TinyMCE for the 'content' textarea
