@@ -1,40 +1,39 @@
 @extends('layout.main-v3')
 
-@section('title', 'Survey Result')
+@section('title', 'Hasil Survei')
 
 @section('content')
-    <!-- Begin Page Title -->
+    <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
+                <h4 class="mb-sm-0 font-size-18">Tinjauan Data</h4>
 
-                <!-- Begin Breadcrumb -->
+                <!-- Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getSurvey') }}">Survey</a></li>
-                        <li class="breadcrumb-item active">Survey Result</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getSurvey') }}">Survei</a></li>
+                        <li class="breadcrumb-item active">Hasil Survei</li>
                     </ol>
                 </div>
-                <!-- End Breadcrumb -->
+                <!-- Akhir Breadcrumb -->
             </div>
         </div>
     </div>
-    <!-- End Page Title -->
+    <!-- Akhir Judul Halaman -->
 
-    <!-- Begin Content -->
+    <!-- Konten Utama -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Survey Result</h4>
+                    <h4 class="card-title">Hasil Survei</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
-                        features to
-                        customize your view and quickly access the specific information you need.
+                        Halaman ini menampilkan hasil survei yang tersedia dalam format tabel interaktif dan dapat
+                        diurutkan. Setiap baris mewakili data unik, termasuk nama survei, nama responden, skor, dan status.
+                        Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk menyesuaikan tampilan
+                        dan mengakses informasi yang Anda butuhkan dengan cepat.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
@@ -43,15 +42,15 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Survey Name</th>
-                                <th class="data-medium">Respondent Name</th>
-                                <th class="data-long">Content</th>
-                                <th>Score</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
-                                <th>Action</th>
+                                <th class="data-medium">Nama Survei</th>
+                                <th class="data-medium">Nama Responden</th>
+                                <th class="data-long">Konten</th>
+                                <th>Skor</th>
+                                <th>Dibuat Pada</th>
+                                <th>Id Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Id Pembaruan</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,10 +76,8 @@
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
                                     <td>
-                                        {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getSurveyResultDetail', ['id' => $item->id, 'access' => 'survey_result_read']) }}"
                                             class="btn btn-primary rounded">Detail</a>
-                                        {{-- </div> --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -89,15 +86,15 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Survey Name</th>
-                                <th class="data-medium">Respondent Name</th>
-                                <th class="data-long">Content</th>
-                                <th>Score</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
-                                <th>Action</th>
+                                <th>Nama Survei</th>
+                                <th>Nama Responden</th>
+                                <th>Konten</th>
+                                <th>Skor</th>
+                                <th>Dibuat Pada</th>
+                                <th>Id Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Id Pembaruan</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -105,7 +102,7 @@
             </div>
         </div>
     </div>
-    <!-- End Content -->
+    <!-- Akhir Konten Utama -->
 @endsection
 
 @section('script')

@@ -1,20 +1,9 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add Survey')
+@section('title', 'Tambah Survei')
 
 @section('style')
     <!-- survey builder -->
-    {{-- <script src="https://unpkg.com/knockout/build/output/knockout-latest.js"></script>
-<script src="https://unpkg.com/survey-core@1.10.5/survey.core.min.js"></script>
-<script src="https://unpkg.com/survey-core@1.10.5/survey.i18n.min.js"></script>
-<script src="https://unpkg.com/survey-core@1.10.5/themes/index.min.js"></script>
-<script src="https://unpkg.com/survey-knockout-ui@1.10.5/survey-knockout-ui.min.js"></script>
-<script src="https://unpkg.com/survey-creator-core@1.10.5/survey-creator-core.min.js"></script>
-<script src="https://unpkg.com/survey-creator-core@1.10.5/survey-creator-core.i18n.min.js"></script>
-<script src="https://unpkg.com/survey-creator-knockout@1.10.5/survey-creator-knockout.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/survey-core@1.10.5/defaultV2.css" />
-<link rel="stylesheet" href="https://unpkg.com/survey-creator-core@1.10.5/survey-creator-core.css" /> --}}
-
     <script src="{{ asset('assets/cms-v3/libs/knockout/build/output/knockout-latest.js') }}"></script>
     <script src="{{ asset('assets/cms-v3/libs/survey-core/survey.core.min.js') }}"></script>
     <script src="{{ asset('assets/cms-v3/libs/survey-core/survey.i18n.min.js') }}"></script>
@@ -28,48 +17,50 @@
 @endsection
 
 @section('content')
-    <!-- start page title -->
+    <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Add New Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Data Baru</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getSurvey') }}">Survey</a></li>
-                        <li class="breadcrumb-item active">Add Survey</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getSurvey') }}">Survei</a></li>
+                        <li class="breadcrumb-item active">Tambah Survei</li>
                     </ol>
                 </div>
-
             </div>
         </div>
     </div>
-    <!-- end page title -->
+    <!-- Akhir Judul Halaman -->
 
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Add New Survey</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Tambah Survei Baru</h4>
+                    <p class="card-title-desc">
+                        Halaman ini memungkinkan Anda menambahkan survei baru. Pastikan semua informasi yang dimasukkan
+                        akurat untuk memberikan pengalaman terbaik bagi peserta.
+                    </p>
 
-                    <form id="addSurvey" action="{{ route('postAddSurvey') }}" method="post" enctype="multipart/form-data">
+                    <form id="addSurvey" action="{{ route('postAddSurvey') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Nama</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name"
-                                    placeholder="Masukkan Nama Survey" value="{{ old('name') }}">
+                                <input class="form-control" type="text" name="name" placeholder="Masukkan Nama Survei"
+                                    value="{{ old('name') }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Date Expired</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Tanggal Kedaluwarsa</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="datetime-local" id="expired_date" name="expired_date" value="{{ old('expired_date') }}">
+                                <input class="form-control" type="datetime-local" id="expired_date" name="expired_date"
+                                    value="{{ old('expired_date') }}">
                                 @if ($errors->has('expired_date'))
                                     @foreach ($errors->get('expired_date') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -78,17 +69,17 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Type</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="type" data-placeholder="Choose ..."
+                                <select class="form-control select2" name="type" data-placeholder="Pilih ..."
                                     id="type_selector">
                                     <option value="0" {{ old('type') == 0 ? 'selected' : '' }}>Evaluasi</option>
-                                    <option value="1" {{ old('type') == 1 ? 'selected' : '' }}>Quiz</option>
+                                    <option value="1" {{ old('type') == 1 ? 'selected' : '' }}>Kuis</option>
                                 </select>
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description">{{ old('description') }}</textarea>
                             </div>
@@ -103,30 +94,31 @@
                         </div>
                         <br>
                         <div class="mb-3 row">
-                            <h4>Survey</h4>
+                            <h4>Survei</h4>
                             <input type="hidden" name='survey' id='survey'>
                             <div id="surveyCreatorContainer" style="position: relative; height: 100%; width: 100%">
                             </div>
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-start">
-                                Tekan tombol <b>Setting</b> untuk masuk ke bagian pengaturan <br>
-                                Tombol <b>Setting</b> dapat ditemukan di pojok kanan atas dari survey <br>
-                                Tombol <b>Setting</b> juga dapat ditemukan di pojok kanan bawah dari setiap pertanyaan yg ada <br>
-                                Untuk mengisi pertanyaan harap tuliskan di bagian <b>Question Name</b> <br>
-                                Untuk mengisi jawaban harap isi kolom <b>Value</b> pada bagian <b>Choice Options</b> <br>
-                                Jika ingin mengatur jawaban yg benar silahkan mengatur pada bagian <b>Data</b> lalu tekan <b>Set Correct Answer</b><br>
+                                Petunjuk penggunaan: <br>
+                                - Gunakan tombol <b>Setting</b> di pojok kanan atas untuk mengatur survei. <br>
+                                - Untuk setiap pertanyaan, gunakan <b>Question Name</b> untuk mengisi teks pertanyaan. <br>
+                                - Gunakan kolom <b>Value</b> pada <b>Choice Options</b> untuk mengatur opsi jawaban. <br>
+                                - Untuk menetapkan jawaban yang benar, buka tab <b>Data</b> dan pilih <b>Set Correct
+                                    Answer</b>.
                             </div>
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addSurvey">Add Survey</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addSurvey">Tambah Survei</button>
                             </div>
                         </div>
                     </form>
 
                 </div>
             </div>
-        </div> <!-- end col -->
-    </div> <!-- end row -->
+        </div> <!-- akhir kolom -->
+    </div> <!-- akhir baris -->
 @endsection
 
 @section('script')
@@ -138,8 +130,7 @@
         });
 
         const localStorageName = "userSurveyData";
-        
-        // Fungsi untuk menyimpan data survey ke local storage
+
         function saveSurveyData() {
             const surveyData = JSON.stringify(creator.JSON);
             localStorage.setItem(localStorageName, surveyData);
@@ -147,29 +138,21 @@
         }
 
         creator.saveSurveyFunc = (saveNo, callback) => {
-            // Cek apakah title ada dan pages kosong atau tidak didefinisikan
             if (creator.JSON && creator.JSON.title && !creator.JSON.pages) {
-                // Jika title ada, tetapi tidak ada pages, hapus title
                 console.log("Title terdeteksi tanpa pages. Menghapus title.");
                 creator.JSON = {};
                 saveSurveyData();
-            }
-
-            // Kondisi asli untuk memastikan pages terdefinisi sebagai array
-            else if (creator.JSON && Array.isArray(creator.JSON.pages)) {
+            } else if (creator.JSON && Array.isArray(creator.JSON.pages)) {
                 console.log(creator.JSON.pages.length);
                 $('#survey').val(JSON.stringify(creator.JSON));
-                console.log(JSON.stringify(creator.JSON));
             } else {
-                console.log(0); // Jika pages tidak terdefinisi atau bukan array, output 0
+                console.log(0);
                 $('#survey').val('');
             }
         };
 
-        // Event untuk menyimpan data setiap kali survey berubah
         creator.onModified.add(saveSurveyData);
 
-        // Muat data dari local storage jika ada
         const savedSurveyData = localStorage.getItem(localStorageName);
         if (savedSurveyData) {
             creator.JSON = JSON.parse(savedSurveyData);
@@ -185,20 +168,13 @@
             };
         }
 
-        // Simpan data survey ke hidden field sebelum form disubmit
-        // document.getElementById('survey').addEventListener('submit', function() {
-        //     saveSurveyData();
-        // });
-
         const isSubmitFailed = {{ $errors->any() ? 'true' : 'false' }};
         if (isSubmitFailed) {
             console.log("Form mengalami submit gagal.");
-            // Lakukan apa pun yang diperlukan saat submit gagal
             creator.text = savedSurveyData;
             document.getElementById('survey').value = creator.text;
         } else {
             console.log("Halaman dimuat untuk pertama kali.");
-            // Lakukan apa pun yang diperlukan pada load pertama kali
             creator.JSON = {
                 pages: [{
                     name: 'page1',

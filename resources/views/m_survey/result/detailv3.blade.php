@@ -1,40 +1,41 @@
 @extends('layout.main-v3')
 
-@section('title', 'Survey Result Detail')
+@section('title', 'Detail Hasil Survei')
 
 @section('content')
-    <!-- start page title -->
+    <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Detail Data</h4>
 
+                <!-- Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getSurvey') }}">Survey</a></li>
-                        <li class="breadcrumb-item active">Survey Result Detail</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getSurvey') }}">Survei</a></li>
+                        <li class="breadcrumb-item active">Detail Hasil Survei</li>
                     </ol>
                 </div>
-
+                <!-- Akhir Breadcrumb -->
             </div>
         </div>
     </div>
-    <!-- end page title -->
+    <!-- Akhir Judul Halaman -->
 
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Survey Result Detail: {{ $currentData->MSurvey->name }}</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Detail Hasil Survei: {{ $currentData->MSurvey->name }}</h4>
+                    <p class="card-title-desc">Halaman ini memungkinkan Anda melihat informasi detail dari hasil survei yang
+                        dipilih. Pastikan semua informasi yang tercantum akurat untuk memberikan gambaran terbaik mengenai
+                        pengalaman peserta survei.</p>
 
                     <form>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Survey</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Survei</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" value="{{ $currentData->MSurvey->name }}"
                                     readonly>
@@ -47,45 +48,46 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Score</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Skor</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" value="{{ $currentData->score }}" readonly>
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Created At</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Dibuat Pada</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" value="{{ $currentData->created_at }}" readonly>
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Content</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Konten</label>
                             <div class="col-md-10">
                                 @php
                                     $contentData = json_decode($currentData->content, true); // Decode JSON data
-                                    $hasData = false; // Flag to track if there are valid items
+                                    $hasData = false; // Flag untuk melacak jika ada item valid
                                 @endphp
-                        
+
                                 @if ($contentData)
                                     @foreach ($contentData as $key => $value)
                                         @if ($key != 'id' && $key != 'score')
                                             @php
                                                 $formattedKey = str_replace('_', ' ', $key);
-                                                $hasData = true; // Set flag to true if valid data is found
+                                                $hasData = true; // Set flag menjadi true jika ditemukan data valid
                                             @endphp
                                             <div class="mb-3 p-3 border rounded bg-light">
-                                                <p class="font-weight-bold mb-1">Q: {{ $formattedKey }}{{ substr($formattedKey, -1) == '?' ? '' : '?' }}</p>
+                                                <p class="font-weight-bold mb-1">Q:
+                                                    {{ $formattedKey }}{{ substr($formattedKey, -1) == '?' ? '' : '?' }}</p>
                                                 <p class="mb-0">A: {{ $value }}</p>
                                             </div>
                                         @endif
                                     @endforeach
                                 @endif
-                        
+
                                 @if (!$hasData)
                                     <div class="alert alert-secondary" role="alert">Tidak ada data.</div>
                                 @endif
                             </div>
-                        </div>                                                
+                        </div>
                     </form>
                 </div>
             </div>
