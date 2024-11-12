@@ -41,7 +41,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama Modul</th>
+                                <th class="data-medium">Nama Partner</th>
                                 <th>Logo</th>
                                 <th>Tipe</th>
                                 <th>URL</th>

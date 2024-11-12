@@ -1,20 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Dashboard')
+@section('title', 'Dasbor')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Dashboard</h4>
+                <h4 class="mb-sm-0 font-size-18">Dasbor</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item active">Dashboard</li>
+                        <li class="breadcrumb-item active">Dasbor</li>
                     </ol>
                 </div>
-
             </div>
         </div>
     </div>
@@ -28,8 +27,8 @@
                         <div class="row">
                             <div class="col-7">
                                 <div class="text-primary p-3">
-                                    <h5 class="text-primary">Welcome Back !</h5>
-                                    <p>Agent CMS Dashboard</p>
+                                    <h5 class="text-primary">Selamat Datang Kembali!</h5>
+                                    <p>Dasbor Agen CMS</p>
                                 </div>
                             </div>
                             <div class="col-5 align-self-end">
@@ -51,7 +50,6 @@
                                     @endif
                                 </div>
                                 <h5 class="font-size-15 text-truncate">{{ auth()->user()->name }}</h5>
-
                                 <p class="text-muted mb-0 text-truncate"> Role akun ini adalah:
                                     <strong>{{ $admin->accessGroup->name }}</strong>
                                 </p>
@@ -69,8 +67,9 @@
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Student</p>
-                                        <h4 class="mb-0" id="student_total">{{ number_format($studentCount, 0, ',', '.') }}</h4>
+                                        <p class="text-muted fw-medium">Siswa</p>
+                                        <h4 class="mb-0" id="student_total">
+                                            {{ number_format($studentCount, 0, ',', '.') }}</h4>
                                     </div>
                                     <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
                                         <span class="avatar-title rounded-circle bg-primary">
@@ -86,8 +85,9 @@
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">University</p>
-                                        <h4 class="mb-0" id="university_total">{{ number_format($universityCount, 0, ',', '.') }}</h4>
+                                        <p class="text-muted fw-medium">Universitas</p>
+                                        <h4 class="mb-0" id="university_total">
+                                            {{ number_format($universityCount, 0, ',', '.') }}</h4>
                                     </div>
                                     <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
                                         <span class="avatar-title rounded-circle bg-primary">
@@ -103,8 +103,9 @@
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Company</p>
-                                        <h4 class="mb-0" id="company_total">{{ number_format($companyCount, 0, ',', '.') }}</h4> <!-- Tampilkan jumlah company -->
+                                        <p class="text-muted fw-medium">Perusahaan</p>
+                                        <h4 class="mb-0" id="company_total">
+                                            {{ number_format($companyCount, 0, ',', '.') }}</h4>
                                     </div>
                                     <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
                                         <span class="avatar-title rounded-circle bg-primary">
@@ -118,22 +119,23 @@
                 </div>
             </div>
             <br>
-            <h4 class="card-title mb-4">Partnership Expiring List</h4>
+            <h4 class="card-title mb-4">Daftar Kemitraan yang Akan Berakhir</h4>
             <div class="container">
                 <div class="card">
                     <div class="card-body" style="height: 100%;">
                         <div class="boxActive box">
                             @if ($partnerships->isEmpty())
                                 <div class="alert alert-info text-center" role="alert">
-                                    No partnerships are expiring soon.
+                                    Tidak ada kemitraan yang akan segera berakhir.
                                 </div>
                             @else
                                 <table id="table" class="tableActive table-striped" style="width: 100%;">
                                     <thead>
                                         <tr>
-                                            <th class="ticlass" style="width: 50%; text-align: left;">Partner</th>
-                                            <th class="tibatch" style="width: 20%;">Type</th>
-                                            <th class="tiaction" style="width: 30%; text-align: right;">Expiry Date</th>
+                                            <th class="ticlass" style="width: 50%; text-align: left;">Mitra</th>
+                                            <th class="tibatch" style="width: 20%;">Tipe</th>
+                                            <th class="tiaction" style="width: 30%; text-align: right;">Tanggal Berakhir
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -141,7 +143,8 @@
                                             <tr>
                                                 <td>{{ $record->Partner->name }}</td>
                                                 <td>{{ $record->MPartnershipType->name }}</td>
-                                                <td style="text-align: right">{{ \Carbon\Carbon::parse($record->date_end)->format('Y-m-d') }}</td>
+                                                <td style="text-align: right">
+                                                    {{ \Carbon\Carbon::parse($record->date_end)->format('Y-m-d') }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -155,30 +158,26 @@
             <div class="container">
                 <div class="row g-4">
                     <div class="col-8">
-                        <h4 class="card-title mb-4">Active Classes</h4>
+                        <h4 class="card-title mb-4">Kelas Aktif</h4>
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table mb-0 table">
                                         <thead>
                                             <tr>
-                                                <th>Class</th>
-                                                <th>Batch</th>
-                                                <th>Action</th>
+                                                <th>Kelas</th>
+                                                <th>Angkatan</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($active_class_list as $class)
                                                 <tr>
-                                                    <td>
-                                                        {{ $class->course_name }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $class->batch }}
-                                                    </td>
+                                                    <td>{{ $class->course_name }}</td>
+                                                    <td>{{ $class->batch }}</td>
                                                     <td>
                                                         <a href="{{ route('getCourseClassModule', ['id' => $class->id, 'batch' => $class->batch]) }}"
-                                                           class="btn btn-primary waves-effect waves-light">Detail</a>
+                                                            class="btn btn-primary waves-effect waves-light">Detail</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -189,18 +188,18 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <h4 class="card-title mb-4">Students</h4>
+                        <h4 class="card-title mb-4">Siswa</h4>
                         <div class="card">
                             <div class="card-body">
                                 <div id="student-chart" style="height: 100%;"></div>
                                 <div class="justify-content-center row">
                                     <div class="col-sm-4 text-center">
                                         <h5 id="user-active" class="mb-0">879</h5>
-                                        <p class="text-muted text-truncate">Active</p>
+                                        <p class="text-muted text-truncate">Aktif</p>
                                     </div>
-                                    <div class="col-sm-4 text center">
-                                        <h5 id="user-inactive"class="mb-0">23</h5>
-                                        <p class="text-muted text-truncate">Inactive</p>
+                                    <div class="col-sm-4 text-center">
+                                        <h5 id="user-inactive" class="mb-0">23</h5>
+                                        <p class="text-muted text-truncate">Tidak Aktif</p>
                                     </div>
                                 </div>
                             </div>
@@ -217,116 +216,105 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <h5>Schedule Today</h5>
+                    <h5>Jadwal Hari Ini</h5>
                     <hr>
                     <div>
                         @if (isset($schedules) && $schedules->isNotEmpty())
                             @foreach ($schedules as $schedule)
                                 <h6>{{ $schedule->title }}</h6>
-                                <p>{{ \Carbon\Carbon::parse($schedule->time)->format('h:i A') }}</p>
+                                <p>{{ \Carbon\Carbon::parse($schedule->time)->format('H:i') }}</p>
                                 <hr>
                             @endforeach
                         @else
-                            <p>You're all clear today – no schedules!</p>
-                            <!-- Menampilkan pesan jika schedules kosong -->
+                            <p>Jadwal Anda hari ini kosong – tidak ada jadwal!</p>
                         @endif
                     </div>
                 </div>
             </div>
-        @endsection
+        </div>
+    </div>
+@endsection
 
-        @section('script')
+@section('script')
 
-            <script>
-                // Ambil data dari endpoint untuk status mahasiswa
-                fetch('/student-status-data')
-                    .then(response => response.json())
-                    .then(data => {
-                        // Data yang diterima dari server
-                        var active = data.active;
-                        var inactive = data.inactive;
-                        // Memasukkan data.active ke dalam elemen HTML dengan ID 'user-active'
-                        document.getElementById('user-active').innerText = data.active;
+    <script>
+        fetch('/student-status-data')
+            .then(response => response.json())
+            .then(data => {
+                var active = data.active;
+                var inactive = data.inactive;
+                document.getElementById('user-active').innerText = data.active;
+                document.getElementById('user-inactive').innerText = data.inactive;
 
-                        // Memasukkan data.inactive ke dalam elemen HTML dengan ID 'user-inactive'
-                        document.getElementById('user-inactive').innerText = data.inactive;
-
-                        // ApexChart
-                        var options = {
-                            series: [active, inactive], // Data dari database (Active, Inactive)
+                var options = {
+                    series: [active, inactive],
+                    chart: {
+                        type: 'pie',
+                        height: '100%',
+                        width: '100%'
+                    },
+                    legend: {
+                        position: 'bottom',
+                        horizontalAlign: 'center'
+                    },
+                    labels: ['Aktif', 'Tidak Aktif'],
+                    colors: ['#00E396', '#FF4560'],
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
                             chart: {
-                                type: 'pie',
-                                height: '100%', // Ubah ukuran tinggi chart
-                                width: '100%' // Ubah ukuran lebar chart
+                                width: '100%'
                             },
-                            legend: {
-                                position: 'bottom',
-                                horizontalAlign: 'center'
-                            },
-                            labels: ['Active', 'Inactive'],
-                            colors: ['#00E396', '#FF4560'], // Warna untuk setiap bagian chart
-                            responsive: [{
-                                breakpoint: 480,
-                                options: {
-                                    chart: {
-                                        width: '100%' // Lebar chart di layar kecil
-                                    },
-                                }
-                            }]
-                        };
-
-                        var chart = new ApexCharts(document.querySelector("#student-chart"), options);
-                        chart.render();
-                    })
-                    .catch(error => console.error('Error fetching data:', error));
-            </script>
-
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    // Ambil elemen yang berisi angka user active dan inactive
-                    var userActive = document.getElementById('user-active');
-                    var userInactive = document.getElementById('user-inactive');
-
-                    // Ambil nilai asli dari elemen tersebut
-                    var activeCount = parseInt(userActive.textContent);
-                    var inactiveCount = parseInt(userInactive.textContent);
-
-                    // Format angka dengan toLocaleString untuk menggunakan format Indonesia (id-ID)
-                    userActive.textContent = activeCount.toLocaleString('id-ID');
-                    userInactive.textContent = inactiveCount.toLocaleString('id-ID');
-                });
-            </script>
-
-            <script>
-                // calendar
-                document.addEventListener('DOMContentLoaded', function() {
-                    var calendarEl = document.getElementById('calendar');
-
-                    var calendar = new FullCalendar.Calendar(calendarEl, {
-                        initialView: 'dayGridMonth',
-                        headerToolbar: {
-                            left: 'prev,next',
-                            center: 'title',
-                            right: 'today'
-                        },
-                        editable: true,
-                        events: [{
-                                title: 'Event 1',
-                                start: '2024-09-30'
-                            },
-                            {
-                                title: 'Event 2',
-                                start: '2024-10-01',
-                                end: '2024-10-02'
-                            }
-                        ],
-                        dateClick: function(info) {
-                            alert('Date: ' + info.dateStr);
                         }
-                    });
+                    }]
+                };
 
-                    calendar.render();
-                });
-            </script>
+                var chart = new ApexCharts(document.querySelector("#student-chart"), options);
+                chart.render();
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
 
-        @endsection
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var userActive = document.getElementById('user-active');
+            var userInactive = document.getElementById('user-inactive');
+            var activeCount = parseInt(userActive.textContent);
+            var inactiveCount = parseInt(userInactive.textContent);
+            userActive.textContent = activeCount.toLocaleString('id-ID');
+            userInactive.textContent = inactiveCount.toLocaleString('id-ID');
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next',
+                    center: 'title',
+                    right: 'today'
+                },
+                editable: true,
+                events: [{
+                        title: 'Acara 1',
+                        start: '2024-09-30'
+                    },
+                    {
+                        title: 'Acara 2',
+                        start: '2024-10-01',
+                        end: '2024-10-02'
+                    }
+                ],
+                dateClick: function(info) {
+                    alert('Tanggal: ' + info.dateStr);
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+
+@endsection

@@ -35,9 +35,11 @@
                 <div class="card-body">
                     <h4 class="card-title">Daftar Kelas Kursus</h4>
                     <p class="card-title-desc">
-                        Lihat dan kelola semua kelas kursus di sini. Setiap baris menunjukkan detail penting seperti nama
-                        kelas, tipe kursus, jadwal, kuota, dan status. Gunakan fitur <b>pengurutan dan pencarian</b> untuk
-                        menemukan kelas yang Anda butuhkan dengan cepat.
+                        Pada halaman ini, Anda dapat melihat dan mengelola daftar kelas kursus yang tersedia di platform.
+                        Setiap baris pada tabel di bawah ini menampilkan informasi lengkap tentang kelas, termasuk angkatan, tipe kursus, jadwal mulai dan selesai, kuota peserta, jumlah SKS, durasi, serta status kelas (aktif atau nonaktif).
+
+                        Anda dapat menggunakan fitur <b>pengurutan dan pencarian</b> untuk mempermudah pencarian kelas tertentu berdasarkan kriteria yang diinginkan.
+                        Tombol-tombol di kolom "Aksi" memungkinkan Anda untuk melakukan berbagai tindakan, seperti mengedit informasi kelas, mengelola modul kursus, melihat daftar anggota, mengakses absensi, dan melakukan penilaian.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
