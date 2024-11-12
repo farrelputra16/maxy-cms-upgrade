@@ -1,39 +1,39 @@
 @extends('layout.main-v3')
 
-@section('title', 'Partners')
+@section('title', 'Mitra')
 
 @section('content')
-    <!-- Begin Page Title -->
+    <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
+                <h4 class="mb-sm-0 font-size-18">Data Mitra</h4>
 
-                <!-- Begin Breadcrumb -->
+                <!-- Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Partners</li>
+                        <li class="breadcrumb-item active">Mitra</li>
                     </ol>
                 </div>
-                <!-- End Breadcrumb -->
+                <!-- Akhir Breadcrumb -->
             </div>
         </div>
     </div>
-    <!-- End Page Title -->
+    <!-- Akhir Judul Halaman -->
 
-    <!-- Begin Content -->
+    <!-- Konten -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Partners</h4>
+                    <h4 class="card-title">Daftar Mitra</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
-                        features to
-                        customize your view and quickly access the specific information you need.
+                        Pada halaman ini, Anda bisa melihat daftar mitra yang terdaftar dan mengelola informasi mereka.
+                        Setiap baris menampilkan detail seperti nama modul, tipe, kontak, dan status. Gunakan <b>fitur
+                            visibilitas kolom, pencarian, dan pengurutan</b> untuk mengatur tampilan sesuai kebutuhan Anda,
+                        sehingga memudahkan pencarian data spesifik. Klik tombol "Edit" pada setiap baris untuk memperbarui
+                        informasi mitra tersebut.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -41,22 +41,22 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Module Name</th>
+                                <th class="data-medium">Nama Modul</th>
                                 <th>Logo</th>
-                                <th>Type</th>
+                                <th>Tipe</th>
                                 <th>URL</th>
-                                <th class="data-medium">Address</th>
-                                <th>Phone</th>
+                                <th class="data-medium">Alamat</th>
+                                <th>Telepon</th>
                                 <th>Email</th>
-                                <th>Contact Person</th>
-                                <th>Status Highlight</th>
-                                <th class="data-long">Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Kontak Person</th>
+                                <th>Status Sorotan</th>
+                                <th class="data-long">Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>Id Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Id Pembaruan</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -71,7 +71,7 @@
                                     </td>
 
                                     <td>
-                                        <img src="{{ asset('uploads/partner/' . $item->logo) }}" alt="Image"
+                                        <img src="{{ asset('uploads/partner/' . $item->logo) }}" alt="Logo Mitra"
                                             style="max-width: 200px; max-height: 150px;">
                                     </td>
                                     <td>{{ $item->type }}</td>
@@ -105,14 +105,12 @@
                                         @if ($item->status == 1)
                                             <a class="btn btn-success" style="pointer-events: none;">Aktif</a>
                                         @else
-                                            <a class="btn btn-danger" style="pointer-events: none;">Non Aktif</a>
+                                            <a class="btn btn-danger" style="pointer-events: none;">Nonaktif</a>
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditPartner', ['id' => $item->id]) }}"
                                             class="btn btn-primary rounded">Edit</a>
-                                        {{-- </div> --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -121,22 +119,22 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Module Name</th>
+                                <th>Nama Modul</th>
                                 <th>Logo</th>
-                                <th>Type</th>
+                                <th>Tipe</th>
                                 <th>URL</th>
-                                <th>Address</th>
-                                <th>Phone</th>
+                                <th>Alamat</th>
+                                <th>Telepon</th>
                                 <th>Email</th>
-                                <th>Contact Person</th>
-                                <th>Status Highlight</th>
-                                <th>Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Kontak Person</th>
+                                <th>Status Sorotan</th>
+                                <th>Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>Id Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Id Pembaruan</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -144,15 +142,15 @@
             </div>
         </div>
     </div>
-    <!-- End Content -->
+    <!-- Akhir Konten -->
 
-    <!-- FAB Add Starts -->
+    <!-- Tombol Tambah -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddPartner') }}" target="_blank">
+        <a href="{{ route('getAddPartner') }}" target="_blank" data-toggle="tooltip" title="Tambah Mitra Baru">
             <i class="fas fa-plus"></i>
         </a>
     </div>
-    <!-- FAB Add Ends -->
+    <!-- Akhir Tombol Tambah -->
 @endsection
 
 @section('script')

@@ -1,45 +1,49 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add Partners')
+@section('title', 'Tambah Mitra')
 
 @section('content')
-    <!-- start page title -->
+    <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Add New Partner's Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Data Mitra Baru</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getPartner') }}">Partners</a></li>
-                        <li class="breadcrumb-item active">Add Partner</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getPartner') }}">Mitra</a></li>
+                        <li class="breadcrumb-item active">Tambah Mitra</li>
                     </ol>
                 </div>
 
             </div>
         </div>
     </div>
-    <!-- end page title -->
+    <!-- Akhir Judul Halaman -->
 
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Add Partner</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Tambah Mitra</h4>
+                    <p class="card-title-desc">
+                        Gunakan halaman ini untuk menambahkan informasi mitra baru secara rinci. Pastikan setiap data, mulai
+                        dari nama, kontak, alamat, hingga deskripsi mitra, telah diisi dengan akurat. Setelah mengisi, klik
+                        tombol "Tambah Mitra" untuk menyimpan data baru.
+                    </p>
 
-                    <form id="addPartner" action="{{ route('postAddPartner') }}" method="post" enctype="multipart/form-data">
+
+                    <form id="addPartner" action="{{ route('postAddPartner') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Nama</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name"
-                                    placeholder="Masukkan Nama Partner" value="{{ old('name') }}">
+                                <input class="form-control" type="text" name="name" placeholder="Masukkan Nama Mitra"
+                                    value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -48,21 +52,26 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Type</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="type" data-placeholder="Choose ..." id="type_selector">
-                                    <option value="UNIVERSITY" {{ old('type') == 'UNIVERSITY' ? 'selected' : '' }}>UNIVERSITY</option>
-                                    <option value="COMPANY" {{ old('type') == 'COMPANY' ? 'selected' : '' }}>COMPANY</option>
-                                    <option value="GOVERNMENT" {{ old('type') == 'GOVERNMENT' ? 'selected' : '' }}>GOVERNMENT</option>
-                                    <option value="UPSKILLING" {{ old('type') == 'UPSKILLING' ? 'selected' : '' }}>UPSKILLING</option>
+                                <select class="form-control select2" name="type" data-placeholder="Pilih ..."
+                                    id="type_selector">
+                                    <option value="UNIVERSITY" {{ old('type') == 'UNIVERSITY' ? 'selected' : '' }}>
+                                        UNIVERSITAS</option>
+                                    <option value="COMPANY" {{ old('type') == 'COMPANY' ? 'selected' : '' }}>PERUSAHAAN
+                                    </option>
+                                    <option value="GOVERNMENT" {{ old('type') == 'GOVERNMENT' ? 'selected' : '' }}>
+                                        PEMERINTAH</option>
+                                    <option value="UPSKILLING" {{ old('type') == 'UPSKILLING' ? 'selected' : '' }}>
+                                        UPSKILLING</option>
                                 </select>
                             </div>
-                        </div>                        
+                        </div>
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Email</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="email"
-                                    placeholder="Masukkan Email Partner" value="{{ old('email') }}">
+                                <input class="form-control" type="text" name="email" placeholder="Masukkan Email Mitra"
+                                    value="{{ old('email') }}">
                                 @if ($errors->has('email'))
                                     @foreach ($errors->get('email') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -71,10 +80,10 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Phone</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Telepon</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="phone"
-                                    placeholder="Masukkan No Telepon Partner"
+                                    placeholder="Masukkan Nomor Telepon Mitra"
                                     oninput="this.value = this.value.replace(/[^0-9]/g, '');" value="{{ old('phone') }}">
                                 @if ($errors->has('phone'))
                                     @foreach ($errors->get('phone') as $error)
@@ -86,7 +95,8 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">URL</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="url" placeholder="Masukkan Link URL" value="{{ old('url') }}">
+                                <input class="form-control" type="text" name="url" placeholder="Masukkan Link URL"
+                                    value="{{ old('url') }}">
                                 @if ($errors->has('url'))
                                     @foreach ($errors->get('url') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -95,11 +105,10 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Contact Person</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Kontak Person</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="contact_person"
-                                    placeholder="Masukkan Contact Person"
-                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');" value="{{ old('contact_person') }}">
+                                    placeholder="Masukkan Kontak Person" value="{{ old('contact_person') }}">
                                 @if ($errors->has('contact_person'))
                                     @foreach ($errors->get('contact_person') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -117,9 +126,9 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Address</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Alamat</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="address" placeholder="Masukkan Alamat Partner">{{ old('address') }}</textarea>
+                                <textarea id="elm1" name="address" placeholder="Masukkan Alamat Mitra">{{ old('address') }}</textarea>
                                 @if ($errors->has('address'))
                                     @foreach ($errors->get('address') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -128,13 +137,13 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm2" name="description" class="form-control" placeholder="Masukkan Deskripsi">{{ old('description') }}</textarea>
+                                <textarea id="elm2" name="description" class="form-control" placeholder="Masukkan Deskripsi Mitra">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
-                            <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Highlight</label>
+                            <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Sorot Status</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
                                     name="status_highlight" {{ old('status_highlight') ? 'checked' : '' }}>
@@ -151,7 +160,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addPartner">Add Partners</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addPartner">Tambah Mitra</button>
                             </div>
                         </div>
                     </form>
