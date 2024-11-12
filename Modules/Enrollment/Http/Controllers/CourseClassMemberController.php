@@ -162,7 +162,7 @@ class CourseClassMemberController extends Controller
         ->select('id', 'name', 'email')
         ->get();
 
-        $jobdescriptions = MJobdesc::all();
+        $jobdescriptions = MJobdesc::where('status', 1)->get();
         $partners = Partner::where('status', 1)->get();
         $mbkmType = DB::table('m_course_type')->where('slug', 'mbkm')->where('status', 1)->value('id');
 
