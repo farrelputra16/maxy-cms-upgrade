@@ -60,8 +60,8 @@
                                         {!! \Str::limit($item->name, 30) !!}
                                     </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->description) !!}">
-                                        {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
+                                        title="{{ $item->description }}">
+                                        {!! !empty($item->description) ? \Str::limit(strip_tags($item->description), 20) : '-' !!}
                                     </td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->created_id }}</td>
