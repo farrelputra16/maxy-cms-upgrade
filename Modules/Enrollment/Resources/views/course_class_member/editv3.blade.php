@@ -47,7 +47,7 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="daily_score"
                                     placeholder="Masukkan nilai harian" value="{{ old('daily_score', $courseClassMember->daily_score) }}"
-                                    id="dailyScore">
+                                    id="dailyScore" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @error('daily_score')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -60,7 +60,7 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="absence_score"
                                     placeholder="Masukkan nilai absensi" value="{{ old('absence_score', $courseClassMember->absence_score) }}"
-                                    id="absenceScore">
+                                    id="absenceScore" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @error('absence_score')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -73,7 +73,7 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="hackathon_1_score"
                                     placeholder="Masukkan nilai hackathon ke-1"
-                                    value="{{ old('hackathon_1_score', $courseClassMember->hackathon_1_score) }}" id="hackathon1Score">
+                                    value="{{ old('hackathon_1_score', $courseClassMember->hackathon_1_score) }}" id="hackathon1Score" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @error('hackathon_1_score')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -86,7 +86,7 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="hackathon_2_score"
                                     placeholder="Masukkan nilai hackathon ke-2"
-                                    value="{{ old('hackathon_2_score', $courseClassMember->hackathon_2_score) }}" id="hackathon2Score">
+                                    value="{{ old('hackathon_2_score', $courseClassMember->hackathon_2_score) }}" id="hackathon2Score" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @error('hackathon_2_score')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -99,7 +99,7 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="internship_score"
                                     placeholder="Masukkan nilai internship"
-                                    value="{{ old('internship_score', $courseClassMember->internship_score) }}" id="internshipScore">
+                                    value="{{ old('internship_score', $courseClassMember->internship_score) }}" id="internshipScore" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @error('internship_score')
                                     <div class="text-danger">
                                         {{ $message }}
