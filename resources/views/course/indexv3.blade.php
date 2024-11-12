@@ -37,7 +37,7 @@
                     <ul>
                         <li>Gunakan ikon <b>+ Tambah</b> untuk menambahkan kursus baru.</li>
                         <li>Klik <b>Edit</b> pada setiap baris untuk mengubah informasi kursus.</li>
-                        <li>Pilih <b>Modules List</b> untuk melihat daftar modul dari setiap kursus.</li>
+                        <li>Pilih <b>Daftar Modul</b> untuk melihat daftar modul dari setiap kursus.</li>
                     </ul>
                     </p>
 
