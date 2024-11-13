@@ -28,7 +28,9 @@
                         @endif
                         @if ($userAccess == 'super')
                             <li><a href="{{ route('getCourseType') }}" key="t-testimonial">Tipe Kursus</a></li>
+                            @if (env('APP_ENV') != 'local')
                             <li><a href="{{ route('getCoursePackage') }}" key="t-blog">Paket Kursus</a></li>
+                            @endif
                             <li><a href="{{ route('getDifficulty') }}" key="t-blog">Tingkat Kesulitan Kursus</a></li>
                             <li><a href="{{ route('getPartner') }}" key="t-blog">Mitra</a></li>
                             <li><a href="{{ route('getCategory') }}" key="t-blog">Kategori Kursus</a></li>
@@ -81,7 +83,8 @@
                             <li><a href="{{ route('getAccessMaster') }}" key="t-access-master">Hak Akses Utama</a></li>
                         </ul>
                     </li>
-
+                    
+                    @if (env('APP_ENV') != 'local')
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class='bx bx-cart'></i>
@@ -92,6 +95,7 @@
                             <li><a href="{{ route('getVoucher') }}" key="t-voucher">Vouchers</a></li>
                         </ul>
                     </li>
+                    @endif
                 @endif
 
                 <li>
@@ -100,8 +104,10 @@
                         <span key="t-member">Anggota</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        @if ($userAccess == 'super')
-                            <li><a href="{{ route('getRedeemCode') }}" key="t-redeem-code">Redeem Code</a></li>
+                        @if (env('APP_ENV') != 'local')
+                            @if ($userAccess == 'super')
+                                <li><a href="{{ route('getRedeemCode') }}" key="t-redeem-code">Redeem Code</a></li>
+                            @endif
                         @endif
                         <li><a href="{{ route('getProposal') }}" key="t-proposal">Proposal</a></li>
                         <li><a href="{{ route('getTranskrip') }}" key="t-proposal">Transkrip</a></li>
