@@ -74,38 +74,7 @@
                                     </td>
                                     <td>{{ $item->price ? 'Rp ' . number_format($item->price, 0, ',', '.') : '-' }}</td>
                                     <td>
-                                        @switch($item->m_course_type_id)
-                                            @case(1)
-                                                Bootcamp
-                                            @break
-
-                                            @case(2)
-                                                Rapid Onboarding
-                                            @break
-
-                                            @case(3)
-                                                Mini Bootcamp
-                                            @break
-
-                                            @case(4)
-                                                Hackathon
-                                            @break
-
-                                            @case(5)
-                                                Prakerja
-                                            @break
-
-                                            @case(6)
-                                                MSIB
-                                            @break
-
-                                            @case(7)
-                                                Upskilling
-                                            @break
-
-                                            @default
-                                                -
-                                        @endswitch
+                                        {{ $item->type->name }}
                                     </td>
                                     <td>{{ $item->credits }}</td>
                                     <td>{{ sprintf('%02d:00:00', $item->duration) }}</td>
