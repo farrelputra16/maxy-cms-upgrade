@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Course Class')
+@section('title', 'Modul Kelas')
 
 @section('content')
     <!-- Begin Page Title -->
@@ -27,15 +27,28 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Modul untuk Kelas Kursus: {{ $course_detail->name }} Angkatan {{ $batch_number }}
+                    <h4 class="card-title">Modul untuk Kelas: {{ $course_detail->name }} Angkatan {{ $batch_number }}
                     </h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda untuk mengelola semua modul dalam kelas kursus yang dipilih. Setiap
-                        baris menampilkan informasi penting tentang modul, termasuk nama modul, hari penjadwalan, tanggal
-                        mulai dan selesai, serta deskripsi singkat. Gunakan fitur <b>pengaturan kolom, pengurutan, dan
-                            pencarian</b> untuk menyesuaikan tampilan dan menemukan modul yang Anda butuhkan dengan cepat.
-                        Misalnya, klik pada header kolom untuk mengurutkan data, atau arahkan kursor ke teks yang terpotong
-                        untuk melihat deskripsi lengkap.
+                        Halaman ini memungkinkan Anda untuk mengelola modul dalam kelas yang telah dipilih. Setiap
+                        baris dalam tabel berikut berisi informasi penting mengenai modul, seperti nama modul, hari
+                        pelaksanaan, tanggal mulai dan selesai, serta deskripsi singkat. Fitur-fitur seperti <b>pengaturan
+                            kolom, pengurutan, dan pencarian</b> tersedia untuk membantu Anda menyesuaikan tampilan dan
+                        menemukan modul tertentu dengan cepat.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li><strong>Atur Kolom:</strong> Gunakan pengurutan di header kolom untuk mengelompokkan data
+                            berdasarkan hari atau tanggal.</li>
+                        <li><strong>Lihat Deskripsi Lengkap:</strong> Arahkan kursor ke teks yang terpotong pada kolom
+                            deskripsi untuk melihat konten lengkap dari deskripsi modul.</li>
+                        <li><strong>Edit Modul:</strong> Klik tombol <em>Ubah</em> pada kolom “Aksi” untuk memperbarui
+                            informasi modul yang ada.</li>
+                        <li><strong>Atur Konten Modul:</strong> Tombol <em>Atur Konten</em> memungkinkan Anda mengakses dan
+                            mengelola sub-modul atau materi di dalam modul tersebut.</li>
+                        <li><strong>Tambah Modul:</strong> Gunakan ikon <em>Tambah</em> di kanan bawah untuk menambahkan
+                            modul baru ke dalam kelas ini.</li>
+                    </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">

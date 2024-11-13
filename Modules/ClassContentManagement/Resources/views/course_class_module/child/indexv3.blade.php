@@ -1,13 +1,13 @@
 @extends('layout.main-v3')
 
-@section('title', 'Modul Kelas Kursus')
+@section('title', 'Modul Kelas Child')
 
 @section('content')
     <!-- Begin Page Title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Modul Child untuk Modul Kelas Kursus</h4>
+                <h4 class="mb-sm-0 font-size-18">Data Modul Child untuk Modul Kelas</h4>
 
                 <!-- Begin Breadcrumb -->
                 <div class="page-title-right">
@@ -29,13 +29,23 @@
                     <h4 class="card-title">Modul Child dalam: {{ $parent_module->detail->name }}</h4>
                     <p class="card-title-desc">
                         Halaman ini menyediakan tampilan terorganisir dari semua modul anak yang termasuk dalam modul utama
-                        ini.
-                        Setiap baris menampilkan detail utama tentang modul, seperti nama, prioritas, tipe, konten, materi
-                        kursus,
-                        dan jadwal. Gunakan fitur <b>pengaturan kolom, pengurutan, dan pencarian</b> untuk menyesuaikan
-                        tampilan
-                        sesuai kebutuhan dan menemukan modul tertentu dengan cepat. Sebagai contoh, klik pada judul kolom
-                        untuk mengurutkan data, atau arahkan kursor ke teks terpotong untuk melihat deskripsi lengkap.
+                        ini. Setiap baris menampilkan detail utama, seperti nama modul, prioritas, tipe, konten, materi
+                        kursus, dan jadwal. Gunakan fitur <b>pengaturan kolom, pengurutan, dan pencarian</b> untuk
+                        menyesuaikan tampilan sesuai kebutuhan dan menemukan modul tertentu dengan cepat.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li><strong>Atur Kolom:</strong> Gunakan pengurutan di header kolom untuk mengelompokkan data
+                            berdasarkan hari atau tanggal.</li>
+                        <li><strong>Lihat Deskripsi Lengkap:</strong> Arahkan kursor ke deskripsi yang terpotong untuk
+                            melihat konten penuh.</li>
+                        <li><strong>Edit Modul:</strong> Klik tombol <em>Edit</em> pada kolom “Aksi” untuk memperbarui
+                            informasi modul yang ada.</li>
+                        <li><strong>Kelola Jurnal:</strong> Tombol <em>Kelola Jurnal</em> memungkinkan Anda mengakses jurnal
+                            terkait modul.</li>
+                        <li><strong>Tambah Modul:</strong> Gunakan ikon <em>Tambah Modul Anak (+)</em> di kanan bawah untuk
+                            menambahkan modul anak baru ke dalam modul ini.</li>
+                    </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">

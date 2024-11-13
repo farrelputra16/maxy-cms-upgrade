@@ -33,11 +33,22 @@
                     <h4 class="card-title">Entri Jurnal: Modul Anak dari {{ $parent_module->detail->name }}</h4>
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda untuk melihat dan mengelola entri jurnal yang terkait dengan setiap
-                        modul anak dalam kelas kursus ini. Setiap entri mencakup detail penting seperti nama penulis,
-                        catatan, dan status. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian</b> untuk
-                        menyesuaikan tampilan Anda dan dengan cepat menemukan entri tertentu. Misalnya, klik pada header
-                        kolom untuk mengurutkan data atau arahkan kursor ke teks yang terpotong untuk melihat deskripsi
-                        lengkap.
+                        modul anak dalam kelas kursus ini. Setiap entri mencakup detail seperti nama penulis, catatan, dan
+                        status. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian</b> untuk menyesuaikan
+                        tampilan dan menemukan entri tertentu dengan cepat. Misalnya, Anda dapat mengurutkan data dengan
+                        mengklik header kolom atau menggunakan fitur tooltip untuk melihat deskripsi penuh.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li><strong>Lihat Detail:</strong> Arahkan kursor ke catatan yang terpotong untuk melihat catatan
+                            penuh dari entri jurnal.</li>
+                        <li><strong>Tambah Tanggapan:</strong> Gunakan tombol <em>Balas</em> di kolom Aksi untuk menambahkan
+                            tanggapan atau catatan tambahan pada entri.</li>
+                        <li><strong>Hapus/Pulihkan Entri:</strong> Klik tombol <em>Hapus</em> atau <em>Pulihkan</em> untuk
+                            mengubah status entri.</li>
+                        <li><strong>Pengelolaan Status:</strong> Gunakan tombol <em>Terima</em> atau <em>Tolak</em> untuk
+                            menyetujui atau menolak entri jurnal.</li>
+                    </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">

@@ -29,11 +29,23 @@
                 <div class="card-body">
                     <h4 class="card-title">Template Sertifikat</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan semua template sertifikat dalam tabel interaktif yang terorganisir. Setiap
-                        baris memberikan informasi penting mengenai setiap template, seperti jenis kursus, batch, status
-                        penanda, dan konten template. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian</b>
-                        untuk menyesuaikan tampilan Anda dan menemukan template tertentu dengan cepat. Arahkan kursor ke
-                        teks yang terpotong untuk melihat deskripsi lengkap.
+                        Halaman ini menampilkan daftar template sertifikat yang tersedia untuk kursus. Setiap baris dalam
+                        tabel di bawah ini menyajikan informasi penting, termasuk jenis kursus, batch, gambar template,
+                        status penanda, dan konten template. Gunakan fitur <b>visibilitas kolom, pengurutan, dan
+                            pencarian</b> untuk mempermudah navigasi dan menemukan template yang Anda butuhkan dengan cepat.
+                        Anda juga dapat melihat deskripsi lengkap dengan mengarahkan kursor pada teks yang terpotong.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li><strong>Pengaturan Kolom:</strong> Klik header kolom untuk mengurutkan data, atau pilih kolom
+                            yang ingin disembunyikan.</li>
+                        <li><strong>Lihat Gambar Template:</strong> Tinjau pratinjau gambar template di kolom Gambar untuk
+                            memastikan tampilannya sesuai.</li>
+                        <li><strong>Edit dan Hapus:</strong> Gunakan tombol <em>Edit</em> untuk mengubah informasi template
+                            atau <em>Hapus</em> untuk menghapus template.</li>
+                        <li><strong>Tambah Template Baru:</strong> Klik tombol tambah di kanan bawah untuk menambahkan
+                            template sertifikat baru ke dalam sistem.</li>
+                    </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"

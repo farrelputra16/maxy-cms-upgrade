@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Daftar Kelas Kursus')
+@section('title', 'Daftar Kelas')
 
 @section('content')
     @if (session('error'))
@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Manajemen Kelas Kursus</h4>
+                <h4 class="mb-sm-0 font-size-18">Data Manajemen Kelas</h4>
 
                 <!-- Breadcrumb -->
                 <div class="page-title-right">
@@ -33,13 +33,18 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Daftar Kelas Kursus</h4>
+                    <h4 class="card-title">Daftar Kelas</h4>
                     <p class="card-title-desc">
-                        Pada halaman ini, Anda dapat melihat dan mengelola daftar kelas kursus yang tersedia di platform.
-                        Setiap baris pada tabel di bawah ini menampilkan informasi lengkap tentang kelas, termasuk angkatan, tipe kursus, jadwal mulai dan selesai, kuota peserta, jumlah SKS, durasi, serta status kelas (aktif atau nonaktif).
-
-                        Anda dapat menggunakan fitur <b>pengurutan dan pencarian</b> untuk mempermudah pencarian kelas tertentu berdasarkan kriteria yang diinginkan.
-                        Tombol-tombol di kolom "Aksi" memungkinkan Anda untuk melakukan berbagai tindakan, seperti mengedit informasi kelas, mengelola modul kursus, melihat daftar anggota, mengakses absensi, dan melakukan penilaian.
+                        Halaman ini memungkinkan Anda untuk mengelola dan memantau data kelas yang tersedia di platform. Setiap baris dalam tabel ini berisi informasi penting mengenai kelas, termasuk angkatan, tipe, tanggal mulai dan selesai, kuota, SKS, durasi, dan status kelas.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                        <ul>
+                            <li><strong>Visibilitas Kolom dan Pengurutan:</strong> Atur tampilan dengan mengurutkan kolom tertentu untuk mempermudah pencarian data spesifik. Anda juga bisa menggunakan bilah pencarian untuk mencari kelas tertentu berdasarkan nama, angkatan, atau tipe.</li>
+                            <li><strong>Edit Data:</strong> Klik tombol <em>Ubah</em> pada kolom “Aksi” untuk memperbarui informasi kelas.</li>
+                            <li><strong>Modul dan Anggota:</strong> Gunakan tombol <em>Modul</em> untuk mengelola modul, dan tombol <em>Anggota</em> untuk melihat daftar peserta di kelas tersebut.</li>
+                            <li><strong>Absensi dan Penilaian:</strong> Tombol <em>Absensi</em> memungkinkan Anda memantau kehadiran peserta, sementara tombol <em>Penilaian</em> membantu mengakses penilaian atau nilai yang diberikan dalam kelas tersebut.</li>
+                            <li><strong>Tambah atau Duplikasi Kelas:</strong> Gunakan ikon <em>Tambah</em> di kanan bawah untuk menambah kelas baru atau ikon <em>Duplikat</em> untuk menggandakan kelas yang sudah ada dengan pengaturan yang sama.</li>
+                        </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -48,7 +53,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th>Angkatan</th>
-                                <th>Tipe Kursus</th>
+                                <th>Tipe</th>
                                 <th>Berjalan</th>
                                 <th>Mulai</th>
                                 <th>Selesai</th>
@@ -127,7 +132,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th>Angkatan</th>
-                                <th>Tipe Kursus</th>
+                                <th>Tipe</th>
                                 <th>Berjalan</th>
                                 <th>Mulai</th>
                                 <th>Selesai</th>

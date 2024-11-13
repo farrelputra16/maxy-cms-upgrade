@@ -60,10 +60,21 @@
                 <div class="card-body">
                     <h4 class="card-title">Penilaian Tugas</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan seluruh data pengumpulan tugas dalam format tabel interaktif yang dapat
-                        disesuaikan. Setiap baris memberikan informasi penting seperti nama siswa, status pengumpulan, dan
-                        komentar. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk menyesuaikan
-                        tampilan data sesuai kebutuhan Anda.
+                        Halaman ini menampilkan data penilaian tugas siswa dalam kelas yang dipilih. Setiap baris pada tabel
+                        di bawah ini menyediakan informasi penting seperti nama siswa, status pengumpulan, nilai, dan
+                        komentar. Anda dapat menggunakan fitur <b>pengaturan kolom, pengurutan, dan pencarian</b> untuk
+                        menyesuaikan tampilan sesuai kebutuhan. Klik pada judul kolom untuk mengurutkan data, atau arahkan
+                        kursor pada teks yang terpotong untuk melihat deskripsi lengkap.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li><strong>Pilih Kelas:</strong> Gunakan dropdown untuk memilih kelas yang ingin dilihat
+                            penilaiannya, lalu tekan tombol <em>Tampilkan</em>.</li>
+                        <li><strong>Pengaturan Kolom:</strong> Klik header kolom untuk mengurutkan data atau pilih kolom
+                            tertentu untuk disembunyikan.</li>
+                        <li><strong>Nilai Tugas:</strong> Klik tombol <em>Nilai Tugas</em> pada kolom Aksi untuk menilai
+                            tugas siswa yang sudah dikumpulkan.</li>
+                    </ul>
                     </p>
 
                     <!-- Mulai DataTables Pengumpulan Tugas -->
