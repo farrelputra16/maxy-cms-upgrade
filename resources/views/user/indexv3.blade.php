@@ -41,7 +41,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Nama Anggota</th>
+                                <th>Nama Pengguna</th>
                                 <th>Email</th>
                                 <th>Grup Akses</th>
                                 <th>Deskripsi</th>
@@ -128,7 +128,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Nama Anggota</th>
+                                <th>Nama Pengguna</th>
                                 <th>Email</th>
                                 <th>Grup Akses</th>
                                 <th>Deskripsi</th>
