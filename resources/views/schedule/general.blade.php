@@ -25,40 +25,41 @@
 
 @section('content')
     <div class="mb-3">
-        <label for="exampleSelect" class="form-label">Pilih Periode Akademik</label>
+        <label for="academic-period" class="form-label">Pilih Periode Akademik</label>
         <select id="academic-period" class="form-select">
             <option value="">Pilih Periode Akademik</option>
             @foreach ($academic_periods as $item)
                 <option value="{{ $item->id }}">{{ $item->name }}</option>
             @endforeach
-            <!-- Populate with available periods -->
+            <!-- Populasi dengan daftar periode yang tersedia -->
         </select>
     </div>
 
     <div class="mb-3">
-        <label for="exampleSelect" class="form-label">Pilih Program Studi</label>
+        <label for="prodi" class="form-label">Pilih Program Studi</label>
         <select id="prodi" class="form-select">
             <option value="">Pilih Program Studi</option>
             @foreach ($prodi as $item)
                 <option value="{{ $item->id }}">{{ $item->name }}</option>
             @endforeach
-            <!-- Populate with available periods -->
+            <!-- Populasi dengan daftar program studi yang tersedia -->
         </select>
     </div>
 
     <div class="mb-3">
-        <button type="button" class="btn btn-primary" id='publish'>Publish</button>
+        <button type="button" class="btn btn-primary" id='publish'>Publikasikan Jadwal</button>
         <span class="ms-2 text-muted" style="font-size: 0.9em;">
-            *Click here to publish the scheduled academic schedule
+            *Klik untuk mempublikasikan jadwal akademik yang telah dijadwalkan
         </span>
     </div>
 
     <div id='external-events'>
-        <!-- List of classes -->
+        <!-- Daftar kelas yang tersedia -->
     </div>
 
     <div id='calendar'></div>
 @endsection
+
 
 @section('script')
     <script>
@@ -208,7 +209,9 @@
 
                         // Menampilkan pesan dan kelas yang tidak memiliki tutor
                         if (data.classWithoutTutor.length > 0) {
-                            $('#external-events').append("<br><p style='text-align: center;'><strong>The classes below cannot be added because they do not have lecturers yet</strong></p>");
+                            $('#external-events').append(
+                                "<br><p style='text-align: center;'><strong>The classes below cannot be added because they do not have lecturers yet</strong></p>"
+                            );
                             data.classWithoutTutor.forEach(item => {
                                 $('#external-events').append(
                                     `<div class='fc-event no-tutor' data-id="${item.id}" style="background-color: #ffcccc; draggable: false">${item.slug}</div>`
