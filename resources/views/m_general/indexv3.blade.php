@@ -1,20 +1,20 @@
 @extends('layout.main-v3')
 
-@section('title', 'General Settings')
+@section('title', 'Pengaturan Umum')
 
 @section('content')
     <!-- Begin Page Title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
+                <h4 class="mb-sm-0 font-size-18">Ringkasan Data</h4>
 
                 <!-- Begin Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a>Settings</a></li>
-                        <li class="breadcrumb-item active">General</li>
+                        <li class="breadcrumb-item"><a>Pengaturan</a></li>
+                        <li class="breadcrumb-item active">Umum</li>
                     </ol>
                 </div>
                 <!-- End Breadcrumb -->
@@ -30,7 +30,12 @@
                 <div class="card-body">
                     <h4 class="card-title">Pengaturan Umum</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan seluruh data umum terkait dengan settingan yang ada seperti logo instansi, alamat instansi, kontak instansi, dll.
+                        Halaman ini menampilkan seluruh data umum terkait dengan pengaturan seperti logo instansi, alamat
+                        instansi, kontak instansi, dan lain-lain. Anda dapat melihat detail pengaturan melalui tabel di
+                        bawah ini,
+                        yang mencakup nama, nilai, deskripsi, status, dan waktu pembuatan serta pembaruan.
+                        Gunakan fitur <b>visibilitas kolom, pengurutan, dan kolom pencarian</b> untuk mencari dan memfilter
+                        data dengan mudah. Klik tombol <b>Edit</b> pada kolom Aksi untuk memperbarui data pengaturan.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -41,10 +46,10 @@
                                 <th class="data-medium">Nama</th>
                                 <th class="data-medium">Isi</th>
                                 <th class="data-long">Deskripsi</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Dibuat Pada</th>
+                                <th>Id Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Id Pembaruan</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -78,10 +83,8 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditGeneral', ['id' => $item->id]) }}"
                                             class="btn btn-primary rounded">Edit</a>
-                                        {{-- </div> --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -90,15 +93,15 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Name</th>
-                                <th class="data-medium">Value</th>
-                                <th class="data-long">Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th class="data-medium">Nama</th>
+                                <th class="data-medium">Isi</th>
+                                <th class="data-long">Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>Id Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Id Pembaruan</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -110,8 +113,7 @@
 
     <!-- FAB Add Starts -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddGeneral') }}" target="_blank" data-toggle="tooltip"
-            title="Tambah Data">
+        <a href="{{ route('getAddGeneral') }}" target="_blank" data-toggle="tooltip" title="Tambah Data">
             <i class="fas fa-plus"></i>
         </a>
     </div>

@@ -1,20 +1,20 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add General Data')
+@section('title', 'Tambah Data Umum')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Add New Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Data Baru</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a>Settings</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getGeneral') }}">General</a></li>
-                        <li class="breadcrumb-item active">Add Data</li>
+                        <li class="breadcrumb-item"><a>Pengaturan</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getGeneral') }}">Umum</a></li>
+                        <li class="breadcrumb-item active">Tambah Data</li>
                     </ol>
                 </div>
 
@@ -29,9 +29,14 @@
                 <div class="card-body">
 
                     <h4 class="card-title">Tambah Data Umum Baru</h4>
-                    <p class="card-title-desc">Halaman ini digunakan untuk menambahkan data umum baru. Lengkapi input di bawah untuk menambahkan data baru.</p>
+                    <p class="card-title-desc">
+                        Halaman ini digunakan untuk menambahkan data umum baru. Lengkapi input di bawah untuk menambahkan
+                        data baru.
+                        Pastikan data yang Anda masukkan sudah benar, termasuk nama, nilai, dan deskripsi.
+                    </p>
 
-                    <form id="addGeneral" action="{{ route('postAddGeneral') }}" method="post" enctype="multipart/form-data">
+                    <form id="addGeneral" action="{{ route('postAddGeneral') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nama</label>
@@ -60,7 +65,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" id="description">{{ old('description')}}</textarea>
+                                <textarea id="elm1" name="description" id="description">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -78,7 +83,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addGeneral">Add General</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addGeneral">Tambah Data Umum</button>
                             </div>
                         </div>
                     </form>

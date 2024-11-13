@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit General Data')
+@section('title', 'Edit Data Umum')
 
 @section('content')
     <!-- start page title -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a>Settings</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getGeneral') }}">General</a></li>
+                        <li class="breadcrumb-item"><a>Pengaturan</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getGeneral') }}">Umum</a></li>
                         <li class="breadcrumb-item active">Edit Data</li>
                     </ol>
                 </div>
@@ -28,7 +28,13 @@
                 <div class="card-body">
 
                     <h4 class="card-title">Edit Data: {{ $generals->name }} </h4>
-                    <p class="card-title-desc">Halaman ini digunakan untuk memperbarui data {{$generals->name}}.</p>
+                    <p class="card-title-desc">
+                        Halaman ini digunakan untuk memperbarui data <strong>{{ $generals->name }}</strong>. Anda dapat
+                        mengubah nilai,
+                        deskripsi, dan status aktif dari pengaturan yang dipilih. Pastikan semua perubahan yang Anda buat
+                        sudah benar
+                        sebelum menyimpannya.
+                    </p>
 
                     <form action="{{ route('postEditGeneral', ['id' => request()->query('id')]) }}" method="post"
                         enctype="multipart/form-data">
@@ -93,7 +99,6 @@
                             <input type="text" name="image" hidden value="{{ $generals->image }}">
                         @endif
 
-
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
@@ -110,8 +115,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Save & Update
-                                    General</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Simpan & Perbarui Data
+                                    Umum</button>
                             </div>
                         </div>
                     </form>
