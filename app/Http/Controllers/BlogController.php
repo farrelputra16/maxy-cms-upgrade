@@ -28,7 +28,7 @@ class BlogController extends Controller
     {
         // Validasi input
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
             'slug' => 'required|string|max:255|unique:m_blog,slug',  // Validasi slug unik
             'content' => 'required|string|max:16777215',
             'description' => 'nullable|string|max:65535',
@@ -96,7 +96,7 @@ class BlogController extends Controller
     {
         // Validasi input
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
             'slug' => 'required|string|max:255|unique:m_blog,slug,' . $request->id,  // Validasi slug unik kecuali untuk blog yang sedang di-edit
             'content' => 'nullable|string|max:16777215',
             'description' => 'nullable|string|max:65535',
@@ -134,7 +134,7 @@ class BlogController extends Controller
                 $blog->cover_img = $fileName;
                 $blog->status_highlight = $request->status_highlight == '' ? 0 : 1;
                 $blog->description = $request->description;
-                $blog->status = $request->status == '' ? 0 : 1;
+                $blog->status = $request->status == 0 ? 0 : 1;
                 $blog->created_id = Auth::user()->id;
                 $blog->updated_id = Auth::user()->id;
                 $blog->save();
@@ -184,7 +184,7 @@ class BlogController extends Controller
         // dd($request->all());
         // Validasi input
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
             'color' => 'required|string|max:8',  // Validasi untuk warna
             'description' => 'nullable|string|max:65535',  // Deskripsi opsional
         ]);
@@ -215,7 +215,7 @@ class BlogController extends Controller
     {
         // Validasi input
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
             'color' => 'required|string|max:8',  // Validasi untuk warna
             'description' => 'nullable|string|max:65535',  // Deskripsi opsional
             'status' => 'nullable|boolean',      // Status opsional
