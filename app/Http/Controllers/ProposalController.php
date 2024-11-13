@@ -81,6 +81,7 @@ class ProposalController extends Controller
                 ->update([
                     'm_proposal_status_id' => $request->status,
                     'proposal_grade' => $request->proposal_grade,
+                    'description' => $request->description,
                     'status' => 1,
                     'updated_id' => Auth::user()->id
                 ]);
