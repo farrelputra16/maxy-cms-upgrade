@@ -48,7 +48,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     value="{{ old('name', $event->name) }}">
@@ -60,7 +61,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Mulai</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Mulai <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" name="date_start" id="date"
                                     value="{{ old('date_start', $event->date_start) }}">
@@ -72,7 +74,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Akhir</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Akhir <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" name="date_end" id="date"
                                     value="{{ old('date_end', $event->date_end) }}">
@@ -96,7 +99,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-file" class="col-md-2 col-form-label">Gambar</label>
+                            <label for="input-file" class="col-md-2 col-form-label">Gambar <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10" style="height: 200px">
                                 <input class="form-control" type="file" name="image" id="image" accept="image/*"
                                     onchange="previewImage()">

@@ -31,11 +31,24 @@
 
                     <h4 class="card-title">Kehadiran</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan ringkasan data kehadiran secara interaktif dalam format DataTable yang dapat
-                        disesuaikan.
-                        Setiap baris mencakup informasi penting seperti nama, deskripsi, dan status kehadiran. Gunakan fitur
-                        <b>visibilitas kolom, pengurutan, dan kolom pencarian</b>
-                        untuk menyesuaikan tampilan sesuai kebutuhan Anda dan mengakses informasi tertentu dengan cepat.
+                        Halaman ini menyediakan ringkasan data kehadiran peserta untuk acara tertentu secara interaktif.
+                        Data ditampilkan dalam tabel yang dapat diatur sesuai kebutuhan Anda, termasuk informasi penting
+                        seperti nama peserta, deskripsi acara, dan status kehadiran.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li>Gunakan kolom <b>Nama Peserta</b> dan <b>Deskripsi</b> untuk melihat informasi peserta dan
+                            detail singkat tentang kehadiran mereka. Arahkan kursor pada teks untuk melihat informasi
+                            selengkapnya melalui tooltip.</li>
+                        <li>Perhatikan kolom <b>Status</b> untuk mengetahui apakah peserta sudah <i>Hadir</i> atau masih
+                            dalam status <i>Terdaftar</i>.</li>
+                        <li>Manfaatkan fitur <b>Visibilitas Kolom</b> dan <b>Pencarian</b> untuk menyaring dan menemukan
+                            informasi spesifik secara efisien.</li>
+                        <li>Gunakan tombol <b>Verifikasi</b> di kolom <b>Aksi</b> untuk melakukan verifikasi kehadiran
+                            peserta sesuai kebutuhan acara.</li>
+                        <li>Kolom <b>Dibuat Pada</b> dan <b>Diperbarui Pada</b> membantu melacak riwayat entri kehadiran,
+                            termasuk siapa yang membuat dan memperbarui data terakhir kali.</li>
+                    </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
