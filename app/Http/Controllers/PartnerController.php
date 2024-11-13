@@ -35,13 +35,13 @@ class PartnerController extends Controller
 
 
         $validate = $request->validate([
-            'name' => 'required',
+            'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
             'type' => 'required',
-            'url' => 'required',
-            'address' => 'required',
-            'email' => 'required',
-            'phone' => 'required|numeric',
-            'contact_person' => 'required|numeric',
+            'url' => 'required|url|max:255',
+            'address' => 'required|regex:/^[a-zA-Z0-9\s.,\-\/]+$/|max:65355',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|regex:/^\+?[0-9\s\-]+$/|max:255',
+            'contact_person' => 'required',
         ]);
 
         if ($validate){
@@ -92,12 +92,12 @@ class PartnerController extends Controller
         }
 
         $validate = $request->validate([
-            'name' => 'required',
+            'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
             'type' => 'required',
-            'url' => 'required',
-            'address' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
+            'url' => 'required|url|max:255',
+            'address' => 'required|regex:/^[a-zA-Z0-9\s.,\-\/]+$/|max:65355',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|regex:/^\+?[0-9\s\-]+$/|max:255',
             'contact_person' => 'required',
         ]);
 
