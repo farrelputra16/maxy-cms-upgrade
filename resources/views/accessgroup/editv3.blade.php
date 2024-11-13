@@ -44,7 +44,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Grup Akses</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Grup Akses (Peran) <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $accessgroups->name) }}" id="name">

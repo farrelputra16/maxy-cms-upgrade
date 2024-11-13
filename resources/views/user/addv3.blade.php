@@ -35,7 +35,8 @@
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     placeholder="Masukkan Nama" value="{{ old('name') }}">
@@ -61,7 +62,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Email</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Email <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="email" name="email" id="email"
                                     placeholder="Masukkan Email" value="{{ old('email') }}">
@@ -74,7 +76,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Peran</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Peran <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="access_group" data-placeholder="Pilih Peran ..."
                                     id="type_selector">
@@ -93,7 +96,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nomor Telepon</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nomor Telepon <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="phone" id="phone"
                                     placeholder="Masukkan Nomor Telepon"
@@ -107,7 +111,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Kata Sandi</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Kata Sandi <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="password" name="password" id="password"
                                     placeholder="Masukkan Kata Sandi" value="{{ old('password') }}">

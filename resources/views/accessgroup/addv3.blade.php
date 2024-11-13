@@ -36,7 +36,8 @@
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Grup Akses</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Grup Akses (Peran) <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     placeholder="Masukkan Nama Grup Akses" value="{{ old('name') }}">
@@ -61,7 +62,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Pilih Hak Akses</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Pilih Hak Akses <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2 select2-multiple" multiple="multiple"
                                     name="access_master[]" id="access_master" data-placeholder="Pilih Hak Akses">

@@ -36,7 +36,8 @@
                     <form method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Lengkap</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Lengkap <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $currentData->name) }}" id="name">
@@ -48,7 +49,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Panggilan</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Panggilan <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="nickname"
                                     value="{{ old('nickname', $currentData->nickname) }}" id="nickname">
@@ -60,7 +62,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Grup Akses</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Peran <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="access_group"
                                     data-placeholder="Pilih Grup Akses...">
@@ -78,7 +81,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nomor Telepon</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nomor Telepon <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="phone"
                                     value="{{ old('phone', $currentData->phone) }}" id="phone"
@@ -91,7 +95,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Email</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Email <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="email" name="email"
                                     value="{{ old('email', $currentData->email) }}" id="email">
@@ -103,7 +108,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Kata Sandi</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Kata Sandi <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="password" name="password"
                                     value="{{ old('password', $currentData->paswword) }}" id="password">
