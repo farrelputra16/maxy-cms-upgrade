@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Order')
+@section('title', 'Pesanan')
 
 @section('content')
     <!-- begin page title -->
