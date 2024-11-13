@@ -29,8 +29,15 @@
 
                     <h4 class="card-title">Tambah Tingkat Kesulitan</h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda untuk menambahkan tingkat kesulitan baru pada Paket Kursus. 
+                        Halaman ini memungkinkan Anda untuk menambahkan tingkat kesulitan baru pada Paket Kursus.
                         Isikan informasi berikut untuk menggambarkan tingkat kesulitan yang akan dihadapi peserta selama mengikuti kursus.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                        <ul>
+                            <li><strong>Nama Tingkat Kesulitan:</strong> Isi kolom dengan nama tingkat kesulitan (misalnya, Mudah, Menengah, Sulit) yang sesuai.</li>
+                            <li><strong>Deskripsi:</strong> Jelaskan secara singkat deskripsi tingkat kesulitan tersebut, seperti level keterampilan atau tantangan yang dihadapi peserta.</li>
+                            <li>Setelah semua detail terisi, gunakan tombol <strong>'Tambah Tingkat Kesulitan'</strong> untuk menyimpan perubahan yang telah Anda buat.</li>
+                        </ul>
                     </p>
 
                     <form id="addDifficultyType" action="{{ route('postAddDifficultyType') }}" method="post"
@@ -39,7 +46,8 @@
                         {{-- <input type="text" name="img_keep" value="{{ $blog->cover_img }}" hidden> --}}
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Tingkat Kesulitan</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Tingkat Kesulitan <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"" id="name"
                                     placeholder="Masukkan Nama Tingkat Kesulitan" value="{{ old('name') }}">

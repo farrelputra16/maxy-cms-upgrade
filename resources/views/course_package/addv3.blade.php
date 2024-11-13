@@ -29,7 +29,7 @@
 
                 <h4 class="card-title">Tambah Paket Kursus</h4>
                 <p class="card-title-desc">
-                    Halaman ini memungkinkan Anda untuk menambahkan paket kursus baru. 
+                    Halaman ini memungkinkan Anda untuk menambahkan paket kursus baru.
                     Isi informasi berikut untuk membuat paket kursus yang sesuai dengan kebutuhan Anda.
                 </p>
 
@@ -37,7 +37,8 @@
                     @csrf
 
                     <div class="mb-3 row">
-                        <label for="input-title" class="col-md-2 col-form-label">Nama Paket Kursus</label>
+                        <label for="input-title" class="col-md-2 col-form-label">Nama Paket Kursus <span class="text-danger"
+                            data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                         <div class="col-md-10">
                             <input class="form-control" type="text" name="name"" placeholder=" Masukkan Nama Paket" value="{{ old('name') }}">
                             @if ($errors->has('name'))
@@ -60,7 +61,8 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="input-title" class="col-md-2 col-form-label">Harga Fiktif</label>
+                        <label for="input-title" class="col-md-2 col-form-label">Harga Fiktif <span class="text-danger"
+                            data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                         <div class="col-md-10">
                             <input class="form-control" type="text" name="fake" id="fake_price"
                                 placeholder="Masukkan Fake Price" value="{{ old('fake') }}">
@@ -72,7 +74,8 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="input-title" class="col-md-2 col-form-label">Harga</label>
+                        <label for="input-title" class="col-md-2 col-form-label">Harga <span class="text-danger"
+                            data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                         <div class="col-md-10">
                             <input class="form-control" type="text" id="price" name="price"
                                 placeholder="Masukkan Price" value="{{ old('price') }}">

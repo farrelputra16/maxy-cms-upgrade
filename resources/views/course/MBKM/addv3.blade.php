@@ -29,17 +29,18 @@
 
                     <h4 class="card-title">Tambah MBKM Baru</h4>
                     <p class="card-title-desc">
-                        Silakan lengkapi informasi kursus di bawah ini. 
+                        Silakan lengkapi informasi kursus di bawah ini.
                         Pastikan data yang Anda masukkan benar agar peserta kursus mendapatkan pengalaman belajar yang terbaik.
                     </p>
-                    
+
 
                     <form id="mbkmForm" action="{{ route('postAddCourse') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         {{-- <input type="text" name="img_keep" value="{{ $blog->cover_img }}" hidden> --}}
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama MBKM</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama MBKM <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     placeholder="Masukkan Nama MBKM" value="{{ old('name') }}" required>
@@ -51,7 +52,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
+                            <label for="input-slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug" id="slug" readonly required>
                                 @if ($errors->has('slug'))
@@ -87,7 +89,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Jenis MBKM</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Jenis MBKM <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <!-- Menampilkan nilai MBKM yang sudah dipilih dan tidak bisa diubah -->
                                 <input class="form-control" type="text" value="MBKM" disabled>
@@ -125,11 +128,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="file" name="file_image" id="input-file"
                                     accept="image/*" onchange="previewImage()" required>
-                        
+
                                 <!-- Preview gambar yang dipilih -->
                                 <img id="frame" src="" alt="Preview Image" class="img-fluid"
                                     style="margin-top: 20px; max-height: 180px; object-fit: contain; display: block;" />
-                        
+
                                 <br>
                                 @if ($errors->has('file_image'))
                                     @foreach ($errors->get('file_image') as $error)
@@ -137,7 +140,7 @@
                                     @endforeach
                                 @endif
                             </div>
-                        </div>                                                                     
+                        </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Konten Tambahan<small>(isi)</small></label>
                             <div class="col-md-10">

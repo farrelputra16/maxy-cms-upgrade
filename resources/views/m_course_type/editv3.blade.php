@@ -28,7 +28,7 @@
                 <div class="card-body">
                     <h4 class="card-title">{{ $currentData->name }} <small>[ ID: {{ $currentData->id }} ]</small></h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda memperbarui informasi jenis kursus. 
+                        Halaman ini memungkinkan Anda memperbarui informasi jenis kursus.
                         Pastikan detail yang dimasukkan akurat agar peserta mendapatkan pengalaman belajar terbaik.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
@@ -43,7 +43,8 @@
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Jenis Kursus</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Jenis Kursus <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $currentData->name) }}" id="name">
@@ -55,7 +56,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
+                            <label for="input-slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug"
                                     value="{{ old('slug', $currentData->slug) }}" id="slug" readonly>

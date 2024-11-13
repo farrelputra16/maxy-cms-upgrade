@@ -45,7 +45,8 @@
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="name" class="col-md-2 col-form-label">Name Kursus</label>
+                            <label for="name" class="col-md-2 col-form-label">Nama Kursus <span class="text-danger"
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     placeholder="Masukkan Nama Course" value="{{ old('name') }}">
@@ -57,7 +58,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="slug" class="col-md-2 col-form-label">Slug</label>
+                            <label for="slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug" id="slug" readonly
                                     value="{{ old('slug') }}">
@@ -100,7 +102,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Kursus</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Kursus <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="type" data-placeholder="Pilih ..."
                                     id="type_selector">
@@ -197,7 +200,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-duration" class="col-md-2 col-form-label">Durasi <small>(dalam menit)</small></label>
+                            <label for="input-duration" class="col-md-2 col-form-label">Durasi <small>(dalam
+                                    menit)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration" id="duration"
                                     value="{{ old('duration') }}" min="0">
@@ -304,7 +308,7 @@
                 document.getElementById('slug').value = slug;
             });
 
-            if(env('APP_ENV') != 'local') {
+            if (env('APP_ENV') != 'local') {
                 function toggleFieldsByCourseType(value) {
                     if (value == 1) { // Bootcamp
                         $("#show_course_package").show();

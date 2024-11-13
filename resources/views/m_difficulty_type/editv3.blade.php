@@ -29,7 +29,7 @@
 
                     <h4 class="card-title">{{ $currentData->name }} <small>[ ID: {{ $currentData->id }} ]</small></h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda untuk memperbarui informasi tingkat kesulitan pada paket kursus. 
+                        Halaman ini memungkinkan Anda untuk memperbarui informasi tingkat kesulitan pada paket kursus.
                         Pastikan semua detail yang dimasukkan akurat agar peserta dapat memahami dengan jelas tingkat kesulitan yang akan mereka hadapi.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
@@ -38,14 +38,15 @@
                             <li><strong>Deskripsi:</strong> Jelaskan secara singkat deskripsi tingkat kesulitan tersebut, seperti level keterampilan atau tantangan yang dihadapi peserta.</li>
                             <li>Setelah semua detail terisi, gunakan tombol <strong>'Simpan & Perbarui'</strong> untuk menyimpan perubahan yang telah Anda buat.</li>
                         </ul>
-                    </p>                    
+                    </p>
 
                     <form action="{{ route('postEditDifficultyType', ['id' => request()->query('id')]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Tingkat Kesulitan</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Tingkat Kesulitan <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $currentData->name) }}" id="name">

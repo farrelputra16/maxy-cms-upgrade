@@ -28,7 +28,7 @@
                 <div class="card-body">
                     <h4 class="card-title">{{ $coursePackages->name }} <small>[ ID: {{ $coursePackages->id }} ]</small></h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda memperbarui informasi paket kursus. 
+                        Halaman ini memungkinkan Anda memperbarui informasi paket kursus.
                         Pastikan detail yang dimasukkan akurat agar peserta mendapatkan pengalaman belajar terbaik.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
@@ -36,13 +36,14 @@
                             <li>Isi kolom Nama Paket Kursus, Link Pembayaran, Deskrips, dan kolom lainnya sesuai kebutuhan.</li>
                             <li>Setelah semua detail terisi, gunakan tombol <strong>'Simpan & Perbarui'</strong> untuk menyimpan perubahan.</li>
                         </ul>
-                    </p>                    
+                    </p>
                     <form action="{{ route('postEditCoursePackage', ['id' => $coursePackages->id]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Nama Paket Kursus</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Nama Paket Kursus <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     value="{{ old('name', $coursePackages->name) }}">
@@ -66,7 +67,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Harga Fiktif</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Harga Fiktif <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="fake" id="fake_price"
                                     value="{{ old('fake', $coursePackages->fake_price) }}">
@@ -78,7 +80,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Harga</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Harga <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" id="price" name="price"
                                     value="{{ old('price', $coursePackages->price) }}">
@@ -100,13 +103,13 @@
                             <div class="col-md-10 d-flex align-items-center">
                                 <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
                                 <input type="hidden" name="status" value="0">
-                        
+
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
                                     value="1" name="status"
                                     {{ old('status', $coursePackages->status) ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
-                        </div>                        
+                        </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary w-md text-center">Simpan & Perbarui</button>

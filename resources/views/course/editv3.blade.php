@@ -37,14 +37,16 @@
                         <input type="text" name="img_keep" value="{{ $courses->file_image }}" hidden>
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name Kursus</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Name Kursus <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $courses->name) }}" id="name">
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
+                            <label for="input-slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug"
                                     value="{{ old('slug', $courses->slug) }}" id="slug" readonly>
@@ -113,7 +115,7 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         @if (env('APP_ENV') != 'local')
                             <div id="show_course_package" class="mb-3 row">
                                 <label for="input-package" class="col-md-2 col-form-label">Paket Kursus</label>
@@ -287,7 +289,7 @@
                 previewImage.style.display = "none";
             }
         }
-        
+
         $(document).ready(function() {
             // autofill slug
             document.getElementById('name').addEventListener('input', function() {
@@ -295,7 +297,7 @@
                 var slug = name.toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
                 document.getElementById('slug').value = slug;
             });
-            
+
             if (env('APP_ENV') != 'local') {
                 function toggleFieldsByCourseType(value) {
                     if (value == 1) { // Bootcamp

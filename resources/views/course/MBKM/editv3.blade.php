@@ -48,7 +48,8 @@
                         <input type="text" name="img_keep" value="{{ $courses->image }}" hidden>
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama MBKM</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama MBKM <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     value="{{ old('name', $courses->name) }}" required>
@@ -60,7 +61,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
+                            <label for="input-slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug" id="slug"
                                     value="{{ old('slug', $courses->slug) }}" readonly required>

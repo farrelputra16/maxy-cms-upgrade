@@ -29,7 +29,7 @@
 
                     <h4 class="card-title">Tambah Jenis Kursus</h4>
                     <p class="card-title-desc">
-                        Silakan lengkapi informasi jenis kursus di bawah ini. 
+                        Silakan lengkapi informasi jenis kursus di bawah ini.
                         Pastikan data yang Anda masukkan akurat untuk memberikan pengalaman belajar terbaik kepada peserta.
                     </p>
 
@@ -38,7 +38,8 @@
                         {{-- <input type="text" name="img_keep" value="{{ $blog->cover_img }}" hidden> --}}
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Jenis Kursus</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Jenis Kursus <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"" id="name"
                                     placeholder="Masukkan Nama Jenis Kursus" value="{{ old('name') }}">
@@ -50,7 +51,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
+                            <label for="input-slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug"" id="slug" value="{{ old('slug') }}">
                                 @if ($errors->has('slug'))
