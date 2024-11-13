@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tipe Event')
+@section('title', 'Event')
 
 @section('content')
     <!-- Begin Page Title -->
