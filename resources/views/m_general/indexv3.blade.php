@@ -30,12 +30,27 @@
                 <div class="card-body">
                     <h4 class="card-title">Pengaturan Umum</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan seluruh data umum terkait dengan pengaturan seperti logo instansi, alamat
-                        instansi, kontak instansi, dan lain-lain. Anda dapat melihat detail pengaturan melalui tabel di
-                        bawah ini,
-                        yang mencakup nama, nilai, deskripsi, status, dan waktu pembuatan serta pembaruan.
-                        Gunakan fitur <b>visibilitas kolom, pengurutan, dan kolom pencarian</b> untuk mencari dan memfilter
-                        data dengan mudah. Klik tombol <b>Edit</b> pada kolom Aksi untuk memperbarui data pengaturan.
+                        Halaman ini menyediakan akses ke pengaturan umum sistem yang meliputi logo, alamat, kontak, dan
+                        berbagai data institusi lainnya. Anda dapat melihat dan mengelola detail pengaturan umum ini melalui
+                        tabel di bawah, yang menampilkan informasi seperti nama pengaturan, isi, deskripsi, status, serta
+                        waktu pembuatan dan pembaruan.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li>Kolom <b>Nama</b> dan <b>Isi</b> menampilkan nama pengaturan dan nilai dari pengaturan tersebut,
+                            seperti alamat atau nomor kontak. Arahkan kursor pada teks untuk melihat informasi lebih lengkap
+                            melalui tooltip.</li>
+                        <li>Gunakan kolom <b>Deskripsi</b> untuk memahami fungsi atau tujuan dari setiap pengaturan secara
+                            lebih mendalam.</li>
+                        <li>Kolom <b>Status</b> menunjukkan apakah pengaturan tersebut sedang aktif (ditandai dengan tombol
+                            hijau) atau non-aktif (tombol merah), membantu Anda memverifikasi pengaturan yang sedang
+                            diterapkan.</li>
+                        <li>Gunakan tombol <b>Edit</b> di kolom Aksi untuk memperbarui informasi pengaturan, seperti
+                            mengubah logo institusi atau memperbarui informasi kontak.</li>
+                        <li>Untuk menambahkan pengaturan baru, klik tombol tambah di sudut kanan bawah halaman ini.</li>
+                        <li>Manfaatkan fitur <b>Visibilitas Kolom</b>, <b>Pengurutan</b>, dan <b>Pencarian</b> untuk
+                            memfilter dan mencari pengaturan tertentu dengan cepat sesuai kebutuhan.</li>
+                    </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
