@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Event Requirement')
+@section('title', 'Edit Persyaratan Event')
 
 @section('content')
     <!-- start page title -->
@@ -13,8 +13,8 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getEvent') }}">Event</a></li>
-                        <li class="breadcrumb-item"><a>Requirement</a></li>
-                        <li class="breadcrumb-item active">Edit Event Requirement</li>
+                        <li class="breadcrumb-item"><a>Persyaratan</a></li>
+                        <li class="breadcrumb-item active">Edit Persyaratan Event</li>
                     </ol>
                 </div>
 
@@ -28,20 +28,21 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Requirement</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Edit Persyaratan</h4>
+                    <p class="card-title-desc">
+                        Halaman ini memungkinkan Anda memperbarui informasi persyaratan dengan mengubah data di bawah ini.
+                        Pastikan semua informasi yang Anda masukkan akurat untuk memberikan pengalaman terbaik bagi peserta
+                        event.
+                    </p>
 
-                    <form action="{{ route('postEditEventRequirement') }}" method="post"
-                        enctype="multipart/form-data">
+                    <form action="{{ route('postEditEventRequirement') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="id" value="{{ $requirement->id }}">
                         <input type="hidden" name="event_id" value="{{ $event_id }}">
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name"" id="name"
+                                <input class="form-control" type="text" name="name" id="name"
                                     value="{{ $requirement->name }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
@@ -51,7 +52,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description">{{ $requirement->description }}</textarea>
                                 @if ($errors->has('description'))
@@ -62,14 +63,14 @@
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
-                            <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Upload File</label>
+                            <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Unggah Berkas</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
                                     name="upload" {{ $requirement->is_upload == 1 ? 'checked' : '' }}>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
-                            <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Required</label>
+                            <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Wajib</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
                                     name="required" {{ $requirement->is_required == 1 ? 'checked' : '' }}>
@@ -85,7 +86,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Edit Requirement</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Edit Persyaratan</button>
                             </div>
                         </div>
                     </form>

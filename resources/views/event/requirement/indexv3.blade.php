@@ -1,20 +1,20 @@
 @extends('layout.main-v3')
 
-@section('title', 'Requirement')
+@section('title', 'Persyaratan')
 
 @section('content')
     <!-- Begin Page Title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
+                <h4 class="mb-sm-0 font-size-18">Ringkasan Data</h4>
 
                 <!-- Begin Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href={{ route('getEvent') }}>Event</a></li>
-                        <li class="breadcrumb-item active">Requirement</li>
+                        <li class="breadcrumb-item"><a href={{ route('getEvent') }}>Acara</a></li>
+                        <li class="breadcrumb-item active">Persyaratan</li>
                     </ol>
                 </div>
                 <!-- End Breadcrumb -->
@@ -28,13 +28,14 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Requirements for {{ $event->name }}</h4>
+                    <h4 class="card-title">Persyaratan untuk {{ $event->name }}</h4>
                     <p class="card-title-desc">
-                        This page presents a comprehensive overview of all available data, displayed in an interactive
-                        and sortable DataTable format. Each row represents a unique data, providing key details such as
-                        name, description, and status. Utilize the <b>column visibility, sorting, and column search bar</b>
-                        features to
-                        customize your view and quickly access the specific information you need.
+                        Halaman ini menampilkan informasi lengkap tentang persyaratan acara yang tersedia dalam format
+                        DataTable interaktif. Setiap baris mencakup detail penting seperti nama, keterangan, dan status
+                        persyaratan.
+                        Gunakan fitur <b>visibilitas kolom, pengurutan, dan kolom pencarian</b> untuk menyesuaikan tampilan
+                        dan
+                        dengan mudah mengakses informasi yang Anda butuhkan.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -42,16 +43,16 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Name</th>
+                                <th class="data-medium">Nama</th>
                                 <th>Upload</th>
-                                <th>Required</th>
-                                <th class="data-long">Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Wajib</th>
+                                <th class="data-long">Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>Id Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Id Pembaruan</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -66,16 +67,16 @@
                                     </td>
                                     <td>
                                         @if ($item->is_upload == 1)
-                                            <a class="btn btn-success" style="pointer-events: none;">Yes</a>
+                                            <a class="btn btn-success" style="pointer-events: none;">Ya</a>
                                         @else
-                                            <a class="btn btn-danger" style="pointer-events: none;">No</a>
+                                            <a class="btn btn-danger" style="pointer-events: none;">Tidak</a>
                                         @endif
                                     </td>
                                     <td>
                                         @if ($item->is_required == 1)
-                                            <a class="btn btn-success" style="pointer-events: none;">Yes</a>
+                                            <a class="btn btn-success" style="pointer-events: none;">Ya</a>
                                         @else
-                                            <a class="btn btn-danger" style="pointer-events: none;">No</a>
+                                            <a class="btn btn-danger" style="pointer-events: none;">Tidak</a>
                                         @endif
                                     </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
@@ -94,7 +95,6 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditEventRequirement', ['id' => $item->id, 'event_id' => $event->id]) }}"
                                             class="btn btn-primary rounded">Edit</a>
                                     </td>
@@ -105,16 +105,16 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Name</th>
+                                <th class="data-medium">Nama</th>
                                 <th>Upload</th>
-                                <th>Required</th>
-                                <th class="data-long">Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Wajib</th>
+                                <th class="data-long">Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>Id Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Id Pembaruan</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>
