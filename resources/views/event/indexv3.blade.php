@@ -12,8 +12,8 @@
                 <!-- Begin Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Tipe Event</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Konten</a></li>
+                        <li class="breadcrumb-item active">Event</li>
                     </ol>
                 </div>
                 <!-- End Breadcrumb -->
@@ -29,7 +29,22 @@
                 <div class="card-body">
                     <h4 class="card-title">Event</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan data event atau kegiatan. Detail terkait event dapat diakses melalui tabel di bawah.
+                        Halaman ini menampilkan data lengkap dari semua event atau kegiatan yang terdaftar dalam tabel
+                        interaktif. Setiap baris berisi informasi penting, seperti nama event, tanggal, deskripsi, serta
+                        status publikasi dan verifikasi. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian
+                            kolom</b> untuk menyesuaikan tampilan dan menemukan event yang Anda butuhkan dengan cepat.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li><strong>Atur Kolom:</strong> Sesuaikan kolom yang terlihat untuk memfokuskan pada data tertentu.
+                        </li>
+                        <li><strong>Urutkan & Cari:</strong> Klik judul kolom untuk mengurutkan data atau gunakan pencarian
+                            untuk menemukan event berdasarkan kata kunci.</li>
+                        <li><strong>Edit & Akses Kehadiran:</strong> Gunakan tombol di kolom “Aksi” untuk mengedit detail
+                            event, memeriksa kehadiran, atau mengelola persyaratan.</li>
+                        <li><strong>Tambah Event:</strong> Klik ikon <em>Tambah</em> di kanan bawah untuk menambahkan event
+                            baru.</li>
+                    </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
