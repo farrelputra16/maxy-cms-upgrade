@@ -79,11 +79,11 @@
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             <li><a href="{{ route('getUser') }}" key="t-user">Pengguna</a></li>
-                            <li><a href="{{ route('getAccessGroup') }}" key="t-access-group">Grup Akses</a></li>
+                            <li><a href="{{ route('getAccessGroup') }}" key="t-access-group">Hak Grup Akses (Peran)</a></li>
                             <li><a href="{{ route('getAccessMaster') }}" key="t-access-master">Hak Akses Utama</a></li>
                         </ul>
                     </li>
-                    
+
                     @if (env('APP_ENV') != 'local')
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
