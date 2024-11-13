@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add New Blog')
+@section('title', 'Tambah Blog Baru')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Add New Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Data Baru</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getBlog') }}">Blog</a></li>
-                        <li class="breadcrumb-item active">Add New Blog</li>
+                        <li class="breadcrumb-item active">Tambah Blog Baru</li>
                     </ol>
                 </div>
 
@@ -28,12 +28,17 @@
                 <div class="card-body">
 
                     <h4 class="card-title">Tambah Blog Baru</h4>
-                    <p class="card-title-desc">Halaman ini digunakan untuk membuat data blog yang baru.</p>
+                    <p class="card-title-desc">
+                        Halaman ini digunakan untuk membuat artikel blog baru. Isi form di bawah ini dengan informasi yang
+                        diperlukan,
+                        seperti judul, slug, konten, gambar, dan tag yang relevan. Anda dapat menentukan apakah artikel ini
+                        akan ditampilkan
+                        dengan status aktif dan menambah deskripsi singkat untuk admin.
+                        Pastikan semua data yang dimasukkan sudah benar sebelum mengirimkan formulir ini.
+                    </p>
 
                     <form id="addBlog" action="{{ route('postAddBlog') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        {{-- <input type="text" name="img_keep" value="{{ $blog->cover_img }}" hidden> --}}
-
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Judul</label>
                             <div class="col-md-10">
@@ -62,8 +67,8 @@
                             <label for="input-tag" class="col-md-2 col-form-label">Tags</label>
                             <div class="col-md-10">
                                 <select class="form-control select2 select2-multiple" multiple="multiple" name="tag[]"
-                                    data-placeholder="Choose ...">
-                                    <option>Select</option>
+                                    data-placeholder="Pilih Tag...">
+                                    <option>Pilih</option>
                                     @foreach ($data as $item)
                                         <option value="{{ $item->id }}"
                                             {{ in_array($item->id, old('tag', [])) ? 'selected' : '' }}> {{ $item->name }}
@@ -117,7 +122,7 @@
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
-                                    form="addBlog">Submit</button>
+                                    form="addBlog">Tambah Blog</button>
                             </div>
                         </div>
                     </form>

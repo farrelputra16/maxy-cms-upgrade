@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
+                <h4 class="mb-sm-0 font-size-18">Ringkasan Data</h4>
 
                 <!-- begin breadcrumb -->
                 <div class="page-title-right">
@@ -30,7 +30,12 @@
 
                     <h4 class="card-title">Data Tag Blog</h4>
                     <p class="card-title-desc">
-                        Halaman ini berisi data informasi tag blog yang akan digunakan di halaman blog. Detail informasi tag blog dapat dilihat pada table di bawah.
+                        Halaman ini berisi data informasi tag blog yang akan digunakan di halaman blog. Anda dapat melihat
+                        detail informasi tag blog seperti nama tag, warna, deskripsi, dan status aktif pada tabel di bawah
+                        ini.
+                        Gunakan fitur <b>visibilitas kolom, pengurutan, dan kolom pencarian</b> untuk menavigasi dan
+                        menemukan data
+                        tag blog dengan lebih mudah. Klik tombol <b>Edit</b> pada kolom Aksi untuk memperbarui tag blog.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -41,15 +46,14 @@
                                 <th>Nama</th>
                                 <th>Warna</th>
                                 <th>Deskripsi</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Dibuat Pada</th>
+                                <th>Id Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Id Pembaruan</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-
 
                         <tbody>
                             @foreach ($data as $key => $item)
@@ -66,7 +70,6 @@
                                             style="color: {{ $item->color }}; background-color: {{ $item->color }}">-
                                         </div>
                                     </td>
-
 
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->description) !!}">
@@ -96,15 +99,15 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Name</th>
-                                <th>Color</th>
-                                <th class="data-long">Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th class="data-medium">Nama</th>
+                                <th>Warna</th>
+                                <th class="data-long">Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>Id Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Id Pembaruan</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>

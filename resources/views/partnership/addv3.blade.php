@@ -1,20 +1,20 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add Partnership')
+@section('title', 'Tambah Kerja Sama')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Add New Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Data Baru</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a>Content</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getPartnership') }}">Partnerships</a></li>
-                        <li class="breadcrumb-item active">Add New Partnership</li>
+                        <li class="breadcrumb-item"><a>Konten</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getPartnership') }}">Kerja Sama</a></li>
+                        <li class="breadcrumb-item active">Tambah Kerja Sama Baru</li>
                     </ol>
                 </div>
 
@@ -28,17 +28,25 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Tambah Data Kerjasama Baru</h4>
-                    <p class="card-title-desc">Halaman ini digunakan untuk menambahkan data kerja sama baru.</p>
+                    <h4 class="card-title">Tambah Data Kerja Sama Baru</h4>
+                    <p class="card-title-desc">
+                        Halaman ini memungkinkan Anda untuk menambahkan data kerja sama baru. Untuk menambah kerja sama,
+                        pilih mitra, tipe kerja sama, unggah gambar, serta tentukan tanggal mulai dan akhir kerja sama.
+                        Jangan lupa untuk menambahkan deskripsi dan memilih status kerja sama, apakah aktif atau tidak.
+                        Pastikan semua data yang dimasukkan sudah benar sebelum mengirimkan formulir ini.
+                    </p>
 
-                    <form id="addPartnership" action="{{ route('postAddPartnership') }}" method="post" enctype="multipart/form-data">
+                    <form id="addPartnership" action="{{ route('postAddPartnership') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Partner</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Mitra</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="partner" data-placeholder="Choose ...">
+                                <select class="form-control select2" name="partner" data-placeholder="Pilih Mitra...">
                                     @foreach ($partners as $item)
-                                        <option value="{{ $item->id }}" {{ old('partner') == $item->id ? 'selected' : '' }}> {{ $item->name }} </option>
+                                        <option value="{{ $item->id }}"
+                                            {{ old('partner') == $item->id ? 'selected' : '' }}> {{ $item->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('partner'))
@@ -49,11 +57,14 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Kerjasama</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Kerja Sama</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="partnership_type" data-placeholder="Choose ...">
+                                <select class="form-control select2" name="partnership_type"
+                                    data-placeholder="Pilih Tipe Kerja Sama...">
                                     @foreach ($partnership_types as $item)
-                                        <option value="{{ $item->id }}" {{ old('partnership_type') == $item->id ? 'selected' : '' }}> {{ $item->name }} </option>
+                                        <option value="{{ $item->id }}"
+                                            {{ old('partnership_type') == $item->id ? 'selected' : '' }}>
+                                            {{ $item->name }} </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -74,7 +85,8 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Tanggal Mulai</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="date" name="date_start" id="date_start" value="{{ old('date_start') }}">
+                                <input class="form-control" type="date" name="date_start" id="date_start"
+                                    value="{{ old('date_start') }}">
                                 @if ($errors->has('date_start'))
                                     @foreach ($errors->get('date_start') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -85,7 +97,8 @@
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Tanggal Akhir</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="date" name="date_end" id="date_end" value="{{ old('date_end') }}">
+                                <input class="form-control" type="date" name="date_end" id="date_end"
+                                    value="{{ old('date_end') }}">
                                 @if ($errors->has('date_end'))
                                     @foreach ($errors->get('date_end') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -114,7 +127,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addPartnership">Add Partnership</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addPartnership">Tambah Kerja Sama</button>
                             </div>
                         </div>
                     </form>

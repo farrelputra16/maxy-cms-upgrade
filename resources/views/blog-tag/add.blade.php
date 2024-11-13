@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add New Blog Tag')
+@section('title', 'Tambah Tag Blog Baru')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Add New Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Data Baru</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getBlogTag') }}">Blog Tag</a></li>
-                        <li class="breadcrumb-item active">Add New Blog Tag</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getBlogTag') }}">Tag Blog</a></li>
+                        <li class="breadcrumb-item active">Tambah Tag Blog Baru</li>
                     </ol>
                 </div>
 
@@ -29,7 +29,13 @@
                 <div class="card-body">
 
                     <h4 class="card-title">Tambah Data Tag Blog Baru</h4>
-                    <p class="card-title-desc">Halaman ini digunakan untuk menambah data tag blog baru.</p>
+                    <p class="card-title-desc">
+                        Halaman ini digunakan untuk menambah data tag blog baru. Silakan isi nama tag, pilih warna yang
+                        sesuai,
+                        serta beri deskripsi singkat tentang tag ini. Anda juga dapat menentukan status tag apakah aktif
+                        atau tidak.
+                        Pastikan semua data yang dimasukkan sudah benar sebelum menyimpan.
+                    </p>
 
                     <form id="addBlogTag" action="{{ route('postAddBlogTag') }}" method="post"
                         enctype="multipart/form-data">
@@ -50,7 +56,7 @@
                         <div class="mb-3 row">
                             <label for="input-color" class="col-md-2 col-form-label">Warna</label>
                             <div class="col-md-10">
-                                <input class="form-control color-picker" type="text" value="{{ old('color') }}"
+                                <input class="form-control color-picker" type="text" value="{{ old('color') }} "
                                     name="color" id="input-color">
                                 @if ($errors->has('color'))
                                     @foreach ($errors->get('color') as $error)
@@ -84,7 +90,7 @@
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
-                                    form="addBlogTag">Submit</button>
+                                    form="addBlogTag">Kirim</button>
                             </div>
                         </div>
                     </form>

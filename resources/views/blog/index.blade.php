@@ -7,13 +7,13 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
+                <h4 class="mb-sm-0 font-size-18">Ringkasan Data</h4>
 
                 <!-- begin breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Course</li>
+                        <li class="breadcrumb-item active">Blog</li>
                     </ol>
                 </div>
                 <!-- end breadcrumb -->
@@ -30,7 +30,10 @@
 
                     <h4 class="card-title">Data Blog</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan table yang berisi data blog.
+                        Halaman ini menampilkan tabel yang berisi data blog. Anda dapat melihat informasi penting seperti
+                        judul, slug, konten, tag, highlight, dan status dari setiap artikel blog. Gunakan fitur
+                        <b>visibilitas kolom, pengurutan, dan kolom pencarian</b> untuk menyaring dan mengakses data blog dengan lebih cepat.
+                        Untuk mengedit data blog, klik tombol <b>Edit</b> di kolom Aksi.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -41,14 +44,13 @@
                                 <th>Judul</th>
                                 <th>Slug</th>
                                 <th>Konten</th>
-                                {{-- <th>Cover Image</th> --}}
                                 <th>Tags</th>
                                 <th>Highlight</th>
                                 <th>Deskripsi</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Dibuat Pada</th>
+                                <th>Id Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Id Pembaruan</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -71,11 +73,6 @@
                                         title="{!! strip_tags($item->content) !!}">
                                         {!! \Str::limit(strip_tags($item->content), 30) !!}
                                     </td>
-
-                                    {{-- <td>
-                                        <img src="{{ asset('uploads/blog/' . $item->slug . '/' . $item->cover_img) }}"
-                                            alt="{{ $item->cover_img }}" style="max-height: 10vh">
-                                    </td> --}}
                                     <td>
                                         @foreach ($item->tags as $tag)
                                             <div class="badge bg-secondary px-2">
@@ -85,9 +82,9 @@
                                     </td>
                                     <td value="{{ $item->status_highlight }}">
                                         @if ($item->status_highlight == 1)
-                                            <a class="btn btn-success"><i class="fas fa-check"></i> &nbsp; Yes</a>
+                                            <a class="btn btn-success"><i class="fas fa-check"></i> &nbsp; Ya</a>
                                         @else
-                                            <a class="btn btn-danger"><i class="fas fa-times"></i> &nbsp; No</a>
+                                            <a class="btn btn-danger"><i class="fas fa-times"></i> &nbsp; Tidak</a>
                                         @endif
                                     </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
@@ -118,19 +115,18 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Title</th>
+                                <th class="data-medium">Judul</th>
                                 <th>Slug</th>
-                                <th class="data-long">Content</th>
-                                {{-- <th>Cover Image</th> --}}
+                                <th class="data-long">Konten</th>
                                 <th>Tags</th>
                                 <th>Highlight</th>
-                                <th class="data-long">Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th class="data-long">Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>Id Pembuat</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Id Pembaruan</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>

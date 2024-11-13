@@ -28,7 +28,11 @@
                 <div class="card-body">
 
                     <h4 class="card-title">Edit Data Blog</h4>
-                    <p class="card-title-desc">Halaman ini digunakan untuk memperbarui informasi blog.</p>
+                    <p class="card-title-desc">
+                        Halaman ini digunakan untuk memperbarui informasi blog. Anda dapat mengubah judul, slug, konten,
+                        gambar
+                        cover, tag, dan status blog. Pastikan semua perubahan sudah sesuai sebelum menyimpan data.
+                    </p>
 
                     <form action="{{ route('postEditBlog', ['id' => request()->query('id')]) }}" method="post"
                         enctype="multipart/form-data">
@@ -63,11 +67,9 @@
                             <label for="input-tag" class="col-md-2 col-form-label">Tags Saat Ini</label>
                             <div class="col-md-10">
                                 <select class="form-control select2 select2-multiple" multiple="multiple" name="tag_old[]"
-                                    data-placeholder="Choose ...">
-                                    {{-- <option>Select</option> --}}
+                                    data-placeholder="Pilih Tag...">
                                     @foreach ($currentTags as $key => $value)
-                                        <option value="{{ $key }}" selected>{{ $value }}
-                                        </option>
+                                        <option value="{{ $key }}" selected>{{ $value }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -76,7 +78,7 @@
                             <label for="input-tag" class="col-md-2 col-form-label">Tags Tersedia</label>
                             <div class="col-md-10">
                                 <select class="form-control select2 select2-multiple" multiple="multiple" name="tag[]"
-                                    data-placeholder="Choose ...">
+                                    data-placeholder="Pilih Tag...">
                                     @foreach ($blogTagList as $item)
                                         <option value="{{ $item->id }}"
                                             @if (in_array($item->id, old('tag', [])) || $item->selected) selected @endif>
@@ -147,7 +149,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Submit</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Simpan Perubahan</button>
                             </div>
                         </div>
                     </form>

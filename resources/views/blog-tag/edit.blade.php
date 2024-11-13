@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Blog')
+@section('title', 'Edit Tag Blog')
 
 @section('content')
     <!-- start page title -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getBlogTag') }}">Blog Tag</a></li>
-                        <li class="breadcrumb-item active">Edit Blog Tag: {{ $data->name }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getBlogTag') }}">Tag Blog</a></li>
+                        <li class="breadcrumb-item active">Edit Tag Blog: {{ $data->name }}</li>
                     </ol>
                 </div>
 
@@ -28,7 +28,11 @@
                 <div class="card-body">
 
                     <h4 class="card-title">Edit Tag Blog</h4>
-                    <p class="card-title-desc">Halaman ini digunakan memperbarui data tag blog yang sudah ada.</p>
+                    <p class="card-title-desc">
+                        Halaman ini digunakan untuk memperbarui data tag blog yang sudah ada. Anda dapat mengubah nama tag,
+                        warna,
+                        dan deskripsi tag. Pastikan untuk memeriksa kembali perubahan yang dilakukan sebelum menyimpannya.
+                    </p>
 
                     <form action="{{ route('postEditBlogTag', ['id' => request()->query('id')]) }}" method="post"
                         enctype="multipart/form-data">
@@ -86,7 +90,7 @@
 
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Submit</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Simpan Perubahan</button>
                             </div>
                         </div>
                     </form>
