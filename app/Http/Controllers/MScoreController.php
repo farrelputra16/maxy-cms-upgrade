@@ -20,10 +20,13 @@ class MScoreController extends Controller
 
     function postAddScore(Request $request){
         $validate = $request->validate([
-            'name' => 'required',
-            'range_start' => 'required|numeric|digits_between:1,10',
-            'range_end' => 'required|numeric|digits_between:1,10',
-        ]);
+            'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
+            'range_start' => 'required|numeric|max:100',
+            'range_end' => 'required|numeric|max:100|gt:range_start',
+            'description' => 'nullable|string|max:65535',
+        ], [
+            'range_end.gt' => 'The range end must be greater than the range start.',
+        ]);        
 
         if ($validate){
             $create = MScore::create([
@@ -50,9 +53,12 @@ class MScoreController extends Controller
 
     function postEditScore(Request $request){
         $validate = $request->validate([
-            'name' => 'required',
-            'range_start' => 'required|numeric|digits_between:1,10',
-            'range_end' => 'required|numeric|digits_between:1,10',
+            'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
+            'range_start' => 'required|numeric|max:100',
+            'range_end' => 'required|numeric|max:100|gt:range_start',
+            'description' => 'nullable|string|max:65535',
+        ], [
+            'range_end.gt' => 'The range end must be greater than the range start.',
         ]);
 
         if($validate){

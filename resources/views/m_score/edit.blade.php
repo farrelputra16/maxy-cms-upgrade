@@ -50,10 +50,10 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Rentang Awal</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="range_start"
+                                <input class="form-control" type="number" name="range_start"
                                     value="{{ old('range_start', $data->range_start) }}" id="input-title"
                                     inputmode="numeric" pattern="[0-9]*"
-                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');" max="100">
                                 @if ($errors->has('range_start'))
                                     @foreach ($errors->get('range_start') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -65,9 +65,9 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Rentang Akhir</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="range_end"
+                                <input class="form-control" type="number" name="range_end"
                                     value="{{ old('range_end', $data->range_end) }}" id="input-title" inputmode="numeric"
-                                    pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" max="100">
                                 @if ($errors->has('range_end'))
                                     @foreach ($errors->get('range_end') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -98,7 +98,7 @@
 
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Kirim</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Save & Update</button>
                             </div>
                         </div>
                     </form>

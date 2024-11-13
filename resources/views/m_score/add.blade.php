@@ -50,7 +50,7 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Rentang Awal</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="range_start" id="input-title"
+                                <input class="form-control" type="number" name="range_start" id="input-title"
                                     inputmode="numeric" pattern="[0-9]*"
                                     oninput="this.value = this.value.replace(/[^0-9]/g, '');"
                                     value="{{ old('range_start') }}">
@@ -65,7 +65,7 @@
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Rentang Akhir</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="range_end" id="input-title"
+                                <input class="form-control" type="number" name="range_end" id="input-title"
                                     inputmode="numeric" pattern="[0-9]*"
                                     oninput="this.value = this.value.replace(/[^0-9]/g, '');"
                                     value="{{ old('range_end') }}">
