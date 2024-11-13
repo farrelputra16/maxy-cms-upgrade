@@ -103,7 +103,7 @@ class CourseClassModuleController extends Controller
         ]);
 
         if ($create) {
-            session()->flash('class_module_added', 'parent class module added successfully, please add child class module');
+            session()->flash('class_module_added', 'Modul kelas berhasil ditambahkan! Silakan tambahkan konten.');
             return redirect()->route('getCourseClassModule', ['id' => $request->course_class_id])->with('success', 'Sukses Menambahkan Modul');
         } else {
             return redirect()->route('getCourseClassModule', ['id' => $request->course_class_id])->with('failed', 'Gagal Menambahkan Modul, silahkan coba lagi');
@@ -139,6 +139,7 @@ class CourseClassModuleController extends Controller
             'start' => 'required|date',
             'end' => 'required|date|after:start',
             'level' => 'required',
+            'priority' => 'required'
         ]);
 
         $course_class_module_id = $request->id;

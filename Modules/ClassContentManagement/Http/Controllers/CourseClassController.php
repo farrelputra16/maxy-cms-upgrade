@@ -272,7 +272,7 @@ class CourseClassController extends Controller
 
             // Redirect atau feedback berdasarkan hasil create
             if ($create) {
-                session()->flash('class_added', 'class added successfully, please add class module');
+                session()->flash('class_added', 'Kelas berhasil ditambahkan! Silakan tambahkan modul kelas.');
                 return app(HelperController::class)->Positive('getCourseClass');
             }
         }
