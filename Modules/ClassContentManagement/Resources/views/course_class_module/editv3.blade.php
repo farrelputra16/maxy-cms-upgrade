@@ -49,6 +49,11 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="start"
                                     value="{{ old('start', \Carbon\Carbon::parse($course_class_module->start_date)->format('Y-m-d')) }}">
+                                @if ($errors->has('start'))
+                                    @foreach ($errors->get('start') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -56,20 +61,35 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="end"
                                     value="{{ old('end', \Carbon\Carbon::parse($course_class_module->end_date)->format('Y-m-d')) }}">
+                                @if ($errors->has('end'))
+                                    @foreach ($errors->get('end') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Tingkat</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="level"
-                                    value="{{ old('level', $course_class_module->level) }}" id="name">
+                                    value="{{ old('level', $course_class_module->level) }}" id="name" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                @if ($errors->has('level'))
+                                    @foreach ($errors->get('level') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">* Day</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="priority"
-                                    value="{{ old('priority', $course_class_module->priority) }}" id="slug">
+                                <input class="form-control" type="number" name="priority"
+                                    value="{{ old('priority', $course_class_module->priority) }}" id="slug" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                @if ($errors->has('priority'))
+                                    @foreach ($errors->get('priority') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -106,6 +126,11 @@
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi Modul Kelas Kursus</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description">{{ old('description', $course_class_module->description) }}</textarea>
+                                @if ($errors->has('description'))
+                                    @foreach ($errors->get('description') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">

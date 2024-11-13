@@ -68,7 +68,7 @@
                             <label for="input-slug" class="col-md-2 col-form-label">* Hari</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority" required
-                                    value="{{ old('priority') }}">
+                                    value="{{ old('priority') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @if ($errors->has('priority'))
                                     @foreach ($errors->get('priority') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -107,6 +107,11 @@
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description">{{ old('description') }}</textarea>
+                                @if ($errors->has('description'))
+                                    @foreach ($errors->get('description') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
 
