@@ -30,13 +30,29 @@
                 <div class="card-body">
                     <h4 class="card-title">Persyaratan untuk {{ $event->name }}</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan informasi lengkap tentang persyaratan acara yang tersedia dalam format
-                        DataTable interaktif. Setiap baris mencakup detail penting seperti nama, keterangan, dan status
-                        persyaratan.
-                        Gunakan fitur <b>visibilitas kolom, pengurutan, dan kolom pencarian</b> untuk menyesuaikan tampilan
-                        dan
-                        dengan mudah mengakses informasi yang Anda butuhkan.
+                        Halaman ini memungkinkan Anda untuk melihat dan mengelola daftar persyaratan yang diperlukan untuk
+                        mengikuti acara <b>{{ $event->name }}</b>.
+                        Data ditampilkan dalam tabel interaktif dengan informasi yang komprehensif, termasuk nama
+                        persyaratan, status unggahan, keharusan, dan deskripsi singkat.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li>Gunakan kolom <b>Nama</b> dan <b>Deskripsi</b> untuk mengetahui detail setiap persyaratan.
+                            Arahkan kursor pada teks untuk melihat informasi selengkapnya melalui tooltip.</li>
+                        <li>Perhatikan kolom <b>Upload</b> untuk memastikan apakah persyaratan tersebut memerlukan unggahan
+                            dokumen dari peserta, dengan indikasi "Ya" atau "Tidak".</li>
+                        <li>Kolom <b>Wajib</b> menunjukkan apakah persyaratan tersebut bersifat wajib bagi peserta, sehingga
+                            Anda dapat memprioritaskan pengecekan pada item yang diperlukan.</li>
+                        <li>Kolom <b>Status</b> memberi tahu apakah persyaratan saat ini dalam kondisi <i>Aktif</i> atau
+                            <i>Non Aktif</i>.</li>
+                        <li>Gunakan tombol <b>Edit</b> di kolom <b>Aksi</b> untuk memperbarui informasi persyaratan jika
+                            diperlukan.</li>
+                        <li>Untuk menambahkan persyaratan baru, klik tombol tambah di sudut kanan bawah halaman ini.</li>
+                        <li>Gunakan fitur <b>Visibilitas Kolom</b>, <b>Pengurutan</b>, dan <b>Pencarian</b> untuk mengatur
+                            tampilan tabel sesuai kebutuhan, memudahkan Anda dalam mencari informasi spesifik.</li>
+                    </ul>
                     </p>
+
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>

@@ -41,7 +41,8 @@
                         enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Mitra</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Mitra <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="partner" data-placeholder="Pilih Mitra...">
                                     @foreach ($partners as $item)
@@ -71,7 +72,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-file" class="col-md-2 col-form-label">Gambar</label>
+                            <label for="input-file" class="col-md-2 col-form-label">Gambar <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="file" name="file" id="file">
                                 <p class="text-muted mb-0 text-truncate">Ukuran gambar yang direkomendasikan maksimal 5MB.
@@ -86,7 +88,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Mulai</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Mulai <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="date_start" id="date_start"
                                     value="{{ old('date_start', $partnership->date_start) }}">
@@ -98,7 +101,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Akhir</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Akhir <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="date_end" id="date_end"
                                     value="{{ old('date_end', $partnership->date_end) }}">

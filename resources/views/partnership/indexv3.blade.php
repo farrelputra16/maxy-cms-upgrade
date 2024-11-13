@@ -30,10 +30,27 @@
                 <div class="card-body">
                     <h4 class="card-title">Data Kerja Sama</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan tabel yang berisi informasi mengenai data rekan Kerja Sama. Gunakan fitur
-                        <b>visibilitas kolom, pengurutan, dan kolom pencarian</b> pada tabel ini untuk menemukan dan
-                        melihat detail kerja sama dengan mitra. Anda juga dapat mengedit informasi kerja sama dengan
-                        menekan tombol <b>Edit</b> di kolom Aksi pada setiap baris data.
+                        Halaman ini menampilkan data kerja sama dengan mitra dalam bentuk tabel interaktif, termasuk
+                        informasi penting seperti mitra, tipe kerja sama, deskripsi singkat, periode kerja sama, dan status.
+                        Data ditampilkan secara terstruktur untuk memudahkan pemantauan dan pengelolaan kerja sama dengan
+                        mitra.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li>Kolom <b>Mitra</b> dan <b>Tipe Kerja Sama</b> berisi nama mitra dan jenis kerja sama yang
+                            dijalin. Anda dapat mengarahkan kursor pada teks untuk melihat detail lengkap melalui tooltip.
+                        </li>
+                        <li>Perhatikan kolom <b>Tanggal Mulai</b> dan <b>Tanggal Akhir</b> untuk mengetahui periode aktif
+                            kerja sama dengan mitra tersebut.</li>
+                        <li>Kolom <b>Status</b> menunjukkan apakah kerja sama saat ini <i>Aktif</i> atau <i>Non Aktif</i>,
+                            membantu Anda melacak kerja sama yang masih berlangsung.</li>
+                        <li>Gunakan kolom <b>Aksi</b> untuk mengedit informasi kerja sama dengan menekan tombol <b>Edit</b>
+                            di setiap baris data, jika terdapat perubahan pada detail kerja sama.</li>
+                        <li>Untuk menambahkan data kerja sama baru, klik tombol tambah di sudut kanan bawah halaman ini.
+                        </li>
+                        <li>Manfaatkan fitur <b>Visibilitas Kolom</b>, <b>Pengurutan</b>, dan <b>Pencarian</b> untuk
+                            memfilter dan menemukan data tertentu dengan cepat.</li>
+                    </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">

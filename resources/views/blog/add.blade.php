@@ -40,7 +40,8 @@
                     <form id="addBlog" action="{{ route('postAddBlog') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Judul</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Judul <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" value="{{ old('title') }}" name="title"
                                     id="input-title">
@@ -52,7 +53,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
+                            <label for="input-slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" value="{{ old('slug') }}" name="slug"
                                     id="input-slug" readonly>
@@ -64,7 +66,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Tags</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tags <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2 select2-multiple" multiple="multiple" name="tag[]"
                                     data-placeholder="Pilih Tag...">
@@ -78,7 +81,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-file" class="col-md-2 col-form-label">Gambar Cover</label>
+                            <label for="input-file" class="col-md-2 col-form-label">Gambar Cover <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10" style="height: 200px">
                                 <input class="form-control" type="file" name="file_image" id="input-file">
                                 <img id="frame" src="" alt="preview.." class="img-fluid h-100" />
@@ -90,7 +94,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Konten</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Konten <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="content">{{ old('content') }}</textarea>
                                 @if ($errors->has('content'))

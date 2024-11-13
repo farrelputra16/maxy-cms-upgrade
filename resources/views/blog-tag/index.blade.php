@@ -30,12 +30,25 @@
 
                     <h4 class="card-title">Data Tag Blog</h4>
                     <p class="card-title-desc">
-                        Halaman ini berisi data informasi tag blog yang akan digunakan di halaman blog. Anda dapat melihat
-                        detail informasi tag blog seperti nama tag, warna, deskripsi, dan status aktif pada tabel di bawah
-                        ini.
-                        Gunakan fitur <b>visibilitas kolom, pengurutan, dan kolom pencarian</b> untuk menavigasi dan
-                        menemukan data
-                        tag blog dengan lebih mudah. Klik tombol <b>Edit</b> pada kolom Aksi untuk memperbarui tag blog.
+                        Halaman ini berisi data tag blog yang akan digunakan untuk mengelompokkan artikel di halaman blog.
+                        Setiap tag memiliki atribut seperti nama, warna, deskripsi, dan status aktif/non-aktif. Data tag
+                        ditampilkan dalam tabel interaktif yang memudahkan navigasi dan pengelolaan.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li>Kolom <b>Nama</b> dan <b>Warna</b> memudahkan Anda mengidentifikasi tag yang tersedia dan
+                            visualisasi warnanya. Arahkan kursor pada nama tag untuk melihat nama lengkap melalui tooltip.
+                        </li>
+                        <li>Gunakan kolom <b>Deskripsi</b> untuk melihat keterangan singkat tentang setiap tag, yang
+                            menjelaskan kategori atau tujuan penggunaannya.</li>
+                        <li>Kolom <b>Status</b> menunjukkan apakah tag aktif (dapat digunakan dalam artikel) atau non-aktif
+                            (tidak ditampilkan).</li>
+                        <li>Klik tombol <b>Edit</b> di kolom Aksi untuk memperbarui informasi tag, seperti mengganti warna
+                            atau mengubah status tag.</li>
+                        <li>Untuk menambahkan tag baru, klik tombol tambah di sudut kanan bawah halaman ini.</li>
+                        <li>Manfaatkan fitur <b>Visibilitas Kolom</b>, <b>Pengurutan</b>, dan <b>Pencarian</b> untuk
+                            menemukan tag dengan cepat dan mengatur tampilan tabel sesuai kebutuhan.</li>
+                    </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">

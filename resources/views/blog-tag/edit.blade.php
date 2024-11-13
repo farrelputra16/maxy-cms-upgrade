@@ -38,7 +38,8 @@
                         enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Nama</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Nama <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $data->name) }}" id="input-title">
@@ -51,7 +52,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-color" class="col-md-2 col-form-label">Warna</label>
+                            <label for="input-color" class="col-md-2 col-form-label">Warna <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control color-picker" type="text" name="color"
                                     value="{{ old('color', $data->color) }}" id="input-color">

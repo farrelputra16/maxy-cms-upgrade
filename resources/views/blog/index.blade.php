@@ -30,10 +30,29 @@
 
                     <h4 class="card-title">Data Blog</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan tabel yang berisi data blog. Anda dapat melihat informasi penting seperti
-                        judul, slug, konten, tag, highlight, dan status dari setiap artikel blog. Gunakan fitur
-                        <b>visibilitas kolom, pengurutan, dan kolom pencarian</b> untuk menyaring dan mengakses data blog dengan lebih cepat.
-                        Untuk mengedit data blog, klik tombol <b>Edit</b> di kolom Aksi.
+                        Halaman ini memuat tabel berisi data blog yang dipublikasikan. Setiap baris menampilkan informasi
+                        penting seperti judul, slug, konten, tag, highlight, deskripsi, dan status artikel. Data ini diatur
+                        dalam format interaktif sehingga Anda dapat dengan mudah mengakses dan mengelola artikel.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li>Gunakan kolom <b>Judul</b> dan <b>Slug</b> untuk melihat judul artikel serta tautan permanen
+                            (slug) yang mengarah langsung ke blog tersebut. Arahkan kursor pada teks untuk melihat detail
+                            lebih lanjut melalui tooltip.</li>
+                        <li>Kolom <b>Konten</b> menampilkan cuplikan singkat dari isi artikel untuk membantu Anda
+                            mengidentifikasi topik yang dibahas.</li>
+                        <li>Kolom <b>Tags</b> menampilkan label yang terkait dengan artikel untuk memudahkan pencarian
+                            berdasarkan kategori atau tema tertentu.</li>
+                        <li>Kolom <b>Highlight</b> menunjukkan apakah artikel tersebut ditandai sebagai "highlight" (artikel
+                            unggulan), yang ditandai dengan ikon cek hijau atau silang merah.</li>
+                        <li>Kolom <b>Status</b> memperlihatkan apakah artikel sedang <i>Aktif</i> (diterbitkan) atau <i>Non
+                                Aktif</i> (tidak diterbitkan).</li>
+                        <li>Gunakan tombol <b>Edit</b> pada kolom <b>Aksi</b> untuk mengubah konten atau detail artikel yang
+                            diinginkan.</li>
+                        <li>Untuk menambah artikel blog baru, klik tombol tambah di sudut kanan bawah halaman.</li>
+                        <li>Manfaatkan fitur <b>Visibilitas Kolom</b>, <b>Pengurutan</b>, dan <b>Pencarian</b> pada tabel
+                            untuk memfilter dan menemukan artikel tertentu dengan cepat.</li>
+                    </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
