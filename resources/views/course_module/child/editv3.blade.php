@@ -176,7 +176,7 @@
                     <div class="mb-3 row">
                         <label for="input-content" class="col-md-2 col-form-label">Konten Quiz</label>
                         <div class="col-md-10">
-                            <select class="form-control select2" name="content" id="">
+                            <select class="form-control select2" name="quiz_content" id="">
                                 @foreach ($quiz as $item)
                                     <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}">
                                         {{ $item->name }}</option>

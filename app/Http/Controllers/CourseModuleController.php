@@ -323,6 +323,19 @@ class CourseModuleController extends Controller
                     'status' => $request->status ? 1 : 0,
                     'updated_id' => Auth::user()->id,
                 ]);
+        } elseif ($request->type == 'quiz') {
+            $update = CourseModule::where('id', '=', $request->id)
+                ->update([
+                    'name' => $validated['name'],
+                    'priority' => $validated['priority'],
+                    'html' => $request->html,
+                    'js' => $request->js,
+                    'type' => $request->type,
+                    'content' => $request->quiz_content,
+                    'description' => $request->description,
+                    'status' => $request->status ? 1 : 0,
+                    'updated_id' => Auth::user()->id,
+                ]);
         } else {
             if ($request->type == 'materi_pembelajaran' || $request->type == 'assignment') {
                 $material = $module_detail->material;

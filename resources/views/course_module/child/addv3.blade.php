@@ -161,65 +161,98 @@
     </script>
 
     @if ($course_type->slug != 'rapid-onboarding')
-        <script>
-            var typeSelector = document.getElementById('type_selector');
-            var material = document.getElementById('material');
-            var duration = document.getElementById('duration');
+    <script>
+        var typeSelector = document.getElementById('type_selector');
+        var material = document.getElementById('material');
+        var duration = document.getElementById('duration');
 
-            typeSelector.addEventListener('change', function() {
-                if (typeSelector.value === 'materi_pembelajaran') {
-                    material.innerHTML = `
-                        <div class="mb-3 row">
-                            <label class="col-md-2 col-form-label">File Materi Pembelajaran</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="file" name="material">
-                            </div>
+        function loadType() {
+            if (typeSelector.value === 'materi_pembelajaran') {
+                material.innerHTML = `
+                    <div class="mb-3 row">
+                        <label class="col-md-2 col-form-label">File Materi Pembelajaran</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="file" name="material">
                         </div>
-                    `;
-                    duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-                } else if (typeSelector.value === 'video_pembelajaran') {
-                    material.innerHTML = `
-                        <div class="mb-3 row">
-                            <label class="col-md-2 col-form-label">Link Video</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="material" placeholder="Masukkan Link Video">
-                            </div>
+                    </div>
+                `;
+                duration.innerHTML = `
+                <input type="hidden" name="duration" value="">
+                <div class="mb-3 row">
+                    <label for="input-content" class="col-md-2 col-form-label">Konten</label>
+                    <div class="col-md-10">
+                        <textarea class="form-control" name="content">{{ old('content') }}</textarea>
+                    </div>
+                </div>
+                `;
+            } else if (typeSelector.value === 'video_pembelajaran') {
+                material.innerHTML = `
+                    <div class="mb-3 row">
+                        <label class="col-md-2 col-form-label">Link Video</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="text" name="material" placeholder="Masukkan Link Video" value="{{ old('material') }}">
                         </div>
-                    `;
-                    duration.innerHTML = `
-                        <div class="mb-3 row">
-                            <label class="col-md-2 col-form-label">Durasi Video</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="number" name="duration" placeholder="Durasi dalam menit">
-                            </div>
+                    </div>
+                `;
+                duration.innerHTML = `
+                    <div class="mb-3 row">
+                        <label class="col-md-2 col-form-label">Durasi Video</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="number" name="duration" placeholder="Durasi dalam menit" value="{{ old('duration') }}">
                         </div>
-                    `;
-                } else if (typeSelector.value === 'assignment') {
-                    material.innerHTML = `
-                        <div class="mb-3 row">
-                            <label class="col-md-2 col-form-label">File Tugas</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="file" name="material">
-                            </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="input-content" class="col-md-2 col-form-label">Konten</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" name="content">{{ old('content') }}</textarea>
                         </div>
-                    `;
-                    duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-                } else if (typeSelector.value === 'quiz') {
-                    material.innerHTML = `
-                        <div class="mb-3 row">
-                            <label class="col-md-2 col-form-label">Pilih Kuis</label>
-                            <div class="col-md-10">
-                                <select class="form-control select2" name="quiz_content" required>
-                                    @foreach ($quiz as $item)
-                                    <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                    </div>
+                `;
+            } else if (typeSelector.value === 'assignment') {
+                material.innerHTML = `
+                    <div class="mb-3 row">
+                        <label class="col-md-2 col-form-label">File Tugas</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="file" name="material">
                         </div>
-                    `;
-                    duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-                }
-            });
-        </script>
+                    </div>
+                `;
+                duration.innerHTML = `
+                <input type="hidden" name="duration" value="">
+                <div class="mb-3 row">
+                    <label for="input-content" class="col-md-2 col-form-label">Konten</label>
+                    <div class="col-md-10">
+                        <textarea class="form-control" name="content">{{ old('content') }}</textarea>
+                    </div>
+                </div>
+                `;
+            } else if (typeSelector.value === 'quiz') {
+                material.innerHTML = `
+                    <div class="mb-3 row">
+                        <label class="col-md-2 col-form-label">Pilih Kuis</label>
+                        <div class="col-md-10">
+                            <select class="form-control select2" name="quiz_content" required>
+                                @foreach ($quiz as $item)
+                                <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}" 
+                                    {{ old('quiz_content') == config('app.frontend_app_url') . '/lms/survey/' . $item->id ? 'selected' : '' }}>
+                                    {{ $item->name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                `;
+                duration.innerHTML = `<input type="hidden" name="duration" value="">`;
+            }
+        }
+
+        // Jalankan fungsi loadType() saat halaman pertama kali dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            loadType();
+        });
+
+        // Panggil loadType() saat typeSelector diubah
+        typeSelector.addEventListener('change', loadType);
+    </script>
     @endif
 @endsection
