@@ -62,9 +62,9 @@
         </div>
     </div> --}}
     <div class="mb-3">
-        <label for="exampleSelect" class="form-label">Select Academic Period</label>
+        <label for="exampleSelect" class="form-label">Pilih Periode Akademik</label>
         <select id="academic-period" class="form-select">
-            <option value="">Select Academic Period</option>
+            <option value="">Pilih Periode Akademik</option>
             @foreach ($academic_periods as $item)
                 <option value="{{ $item->id }}">{{ $item->name }}</option>
             @endforeach
