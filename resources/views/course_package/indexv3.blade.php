@@ -55,7 +55,7 @@
                                 <th>Updated At</th>
                                 <th>Updated Id</th>
                                 <th>Status</th>
-                                <th>Tindakan</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -112,7 +112,7 @@
                                 <th>Updated At</th>
                                 <th>Updated Id</th>
                                 <th>Status</th>
-                                <th>Tindakan</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>
