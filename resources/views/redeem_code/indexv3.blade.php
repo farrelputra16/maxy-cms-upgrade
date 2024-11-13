@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Reedem Code')
+@section('title', 'Kode Redeem')
 
 @section('content')
     <!-- Begin Page Title -->
@@ -14,7 +14,7 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a>Members</a></li>
-                        <li class="breadcrumb-item active">Reedem Code</li>
+                        <li class="breadcrumb-item active">Kode Redeem</li>
                     </ol>
                 </div>
                 <!-- End Breadcrumb -->
@@ -28,8 +28,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Redeem Code</h4>
-                    <p class="card-title-desc">Halaman ini menampilkan table untuk melakukan manajemen kode redeem. Detail terkait redeem code dapat diakses melalui tombol action edit.
+                    <h4 class="card-title">Kode Redeem</h4>
+                    <p class="card-title-desc">Halaman ini menampilkan table untuk melakukan manajemen kode redeem. Detail terkait kode Redeem dapat diakses melalui tombol action edit.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -119,7 +119,7 @@
     <!-- FAB Add Starts -->
     <div id="floating-whatsapp-button">
         <a href="{{ route('getAddRedeemCode') }}" target="_blank" data-toggle="tooltip"
-            title="Tambah Reedem Code">
+            title="Tambah Kode Redeem">
             <i class="fas fa-plus"></i>
         </a>
     </div>
