@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tingkat Nilai')
+@section('title', 'Tingkat Penilaian')
 
 @section('content')
     <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Ringkasan Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Data Penilaian</h4>
 
                 <!-- Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Tingkat Nilai</li>
+                        <li class="breadcrumb-item active">Tingkat Penilaian</li>
                     </ol>
                 </div>
                 <!-- Akhir Breadcrumb -->
@@ -28,7 +28,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Tingkat Nilai</h4>
+                    <h4 class="card-title">Tingkat Penilaian</h4>
                     <p class="card-title-desc">
                         Halaman ini menyajikan ringkasan data secara komprehensif, ditampilkan dalam format DataTable
                         interaktif yang dapat diurutkan. Setiap baris mewakili data unik, memberikan detail seperti nama,
@@ -41,7 +41,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Tingkat Nilai</th>
+                                <th>Tingkat Penilaian</th>
                                 <th>Rentang Awal</th>
                                 <th>Rentang Akhir</th>
                                 <th>Deskripsi</th>
@@ -93,7 +93,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Tingkat Nilai</th>
+                                <th>Tingkat penilaian</th>
                                 <th>Rentang Awal</th>
                                 <th>Rentang Akhir</th>
                                 <th>Deskripsi</th>

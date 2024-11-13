@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Attendace')
+@section('title', 'Tipe Event')
 
 @section('content')
     <!-- Begin Page Title -->
@@ -13,7 +13,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Event Type</li>
+                        <li class="breadcrumb-item active">Tipe Event</li>
                     </ol>
                 </div>
                 <!-- End Breadcrumb -->

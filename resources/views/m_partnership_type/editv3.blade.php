@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Tipe Partnership')
+@section('title', 'Edit Tipe Kemitraan')
 
 @section('content')
     <!-- Judul Halaman -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getPartnershipType') }}">Tipe Partnership</a></li>
-                        <li class="breadcrumb-item active">Edit Tipe Partnership: {{ $currentData->name }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getPartnershipType') }}">Tipe Kemitraan</a></li>
+                        <li class="breadcrumb-item active">Edit Tipe Kemitraan: {{ $currentData->name }}</li>
                     </ol>
                 </div>
 
@@ -29,7 +29,7 @@
 
                     <h4 class="card-title">{{ $currentData->name }} <small>[ ID: {{ $currentData->id }} ]</small></h4>
                     <p class="card-title-desc">
-                        Di halaman ini, Anda dapat memperbarui informasi tipe partnership yang ada dengan mengisi atau
+                        Di halaman ini, Anda dapat memperbarui informasi tipe kemitraan yang ada dengan mengisi atau
                         mengedit data di bawah ini. Setelah selesai, klik "Simpan & Perbarui" untuk menyimpan perubahan.
                     </p>
 
@@ -51,7 +51,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" placeholder="Masukkan Deskripsi Tipe Partnership">{{ old('description', $currentData->description) }}</textarea>
+                                <textarea id="elm1" name="description" placeholder="Masukkan Deskripsi Tipe Kemitraan">{{ old('description', $currentData->description) }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">

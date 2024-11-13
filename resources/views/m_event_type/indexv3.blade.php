@@ -40,7 +40,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama Modul</th>
+                                <th class="data-medium">Nama Tipe Event</th>
                                 <th class="data-long">Deskripsi</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>

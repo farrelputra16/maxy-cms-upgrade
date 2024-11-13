@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tambah Tipe Partnership')
+@section('title', 'Tambah Tipe Kemitraan')
 
 @section('content')
     <!-- Judul Halaman -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getPartnershipType') }}">Tipe Partnership</a></li>
-                        <li class="breadcrumb-item active">Tambah Tipe Partnership</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getPartnershipType') }}">Tipe Kemitraan</a></li>
+                        <li class="breadcrumb-item active">Tambah Tipe Kemitraan</li>
                     </ol>
                 </div>
 
@@ -27,10 +27,10 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Tambah Tipe Partnership</h4>
+                    <h4 class="card-title">Tambah Tipe Kemitraan</h4>
                     <p class="card-title-desc">
-                        Di halaman ini, Anda dapat menambahkan tipe partnership baru dengan mengisi nama dan deskripsinya.
-                        Setelah selesai, klik "Tambah Tipe Partnership" untuk menyimpan data baru.
+                        Di halaman ini, Anda dapat menambahkan tipe kemitraan baru dengan mengisi nama dan deskripsinya.
+                        Setelah selesai, klik "Tambah Tipe Kemitraan" untuk menyimpan data baru.
                     </p>
 
 
@@ -41,7 +41,7 @@
                             <label for="input-title" class="col-md-2 col-form-label">Nama</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
-                                    placeholder="Masukkan Nama Tipe Partnership" value="{{ old('name') }}">
+                                    placeholder="Masukkan Nama Tipe Kemitraan" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -52,7 +52,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" placeholder="Masukkan Deskripsi Tipe Partnership">{{ old('description') }}</textarea>
+                                <textarea id="elm1" name="description" placeholder="Masukkan Deskripsi Tipe Kemitraan">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
@@ -66,7 +66,7 @@
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
-                                    form="addPartnershipType">Tambah Tipe Partnership</button>
+                                    form="addPartnershipType">Tambah Tipe Kemitraan</button>
                             </div>
                         </div>
                     </form>

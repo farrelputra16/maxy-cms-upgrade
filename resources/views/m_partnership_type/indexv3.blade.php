@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tipe Partnership')
+@section('title', 'Tipe Kemitraan')
 
 @section('content')
     <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Tipe Partnership</h4>
+                <h4 class="mb-sm-0 font-size-18">Data Tipe Kemitraan</h4>
 
                 <!-- Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Tipe Partnership</li>
+                        <li class="breadcrumb-item active">Tipe Kemitraan</li>
                     </ol>
                 </div>
                 <!-- Akhir Breadcrumb -->
@@ -27,9 +27,9 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Tipe Partnership</h4>
+                    <h4 class="card-title">Tipe Kemitraan</h4>
                     <p class="card-title-desc">
-                        Di halaman ini, Anda dapat melihat dan mengelola semua tipe partnership yang tersedia. Setiap baris
+                        Di halaman ini, Anda dapat melihat dan mengelola semua tipe kemitraan yang tersedia. Setiap baris
                         menampilkan informasi penting seperti nama dan deskripsi. Gunakan fitur <b>visibilitas kolom,
                             pengurutan, dan pencarian kolom</b> untuk menemukan data yang dibutuhkan dengan cepat dan mudah.
                     </p>
@@ -40,7 +40,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama</th>
+                                <th class="data-medium">Nama Tipe Kemitraan</th>
                                 <th class="data-long">Deskripsi</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
@@ -105,7 +105,7 @@
     <!-- Tombol Tambah -->
     <div id="floating-whatsapp-button">
         <a href="{{ route('getAddPartnershipType', ['access' => 'm_Partnership_type_create']) }}" target="_blank"
-            data-toggle="tooltip" title="Tambah Tipe Partnership Baru">
+            data-toggle="tooltip" title="Tambah Tipe Kemitraan Baru">
             <i class="fas fa-plus"></i>
         </a>
     </div>

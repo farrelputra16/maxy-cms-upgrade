@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Kategori')
+@section('title', 'Kategori Kursus')
 
 @section('content')
     <!-- Judul Halaman -->
@@ -13,7 +13,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Kategori</li>
+                        <li class="breadcrumb-item active">Kategori Kursus</li>
                     </ol>
                 </div>
                 <!-- Akhir Breadcrumb -->
@@ -27,7 +27,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Kategori</h4>
+                    <h4 class="card-title">Kategori Kursus</h4>
                     <p class="card-title-desc">
                         Di halaman ini, Anda bisa melihat dan mengelola data kategori yang tersedia. Setiap baris pada tabel
                         menampilkan detail, termasuk nama, deskripsi, dan status kategori.
@@ -41,7 +41,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama Modul</th>
+                                <th class="data-medium">Nama Kategori Kursus</th>
                                 <th class="data-long">Deskripsi</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
