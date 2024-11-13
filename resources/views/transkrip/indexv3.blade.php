@@ -30,8 +30,22 @@
                 <div class="card-body">
                     <h4 class="card-title">Transkrip</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan table yang berisi data transkrip siswa.
+                        Halaman ini memungkinkan Anda untuk melihat dan mengelola data transkrip siswa secara menyeluruh.
+                        Anda dapat melihat detail transkrip, termasuk informasi kelas, periode akademik, nilai, serta
+                        riwayat pembaruan data.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li>Gunakan kolom <b>Nama Siswa</b> untuk menelusuri data berdasarkan nama atau melihat detail siswa
+                            dengan mengarahkan kursor ke nama tersebut.</li>
+                        <li>Pilih kolom <b>Periode Akademik</b> dan <b>Kelas Kursus</b> untuk memastikan data yang Anda
+                            lihat sesuai dengan periode dan kelas yang diinginkan.</li>
+                        <li>Perhatikan kolom <b>Nilai</b> untuk melihat hasil penilaian pada setiap siswa.</li>
+                        <li>Kolom <b>Dibuat Pada</b> dan <b>Diperbarui Pada</b> membantu Anda melacak kapan data ini dibuat
+                            atau terakhir diperbarui, serta oleh siapa.</li>
+                    </ul>
                     </p>
+
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
                         data-colvis="[1, 6, 7, 8, 9]">
@@ -42,7 +56,7 @@
                                 <th class="data-medium">Nama</th>
                                 <th>Periode</th>
                                 <th>Kelas Kursus</th>
-                                <th>Nilai   </th>
+                                <th>Nilai </th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>
@@ -58,7 +72,8 @@
                                         title="{{ $item->User->name }}">
                                         {!! \Str::limit($item->User->name, 30) !!}
                                     </td>
-                                    <td>{{ optional(optional($item->CourseClass->Schedule->first())->MAcademicPeriod)->name ?? 'N/A' }}</td>
+                                    <td>{{ optional(optional($item->CourseClass->Schedule->first())->MAcademicPeriod)->name ?? 'N/A' }}
+                                    </td>
                                     <td>{{ $item->CourseClass->slug }}</td>
                                     <td>{{ $item->MScore->name }}</td>
                                     <td>{{ $item->created_at }}</td>
