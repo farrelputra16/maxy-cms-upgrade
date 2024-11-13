@@ -29,10 +29,28 @@
                 <div class="card-body">
                     <h4 class="card-title">Tipe Event</h4>
                     <p class="card-title-desc">
-                        Di halaman ini, Anda dapat mengelola data tipe event yang tersedia. Setiap baris menampilkan detail
-                        seperti nama dan deskripsi. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian kolom</b>
-                        untuk menemukan data yang Anda butuhkan dengan cepat dan mudah.
+                        Halaman ini memungkinkan Anda untuk mengelola data tipe event yang digunakan dalam sistem. Setiap
+                        baris pada tabel menampilkan detail utama dari tipe event, seperti nama dan deskripsi tipe event.
+                        Halaman ini menyediakan fitur interaktif untuk memudahkan pengelolaan data event melalui tabel.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li><strong>Visibilitas Kolom:</strong> Gunakan fitur visibilitas kolom untuk memilih kolom mana
+                            yang ingin Anda tampilkan atau sembunyikan, sehingga Anda dapat fokus pada informasi yang
+                            relevan.</li>
+                        <li><strong>Pencarian Data:</strong> Masukkan kata kunci pada kolom pencarian untuk menemukan tipe
+                            event tertentu berdasarkan nama atau deskripsi.</li>
+                        <li><strong>Pengurutan Data:</strong> Klik pada judul kolom seperti "Nama Tipe Event" atau "Status"
+                            untuk mengurutkan data dalam tabel berdasarkan kolom tersebut. Pengurutan ini membantu Anda
+                            untuk meninjau data dengan lebih mudah dan teratur.</li>
+                        <li><strong>Edit Tipe Event:</strong> Gunakan tombol <em>Edit</em> pada kolom "Aksi" di setiap baris
+                            untuk memperbarui informasi detail dari tipe event yang telah ada.</li>
+                        <li><strong>Tambah Tipe Event Baru:</strong> Untuk menambahkan tipe event baru, klik tombol
+                            <em>+</em> di pojok kanan bawah. Anda akan diarahkan ke formulir untuk menambahkan data tipe
+                            event yang baru.</li>
+                    </ul>
                     </p>
+
 
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">

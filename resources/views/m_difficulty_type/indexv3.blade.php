@@ -13,7 +13,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Tingkat Kesulitan</li>
+                        <li class="breadcrumb-item active">Tingkat Kesulitan </li>
                     </ol>
                 </div>
                 <!-- end breadcrumb -->
@@ -28,19 +28,29 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Tingkat Kesulitan</h4>
-                    <p class="card-title-desc">
-                        Halaman ini menampilkan tingkat kesulitan yang diterapkan pada setiap Paket Kursus. 
-                        Anda dapat melihat level kesulitan yang relevan dengan paket kursus yang tersedia, termasuk nama tingkat kesulitan dan deskripsinya.
-                        <br><br>
-                        <strong>Cara Penggunaan:</strong>
+                    <h4 class="card-title">Tingkat Kesulitan Mata Kuliah</h4>
+                    <div class="card-title-desc">
+                        <p>
+                            Halaman ini memberikan ringkasan tentang tingkat kesulitan yang terkait dengan setiap
+                            mata kuliah. Pengguna dapat melihat berbagai level kesulitan yang tersedia beserta deskripsi
+                            masing-masing. Tingkat kesulitan membantu mengatur ekspektasi peserta terhadap materi dan
+                            kompleksitas yang akan dihadapi.
+                            <br><br>
+                            <strong>Cara Penggunaan:</strong>
                         <ul>
-                            <li><strong>Nama Tingkat Kesulitan:</strong> Lihat nama tingkat kesulitan untuk setiap paket kursus yang diberikan.</li>
-                            <li><strong>Deskripsi Tingkat Kesulitan:</strong> Baca deskripsi rinci tentang tingkat kesulitan yang akan dihadapi peserta selama mengikuti paket kursus ini.</li>
-                            <li><strong>Tambah Tingkat Kesulitan:</strong> Klik tombol <em>Tambah Tingkat Kesulitan</em> untuk menambahkan tingkat kesulitan baru pada paket kursus.</li>
-                            <li><strong>Edit Tingkat Kesulitan:</strong> Klik tombol <em>Edit</em> di kolom "Aksi" untuk memperbarui informasi tingkat kesulitan paket kursus.</li>
+                            <li><strong>Nama Tingkat Kesulitan:</strong> Lihat nama tingkat kesulitan untuk setiap
+                                mata kuliah yang ditampilkan di tabel ini.</li>
+                            <li><strong>Deskripsi Tingkat Kesulitan:</strong> Bacalah deskripsi singkat tentang kesulitan
+                                dari setiap tingkat, yang mencakup gambaran umum dari materi atau tantangan yang akan
+                                dihadapi peserta.</li>
+                            <li><strong>Tambah Tingkat Kesulitan:</strong> Klik tombol <em>Tambah Tingkat Kesulitan</em>
+                                (ikon +) di pojok kanan bawah untuk menambahkan tingkat kesulitan baru ke dalam daftar.</li>
+                            <li><strong>Edit Tingkat Kesulitan:</strong> Tekan tombol <em>Edit</em> pada kolom "Aksi" untuk
+                                memperbarui atau menyesuaikan informasi tingkat kesulitan yang ada.</li>
                         </ul>
-                    </p>
+                        </p>
+                    </div>
+
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>

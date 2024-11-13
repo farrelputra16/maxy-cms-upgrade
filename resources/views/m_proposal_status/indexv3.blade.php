@@ -28,12 +28,33 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Status Proposal</h4>
-                    <p class="card-title-desc">
-                        Halaman ini menampilkan daftar lengkap semua status proposal yang tersedia dalam format DataTable
-                        interaktif. Setiap baris berisi detail penting seperti nama, deskripsi, dan status. Gunakan fitur
-                        <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk menyesuaikan tampilan dan menemukan
-                        informasi spesifik dengan cepat.
-                    </p>
+                    <div class="card-title-desc">
+                        <p>
+                            Halaman ini menampilkan daftar semua status proposal yang tersedia dalam format tabel interaktif
+                            (DataTable).
+                            Setiap baris pada tabel ini menyajikan informasi penting terkait status proposal, termasuk nama
+                            status, deskripsi,
+                            dan status aktif atau nonaktif. Halaman ini dirancang untuk membantu pengguna mengelola data
+                            status proposal dengan
+                            cepat dan efisien.
+                            <br><br>
+
+                            <strong>Cara Penggunaan:</strong>
+                        <ul>
+                            <li><strong>Visibilitas Kolom:</strong> Sesuaikan kolom yang ingin ditampilkan pada tabel untuk
+                                melihat data yang lebih relevan bagi kebutuhan Anda.</li>
+                            <li><strong>Pencarian Data:</strong> Gunakan kolom pencarian untuk menemukan status proposal
+                                tertentu secara cepat berdasarkan nama atau deskripsi.</li>
+                            <li><strong>Pengurutan Kolom:</strong> Klik judul kolom untuk mengurutkan data, misalnya
+                                berdasarkan status aktif atau tanggal pembaruan, untuk kemudahan navigasi.</li>
+                            <li><strong>Edit Data:</strong> Klik tombol <em>Edit</em> di kolom "Aksi" pada baris data yang
+                                ingin diperbarui untuk mengubah informasi status atau status aktif/nonaktif dari proposal.
+                            </li>
+                            <li><strong>Tambah Status Proposal Baru:</strong> Gunakan ikon <em>+</em> di pojok kanan bawah
+                                halaman untuk menambahkan status proposal baru ke dalam sistem.</li>
+                        </ul>
+                        </p>
+                    </div>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>

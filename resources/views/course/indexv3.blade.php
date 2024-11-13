@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Kursus')
+@section('title', 'Mata Kuliah')
 
 @section('content')
     <!-- Judul Halaman -->
@@ -13,7 +13,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Kursus</li>
+                        <li class="breadcrumb-item active">Mata Kuliah</li>
                     </ol>
                 </div>
                 <!-- Akhir Breadcrumb -->
@@ -27,29 +27,37 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Kursus</h4>
+                    <h4 class="card-title">Mata Kuliah</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan daftar kursus secara menyeluruh dalam format tabel interaktif yang dapat
-                        diurutkan. Setiap baris berisi informasi penting seperti nama kursus, deskripsi, harga, tipe kursus,
-                        dan status. Anda dapat menggunakan <b>fitur visibilitas kolom, pengurutan, dan pencarian kolom</b>
-                        untuk menyesuaikan tampilan sesuai kebutuhan. <br><br>
+                        Halaman ini menampilkan daftar mata kuliah dalam format tabel interaktif yang memudahkan Anda mengelola
+                        mata kuliah yang tersedia. Setiap mata kuliah mencakup informasi seperti nama, deskripsi, harga, jenis mata kuliah,
+                        SKS, durasi, dan status. Anda dapat menggunakan <b>fitur visibilitas kolom, pengurutan, dan
+                            pencarian kolom</b> untuk menyesuaikan tampilan sesuai kebutuhan.
+                        <br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
-                        <li>Gunakan ikon <b>+ Tambah</b> untuk menambahkan kursus baru.</li>
-                        <li>Klik <b>Edit</b> pada setiap baris untuk mengubah informasi kursus.</li>
-                        <li>Pilih <b>Daftar Modul</b> untuk melihat daftar modul dari setiap kursus.</li>
+                        <li>Klik ikon <b>+ Tambah</b> di sudut kanan bawah untuk menambahkan mata kuliah baru.</li>
+                        <li>Pada setiap baris, tombol <b>Edit</b> memungkinkan Anda memperbarui informasi mata kuliah, sementara
+                            tombol <b>Daftar Modul</b> mengarahkan Anda ke daftar modul terkait mata kuliah tersebut.</li>
+                        <li>Gunakan kolom <b>Harga</b> dan <b>Harga Promo</b> untuk memverifikasi atau mengubah harga mata kuliah
+                            saat menambah atau memperbarui mata kuliah.</li>
+                        <li>Periksa kolom <b>Status</b> untuk melihat apakah mata kuliah dalam kondisi aktif atau nonaktif, yang
+                            mempengaruhi ketersediaan mata kuliah bagi pengguna.</li>
+                        <li>Manfaatkan fitur <b>Visibilitas Kolom</b>, <b>Pengurutan</b>, dan <b>Pencarian</b> pada tabel
+                            untuk menampilkan atau menyaring data mata kuliah dengan cepat sesuai kebutuhan.</li>
                     </ul>
                     </p>
+
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama Kursus</th>
+                                <th class="data-medium">Nama Mata Kuliah</th>
                                 <th>Harga Promo</th>
                                 <th>Harga</th>
-                                <th>Jenis Kursus</th>
+                                <th>Jenis Mata Kuliah</th>
                                 <th>SKS</th>
                                 <th>Durasi</th>
                                 <th class="data-long">Deskripsi Singkat</th>
@@ -112,10 +120,10 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Nama Kursus</th>
+                                <th>Nama Mata Kuliah</th>
                                 <th>Harga Promo</th>
                                 <th>Harga</th>
-                                <th>Jenis Kursus</th>
+                                <th>Jenis Mata Kuliah</th>
                                 <th>Deskripsi Singkat</th>
                                 <th>Deskripsi</th>
                                 <th>Konten</th>
@@ -132,13 +140,13 @@
     </div>
     <!-- Akhir Konten -->
 
-    <!-- Tombol Tambah Kursus -->
+    <!-- Tombol Tambah Mata kuliah -->
     <div id="floating-whatsapp-button">
         <a href="{{ route('getAddCourse') }}" target="_blank">
             <i class="fas fa-plus"></i>
         </a>
     </div>
-    <!-- Akhir Tombol Tambah Kursus -->
+    <!-- Akhir Tombol Tambah Mata kuliah -->
 @endsection
 
 @section('script')

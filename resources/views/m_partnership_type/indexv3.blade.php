@@ -29,11 +29,25 @@
                 <div class="card-body">
                     <h4 class="card-title">Tipe Kemitraan</h4>
                     <p class="card-title-desc">
-                        Di halaman ini, Anda dapat melihat dan mengelola semua tipe kemitraan yang tersedia. Setiap baris
-                        menampilkan informasi penting seperti nama dan deskripsi. Gunakan fitur <b>visibilitas kolom,
-                            pengurutan, dan pencarian kolom</b> untuk menemukan data yang dibutuhkan dengan cepat dan mudah.
+                        Halaman ini menyediakan fitur untuk mengelola berbagai tipe kemitraan yang tersedia di dalam sistem.
+                        Setiap baris tabel menampilkan informasi utama seperti nama tipe kemitraan dan deskripsi. Fitur
+                        interaktif pada tabel ini memudahkan pengguna dalam mengelola data kemitraan.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li><strong>Visibilitas Kolom:</strong> Atur kolom mana yang ingin ditampilkan atau disembunyikan
+                            untuk fokus pada data yang relevan.</li>
+                        <li><strong>Pencarian Data:</strong> Masukkan kata kunci di kolom pencarian untuk menemukan tipe
+                            kemitraan tertentu dengan cepat.</li>
+                        <li><strong>Pengurutan Data:</strong> Klik pada judul kolom seperti "Nama Tipe Kemitraan" atau
+                            "Status" untuk mengurutkan data dalam tabel sesuai kebutuhan.</li>
+                        <li><strong>Edit Data:</strong> Klik tombol <em>Edit</em> pada kolom "Aksi" untuk memperbarui
+                            informasi tipe kemitraan yang ada.</li>
+                        <li><strong>Tambah Tipe Kemitraan Baru:</strong> Klik tombol <em>+</em> di sudut kanan bawah untuk
+                            menambahkan tipe kemitraan baru. Anda akan diarahkan ke halaman formulir untuk memasukkan detail
+                            tipe kemitraan yang baru.</li>
+                    </ul>
                     </p>
-
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>

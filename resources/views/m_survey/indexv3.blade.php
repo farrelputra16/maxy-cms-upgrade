@@ -29,12 +29,28 @@
                 <div class="card-body">
                     <h4 class="card-title">Survei</h4>
                     <p class="card-title-desc">
-                        Di halaman ini, Anda dapat melihat dan mengelola semua survei yang tersedia. Setiap baris
-                        menampilkan informasi penting seperti nama, URL, tanggal berakhir, tipe, dan status. Gunakan fitur
-                        <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk menyesuaikan tampilan dan menemukan
-                        data dengan cepat.
+                        Halaman ini memungkinkan Anda untuk melihat dan mengelola semua survei yang tersedia dalam sistem.
+                        Setiap baris menampilkan informasi lengkap mengenai survei, termasuk nama, URL, tanggal berakhir,
+                        tipe survei, dan statusnya. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian kolom</b>
+                        untuk menemukan data yang diinginkan dengan cepat dan menyesuaikan tampilan tabel sesuai kebutuhan.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li><strong>Visibilitas Kolom:</strong> Atur kolom yang ingin Anda tampilkan atau sembunyikan untuk
+                            fokus pada data yang relevan.</li>
+                        <li><strong>Pencarian Data:</strong> Gunakan kolom pencarian untuk menemukan survei tertentu
+                            berdasarkan nama, deskripsi, atau tipe.</li>
+                        <li><strong>Pengurutan Data:</strong> Klik pada judul kolom seperti "Nama" atau "Tanggal Berakhir"
+                            untuk mengurutkan data dalam tabel.</li>
+                        <li><strong>Edit Survei:</strong> Klik tombol <em>Edit</em> pada kolom "Aksi" untuk memperbarui
+                            informasi survei yang ada.</li>
+                        <li><strong>Tambah Survei Baru:</strong> Klik tombol <em>+</em> di sudut kanan bawah untuk membuat
+                            survei baru. Anda akan diarahkan ke halaman formulir untuk memasukkan detail survei yang baru.
+                        </li>
+                        <li><strong>Hasil Survei:</strong> Klik tombol <em>Hasil</em> untuk melihat hasil survei yang
+                            terkumpul dari peserta.</li>
+                    </ul>
                     </p>
-
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>

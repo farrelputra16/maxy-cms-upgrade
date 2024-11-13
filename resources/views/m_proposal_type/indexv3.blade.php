@@ -28,12 +28,28 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Jenis Proposal</h4>
-                    <p class="card-title-desc">
-                        Halaman ini menampilkan daftar lengkap semua jenis proposal yang tersedia dalam format DataTable
-                        interaktif. Setiap baris berisi detail penting seperti nama, deskripsi, dan status. Gunakan fitur
-                        <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk menyesuaikan tampilan dan menemukan
-                        informasi spesifik dengan cepat.
-                    </p>
+                    <div class="card-title-desc">
+                        <p>
+                            Halaman ini menyediakan daftar semua jenis proposal yang ada dalam bentuk tabel interaktif.
+                            Setiap baris menampilkan informasi kunci, seperti nama jenis proposal, deskripsi singkat, status
+                            aktif atau nonaktif, serta data terkait pembuat dan pembaruan. <br><br>
+
+                            <strong>Cara Penggunaan:</strong>
+                        <ul>
+                            <li><strong>Visibilitas Kolom:</strong> Sesuaikan kolom yang ingin ditampilkan di tabel untuk
+                                melihat data yang lebih relevan sesuai kebutuhan Anda.</li>
+                            <li><strong>Pencarian Data:</strong> Gunakan kolom pencarian untuk menemukan jenis proposal
+                                tertentu dengan cepat berdasarkan kata kunci seperti nama atau deskripsi.</li>
+                            <li><strong>Pengurutan Kolom:</strong> Klik judul kolom tertentu untuk mengurutkan data,
+                                misalnya untuk menampilkan jenis proposal yang terakhir diperbarui di urutan atas.</li>
+                            <li><strong>Edit Data:</strong> Klik tombol <em>Edit</em> di kolom Aksi pada baris data yang
+                                ingin Anda perbarui untuk mengedit informasi atau status jenis proposal.</li>
+                            <li><strong>Tambah Jenis Proposal Baru:</strong> Klik ikon <em>Tambah</em> di pojok kanan bawah
+                                untuk menambahkan jenis proposal baru ke dalam sistem.</li>
+                        </ul>
+                        </p>
+                    </div>
+
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>

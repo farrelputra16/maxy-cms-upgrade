@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Modul Anak Kursus')
+@section('title', 'Modul Child Mata Kuliah')
 
 @section('content')
     <!-- Awal Halaman Judul -->
@@ -16,12 +16,12 @@
                         @if ($bcMBKM == true)
                             <li class="breadcrumb-item"><a href="{{ route('getCourseMBKM') }}">MBKM</a></li>
                         @else
-                            <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Kursus</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Mata Kuliah</a></li>
                         @endif
                         <li class="breadcrumb-item"><a
                                 href="{{ route('getCourseModule', ['course_id' => $parent_module_detail->course_id, 'page_type' => 'LMS']) }}">Modul
-                                Kursus</a></li>
-                        <li class="breadcrumb-item active">Modul Anak: {{ $parent_module_detail->name }}</li>
+                                Mata Kuliah</a></li>
+                        <li class="breadcrumb-item active">Modul Child: {{ $parent_module_detail->name }}</li>
                     </ol>
                 </div>
                 <!-- Akhir Breadcrumb -->
@@ -35,25 +35,28 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Modul Anak untuk Kursus: {{ $parent_module_detail->name }}</h4>
+                    <h4 class="card-title">Modul Child untuk Mata Kuliah: {{ $parent_module_detail->name }}</h4>
                     <p class="card-title-desc">
-                        Halaman ini menyediakan ringkasan lengkap dari semua data modul anak yang tersedia, disajikan dalam
-                        format tabel interaktif. Anda dapat melihat detail utama, seperti nama modul, prioritas, jenis, dan
-                        status. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk menyesuaikan
-                        tampilan dan mencari informasi yang Anda butuhkan dengan cepat.
+                        Halaman ini menampilkan daftar modul child yang terkait dengan modul utama mata kuliah tertentu,
+                        dalam format tabel interaktif. Anda dapat melihat detail utama, seperti nama modul, prioritas,
+                        jenis, materi, dan status. Fitur <b>pencarian, pengurutan, dan visibilitas kolom</b> membantu Anda
+                        menyesuaikan tampilan dan menemukan data dengan cepat.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
-                        <li>Pilih kolom tertentu yang ingin ditampilkan atau disembunyikan untuk menyesuaikan tampilan data.
+                        <li>Pilih kolom tertentu yang ingin ditampilkan atau disembunyikan untuk menyesuaikan tampilan data
+                            sesuai kebutuhan.</li>
+                        <li>Gunakan fitur pengurutan untuk mengurutkan data berdasarkan prioritas, jenis, atau waktu
+                            pembuatan.</li>
+                        <li>Manfaatkan pencarian kolom untuk menemukan modul tertentu dengan cepat berdasarkan kata kunci.
                         </li>
-                        <li>Gunakan fitur pengurutan untuk mengurutkan data berdasarkan kolom tertentu, seperti prioritas
-                            atau tanggal.</li>
-                        <li>Gunakan pencarian kolom untuk menemukan modul tertentu berdasarkan kata kunci.</li>
-                        <li>Klik tombol <b>Edit</b> untuk memperbarui informasi modul atau mengubah status aktif/nonaktif
-                            modul.</li>
-                        <li>Gunakan tombol <b>Tambah</b> di sudut kanan bawah untuk menambahkan modul anak baru.</li>
+                        <li>Tekan tombol <b>Edit</b> pada kolom Aksi untuk memperbarui informasi modul child atau mengubah
+                            status aktif/nonaktif modul.</li>
+                        <li>Klik tombol <b>Tambah</b> di sudut kanan bawah untuk menambahkan modul child baru ke dalam modul
+                            utama.</li>
                     </ul>
                     </p>
+
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>

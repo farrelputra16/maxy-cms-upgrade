@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Modul Kursus')
+@section('title', 'Modul Mata Kuliah')
 
 @section('content')
     <!-- Begin Page Title -->
@@ -16,7 +16,7 @@
                         @if ($bcMBKM == true)
                             <li class="breadcrumb-item"><a href="{{ route('getCourseMBKM') }}">MBKM</a></li>
                         @else
-                            <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Kursus</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Mata Kuliah</a></li>
                         @endif
                         <li class="breadcrumb-item active">Daftar Modul: {{ $course_detail->name }}</li>
                     </ol>
@@ -32,19 +32,28 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Modul Utama untuk Kursus: {{ $course_detail->name }}</h4>
+                    <h4 class="card-title">Modul Utama untuk Mata Kuliah: {{ $course_detail->name }}</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan daftar modul utama dalam kursus yang dipilih, lengkap dengan detail seperti
-                        nama, deskripsi, dan status aktif. Anda dapat menggunakan fitur pencarian, pengurutan, dan
-                        visibilitas kolom untuk menyesuaikan tampilan data sesuai kebutuhan Anda.
+                        Halaman ini menampilkan daftar modul utama dari mata kuliah yang telah dipilih, termasuk informasi
+                        detail seperti nama modul, hari pelaksanaan, konten, deskripsi, dan status aktif. Anda dapat
+                        mengelola modul dengan mudah melalui fitur tabel interaktif yang menyediakan <b>pencarian,
+                            pengurutan, dan visibilitas kolom</b>.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
-                        <li>Gunakan ikon <b>+</b> di pojok kanan bawah untuk menambahkan modul baru.</li>
-                        <li>Tekan tombol <b>Edit</b> untuk memperbarui informasi modul yang sudah ada.</li>
-                        <li>Gunakan tombol <b>Content</b> untuk mengelola sub-modul atau materi dalam modul.</li>
+                        <li>Klik ikon <b>+</b> di pojok kanan bawah untuk menambahkan modul baru ke dalam mata kuliah ini.
+                        </li>
+                        <li>Tekan tombol <b>Edit</b> pada kolom Tindakan untuk memperbarui informasi modul seperti nama atau
+                            deskripsi.</li>
+                        <li>Pilih tombol <b>Konten</b> untuk mengelola sub-modul atau materi yang ada dalam modul tersebut.
+                        </li>
+                        <li>Gunakan kolom <b>Status</b> untuk mengetahui apakah modul sedang aktif atau non-aktif, yang
+                            memengaruhi visibilitas modul bagi peserta.</li>
+                        <li>Manfaatkan fitur <b>Pencarian</b>, <b>Pengurutan</b>, dan <b>Visibilitas Kolom</b> untuk
+                            mempermudah navigasi dan akses ke modul tertentu sesuai kebutuhan.</li>
                     </ul>
                     </p>
+
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>

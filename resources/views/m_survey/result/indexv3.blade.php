@@ -30,10 +30,22 @@
                 <div class="card-body">
                     <h4 class="card-title">Hasil Survei</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan hasil survei yang tersedia dalam format tabel interaktif dan dapat
-                        diurutkan. Setiap baris mewakili data unik, termasuk nama survei, nama responden, skor, dan status.
-                        Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk menyesuaikan tampilan
-                        dan mengakses informasi yang Anda butuhkan dengan cepat.
+                        Halaman ini menyajikan hasil survei dalam format tabel interaktif. Setiap baris berisi detail hasil
+                        survei, termasuk nama survei, nama responden, skor yang diperoleh, dan status pembaruan. Gunakan
+                        <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk mengatur tampilan sesuai kebutuhan
+                        dan menemukan informasi dengan lebih cepat.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li><strong>Visibilitas Kolom:</strong> Atur kolom yang ingin ditampilkan atau disembunyikan untuk
+                            fokus pada data yang relevan.</li>
+                        <li><strong>Pencarian Data:</strong> Gunakan kolom pencarian untuk menemukan hasil survei
+                            berdasarkan nama survei atau nama responden.</li>
+                        <li><strong>Pengurutan Data:</strong> Klik pada header kolom, seperti "Nama Survei" atau "Skor,"
+                            untuk mengurutkan data sesuai kebutuhan.</li>
+                        <li><strong>Lihat Detail Hasil:</strong> Tekan tombol <em>Detail</em> pada kolom "Aksi" untuk
+                            melihat informasi lengkap hasil survei.</li>
+                    </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"

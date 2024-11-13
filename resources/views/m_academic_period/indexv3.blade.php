@@ -29,11 +29,25 @@
                 <div class="card-body">
                     <h4 class="card-title">Periode Akademik</h4>
                     <p class="card-title-desc">
-                        Halaman ini menyajikan ikhtisar komprehensif dari seluruh data yang tersedia, ditampilkan dalam
-                        format DataTable interaktif dan dapat diurutkan. Setiap baris mewakili satu data, memberikan rincian
-                        penting seperti nama, deskripsi, dan status. Gunakan <b>visibilitas kolom, pengurutan, dan bilah
-                            pencarian kolom</b> untuk menyesuaikan tampilan Anda dan dengan cepat mengakses informasi
-                        spesifik yang Anda butuhkan.
+                        Di halaman ini, Anda dapat melihat dan mengelola daftar periode akademik yang tersedia. Setiap baris
+                        dalam tabel ini memberikan detail penting tentang periode akademik, seperti nama, tanggal mulai,
+                        tanggal selesai, dan deskripsi. Gunakan <b>fitur visibilitas kolom, pengurutan, dan pencarian
+                            kolom</b> untuk menyesuaikan tampilan sesuai kebutuhan dan menemukan informasi dengan lebih
+                        cepat.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li><strong>Visibilitas Kolom:</strong> Tentukan kolom mana yang ingin Anda tampilkan atau
+                            sembunyikan untuk fokus pada data tertentu.</li>
+                        <li><strong>Pencarian Data:</strong> Manfaatkan kolom pencarian untuk menemukan periode akademik
+                            spesifik berdasarkan nama atau deskripsi.</li>
+                        <li><strong>Pengurutan Data:</strong> Klik pada judul kolom, seperti "Tanggal Mulai" atau "Status,"
+                            untuk mengurutkan data sesuai kebutuhan.</li>
+                        <li><strong>Edit Data:</strong> Klik tombol <em>Edit</em> pada kolom "Aksi" untuk memperbarui
+                            informasi dari periode akademik tertentu.</li>
+                        <li><strong>Tambah Periode Akademik Baru:</strong> Gunakan tombol <em>+</em> di pojok kanan bawah
+                            untuk menambahkan data periode akademik baru ke daftar.</li>
+                    </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
