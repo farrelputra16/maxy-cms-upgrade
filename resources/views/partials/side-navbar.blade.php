@@ -12,7 +12,7 @@
                 <li>
                     <a href="{{ route('getDashboard') }}" class="waves-effect">
                         <i class="bx bx-home-circle"></i>
-                        <span key="t-dashboard">Dashboard</span>
+                        <span key="t-dashboard">Dasbor</span>
                     </a>
                 </li>
 
@@ -22,23 +22,23 @@
                         <span key="t-master">Master</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('getCourse') }}" key="t-carousel">Course</a></li>
+                        <li><a href="{{ route('getCourse') }}" key="t-carousel">Kursus</a></li>
                         @if (env('APP_ENV') == 'local')
                             <li><a href="{{ route('getCourseMBKM') }}" key="t-carousel">MBKM</a></li>
                         @endif
                         @if ($userAccess == 'super')
-                            <li><a href="{{ route('getCourseType') }}" key="t-testimonial">Course Type</a></li>
-                            <li><a href="{{ route('getCoursePackage') }}" key="t-blog">Course Package</a></li>
-                            <li><a href="{{ route('getDifficulty') }}" key="t-blog">Course Difficulty</a></li>
-                            <li><a href="{{ route('getPartner') }}" key="t-blog">Partners</a></li>
-                            <li><a href="{{ route('getCategory') }}" key="t-blog">Category</a></li>
-                            <li><a href="{{ route('getProposalType') }}" key="t-blog">Proposal Type</a></li>
-                            <li><a href="{{ route('getProposalStatus') }}" key="t-blog">Proposal Status</a></li>
-                            <li><a href="{{ route('getEventType') }}" key="t-blog">Event Type</a></li>
-                            <li><a href="{{ route('getPartnershipType') }}" key="t-blog">Partnership Type</a></li>
-                            <li><a href="{{ route('getSurvey') }}" key="t-blog">Survey</a></li>
-                            <li><a href="{{ route('getAcademicPeriod') }}" key="t-blog">Academic Period</a></li>
-                            <li><a href="{{ route('getScore') }}" key="t-blog">Grade</a></li>
+                            <li><a href="{{ route('getCourseType') }}" key="t-testimonial">Tipe Kursus</a></li>
+                            <li><a href="{{ route('getCoursePackage') }}" key="t-blog">Paket Kursus</a></li>
+                            <li><a href="{{ route('getDifficulty') }}" key="t-blog">Tingkat Kesulitan Kursus</a></li>
+                            <li><a href="{{ route('getPartner') }}" key="t-blog">Mitra</a></li>
+                            <li><a href="{{ route('getCategory') }}" key="t-blog">Kategori Kursus</a></li>
+                            <li><a href="{{ route('getProposalType') }}" key="t-blog">Jenis Proposal</a></li>
+                            <li><a href="{{ route('getProposalStatus') }}" key="t-blog">Status Proposal</a></li>
+                            <li><a href="{{ route('getEventType') }}" key="t-blog">Tipe Event</a></li>
+                            <li><a href="{{ route('getPartnershipType') }}" key="t-blog">Tipe Kemitraan</a></li>
+                            <li><a href="{{ route('getSurvey') }}" key="t-blog">Survei</a></li>
+                            <li><a href="{{ route('getAcademicPeriod') }}" key="t-blog">Periode Akademik</a></li>
+                            <li><a href="{{ route('getScore') }}" key="t-blog">TIngkat Penilaian</a></li>
                             <li><a href="{{ route('getJobdesc') }}" key="t-blog">Jobdesc</a></li>
                         @endif
                     </ul>
@@ -47,25 +47,24 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class='bx bxs-graduation'></i>
-                        <span key="t-class">Class</span>
+                        <span key="t-class">Kelas</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('getCourseClass') }}" key="t-class">Class Management</a></li>
-                        <li><a href="{{ route('certificate-templates.index') }}" key="t-certificate">Certificate
-                                Template</a></li>
+                        <li><a href="{{ route('getCourseClass') }}" key="t-class">Manajemen Kelas</a></li>
+                        <li><a href="{{ route('certificate-templates.index') }}" key="t-certificate">Template Sertifikat</a></li>
                         {{-- <li><a href="{{ route('getCCMH') }}" key="t-student-tracker">Student Tracker</a></li> --}}
-                        <li><a href="{{ route('getGrade') }}" key="t-grade-assignment">Grade Assignment</a></li>
+                        <li><a href="{{ route('getGrade') }}" key="t-grade-assignment">Penilaian Tugas</a></li>
                     </ul>
                 </li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class='bx bx-calendar-event'></i>
-                        <span key="t-schedule">Schedule</span>
+                        <span key="t-schedule">Jadwal</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('getSchedule') }}" key="t-schedule">Schedule</a></li>
-                        <li><a href="{{ route('getGeneralSchedule') }}" key="t-general-schedule">General Schedule</a>
+                        <li><a href="{{ route('getSchedule') }}" key="t-schedule">Jadwal</a></li>
+                        <li><a href="{{ route('getGeneralSchedule') }}" key="t-general-schedule">Jadwal Umum</a>
                         </li>
                     </ul>
                 </li>
@@ -74,22 +73,22 @@
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class='bx bx-lock-open'></i>
-                            <span key="t-user-access">User & Access</span>
+                            <span key="t-user-access">Pengguna & Akses</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{ route('getUser') }}" key="t-user">Users</a></li>
-                            <li><a href="{{ route('getAccessGroup') }}" key="t-access-group">Access Group</a></li>
-                            <li><a href="{{ route('getAccessMaster') }}" key="t-access-master">Access Master</a></li>
+                            <li><a href="{{ route('getUser') }}" key="t-user">Pengguna</a></li>
+                            <li><a href="{{ route('getAccessGroup') }}" key="t-access-group">Grup Akses</a></li>
+                            <li><a href="{{ route('getAccessMaster') }}" key="t-access-master">Hak Akses Utama</a></li>
                         </ul>
                     </li>
 
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class='bx bx-cart'></i>
-                            <span key="t-transaction">Transaction</span>
+                            <span key="t-transaction">Transaksi</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{ route('getTransOrder') }}" key="t-order">Order</a></li>
+                            <li><a href="{{ route('getTransOrder') }}" key="t-order">Pesanan</a></li>
                             <li><a href="{{ route('getVoucher') }}" key="t-voucher">Vouchers</a></li>
                         </ul>
                     </li>
@@ -98,7 +97,7 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class='bx bx-user-circle'></i>
-                        <span key="t-member">Member</span>
+                        <span key="t-member">Anggota</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         @if ($userAccess == 'super')
@@ -112,7 +111,7 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bxs-bar-chart-alt-2"></i>
-                        <span key="t-content">Content</span>
+                        <span key="t-content">Konten</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         @if ($userAccess == 'super')
@@ -120,13 +119,13 @@
                                 <li><a href="{{ route('getCarousel') }}" key="t-carousel">Carousel</a></li>
                             @endif
                             <li><a href="{{ route('getEvent') }}" key="t-event">Event</a></li>
-                            <li><a href="{{ route('getPartnership') }}" key="t-partnership">Partnership</a></li>
+                            <li><a href="{{ route('getPartnership') }}" key="t-partnership">Kerja Sama</a></li>
                             @if (env('APP_ENV') != 'local')
                             <li><a href="{{ route('getTestimonial') }}" key="t-testimonial">Testimonial</a></li>
                             @endif
                         @endif
                         <li><a href="{{ route('getBlog') }}" key="t-blog">Blog</a></li>
-                        <li><a href="{{ route('getBlogTag') }}" key="t-blog-tag">Blog Tag</a></li>
+                        <li><a href="{{ route('getBlogTag') }}" key="t-blog-tag">Tag Blog</a></li>
                     </ul>
                 </li>
 
@@ -137,7 +136,7 @@
                             <span key="t-setting">Settings</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{ route('getGeneral') }}" key="t-general">General</a></li>
+                            <li><a href="{{ route('getGeneral') }}" key="t-general">Pengaturan Umum</a></li>
                             <li><a href="{{ route('getPages') }}" key="t-pages">Pages</a></li>
                             @if (env('APP_ENV') != 'local')
                                 <li><a href="{{ route('getMaxyTalk') }}" key="t-maxy-talk">Maxy Talk</a></li>
@@ -148,7 +147,7 @@
                 <li>
                     <a href="{{ route('profile') }}" class="waves-effect">
                         <i class="bx bx-info-circle"></i>
-                        <span key="t-profile">Profile</span>
+                        <span key="t-profile">Profil</span>
                     </a>
                 </li>
 
