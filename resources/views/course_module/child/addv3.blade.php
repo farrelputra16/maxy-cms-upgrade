@@ -46,7 +46,7 @@
                     </ul>
                     </p>
 
-                    <form action="{{ route('postAddChildModule', ['parentId' => $parent->id, 'page_type' => $page_type]) }}"
+                    <form id="addChildModule" action="{{ route('postAddChildModule', ['parentId' => $parent->id, 'page_type' => $page_type]) }}"
                         method="post" enctype="multipart/form-data">
                         @csrf
 
@@ -143,7 +143,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Tambah Modul Child</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addChildModule">Tambah Modul Child</button>
                             </div>
                         </div>
                     </form>
