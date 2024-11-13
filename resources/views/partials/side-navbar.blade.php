@@ -22,18 +22,18 @@
                         <span key="t-master">Master</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('getCourse') }}" key="t-carousel">Kursus</a></li>
+                        <li><a href="{{ route('getCourse') }}" key="t-carousel">Mata Kuliah</a></li>
                         @if (env('APP_ENV') == 'local')
                             <li><a href="{{ route('getCourseMBKM') }}" key="t-carousel">MBKM</a></li>
                         @endif
                         @if ($userAccess == 'super')
-                            <li><a href="{{ route('getCourseType') }}" key="t-testimonial">Tipe Kursus</a></li>
+                            <li><a href="{{ route('getCourseType') }}" key="t-testimonial">Tipe Mata Kuliah</a></li>
                             @if (env('APP_ENV') != 'local')
-                            <li><a href="{{ route('getCoursePackage') }}" key="t-blog">Paket Kursus</a></li>
+                            <li><a href="{{ route('getCoursePackage') }}" key="t-blog">Paket Mata Kuliah</a></li>
                             @endif
-                            <li><a href="{{ route('getDifficulty') }}" key="t-blog">Tingkat Kesulitan Kursus</a></li>
+                            <li><a href="{{ route('getDifficulty') }}" key="t-blog">Tingkat Kesulitan Mata Kuliah</a></li>
                             <li><a href="{{ route('getPartner') }}" key="t-blog">Mitra</a></li>
-                            <li><a href="{{ route('getCategory') }}" key="t-blog">Kategori Kursus</a></li>
+                            <li><a href="{{ route('getCategory') }}" key="t-blog">Program Studi</a></li>
                             <li><a href="{{ route('getProposalType') }}" key="t-blog">Jenis Proposal</a></li>
                             <li><a href="{{ route('getProposalStatus') }}" key="t-blog">Status Proposal</a></li>
                             <li><a href="{{ route('getEventType') }}" key="t-blog">Tipe Event</a></li>
