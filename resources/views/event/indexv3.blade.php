@@ -74,16 +74,16 @@
                                     </td>
                                     <td>
                                         @if ($item->is_need_verification == 1)
-                                            <a class="btn btn-success" style="pointer-events: none;">Yes</a>
+                                            <a class="btn btn-success" style="pointer-events: none;">Ya</a>
                                         @else
-                                            <a class="btn btn-danger" style="pointer-events: none;">No</a>
+                                            <a class="btn btn-danger" style="pointer-events: none;">Tidak</a>
                                         @endif
                                     </td>
                                     <td>
                                         @if ($item->is_public == 1)
-                                            <a class="btn btn-success" style="text-decoration: none;">Yes</a>
+                                            <a class="btn btn-success" style="text-decoration: none;">Ya</a>
                                         @else
-                                            <a class="btn btn-danger" style="text-decoration: none;">No</a>
+                                            <a class="btn btn-danger" style="text-decoration: none;">Tidak</a>
                                         @endif
                                     </td>
                                     <td>{{ $item->created_at }}</td>
@@ -102,9 +102,9 @@
                                         <a href="{{ route('getEditEvent', ['id' => $item->id]) }}"
                                             class="btn btn-primary rounded">Edit</a>
                                         <a href="{{ route('getAttendanceEvent', ['id' => $item->id]) }}"
-                                            class="btn btn-info">Attendance</a>
+                                            class="btn btn-info">Kehadiran</a>
                                         <a href="{{ route('getEventRequirement', ['id' => $item->id]) }}"
-                                            class="btn btn-secondary">Requirements</a>
+                                            class="btn btn-secondary">Persyaratan</a>
                                         {{-- </div> --}}
                                     </td>
                                 </tr>
