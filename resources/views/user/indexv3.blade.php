@@ -30,10 +30,22 @@
                 <div class="card-body">
                     <h4 class="card-title">Data Pengguna</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan data lengkap semua pengguna dalam format tabel interaktif yang dapat
-                        disortir. Setiap baris menunjukkan informasi utama seperti nama, email, dan status. Gunakan fitur
-                        <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk menyesuaikan tampilan dan menemukan
-                        informasi yang Anda butuhkan dengan cepat.
+                        Halaman ini berfungsi untuk mengelola data pengguna di platform. Anda dapat melihat semua informasi
+                        pengguna, termasuk nama, email, grup akses, dan status. Gunakan fitur <b>visibilitas kolom,
+                            pengurutan, dan pencarian kolom</b> untuk mengatur tampilan dan menemukan informasi yang relevan
+                        dengan cepat.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li><strong>Atur Kolom:</strong> Gunakan pengaturan visibilitas kolom untuk memilih kolom mana yang
+                            ingin ditampilkan atau disembunyikan.</li>
+                        <li><strong>Pengurutan dan Pencarian:</strong> Klik pada header kolom untuk mengurutkan data, atau
+                            gunakan bilah pencarian untuk menemukan pengguna tertentu berdasarkan kata kunci.</li>
+                        <li><strong>Edit dan Lihat Profil:</strong> Gunakan tombol <em>Edit</em> untuk mengubah data
+                            pengguna atau <em>Profil</em> untuk melihat profil pengguna secara detail.</li>
+                        <li><strong>Tambah Pengguna Baru:</strong> Klik ikon <em>Tambah</em> di kanan bawah untuk
+                            menambahkan pengguna baru.</li>
+                    </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">

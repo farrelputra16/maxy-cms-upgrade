@@ -30,10 +30,22 @@
                 <div class="card-body">
                     <h4 class="card-title">Hak Akses Utama</h4>
                     <p class="card-title-desc">
-                        Halaman ini memberikan tampilan lengkap semua data hak akses utama yang tersedia dalam format tabel
-                        interaktif. Setiap baris mewakili data spesifik, seperti nama, deskripsi, dan status. Gunakan fitur
-                        <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk menyesuaikan tampilan sesuai
-                        kebutuhan dan menemukan data yang Anda perlukan dengan cepat.
+                        Halaman ini menyediakan data terperinci tentang seluruh hak akses utama dalam tabel interaktif.
+                        Setiap baris menampilkan informasi penting, seperti nama hak akses, deskripsi, dan status aktif atau
+                        tidak aktif. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk
+                        menyesuaikan tampilan dan menemukan data yang Anda perlukan dengan cepat.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li><strong>Pengaturan Kolom:</strong> Atur kolom yang terlihat sesuai dengan kebutuhan untuk
+                            memfokuskan pada informasi tertentu.</li>
+                        <li><strong>Pengurutan dan Pencarian:</strong> Klik pada header kolom untuk mengurutkan data, atau
+                            gunakan kotak pencarian untuk menemukan hak akses berdasarkan kata kunci.</li>
+                        <li><strong>Edit Hak Akses:</strong> Klik tombol <em>Edit</em> di kolom "Aksi" untuk memperbarui
+                            detail hak akses utama.</li>
+                        <li><strong>Tambah Hak Akses Baru:</strong> Klik ikon <em>Tambah</em> di kanan bawah untuk
+                            menambahkan hak akses utama baru.</li>
+                    </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">

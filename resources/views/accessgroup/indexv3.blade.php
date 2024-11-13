@@ -30,10 +30,22 @@
                 <div class="card-body">
                     <h4 class="card-title">Grup Akses</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan data lengkap seluruh grup akses yang tersedia dalam format tabel interaktif.
-                        Setiap baris berisi informasi utama seperti nama, deskripsi, dan status. Gunakan fitur
-                        <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk menyesuaikan tampilan dan
-                        mendapatkan data yang Anda butuhkan dengan cepat.
+                        Halaman ini menyediakan data lengkap tentang semua grup akses di platform. Setiap baris berisi
+                        informasi penting, seperti nama grup, deskripsi, dan status aktif atau tidak aktif. Gunakan fitur
+                        <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk menyesuaikan tampilan data dan
+                        menemukan informasi yang relevan dengan cepat.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li><strong>Atur Kolom:</strong> Gunakan pengaturan visibilitas kolom untuk memilih kolom mana yang
+                            ingin ditampilkan atau disembunyikan.</li>
+                        <li><strong>Pengurutan dan Pencarian:</strong> Klik pada header kolom untuk mengurutkan data, atau
+                            gunakan bilah pencarian untuk menemukan grup akses tertentu berdasarkan kata kunci.</li>
+                        <li><strong>Edit Grup Akses:</strong> Klik tombol <em>Edit</em> pada kolom “Aksi” untuk memperbarui
+                            informasi grup akses.</li>
+                        <li><strong>Tambah Grup Akses Baru:</strong> Klik ikon <em>Tambah</em> di kanan bawah untuk
+                            menambahkan grup akses baru.</li>
+                    </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
