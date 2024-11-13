@@ -46,7 +46,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Modul</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Modul <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_module_id" data-placeholder="Pilih ..."
                                     id="type_selector">
@@ -65,7 +66,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-slug" class="col-md-2 col-form-label">Prioritas</label>
+                            <label for="input-slug" class="col-md-2 col-form-label">Prioritas <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority" required
                                     value="{{ old('priority') }}">
@@ -77,7 +79,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Mulai</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Mulai <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="start" id="date"
                                     value="{{ old('start') }}">
@@ -89,7 +92,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Selesai</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Selesai <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="end" id="date"
                                     value="{{ old('end') }}">

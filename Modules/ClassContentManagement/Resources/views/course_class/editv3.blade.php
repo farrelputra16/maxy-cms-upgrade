@@ -47,14 +47,16 @@
                         <input type="hidden" name="course_class_id" value="{{ $course_class_detail->id }}">
 
                         <div class="mb-3 row">
-                            <label for="batch" class="col-md-2 col-form-label">Angkatan</label>
+                            <label for="batch" class="col-md-2 col-form-label">Angkatan <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="batch"
                                     value="{{ old('batch', $course_class_detail->batch) }}" id="batch">
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-slug" class="col-md-2 col-form-label">Slug</label>
+                            <label for="input-slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug" id="slug"
                                     value="{{ old('slug', $course_class_detail->slug) }}" readonly>
@@ -66,7 +68,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="quota" class="col-md-2 col-form-label">Kuota<small> (per orang)</small></label>
+                            <label for="quota" class="col-md-2 col-form-label">Kuota Peserta <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="quota"
                                     value="{{ old('quota', $course_class_detail->quota) }}" id="quota" min="1">
@@ -79,7 +82,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="start" class="col-md-2 col-form-label">Tanggal Mulai</label>
+                            <label for="start" class="col-md-2 col-form-label">Tanggal Mulai <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="start"
                                     value="{{ old('start', $course_class_detail->start_date) }}" id="start">
@@ -87,7 +91,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="end" class="col-md-2 col-form-label">Tanggal Selesai</label>
+                            <label for="end" class="col-md-2 col-form-label">Tanggal Selesai <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="end"
                                     value="{{ old('end', $course_class_detail->end_date) }}" id="end">
@@ -95,7 +100,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="course_id" class="col-md-2 col-form-label">Kursus</label>
+                            <label for="course_id" class="col-md-2 col-form-label">Kursus <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_id" data-placeholder="Choose ..."
                                     id="course_id">
@@ -111,7 +117,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="credits" class="col-md-2 col-form-label">Kredit<small> (SKS)</small></label>
+                            <label for="credits" class="col-md-2 col-form-label">Kredit<small> (SKS)</small> <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="credits"
                                     value="{{ old('credits', $course_class_detail->credits) }}" id="credits" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
@@ -120,7 +127,8 @@
 
                         <div class="mb-3 row">
                             <label for="duration" class="col-md-2 col-form-label">Durasi<small> (dalam
-                                    menit)</small></label>
+                                    menit)</small> <span class="text-danger"
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration"
                                     value="{{ old('duration', $course_class_detail->duration) }}" id="duration" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
@@ -149,7 +157,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="ongoing" class="col-md-2 col-form-label">Status Berjalan</label>
+                            <label for="ongoing" class="col-md-2 col-form-label">Status Berjalan <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="ongoing" data-placeholder="Choose ..."
                                     id="ongoing">

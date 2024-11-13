@@ -45,7 +45,8 @@
                         <input type="hidden" name="course_class_id" value="{{ $classDetail->course_class_id }}">
 
                         <div class="mb-3 row">
-                            <label for="input-batch" class="col-md-2 col-form-label">Tanggal Mulai</label>
+                            <label for="input-batch" class="col-md-2 col-form-label">Tanggal Mulai <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="start"
                                     value="{{ old('start', \Carbon\Carbon::parse($course_class_module->start_date)->format('Y-m-d')) }}">
@@ -57,7 +58,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-batch" class="col-md-2 col-form-label">Tanggal Selesai</label>
+                            <label for="input-batch" class="col-md-2 col-form-label">Tanggal Selesai <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="end"
                                     value="{{ old('end', \Carbon\Carbon::parse($course_class_module->end_date)->format('Y-m-d')) }}">
@@ -69,7 +71,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Tingkat</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tingkat <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="level"
                                     value="{{ old('level', $course_class_module->level) }}" id="name" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
@@ -81,7 +84,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-slug" class="col-md-2 col-form-label">* Day</label>
+                            <label for="input-slug" class="col-md-2 col-form-label">Hari ke-* <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority"
                                     value="{{ old('priority', $course_class_module->priority) }}" id="slug" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
@@ -93,7 +97,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Modul Kursus</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Modul Kursus <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="coursemodulesid" data-placeholder="Pilih ...">
                                     {{-- <option>Select</option> --}}

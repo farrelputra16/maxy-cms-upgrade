@@ -36,7 +36,8 @@
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="type_selector" class="col-md-2 col-form-label">Kursus</label>
+                            <label for="type_selector" class="col-md-2 col-form-label">Kursus <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_id" id="type_selector"
                                     data-placeholder="Pilih Kursus...">
@@ -54,7 +55,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="batch" class="col-md-2 col-form-label">Angkatan</label>
+                            <label for="batch" class="col-md-2 col-form-label">Angkatan <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="batch" id="batch"
                                     placeholder="Masukkan Angkatan (contoh: 2023)" value="{{ old('batch') }}">
@@ -65,7 +67,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="slug" class="col-md-2 col-form-label">Slug</label>
+                            <label for="slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug" id="slug"
                                     value="{{ old('slug') }}" readonly>
@@ -76,7 +79,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="start" class="col-md-2 col-form-label">Tanggal Mulai</label>
+                            <label for="start" class="col-md-2 col-form-label">Tanggal Mulai <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="start" id="start"
                                     value="{{ old('start') }}">
@@ -87,7 +91,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="end" class="col-md-2 col-form-label">Tanggal Selesai</label>
+                            <label for="end" class="col-md-2 col-form-label">Tanggal Selesai <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="end" id="end"
                                     value="{{ old('end') }}">
@@ -98,7 +103,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="quota" class="col-md-2 col-form-label">Kuota Peserta</label>
+                            <label for="quota" class="col-md-2 col-form-label">Kuota Peserta <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="quota" min="0" id="quota"
                                     placeholder="Jumlah peserta maksimal" value="{{ old('quota') }}" min="1">
@@ -109,7 +115,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="credits" class="col-md-2 col-form-label">Kredit (SKS)</label>
+                            <label for="credits" class="col-md-2 col-form-label">Kredit (SKS) <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="credits" id="credits"
                                     placeholder="Masukkan jumlah SKS" value="{{ old('credits') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
@@ -117,7 +124,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="duration" class="col-md-2 col-form-label">Durasi (menit)</label>
+                            <label for="duration" class="col-md-2 col-form-label">Durasi (menit) <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration" id="duration"
                                     placeholder="Durasi kelas dalam menit" value="{{ old('duration') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
@@ -146,7 +154,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="ongoing" class="col-md-2 col-form-label">Status Kelas</label>
+                            <label for="ongoing" class="col-md-2 col-form-label">Status Kelas <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="ongoing" id="ongoing"
                                     data-placeholder="Pilih Status Kelas">

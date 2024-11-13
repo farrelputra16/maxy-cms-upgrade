@@ -47,7 +47,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Modul Kursus</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Modul Kursus <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_module_id" data-placeholder="Pilih ...">
                                     @foreach ($child_cm_list as $item)
@@ -65,7 +66,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Prioritas</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Prioritas <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority"
                                     value="{{ old('priority', $child_detail->priority) }}">
@@ -77,7 +79,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Waktu Mulai</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Waktu Mulai <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" id="date" type="date" name="start"
                                     value="{{ old('start', \Carbon\Carbon::parse($child_detail->start_date)->format('Y-m-d')) }}">
@@ -89,7 +92,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Waktu Berakhir</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Waktu Berakhir <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" id="date" type="date" name="end"
                                     value="{{ old('end', \Carbon\Carbon::parse($child_detail->end_date)->format('Y-m-d')) }}">
