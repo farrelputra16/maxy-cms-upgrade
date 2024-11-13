@@ -69,7 +69,7 @@
                             <label for="quota" class="col-md-2 col-form-label">Kuota<small> (per orang)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="quota"
-                                    value="{{ old('quota', $course_class_detail->quota) }}" id="quota">
+                                    value="{{ old('quota', $course_class_detail->quota) }}" id="quota" min="1">
                                 @if ($errors->has('quota'))
                                     @foreach ($errors->get('quota') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -114,7 +114,7 @@
                             <label for="credits" class="col-md-2 col-form-label">Kredit<small> (SKS)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="credits"
-                                    value="{{ old('credits', $course_class_detail->credits) }}" id="credits">
+                                    value="{{ old('credits', $course_class_detail->credits) }}" id="credits" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                             </div>
                         </div>
 
@@ -123,7 +123,7 @@
                                     menit)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration"
-                                    value="{{ old('duration', $course_class_detail->duration) }}" id="duration">
+                                    value="{{ old('duration', $course_class_detail->duration) }}" id="duration" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                             </div>
                         </div>
 

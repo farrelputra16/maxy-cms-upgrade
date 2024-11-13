@@ -101,7 +101,7 @@
                             <label for="quota" class="col-md-2 col-form-label">Kuota Peserta</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="quota" min="0" id="quota"
-                                    placeholder="Jumlah peserta maksimal" value="{{ old('quota') }}">
+                                    placeholder="Jumlah peserta maksimal" value="{{ old('quota') }}" min="1">
                                 @error('quota')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -112,7 +112,7 @@
                             <label for="credits" class="col-md-2 col-form-label">Kredit (SKS)</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="credits" id="credits"
-                                    placeholder="Masukkan jumlah SKS" value="{{ old('credits') }}">
+                                    placeholder="Masukkan jumlah SKS" value="{{ old('credits') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                             </div>
                         </div>
 
@@ -120,7 +120,7 @@
                             <label for="duration" class="col-md-2 col-form-label">Durasi (menit)</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration" id="duration"
-                                    placeholder="Durasi kelas dalam menit" value="{{ old('duration') }}">
+                                    placeholder="Durasi kelas dalam menit" value="{{ old('duration') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                             </div>
                         </div>
 
