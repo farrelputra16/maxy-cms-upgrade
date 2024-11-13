@@ -35,7 +35,8 @@
                     <form id="addScore" action="{{ route('postAddScore') }}" method="post">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Tingkat Nilai</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Tingkat Nilai <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="input-title"
                                     value="{{ old('name') }}">
@@ -48,7 +49,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Rentang Awal</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Rentang Awal <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="range_start" id="input-title"
                                     inputmode="numeric" pattern="[0-9]*"
@@ -63,7 +65,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Rentang Akhir</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Rentang Akhir <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="range_end" id="input-title"
                                     inputmode="numeric" pattern="[0-9]*"

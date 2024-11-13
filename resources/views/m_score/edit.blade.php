@@ -35,7 +35,8 @@
                     <form action="{{ route('postEditScore', ['id' => request()->query('id')]) }}" method="post">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Tingkat Nilai</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Tingkat Nilai <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $data->name) }}" id="input-title">
@@ -48,7 +49,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Rentang Awal</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Rentang Awal <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="range_start"
                                     value="{{ old('range_start', $data->range_start) }}" id="input-title"
@@ -63,7 +65,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Rentang Akhir</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Rentang Akhir <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="range_end"
                                     value="{{ old('range_end', $data->range_end) }}" id="input-title" inputmode="numeric"

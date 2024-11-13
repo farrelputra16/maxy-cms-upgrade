@@ -42,7 +42,8 @@
                         <input type="text" name="img_keep" value="{{ $partners->logo }}" hidden>
 
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Nama</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Nama <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $partners->name) }}">
@@ -54,7 +55,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Tipe</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="type" data-placeholder="Pilih ..."
                                     id="type_selector">
@@ -80,7 +82,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Email</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Email <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="email"
                                     value="{{ old('email', $partners->email) }}">
@@ -92,7 +95,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Telepon</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Telepon <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="phone"
                                     value="{{ old('phone', $partners->phone) }}"
@@ -105,7 +109,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Kontak Person</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Kontak Person <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="contact_person"
                                     value="{{ old('contact_person', $partners->contact_person) }}">
@@ -117,7 +122,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">URL</label>
+                            <label for="input-title" class="col-md-2 col-form-label">URL <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="url"
                                     value="{{ old('url', $partners->url) }}">
@@ -138,7 +144,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Alamat</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Alamat <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="address">{{ old('address', $partners->address) }}</textarea>
                             </div>
@@ -150,7 +157,8 @@
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
-                            <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Sorot Status</label>
+                            <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Sorot Status <span class="text-primary"
+                                data-bs-toggle="tooltip" title="Mitra akan ditampilkan di front-page">*</span></label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input type="hidden" name="status_highlight" value="0">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"

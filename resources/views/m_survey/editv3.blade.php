@@ -49,14 +49,16 @@
                         enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Nama</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Nama <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $currentData->name) }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Tanggal Kedaluwarsa</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Tanggal Kedaluwarsa <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" id="expired_date" name="expired_date"
                                     value="{{ old('expired_date', $currentData->expired_date) }}">
@@ -97,7 +99,8 @@
                         </div>
                         <br>
                         <div class="mb-3 row">
-                            <h4>Survei</h4>
+                            <h4>Survei <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></h4>
                             <input type="hidden" name='survey' id='survey'>
                             <div id="surveyCreatorContainer" style="position: relative; height: 100%; width: 100%">
                             </div>

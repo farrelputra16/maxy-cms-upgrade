@@ -35,7 +35,8 @@
                     <form id="addAcademicPeriod" action="" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     placeholder="Masukkan Nama Periode Akademik" value="{{ old('name') }}">
@@ -47,7 +48,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Mulai</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Mulai <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="date_start"
                                     value="{{ old('date_start') }}">
@@ -59,7 +61,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Selesai</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Selesai <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="date_end" value="{{ old('date_end') }}">
                                 @if ($errors->has('date_end'))

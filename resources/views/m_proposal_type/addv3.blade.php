@@ -37,7 +37,8 @@
                     <form id="addProposalType" action="" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     placeholder="Masukkan Nama Jenis Proposal" value="{{ old('name') }}">

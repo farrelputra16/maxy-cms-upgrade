@@ -40,7 +40,8 @@
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Nama</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Nama <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" placeholder="Masukkan Nama Mitra"
                                     value="{{ old('name') }}">
@@ -52,7 +53,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Tipe</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="type" data-placeholder="Pilih ..."
                                     id="type_selector">
@@ -68,7 +70,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Email</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Email <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="email" placeholder="Masukkan Email Mitra"
                                     value="{{ old('email') }}">
@@ -80,7 +83,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Telepon</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Telepon <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="phone"
                                     placeholder="Masukkan Nomor Telepon Mitra"
@@ -93,7 +97,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">URL</label>
+                            <label for="input-title" class="col-md-2 col-form-label">URL <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="url" placeholder="Masukkan Link URL"
                                     value="{{ old('url') }}">
@@ -105,7 +110,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Kontak Person</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Kontak Person <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="contact_person"
                                     placeholder="Masukkan Kontak Person" value="{{ old('contact_person') }}">
@@ -126,7 +132,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Alamat</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Alamat <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="address" placeholder="Masukkan Alamat Mitra">{{ old('address') }}</textarea>
                                 @if ($errors->has('address'))
@@ -143,7 +150,8 @@
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
-                            <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Sorot Status</label>
+                            <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Sorot Status <span class="text-primary"
+                                data-bs-toggle="tooltip" title="Mitra akan ditampilkan di front-page">*</span></label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
                                     name="status_highlight" {{ old('status_highlight') ? 'checked' : '' }}>
