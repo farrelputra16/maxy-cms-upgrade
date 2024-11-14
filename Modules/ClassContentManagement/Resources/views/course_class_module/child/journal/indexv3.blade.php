@@ -44,7 +44,7 @@
                             penuh dari entri jurnal.</li>
                         <li><strong>Tambah Tanggapan:</strong> Gunakan tombol <em>Balas</em> di kolom Aksi untuk menambahkan
                             tanggapan atau komentar tambahan pada entri.</li>
-                        <li><strong>Hapus/Pulihkan Entri:</strong> Klik tombol <em>Hapus</em> atau <em>Pulihkan</em> untuk
+                        <li><strong>Hapus/Tunjukkan Entri:</strong> Klik tombol <em>Hapus</em> atau <em>Tunjukkan</em> untuk
                             mengubah status entri.</li>
                         <li><strong>Pengelolaan Status:</strong> Gunakan tombol <em>Terima</em> atau <em>Tolak</em> untuk
                             menyetujui atau menolak entri jurnal.</li>
@@ -100,7 +100,7 @@
                                             <button type="button" class="btn btn-success delete-button"
                                                 data-id="{{ $item->id }}"
                                                 data-course_class_module_id="{{ $parent_module->id }}">
-                                                Pulihkan
+                                                Tunjukkan
                                             </button>
                                         @endif
                                         <form
