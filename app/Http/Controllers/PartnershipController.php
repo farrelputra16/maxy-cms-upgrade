@@ -107,32 +107,41 @@ class PartnershipController extends Controller
         ]);
 
         if ($validated) {
-            $updateData = Partnership::where('id', $idpartnership)
-                ->update([
-                    'm_partner_id' => $request->partner,
-                    'm_partnership_type_id' => $request->partnership_type,
-                    'date_start' => date('Y-m-d', strtotime($request->date_start)),
-                    'date_end' => date('Y-m-d', strtotime($request->date_end)),
-                    'description' => $request->description,
-                    'status' => $request->status ? 1 : 0,
-                    'updated_id' => Auth::user()->id,
-                ]);
+            $partnership = Partnership::findOrFail($idpartnership);
 
-            if ($updateData) {
-                if ($request->hasFile('file')) {
-                    $file = $request->file('file');
-                    $file_name = $idpartnership;
-                    $destinationPath = public_path('/uploads/partnership');
-                    if (!File::exists($destinationPath)) { // create folder jika blm ada
-                        File::makeDirectory($destinationPath, 0777, true, true);
-                    }
-                    $file->move($destinationPath, $file_name);
+            // Update database fields
+            $partnership->update([
+                'm_partner_id' => $request->partner,
+                'm_partnership_type_id' => $request->partnership_type,
+                'date_start' => date('Y-m-d', strtotime($request->date_start)),
+                'date_end' => date('Y-m-d', strtotime($request->date_end)),
+                'description' => $request->description,
+                'status' => $request->status ? 1 : 0,
+                'updated_id' => Auth::user()->id,
+            ]);
+
+            // Check if a new file is uploaded
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $file_name = $idpartnership . '.' . $file->getClientOriginalExtension();
+                $destinationPath = public_path('/uploads/partnership');
+
+                // Delete the old file if it exists
+                if (File::exists($destinationPath . '/' . $partnership->file)) {
+                    File::delete($destinationPath . '/' . $partnership->file);
                 }
-                return app(HelperController::class)->Positive('getPartnership');
-            } else {
-                return app(HelperController::class)->Warning('getPartnership');
+
+                // Save the new file
+                $file->move($destinationPath, $file_name);
+
+                // Update the file path in the database
+                $partnership->file = $file_name;
+                $partnership->save();
             }
-        } else
+
+            return app(HelperController::class)->Positive('getPartnership');
+        } else {
             return redirect()->back()->withErrors($validated)->withInput();
+        }
     }
 }
