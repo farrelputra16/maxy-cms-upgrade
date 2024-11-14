@@ -48,7 +48,7 @@
 
                         <div class="mb-3 row">
                             <label for="batch" class="col-md-2 col-form-label">Angkatan <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="batch"
                                     value="{{ old('batch', $course_class_detail->batch) }}" id="batch">
@@ -56,7 +56,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug" id="slug"
                                     value="{{ old('slug', $course_class_detail->slug) }}" readonly>
@@ -69,7 +69,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="quota" class="col-md-2 col-form-label">Kuota Peserta <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="quota"
                                     value="{{ old('quota', $course_class_detail->quota) }}" id="quota" min="1">
@@ -83,7 +83,7 @@
 
                         <div class="mb-3 row">
                             <label for="start" class="col-md-2 col-form-label">Tanggal Mulai <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="start"
                                     value="{{ old('start', $course_class_detail->start_date) }}" id="start">
@@ -92,7 +92,7 @@
 
                         <div class="mb-3 row">
                             <label for="end" class="col-md-2 col-form-label">Tanggal Selesai <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="end"
                                     value="{{ old('end', $course_class_detail->end_date) }}" id="end">
@@ -101,12 +101,12 @@
 
                         <div class="mb-3 row">
                             <label for="course_id" class="col-md-2 col-form-label">Kursus <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_id" data-placeholder="Choose ..."
                                     id="course_id">
                                     @foreach ($course_list as $items)
-                                        <option value="{{ $items->id }}"
+                                        <option value="{{ $items->id }}" data-slug="{{ $items->slug }}"
                                             {{ old('course_id') == $items->id ? 'selected' : '' }}
                                             @if ($items->id == $course_class_detail->course_id) selected @endif>
                                             {{ $items->name }}
@@ -117,21 +117,23 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="credits" class="col-md-2 col-form-label">Kredit<small> (SKS)</small> <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="credits" class="col-md-2 col-form-label">Kredit<small> (SKS)</small> <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="credits"
-                                    value="{{ old('credits', $course_class_detail->credits) }}" id="credits" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    value="{{ old('credits', $course_class_detail->credits) }}" id="credits"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="duration" class="col-md-2 col-form-label">Durasi<small> (dalam
-                                    menit)</small> <span class="text-danger"
-                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    menit)</small> <span class="text-danger" data-bs-toggle="tooltip"
+                                    title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration"
-                                    value="{{ old('duration', $course_class_detail->duration) }}" id="duration" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    value="{{ old('duration', $course_class_detail->duration) }}" id="duration"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                             </div>
                         </div>
 
@@ -157,8 +159,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="ongoing" class="col-md-2 col-form-label">Status Berjalan <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="ongoing" class="col-md-2 col-form-label">Status Berjalan <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="ongoing" data-placeholder="Choose ..."
                                     id="ongoing">
@@ -209,17 +211,18 @@
             const batchInput = document.getElementById('batch');
             const slugInput = document.getElementById('slug');
 
-            // Ambil slug awal dari PHP untuk dasar slug
-            const baseSlug = "{{ $course_class_detail->slug }}".split('-')[0];
-
             function updateSlug() {
+                const selectedCourse = $('#course_id').find(':selected');
+                const courseSlug = selectedCourse.data('slug') || '';
                 const batchValue = batchInput.value;
 
-                // Update slug berdasarkan slug dasar + batch
-                slugInput.value = batchValue ? `${baseSlug}-${batchValue}` : baseSlug;
+                slugInput.value = `${courseSlug}-${batchValue}`;
             }
 
-            // Event listener untuk mengubah slug ketika batch diubah
+            $('#course_id').on('change', function() {
+                updateSlug();
+            });
+
             batchInput.addEventListener('input', updateSlug);
         });
     </script>

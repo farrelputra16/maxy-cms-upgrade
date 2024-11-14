@@ -40,7 +40,7 @@ class PartnerController extends Controller
             'url' => 'required|url|max:255',
             'address' => 'required|string|max:65355',
             'email' => 'required|email|max:255',
-            'phone' => 'required|regex:/^\+?[0-9\s\-]+$/|max:255',
+            'phone' => 'required|regex:/^\+?[0-9\s\-]+$/|min:10',
             'contact_person' => 'required',
         ]);
 
@@ -97,7 +97,7 @@ class PartnerController extends Controller
             'url' => 'required|url|max:255',
             'address' => 'required|string|max:65355',
             'email' => 'required|email|max:255',
-            'phone' => 'required|regex:/^\+?[0-9\s\-]+$/|max:255',
+            'phone' => 'required|regex:/^\+?[0-9\s\-]+$/|min:10',
             'contact_person' => 'required',
         ]);
 
