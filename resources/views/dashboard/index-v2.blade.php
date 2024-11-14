@@ -42,8 +42,8 @@
                             <div class="col-sm-4">
                                 <div class="avatar-md profile-user-wid mb-4">
                                     @if (auth()->user()->profile_picture)
-                                        <img src="{{ asset('uploads/' . auth()->user()->profile_picture) }}" alt=""
-                                            class="img-thumbnail rounded-circle">
+                                        <img src="{{ asset('uploads/' . auth()->user()->profile_picture) }}" alt="{{ auth()->user()->name }} profile"
+                                            class="img-thumbnail rounded-circle d-inline-block w-100 h-100">
                                     @else
                                         <img src="{{ asset('img/default_profile.png') }}" alt=""
                                             class="img-thumbnail rounded-circle">
