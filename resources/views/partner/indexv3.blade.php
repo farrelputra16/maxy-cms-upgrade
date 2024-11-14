@@ -29,11 +29,21 @@
                 <div class="card-body">
                     <h4 class="card-title">Daftar Mitra</h4>
                     <p class="card-title-desc">
-                        Pada halaman ini, Anda bisa melihat daftar mitra yang terdaftar dan mengelola informasi mereka.
-                        Setiap baris menampilkan detail seperti nama modul, tipe, kontak, dan status. Gunakan <b>fitur
-                            visibilitas kolom, pencarian, dan pengurutan</b> untuk mengatur tampilan sesuai kebutuhan Anda,
-                        sehingga memudahkan pencarian data spesifik. Klik tombol "Edit" pada setiap baris untuk memperbarui
-                        informasi mitra tersebut.
+                        Halaman ini menampilkan daftar mitra dalam format tabel interaktif yang memudahkan Anda mengelola
+                        data mitra yang terdaftar. Setiap baris tabel berisi informasi detail seperti nama partner, logo,
+                        tipe, alamat, kontak, deskripsi, dan status. Anda bisa menggunakan <b>fitur visibilitas kolom,
+                            pencarian, dan pengurutan</b> untuk menyesuaikan tampilan data sesuai kebutuhan.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li>Klik ikon <b>+ Tambah</b> di sudut kanan bawah untuk menambahkan mitra baru.</li>
+                        <li>Pada setiap baris, tombol <b>Edit</b> memungkinkan Anda memperbarui informasi mitra tersebut.
+                        </li>
+                        <li>Periksa kolom <b>Status</b> dan <b>Status Sorotan</b> untuk melihat apakah mitra dalam kondisi
+                            aktif atau nonaktif.</li>
+                        <li>Manfaatkan fitur <b>Visibilitas Kolom</b>, <b>Pengurutan</b>, dan <b>Pencarian</b> pada tabel
+                            untuk memudahkan penyesuaian atau penyaringan data mitra yang Anda butuhkan.</li>
+                    </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
