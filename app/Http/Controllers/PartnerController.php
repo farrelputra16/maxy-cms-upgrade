@@ -35,7 +35,7 @@ class PartnerController extends Controller
 
 
         $validate = $request->validate([
-            'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
+            'name' => 'required|string|max:255',
             'type' => 'required',
             'url' => 'required|url|max:255',
             'address' => 'required|string|max:65355',
@@ -92,7 +92,7 @@ class PartnerController extends Controller
         }
 
         $validate = $request->validate([
-            'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
+            'name' => 'required|string|max:255',
             'type' => 'required',
             'url' => 'required|url|max:255',
             'address' => 'required|string|max:65355',
