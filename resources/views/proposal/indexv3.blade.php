@@ -40,6 +40,7 @@
                                 <th>ID</th>
                                 <th class="data-medium">Nama</th>
                                 <th class="data-medium">Judul</th>
+                                <th>Proposal</th>
                                 <th>Tanggal Pembuatan</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>
@@ -60,6 +61,9 @@
                                     <td class="data-medium" data-toggle="tooltip" data-placement="top"
                                         title="{{ $proposal->name }}">
                                         {!! \Str::limit($proposal->name, 30) !!}
+                                    </td>
+                                    <td>
+                                        <a href="{{ asset("/uploads/proposal/proposal/". $proposal->student_id ."/proposal/".$proposal->proposal) }}" target="_blank">{{ $proposal->proposal }}</a>
                                     </td>
                                     <td>{{ $proposal->created_at }}</td>
                                     <td>{{ $proposal->created_id }}</td>
@@ -96,6 +100,7 @@
                                 <th>Id</th>
                                 <th class="data-medium">Name</th>
                                 <th class="data-medium">Title</th>
+                                <th>Proposal</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>
