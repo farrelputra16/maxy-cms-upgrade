@@ -401,8 +401,15 @@ class CourseClassModuleController extends Controller
                 'created_id' => auth()->user()->id,
                 'updated_id' => auth()->user()->id
             ]);
+        
+        $updateContent = CourseModule::where('id', $request->course_module_id)
+            ->update([
+                'content' => $request->content,
+                'created_id' => auth()->user()->id,
+                'updated_id' => auth()->user()->id
+            ]);
 
-        if ($update) {
+        if ($update && $updateContent) {
             return redirect()->route('getCourseClassChildModule', ['id' => $request->ccmod_parent_id])->with('success', 'Sukses Mengubah Modul');
         } else {
             return redirect()->route('getCourseClassChildModule', ['id' => $request->ccmod_parent_id])->with('failed', 'Gagal Mengubah Modul, silahkan coba lagi');
