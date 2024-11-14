@@ -35,7 +35,6 @@
                     <ul>
                         <li>Isi <b>Nama Mata Kuliah</b> dengan judul yang jelas dan ringkas.</li>
                         <li>Pilih <b>Jenis Mata Kuliah</b> dan <b>Kategori Mata Kuliah</b> yang sesuai.</li>
-                        <li>Tambahkan gambar, harga, dan deskripsi untuk memberikan informasi lengkap bagi pengguna.</li>
                         <li>Aktifkan status mata kuliah agar dapat langsung ditampilkan di platform.</li>
                     </ul>
                     </p>

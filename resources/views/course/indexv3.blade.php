@@ -39,8 +39,6 @@
                         <li>Klik ikon <b>+ Tambah</b> di sudut kanan bawah untuk menambahkan mata kuliah baru.</li>
                         <li>Pada setiap baris, tombol <b>Edit</b> memungkinkan Anda memperbarui informasi mata kuliah, sementara
                             tombol <b>Daftar Modul</b> mengarahkan Anda ke daftar modul terkait mata kuliah tersebut.</li>
-                        <li>Gunakan kolom <b>Harga</b> dan <b>Harga Promo</b> untuk memverifikasi atau mengubah harga mata kuliah
-                            saat menambah atau memperbarui mata kuliah.</li>
                         <li>Periksa kolom <b>Status</b> untuk melihat apakah mata kuliah dalam kondisi aktif atau nonaktif, yang
                             mempengaruhi ketersediaan mata kuliah bagi pengguna.</li>
                         <li>Manfaatkan fitur <b>Visibilitas Kolom</b>, <b>Pengurutan</b>, dan <b>Pencarian</b> pada tabel
