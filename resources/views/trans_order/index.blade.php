@@ -43,7 +43,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Nomor Pesanan</th>
-                                <th>Anggota</th>
+                                <th>Mahasiswa</th>
                                 <th>Kursus</th>
                                 <th>Tanggal</th>
                                 <th>Total</th>
@@ -136,7 +136,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Nomor Pesanan</th>
-                                <th>Anggota</th>
+                                <th>Mahasiswa</th>
                                 <th>Kursus</th>
                                 <th>Tanggal</th>
                                 <th>Total</th>

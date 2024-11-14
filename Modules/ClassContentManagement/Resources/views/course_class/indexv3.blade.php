@@ -41,7 +41,7 @@
                         <ul>
                             <li><strong>Visibilitas Kolom dan Pengurutan:</strong> Atur tampilan dengan mengurutkan kolom tertentu untuk mempermudah pencarian data spesifik. Anda juga bisa menggunakan bilah pencarian untuk mencari kelas tertentu berdasarkan nama, angkatan, atau tipe.</li>
                             <li><strong>Edit Data:</strong> Klik tombol <em>Ubah</em> pada kolom “Aksi” untuk memperbarui informasi kelas.</li>
-                            <li><strong>Modul dan Anggota:</strong> Gunakan tombol <em>Modul</em> untuk mengelola modul, dan tombol <em>Anggota</em> untuk melihat daftar peserta di kelas tersebut.</li>
+                            <li><strong>Modul dan Mahasiswa:</strong> Gunakan tombol <em>Modul</em> untuk mengelola modul, dan tombol <em>Mahasiswa</em> untuk melihat daftar peserta di kelas tersebut.</li>
                             <li><strong>Absensi dan Penilaian:</strong> Tombol <em>Absensi</em> memungkinkan Anda memantau kehadiran peserta, sementara tombol <em>Penilaian</em> membantu mengakses penilaian atau nilai yang diberikan dalam kelas tersebut.</li>
                             <li><strong>Tambah atau Duplikasi Kelas:</strong> Gunakan ikon <em>Tambah</em> di kanan bawah untuk menambah kelas baru atau ikon <em>Duplikat</em> untuk menggandakan kelas yang sudah ada dengan pengaturan yang sama.</li>
                         </ul>
@@ -118,7 +118,7 @@
                                         <a href="{{ route('getCourseClassModule', ['id' => $item->id]) }}"
                                             class="btn btn-info btn-sm">Modul</a>
                                         <a href="{{ route('getCourseClassMember', ['id' => $item->id]) }}"
-                                            class="btn btn-info btn-sm">Anggota</a>
+                                            class="btn btn-info btn-sm">Mahasiswa</a>
                                         <a href="{{ route('getCourseClassAttendance', ['id' => $item->id]) }}"
                                             class="btn btn-outline-primary btn-sm">Absensi</a>
                                         <a href="{{ route('getCourseClassScoring', ['id' => $item->id]) }}"

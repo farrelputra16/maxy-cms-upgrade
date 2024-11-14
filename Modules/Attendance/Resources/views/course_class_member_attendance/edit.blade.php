@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Kehadiran Anggota Kelas')
+@section('title', 'Edit Kehadiran Mahasiswa')
 
 @section('content')
     <!-- Mulai Judul Halaman -->
@@ -15,7 +15,7 @@
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Presensi</a></li>
-                        <li class="breadcrumb-item active">Edit Kehadiran Anggota Kelas</li>
+                        <li class="breadcrumb-item active">Edit Kehadiran Mahasiswa</li>
                     </ol>
                 </div>
                 <!-- Akhir Breadcrumb -->
@@ -31,7 +31,7 @@
                 <div class="card-body">
 
                     <h4 class="card-title">Edit Kehadiran: {{ $attendance->user_name }}</h4>
-                    <p class="card-title-desc">Silakan perbarui data kehadiran anggota kelas dengan memastikan semua
+                    <p class="card-title-desc">Silakan perbarui data kehadiran mahasiswa dengan memastikan semua
                         informasi yang dimasukkan benar dan akurat. Hal ini akan membantu dalam menciptakan pengalaman
                         belajar yang optimal bagi peserta.</p>
 
@@ -42,7 +42,7 @@
                         <input type="hidden" name="class_attendance_id" value="{{ $class_attendance_id }}">
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Anggota</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Mahasiswa</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" placeholder="Masukkan Nama"
                                     value="{{ $attendance->user_name }}" id="name" disabled>

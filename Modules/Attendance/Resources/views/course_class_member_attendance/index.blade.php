@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Presensi Anggota Kelas')
+@section('title', 'Presensi Mahasiswa')
 
 @section('content')
     <!-- Mulai Judul Halaman -->
@@ -15,7 +15,7 @@
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Presensi</a></li>
-                        <li class="breadcrumb-item active">Presensi Anggota Kelas</li>
+                        <li class="breadcrumb-item active">Presensi Mahasiswa</li>
                     </ol>
                 </div>
                 <!-- Akhir Breadcrumb -->
@@ -31,8 +31,8 @@
                 <div class="card-body">
                     <h4 class="card-title">Presensi {{ $class->course_name }} Batch {{ $class->batch }}</h4>
                     <p class="card-title-desc">
-                        Di halaman ini, Anda dapat melihat dan mengelola data presensi seluruh anggota kelas. Setiap baris
-                        menampilkan data penting seperti nama anggota, status kehadiran, dan deskripsi. Anda dapat
+                        Di halaman ini, Anda dapat melihat dan mengelola data presensi seluruh mahasiswa. Setiap baris
+                        menampilkan data penting seperti nama mahasiswa, status kehadiran, dan deskripsi. Anda dapat
                         menggunakan fitur <b>tampilan kolom, pengurutan, dan pencarian</b> untuk menyesuaikan tampilan
                         sesuai kebutuhan.
                     </p>
