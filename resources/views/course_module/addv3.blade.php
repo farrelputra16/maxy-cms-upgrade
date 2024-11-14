@@ -56,7 +56,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Nama Modul</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Nama Modul <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     placeholder="Masukkan Nama Modul Mata Kuliah" value="{{ old('name') }}">
@@ -68,7 +69,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Hari / Prioritas</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Hari / Prioritas <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority"
                                     placeholder="Masukkan Urutan Prioritas" value="{{ old('priority') }}" min="1">

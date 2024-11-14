@@ -51,7 +51,8 @@
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Modul</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Modul <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $module_detail->name) }}" id="name"
@@ -64,7 +65,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Hari / Prioritas</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Hari / Prioritas <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority"
                                     value="{{ old('priority', $module_detail->priority) }}"
