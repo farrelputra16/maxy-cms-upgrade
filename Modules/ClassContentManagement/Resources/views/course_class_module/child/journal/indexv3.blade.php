@@ -33,17 +33,17 @@
                     <h4 class="card-title">Entri Jurnal: Modul Anak dari {{ $parent_module->detail->name }}</h4>
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda untuk melihat dan mengelola entri jurnal yang terkait dengan setiap
-                        modul anak dalam kelas mata kuliah ini. Setiap entri mencakup detail seperti nama penulis, catatan, dan
+                        modul anak dalam kelas mata kuliah ini. Setiap entri mencakup detail seperti nama penulis, komentar, dan
                         status. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian</b> untuk menyesuaikan
                         tampilan dan menemukan entri tertentu dengan cepat. Misalnya, Anda dapat mengurutkan data dengan
                         mengklik header kolom atau menggunakan fitur tooltip untuk melihat deskripsi penuh.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
-                        <li><strong>Lihat Detail:</strong> Arahkan kursor ke catatan yang terpotong untuk melihat catatan
+                        <li><strong>Lihat Detail:</strong> Arahkan kursor ke komentar yang terpotong untuk melihat komentar
                             penuh dari entri jurnal.</li>
                         <li><strong>Tambah Tanggapan:</strong> Gunakan tombol <em>Balas</em> di kolom Aksi untuk menambahkan
-                            tanggapan atau catatan tambahan pada entri.</li>
+                            tanggapan atau komentar tambahan pada entri.</li>
                         <li><strong>Hapus/Pulihkan Entri:</strong> Klik tombol <em>Hapus</em> atau <em>Pulihkan</em> untuk
                             mengubah status entri.</li>
                         <li><strong>Pengelolaan Status:</strong> Gunakan tombol <em>Terima</em> atau <em>Tolak</em> untuk
@@ -57,7 +57,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Nama</th>
-                                <th class="data-long">Catatan</th>
+                                <th class="data-long">Komentar</th>
                                 <th>Dibuat Pada</th>
                                 <th>Dibuat Oleh</th>
                                 <th>Diperbarui Pada</th>
@@ -122,7 +122,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th>Nama</th>
-                                <th>Catatan</th>
+                                <th>Komentar</th>
                                 <th>Dibuat Pada</th>
                                 <th>Dibuat Oleh</th>
                                 <th>Diperbarui Pada</th>
