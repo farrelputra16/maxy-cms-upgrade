@@ -217,7 +217,7 @@ class CourseClassModuleController extends Controller
         // dd($request->all()); // dapat course_class_module_id parent nya
         $validated = $request->validate([
             'course_module_id' => 'required|not_in:0',
-            'priority' => 'required',
+            'priority' => 'required|numeric|min:0',
             'start' => 'required|date',
             'end' => 'required|date|after:start',
         ], [
@@ -401,7 +401,7 @@ class CourseClassModuleController extends Controller
                 'created_id' => auth()->user()->id,
                 'updated_id' => auth()->user()->id
             ]);
-        
+
         $updateContent = CourseModule::where('id', $request->course_module_id)
             ->update([
                 'content' => $request->content,

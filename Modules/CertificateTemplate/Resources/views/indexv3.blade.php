@@ -29,8 +29,10 @@
                 <div class="card-body">
                     <h4 class="card-title">Template Sertifikat</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan daftar template sertifikat yang tersedia untuk mata kuliah. Setiap baris dalam
-                        tabel di bawah ini menyajikan informasi penting, termasuk jenis mata kuliah, angkatan, gambar template,
+                        Halaman ini menampilkan daftar template sertifikat yang tersedia untuk mata kuliah. Setiap baris
+                        dalam
+                        tabel di bawah ini menyajikan informasi penting, termasuk jenis mata kuliah, angkatan, gambar
+                        template,
                         status penanda, dan konten template. Gunakan fitur <b>visibilitas kolom, pengurutan, dan
                             pencarian</b> untuk mempermudah navigasi dan menemukan template yang Anda butuhkan dengan cepat.
                         Anda juga dapat melihat deskripsi lengkap dengan mengarahkan kursor pada teks yang terpotong.
@@ -78,7 +80,9 @@
                                     </td>
                                     <td class="text-wrap">{{ \Str::limit($certificateTemplate->marker_state) }}</td>
                                     <td id="description" class="text-wrap" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $certificateTemplate->template_content }}">{!! !empty($certificateTemplate->template_content) ? \Str::limit($certificateTemplate->template_content) : '-' !!}</td>
+                                        title="{{ $certificateTemplate->template_content }}">{!! !empty($certificateTemplate->template_content)
+                                            ? \Str::limit(strip_tags($certificateTemplate->template_content))
+                                            : '-' !!}</td>
                                     <td>{{ $certificateTemplate->created_at }}</td>
                                     <td>{{ $certificateTemplate->created_id }}</td>
                                     <td>{{ $certificateTemplate->updated_at }}</td>

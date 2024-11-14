@@ -41,7 +41,7 @@ class PartnerController extends Controller
             'address' => 'required|string|max:65355',
             'email' => 'required|email|max:255',
             'phone' => 'required|regex:/^\+?[0-9\s\-]+$/|min:10',
-            'contact_person' => 'required',
+            'contact_person' => 'required|regex:/^\+?[0-9\s\-]+$/|min:10',
         ]);
 
         if ($validate){

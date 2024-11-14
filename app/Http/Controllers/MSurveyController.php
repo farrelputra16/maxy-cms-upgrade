@@ -30,6 +30,8 @@ class MSurveyController extends Controller
                     $fail('The ' . $attribute . ' field cannot be empty');
                 }
             }],
+        ], [
+            'expired_date.after' => 'Tanggal kadaluarsa harus berisi tanggal setelah sekarang',
         ]);
 
         if ($validate){
