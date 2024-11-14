@@ -121,7 +121,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Kategori Mata Kuliah</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Program Studi</label>
                             <div class="col-md-10">
                                 <select class="form-control select2 multiple" name="courseCategory[]"
                                     data-placeholder="Pilih ..." id="course_category_selector" multiple="multiple">
