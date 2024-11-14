@@ -30,7 +30,7 @@
                     <h4 class="card-title">Template Sertifikat</h4>
                     <p class="card-title-desc">
                         Halaman ini menampilkan daftar template sertifikat yang tersedia untuk mata kuliah. Setiap baris dalam
-                        tabel di bawah ini menyajikan informasi penting, termasuk jenis mata kuliah, batch, gambar template,
+                        tabel di bawah ini menyajikan informasi penting, termasuk jenis mata kuliah, angkatan, gambar template,
                         status penanda, dan konten template. Gunakan fitur <b>visibilitas kolom, pengurutan, dan
                             pencarian</b> untuk mempermudah navigasi dan menemukan template yang Anda butuhkan dengan cepat.
                         Anda juga dapat melihat deskripsi lengkap dengan mengarahkan kursor pada teks yang terpotong.
@@ -54,7 +54,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Jenis Mata Kuliah - Batch</th>
+                                <th>Jenis Mata Kuliah - Angkatan</th>
                                 <th>Gambar</th>
                                 <th>Status Penanda</th>
                                 <th>Konten Template</th>
@@ -70,7 +70,7 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $certificateTemplate->id }}</td>
-                                    <td>{{ $certificateTemplate->type->name . ' - ' . "Batch $certificateTemplate->batch" ?? '-' }}
+                                    <td>{{ $certificateTemplate->type->name . ' - ' . "Angkatan $certificateTemplate->batch" ?? '-' }}
                                     </td>
                                     <td>
                                         <img src="{{ asset('uploads/certificate/' . $certificateTemplate->type->id . '/' . $certificateTemplate->filename) }}"
@@ -103,7 +103,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Jenis Mata Kuliah - Batch</th>
+                                <th>Jenis Mata Kuliah - Angkatan</th>
                                 <th>Gambar</th>
                                 <th>Status Penanda</th>
                                 <th>Konten Template</th>
