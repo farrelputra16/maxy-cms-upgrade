@@ -43,7 +43,7 @@
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                    placeholder="Masukkan Nama MBKM" value="{{ old('name') }}" required>
+                                    placeholder="Masukkan Nama MBKM" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -55,7 +55,7 @@
                             <label for="input-slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="slug" id="slug" readonly required>
+                                <input class="form-control" type="text" name="slug" id="slug" readonly>
                                 @if ($errors->has('slug'))
                                     @foreach ($errors->get('slug') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -127,7 +127,7 @@
                             <label for="input-file" class="col-md-2 col-form-label">Gambar</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="file" name="file_image" id="input-file"
-                                    accept="image/*" onchange="previewImage()" required>
+                                    accept="image/*" onchange="previewImage()">
 
                                 <!-- Preview gambar yang dipilih -->
                                 <img id="frame" src="" alt="Preview Image" class="img-fluid"

@@ -52,7 +52,7 @@
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                    value="{{ old('name', $courses->name) }}" required>
+                                    value="{{ old('name', $courses->name) }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -65,7 +65,7 @@
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug" id="slug"
-                                    value="{{ old('slug', $courses->slug) }}" readonly required>
+                                    value="{{ old('slug', $courses->slug) }}" readonly>
                                 @if ($errors->has('slug'))
                                     @foreach ($errors->get('slug') as $error)
                                         <span style="color: red;">{{ $error }}</span>
