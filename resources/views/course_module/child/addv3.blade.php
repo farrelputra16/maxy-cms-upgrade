@@ -57,7 +57,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Nama Modul</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Nama Modul <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     placeholder="Masukkan Nama Modul Child" value="{{ old('name') }}">
@@ -69,7 +70,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Prioritas</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Prioritas <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority" min="1"
                                     value="{{ old('priority') }}">
@@ -102,7 +104,8 @@
                             <input type="hidden" name="rapid" value="1">
                         @else
                             <div class="mb-3 row">
-                                <label for="input-tag" class="col-md-2 col-form-label">Jenis Modul</label>
+                                <label for="input-tag" class="col-md-2 col-form-label">Jenis Modul <span class="text-danger"
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                                 <div class="col-md-10">
                                     <select class="form-control" name="type" id="type_selector" required>
                                         <option value="" disabled {{ old('type') == '' ? 'selected' : '' }}>Pilih
