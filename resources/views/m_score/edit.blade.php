@@ -30,7 +30,7 @@
                     <h4 class="card-title">{{ $data->name }} <small>[ ID: {{ $data->id }} ]</small></h4>
                     <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi dengan mengubah
                         data yang tercantum di bawah ini. Pastikan semua informasi yang Anda masukkan akurat untuk
-                        memberikan pengalaman belajar terbaik bagi peserta kursus.</p>
+                        memberikan pengalaman belajar terbaik bagi peserta mata kuliah.</p>
 
                     <form action="{{ route('postEditScore', ['id' => request()->query('id')]) }}" method="post">
                         @csrf

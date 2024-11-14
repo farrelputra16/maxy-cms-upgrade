@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tambah Modul Kelas Kursus')
+@section('title', 'Tambah Modul Kelas Mata Kuliah')
 
 @section('content')
     <!-- start page title -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClassModule') }}">Modul Kursus</a></li>
-                        <li class="breadcrumb-item active">Tambah Modul Kelas Kursus</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClassModule') }}">Modul Mata Kuliah</a></li>
+                        <li class="breadcrumb-item active">Tambah Modul Kelas Mata Kuliah</li>
                     </ol>
                 </div>
             </div>
@@ -25,10 +25,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Tambah Modul Kelas Kursus</h4>
-                    <p class="card-title-desc">Halaman ini memungkinkan Anda untuk menambahkan informasi modul kursus baru.
+                    <h4 class="card-title">Tambah Modul Kelas Mata Kuliah</h4>
+                    <p class="card-title-desc">Halaman ini memungkinkan Anda untuk menambahkan informasi modul mata kuliah baru.
                         Pastikan semua data yang Anda masukkan sudah benar untuk memberikan pengalaman belajar terbaik
-                        kepada peserta kursus.</p>
+                        kepada peserta mata kuliah.</p>
 
                     <form id="addCourseClassModule" action="{{ route('postAddCourseClassModule') }}" method="post"
                         enctype="multipart/form-data">
@@ -45,11 +45,11 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Modul Kursus <span class="text-danger"
+                            <label for="input-tag" class="col-md-2 col-form-label">Modul Mata Kuliah <span class="text-danger"
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_module_id"
-                                    data-placeholder="Pilih Modul Kursus" id="type_selector">
+                                    data-placeholder="Pilih Modul Mata Kuliah" id="type_selector">
                                     <option value="0">-- Pilih Tipe Modul --</option>
                                     @foreach ($allModules as $item)
                                         <option value="{{ $item->id }}"

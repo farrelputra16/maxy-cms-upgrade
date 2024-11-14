@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Kursus')
+@section('title', 'Edit Mata Kuliah')
 
 @section('content')
     <!-- start page title -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Kursus</a></li>
-                        <li class="breadcrumb-item active">Edit Kursus: {{ $courses->name }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Mata Kuliah</a></li>
+                        <li class="breadcrumb-item active">Edit Mata Kuliah: {{ $courses->name }}</li>
                     </ol>
                 </div>
             </div>
@@ -27,9 +27,9 @@
                 <div class="card-body">
 
                     <h4 class="card-title">{{ $courses->name }} <small>[ ID: {{ $courses->id }} ]</small></h4>
-                    <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi kursus. Pastikan
+                    <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi mata kuliah. Pastikan
                         semua data yang dimasukkan sudah benar untuk memberikan pengalaman belajar terbaik bagi peserta
-                        kursus.</p>
+                        mata kuliah.</p>
 
                     <form action="{{ route('postEditCourse', ['id' => request()->query('id')]) }}" method="post"
                         enctype="multipart/form-data">
@@ -37,7 +37,7 @@
                         <input type="text" name="img_keep" value="{{ $courses->file_image }}" hidden>
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name Kursus <span class="text-danger"
+                            <label for="input-name" class="col-md-2 col-form-label">Name Mata Kuliah <span class="text-danger"
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Kursus</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Mata Kuliah</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="type" id="type_selector"
                                     data-placeholder="Pilih ...">
@@ -100,7 +100,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Kategori Kursus</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Kategori Mata Kuliah</label>
                             <div class="col-md-10">
                                 <select class="form-control select2 multiple" name="courseCategory[]"
                                     data-placeholder="Pilih ..." id="course_category_selector" multiple="multiple">
@@ -118,7 +118,7 @@
 
                         @if (env('APP_ENV') != 'local')
                             <div id="show_course_package" class="mb-3 row">
-                                <label for="input-package" class="col-md-2 col-form-label">Paket Kursus</label>
+                                <label for="input-package" class="col-md-2 col-form-label">Paket Mata Kuliah</label>
                                 <div class="col-md-10">
                                     <select class="form-control select2" name="package" data-placeholder="Pilih ...">
                                         <option value="" disabled

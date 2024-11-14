@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tambah Jenis Kursus')
+@section('title', 'Tambah Jenis Mata Kuliah')
 
 @section('content')
     <!-- start page title -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseType') }}">Jenis Kursus</a></li>
-                        <li class="breadcrumb-item active">Tambah Jenis Kursus</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseType') }}">Jenis Mata Kuliah</a></li>
+                        <li class="breadcrumb-item active">Tambah Jenis Mata Kuliah</li>
                     </ol>
                 </div>
 
@@ -27,9 +27,9 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Tambah Jenis Kursus</h4>
+                    <h4 class="card-title">Tambah Jenis Mata Kuliah</h4>
                     <p class="card-title-desc">
-                        Silakan lengkapi informasi jenis kursus di bawah ini.
+                        Silakan lengkapi informasi jenis mata kuliah di bawah ini.
                         Pastikan data yang Anda masukkan akurat untuk memberikan pengalaman belajar terbaik kepada peserta.
                     </p>
 
@@ -38,11 +38,11 @@
                         {{-- <input type="text" name="img_keep" value="{{ $blog->cover_img }}" hidden> --}}
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Jenis Kursus <span class="text-danger"
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Jenis Mata Kuliah <span class="text-danger"
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"" id="name"
-                                    placeholder="Masukkan Nama Jenis Kursus" value="{{ old('name') }}">
+                                    placeholder="Masukkan Nama Jenis Mata Kuliah" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -78,7 +78,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCourseType">Tambah Jenis Kursus</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCourseType">Tambah Jenis Mata Kuliah</button>
                             </div>
                         </div>
                     </form>

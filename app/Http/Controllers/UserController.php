@@ -106,7 +106,7 @@ class UserController extends Controller
             ->where('user_id', $user->id)
             ->get();
 
-        $courseData = []; // Inisialisasi array untuk menyimpan data kursus dan kategori
+        $courseData = []; // Inisialisasi array untuk menyimpan data mata kuliah dan kategori
 
         foreach ($members as $member) {
             // Ambil course_id dari course_class
@@ -150,7 +150,7 @@ class UserController extends Controller
         $members = DB::table('user_mentorships')
             ->where('mentor_id', $user->id)
             ->get();
-        
+
         // dd($members);
 
         $bimbinganData = []; // Inisialisasi array bimbinganData

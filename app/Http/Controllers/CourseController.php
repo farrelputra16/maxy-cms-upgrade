@@ -135,7 +135,7 @@ class CourseController extends Controller
             ]);
 
             if ($create) {
-                session()->flash('course_added', 'Kursus berhasil dibuat! Silakan tambahkan modul untuk kursus ini.');
+                session()->flash('course_added', 'Mata Kuliah berhasil dibuat! Silakan tambahkan modul untuk mata kuliah ini.');
                 $categories = $request->courseCategory;
 
                 if ($categories) {

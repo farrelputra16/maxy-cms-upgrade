@@ -32,7 +32,7 @@
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda menambahkan persyaratan baru dengan mengisi data yang dibutuhkan
                         di bawah ini. Pastikan semua informasi yang Anda masukkan benar untuk memberikan pengalaman
-                        terbaik bagi peserta kursus.
+                        terbaik bagi peserta mata kuliah.
                     </p>
 
                     <form id="addEventRequirement" action="{{ route('postAddEventRequirement') }}" method="post"

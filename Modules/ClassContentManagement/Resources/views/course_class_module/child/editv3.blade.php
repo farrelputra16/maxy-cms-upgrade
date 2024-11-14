@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Modul Child Kelas Kursus')
+@section('title', 'Edit Modul Child Kelas Mata Kuliah')
 
 @section('content')
     <!-- start page title -->
@@ -31,7 +31,7 @@
                     <h4 class="card-title">Edit Modul Child</h4>
                     <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi modul anak dengan
                         mengedit data yang tercantum di bawah ini. Pastikan semua informasi yang Anda masukkan akurat untuk
-                        memberikan pengalaman belajar terbaik bagi peserta kursus.</p>
+                        memberikan pengalaman belajar terbaik bagi peserta mata kuliah.</p>
 
                     <form action="{{ route('postEditCourseClassChildModule', ['id' => $child_detail->id]) }}" method="post"
                         enctype="multipart/form-data">
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Modul Kursus <span class="text-danger"
+                            <label for="input-tag" class="col-md-2 col-form-label">Modul Mata Kuliah <span class="text-danger"
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_module_id" data-placeholder="Pilih ...">

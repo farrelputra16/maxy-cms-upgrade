@@ -29,8 +29,8 @@
                 <div class="card-body">
                     <h4 class="card-title">Template Sertifikat</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan daftar template sertifikat yang tersedia untuk kursus. Setiap baris dalam
-                        tabel di bawah ini menyajikan informasi penting, termasuk jenis kursus, batch, gambar template,
+                        Halaman ini menampilkan daftar template sertifikat yang tersedia untuk mata kuliah. Setiap baris dalam
+                        tabel di bawah ini menyajikan informasi penting, termasuk jenis mata kuliah, batch, gambar template,
                         status penanda, dan konten template. Gunakan fitur <b>visibilitas kolom, pengurutan, dan
                             pencarian</b> untuk mempermudah navigasi dan menemukan template yang Anda butuhkan dengan cepat.
                         Anda juga dapat melihat deskripsi lengkap dengan mengarahkan kursor pada teks yang terpotong.
@@ -54,7 +54,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Jenis Kursus - Batch</th>
+                                <th>Jenis Mata Kuliah - Batch</th>
                                 <th>Gambar</th>
                                 <th>Status Penanda</th>
                                 <th>Konten Template</th>
@@ -103,7 +103,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Jenis Kursus - Batch</th>
+                                <th>Jenis Mata Kuliah - Batch</th>
                                 <th>Gambar</th>
                                 <th>Status Penanda</th>
                                 <th>Konten Template</th>

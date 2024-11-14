@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Jenis Kursus')
+@section('title', 'Edit Jenis Mata Kuliah')
 
 @section('content')
     <!-- start page title -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseType') }}">Jenis Kursus</a></li>
-                        <li class="breadcrumb-item active">Edit Jenis Kursus: {{ $currentData->name }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseType') }}">Jenis Mata Kuliah</a></li>
+                        <li class="breadcrumb-item active">Edit Jenis Mata Kuliah: {{ $currentData->name }}</li>
                     </ol>
                 </div>
 
@@ -28,12 +28,12 @@
                 <div class="card-body">
                     <h4 class="card-title">{{ $currentData->name }} <small>[ ID: {{ $currentData->id }} ]</small></h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda memperbarui informasi jenis kursus.
+                        Halaman ini memungkinkan Anda memperbarui informasi jenis mata kuliah.
                         Pastikan detail yang dimasukkan akurat agar peserta mendapatkan pengalaman belajar terbaik.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
-                        <li>Isi kolom "Nama Jenis Kursus," "Slug," dan "Deskripsi" sesuai kebutuhan.</li>
+                        <li>Isi kolom "Nama Jenis Mata Kuliah," "Slug," dan "Deskripsi" sesuai kebutuhan.</li>
                         <li>Setelah semua detail terisi, gunakan tombol <strong>'Save & Update'</strong> untuk menyimpan perubahan.</li>
                     </ul>
                     </p>
@@ -43,7 +43,7 @@
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Jenis Kursus <span class="text-danger"
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Jenis Mata Kuliah <span class="text-danger"
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"

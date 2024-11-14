@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Kelas Kursus')
+@section('title', 'Edit Kelas Mata Kuliah')
 
 @section('content')
     <!-- start page title -->
@@ -17,7 +17,7 @@
                         @php
                             $course_name =
                                 $course_list->firstWhere('id', $course_class_detail->course_id)->name ??
-                                'Nama Kursus Tidak Ditemukan';
+                                'Nama Mata Kuliah Tidak Ditemukan';
                         @endphp
                         <li class="breadcrumb-item active">Edit Kelas: {{ $course_name }} Batch
                             {{ $course_class_detail->batch }}</li>
@@ -37,9 +37,9 @@
                     <h4 class="card-title">Edit Kelas: {{ $course_name }} <small>[ Angkatan:
                             {{ $course_class_detail->batch }} ]</small>
                     </h4>
-                    <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi kelas kursus dengan
+                    <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi kelas mata kuliah dengan
                         mengubah data di bawah ini. Pastikan semua informasi yang Anda masukkan sudah benar untuk memberikan
-                        pengalaman belajar terbaik kepada peserta kursus.</p>
+                        pengalaman belajar terbaik kepada peserta mata kuliah.</p>
 
                     <form action="{{ route('postEditCourseClass', ['id' => request()->query('id')]) }}" method="post"
                         enctype="multipart/form-data">
@@ -100,7 +100,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="course_id" class="col-md-2 col-form-label">Kursus <span class="text-danger"
+                            <label for="course_id" class="col-md-2 col-form-label">Mata Kuliah <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_id" data-placeholder="Choose ..."

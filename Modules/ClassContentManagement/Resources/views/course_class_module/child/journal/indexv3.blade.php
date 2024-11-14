@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Jurnal Modul Kelas Kursus')
+@section('title', 'Jurnal Modul Kelas Mata Kuliah')
 
 @section('content')
     <!-- Begin Page Title -->
@@ -33,7 +33,7 @@
                     <h4 class="card-title">Entri Jurnal: Modul Anak dari {{ $parent_module->detail->name }}</h4>
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda untuk melihat dan mengelola entri jurnal yang terkait dengan setiap
-                        modul anak dalam kelas kursus ini. Setiap entri mencakup detail seperti nama penulis, catatan, dan
+                        modul anak dalam kelas mata kuliah ini. Setiap entri mencakup detail seperti nama penulis, catatan, dan
                         status. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian</b> untuk menyesuaikan
                         tampilan dan menemukan entri tertentu dengan cepat. Misalnya, Anda dapat mengurutkan data dengan
                         mengklik header kolom atau menggunakan fitur tooltip untuk melihat deskripsi penuh.

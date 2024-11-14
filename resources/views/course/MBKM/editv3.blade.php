@@ -35,7 +35,7 @@
                         <strong>Cara Penggunaan:</strong>
                     <ul>
                         <li>Lengkapi setiap kolom sesuai kebutuhan, seperti nama program, tingkat kesulitan, kategori
-                            kursus, dan tautan pembayaran.</li>
+                            mata kuliah, dan tautan pembayaran.</li>
                         <li>Untuk mengganti gambar, unggah gambar baru melalui kolom "Gambar" dan lihat pratinjau.</li>
                         <li>Gunakan tombol <b>'Save & Update'</b> setelah semua detail terisi untuk menyimpan perubahan.
                         </li>
@@ -117,7 +117,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Kategori Kursus</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Kategori Mata Kuliah</label>
                             <div class="col-md-10">
                                 <select class="form-control select2 multiple" name="courseCategory[]"
                                     data-placeholder="Choose ..." id="type_selector" multiple="multiple">

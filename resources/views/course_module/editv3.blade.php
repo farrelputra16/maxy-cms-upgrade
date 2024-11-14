@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Modul Kursus')
+@section('title', 'Edit Modul Mata Kuliah')
 
 @section('content')
     <!-- Awal Halaman Judul -->
@@ -14,7 +14,7 @@
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a
                                 href="{{ route('getCourseModule', ['course_id' => $module_detail->course_id]) }}">Modul
-                                Kursus</a>
+                                Mata Kuliah</a>
                         </li>
                         <li class="breadcrumb-item active">Edit Modul: {{ $module_detail->name }}</li>
                     </ol>
@@ -31,16 +31,16 @@
                 <div class="card-body">
                     <h4 class="card-title">{{ $module_detail->name }} <small>[ ID: {{ $module_detail->id }} ]</small></h4>
                     <p class="card-title-desc">
-                        Halaman ini digunakan untuk mengedit modul kursus yang ada. Silakan ubah data dengan informasi
-                        terbaru yang akurat untuk memberikan pengalaman belajar yang optimal kepada peserta kursus.
+                        Halaman ini digunakan untuk mengedit modul mata kuliah yang ada. Silakan ubah data dengan informasi
+                        terbaru yang akurat untuk memberikan pengalaman belajar yang optimal kepada peserta mata kuliah.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
                         <li>Isi kolom <b>Nama Modul</b> dengan judul yang mencerminkan isi modul.</li>
-                        <li>Tentukan <b>Hari/Prioritas</b> untuk mengatur urutan tampilan modul di dalam kursus.</li>
+                        <li>Tentukan <b>Hari/Prioritas</b> untuk mengatur urutan tampilan modul di dalam mata kuliah.</li>
                         <li>Berikan ringkasan dalam <b>Deskripsi</b> untuk menjelaskan materi yang akan dibahas di modul
                             ini.</li>
-                        <li>Centang kotak <b>Status</b> agar modul ini aktif dan dapat diakses peserta kursus.</li>
+                        <li>Centang kotak <b>Status</b> agar modul ini aktif dan dapat diakses peserta mata kuliah.</li>
                         <li>Klik <b>Simpan & Perbarui</b> untuk menyimpan perubahan.</li>
                     </ul>
                     </p>

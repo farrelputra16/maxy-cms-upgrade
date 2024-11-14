@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tambah Modul Kursus')
+@section('title', 'Tambah Modul Mata Kuliah')
 
 @section('content')
     <!-- Awal Halaman Judul -->
@@ -13,9 +13,9 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a
-                                href="{{ route('getCourseModule', ['course_id' => $course_detail->id]) }}">Modul Kursus</a>
+                                href="{{ route('getCourseModule', ['course_id' => $course_detail->id]) }}">Modul Mata Kuliah</a>
                         </li>
-                        <li class="breadcrumb-item active">Tambah Modul Kursus</li>
+                        <li class="breadcrumb-item active">Tambah Modul Mata Kuliah</li>
                     </ol>
                 </div>
             </div>
@@ -28,18 +28,18 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Tambah Modul untuk Kursus: {{ $course_detail->name }}</h4>
+                    <h4 class="card-title">Tambah Modul untuk Mata Kuliah: {{ $course_detail->name }}</h4>
                     <p class="card-title-desc">
-                        Halaman ini digunakan untuk menambahkan modul baru ke dalam kursus. Lengkapi seluruh data dengan
+                        Halaman ini digunakan untuk menambahkan modul baru ke dalam mata kuliah. Lengkapi seluruh data dengan
                         informasi yang akurat untuk memastikan peserta mendapatkan pengalaman belajar yang maksimal.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
                         <li>Isi <b>Nama Modul</b> dengan judul modul yang sesuai.</li>
-                        <li>Gunakan kolom <b>Hari/Prioritas</b> untuk menentukan urutan modul di dalam kursus.</li>
+                        <li>Gunakan kolom <b>Hari/Prioritas</b> untuk menentukan urutan modul di dalam mata kuliah.</li>
                         <li>Isi kolom <b>Deskripsi</b> dengan ringkasan isi modul, dan aktifkan status modul dengan
                             mencentang kotak <b>Status</b> agar dapat diakses peserta.</li>
-                        <li>Klik tombol <b>Simpan Modul</b> untuk menambahkan modul ke dalam kursus.</li>
+                        <li>Klik tombol <b>Simpan Modul</b> untuk menambahkan modul ke dalam mata kuliah.</li>
                     </ul>
                     </p>
 
@@ -48,7 +48,7 @@
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Nama Kursus</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Nama Mata Kuliah</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="course_name"
                                     value="{{ $course_detail->name }}" disabled>
@@ -59,7 +59,7 @@
                             <label for="input-title" class="col-md-2 col-form-label">Nama Modul</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
-                                    placeholder="Masukkan Nama Modul Kursus" value="{{ old('name') }}">
+                                    placeholder="Masukkan Nama Modul Mata Kuliah" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>

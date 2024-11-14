@@ -30,7 +30,7 @@
                     <p class="card-title-desc">
                         Halaman ini menyediakan tampilan terorganisir dari semua modul anak yang termasuk dalam modul utama
                         ini. Setiap baris menampilkan detail utama, seperti nama modul, prioritas, tipe, konten, materi
-                        kursus, dan jadwal. Gunakan fitur <b>pengaturan kolom, pengurutan, dan pencarian</b> untuk
+                        mata kuliah, dan jadwal. Gunakan fitur <b>pengaturan kolom, pengurutan, dan pencarian</b> untuk
                         menyesuaikan tampilan sesuai kebutuhan dan menemukan modul tertentu dengan cepat.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
@@ -53,11 +53,11 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Modul Kursus</th>
+                                <th class="data-medium">Modul Mata Kuliah</th>
                                 <th>Prioritas</th>
                                 <th>Tipe</th>
                                 <th class="data-long">Konten</th>
-                                <th class="data-long">Materi Kursus</th>
+                                <th class="data-long">Materi Mata Kuliah</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Selesai</th>
                                 <th class="data-long">Deskripsi</th>
@@ -118,11 +118,11 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Modul Kursus</th>
+                                <th>Modul Mata Kuliah</th>
                                 <th>Prioritas</th>
                                 <th>Tipe</th>
                                 <th>Konten</th>
-                                <th>Materi Kursus</th>
+                                <th>Materi Mata Kuliah</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Selesai</th>
                                 <th>Deskripsi</th>

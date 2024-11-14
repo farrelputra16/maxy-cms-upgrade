@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Modul Child Kursus')
+@section('title', 'Edit Modul Child Mata Kuliah')
 
 @section('content')
     <!-- start page title -->
@@ -12,7 +12,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Kursus</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Mata Kuliah</a></li>
                         <li class="breadcrumb-item"><a
                                 href="{{ route('getCourseModule', ['course_id' => $parentModule->course_id, 'page_type' => 'LMS']) }}">Course
                                 Module</a></li>
@@ -32,14 +32,14 @@
 
                     <h4 class="card-title">Edit Modul Child untuk: {{ $parentModule->name }}</small></h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda untuk memperbarui informasi modul anak dalam kursus.
+                        Halaman ini memungkinkan Anda untuk memperbarui informasi modul anak dalam mata kuliah.
                         Isi data dengan lengkap dan pastikan akurat untuk memberikan pengalaman belajar terbaik bagi
                         peserta.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
                         <li>Isi <b>Nama Modul</b> dengan judul yang sesuai.</li>
-                        <li>Atur <b>Prioritas</b> untuk menentukan urutan tampil modul dalam kursus.</li>
+                        <li>Atur <b>Prioritas</b> untuk menentukan urutan tampil modul dalam mata kuliah.</li>
                         <li>Pilih <b>Jenis Modul</b> dan isi konten tambahan yang diperlukan.</li>
                         <li>Tambahkan deskripsi yang menjelaskan isi dari modul ini.</li>
                         <li>Klik <b>Simpan & Perbarui</b> untuk menyimpan perubahan.</li>

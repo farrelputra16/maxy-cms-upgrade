@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getDifficulty') }}">Jenis Kursus</a></li>
-                        <li class="breadcrumb-item active">Edit Jenis Kursus: {{ $currentData->name }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getDifficulty') }}">Jenis Mata Kuliah</a></li>
+                        <li class="breadcrumb-item active">Edit Jenis Mata Kuliah: {{ $currentData->name }}</li>
                     </ol>
                 </div>
 
@@ -29,7 +29,7 @@
 
                     <h4 class="card-title">{{ $currentData->name }} <small>[ ID: {{ $currentData->id }} ]</small></h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda untuk memperbarui informasi tingkat kesulitan pada paket kursus.
+                        Halaman ini memungkinkan Anda untuk memperbarui informasi tingkat kesulitan pada paket mata kuliah.
                         Pastikan semua detail yang dimasukkan akurat agar peserta dapat memahami dengan jelas tingkat kesulitan yang akan mereka hadapi.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>

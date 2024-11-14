@@ -12,10 +12,10 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Kursus</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Mata Kuliah</a></li>
                         <li class="breadcrumb-item"><a
                                 href="{{ route('getCourseModule', ['course_id' => $parent->course_id, 'page_type' => 'LMS']) }}">Modul
-                                Kursus</a></li>
+                                Mata Kuliah</a></li>
                         <li class="breadcrumb-item active">Tambah Modul Child Baru</li>
                     </ol>
                 </div>
@@ -32,8 +32,8 @@
 
                     <h4 class="card-title">Tambah Modul Child Baru</h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda untuk menambahkan modul child pada kursus yang ada. Isi data-data
-                        dengan lengkap dan pastikan informasinya akurat agar pengalaman belajar peserta kursus maksimal.
+                        Halaman ini memungkinkan Anda untuk menambahkan modul child pada mata kuliah yang ada. Isi data-data
+                        dengan lengkap dan pastikan informasinya akurat agar pengalaman belajar peserta mata kuliah maksimal.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
@@ -233,7 +233,7 @@
                         <div class="col-md-10">
                             <select class="form-control select2" name="quiz_content" required>
                                 @foreach ($quiz as $item)
-                                <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}" 
+                                <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}"
                                     {{ old('quiz_content') == config('app.frontend_app_url') . '/lms/survey/' . $item->id ? 'selected' : '' }}>
                                     {{ $item->name }}
                                 </option>

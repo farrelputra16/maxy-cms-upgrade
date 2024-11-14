@@ -38,7 +38,7 @@
                     <ul>
                         <li>Gunakan kolom <b>Nama Siswa</b> untuk menelusuri data berdasarkan nama atau melihat detail siswa
                             dengan mengarahkan kursor ke nama tersebut.</li>
-                        <li>Pilih kolom <b>Periode Akademik</b> dan <b>Kelas Kursus</b> untuk memastikan data yang Anda
+                        <li>Pilih kolom <b>Periode Akademik</b> dan <b>Kelas Mata Kuliah</b> untuk memastikan data yang Anda
                             lihat sesuai dengan periode dan kelas yang diinginkan.</li>
                         <li>Perhatikan kolom <b>Nilai</b> untuk melihat hasil penilaian pada setiap siswa.</li>
                         <li>Kolom <b>Dibuat Pada</b> dan <b>Diperbarui Pada</b> membantu Anda melacak kapan data ini dibuat
@@ -55,7 +55,7 @@
                                 <th>Id</th>
                                 <th class="data-medium">Nama</th>
                                 <th>Periode</th>
-                                <th>Kelas Kursus</th>
+                                <th>Kelas Mata Kuliah</th>
                                 <th>Nilai </th>
                                 <th>Created At</th>
                                 <th>Created Id</th>

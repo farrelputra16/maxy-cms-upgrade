@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 
 class CreateCoursesAccredifyController extends Controller
 {
-    // GET - Menampilkan daftar kursus
+    // GET - Menampilkan daftar mata kuliah
     public function index()
     {
         try {
@@ -42,18 +42,18 @@ class CreateCoursesAccredifyController extends Controller
 
         } catch (\Exception $e) {
             Log::error('Error fetching all courses: ' . $e->getMessage());
-            return redirect()->back()->withErrors(['msg' => 'Gagal mengambil data kursus.']);
+            return redirect()->back()->withErrors(['msg' => 'Gagal mengambil data mata kuliah.']);
         }
     }
 
 
-    // GET - Menampilkan detail kursus berdasarkan ID
+    // GET - Menampilkan detail mata kuliah berdasarkan ID
     public function show($id)
     {
         try {
             $token = env('ACCREDIFY_API_KEY');
 
-            // Ambil detail kursus dari API
+            // Ambil detail mata kuliah dari API
             $course = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $token,
                 'Accept' => 'application/json'
@@ -73,15 +73,15 @@ class CreateCoursesAccredifyController extends Controller
             }
         } catch (\Exception $e) {
             Log::error('Error fetching course by ID: ' . $e->getMessage());
-            return redirect()->back()->withErrors(['msg' => 'Gagal mengambil detail kursus.']);
+            return redirect()->back()->withErrors(['msg' => 'Gagal mengambil detail mata kuliah.']);
         }
     }
 
 
-    // POST - Menyimpan kursus baru ke API
+    // POST - Menyimpan mata kuliah baru ke API
     public function store(Request $request)
     {
-        // Validasi data kursus
+        // Validasi data mata kuliah
         $validatedData = $this->validateCourseData($request);
 
         // Tangani file badge jika ada
@@ -107,19 +107,19 @@ class CreateCoursesAccredifyController extends Controller
             if ($course) {
                 return redirect()->route('courses.index')->with('success', 'Course berhasil dibuat!');
             } else {
-                return redirect()->back()->withErrors(['msg' => 'Gagal membuat kursus.']);
+                return redirect()->back()->withErrors(['msg' => 'Gagal membuat mata kuliah.']);
             }
         } catch (\Exception $e) {
             Log::error('Error creating course: ' . $e->getMessage());
-            return redirect()->back()->withErrors(['msg' => 'Gagal membuat kursus.']);
+            return redirect()->back()->withErrors(['msg' => 'Gagal membuat mata kuliah.']);
         }
     }
 
 
-    // PATCH - Memperbarui kursus yang ada
+    // PATCH - Memperbarui mata kuliah yang ada
     public function update(Request $request, $id)
     {
-        // Validasi data kursus
+        // Validasi data mata kuliah
         $validatedData = $this->validateCourseData($request);
 
         // Tangani file badge jika ada
@@ -145,16 +145,16 @@ class CreateCoursesAccredifyController extends Controller
             if ($updatedCourse) {
                 return redirect()->route('courses.index')->with('success', 'Course berhasil diperbarui!');
             } else {
-                return redirect()->back()->withErrors(['msg' => 'Gagal memperbarui kursus.']);
+                return redirect()->back()->withErrors(['msg' => 'Gagal memperbarui mata kuliah.']);
             }
         } catch (\Exception $e) {
             Log::error('Error updating course: ' . $e->getMessage());
-            return redirect()->back()->withErrors(['msg' => 'Gagal memperbarui kursus.']);
+            return redirect()->back()->withErrors(['msg' => 'Gagal memperbarui mata kuliah.']);
         }
     }
 
 
-    // Validasi data kursus
+    // Validasi data mata kuliah
     private function validateCourseData(Request $request)
     {
         return $request->validate([

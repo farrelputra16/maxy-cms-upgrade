@@ -1,20 +1,20 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tambah Kelas Kursus Baru')
+@section('title', 'Tambah Kelas Mata Kuliah Baru')
 
 @section('content')
     <!-- Mulai Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Tambah Kelas Kursus Baru</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Kelas Mata Kuliah Baru</h4>
 
                 <!-- Mulai Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Daftar Kelas</a></li>
-                        <li class="breadcrumb-item active">Tambah Kelas Kursus Baru</li>
+                        <li class="breadcrumb-item active">Tambah Kelas Mata Kuliah Baru</li>
                     </ol>
                 </div>
                 <!-- Akhir Breadcrumb -->
@@ -27,7 +27,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Buat Kelas Kursus Baru</h4>
+                    <h4 class="card-title">Buat Kelas Mata Kuliah Baru</h4>
                     <p class="card-title-desc">Isi informasi berikut dengan cermat untuk menambahkan kelas baru. Informasi
                         yang lengkap dan akurat akan memastikan pengalaman belajar terbaik bagi peserta.</p>
 
@@ -36,11 +36,11 @@
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="type_selector" class="col-md-2 col-form-label">Kursus <span class="text-danger"
+                            <label for="type_selector" class="col-md-2 col-form-label">Mata Kuliah <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_id" id="type_selector"
-                                    data-placeholder="Pilih Kursus...">
+                                    data-placeholder="Pilih Mata Kuliah...">
                                     @foreach ($allCourses as $course)
                                         <option value="{{ $course->id }}" data-slug="{{ $course->slug }}"
                                             {{ old('course_id') == $course->id ? 'selected' : '' }}>

@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tambah Modul Child Kelas Kursus')
+@section('title', 'Tambah Modul Child Kelas Mata Kuliah')
 
 @section('content')
     <!-- start page title -->
@@ -28,10 +28,10 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Tambah Modul Kursus Baru</h4>
+                    <h4 class="card-title">Tambah Modul Mata Kuliah Baru</h4>
                     <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi data dengan
                         memodifikasi data yang tercantum di bawah ini. Pastikan semua informasi yang Anda masukkan akurat
-                        untuk memberikan pengalaman belajar terbaik bagi peserta kursus.</p>
+                        untuk memberikan pengalaman belajar terbaik bagi peserta mata kuliah.</p>
 
                     <form id="addCourseClassModuleChild" action="{{ route('postAddCourseClassChildModule') }}"
                         method="post" enctype="multipart/form-data">
@@ -51,7 +51,7 @@
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_module_id" data-placeholder="Pilih ..."
                                     id="type_selector">
-                                    <option value="0">-- Pilih Tipe Kursus --</option>
+                                    <option value="0">-- Pilih Tipe Mata Kuliah --</option>
                                     @foreach ($child_cm_list as $item)
                                         <option value="{{ $item->id }}"
                                             {{ old('course_module_id') == $item->id ? 'selected' : '' }}>

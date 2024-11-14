@@ -29,7 +29,7 @@
                     <h4 class="card-title">Tambah Presensi Kelas Baru</h4>
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda untuk menambahkan data presensi baru. Pastikan semua informasi yang
-                        Anda masukkan akurat agar dapat memberikan pengalaman pembelajaran yang terbaik bagi peserta kursus.
+                        Anda masukkan akurat agar dapat memberikan pengalaman pembelajaran yang terbaik bagi peserta mata kuliah.
                     </p>
 
                     <form id="addCCAttendance" action="{{ route('postAddCourseClassAttendance') }}" method="post"

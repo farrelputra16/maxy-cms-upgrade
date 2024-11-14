@@ -29,8 +29,8 @@
 
                     <h4 class="card-title">Tambah MBKM Baru</h4>
                     <p class="card-title-desc">
-                        Silakan lengkapi informasi kursus di bawah ini.
-                        Pastikan data yang Anda masukkan benar agar peserta kursus mendapatkan pengalaman belajar yang terbaik.
+                        Silakan lengkapi informasi mata kuliah di bawah ini.
+                        Pastikan data yang Anda masukkan benar agar peserta mata kuliah mendapatkan pengalaman belajar yang terbaik.
                     </p>
 
 
@@ -106,7 +106,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Kategori Kursus<small>(Prodi)</small></label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Kategori Mata Kuliah<small>(Prodi)</small></label>
                             <div class="col-md-10">
                                 <select class="form-control select2 multiple" name="courseCategory[]"
                                     data-placeholder="Choose ..." id="type_selector" multiple="multiple">

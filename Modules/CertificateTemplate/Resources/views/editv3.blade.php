@@ -28,7 +28,7 @@
                     <h4 class="card-title">Form Edit Template Sertifikat</h4>
                     <p class="card-title-desc">Gunakan form di bawah ini untuk memperbarui informasi template sertifikat.
                         Pastikan semua informasi yang Anda masukkan akurat agar sertifikat yang dihasilkan sesuai dengan
-                        kebutuhan peserta kursus.</p>
+                        kebutuhan peserta mata kuliah.</p>
 
                     <form action="{{ route('certificate-templates.update', $certificateTemplate->id) }}" method="post"
                         enctype="multipart/form-data">
@@ -36,7 +36,7 @@
                         @method('PUT')
 
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Kursus <span class="text-danger"
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Mata Kuliah <span class="text-danger"
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="m_course_type_id" id="courseType">

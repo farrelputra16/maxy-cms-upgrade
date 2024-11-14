@@ -26,17 +26,17 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Form Tambah Template Sertifikat</h4>
-                    <p class="card-title-desc">Isi form di bawah ini untuk membuat template sertifikat baru. Pastikan informasi yang Anda masukkan benar agar sertifikat yang dihasilkan sesuai dengan kebutuhan peserta kursus.</p>
+                    <p class="card-title-desc">Isi form di bawah ini untuk membuat template sertifikat baru. Pastikan informasi yang Anda masukkan benar agar sertifikat yang dihasilkan sesuai dengan kebutuhan peserta mata kuliah.</p>
 
                     <form id="addTemplate" action="{{ route('certificate-templates.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Kursus <span class="text-danger"
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Mata Kuliah <span class="text-danger"
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="m_course_type_id" data-placeholder="Pilih Tipe Kursus" id="type_selector">
-                                    <option value="" disabled selected>Pilih Tipe Kursus</option>
+                                <select class="form-control select2" name="m_course_type_id" data-placeholder="Pilih Tipe Mata Kuliah" id="type_selector">
+                                    <option value="" disabled selected>Pilih Tipe Mata Kuliah</option>
                                     @foreach ($courseTypes as $courseType)
                                         <option value="{{ $courseType->id }}" {{ old('m_course_type_id') == $courseType->id ? 'selected' : '' }}>{{ $courseType->name }}</option>
                                     @endforeach

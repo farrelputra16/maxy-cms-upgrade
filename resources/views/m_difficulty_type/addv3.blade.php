@@ -29,8 +29,8 @@
 
                     <h4 class="card-title">Tambah Tingkat Kesulitan</h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda untuk menambahkan tingkat kesulitan baru pada Paket Kursus.
-                        Isikan informasi berikut untuk menggambarkan tingkat kesulitan yang akan dihadapi peserta selama mengikuti kursus.
+                        Halaman ini memungkinkan Anda untuk menambahkan tingkat kesulitan baru pada Paket Mata Kuliah.
+                        Isikan informasi berikut untuk menggambarkan tingkat kesulitan yang akan dihadapi peserta selama mengikuti mata kuliah.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                         <ul>

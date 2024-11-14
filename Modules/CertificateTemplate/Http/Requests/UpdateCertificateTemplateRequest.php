@@ -36,8 +36,8 @@ class UpdateCertificateTemplateRequest extends FormRequest
     public function messages()
     {
         return [
-            'm_course_type_id.required' => 'Tipe kursus tidak boleh kosong',
-            'm_course_type_id.exists' => 'Tipe kursus tidak ditemukan',
+            'm_course_type_id.required' => 'Tipe mata kuliah tidak boleh kosong',
+            'm_course_type_id.exists' => 'Tipe mata kuliah tidak ditemukan',
             'batch.required' => 'Batch tidak boleh kosong',
             'batch.integer' => 'Batch harus berupa angka',
             'batch.min' => 'Batch tidak boleh kurang dari 0',

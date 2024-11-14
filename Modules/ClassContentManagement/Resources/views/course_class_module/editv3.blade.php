@@ -37,7 +37,7 @@
                             {{ $classDetail->course_class_id }} ]</small></h4>
                     <p class="card-title-desc">Halaman ini memungkinkan Anda memperbarui informasi modul kelas. Pastikan
                         semua data yang Anda masukkan sudah benar untuk memberikan pengalaman belajar terbaik kepada peserta
-                        kursus.</p>
+                        mata kuliah.</p>
 
                     <form action="{{ route('postEditCourseClassModule', ['id' => request()->query('id')]) }}" method="post"
                         enctype="multipart/form-data">
@@ -97,7 +97,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Modul Kursus <span class="text-danger"
+                            <label for="input-tag" class="col-md-2 col-form-label">Modul Mata Kuliah <span class="text-danger"
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="coursemodulesid" data-placeholder="Pilih ...">
@@ -119,7 +119,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Kelas Kursus (Angkatan) - Kursus</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Kelas Mata Kuliah (Angkatan) - Mata Kuliah</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="courseclassid" disabled>
                                     <option value="{{ $classDetail->course_class_id }}">Batch {{ $classDetail->batch }} -
@@ -128,7 +128,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi Modul Kelas Kursus</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi Modul Kelas Mata Kuliah</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description">{{ old('description', $course_class_module->description) }}</textarea>
                                 @if ($errors->has('description'))

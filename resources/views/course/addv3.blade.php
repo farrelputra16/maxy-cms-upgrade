@@ -7,13 +7,13 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Tambah Kursus Baru</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Mata Kuliah Baru</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Kursus</a></li>
-                        <li class="breadcrumb-item active">Tambah Kursus Baru</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Mata Kuliah</a></li>
+                        <li class="breadcrumb-item active">Tambah Mata Kuliah Baru</li>
                     </ol>
                 </div>
 
@@ -27,16 +27,16 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Tambah Kursus Baru</h4>
+                    <h4 class="card-title">Tambah Mata Kuliah Baru</h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda untuk menambah data kursus baru. Pastikan informasi yang dimasukkan
-                        akurat agar peserta kursus dapat menerima pengalaman belajar yang optimal.<br><br>
+                        Halaman ini memungkinkan Anda untuk menambah data mata kuliah baru. Pastikan informasi yang dimasukkan
+                        akurat agar peserta mata kuliah dapat menerima pengalaman belajar yang optimal.<br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
-                        <li>Isi <b>Nama Kursus</b> dengan judul yang jelas dan ringkas.</li>
-                        <li>Pilih <b>Jenis Kursus</b> dan <b>Kategori Kursus</b> yang sesuai.</li>
+                        <li>Isi <b>Nama Mata Kuliah</b> dengan judul yang jelas dan ringkas.</li>
+                        <li>Pilih <b>Jenis Mata Kuliah</b> dan <b>Kategori Mata Kuliah</b> yang sesuai.</li>
                         <li>Tambahkan gambar, harga, dan deskripsi untuk memberikan informasi lengkap bagi pengguna.</li>
-                        <li>Aktifkan status kursus agar dapat langsung ditampilkan di platform.</li>
+                        <li>Aktifkan status mata kuliah agar dapat langsung ditampilkan di platform.</li>
                     </ul>
                     </p>
 
@@ -45,7 +45,7 @@
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="name" class="col-md-2 col-form-label">Nama Kursus <span class="text-danger"
+                            <label for="name" class="col-md-2 col-form-label">Nama Mata Kuliah <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
@@ -102,7 +102,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Kursus <span class="text-danger"
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Mata Kuliah <span class="text-danger"
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="type" data-placeholder="Pilih ..."
@@ -122,7 +122,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Kategori Kursus</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Kategori Mata Kuliah</label>
                             <div class="col-md-10">
                                 <select class="form-control select2 multiple" name="courseCategory[]"
                                     data-placeholder="Pilih ..." id="course_category_selector" multiple="multiple">
@@ -143,7 +143,7 @@
 
                         @if (env('APP_ENV') != 'local')
                             <div id="show_course_package" class="mb-3 row">
-                                <label for="input-package" class="col-md-2 col-form-label">Paket Kursus</label>
+                                <label for="input-package" class="col-md-2 col-form-label">Paket Mata Kuliah</label>
                                 <div class="col-md-10">
                                     <select class="form-control select2" name="package" data-placeholder="Pilih ...">
                                         @foreach ($allCoursePackages as $item)
@@ -273,7 +273,7 @@
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
-                                    form="courseForm">Tambah Kursus</button>
+                                    form="courseForm">Tambah Mata Kuliah</button>
                             </div>
                         </div>
                     </form>
