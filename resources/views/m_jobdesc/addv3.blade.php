@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add Jobdesc')
+@section('title', 'Tambah Rincian Pekerjaan')
 
 @section('content')
     <!-- start page title -->
@@ -13,7 +13,7 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getJobdesc') }}">Jobdesc</a></li>
-                        <li class="breadcrumb-item active">Add Jobdesc</li>
+                        <li class="breadcrumb-item active">Tambah Rincian Pekerjaan Baru</li>
                     </ol>
                 </div>
 
@@ -27,18 +27,19 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Add Jobdesc</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Tambah Rincian Pekerjaan Baru</h4>
+                    <p class="card-title-desc">Halaman ini memungkinkan Anda menambahkan rincian pekerjaan baru dengan
+                        melengkapi informasi yang tercantum di bawah ini. Pastikan semua data yang dimasukkan sudah benar
+                        agar informasi yang diberikan kepada pengguna menjadi akurat.</p>
 
-                    <form id="addJobdesc" action="{{ route('postAddJobdesc') }}" method="post" enctype="multipart/form-data">
+                    <form id="addJobdesc" action="{{ route('postAddJobdesc') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Nama</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
-                                    placeholder="Masukkan Nama Jobdesc" value="{{ old('name') }}">
+                                    placeholder="Masukkan Nama Rincian Pekerjaan" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -47,9 +48,9 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description')}}</textarea>
+                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
@@ -62,11 +63,11 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addJobdesc">Add Jobdesc</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addJobdesc">Tambah Rincian Pekerjaan</button>
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div> <!-- end col -->
