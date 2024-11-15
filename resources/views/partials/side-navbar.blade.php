@@ -143,7 +143,7 @@
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             <li><a href="{{ route('getGeneral') }}" key="t-general">Pengaturan Umum</a></li>
-                            <li><a href="{{ route('getPages') }}" key="t-pages">Pages</a></li>
+                            <li><a href="{{ route('getPages') }}" key="t-pages">Halaman</a></li>
                             @if (env('APP_ENV') != 'local')
                                 <li><a href="{{ route('getMaxyTalk') }}" key="t-maxy-talk">Maxy Talk</a></li>
                             @endif
