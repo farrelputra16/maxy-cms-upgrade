@@ -63,7 +63,7 @@ class EventController extends Controller
             if ($create) {
                 if ($request->hasFile('image')) {
                     $file = $request->file('image');
-                    $image = $create->id;
+                    $image = $file->getClientOriginalName();
                     $destinationPath = public_path('/uploads/event');
                     if (!File::exists($destinationPath)) { // create folder jika blm ada
                         File::makeDirectory($destinationPath, 0777, true, true);

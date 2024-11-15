@@ -27,7 +27,8 @@
                 <div class="card-body">
 
                     <h4 class="card-title">{{ $courses->name }} <small>[ ID: {{ $courses->id }} ]</small></h4>
-                    <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi mata kuliah. Pastikan
+                    <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi mata kuliah.
+                        Pastikan
                         semua data yang dimasukkan sudah benar untuk memberikan pengalaman belajar terbaik bagi peserta
                         mata kuliah.</p>
 
@@ -37,8 +38,8 @@
                         <input type="text" name="img_keep" value="{{ $courses->file_image }}" hidden>
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name Mata Kuliah <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-name" class="col-md-2 col-form-label">Name Mata Kuliah <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $courses->name) }}" id="name">
@@ -46,7 +47,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug"
                                     value="{{ old('slug', $courses->slug) }}" id="slug" readonly>
@@ -122,7 +123,8 @@
                                 <div class="col-md-10">
                                     <select class="form-control select2" name="package" data-placeholder="Pilih ...">
                                         <option value="" disabled
-                                            {{ old('package', $currentCoursePackages ? '' : 'selected') }}>Pilih Paket</option>
+                                            {{ old('package', $currentCoursePackages ? '' : 'selected') }}>Pilih Paket
+                                        </option>
                                         @if ($currentCoursePackages)
                                             <option value="{{ $currentCoursePackages->course_package_id }}"
                                                 {{ old('package', $currentCoursePackages->course_package_id) == $currentCoursePackages->course_package_id ? 'selected' : '' }}>
@@ -226,7 +228,7 @@
                         <div class="mb-3 row">
                             <label for="input-short-description" class="col-md-2 col-form-label">Deskripsi Pendek</label>
                             <div class="col-md-10">
-                                <textarea id="elmDesc" name="short_description">{{ old('short_description', $courses->short_description) }}</textarea>
+                                <textarea id="elmDesc" name="short_description" class="form-control">{{ old('short_description', $courses->short_description) }}</textarea>
                                 @if ($errors->has('short_description'))
                                     @foreach ($errors->get('short_description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
