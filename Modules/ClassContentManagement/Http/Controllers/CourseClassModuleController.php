@@ -313,7 +313,7 @@ class CourseClassModuleController extends Controller
         foreach ($comment->child as $child) {
             $child->diff = Carbon::parse($child->created_at)->diffForHumans();
         }
-        return view('classcontentmanagement::course_class_module.child.journal.add', [
+        return view('classcontentmanagement::course_class_module.child.journal.addv3', [
             'comment' => $comment,
             'parent_module' => $ccmod_parent,
             'course_journal_parent_id' => $request->id,
