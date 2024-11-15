@@ -1,35 +1,35 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Pages')
+@section('title', 'Edit Halaman')
 
 @section('content')
-    <!-- start page title -->
+    <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                 <h4 class="mb-sm-0 font-size-18">
                     @if (isset($pageContents) && $pageContents->first()->page_id == 1)
-                        Edit Halaman - Home
+                        Edit Halaman - Beranda
                     @elseif (isset($pageContents) && $pageContents->first()->page_id == 2)
-                        Edit Halaman - Browse Courses
+                        Edit Halaman - Jelajahi Kursus
                     @elseif (isset($pageContents) && $pageContents->first()->page_id == 3)
                         Edit Halaman - Blog
                     @else
-                        Edit Halaman - No Content Available
+                        Edit Halaman - Konten Tidak Tersedia
                     @endif
                 </h4>
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a>Settings</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getGeneral') }}">Pages</a></li>
-                        <li class="breadcrumb-item active">Edit Pages</li>
+                        <li class="breadcrumb-item"><a>Pengaturan</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getGeneral') }}">Halaman</a></li>
+                        <li class="breadcrumb-item active">Edit Halaman</li>
                     </ol>
                 </div>
             </div>
         </div>
     </div>
-    <!-- end page title -->
+    <!-- Akhir Judul Halaman -->
 
     <form action="{{ route('savePageContent') }}" method="POST" enctype="multipart/form-data" id="contentForm">
         @csrf
@@ -38,16 +38,16 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Bagian {{ $section->section_name }}</h4>
+                            <h4 class="card-title">Bagian: {{ $section->section_name }}</h4>
                             <input type="hidden" name="page_id[]" value="{{ $section->page_id }}">
                             <input type="hidden" name="section_name[]" value="{{ $section->section_name }}">
                             <input type="hidden" name="order[]" value="{{ $section->order }}">
 
                             <div class="mb-3 row">
-                                <label for="input-content" class="col-md-2 col-form-label">Tampilan </label>
+                                <label for="input-content" class="col-md-2 col-form-label">Pratinjau Tampilan</label>
                                 <div class="col-md-10">
                                     <img src="{{ asset('assets/m_pages/' . $section->section_name . '.PNG') }}"
-                                        alt="image section" class="img-fluid border border-3 rounded">
+                                        alt="Pratinjau bagian" class="img-fluid border border-3 rounded">
                                 </div>
                             </div>
 
@@ -79,14 +79,14 @@
             </div>
         @endforeach
 
-        <!-- Save button outside the loop -->
+        <!-- Tombol Simpan -->
         <div class="mb-3 d-flex justify-content-end">
             @if (isset($pageContents) && $pageContents->first()->page_id == 3)
                 <button type="submit" class="btn btn-primary">Tukar Urutan Blog</button>
             @elseif (isset($pageContents) && $pageContents->first()->page_id == 2)
-                <button type="submit" class="btn btn-primary">Save & Update Blog</button>
+                <button type="submit" class="btn btn-primary">Simpan & Perbarui Kursus</button>
             @else
-                <button type="submit" class="btn btn-primary">Save & Update</button>
+                <button type="submit" class="btn btn-primary">Simpan & Perbarui</button>
             @endif
         </div>
     </form>

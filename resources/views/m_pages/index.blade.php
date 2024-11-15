@@ -30,8 +30,25 @@
                 <div class="card-body">
                     <h4 class="card-title">Pengaturan Halaman</h4>
                     <p class="card-title-desc">
-                        Halaman ini digunakan untuk melakukan pengaturan halaman yang ada di website frontpage Bina Karya.
+                        Halaman ini memungkinkan Anda untuk mengelola halaman-halaman yang ditampilkan di frontpage website
+                        Bina Karya. Setiap baris dalam tabel di bawah ini menampilkan informasi penting tentang halaman,
+                        termasuk nama halaman dan opsi untuk melakukan pengeditan. Gunakan fitur <b>pencarian, pengurutan,
+                            dan visibilitas kolom</b> untuk mempermudah navigasi dan menemukan halaman yang Anda butuhkan
+                        dengan cepat.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li><strong>Pengaturan Kolom:</strong> Klik header kolom untuk mengurutkan data berdasarkan nomor
+                            atau nama halaman. Pilih kolom yang ingin ditampilkan atau disembunyikan sesuai kebutuhan Anda.
+                        </li>
+                        <li><strong>Edit Halaman:</strong> Gunakan tombol <em>Edit</em> pada kolom "Aksi" untuk membuka
+                            halaman pengaturan detail dari setiap halaman yang ingin Anda ubah.</li>
+                        <li><strong>Tambah Halaman Baru:</strong> Klik tombol tambah di kanan bawah (ikon "+") untuk
+                            menambahkan halaman baru ke dalam sistem, sehingga website tetap up-to-date dan sesuai
+                            kebutuhan.</li>
+                    </ul>
                     </p>
+
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
@@ -42,28 +59,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                                @foreach ($sections as $section)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        {{-- Page Name --}}
-                                        <td>
-                                            @if ($section->page_id == 1)
-                                                Home
-                                            @elseif ($section->page_id == 2)
-                                                Browse Courses
-                                            @elseif ($section->page_id == 3)
-                                                Blog
-                                            @else
-                                                Unknown Page
-                                            @endif
-                                        </td>
+                            @foreach ($sections as $section)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    {{-- Page Name --}}
+                                    <td>
+                                        @if ($section->page_id == 1)
+                                            Home
+                                        @elseif ($section->page_id == 2)
+                                            Browse Courses
+                                        @elseif ($section->page_id == 3)
+                                            Blog
+                                        @else
+                                            Unknown Page
+                                        @endif
+                                    </td>
 
 
-                                        {{-- Edit Button --}}
-                                        <td>
-                                            <a href="{{ route('getEditPage', ['id' => $section->page_id]) }}" class="btn btn-primary rounded">Edit</a>
-                                        </td>
-                                    </tr>
+                                    {{-- Edit Button --}}
+                                    <td>
+                                        <a href="{{ route('getEditPage', ['id' => $section->page_id]) }}"
+                                            class="btn btn-primary rounded">Edit</a>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
