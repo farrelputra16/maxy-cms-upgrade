@@ -77,7 +77,13 @@
                                             <div class="mb-3 p-3 border rounded bg-light">
                                                 <p class="font-weight-bold mb-1">Q:
                                                     {{ $formattedKey }}{{ substr($formattedKey, -1) == '?' ? '' : '?' }}</p>
-                                                <p class="mb-0">A: {{ $value }}</p>
+                                                    <p class="mb-0">A: 
+                                                        @if (is_array($value))
+                                                            {{ implode(', ', $value) }}
+                                                        @else
+                                                            {{ $value }}
+                                                        @endif
+                                                    </p>                                                    
                                             </div>
                                         @endif
                                     @endforeach
