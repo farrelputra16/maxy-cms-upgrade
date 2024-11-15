@@ -85,7 +85,7 @@
                                     </td>
                                     <td class="data-medium" data-toggle="tooltip" data-placement="top"
                                         title="{{ $item->slug }}">
-                                        <a href="https://maxy.academy/blog/{{ $item->slug }}"
+                                        <a href="{{ env('FRONTEND_APP_URL') }}/blog/{{ $item->slug }}"
                                             target="_blank">{!! \Str::limit($item->slug, 30) !!}</a>
                                     </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
