@@ -119,6 +119,7 @@
                                         <option value="assignment" {{ old('type') == 'assignment' ? 'selected' : '' }}>
                                             Tugas</option>
                                         <option value="quiz" {{ old('type') == 'quiz' ? 'selected' : '' }}>Kuis</option>
+                                        <option value="eval" {{ old('type') == 'eval' ? 'selected' : '' }}>Evaluasi</option>
                                     </select>
                                     @if ($errors->has('type'))
                                         @foreach ($errors->get('type') as $error)
@@ -238,6 +239,23 @@
                                 @foreach ($quiz as $item)
                                 <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}"
                                     {{ old('quiz_content') == config('app.frontend_app_url') . '/lms/survey/' . $item->id ? 'selected' : '' }}>
+                                    {{ $item->name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                `;
+                duration.innerHTML = `<input type="hidden" name="duration" value="">`;
+            } else if (typeSelector.value === 'eval') {
+                material.innerHTML = `
+                    <div class="mb-3 row">
+                        <label class="col-md-2 col-form-label">Pilih Kuis</label>
+                        <div class="col-md-10">
+                            <select class="form-control select2" name="eval_content" required>
+                                @foreach ($eval as $item)
+                                <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}"
+                                    {{ old('eval_content') == config('app.frontend_app_url') . '/lms/survey/' . $item->id ? 'selected' : '' }}>
                                     {{ $item->name }}
                                 </option>
                                 @endforeach

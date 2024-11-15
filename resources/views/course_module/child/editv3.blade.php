@@ -115,6 +115,8 @@
                                             Assignment</option>
                                         <option value="quiz" @if ($childModule->type == 'quiz') selected @endif>Quiz
                                         </option>
+                                        <option value="eval" @if ($childModule->type == 'eval') selected @endif>Evaluasi
+                                        </option>
                                     </select>
                                     <div class="" id="material">
                                         @if ($childModule->type === 'materi_pembelajaran')
@@ -155,6 +157,17 @@
                                                         {{ $item->name }}</option>
                                                 @endforeach
                                             </select>
+                                        @elseif($childModule->type === 'eval')
+                                            <label for="" class="form-label" style="margin-top: 1%"></label>
+                                            <select class="form-control select2" name="eval_content" id="eval_content"
+                                                required>
+                                                @foreach ($eval as $item)
+                                                    <option
+                                                        value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}"
+                                                        @if ($item->id == $idEval) selected @endif>
+                                                        {{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
                                         @endif
                                     </div>
                                 </div>
@@ -164,29 +177,45 @@
                     <div class="mb-3 row" id="">
                         <label for="input-content" class="col-md-2 col-form-label">Konten</label>
                         <div class="col-md-10">
-                            <textarea id="elm1" name="content">{{ $childModule->content }}</textarea>
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
-                        <div class="col-md-10">
-                            <textarea id="elm1" name="description">{{ $childModule->description }}</textarea>
+                            <textarea id="elm1" name="content">
+                                @if ($childModule->type != 'quiz' && $childModule->type != 'eval'){{ $childModule->content }}@endif
+                            </textarea>
                         </div>
                     </div>
                 </div>
-                <div id="quiz-content">
+
+                <div class="mb-3 row">
+                    <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
+                    <div class="col-md-10">
+                        <textarea id="elm1" name="description">{{ $childModule->description }}</textarea>
+                    </div>
+                </div>
+                {{-- <div id="quiz-content">
                     <div class="mb-3 row">
                         <label for="input-content" class="col-md-2 col-form-label">Konten Quiz</label>
                         <div class="col-md-10">
                             <select class="form-control select2" name="quiz_content" id="">
                                 @foreach ($quiz as $item)
-                                    <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}">
+                                    <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}" @if ($item->id == $idQuiz) selected @endif>
                                         {{ $item->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                 </div>
+                <div id="eval-content">
+                    <div class="mb-3 row">
+                        <label for="input-content" class="col-md-2 col-form-label">Konten Evaluasi</label>
+                        <div class="col-md-10">
+                            <select class="form-control select2" name="eval_content" id="">
+                                @foreach ($eval as $item)
+                                    <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}" @if ($item->id == $idEval) selected @endif>
+                                        {{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div> --}}
                 <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                     <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                     <div class="col-md-10 d-flex align-items-center">
@@ -218,24 +247,21 @@
             var duration = document.getElementById('duration');
             var contentDiv = document.getElementById('content');
             var quizContentDiv = document.getElementById('quiz-content');
+            var evalContentDiv = document.getElementById('eval-content');
 
-            if (typeSelector.value === 'quiz') {
+            if (typeSelector.value === 'quiz' || typeSelector.value === 'eval') {
                 contentDiv.style.display = 'none';
-                quizContentDiv.style.display = 'block';
             } else {
                 contentDiv.style.display = 'block';
-                quizContentDiv.style.display = 'none';
             }
             // Menambahkan event listener untuk perubahan pada elemen select
             typeSelector.addEventListener('change', function() {
                 console.log(typeSelector.value)
 
-                if (typeSelector.value === 'quiz') {
-                    contentDiv.style.display = 'none';
-                    quizContentDiv.style.display = 'block';
+                if (typeSelector.value === 'quiz' || typeSelector.value === 'eval') {
+                contentDiv.style.display = 'none';
                 } else {
                     contentDiv.style.display = 'block';
-                    quizContentDiv.style.display = 'none';
                 }
 
                 // Memeriksa apakah opsi yang dipilih adalah "assignment"
@@ -266,7 +292,32 @@
                 <input type="hidden" name="duration" @if ($childModule->type == 'asignment') value="{{ $childModule->material }}" @endif>
             `;
                 } else if (typeSelector.value === 'quiz') {
-                    material.innerHTML = '';
+                    material.innerHTML = `
+                    <label for="" class="form-label" style="margin-top: 1%"></label>
+                    <select class="form-control select2" name="quiz_content" id="quiz_content"
+                        required>
+                        @foreach ($quiz as $item)
+                            <option
+                                value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}"
+                                @if ($item->id == $idQuiz) selected @endif>
+                                {{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                    `;
+                    duration.innerHTML = `<input type="hidden" name="duration" value="">`;
+                } else if (typeSelector.value === 'eval') {
+                    material.innerHTML = `
+                    <label for="" class="form-label" style="margin-top: 1%"></label>
+                    <select class="form-control select2" name="eval_content" id="eval_content"
+                        required>
+                        @foreach ($eval as $item)
+                            <option
+                                value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}"
+                                @if ($item->id == $idEval) selected @endif>
+                                {{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                    `;
                     duration.innerHTML = `<input type="hidden" name="duration" value="">`;
                 }
             });

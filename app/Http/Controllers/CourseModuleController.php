@@ -181,12 +181,14 @@ class CourseModuleController extends Controller
         $parent = CourseModule::find($request->id);
         $course_type = MCourseType::find($course_detail->m_course_type_id);
         $quiz = MSurvey::where('type', 1)->get();
+        $eval = MSurvey::where('type', 0)->get();
         // dd($course_type);
         return view('course_module.child.addv3', [
             'course_type' => $course_type,
             'parent' => $parent,
             'page_type' => $request->page_type,
-            'quiz' => $quiz
+            'quiz' => $quiz,
+            'eval' => $eval
             // 'allChildHave' => $childModules
         ]);
     }
@@ -230,6 +232,23 @@ class CourseModuleController extends Controller
                 'material' => $material,
                 'duration' => $request->duration,
                 'content' => $request->quiz_content,
+                'description' => $request->description,
+                'status' => $request->status ? 1 : 0,
+                'created_id' => Auth::user()->id,
+                'updated_id' => Auth::user()->id,
+            ]);
+        } elseif ($request->type == 'eval') {
+            $material = '';
+            $create = CourseModule::create([
+                'name' => $validated['name'],
+                'priority' => $validated['priority'],
+                'level' => 2,
+                'course_id' => $parentModule->course_id,
+                'course_module_parent_id' => $parentModule->id,
+                'type' => $request->type,
+                'material' => $material,
+                'duration' => $request->duration,
+                'content' => $request->eval_content,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => Auth::user()->id,
@@ -288,6 +307,11 @@ class CourseModuleController extends Controller
         if ($childModule->type == 'quiz') {
             $idQuiz = Str::afterLast($childModule->content, '/');
         }
+        $eval = MSurvey::where('type', 0)->get();
+        $idEval = '';
+        if ($childModule->type == 'eval') {
+            $idEval = Str::afterLast($childModule->content, '/');
+        }
 
         // dd($childModule);
         return view('course_module.child.editv3', [
@@ -295,7 +319,9 @@ class CourseModuleController extends Controller
             'parentModule' => $parentModule,
             'course_type' => $course_type,
             'quiz' => $quiz,
-            'idQuiz' => $idQuiz
+            'idQuiz' => $idQuiz,
+            'eval' => $eval,
+            'idEval' => $idEval
         ]);
     }
 
@@ -332,6 +358,19 @@ class CourseModuleController extends Controller
                     'js' => $request->js,
                     'type' => $request->type,
                     'content' => $request->quiz_content,
+                    'description' => $request->description,
+                    'status' => $request->status ? 1 : 0,
+                    'updated_id' => Auth::user()->id,
+                ]);
+        } elseif ($request->type == 'eval') {
+            $update = CourseModule::where('id', '=', $request->id)
+                ->update([
+                    'name' => $validated['name'],
+                    'priority' => $validated['priority'],
+                    'html' => $request->html,
+                    'js' => $request->js,
+                    'type' => $request->type,
+                    'content' => $request->eval_content,
                     'description' => $request->description,
                     'status' => $request->status ? 1 : 0,
                     'updated_id' => Auth::user()->id,
