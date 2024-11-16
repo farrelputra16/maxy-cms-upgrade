@@ -11,9 +11,11 @@ class SanitizeInput
     {
         $input = $request->all();
 
-        // Bersihkan setiap input menggunakan Purifier
+        // Bersihkan setiap input menggunakan Purifier, kecuali null
         array_walk_recursive($input, function (&$input) {
-            $input = Purifier::clean($input);
+            if (!is_null($input)) {
+                $input = Purifier::clean($input);
+            }
         });
 
         $request->merge($input);
