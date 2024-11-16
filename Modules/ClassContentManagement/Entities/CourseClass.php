@@ -258,7 +258,7 @@ class CourseClass extends Model
             ->where('ccmh.user_id', $userId)
             ->where('ccm.course_class_id', $courseClassId)
             ->where('ccm.level', '=', 1)
-            ->whereNotNull('cm.description')
+            // ->whereNotNull('cm.description')
             ->select('ccm.*', 'cm.name as course_module_name', 'cm.day as course_module_day', 'cm.duration as duration', 'cm.content as content', 'cm.description as description', 'ccg.grade as grade', 'ccg.created_at as created_at', 'ccg.updated_at as updated_at', 'cc.batch as batch', 'ccm.status as status', 'ccm.created_at as created_at', 'ccm.updated_at as updated_at', 'ccmh.user_id as user_id')
             ->get();
 
