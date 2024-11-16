@@ -66,13 +66,15 @@
                         <div class="mb-3 row">
                             <label for="input-student-comment" class="col-md-2 col-form-label">Komentar Siswa</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="comment" class="form-control" readonly>{{ $data->comment }}</textarea>
+                                {{-- <textarea id="elm1" name="comment" class="form-control" readonly>{{ $data->comment }}</textarea> --}}
+                                <div class="form-control" style="height: auto; min-height: 150px;" readonly>
+                                    {!! $data->comment !!}</div>
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="input-grade" class="col-md-2 col-form-label">Nilai <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="grade" value="{{ $data->grade }}"
                                     id="input-grade" placeholder="Masukkan nilai tugas (0-100)">

@@ -46,12 +46,14 @@ class CourseClassMemberGradingController extends Controller
             $class_list = DB::table('course_class')
                 ->join('course', 'course.id', '=', 'course_class.course_id')
                 ->select('course.name as course_name', 'course_class.batch', 'course_class.id as class_id')
+                ->where('course_class.status', 1)
                 ->get();
         } else {
             $class_list = DB::table('course_class')
                 ->join('course', 'course.id', '=', 'course_class.course_id')
                 ->join('course_class_member', 'course_class.id', '=', 'course_class_member.course_class_id')
                 ->select('course.name as course_name', 'course_class.batch', 'course_class.id as class_id')
+                ->where('course_class.status', 1)
                 ->where('course_class_member.user_id', Auth::user()->id)
                 ->get();
         }
@@ -137,7 +139,7 @@ class CourseClassMemberGradingController extends Controller
 
         $request->validate([
             'grade' => 'nullable|integer|min:0|max:100',
-        ]);        
+        ]);
 
         try {
             $data = CourseClassMemberGrading::find($request->id);
