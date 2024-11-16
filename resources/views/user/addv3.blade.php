@@ -36,7 +36,7 @@
 
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nama <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     placeholder="Masukkan Nama" value="{{ old('name') }}">
@@ -63,7 +63,7 @@
 
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Email <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="email" name="email" id="email"
                                     placeholder="Masukkan Email" value="{{ old('email') }}">
@@ -77,7 +77,7 @@
 
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Peran <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="access_group" data-placeholder="Pilih Peran ..."
                                     id="type_selector">
@@ -97,7 +97,7 @@
 
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nomor Telepon <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="phone" id="phone"
                                     placeholder="Masukkan Nomor Telepon"
@@ -112,7 +112,7 @@
 
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Kata Sandi <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="password" name="password" id="password"
                                     placeholder="Masukkan Kata Sandi" value="{{ old('password') }}">
@@ -177,7 +177,25 @@
                     <br>
 
                     @if (Route::has('user.import-csv'))
-                        <h4>Tambah Banyak Pengguna Melalui Unggah File CSV</h4>
+                        <form action="{{ route('user.import-csv') }}" method="POST" enctype="multipart/form-data">
+                            @method('POST')
+                            @csrf
+
+
+                            <div class="mb-3">
+                                <label for="csv_file" class="form-label">Upload CSV here</label>
+                                <br>
+                                <small>Sample: <i class="fa fa-file" aria-hidden="true"></i> <a
+                                        href="{{ asset('csv/useraddexample.csv') }}" download>CSV
+                                        Example (Click to Download)</a></small>
+                                <input class="form-control" type="file" id="file" name="file">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Add Multiple Users</button>
+                        </form>
+
+
+                        {{-- <h4>Tambah Banyak Pengguna Melalui Unggah File CSV</h4>
                         <form action="{{ route('user.import-csv') }}" method="post" enctype="multipart/form-data"
                             class="dropzone text-center" id="csv-upload">
                             @csrf
@@ -201,7 +219,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </form> --}}
                     @endif
                 </div>
             </div>

@@ -19,14 +19,15 @@ class UserImport implements ToModel, WithHeadingRow
         // Jika user dengan email tersebut sudah ada, maka kirim notifikasi atau tampilkan pesan kesalahan
         if ($existingUser) {
             // Misalnya, jika menggunakan sesi Laravel, Anda dapat menyimpan pesan kesalahan dalam session
-            session()->flash('error', 'Email ' . $row['email'] . ' sudah ada dalam database.');
+            // session()->flash('error', 'Email ' . $row['email'] . ' sudah ada dalam database.');
 
             // Atau jika menggunakan alert JavaScript (pada aplikasi yang menggunakan JavaScript)
             // echo "<script>alert('Email " . $row['email'] . " sudah ada dalam database.')</script>";
 
-            return $existingUser;
+            // return $existingUser;
+            return null;
         }
-    
+
         // Buat instance model User dan isi atribut-atributnya dengan data dari CSV
         return new User([
             'name' => $row['name'],
@@ -39,7 +40,7 @@ class UserImport implements ToModel, WithHeadingRow
             'created_at' => now(),
             'created_id' => Auth::user()->id, // Mengisi kolom "created_id" dengan ID pengguna saat ini
             'updated_at' => now(),
-            'updated_id' => Auth::user()->id, 
+            'updated_id' => Auth::user()->id,
         ]);
 
     }

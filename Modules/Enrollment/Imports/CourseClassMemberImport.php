@@ -22,6 +22,21 @@ class CourseClassMemberImport implements ToModel, WithHeadingRow
             ->where('slug', $row['course_class_slug'])
             ->first();
 
+        if (!$user || !$course_class) {
+            return null;
+        }
+
+        // Periksa apakah data sudah ada
+        $existing = DB::table('course_class_member')
+            ->where('user_id', $user->id)
+            ->where('course_class_id', $course_class->id)
+            ->first();
+
+        // Jika data sudah ada, abaikan
+        if ($existing) {
+            return null;
+        }
+
         // Sesuaikan dengan kolom dalam file CSV dan model CourseClassMember
         return new CourseClassMember([
             'user_id' => $user->id, // Sesuaikan dengan kolom dalam file CSV
