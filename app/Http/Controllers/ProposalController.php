@@ -61,6 +61,7 @@ class ProposalController extends Controller
         $proposal_bimbingan = ProposalBimbingan::with('User')
                 ->where('proposal_id', $currentData->id)
                 ->where('priority', 1)
+                ->whereNotNull('description')
                 ->orderBy('level', 'ASC')
                 ->get();
             foreach ($proposal_bimbingan as $bimbingan) {
