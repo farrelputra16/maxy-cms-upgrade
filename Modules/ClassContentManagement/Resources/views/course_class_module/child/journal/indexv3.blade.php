@@ -91,13 +91,13 @@
                                         <a href="{{ route('getAddJournalCourseClassChildModule', ['id' => $item->id, 'user_id' => $item->User->id, 'course_class_module_id' => $parent_module->id]) }}"
                                             class="btn btn-primary rounded">Balas</a>
                                         @if ($item->status == 1)
-                                            <button type="button" class="btn btn-danger delete-button"
+                                            <button type="button" class="btn btn-danger hide-button"
                                                 data-id="{{ $item->id }}"
                                                 data-course_class_module_id="{{ $parent_module->id }}">
-                                                Hapus
+                                                Sembunyikan
                                             </button>
                                         @else
-                                            <button type="button" class="btn btn-success delete-button"
+                                            <button type="button" class="btn btn-success hide-button"
                                                 data-id="{{ $item->id }}"
                                                 data-course_class_module_id="{{ $parent_module->id }}">
                                                 Tunjukkan
@@ -107,7 +107,7 @@
                                             action="{{ route('postRejectJournalCourseClassChildModule', ['id' => $item->id, 'course_class_module_id' => $parent_module->id]) }}"
                                             method="POST" style="display:inline;">
                                             @csrf
-                                            @if ($item->status == 1)
+                                            @if ($item->acceptable == 1)
                                                 <button type="submit" class="btn btn-danger">Tolak</button>
                                             @else
                                                 <button type="submit" class="btn btn-success">Terima</button>
@@ -138,20 +138,20 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="confirmationModalLabel">Hapus Entri Jurnal</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                    <h5 class="modal-title" id="confirmationModalLabel">Konfirmasi Tindakan</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
-                                    Apakah Anda yakin ingin menghapus entri jurnal ini? Tindakan ini tidak dapat dibatalkan.
+                                <div class="modal-body" id="confirmationModalBody">
+                                    <!-- Isi modal akan dinamis berdasarkan tombol yang diklik -->
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <button type="button" class="btn btn-primary" id="confirm-delete">Hapus</button>
+                                    <button type="button" class="btn btn-primary" id="confirm-action">Lanjutkan</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- End Modal -->
                 </div>
             </div>
         </div>
@@ -162,20 +162,35 @@
 @section('script')
 
     <script>
-        // Dengar klik pada elemen dengan class 'delete-button'
-        document.querySelectorAll('.delete-button').forEach(button => {
+        // Dengarkan klik pada elemen dengan class 'hide-button'
+        document.querySelectorAll('.hide-button').forEach(button => {
             button.addEventListener('click', function() {
-                // Dapatkan ID dan course_class_module_id dari atribut data button yang diklik
+                // Dapatkan ID, course_class_module_id, dan status dari atribut data button yang diklik
                 let id = this.getAttribute('data-id');
                 let course_class_module_id = this.getAttribute('data-course_class_module_id');
+                let status = this.innerText.trim().toLowerCase(); // Ambil teks tombol (sembunyikan/tunjukkan)
 
                 // Tampilkan modal konfirmasi
                 var confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
                 confirmationModal.show();
 
-                // Tangani tombol konfirmasi hapus di dalam modal
-                document.getElementById('confirm-delete').addEventListener('click', function() {
-                    // Kirim permintaan saat pengguna mengkonfirmasi
+                // Ubah isi modal dinamis sesuai tindakan
+                const modalTitle = document.getElementById('confirmationModalLabel');
+                const modalBody = document.getElementById('confirmationModalBody');
+                const confirmButton = document.getElementById('confirm-action');
+
+                if (status === 'sembunyikan') {
+                    modalTitle.innerText = 'Konfirmasi Sembunyikan';
+                    modalBody.innerText = 'Apakah Anda yakin ingin menyembunyikan entri jurnal ini? Tindakan ini tidak dapat dibatalkan.';
+                    confirmButton.innerText = 'Sembunyikan';
+                } else {
+                    modalTitle.innerText = 'Konfirmasi Tunjukkan';
+                    modalBody.innerText = 'Apakah Anda yakin ingin menampilkan kembali entri jurnal ini?';
+                    confirmButton.innerText = 'Tunjukkan';
+                }
+
+                // Tangani tombol konfirmasi di dalam modal
+                confirmButton.onclick = function() {
                     fetch('/courseclassmodule/child/journal/delete', {
                             method: 'POST',
                             headers: {
@@ -189,11 +204,11 @@
                         })
                         .then(response => response.json())
                         .then(data => {
+                            confirmationModal.hide();
                             if (data.success) {
-                                confirmationModal.hide();
                                 Swal.fire({
                                     title: 'Berhasil!',
-                                    text: 'Entri jurnal berhasil dihapus/dipulihkan.',
+                                    text: `Entri jurnal berhasil ${status === 'sembunyikan' ? 'disembunyikan' : 'ditampilkan kembali'}.`,
                                     icon: 'success',
                                     confirmButtonText: 'OK'
                                 }).then((result) => {
@@ -204,7 +219,7 @@
                             } else {
                                 Swal.fire({
                                     title: 'Gagal!',
-                                    text: 'Gagal menghapus entri jurnal. Coba lagi.',
+                                    text: `Gagal ${status === 'sembunyikan' ? 'menyembunyikan' : 'menampilkan'} entri jurnal. Coba lagi.`,
                                     icon: 'error',
                                     confirmButtonText: 'OK'
                                 });
@@ -219,7 +234,7 @@
                                 confirmButtonText: 'OK'
                             });
                         });
-                });
+                };
             });
         });
     </script>
