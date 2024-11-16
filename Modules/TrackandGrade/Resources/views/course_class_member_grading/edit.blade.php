@@ -29,9 +29,9 @@
                 <div class="card-body">
                     <h4 class="card-title">Detail Pengumpulan Tugas <small>[ID: {{ $data->id }}]</small></h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda untuk menilai tugas yang telah dikumpulkan oleh siswa. Pastikan bahwa
+                        Halaman ini memungkinkan Anda untuk menilai tugas yang telah dikumpulkan oleh mahasiswa. Pastikan bahwa
                         informasi yang Anda masukkan lengkap dan akurat agar memberikan pengalaman pembelajaran terbaik bagi
-                        siswa.
+                        mahasiswa.
                     </p>
 
                     <form action="{{ route('postEditGrade', ['id' => request()->query('id')]) }}" method="post"
@@ -48,7 +48,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-student-name" class="col-md-2 col-form-label">Nama Siswa</label>
+                            <label for="input-student-name" class="col-md-2 col-form-label">Nama Mahasiswa</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="student_name"
                                     value="{{ $data->user_name }}" id="input-student-name" disabled>
@@ -64,7 +64,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-student-comment" class="col-md-2 col-form-label">Komentar Siswa</label>
+                            <label for="input-student-comment" class="col-md-2 col-form-label">Komentar Mahasiswa</label>
                             <div class="col-md-10">
                                 {{-- <textarea id="elm1" name="comment" class="form-control" readonly>{{ $data->comment }}</textarea> --}}
                                 <div class="form-control" style="height: auto; min-height: 150px;" readonly>
@@ -82,9 +82,9 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-tutor-comment" class="col-md-2 col-form-label">Komentar Tutor</label>
+                            <label for="input-tutor-comment" class="col-md-2 col-form-label">Komentar Dosen</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="tutor_comment" class="form-control" placeholder="Berikan feedback untuk siswa">{{ $data->tutor_comment }}</textarea>
+                                <textarea id="elm1" name="tutor_comment" class="form-control" placeholder="Berikan feedback untuk mahasiswa">{{ $data->tutor_comment }}</textarea>
                             </div>
                         </div>
 

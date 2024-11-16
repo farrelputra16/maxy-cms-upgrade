@@ -60,8 +60,8 @@
                 <div class="card-body">
                     <h4 class="card-title">Penilaian Tugas</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan data penilaian tugas siswa dalam kelas yang dipilih. Setiap baris pada tabel
-                        di bawah ini menyediakan informasi penting seperti nama siswa, status pengumpulan, nilai, dan
+                        Halaman ini menampilkan data penilaian tugas mahasiswa dalam kelas yang dipilih. Setiap baris pada tabel
+                        di bawah ini menyediakan informasi penting seperti nama mahasiswa, status pengumpulan, nilai, dan
                         komentar. Anda dapat menggunakan fitur <b>pengaturan kolom, pengurutan, dan pencarian</b> untuk
                         menyesuaikan tampilan sesuai kebutuhan. Klik pada judul kolom untuk mengurutkan data, atau arahkan
                         kursor pada teks yang terpotong untuk melihat deskripsi lengkap.
@@ -73,7 +73,7 @@
                         <li><strong>Pengaturan Kolom:</strong> Klik header kolom untuk mengurutkan data atau pilih kolom
                             tertentu untuk disembunyikan.</li>
                         <li><strong>Nilai Tugas:</strong> Klik tombol <em>Nilai Tugas</em> pada kolom Aksi untuk menilai
-                            tugas siswa yang sudah dikumpulkan.</li>
+                            tugas mahasiswa yang sudah dikumpulkan.</li>
                     </ul>
                     </p>
 
@@ -86,13 +86,13 @@
                                     <th>ID</th>
                                     <th>Modul</th>
                                     <th>Hari</th>
-                                    <th>Nama Siswa</th>
+                                    <th>Nama Mahasiswa</th>
                                     <th>Berkas Tugas</th>
                                     <th>Waktu Pengumpulan</th>
                                     <th>Nilai</th>
                                     <th>Diperbarui Pada</th>
-                                    <th>Komentar Siswa</th>
-                                    <th>Komentar Tutor</th>
+                                    <th>Komentar Mahasiswa</th>
+                                    <th>Komentar Dosen</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -157,12 +157,12 @@
                                     <th>ID</th>
                                     <th>Modul</th>
                                     <th>Hari</th>
-                                    <th>Nama Siswa</th>
+                                    <th>Nama Mahasiswa</th>
                                     <th>Berkas Tugas</th>
                                     <th>Waktu Pengumpulan</th>
                                     <th>Nilai</th>
                                     <th>Diperbarui Pada</th>
-                                    <th>Komentar Siswa</th>
+                                    <th>Komentar Mahasiswa</th>
                                     <th>Komentar Tutor</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
