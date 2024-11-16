@@ -28,7 +28,7 @@ class ProposalController extends Controller
                 ->get();
         }
 
-        $proposals = null;
+        $proposals = collect();
         if ($user->access_group_name == 'super') {
             $proposals = DB::table('proposal')
                 ->leftJoin('users', 'proposal.student_id', '=', 'users.id')
@@ -45,11 +45,9 @@ class ProposalController extends Controller
                     ->where('student_id', $member->member_id)
                     ->select('proposal.*', 'users.id as user_id', 'users.name as user_name', 'm_proposal_status.name as status', 'm_proposal_type.name as type')
                     ->get();
-                $proposals = $item;
+                $proposals = $proposals->merge($item);
             }
         }
-
-        // dd($proposals);
 
         return view('proposal.indexv3', compact('proposals'));
     }
