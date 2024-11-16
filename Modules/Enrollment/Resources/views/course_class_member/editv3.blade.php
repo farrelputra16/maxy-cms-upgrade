@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Class Member')
+@section('title', 'Edit Anggota Kelas')
 
 @section('content')
     <!-- start page title -->
@@ -12,9 +12,9 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Class</a></li>
-                        <li class="breadcrumb-item"><a href="">Member List</a></li>
-                        <li class="breadcrumb-item active">Edit Class Member</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
+                        <li class="breadcrumb-item"><a href="">Daftar Anggota</a></li>
+                        <li class="breadcrumb-item active">Edit Anggota Kelas</li>
                     </ol>
                 </div>
 
@@ -28,12 +28,23 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Class Member: {{ $courseClassMember->id }} -
-                        {{ $courseClassMember->user->name }} On Class: {{ $courseClassMember->courseClass->course->name }}
+                    <h4 class="card-title">Edit Anggota Kelas: {{ $courseClassMember->id }} -
+                        {{ $courseClassMember->user->name }} di Kelas: {{ $courseClassMember->courseClass->course->name }}
                         Batch {{ $courseClassMember->courseClass->batch }}</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <p class="card-title-desc">
+                        Halaman ini memungkinkan Anda untuk memperbarui informasi anggota kelas. Pastikan semua data yang
+                        Anda masukkan akurat untuk mendukung pengalaman belajar yang optimal bagi peserta.
+                        <br><br>
+                        <strong>Tips:</strong>
+                    <ul>
+                        <li><strong>Nilai:</strong> Masukkan nilai sesuai kategori yang tersedia, seperti nilai harian,
+                            absensi, hackathon, dan lainnya.</li>
+                        <li><strong>Dosen:</strong> Atur dosen yang bertanggung jawab untuk peserta ini, termasuk
+                            deskripsi tugasnya.</li>
+                        <li><strong>Status:</strong> Pastikan status keanggotaan peserta diatur sesuai dengan kondisi
+                            terkini.</li>
+                    </ul>
+                    </p>
 
                     <form action="{{ route('postEditCourseClassMember', $courseClassMember->id) }}" method="post"
                         enctype="multipart/form-data">
@@ -43,11 +54,12 @@
                         <input type="hidden" name="member_id" value="{{ $users }}">
 
                         <div class="mb-3 row">
-                            <label for="dailyScore" class="col-md-2 col-form-label">Daily Score</label>
+                            <label for="dailyScore" class="col-md-2 col-form-label">Nilai Harian</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="daily_score"
-                                    placeholder="Masukkan nilai harian" value="{{ old('daily_score', $courseClassMember->daily_score) }}"
-                                    id="dailyScore" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    placeholder="Masukkan nilai harian"
+                                    value="{{ old('daily_score', $courseClassMember->daily_score) }}" id="dailyScore"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @error('daily_score')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -56,11 +68,12 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="absenceScore" class="col-md-2 col-form-label">Absence Score</label>
+                            <label for="absenceScore" class="col-md-2 col-form-label">Nilai Absensi</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="absence_score"
-                                    placeholder="Masukkan nilai absensi" value="{{ old('absence_score', $courseClassMember->absence_score) }}"
-                                    id="absenceScore" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    placeholder="Masukkan nilai absensi"
+                                    value="{{ old('absence_score', $courseClassMember->absence_score) }}" id="absenceScore"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @error('absence_score')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -68,50 +81,56 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="mb-3 row">
-                            <label for="hackathon1Score" class="col-md-2 col-form-label">Hackathon 1 Score</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="number" name="hackathon_1_score"
-                                    placeholder="Masukkan nilai hackathon ke-1"
-                                    value="{{ old('hackathon_1_score', $courseClassMember->hackathon_1_score) }}" id="hackathon1Score" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                                @error('hackathon_1_score')
-                                    <div class="text-danger">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                        @if (env('APP_ENV') != 'local')
+                            <div class="mb-3 row">
+                                <label for="hackathon1Score" class="col-md-2 col-form-label">Hackathon 1 Score</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="number" name="hackathon_1_score"
+                                        placeholder="Masukkan nilai hackathon ke-1"
+                                        value="{{ old('hackathon_1_score', $courseClassMember->hackathon_1_score) }}"
+                                        id="hackathon1Score" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    @error('hackathon_1_score')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="hackathon2Score" class="col-md-2 col-form-label">Hackathon 2 Score</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="number" name="hackathon_2_score"
-                                    placeholder="Masukkan nilai hackathon ke-2"
-                                    value="{{ old('hackathon_2_score', $courseClassMember->hackathon_2_score) }}" id="hackathon2Score" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                                @error('hackathon_2_score')
-                                    <div class="text-danger">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="mb-3 row">
+                                <label for="hackathon2Score" class="col-md-2 col-form-label">Hackathon 2 Score</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="number" name="hackathon_2_score"
+                                        placeholder="Masukkan nilai hackathon ke-2"
+                                        value="{{ old('hackathon_2_score', $courseClassMember->hackathon_2_score) }}"
+                                        id="hackathon2Score" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    @error('hackathon_2_score')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="internshipScore" class="col-md-2 col-form-label">Internship Score</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="number" name="internship_score"
-                                    placeholder="Masukkan nilai internship"
-                                    value="{{ old('internship_score', $courseClassMember->internship_score) }}" id="internshipScore" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                                @error('internship_score')
-                                    <div class="text-danger">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="mb-3 row">
+                                <label for="internshipScore" class="col-md-2 col-form-label">Internship Score</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="number" name="internship_score"
+                                        placeholder="Masukkan nilai internship"
+                                        value="{{ old('internship_score', $courseClassMember->internship_score) }}"
+                                        id="internshipScore" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    @error('internship_score')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
+                        @endif
                         <div class="mb-3 row">
                             <label for="finalScore" class="col-md-2 col-form-label">Final Score</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="final_score"
-                                    value="{{ old('final_score', $courseClassMember->final_score) }}" id="finalScore" readonly>
+                                    value="{{ old('final_score', $courseClassMember->final_score) }}" id="finalScore"
+                                    readonly>
                                 @error('final_score')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -124,24 +143,26 @@
                         <div id="mentor-fields-container">
                             @foreach ($currentMentors as $index => $currentMentor)
                                 <div class="mb-3 row mentor-field-group">
-                                    <label for="mentor_{{ $index }}" class="col-md-2 col-form-label">Pilih Mentor: </label>
+                                    <label for="mentor_{{ $index }}" class="col-md-2 col-form-label">Pilih Dosen:
+                                    </label>
                                     <div class="col-md-4">
                                         <select class="form-control select2 mentor-select" name="mentor[]">
-                                            <option value="">Pilih Mentor</option>
+                                            <option value="">Pilih Dosen</option>
                                             @foreach ($mentors as $mentor)
-                                                <option value="{{ $mentor->id }}" 
+                                                <option value="{{ $mentor->id }}"
                                                     {{ old('mentor.' . $index, $currentMentor->mentor_id) == $mentor->id ? 'selected' : '' }}>
                                                     {{ $mentor->email }} - {{ $mentor->name }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    <label for="jobdesc_{{ $index }}" class="col-md-2 col-form-label">Job Description</label>
+                                    <label for="jobdesc_{{ $index }}" class="col-md-2 col-form-label">Deskripsi
+                                        Pekerjaan</label>
                                     <div class="col-md-4">
                                         <select name="jobdesc[]" class="form-control select2 jobdesc-select">
-                                            <option value="">Pilih Job Description</option>
+                                            <option value="">Pilih Deskripsi Pekerjaan</option>
                                             @foreach ($jobdescriptions as $jobdesc)
-                                                <option value="{{ $jobdesc->id }}" 
+                                                <option value="{{ $jobdesc->id }}"
                                                     {{ old('jobdesc.' . $index, $currentMentor->m_jobdesc_id) == $jobdesc->id ? 'selected' : '' }}>
                                                     {{ $jobdesc->name }}
                                                 </option>
@@ -151,22 +172,27 @@
                                 </div>
                             @endforeach
                         </div>
-                                                                        
+
                         <div class="row">
                             <div class="col-md-10 offset-md-2">
-                                <button type="button" class="btn btn-secondary" id="add-mentor-button">Add Mentor</button>
-                                <button type="button" class="btn btn-danger" id="remove-mentor-button">Kurangi Mentor</button>
+                                <button type="button" class="btn btn-secondary" id="add-mentor-button">Tambah
+                                    Dosen</button>
+                                <button type="button" class="btn btn-danger" id="remove-mentor-button">Kurangi
+                                    Dosen</button>
                             </div>
                         </div>
                         <br>
                         @if ($course_class_detail->course_type_id == $mbkmType)
                             <div class="mb-3 row">
-                                <label for="input-tag" class="col-md-2 col-form-label">Pilih Partner: </label>
+                                <label for="input-tag" class="col-md-2 col-form-label">Pilih Mitra: </label>
                                 <div class="col-md-10">
-                                    <select class="form-control select2" name="partner" data-placeholder="Pilih Partner" required>
+                                    <select class="form-control select2" name="partner" data-placeholder="Pilih Mitra"
+                                        required>
                                         <option value="">Pilih Partner</option>
                                         @foreach ($partners as $item)
-                                            <option value="{{ $item->id }}" {{ old('partner') == $item->id ? 'selected' : '' }} @if($item->id == $courseClassMember->m_partner_id) selected @endif>
+                                            <option value="{{ $item->id }}"
+                                                {{ old('partner') == $item->id ? 'selected' : '' }}
+                                                @if ($item->id == $courseClassMember->m_partner_id) selected @endif>
                                                 {{ $item->name }}
                                             </option>
                                         @endforeach
@@ -175,7 +201,7 @@
                             </div>
                         @endif
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="content">{{ old('content', $courseClassMember->description) }}</textarea>
                             </div>
@@ -184,13 +210,14 @@
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    value="1" {{ old('status', $courseClassMember->status) == 1 ? 'checked' : '' }} name="status">
+                                    value="1" {{ old('status', $courseClassMember->status) == 1 ? 'checked' : '' }}
+                                    name="status">
                                 <label>Aktif</label>
                             </div>
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Save & Update</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Simpan & Perbarui</button>
                             </div>
                         </div>
                     </form>
@@ -202,57 +229,49 @@
 @endsection
 
 @section('script')
-<script>
-    let dailyScoreEl = $("input[name='daily_score']");
-    let absenceScoreEl = $("input[name='absence_score']");
-    let hackathon1ScoreEl = $("input[name='hackathon_1_score']");
-    let hackathon2ScoreEl = $("input[name='hackathon_2_score']");
-    let internshipScoreEl = $("input[name='internship_score']");
-    let finalScoreEl = $("input[name='final_score']");
+    <script>
+        // Elemen input untuk nilai
+        let dailyScoreEl = $("input[name='daily_score']");
+        let absenceScoreEl = $("input[name='absence_score']");
+        let hackathon1ScoreEl = $("input[name='hackathon_1_score']");
+        let hackathon2ScoreEl = $("input[name='hackathon_2_score']");
+        let internshipScoreEl = $("input[name='internship_score']");
+        let finalScoreEl = $("input[name='final_score']");
 
-    function calculateFinalScore() {
-        let dailyScore = dailyScoreEl.val() || 0;
-        let absenceScore = absenceScoreEl.val() || 0;
-        let hackathon1Score = hackathon1ScoreEl.val() || 0;
-        let hackathon2Score = hackathon2ScoreEl.val() || 0;
-        let internshipScore = internshipScoreEl.val() || 0;
+        // Fungsi untuk menghitung nilai akhir
+        function calculateFinalScore() {
+            let dailyScore = parseFloat(dailyScoreEl.val()) || 0;
+            let absenceScore = parseFloat(absenceScoreEl.val()) || 0;
+            let hackathon1Score = hackathon1ScoreEl.length ? parseFloat(hackathon1ScoreEl.val()) || 0 : 0;
+            let hackathon2Score = hackathon2ScoreEl.length ? parseFloat(hackathon2ScoreEl.val()) || 0 : 0;
+            let internshipScore = internshipScoreEl.length ? parseFloat(internshipScoreEl.val()) || 0 : 0;
 
-        let finalScore = (dailyScore * 0.15) + (absenceScore * 0.05) + (hackathon1Score * 0.25) + (hackathon2Score * 0.25) + (internshipScore * 0.30);
-        finalScoreEl.val(finalScore);
-    }
+            let finalScore = (dailyScore * 0.15) + (absenceScore * 0.05) +
+                (hackathon1Score * 0.25) + (hackathon2Score * 0.25) +
+                (internshipScore * 0.30);
+            finalScoreEl.val(finalScore.toFixed(2));
+        }
 
-    dailyScoreEl.on('input', function() {
-        calculateFinalScore();
-    });
+        // Event listener untuk perhitungan otomatis saat nilai diubah
+        dailyScoreEl.on('input', calculateFinalScore);
+        absenceScoreEl.on('input', calculateFinalScore);
+        if (hackathon1ScoreEl.length) hackathon1ScoreEl.on('input', calculateFinalScore);
+        if (hackathon2ScoreEl.length) hackathon2ScoreEl.on('input', calculateFinalScore);
+        if (internshipScoreEl.length) internshipScoreEl.on('input', calculateFinalScore);
+    </script>
 
-    absenceScoreEl.on('input', function() {
-        calculateFinalScore();
-    });
+    <script>
+        // Fungsi untuk menambah mentor baru
+        document.getElementById('add-mentor-button').addEventListener('click', function() {
+            const mentorFieldsContainer = document.getElementById('mentor-fields-container');
+            const newMentorFieldGroup = document.createElement('div');
+            newMentorFieldGroup.className = 'mb-3 row mentor-field-group';
 
-    hackathon1ScoreEl.on('input', function() {
-        calculateFinalScore();
-    });
-
-    hackathon2ScoreEl.on('input', function() {
-        calculateFinalScore();
-    });
-
-    internshipScoreEl.on('input', function() {
-        calculateFinalScore();
-    });
-</script>
-<script>
-    // Add event listener for the button to add a new mentor field
-    document.getElementById('add-mentor-button').addEventListener('click', function() {
-        const mentorFieldsContainer = document.getElementById('mentor-fields-container');
-        const newMentorFieldGroup = document.createElement('div');
-        newMentorFieldGroup.className = 'mb-3 row mentor-field-group';
-
-        newMentorFieldGroup.innerHTML = `
-            <label for="mentor" class="col-md-2 col-form-label">Pilih Mentor: </label>
+            newMentorFieldGroup.innerHTML = `
+            <label for="mentor" class="col-md-2 col-form-label">Pilih Dosen: </label>
             <div class="col-md-4">
-                <select class="form-control select2 mentor-select" name="mentor[]" data-placeholder="Pilih Mentor">
-                    <option value="">Pilih Mentor</option>
+                <select class="form-control select2 mentor-select" name="mentor[]" data-placeholder="Pilih Dosen">
+                    <option value="">Pilih Dosen</option>
                     @foreach ($mentors as $mentor)
                         <option value="{{ $mentor->id }}" data-jobdesc="{{ $jobdescriptions[$mentor->id] ?? '' }}">
                             {{ $mentor->email }} - {{ $mentor->name }}
@@ -260,30 +279,35 @@
                     @endforeach
                 </select>
             </div>
-            <label for="jobdesc" class="col-md-2 col-form-label">Job Description</label>
+            <label for="jobdesc" class="col-md-2 col-form-label">Deskripsi Pekerjaan</label>
             <div class="col-md-4">
-                <select name="jobdesc[]" class="form-control select2 jobdesc-select" data-placeholder="Pilih Job Description">
+                <select name="jobdesc[]" class="form-control select2 jobdesc-select" data-placeholder="Pilih Deskripsi Pekerjaan">
+                    <option value="">Pilih Deskripsi Pekerjaan</option>
                     @foreach ($jobdescriptions as $jobdesc)
-                        <option value="{{ $jobdesc->id ?? '' }}">{{ $jobdesc->name ?? '' }}</option>
+                        <option value="{{ $jobdesc->id }}">{{ $jobdesc->name }}</option>
                     @endforeach
-                </select>                                    
+                </select>
             </div>
         `;
 
-        mentorFieldsContainer.appendChild(newMentorFieldGroup);
-    });
+            mentorFieldsContainer.appendChild(newMentorFieldGroup);
 
-     // Event listener untuk tombol "Kurangi Mentor"
-     document.getElementById('remove-mentor-button').addEventListener('click', function() {
-        const mentorFieldsContainer = document.getElementById('mentor-fields-container');
-        const mentorFieldGroups = mentorFieldsContainer.getElementsByClassName('mentor-field-group');
-        
-        // Hanya hapus jika ada lebih dari satu field mentor
-        if (mentorFieldGroups.length > 1) {
-            mentorFieldsContainer.removeChild(mentorFieldGroups[mentorFieldGroups.length - 1]);
-        } else {
-            alert("Minimal satu mentor harus tersedia.");
-        }
-    });
-</script>
+            // Inisialisasi kembali Select2 untuk elemen baru
+            $(newMentorFieldGroup).find('.select2').select2();
+        });
+
+        // Fungsi untuk mengurangi mentor
+        document.getElementById('remove-mentor-button').addEventListener('click', function() {
+            const mentorFieldsContainer = document.getElementById('mentor-fields-container');
+            const mentorFieldGroups = mentorFieldsContainer.getElementsByClassName('mentor-field-group');
+
+            // Hanya hapus jika ada lebih dari satu field mentor
+            if (mentorFieldGroups.length > 1) {
+                mentorFieldsContainer.removeChild(mentorFieldGroups[mentorFieldGroups.length - 1]);
+            } else {
+                alert("Minimal satu mentor harus tersedia.");
+            }
+        });
+    </script>
+
 @endsection

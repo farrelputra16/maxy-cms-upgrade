@@ -1,22 +1,22 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add Course Class Member')
+@section('title', 'Tambah Anggota Kelas')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Add New Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Anggota Baru</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Class</a></li>
                         <li class="breadcrumb-item"><a
-                                href="{{ route('getCourseClassMember', ['id' => $course_class_detail->id]) }}">Class
-                                Member</a></li>
-                        <li class="breadcrumb-item active">Add New Member</li>
+                                href="{{ route('getCourseClassMember', ['id' => $course_class_detail->id]) }}">Anggota
+                                Kelas</a></li>
+                        <li class="breadcrumb-item active">Tambah Anggota Baru</li>
                     </ol>
                 </div>
 
@@ -30,21 +30,32 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Add Member for Class: {{ $course_class_detail->course_name }}
+                    <h4 class="card-title">Tambah Anggota Kelas: {{ $course_class_detail->course_name }}
                         Batch {{ $course_class_detail->batch }}</h4>
-                    <p class="card-title-desc">Halaman ini dapat digunakan untuk menambahkan member baru ke dalam kelas.
-                        Anda dapat menambahkan member satu per satu atau beberapa member sekaligus menggunakan fitur impor
-                        data dari file CSV.</p>
+                    <p class="card-title-desc">
+                        Halaman ini memungkinkan Anda untuk menambahkan anggota baru ke dalam kelas. Anda dapat melakukannya
+                        satu per satu atau beberapa sekaligus melalui fitur impor file CSV.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li><strong>Tambah Individu:</strong> Pilih anggota menggunakan dropdown "Pilih User." Anda juga
+                            dapat menambahkan mentor dan mendeskripsikan tugasnya.</li>
+                        <li><strong>Tambah Massal:</strong> Gunakan fitur unggah file CSV untuk menambahkan beberapa anggota
+                            secara sekaligus.</li>
+                        <li><strong>Konfigurasi Data:</strong> Pastikan data seperti deskripsi kelas, partner (jika
+                            berlaku), dan status diatur dengan benar sebelum disimpan.</li>
+                    </ul>
+                    </p>
 
                     <form id="addCCMember" action="{{ route('postAddCourseClassMember') }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Pilih User: </label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Pilih Pengguna: </label>
                             <div class="col-md-10">
                                 <select class="form-control select2 multiple" multiple="multiple" name="users[]"
-                                    data-placeholder="Pilih User">
+                                    data-placeholder="Pilih Pengguna">
                                     @foreach ($users as $item)
                                         <option value="{{ $item->id }}"
                                             {{ old('users') && in_array($item->id, old('users')) ? 'selected' : '' }}>
@@ -58,11 +69,11 @@
                         <div id="mentor-fields-container">
                             @foreach (old('mentor', ['']) as $index => $oldMentor)
                                 <div class="mb-3 row mentor-field-group">
-                                    <label for="mentor" class="col-md-2 col-form-label">Pilih Mentor: </label>
+                                    <label for="mentor" class="col-md-2 col-form-label">Pilih Dosen: </label>
                                     <div class="col-md-4">
                                         <select class="form-control select2 mentor-select" name="mentor[]"
-                                            data-placeholder="Pilih Mentor">
-                                            <option value="">Pilih Mentor</option>
+                                            data-placeholder="Pilih Dosen">
+                                            <option value="">Pilih Dosen</option>
                                             @foreach ($mentors as $mentor)
                                                 <option value="{{ $mentor->id }}"
                                                     {{ $oldMentor == $mentor->id ? 'selected' : '' }}>
@@ -71,11 +82,11 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <label for="jobdesc" class="col-md-2 col-form-label">Job Description</label>
+                                    <label for="jobdesc" class="col-md-2 col-form-label">Deskripsi Pekerjaan</label>
                                     <div class="col-md-4">
                                         <select name="jobdesc[]" class="form-control select2 jobdesc-select"
-                                            data-placeholder="Pilih Job Description">
-                                            <option value="">Pilih Job Description</option>
+                                            data-placeholder="Pilih Deskripsi Pekerjaan">
+                                            <option value="">Pilih Deskripsi Pekerjaan</option>
                                             @foreach ($jobdescriptions as $jobdesc)
                                                 <option value="{{ $jobdesc->id }}"
                                                     {{ old('jobdesc.' . $index) == $jobdesc->id ? 'selected' : '' }}>
@@ -90,19 +101,20 @@
 
                         <div class="row">
                             <div class="col-md-10 offset-md-2">
-                                <button type="button" class="btn btn-secondary" id="add-mentor-button">Add Mentor</button>
+                                <button type="button" class="btn btn-secondary" id="add-mentor-button">Tambah
+                                    Dosen</button>
                                 <button type="button" class="btn btn-danger" id="remove-mentor-button">Kurangi
-                                    Mentor</button>
+                                    Dosen</button>
                             </div>
                         </div>
                         <br>
                         @if ($course_class_detail->course_type_id == $mbkmType)
                             <div class="mb-3 row">
-                                <label for="input-tag" class="col-md-2 col-form-label">Pilih Partner: </label>
+                                <label for="input-tag" class="col-md-2 col-form-label">Pilih Mitra: </label>
                                 <div class="col-md-10">
-                                    <select class="form-control select2" name="partner" data-placeholder="Pilih Partner"
+                                    <select class="form-control select2" name="partner" data-placeholder="Pilih Mitra"
                                         required>
-                                        <option value="">Pilih Partner</option>
+                                        <option value="">Pilih Mitra</option>
                                         @foreach ($partners as $item)
                                             <option value="{{ $item->id }}"
                                                 {{ old('partner') == $item->id ? 'selected' : '' }}>
@@ -115,7 +127,7 @@
                         @endif
                         <input type="hidden" name="course_class" value="{{ $course_class_detail->id }}">
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Course Class Description</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi Kelas</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description">{{ old('description') }}</textarea>
                             </div>
@@ -131,7 +143,7 @@
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
-                                    form="addCCMember">Add Member</button>
+                                    form="addCCMember">Simpan Anggota Kelas</button>
                             </div>
                         </div>
                     </form>
@@ -139,27 +151,29 @@
 
 
                     <!-- CSV upload form -->
-                    <h4>Add Multiple Members by uploading CSV File</h4>
+                    <h4>Tambah Anggota Massal melalui CSV</h4>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="mb-5">
-                                        <form action="{{ route('course-class-member.import-csv') }}" method="POST" enctype="multipart/form-data">
+                                        <form action="{{ route('course-class-member.import-csv') }}" method="POST"
+                                            enctype="multipart/form-data">
                                             @method('POST')
                                             @csrf
 
-                                            
+
                                             <div class="mb-3">
-                                                <label for="csv_file" class="form-label">Upload CSV here</label>
+                                                <label for="csv_file" class="form-label">Unggah CSV disini</label>
                                                 <br>
                                                 <small>Sample: <i class="fa fa-file" aria-hidden="true"></i> <a
-                                                    href="{{ asset('csv/addccmember.csv') }}" download>CSV
-                                                    Example (Click to Download)</a></small>
-                                                <input class="form-control" type="file" id="csv_file" name="csv_file">
-                                              </div>
+                                                        href="{{ asset('csv/addccmember.csv') }}" download>Contoh CSV
+                                                        (Klik untuk Unduh)</a></small>
+                                                <input class="form-control" type="file" id="csv_file"
+                                                    name="csv_file">
+                                            </div>
 
-                                            <button type="submit" class="btn btn-primary">Add Multiple Members</button>
+                                            <button type="submit" class="btn btn-primary">Tambah Anggota Massal</button>
                                         </form>
                                         {{-- <form action="{{ route('course-class-member.import-csv') }}"
                                             enctype="multipart/form-data" class="dropzone text-center" id="csv-upload"
@@ -208,13 +222,13 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4>List Mentor</h4>
+                                    <h4>Daftar Dosen</h4>
                                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>Id</th>
-                                                <th class="data-medium">Name</th>
+                                                <th class="data-medium">Nama</th>
                                                 <th>Email</th>
                                             </tr>
                                         </thead>
@@ -232,7 +246,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Id</th>
-                                                <th>Name</th>
+                                                <th>Nama</th>
                                                 <th>Email</th>
                                             </tr>
                                         </tfoot>
@@ -257,17 +271,17 @@
             }
 
             /* #csv-upload input[type="file"] {
-                display: block;
-                margin: 0 auto;
-                padding: 10px;
-                border-radius: 4px;
-                border: 1px solid #ccc;
-            }
+                            display: block;
+                            margin: 0 auto;
+                            padding: 10px;
+                            border-radius: 4px;
+                            border: 1px solid #ccc;
+                        }
 
-            #csv-upload label {
-                margin-bottom: 10px;
-                font-weight: bold;
-            } */
+                        #csv-upload label {
+                            margin-bottom: 10px;
+                            font-weight: bold;
+                        } */
 
             .dz-message {
                 display: flex;

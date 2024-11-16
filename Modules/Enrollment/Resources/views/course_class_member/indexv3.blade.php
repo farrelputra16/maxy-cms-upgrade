@@ -1,39 +1,56 @@
 @extends('layout.main-v3')
 
-@section('title', 'Course Class Member')
+@section('title', 'Anggota Kelas')
 
 @section('content')
-    <!-- Begin Page Title -->
+    <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
+                <h4 class="mb-sm-0 font-size-18">Ikhtisar Data</h4>
 
-                <!-- Begin Breadcrumb -->
+                <!-- Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Class Course</a></li>
-                        <li class="breadcrumb-item active">Class Member: {{ $courseClassDetail->course_name }} Batch
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas Kursus</a></li>
+                        <li class="breadcrumb-item active">Anggota Kelas: {{ $courseClassDetail->course_name }} Batch
                             {{ $courseClassDetail->batch }}</li>
                     </ol>
                 </div>
-                <!-- End Breadcrumb -->
+                <!-- Akhir Breadcrumb -->
             </div>
         </div>
     </div>
-    <!-- End Page Title -->
+    <!-- Akhir Judul Halaman -->
 
-    <!-- Begin Content -->
+    <!-- Konten -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Class Member on Class: {{ $courseClassDetail->course_name }} Batch
+                    <h4 class="card-title">Anggota Kelas: {{ $courseClassDetail->course_name }} Batch
                         {{ $courseClassDetail->batch }}</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan seluruh data member pada kelas <b>{{ $courseClassDetail->course_name }}</b>. Anda dapat mengakses data member secara
-                        langsung melalui tabel di bawah ini.
+                        Halaman ini memungkinkan Anda untuk mengelola dan memantau data anggota kelas yang tersedia di
+                        platform. Setiap baris dalam tabel ini berisi informasi penting mengenai anggota kelas, termasuk
+                        nama, deskripsi, status, dan tanggal pembaruan data.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li><strong>Visibilitas Kolom dan Pengurutan:</strong> Atur tampilan dengan mengurutkan kolom
+                            tertentu untuk mempermudah pencarian data spesifik. Anda juga dapat menggunakan bilah pencarian
+                            untuk mencari anggota tertentu berdasarkan nama atau ID.</li>
+                        <li><strong>Edit Data:</strong> Klik tombol <em>Edit</em> pada kolom “Aksi” untuk memperbarui
+                            informasi anggota kelas.</li>
+                        <li><strong>Generate Sertifikat:</strong> Gunakan tombol <em>Generate Sertifikat</em> untuk membuat
+                            sertifikat kelulusan anggota kelas secara otomatis.</li>
+                        <li><strong>Status Anggota:</strong> Status anggota ditampilkan dalam kolom “Status.” Anggota dengan
+                            status "Aktif" memiliki akses penuh ke kelas, sedangkan yang "Non Aktif" tidak memiliki akses.
+                        </li>
+                        <li><strong>Tambah Anggota Baru:</strong> Gunakan ikon <em>Tambah</em> di kanan bawah untuk
+                            menambahkan anggota baru ke kelas.</li>
+                    </ul>
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -41,17 +58,17 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Name</th>
+                                <th class="data-medium">Nama</th>
                                 @if ($courseClassDetail->course_type_id == $mbkmType)
-                                    <th>Partner</th>
+                                    <th>Mitra</th>
                                 @endif
-                                <th class="data-long">Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th class="data-long">Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Diperbarui Oleh</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,7 +78,7 @@
                                     <td>{{ $item->id }}</td>
                                     <td class="batch" scope="row">{{ $item->user_name }}</td>
                                     @if ($courseClassDetail->course_type_id == $mbkmType)
-                                        <td>{{$item->partner_name}}</td>
+                                        <td>{{ $item->partner_name }}</td>
                                     @endif
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->description) !!}">
@@ -79,12 +96,10 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditCourseClassMember', $item->id) }}"
                                             class="btn btn-primary rounded">Edit</a>
                                         <a href="{{ route('getGenerateCertificate', ['course_class_member' => $item->id, 'user' => $item->user_id, 'course_class' => $courseClassDetail->id]) }}"
-                                            class="btn btn-info rounded">Generate Certificate</a>
-                                        {{-- </div> --}}
+                                            class="btn btn-info rounded">Generate Sertifikat</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -93,17 +108,17 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Name</th>
+                                <th>Nama</th>
                                 @if ($courseClassDetail->course_type_id == $mbkmType)
-                                    <th>Partner</th>
+                                    <th>Mitra</th>
                                 @endif
-                                <th>Description</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Deskripsi</th>
+                                <th>Dibuat Pada</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Diperbarui Oleh</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -111,21 +126,21 @@
             </div>
         </div>
     </div>
-    <!-- End Content -->
+    <!-- Akhir Konten -->
 
-    <!-- FAB Add Starts -->
+    <!-- Tombol FAB Tambah -->
     <div id="floating-whatsapp-button">
         @if (!empty($courseClassDetail->id))
             <a href="{{ route('getAddCourseClassMember', ['id' => $courseClassDetail->id]) }}" target="_blank"
-                data-toggle="tooltip" title="Add Class Member">
+                data-toggle="tooltip" title="Tambah Anggota Kelas">
             @else
                 <a href="{{ route('getAddCourseClassMember') }}" target="_blank" data-toggle="tooltip"
-                    title="Add Class Member">
+                    title="Tambah Anggota Kelas">
         @endif
         <i class="fas fa-plus"></i>
         </a>
     </div>
-    <!-- FAB Add Ends -->
+    <!-- Akhir Tombol FAB Tambah -->
 @endsection
 
 @section('script')
