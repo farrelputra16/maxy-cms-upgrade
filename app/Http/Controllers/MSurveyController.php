@@ -22,7 +22,7 @@ class MSurveyController extends Controller
     function postAddSurvey(Request $request){//dd($request->all());
         // dd($request->all());
         $validate = $request->validate([
-            'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
+            'name' => 'required|string|max:255',
             'expired_date' => 'required|date|after:now',
             'survey' => ['required',
             function($attribute, $value, $fail) {
@@ -60,7 +60,7 @@ class MSurveyController extends Controller
 
     function postEditSurvey(Request $request){//dd($request->all());
         $validate = $request->validate([
-            'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
+            'name' => 'required|string|max:255',
             'expired_date' => 'required|date',
             'survey' => ['required',
             function($attribute, $value, $fail) {
