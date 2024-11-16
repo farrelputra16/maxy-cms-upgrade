@@ -58,6 +58,20 @@
                                     value="{{ $currentData->proposal_url }}" disabled>
                             </div>
                         </div>
+                        <div class="mb-3 row">
+                            <label for="input-description" class="col-md-2 col-form-label">Deskripsi Proposal</label>
+                            <div class="col-md-10">
+                                {{-- <textarea id="elmDesc" name="description" readonly>{{ $currentData->description }}</textarea>
+                                 --}}
+                                <div class="form-control" style="height: auto; min-height: 150px;" readonly>
+                                    {!! $currentData->description !!}</div>
+                                @if ($errors->has('description'))
+                                    @foreach ($errors->get('description') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
 
                         <div class="mb-3 row">
                             <label for="input-status" class="col-md-2 col-form-label">Status Proposal</label>
@@ -89,12 +103,88 @@
                             </div>
                         </div>
 
+                        @if (isset($proposal_bimbingan))
+                            @foreach ($proposal_bimbingan as $bimbingan)
+                                <section class="gradient-custom">
+                                    <div class="container">
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="col-md-12 col-lg-10 col-xl-8">
+                                                <div class="card w-100">
+                                                    <div class="card-body p-4">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="d-flex flex-start">
+                                                                    @if (empty($bimbingan->User->profile_picture))
+                                                                        <i class="fas fa-user-circle"></i>
+                                                                    @else
+                                                                        <img src="{{ config('app.url_backend') }}/uploads/{{ $bimbingan->User->profile_picture }}"
+                                                                            class="rounded-circle shadow-1-strong me-3"
+                                                                            alt="Profile Picture" width="65"
+                                                                            height="65">
+                                                                    @endif
+                                                                    <div class="flex-grow-1 flex-shrink-1">
+                                                                        <div>
+                                                                            <div
+                                                                                class="d-flex justify-content-between align-items-center">
+                                                                                <p class="mb-1">
+                                                                                    {{ $bimbingan->User->name }} <span
+                                                                                        class="small">-
+                                                                                        {{ $bimbingan->diff }}</span>
+                                                                                </p>
+                                                                            </div>
+                                                                            <p class="small mb-0">
+                                                                                {!! $bimbingan->description !!}
+                                                                            </p>
+                                                                        </div>
+                                                                        @foreach ($bimbingan->child as $child)
+                                                                            <div class="d-flex flex-start mt-4">
+                                                                                <a class="me-3" href="#">
+                                                                                    @if (empty(auth()->user()->profile_picture))
+                                                                                        <i class="fas fa-user-circle"></i>
+                                                                                    @else
+                                                                                        <img src="{{ config('app.url_backend') }}/uploads/{{ auth()->user()->profile_picture }}"
+                                                                                            class="rounded-circle shadow-1-strong"
+                                                                                            alt="Profile Picture"
+                                                                                            width="65"
+                                                                                            height="65" />
+                                                                                    @endif
+                                                                                </a>
+                                                                                <div class="flex-grow-1 flex-shrink-1">
+                                                                                    <div>
+                                                                                        <div
+                                                                                            class="d-flex justify-content-between align-items-center">
+                                                                                            <p class="mb-1">
+                                                                                                {{ auth()->user()->name }}
+                                                                                                <span class="small">-
+                                                                                                    {{ $child->diff }}</span>
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <p class="small mb-0">
+                                                                                            {!! $child->description !!}
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            @endforeach
+                        @endif
+
                         <div class="mb-3 row">
-                            <label for="input-description" class="col-md-2 col-form-label">Deskripsi Proposal</label>
+                            <label for="input-description" class="col-md-2 col-form-label">Komentar</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ $currentData->description }}</textarea>
-                                @if ($errors->has('description'))
-                                    @foreach ($errors->get('description') as $error)
+                                <textarea id="elm1" name="comment">{{ old('comment') }}</textarea>
+                                @if ($errors->has('comment'))
+                                    @foreach ($errors->get('comment') as $error)
                                         <span style="color: red;">{{ $error }}</span>
                                     @endforeach
                                 @endif

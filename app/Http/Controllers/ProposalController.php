@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Proposal;
 use App\Models\ProposalBimbingan;
 use App\Models\MProposalStatus;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use DB;
@@ -56,11 +57,30 @@ class ProposalController extends Controller
     {
         $currentData = Proposal::with('User')->where('id', $request->id)->first();
         $status = MProposalStatus::where('status', 1)->get();
+
+        $proposal_bimbingan = ProposalBimbingan::with('User')
+                ->where('proposal_id', $currentData->id)
+                ->where('priority', 1)
+                ->orderBy('level', 'ASC')
+                ->get();
+            foreach ($proposal_bimbingan as $bimbingan) {
+                $bimbingan->diff = Carbon::parse($bimbingan->created_at)->diffForHumans();
+                $bimbingan->child = ProposalBimbingan::where('proposal_id', $currentData->id)
+                    ->where('level', $bimbingan->level)
+                    ->where('priority', '<>', 1)
+                    ->orderBy('priority', 'ASC')
+                    ->get();
+                foreach ($bimbingan->child as $child) {
+                    $child->diff = Carbon::parse($child->created_at)->diffForHumans();
+                }
+            }
+
         //dd($currentData);
         // dd($current_course_class_proposal);
         return view('proposal.editv3', [
             'currentData' => $currentData,
             'status' => $status,
+            'proposal_bimbingan' => $proposal_bimbingan
         ]);
     }
 
@@ -79,7 +99,7 @@ class ProposalController extends Controller
                 ->update([
                     'm_proposal_status_id' => $request->status,
                     'proposal_grade' => $request->proposal_grade,
-                    'description' => $request->description,
+                    // 'description' => $request->description,
                     'status' => 1,
                     'updated_id' => Auth::user()->id
                 ]);
@@ -95,7 +115,7 @@ class ProposalController extends Controller
                     'm_proposal_status_id' => $request->status,
                     'level' => $level + 1,
                     'priority' => 1,
-                    'description' => $request->description,
+                    'description' => $request->comment,
                     'created_id' => auth()->id(),
                     'updated_id' => auth()->id(),
                 ]);

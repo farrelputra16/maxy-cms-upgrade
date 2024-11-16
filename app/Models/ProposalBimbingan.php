@@ -38,7 +38,7 @@ class ProposalBimbingan extends Model
 
     public function User()
     {
-        return $this->belongsTo(User::class, 'student_id')->where('status', 1);
+        return $this->belongsTo(User::class, 'user_id')->where('status', 1);
     }
 
     public function ProposalBimbinganBimbingan()
