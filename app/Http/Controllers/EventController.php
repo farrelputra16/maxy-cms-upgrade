@@ -123,19 +123,21 @@ class EventController extends Controller
             if ($updateData) {
                 if ($request->hasFile('image')) {
                     $file = $request->file('image');
-                    $image = $idevent;
+                    $image = $file->getClientOriginalName();
                     $destinationPath = public_path('/uploads/event');
                     if (!File::exists($destinationPath)) { // create folder jika blm ada
                         File::makeDirectory($destinationPath, 0777, true, true);
                     }
                     $file->move($destinationPath, $image);
+                    $updateData = Event::where('id', $idevent)->update(['image' => $image]);
                 }
                 return app(HelperController::class)->Positive('getEvent');
             } else {
                 return app(HelperController::class)->Warning('getEvent');
             }
-        } else
+        } else {
             return redirect()->back()->withErrors($validated)->withInput();
+        }
     }
 
     function getAttendanceEvent(Request $request)
