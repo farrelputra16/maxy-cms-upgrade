@@ -232,28 +232,50 @@ class ScheduleController extends Controller
         }
     }
 
-    function getOngoingCourseClassByCourseCategory(Request $request){
+    function getOngoingCourseClassByCourseCategory(Request $request)
+    {
         try {
             $prodi = $request->input('prodi');
+            $academic_period = $request->input('academic_period');
+
+            // Ambil data m_academic_period berdasarkan ID
+            $academicPeriod = MAcademicPeriod::find($academic_period);
+
+            if (!$academicPeriod) {
+                return response()->json(['error' => 'Academic period not found'], 404);
+            }
+
+            $start_date = $academicPeriod->date_start;
+            $end_date = $academicPeriod->date_end;
+
+            // Ambil kelas dengan tutor
             $classWithTutor = CourseClass::whereHas('course.CourseCategory', function ($query) use ($prodi) {
                     $query->where('category_id', $prodi);
                 })
-                ->where('status_ongoing','!=', 2)
+                ->where('status_ongoing', '!=', 2)
                 ->whereIn('id', function ($query) {
                     $query->select('course_class_id')
-                          ->from('user_mentorships');
+                        ->from('user_mentorships');
+                })
+                ->where(function ($query) use ($start_date, $end_date) {
+                    $query->whereBetween('start_date', [$start_date, $end_date])
+                        ->orWhereBetween('end_date', [$start_date, $end_date]);
                 })
                 ->get();
 
-            // Extract the IDs of classes that have tutors
+            // Ambil ID kelas yang sudah memiliki tutor
             $classWithTutorIds = $classWithTutor->pluck('id')->toArray();
 
-            // Retrieve classes that are not in $classWithTutor
+            // Ambil kelas tanpa tutor
             $classWithoutTutor = CourseClass::whereHas('course.CourseCategory', function ($query) use ($prodi) {
                     $query->where('category_id', $prodi);
                 })
                 ->where('status_ongoing', '!=', 2)
-                ->whereNotIn('id', $classWithTutorIds) // Exclude IDs from $classWithTutor
+                ->whereNotIn('id', $classWithTutorIds)
+                ->where(function ($query) use ($start_date, $end_date) {
+                    $query->whereBetween('start_date', [$start_date, $end_date])
+                        ->orWhereBetween('end_date', [$start_date, $end_date]);
+                })
                 ->get();
 
             return response()->json([
@@ -261,7 +283,7 @@ class ScheduleController extends Controller
                 'classWithoutTutor' => $classWithoutTutor
             ]);
         } catch (Exception $e) {
-            return response()->json(['error' => $e], 500);
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 

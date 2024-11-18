@@ -195,7 +195,8 @@
                     url: "{{ route('getOngoingCourseClassByCourseCategory') }}",
                     dataType: 'json',
                     data: {
-                        prodi: $('#prodi').val()
+                        prodi: $('#prodi').val(),
+                        academic_period: $('#academic-period').val()
                     },
                     success: function(data) {
                         $('#external-events').html('');
