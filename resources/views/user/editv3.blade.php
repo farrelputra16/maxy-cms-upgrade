@@ -37,7 +37,7 @@
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nama Lengkap <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $currentData->name) }}" id="name">
@@ -50,7 +50,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nama Panggilan <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="nickname"
                                     value="{{ old('nickname', $currentData->nickname) }}" id="nickname">
@@ -63,7 +63,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Peran <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="access_group"
                                     data-placeholder="Pilih Grup Akses...">
@@ -82,7 +82,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nomor Telepon <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="phone"
                                     value="{{ old('phone', $currentData->phone) }}" id="phone"
@@ -96,7 +96,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Email <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="email" name="email"
                                     value="{{ old('email', $currentData->email) }}" id="email">
@@ -108,11 +108,10 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Kata Sandi <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-password" class="col-md-2 col-form-label">Kata Sandi</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="password" name="password"
-                                    value="{{ old('password', $currentData->paswword) }}" id="password">
+                                <input class="form-control" type="password" name="password" value="" id="password"
+                                    placeholder="●●●●●●●●">
                                 @if ($errors->has('password'))
                                     @foreach ($errors->get('password') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -324,7 +323,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi Pengguna (Opsional)</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi Pengguna
+                                (Opsional)</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="description" rows="5">{{ old('description', $currentData->description) }}</textarea>
                             </div>

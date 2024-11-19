@@ -296,8 +296,8 @@ class UserController extends Controller
         // return dd($currentData);
 
         $allAccessGroups = AccessGroup::where('id', '<>', $currentData->access_group_id)
-        ->where('status', 1)
-        ->get();
+            ->where('status', 1)
+            ->get();
         $allProvince = MProvince::all();
         $allPartner = Partner::where('status', 1)->get();
 
@@ -315,7 +315,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'phone' => 'required|regex:/^[0-9]{10,15}$/',
-            'password' => 'required',
+            'password' => 'nullable',
             'access_group' => 'required',
         ]);
 
@@ -393,6 +393,14 @@ class UserController extends Controller
         } else {
             return app(HelperController::class)->Warning('getUser');
         }
+
+        // Perbarui password hanya jika diisi
+        if ($request->filled('password')) {
+            $currentData->password = bcrypt($request->password);
+        }
+
+        // Simpan perubahan
+        $currentData->save();
     }
 
     function importCSV(Request $request)
