@@ -1,6 +1,8 @@
 <?php
 
 namespace Modules\Enrollment\Imports;
+
+use App\Models\UserMentorship;
 use Modules\Enrollment\Entities\CourseClassMember;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -17,35 +19,84 @@ class CourseClassMemberImport implements ToModel, WithHeadingRow
             ->where('email', $row['email'])
             ->first();
 
+        $mentor = DB::table('users')
+            ->select('id')
+            ->where('email', $row['mentor_email'])
+            ->first();
+
         $course_class = DB::table('course_class')
             ->select('id')
             ->where('slug', $row['course_class_slug'])
             ->first();
 
-        if (!$user || !$course_class) {
+        $jobdesc = DB::table('jobdesc')
+            ->select('id')
+            ->where('id', $row['jobdesc_id'])
+            ->first();
+
+        if (!$user || !$course_class || !$mentor || !$jobdesc) {
             return null;
         }
 
-        // Periksa apakah data sudah ada
-        $existing = DB::table('course_class_member')
+        // Periksa apakah data course class member sudah ada
+        $existing_course_class_member = DB::table('course_class_member')
             ->where('user_id', $user->id)
             ->where('course_class_id', $course_class->id)
             ->first();
 
+        $existing_user_mentorship = DB::table('user_mentorships')
+            ->where('member_id', $user->id)
+            ->where('mentor_id', $mentor->id)
+            ->where('course_class_id', $course_class->id)
+            ->where('m_jobdesc_id', $jobdesc->id)
+            ->first();
+
         // Jika data sudah ada, abaikan
-        if ($existing) {
+        if ($existing_course_class_member && $existing_user_mentorship) {
             return null;
         }
 
         // Sesuaikan dengan kolom dalam file CSV dan model CourseClassMember
-        return new CourseClassMember([
-            'user_id' => $user->id, // Sesuaikan dengan kolom dalam file CSV
-            'course_class_id' => $course_class->id, // Sesuaikan dengan kolom dalam file CSV
-            'status' => 1,
-            'created_at' => now(),
-            'created_id' => Auth::user()->id, // Mengisi kolom "created_id" dengan ID pengguna saat ini
-            'updated_at' => now(),
-            'updated_id' => Auth::user()->id,
-        ]);
+        // return new CourseClassMember([
+        //     'user_id' => $user->id, // Sesuaikan dengan kolom dalam file CSV
+        //     'course_class_id' => $course_class->id, // Sesuaikan dengan kolom dalam file CSV
+        //     'status' => 1,
+        //     'created_at' => now(),
+        //     'created_id' => Auth::user()->id, // Mengisi kolom "created_id" dengan ID pengguna saat ini
+        //     'updated_at' => now(),
+        //     'updated_id' => Auth::user()->id,
+        // ]);
+
+        DB::transaction(function () use ($user, $course_class, $mentor, $jobdesc, $existing_course_class_member, $existing_user_mentorship) {
+            // Tambahkan ke tabel CourseClassMember jika belum ada
+            if (!$existing_course_class_member) {
+                CourseClassMember::create([
+                    'user_id' => $user->id,
+                    'course_class_id' => $course_class->id,
+                    'status' => 1,
+                    'created_at' => now(),
+                    'created_id' => Auth::id(),
+                    'updated_at' => now(),
+                    'updated_id' => Auth::id(),
+                ]);
+            }
+
+            // Tambahkan ke tabel UserMentorship jika belum ada
+            if (!$existing_user_mentorship) {
+                UserMentorship::create([
+                    'member_id' => $user->id,
+                    'mentor_id' => $mentor->id,
+                    'course_class_id' => $course_class->id,
+                    'm_jobdesc_id' => $jobdesc->id,
+                    'status' => 1,
+                    'created_at' => now(),
+                    'created_id' => Auth::id(),
+                    'updated_at' => now(),
+                    'updated_id' => Auth::id(),
+                ]);
+            }
+        });
+
+        return null; // Tidak perlu mengembalikan model
     }
 }
