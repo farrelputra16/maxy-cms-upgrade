@@ -40,8 +40,8 @@
                             <li><a href="{{ route('getPartnershipType') }}" key="t-blog">Tipe Kemitraan</a></li>
                             <li><a href="{{ route('getSurvey') }}" key="t-blog">Survei</a></li>
                             <li><a href="{{ route('getAcademicPeriod') }}" key="t-blog">Periode Akademik</a></li>
-                            <li><a href="{{ route('getScore') }}" key="t-blog">TIngkat Penilaian</a></li>
-                            <li><a href="{{ route('getJobdesc') }}" key="t-blog">Jobdesc</a></li>
+                            <li><a href="{{ route('getScore') }}" key="t-blog">Tingkat Penilaian</a></li>
+                            <li><a href="{{ route('getJobdesc') }}" key="t-blog">Deskripsi Pekerjaan</a></li>
                         @endif
                     </ul>
                 </li>
