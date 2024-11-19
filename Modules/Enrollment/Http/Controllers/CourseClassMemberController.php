@@ -78,9 +78,10 @@ class CourseClassMemberController extends Controller
     {
         $request->validate([
             'users' => 'required',
-            'mentor' => 'required',
+            'mentor.*' => 'required',
+            'jobdesc.*' => 'required',
         ]);
-        
+
         $users = $request->users;
         $mentors = $request->mentor;
         $jobdescs = $request->jobdesc; // Mengambil jobdesc dari permintaan
@@ -172,7 +173,8 @@ class CourseClassMemberController extends Controller
     function postEditCourseClassMember(Request $request)
     {
         $request->validate([
-            'mentor' => 'required',
+            'mentor.*' => 'required',
+            'jobdesc.*' => 'required',
         ]);
 
         // dd($request->all());
