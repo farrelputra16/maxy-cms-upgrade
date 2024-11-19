@@ -109,7 +109,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Kontak Person <span class="text-danger"
+                            <label for="input-title" class="col-md-2 col-form-label">Kontak Person (Nama) <span class="text-danger"
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="contact_person"
