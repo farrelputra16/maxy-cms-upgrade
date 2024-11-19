@@ -37,8 +37,6 @@
                         <br><br>
                         <strong>Tips:</strong>
                     <ul>
-                        <li><strong>Nilai:</strong> Masukkan nilai sesuai kategori yang tersedia, seperti nilai harian,
-                            absensi, hackathon, dan lainnya.</li>
                         <li><strong>Dosen:</strong> Atur dosen yang bertanggung jawab untuk peserta ini, termasuk
                             deskripsi tugasnya.</li>
                         <li><strong>Status:</strong> Pastikan status keanggotaan peserta diatur sesuai dengan kondisi
@@ -53,35 +51,35 @@
                         <input type="hidden" name="cc_id" value="{{ $courseClassMember->course_class_id }}">
                         <input type="hidden" name="member_id" value="{{ $users }}">
 
-                        <div class="mb-3 row">
-                            <label for="dailyScore" class="col-md-2 col-form-label">Nilai Harian</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="number" name="daily_score"
-                                    placeholder="Masukkan nilai harian"
-                                    value="{{ old('daily_score', $courseClassMember->daily_score) }}" id="dailyScore"
-                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                                @error('daily_score')
-                                    <div class="text-danger">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="absenceScore" class="col-md-2 col-form-label">Nilai Absensi</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="number" name="absence_score"
-                                    placeholder="Masukkan nilai absensi"
-                                    value="{{ old('absence_score', $courseClassMember->absence_score) }}" id="absenceScore"
-                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                                @error('absence_score')
-                                    <div class="text-danger">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
                         @if (env('APP_ENV') != 'local')
+                            <div class="mb-3 row">
+                                <label for="dailyScore" class="col-md-2 col-form-label">Nilai Harian</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="number" name="daily_score"
+                                        placeholder="Masukkan nilai harian"
+                                        value="{{ old('daily_score', $courseClassMember->daily_score) }}" id="dailyScore"
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    @error('daily_score')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="absenceScore" class="col-md-2 col-form-label">Nilai Absensi</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="number" name="absence_score"
+                                        placeholder="Masukkan nilai absensi"
+                                        value="{{ old('absence_score', $courseClassMember->absence_score) }}"
+                                        id="absenceScore" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    @error('absence_score')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="mb-3 row">
                                 <label for="hackathon1Score" class="col-md-2 col-form-label">Hackathon 1 Score</label>
                                 <div class="col-md-10">
@@ -124,20 +122,20 @@
                                     @enderror
                                 </div>
                             </div>
-                        @endif
-                        <div class="mb-3 row">
-                            <label for="finalScore" class="col-md-2 col-form-label">Final Score</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="number" name="final_score"
-                                    value="{{ old('final_score', $courseClassMember->final_score) }}" id="finalScore"
-                                    readonly>
-                                @error('final_score')
-                                    <div class="text-danger">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="mb-3 row">
+                                <label for="finalScore" class="col-md-2 col-form-label">Final Score</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="number" name="final_score"
+                                        value="{{ old('final_score', $courseClassMember->final_score) }}" id="finalScore"
+                                        readonly>
+                                    @error('final_score')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         <!-- Mentor Fields -->
                         <div id="mentor-fields-container">

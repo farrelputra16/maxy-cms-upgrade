@@ -78,6 +78,8 @@
                 @php
                     $index = 1;
                     $totalAverage = 0; // Inisialisasi nilai total rata-rata
+                    $totalGradesSum = 0; // Menyimpan total nilai seluruh grades
+                    $totalModulesCount = 0; // Menyimpan jumlah total modul anak
                 @endphp
                 @foreach ($classModules as $item)
                     @if (!empty($item->course_module_name))
@@ -101,19 +103,33 @@
                                     @endforeach
 
                                     @if ($numChildModules > 0)
-                                        {{ number_format($totalGrades / $numChildModules, 2) }}
+                                        @php
+                                            $averageGrade = $totalGrades / $numChildModules;
+                                            $totalGradesSum += $totalGrades; // Menambahkan nilai total grades ke total global
+                                            $totalModulesCount += $numChildModules; // Menambahkan jumlah modul ke total global
+                                        @endphp
+                                        {{ number_format($averageGrade, 2) }}
                                     @endif
                                 @else
                                     No child modules
                                 @endif
                             </td>
-                            {{-- <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, fugiat.</td> --}}
                         </tr>
                     @endif
                 @endforeach
                 <tr>
                     <td colspan="4" class="table-total">Nilai Total</td>
-                    <td colspan="1">{{ $courseClassMember->final_score }}</td>
+                    @if (env('APP_ENV') != 'local')
+                        <td colspan="1">{{ $courseClassMember->final_score }}</td>
+                    @else
+                        <td colspan="1">
+                            @if ($totalModulesCount > 0)
+                                {{ number_format($totalGradesSum / $totalModulesCount, 2) }}
+                            @else
+                                0
+                            @endif
+                        </td>
+                    @endif
                 </tr>
             </tbody>
         </table>
