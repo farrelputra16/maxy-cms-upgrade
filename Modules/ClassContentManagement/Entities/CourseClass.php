@@ -269,6 +269,7 @@ class CourseClass extends Model
                 ->join('course_class as cc', 'cc.id', '=', 'ccm.course_class_id')
                 ->join('course_class_member as ccmh', 'ccmh.course_class_id', '=', 'cc.id')
                 ->where('ccmh.user_id', $userId)
+                ->where('ccg.user_id', $userId)
                 ->where('ccm.course_class_id', $courseClassId)
                 ->where('ccm.level', '=', 2)
                 ->where('cm.course_module_parent_id', '=', $parent->course_module_id)
