@@ -171,6 +171,11 @@ class CourseClassMemberController extends Controller
 
     function postEditCourseClassMember(Request $request)
     {
+        $request->validate([
+            'users' => 'required',
+            'mentor' => 'required',
+        ]);
+        
         // dd($request->all());
         $mentors = $request->mentor;
         $jobdescs = $request->jobdesc; // Mengambil jobdesc dari permintaan
