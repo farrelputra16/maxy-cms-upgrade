@@ -59,6 +59,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Nama</th>
+                                <th class="data-medium">Email</th>
                                 @if ($courseClassDetail->course_type_id == $mbkmType)
                                     <th>Mitra</th>
                                 @endif
@@ -77,6 +78,7 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->id }}</td>
                                     <td class="batch" scope="row">{{ $item->user_name }}</td>
+                                    <td class="batch" scope="row">{{ $item->user_email }}</td>
                                     @if ($courseClassDetail->course_type_id == $mbkmType)
                                         <td>{{ $item->partner_name }}</td>
                                     @endif
@@ -109,6 +111,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th>Nama</th>
+                                <th>Email</th>
                                 @if ($courseClassDetail->course_type_id == $mbkmType)
                                     <th>Mitra</th>
                                 @endif

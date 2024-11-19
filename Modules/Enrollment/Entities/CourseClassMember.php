@@ -42,6 +42,7 @@ class CourseClassMember extends Model
                     'course_class_member.updated_id AS updated_id',
                     'users.id AS user_id',
                     'users.name AS user_name',
+                    'users.email AS user_email',
                     'course_class.batch AS course_class_batch',
                     'course.name AS course_name',
                 )
@@ -63,6 +64,7 @@ class CourseClassMember extends Model
                     'course_class_member.updated_id',
                     'users.id',
                     'users.name',
+                    'users.email',
                     'course_class.batch',
                     'course.name'
                 )
@@ -78,6 +80,7 @@ class CourseClassMember extends Model
                 course_class_member.updated_id AS updated_id,
                 users.id AS user_id,
                 users.name AS user_name,
+                users.email AS user_email,
                 course_class.batch AS course_class_batch,
                 course.name AS course_name,
                 FROM course_class_member
@@ -99,6 +102,7 @@ class CourseClassMember extends Model
                     course_class_member.updated_id,
                     users.id,
                     users.name,
+                    users.email,
                     course_class.batch,
                     course.name
             '));
@@ -122,6 +126,7 @@ class CourseClassMember extends Model
                     'course_class_member.updated_id AS updated_id',
                     'users.id AS user_id',
                     'users.name AS user_name',
+                    'users.email AS user_email',
                     'course_class.batch AS course_class_batch',
                     'course.name AS course_name',
                     'm_partner.name AS partner_name'
@@ -145,6 +150,7 @@ class CourseClassMember extends Model
                     'course_class_member.updated_id',
                     'users.id',
                     'users.name',
+                    'users.email',
                     'course_class.batch',
                     'course.name'
                 )
@@ -160,6 +166,7 @@ class CourseClassMember extends Model
                 course_class_member.updated_id AS updated_id,
                 users.id AS user_id,
                 users.name AS user_name,
+                users.email AS user_email,
                 course_class.batch AS course_class_batch,
                 course.name AS course_name,
                 FROM course_class_member
@@ -181,6 +188,7 @@ class CourseClassMember extends Model
                     course_class_member.updated_id,
                     users.id,
                     users.name,
+                    users.email,
                     course_class.batch,
                     course.name
             '));
