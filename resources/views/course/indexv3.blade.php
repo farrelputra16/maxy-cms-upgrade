@@ -122,6 +122,8 @@
                                 <th>Harga Promo</th>
                                 <th>Harga</th>
                                 <th>Jenis Mata Kuliah</th>
+                                <th>SKS</th>
+                                <th>Durasi</th>
                                 <th>Deskripsi Singkat</th>
                                 <th>Deskripsi</th>
                                 <th>Konten</th>

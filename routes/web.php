@@ -317,6 +317,38 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/user/edit', [UserController::class, 'postEditUser'])->name('postEditUser')->middleware('access:users_update');
 
     Route::get('/user/profile', [UserController::class, 'getProfileUser'])->name('getProfileUser')->middleware('access:users_read');
+
+    //Blog Routes #########################################################################################################
+    Route::get('/blog', [BlogController::class, 'getBlog'])->name('getBlog');
+
+    Route::get('/blog/add', [BlogController::class, 'getAddBlog'])->name('getAddBlog');
+    Route::post('/blog/add', [BlogController::class, 'postAddBlog'])->name('postAddBlog');
+
+    Route::get('/blog/edit', [BlogController::class, 'getEditBlog'])->name('getEditBlog');
+    Route::post('/blog/edit', [BlogController::class, 'postEditBlog'])->name('postEditBlog');
+
+    //
+    // Settings Pages
+    #########################################################################################################
+    Route::get('/pages', [PageController::class, 'getPages'])->name('getPages');
+    Route::get('/pages/edit', [PageController::class, 'getEditPage'])->name('getEditPage');
+    Route::get('/pages/show', [PageController::class, 'showPage'])->name('getShowPage');
+    Route::post('/save-page-content', [PageController::class, 'savePageContent'])->name('savePageContent');
+    Route::post('/update-blog-order', [PageController::class, 'updateBlogOrder'])->name('update.blog.order');
+
+    // Event Requirement
+    Route::get('/event/requirement', [EventController::class, 'getEventRequirement'])->name('getEventRequirement');
+    Route::get('/event/requirement/add', [EventController::class, 'getAddEventRequirement'])->name('getAddEventRequirement');
+    Route::post('/event/requirement/add', [EventController::class, 'postAddEventRequirement'])->name('postAddEventRequirement');
+    Route::get('/event/requirement/edit', [EventController::class, 'getEditEventRequirement'])->name('getEditEventRequirement');
+    Route::post('/event/requirement/edit', [EventController::class, 'postEditEventRequirement'])->name('postEditEventRequirement');
+    Route::get('/event/verification', [EventController::class, 'getEventVerification'])->name('getEventVerification');
+
+    Route::get('/blog-tag', [BlogController::class, 'getBlogTag'])->name('getBlogTag');
+    Route::get('/blog-tag/add', [BlogController::class, 'getAddBlogTag'])->name('getAddBlogTag');
+    Route::post('/blog-tag/add', [BlogController::class, 'postAddBlogTag'])->name('postAddBlogTag');
+    Route::get('/blog-tag/edit', [BlogController::class, 'getEditBlogTag'])->name('getEditBlogTag');
+    Route::post('/blog-tag/edit', [BlogController::class, 'postEditBlogTag'])->name('postEditBlogTag');
 });
 
 //                                      PARTNER
@@ -378,21 +410,6 @@ Route::get('/general/edit', [GeneralController::class, 'getEditGeneral'])->name(
 Route::post('/general/edit', [GeneralController::class, 'postEditGeneral'])->name('postEditGeneral')->middleware('access:m_general_update');
 
 Route::post('general/deactivate/{id}', [GeneralController::class, 'deactivateGeneral'])->name('deactivateGeneral');
-
-//
-// Settings Pages
-#########################################################################################################
-Route::get('/pages', [PageController::class, 'getPages'])->name('getPages');
-
-Route::get('/pages/edit', [PageController::class, 'getEditPage'])->name('getEditPage');
-
-Route::get('/pages/show', [PageController::class, 'showPage'])->name('getShowPage');
-
-Route::post('/save-page-content', [PageController::class, 'savePageContent'])->name('savePageContent');
-
-Route::post('/update-blog-order', [PageController::class, 'updateBlogOrder'])->name('update.blog.order');
-
-
 
 //                                     Testimonial
 //Testimonial Routes #########################################################################################################
@@ -460,17 +477,6 @@ Route::post('/event/edit', [EventController::class, 'postEditEvent'])->name('pos
 
 Route::get('/event/attendance', [EventController::class, 'getAttendanceEvent'])->name('getAttendanceEvent')->middleware('access:event_attendance_read');
 
-// Event Requirement
-Route::get('/event/requirement', [EventController::class, 'getEventRequirement'])->name('getEventRequirement');
-Route::get('/event/requirement/add', [EventController::class, 'getAddEventRequirement'])->name('getAddEventRequirement');
-Route::post('/event/requirement/add', [EventController::class, 'postAddEventRequirement'])->name('postAddEventRequirement');
-Route::get('/event/requirement/edit', [EventController::class, 'getEditEventRequirement'])->name('getEditEventRequirement');
-Route::post('/event/requirement/edit', [EventController::class, 'postEditEventRequirement'])->name('postEditEventRequirement');
-
-Route::get('/event/verification', [EventController::class, 'getEventVerification'])->name('getEventVerification');
-
-
-
 //                                     Partnership
 //Partnership Routes #########################################################################################################
 Route::get('/partnership', [PartnershipController::class, 'getPartnership'])->name('getPartnership')->middleware('access:partnership_manage');
@@ -481,15 +487,6 @@ Route::post('/partnership/add', [PartnershipController::class, 'postAddPartnersh
 Route::get('/partnership/edit', [PartnershipController::class, 'getEditPartnership'])->name('getEditPartnership')->middleware('access:partnership_update');
 Route::post('/partnership/edit', [PartnershipController::class, 'postEditPartnership'])->name('postEditPartnership')->middleware('access:partnership_update');
 
-//Blog Routes #########################################################################################################
-Route::get('/blog', [BlogController::class, 'getBlog'])->name('getBlog');
-
-Route::get('/blog/add', [BlogController::class, 'getAddBlog'])->name('getAddBlog');
-Route::post('/blog/add', [BlogController::class, 'postAddBlog'])->name('postAddBlog');
-
-Route::get('/blog/edit', [BlogController::class, 'getEditBlog'])->name('getEditBlog');
-Route::post('/blog/edit', [BlogController::class, 'postEditBlog'])->name('postEditBlog');
-
 // Blog Routes with Access Restriction (uncomment when blog development is finished) ##############################
 // Route::get('/blog', [BlogController::class, 'getBlog'])->name('getBlog')->middleware('access:blog_manage');
 
@@ -498,15 +495,6 @@ Route::post('/blog/edit', [BlogController::class, 'postEditBlog'])->name('postEd
 
 // Route::get('/blog/edit', [BlogController::class, 'getEditBlog'])->name('getEditBlog')->middleware('access:blog_update');
 // Route::post('/blog/edit', [BlogController::class, 'postEditBlog'])->name('postEditBlog')->middleware('access:blog_update');
-
-Route::get('/blog-tag', [BlogController::class, 'getBlogTag'])->name('getBlogTag');
-
-Route::get('/blog-tag/add', [BlogController::class, 'getAddBlogTag'])->name('getAddBlogTag');
-Route::post('/blog-tag/add', [BlogController::class, 'postAddBlogTag'])->name('postAddBlogTag');
-
-Route::get('/blog-tag/edit', [BlogController::class, 'getEditBlogTag'])->name('getEditBlogTag');
-Route::post('/blog-tag/edit', [BlogController::class, 'postEditBlogTag'])->name('postEditBlogTag');
-
 
 // bad access
 Route::get('/noauthority', function () {
