@@ -38,13 +38,31 @@
                         <input type="text" name="img_keep" value="{{ $courses->file_image }}" hidden>
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Name Mata Kuliah <span
-                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-code" class="col-md-2 col-form-label">
+                                Kode Mata Kuliah <span class="text-danger" data-bs-toggle="tooltip"
+                                    title="Wajib diisi">*</span>
+                            </label>
+
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" name="code"
+                                    value="{{ old('code', (count(explode('-', $courses->name)) > 1 ? explode('-', $courses->name)[0] : '')) }}"
+                                    id="code">
+                            </div>
+
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="input-name" class="col-md-2 col-form-label">
+                                Name Mata Kuliah <span class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span>
+                            </label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
-                                    value="{{ old('name', $courses->name) }}" id="name">
+                                    value="{{ old('name', count(explode('-', $courses->name)) > 1 ? explode('-', $courses->name)[1] : '') }}"
+                                    id="name">
                             </div>
                         </div>
+
+
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
@@ -269,6 +287,21 @@
 
 @section('script')
     <script>
+        // Function to restrict special characters
+        function restrictSpecialChars(event) {
+            const regex = /^[a-zA-Z0-9\s]*$/; // Allows letters, numbers, and spaces only
+            const input = event.target;
+            const value = input.value;
+
+            if (!regex.test(value)) {
+                input.value = value.replace(/[^a-zA-Z0-9\s]/g, ''); // Remove invalid characters
+            }
+        }
+
+        // Attach event listeners to input fields
+        document.getElementById('code').addEventListener('input', restrictSpecialChars);
+        document.getElementById('name').addEventListener('input', restrictSpecialChars);
+
         function previewImage() {
             const input = document.getElementById('input-file');
             const currentImage = document.getElementById('current-image');

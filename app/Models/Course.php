@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class Course extends Model
 {
@@ -114,12 +115,20 @@ class Course extends Model
         $trim_mini_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_price));
 
         $courses = Course::find($idCourse);
+        // Concatenate kode mata kuliah dan nama mata kuliah
+        $courseCode = $request->code;
+        $courseName = $request->name;
+
+        // dd($request->name);
+
+        $courseConcatenate = Str::upper($courseCode) . '-' . $courseName;
+
 
         if ($request->package && $courses->fake_price && $courses->price){
             return ($updateData = DB::table('course')
                 ->where('id', $idCourse)
                 ->update([
-                    'name' => $request->name,
+                    'name' => $courseConcatenate,
                     'fake_price' => null,
                     'price' => null,
                     'credits' => $request->credits,
@@ -142,7 +151,7 @@ class Course extends Model
             return ($updateData = DB::table('course')
                 ->where('id', $idCourse)
                 ->update([
-                    'name' => $request->name,
+                    'name' => $courseConcatenate,
                     'fake_price' => (float)$trim_mini_fake_price,
                     'price' => (float)$trim_mini_price,
                     'credits' => $request->credits,
@@ -165,7 +174,7 @@ class Course extends Model
             return ($updateData = DB::table('course')
                 ->where('id', $idCourse)
                 ->update([
-                    'name' => $request->name,
+                    'name' => $courseConcatenate,
                     'fake_price' => $request->mini_fake_price ? $trim_mini_fake_price : null,
                     'price' => $request->mini_price ? $trim_mini_price : null,
                     'credits' => $request->credits,
@@ -193,7 +202,7 @@ class Course extends Model
             ->join('m_course_type as mct', 'mct.id', '=', 'c.m_course_type_id')
             ->where('c.id', $course_id)
             ->first();
-            
+
         return $course_detail;
     }
 }

@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class CourseController extends Controller
 {
@@ -83,6 +84,7 @@ class CourseController extends Controller
 {
     // Validasi input dengan pesan kustom
     $validated = $request->validate([
+        'code' => 'required',
         'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
         'slug' => 'required',
         'type' => 'required',
@@ -126,9 +128,14 @@ class CourseController extends Controller
         $trim_mini_fake_price = preg_replace('/[^\d]/', '', $request->mini_fake_price);
         $trim_mini_price = preg_replace('/[^\d]/', '', $request->mini_price);
 
+        // Concatenate kode mata kuliah dan nama mata kuliah
+        $courseCode = $request->code;
+        $courseName = $request->name;
+        $courseConcatenate = Str::upper($courseCode) . '-' . $courseName;
+
         // Simpan data course ke database
         $create = Course::create([
-            'name' => $request->name,
+            'name' => $courseConcatenate,
             'fake_price' => (float) $trim_mini_fake_price,
             'price' => (float) $trim_mini_price,
             'short_description' => $request->short_description,
@@ -184,11 +191,21 @@ class CourseController extends Controller
     {
         $idCourse = $request->id;
         $courses = Course::find($idCourse);
+
+        if (strpos($courses->name, '-') !== false) {
+            $parts = explode('-', $courses->name, 2);
+            $courses->code = trim($parts[0]);
+            $name = trim($parts[1]);
+        } else {
+            $courses->code = null;
+        }
+
         $allCourseCategory = Category::where('status', 1)->get();
         $selectedCategoryId = DB::table('course_category')
         ->where('course_id', $idCourse)
         ->pluck('category_id')
         ->toArray();
+
 
         $currentDataCourse = Course::CurrentDataCourse($idCourse);
         $currentCoursePackages = Course::CurrentCoursePackages($idCourse);
@@ -201,6 +218,8 @@ class CourseController extends Controller
         } else {
             $allCoursePackages = CoursePackage::where('id', '!=', $currentCoursePackages->course_package_id)->where('status', 1)->get();
         }//dd($selectedCategoryId);
+
+        // dd(explode('-', $courses->name));
 
         return view('course.editv3', [
             'courses' => $courses,
@@ -250,6 +269,7 @@ class CourseController extends Controller
 {
     // Validasi input dengan pesan kustom
     $validated = $request->validate([
+        'code' => 'required',
         'name' => 'required|string|max:255',
         'slug' => 'required|string|max:255',
         'mini_fake_price' => 'nullable|string',

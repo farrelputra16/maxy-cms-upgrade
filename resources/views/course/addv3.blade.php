@@ -34,6 +34,8 @@
                         akurat agar peserta mata kuliah dapat menerima pengalaman belajar yang optimal.<br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
+                        <ul>
+                        <li>Isi <b>Kode Mata Kuliah</b> dengan kode yang jelas.</li>
                         <li>Isi <b>Nama Mata Kuliah</b> dengan judul yang jelas dan ringkas.</li>
                         <li>Pilih <b>Jenis Mata Kuliah</b> dan <b>Kategori Mata Kuliah</b> yang sesuai.</li>
                         <li>Aktifkan status mata kuliah agar dapat langsung ditampilkan di platform.</li>
@@ -44,6 +46,19 @@
                         enctype="multipart/form-data">
                         @csrf
 
+                        <div class="mb-3 row">
+                            <label for="code" class="col-md-2 col-form-label">Kode Mata Kuliah <span class="text-danger"
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" name="code" id="code"
+                                    placeholder="Masukkan Kode Matakuliah" value="{{ old('code') }}">
+                                @if ($errors->has('code'))
+                                    @foreach ($errors->get('code') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
                         <div class="mb-3 row">
                             <label for="name" class="col-md-2 col-form-label">Nama Mata Kuliah <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
@@ -291,6 +306,20 @@
 
 @section('script')
     <script>
+        // Function to restrict special characters
+        function restrictSpecialChars(event) {
+            const regex = /^[a-zA-Z0-9\s]*$/; // Allows letters, numbers, and spaces only
+            const input = event.target;
+            const value = input.value;
+
+            if (!regex.test(value)) {
+                input.value = value.replace(/[^a-zA-Z0-9\s]/g, ''); // Remove invalid characters
+            }
+        }
+
+        // Attach event listeners to input fields
+        document.getElementById('code').addEventListener('input', restrictSpecialChars);
+        document.getElementById('name').addEventListener('input', restrictSpecialChars);
         console.log(@json($errors->all()))
         // preview image
         function previewImage() {
