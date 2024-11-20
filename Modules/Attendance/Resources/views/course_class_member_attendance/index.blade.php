@@ -90,7 +90,7 @@
                                     <td>
                                         @if ($item->attendance)
                                             <a href="{{ route('getEditMemberAttendance', ['id' => $item->attendance->id, 'class_id' => $class->id, 'class_attendance_id' => $class_attendance_id]) }}"
-                                                class="btn btn-primary">Edit</a>
+                                                class="btn btn-primary">Ubah</a>
                                         @else
                                             -
                                         @endif
