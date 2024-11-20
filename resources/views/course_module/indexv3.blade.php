@@ -43,7 +43,7 @@
                     <ul>
                         <li>Klik ikon <b>+</b> di pojok kanan bawah untuk menambahkan modul baru ke dalam mata kuliah ini.
                         </li>
-                        <li>Tekan tombol <b>Edit</b> pada kolom Tindakan untuk memperbarui informasi modul seperti nama atau
+                        <li>Tekan tombol <b>Ubah</b> pada kolom Tindakan untuk memperbarui informasi modul seperti nama atau
                             deskripsi.</li>
                         <li>Pilih tombol <b>Konten</b> untuk mengelola sub-modul atau materi yang ada dalam modul tersebut.
                         </li>
@@ -103,7 +103,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditCourseModule', ['id' => $item->id, 'page_type' => $page_type]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                         @if ($page_type == 'LMS')
                                             <a href="{{ route('getCourseSubModule', ['course_id' => $course_detail->id, 'module_id' => $item->id, 'page_type' => 'LMS_child']) }}"
                                                 class="btn btn-outline-primary rounded-end">Konten</a>

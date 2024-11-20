@@ -1,13 +1,13 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Modul Mata Kuliah')
+@section('title', 'Ubah Modul Mata Kuliah')
 
 @section('content')
     <!-- Awal Halaman Judul -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Ubah Data</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
@@ -16,7 +16,7 @@
                                 href="{{ route('getCourseModule', ['course_id' => $module_detail->course_id]) }}">Modul
                                 Mata Kuliah</a>
                         </li>
-                        <li class="breadcrumb-item active">Edit Modul: {{ $module_detail->name }}</li>
+                        <li class="breadcrumb-item active">Ubah Modul: {{ $module_detail->name }}</li>
                     </ol>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                 <div class="card-body">
                     <h4 class="card-title">{{ $module_detail->name }} <small>[ ID: {{ $module_detail->id }} ]</small></h4>
                     <p class="card-title-desc">
-                        Halaman ini digunakan untuk mengedit modul mata kuliah yang ada. Silakan ubah data dengan informasi
+                        Halaman ini digunakan untuk mengubah modul mata kuliah yang ada. Silakan ubah data dengan informasi
                         terbaru yang akurat untuk memberikan pengalaman belajar yang optimal kepada peserta mata kuliah.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
