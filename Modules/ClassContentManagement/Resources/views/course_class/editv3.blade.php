@@ -1,13 +1,13 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Kelas Mata Kuliah')
+@section('title', 'Ubah Kelas Mata Kuliah')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Informasi Kelas</h4>
+                <h4 class="mb-sm-0 font-size-18">Ubah Informasi Kelas</h4>
 
                 <!-- Mulai Breadcrumb -->
                 <div class="page-title-right">
@@ -19,7 +19,7 @@
                                 $course_list->firstWhere('id', $course_class_detail->course_id)->name ??
                                 'Nama Mata Kuliah Tidak Ditemukan';
                         @endphp
-                        <li class="breadcrumb-item active">Edit Kelas: {{ $course_name }} Batch
+                        <li class="breadcrumb-item active">Ubah Kelas: {{ $course_name }} Batch
                             {{ $course_class_detail->batch }}</li>
                     </ol>
                 </div>
@@ -34,7 +34,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Kelas: {{ $course_name }} <small>[ Angkatan:
+                    <h4 class="card-title">Ubah Kelas: {{ $course_name }} <small>[ Angkatan:
                             {{ $course_class_detail->batch }} ]</small>
                     </h4>
                     <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi kelas mata kuliah dengan

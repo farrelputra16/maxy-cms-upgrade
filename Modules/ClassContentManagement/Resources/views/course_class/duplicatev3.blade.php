@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Duplicate Class')
+@section('title', 'Duplikasi Kelas')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Add New Partner's Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Duplikasi Kelas</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Class</a></li>
-                        <li class="breadcrumb-item active">Duplicate Class</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
+                        <li class="breadcrumb-item active">Duplikasi Kelas</li>
                     </ol>
                 </div>
 
@@ -27,23 +27,31 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Duplicate Class</h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <p class="card-title-desc">
+                        Halaman ini memungkinkan Anda untuk menduplikasi kelas yang sudah ada dengan menambahkan kelas baru. 
+                        Pastikan semua informasi yang diisi sudah benar agar proses pembelajaran dapat berjalan dengan lancar dan optimal.
+                        <br><br>
+                        <strong>Cara Penggunaan:</strong>
+                        <ul>
+                            <li>Isi kolom <strong>Mata Kuliah</strong> dengan memilih mata kuliah yang sesuai dari daftar yang tersedia.</li>
+                            <li>Masukkan <strong>Batch</strong> untuk menentukan angkatan dari kelas baru yang akan dibuat.</li>
+                            <li>Gunakan tombol <strong>'Duplikasi Modul Mata Kuliah'</strong> untuk menyimpan dan membuat kelas baru.</li>
+                        </ul>
+                    </p>
+                    
 
                     <form action="{{ route('postDuplicateCourseClass') }}" method="post" enctype="multipart/form-data">
                         @csrf
 
                         <br>
-                        <h4><b>Choose Class</b></h4>
+                        <h4><b>Pilih Kelas</b></h4>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Class</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Kelas</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_class_id" data-placeholder="Choose ..."
                                     id="type_selector">
                                     @foreach ($class_list as $item)
-                                        <option value="{{ $item->id }}">{{ $item->course_name }} Batch
+                                        <option value="{{ $item->id }}">{{ $item->course_name }} Aangkatan
                                             {{ $item->batch }}</option>
                                     @endforeach
                                 </select>
@@ -55,9 +63,9 @@
                             </div>
                         </div>
                         <br>
-                        <h4><b>New Class</b></h4>
+                        <h4><b>Kelas Baru</b></h4>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Course</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Mata Kuliah</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_id" data-placeholder="Choose ..."
                                     id="type_selector">
@@ -73,7 +81,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Batch</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Angkatan</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="batch"
                                     placeholder="Masukkan Batch">
@@ -94,7 +102,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Duplicate Course Module</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Duplikasi Modul Mata Kuliah</button>
                             </div>
                         </div>
                     </form>
