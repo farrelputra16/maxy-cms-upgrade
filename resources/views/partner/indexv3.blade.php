@@ -37,7 +37,7 @@
                         <strong>Cara Penggunaan:</strong>
                     <ul>
                         <li>Klik ikon <b>+ Tambah</b> di sudut kanan bawah untuk menambahkan mitra baru.</li>
-                        <li>Pada setiap baris, tombol <b>Edit</b> memungkinkan Anda memperbarui informasi mitra tersebut.
+                        <li>Pada setiap baris, tombol <b>Ubah</b> memungkinkan Anda memperbarui informasi mitra tersebut.
                         </li>
                         <li>Periksa kolom <b>Status</b> dan <b>Status Sorotan</b> untuk melihat apakah mitra dalam kondisi
                             aktif atau nonaktif.</li>
@@ -120,7 +120,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditPartner', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                     </td>
                                 </tr>
                             @endforeach
