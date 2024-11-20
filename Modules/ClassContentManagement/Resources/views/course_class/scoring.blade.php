@@ -1,19 +1,19 @@
 
 @extends('layout.main-v3')
 
-@section('title', 'Edit Scoring')
+@section('title', 'Ubah Penilaian')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Ubah Data</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Class</a></li>
-                        <li class="breadcrumb-item active">Edit Scoring: {{ $id }}</li>
+                        <li class="breadcrumb-item active">Ubah Penilaian: {{ $id }}</li>
                     </ol>
                 </div>
 
@@ -28,15 +28,23 @@
                 <div class="card-body">
 
                     <h4 class="card-title">{{ $classes[0]->CourseClass->slug }} <small>[ ID: {{ $id }} ]</small></h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p><br>
+                    <p class="card-title-desc">
+                        Halaman ini memungkinkan Anda untuk memperbarui informasi penilaian dari kelas yang dipilih. 
+                        Pastikan semua data yang dimasukkan akurat agar pengalaman belajar peserta tetap optimal.
+                    <br><br>
+                    <strong>Cara Penggunaan:</strong>
+                    <ul>
+                        <li>Isi kolom <strong>Kehadiran</strong> dengan persentase kehadiran peserta di kelas.</li>
+                        <li>Isi kolom <strong>Nilai Modul</strong> sesuai dengan nilai masing-masing modul.</li>
+                        <li>Setelah semua detail selesai diisi, klik tombol <strong>'Simpan & Perbarui'</strong> untuk memperbarui data penilaian.</li>
+                    </ul>
+                    </p>
 
                     <form id="addCourseClassScoring" action="{{ route('postCourseClassScoring', ['id' => $id]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Attendance</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Kehadiran</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="attendance" value="{{ $classes[0]->CourseClass->percentage }}" id="input-title">
                             </div>
@@ -53,7 +61,7 @@
 
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn custom-btn-submit btn-primary w-md text-center" form="addCourseClassScoring">Submit</button>
+                                <button type="submit" class="btn custom-btn-submit btn-primary w-md text-center" form="addCourseClassScoring">Simpan & Perbarui</button>
                             </div>
                         </div>
                     </form>
