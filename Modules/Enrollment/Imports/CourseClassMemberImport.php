@@ -29,7 +29,7 @@ class CourseClassMemberImport implements ToModel, WithHeadingRow
             ->where('slug', $row['course_class_slug'])
             ->first();
 
-        $jobdesc = DB::table('jobdesc')
+        $jobdesc = DB::table('m_jobdesc')
             ->select('id')
             ->where('id', $row['jobdesc_id'])
             ->first();
