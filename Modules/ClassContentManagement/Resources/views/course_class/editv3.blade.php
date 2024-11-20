@@ -41,7 +41,7 @@
                         mengubah data di bawah ini. Pastikan semua informasi yang Anda masukkan sudah benar untuk memberikan
                         pengalaman belajar terbaik kepada peserta mata kuliah.</p>
 
-                    <form action="{{ route('postEditCourseClass', ['id' => request()->query('id')]) }}" method="post"
+                    <form id="editCourseClass" action="{{ route('postEditCourseClass', ['id' => request()->query('id')]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="course_class_id" value="{{ $course_class_detail->id }}">
@@ -193,7 +193,7 @@
 
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Simpan & Perbarui</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="editCourseClass">Simpan & Perbarui</button>
                             </div>
                         </div>
                     </form>

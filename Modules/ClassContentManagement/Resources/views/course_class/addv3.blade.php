@@ -185,7 +185,7 @@
 
                         <div class="mb-3 row justify-content-end">
                             <div class="col-md-10 text-end">
-                                <button type="submit" class="btn btn-primary w-md">Simpan Kelas</button>
+                                <button type="submit" class="custom-btn-submit btn btn-primary w-md" form="addCourseClass">Simpan Kelas</button>
                             </div>
                         </div>
                     </form>
