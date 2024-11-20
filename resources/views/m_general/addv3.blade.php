@@ -40,10 +40,10 @@
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nama <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                    placeholder="Masukkan Nama" value="{{ old('name') }}">
+                                    placeholder="Masukkan Nama Data Umum" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -53,10 +53,10 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Isi <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="value" id="value"
-                                    placeholder="Masukkan Value" value="{{ old('value') }}">
+                                    placeholder="Masukkan Nilai untuk Data" value="{{ old('value') }}">
                                 @if ($errors->has('value'))
                                     @foreach ($errors->get('value') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -67,7 +67,8 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" id="description">{{ old('description') }}</textarea>
+                                <textarea id="elm1" name="description" id="description"
+                                    placeholder="Masukkan deskripsi atau keterangan terkait data ini...">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
