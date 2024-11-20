@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add New MBKM')
+@section('title', 'Tambah MBKM')
 
 @section('content')
     <!-- start page title -->
@@ -30,7 +30,8 @@
                     <h4 class="card-title">Tambah MBKM Baru</h4>
                     <p class="card-title-desc">
                         Silakan lengkapi informasi mata kuliah di bawah ini.
-                        Pastikan data yang Anda masukkan benar agar peserta mata kuliah mendapatkan pengalaman belajar yang terbaik.
+                        Pastikan data yang Anda masukkan benar agar peserta mata kuliah mendapatkan pengalaman belajar yang
+                        terbaik.
                     </p>
 
 
@@ -40,10 +41,11 @@
 
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nama MBKM <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                    placeholder="Masukkan Nama MBKM" value="{{ old('name') }}">
+                                    placeholder="Contoh: MBKM Akuntansi, MBKM Manajemen Keuangan, atau MBKM Ekonomi Digital"
+                                    value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -53,9 +55,10 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="slug" id="slug" readonly>
+                                <input class="form-control" type="text" name="slug" id="slug"
+                                    placeholder="Slug otomatis berdasarkan nama MBKM" readonly>
                                 @if ($errors->has('slug'))
                                     @foreach ($errors->get('slug') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -78,9 +81,11 @@
                             </div>
                         @endif
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Tingkat Kesulitan <small>(Program MBKM)</small></label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tingkat Kesulitan <small>(Program
+                                    MBKM)</small></label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="level" data-placeholder="Choose ...">
+                                <select class="form-control select2" name="level"
+                                    data-placeholder="Pilih Tingkat Kesulitan">
                                     @foreach ($allCourseDifficulty as $item)
                                         <option value="{{ $item->id }}"
                                             {{ old('level') == $item->id ? 'selected' : '' }}> {{ $item->name }} </option>
@@ -90,7 +95,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Jenis MBKM <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <!-- Menampilkan nilai MBKM yang sudah dipilih dan tidak bisa diubah -->
                                 <input class="form-control" type="text" value="MBKM" disabled>
@@ -106,10 +111,11 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Kategori Mata Kuliah<small>(Prodi)</small></label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Kategori Mata Kuliah
+                                <small>(Prodi)</small></label>
                             <div class="col-md-10">
                                 <select class="form-control select2 multiple" name="courseCategory[]"
-                                    data-placeholder="Choose ..." id="type_selector" multiple="multiple">
+                                    data-placeholder="Pilih Program Studi" id="type_selector" multiple="multiple">
                                     @foreach ($allCourseCategory as $courseCategory)
                                         <option value="{{ $courseCategory->id }}"
                                             {{ in_array($courseCategory->id, old('courseCategory', [])) ? 'selected' : '' }}>
@@ -127,7 +133,8 @@
                             <label for="input-file" class="col-md-2 col-form-label">Gambar</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="file" name="file_image" id="input-file"
-                                    accept="image/*" onchange="previewImage()">
+                                    accept="image/*" onchange="previewImage()"
+                                    placeholder="Unggah gambar representatif untuk MBKM, seperti logo atau infografis.">
 
                                 <!-- Preview gambar yang dipilih -->
                                 <img id="frame" src="" alt="Preview Image" class="img-fluid"
@@ -142,9 +149,11 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Konten Tambahan<small>(isi)</small></label>
+                            <label for="input-content" class="col-md-2 col-form-label">Konten Tambahan
+                                <small>(isi)</small></label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="content">{{ old('content') }}</textarea>
+                                <textarea id="elm1" name="content"
+                                    placeholder="Contoh: Kegiatan meliputi magang di perusahaan akuntansi dan proyek kolaborasi bisnis.">{{ old('content') }}</textarea>
                                 @if ($errors->has('content'))
                                     @foreach ($errors->get('content') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -155,7 +164,8 @@
                         <div class="mb-3 row">
                             <label for="input-short-description" class="col-md-2 col-form-label">Ringkasan Singkat</label>
                             <div class="col-md-10">
-                                <textarea id="elmDesc" name="short_description" class="form-control">{{ old('short_description') }}</textarea>
+                                <textarea id="elmDesc" name="short_description" class="form-control"
+                                    placeholder="Contoh: Program MBKM ini memberikan pengalaman praktis melalui magang di perusahaan keuangan terkemuka.">{{ old('short_description') }}</textarea>
                                 @if ($errors->has('short_description'))
                                     @foreach ($errors->get('short_description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -166,7 +176,8 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Detail Ringkasan</label>
                             <div class="col-md-10">
-                                <textarea id="elm3" name="description" class="form-control">{{ old('description') }}</textarea>
+                                <textarea id="elm3" name="description" class="form-control"
+                                    placeholder="Contoh: Program MBKM ini bertujuan untuk mengasah kemampuan analisis laporan keuangan dan manajemen risiko.">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>

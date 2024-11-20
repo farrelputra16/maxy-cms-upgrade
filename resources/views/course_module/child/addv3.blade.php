@@ -33,7 +33,8 @@
                     <h4 class="card-title">Tambah Modul Child Baru</h4>
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda untuk menambahkan modul child pada mata kuliah yang ada. Isi data-data
-                        dengan lengkap dan pastikan informasinya akurat agar pengalaman belajar peserta mata kuliah maksimal.
+                        dengan lengkap dan pastikan informasinya akurat agar pengalaman belajar peserta mata kuliah
+                        maksimal.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
@@ -46,7 +47,8 @@
                     </ul>
                     </p>
 
-                    <form id="addChildModule" action="{{ route('postAddChildModule', ['parentId' => $parent->id, 'page_type' => $page_type]) }}"
+                    <form id="addChildModule"
+                        action="{{ route('postAddChildModule', ['parentId' => $parent->id, 'page_type' => $page_type]) }}"
                         method="post" enctype="multipart/form-data">
                         @csrf
 
@@ -58,10 +60,11 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Nama Modul <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
-                                    placeholder="Masukkan Nama Modul Child" value="{{ old('name') }}">
+                                    placeholder="Contoh: Analisis Laporan Keuangan, Dasar-dasar Manajemen, atau Pengantar Ekonomi Mikro"
+                                    value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -71,9 +74,10 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Prioritas <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority" min="1"
+                                    placeholder="Contoh: 1 untuk modul pertama, 2 untuk modul kedua, dan seterusnya"
                                     value="{{ old('priority') }}">
                                 @if ($errors->has('priority'))
                                     @foreach ($errors->get('priority') as $error)
@@ -105,21 +109,24 @@
                         @else
                             <div class="mb-3 row">
                                 <label for="input-tag" class="col-md-2 col-form-label">Jenis Modul <span class="text-danger"
-                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                        data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                                 <div class="col-md-10">
                                     <select class="form-control" name="type" id="type_selector" required>
                                         <option value="" disabled {{ old('type') == '' ? 'selected' : '' }}>Pilih
                                             Jenis Modul</option>
                                         <option value="materi_pembelajaran"
                                             {{ old('type') == 'materi_pembelajaran' ? 'selected' : '' }}>Materi
-                                            Pembelajaran</option>
+                                            Pembelajaran (PDF, Slide, dll.)</option>
                                         <option value="video_pembelajaran"
-                                            {{ old('type') == 'video_pembelajaran' ? 'selected' : '' }}>Video Pembelajaran
+                                            {{ old('type') == 'video_pembelajaran' ? 'selected' : '' }}> Video Pembelajaran
+                                            (MP4, YouTube, dll.)
                                         </option>
                                         <option value="assignment" {{ old('type') == 'assignment' ? 'selected' : '' }}>
-                                            Tugas</option>
-                                        <option value="quiz" {{ old('type') == 'quiz' ? 'selected' : '' }}>Kuis</option>
-                                        <option value="eval" {{ old('type') == 'eval' ? 'selected' : '' }}>Evaluasi</option>
+                                            Tugas (File Submission)</option>
+                                        <option value="quiz" {{ old('type') == 'quiz' ? 'selected' : '' }}>Kuis (Pilih
+                                            dari daftar kuis yang tersedia)</option>
+                                        <option value="eval" {{ old('type') == 'eval' ? 'selected' : '' }}>Evaluasi Akhir
+                                            (Survey atau Tes Akhir)</option>
                                     </select>
                                     @if ($errors->has('type'))
                                         @foreach ($errors->get('type') as $error)
@@ -134,7 +141,8 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
+                                <textarea id="elm1" name="description"
+                                    placeholder="Contoh: Modul ini membahas teknik menganalisis laporan keuangan untuk perusahaan kecil dan menengah.">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
@@ -147,7 +155,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addChildModule">Tambah Modul Child</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addChildModule">Tambah Modul Child</button>
                             </div>
                         </div>
                     </form>
@@ -165,22 +174,22 @@
     </script>
 
     @if ($course_type->slug != 'rapid-onboarding')
-    <script>
-        var typeSelector = document.getElementById('type_selector');
-        var material = document.getElementById('material');
-        var duration = document.getElementById('duration');
+        <script>
+            var typeSelector = document.getElementById('type_selector');
+            var material = document.getElementById('material');
+            var duration = document.getElementById('duration');
 
-        function loadType() {
-            if (typeSelector.value === 'materi_pembelajaran') {
-                material.innerHTML = `
+            function loadType() {
+                if (typeSelector.value === 'materi_pembelajaran') {
+                    material.innerHTML = `
                     <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">File Materi Pembelajaran</label>
                         <div class="col-md-10">
-                            <input class="form-control" type="file" name="material">
+                            <input class="form-control" type="file" name="material" placeholder="Unggah dokumen seperti PDF atau slide presentasi terkait topik ekonomi/bisnis.">
                         </div>
                     </div>
                 `;
-                duration.innerHTML = `
+                    duration.innerHTML = `
                 <input type="hidden" name="duration" value="">
                 <div class="mb-3 row">
                     <label for="input-content" class="col-md-2 col-form-label">Konten</label>
@@ -189,20 +198,20 @@
                     </div>
                 </div>
                 `;
-            } else if (typeSelector.value === 'video_pembelajaran') {
-                material.innerHTML = `
+                } else if (typeSelector.value === 'video_pembelajaran') {
+                    material.innerHTML = `
                     <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">Link Video</label>
                         <div class="col-md-10">
-                            <input class="form-control" type="text" name="material" placeholder="Masukkan Link Video" value="{{ old('material') }}">
+                            <input class="form-control" type="text" name="material" placeholder="Masukkan tautan video dari YouTube seperti 'Pengantar Investasi Pasar Modal'." value="{{ old('material') }}">
                         </div>
                     </div>
                 `;
-                duration.innerHTML = `
+                    duration.innerHTML = `
                     <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">Durasi Video</label>
                         <div class="col-md-10">
-                            <input class="form-control" type="number" name="duration" placeholder="Durasi dalam menit" value="{{ old('duration') }}">
+                            <input class="form-control" type="number" name="duration" placeholder="Durasi dalam menit, misalnya 15 atau 30." value="{{ old('duration') }}">
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -212,8 +221,8 @@
                         </div>
                     </div>
                 `;
-            } else if (typeSelector.value === 'assignment') {
-                material.innerHTML = `
+                } else if (typeSelector.value === 'assignment') {
+                    material.innerHTML = `
                     <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">File Tugas</label>
                         <div class="col-md-10">
@@ -221,7 +230,7 @@
                         </div>
                     </div>
                 `;
-                duration.innerHTML = `
+                    duration.innerHTML = `
                 <input type="hidden" name="duration" value="">
                 <div class="mb-3 row">
                     <label for="input-content" class="col-md-2 col-form-label">Konten</label>
@@ -230,8 +239,8 @@
                     </div>
                 </div>
                 `;
-            } else if (typeSelector.value === 'quiz') {
-                material.innerHTML = `
+                } else if (typeSelector.value === 'quiz') {
+                    material.innerHTML = `
                     <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">Pilih Kuis</label>
                         <div class="col-md-10">
@@ -246,9 +255,9 @@
                         </div>
                     </div>
                 `;
-                duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-            } else if (typeSelector.value === 'eval') {
-                material.innerHTML = `
+                    duration.innerHTML = `<input type="hidden" name="duration" value="">`;
+                } else if (typeSelector.value === 'eval') {
+                    material.innerHTML = `
                     <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">Pilih Kuis</label>
                         <div class="col-md-10">
@@ -263,17 +272,17 @@
                         </div>
                     </div>
                 `;
-                duration.innerHTML = `<input type="hidden" name="duration" value="">`;
+                    duration.innerHTML = `<input type="hidden" name="duration" value="">`;
+                }
             }
-        }
 
-        // Jalankan fungsi loadType() saat halaman pertama kali dimuat
-        document.addEventListener('DOMContentLoaded', function() {
-            loadType();
-        });
+            // Jalankan fungsi loadType() saat halaman pertama kali dimuat
+            document.addEventListener('DOMContentLoaded', function() {
+                loadType();
+            });
 
-        // Panggil loadType() saat typeSelector diubah
-        typeSelector.addEventListener('change', loadType);
-    </script>
+            // Panggil loadType() saat typeSelector diubah
+            typeSelector.addEventListener('change', loadType);
+        </script>
     @endif
 @endsection

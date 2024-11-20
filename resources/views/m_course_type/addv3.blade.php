@@ -33,16 +33,18 @@
                         Pastikan data yang Anda masukkan akurat untuk memberikan pengalaman belajar terbaik kepada peserta.
                     </p>
 
-                    <form id="addCourseType" action="{{ route('postAddCourseType') }}" method="post" enctype="multipart/form-data">
+                    <form id="addCourseType" action="{{ route('postAddCourseType') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         {{-- <input type="text" name="img_keep" value="{{ $blog->cover_img }}" hidden> --}}
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Jenis Mata Kuliah <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Jenis Mata Kuliah <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name"" id="name"
-                                    placeholder="Masukkan Nama Jenis Mata Kuliah" value="{{ old('name') }}">
+                                <input class="form-control" type="text" name="name" id="name"
+                                    placeholder="Contoh: Teori Ekonomi, Praktik Manajemen, atau Kajian Akuntansi"
+                                    value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -52,9 +54,11 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="slug"" id="slug" value="{{ old('slug') }}">
+                                <input class="form-control" type="text" name="slug" id="slug"
+                                    placeholder="Slug otomatis berdasarkan nama jenis mata kuliah"
+                                    value="{{ old('slug') }}">
                                 @if ($errors->has('slug'))
                                     @foreach ($errors->get('slug') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -65,7 +69,8 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{  old('description') }}</textarea>
+                                <textarea id="elm1" name="description"
+                                    placeholder="Contoh: Jenis mata kuliah ini mencakup teori dasar, studi kasus, dan praktik lapangan yang relevan dengan keuangan dan bisnis.">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
@@ -78,7 +83,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCourseType">Tambah Jenis Mata Kuliah</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addCourseType">Tambah Jenis Mata Kuliah</button>
                             </div>
                         </div>
                     </form>

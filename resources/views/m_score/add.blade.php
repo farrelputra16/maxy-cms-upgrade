@@ -36,10 +36,10 @@
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Tingkat Nilai <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="input-title"
-                                    value="{{ old('name') }}">
+                                    value="{{ old('name') }}" placeholder="Contoh: A, B+, atau C-">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -50,12 +50,12 @@
 
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Rentang Awal <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="range_start" id="input-title"
                                     inputmode="numeric" pattern="[0-9]*"
                                     oninput="this.value = this.value.replace(/[^0-9]/g, '');"
-                                    value="{{ old('range_start') }}">
+                                    value="{{ old('range_start') }}" placeholder="Contoh: 85 untuk nilai awal kategori">
                                 @if ($errors->has('range_start'))
                                     @foreach ($errors->get('range_start') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -66,12 +66,12 @@
 
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Rentang Akhir <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="range_end" id="input-title"
                                     inputmode="numeric" pattern="[0-9]*"
-                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');"
-                                    value="{{ old('range_end') }}">
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');" value="{{ old('range_end') }}"
+                                    placeholder="Contoh: 100 untuk nilai akhir kategori">
                                 @if ($errors->has('range_end'))
                                     @foreach ($errors->get('range_end') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -84,7 +84,8 @@
                             <label for="input-description" class="col-md-2 col-form-label">Deskripsi
                                 <small>(Admin)</small></label>
                             <div class="col-md-10">
-                                <textarea type="text" name="description" id="elm1">{{ old('description') }}</textarea>
+                                <textarea type="text" name="description" id="elm1"
+                                    placeholder="Contoh: Tingkat nilai ini untuk mahasiswa dengan performa sangat baik.">{{ old('description') }}</textarea>
                             </div>
                         </div>
 

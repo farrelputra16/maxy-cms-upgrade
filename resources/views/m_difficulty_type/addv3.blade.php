@@ -30,14 +30,18 @@
                     <h4 class="card-title">Tambah Tingkat Kesulitan</h4>
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda untuk menambahkan tingkat kesulitan baru pada Paket Mata Kuliah.
-                        Isikan informasi berikut untuk menggambarkan tingkat kesulitan yang akan dihadapi peserta selama mengikuti mata kuliah.
+                        Isikan informasi berikut untuk menggambarkan tingkat kesulitan yang akan dihadapi peserta selama
+                        mengikuti mata kuliah.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
-                        <ul>
-                            <li><strong>Nama Tingkat Kesulitan:</strong> Isi kolom dengan nama tingkat kesulitan (misalnya, Mudah, Menengah, Sulit) yang sesuai.</li>
-                            <li><strong>Deskripsi:</strong> Jelaskan secara singkat deskripsi tingkat kesulitan tersebut, seperti level keterampilan atau tantangan yang dihadapi peserta.</li>
-                            <li>Setelah semua detail terisi, gunakan tombol <strong>'Tambah Tingkat Kesulitan'</strong> untuk menyimpan perubahan yang telah Anda buat.</li>
-                        </ul>
+                    <ul>
+                        <li><strong>Nama Tingkat Kesulitan:</strong> Isi kolom dengan nama tingkat kesulitan (misalnya,
+                            Mudah, Menengah, Sulit) yang sesuai.</li>
+                        <li><strong>Deskripsi:</strong> Jelaskan secara singkat deskripsi tingkat kesulitan tersebut,
+                            seperti level keterampilan atau tantangan yang dihadapi peserta.</li>
+                        <li>Setelah semua detail terisi, gunakan tombol <strong>'Tambah Tingkat Kesulitan'</strong> untuk
+                            menyimpan perubahan yang telah Anda buat.</li>
+                    </ul>
                     </p>
 
                     <form id="addDifficultyType" action="{{ route('postAddDifficultyType') }}" method="post"
@@ -46,11 +50,12 @@
                         {{-- <input type="text" name="img_keep" value="{{ $blog->cover_img }}" hidden> --}}
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Tingkat Kesulitan <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Tingkat Kesulitan <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name"" id="name"
-                                    placeholder="Masukkan Nama Tingkat Kesulitan" value="{{ old('name') }}">
+                                <input class="form-control" type="text" name="name" id="name"
+                                    placeholder="Contoh: Dasar Ekonomi, Menengah Keuangan, atau Ekonomi Mahir"
+                                    value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -61,7 +66,8 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm3" name="description" class="form-control">{{ old('description') }}</textarea>
+                                <textarea id="elm3" name="description" class="form-control"
+                                    placeholder="Contoh: Tingkat kesulitan ini mencakup dasar-dasar ekonomi seperti teori permintaan dan penawaran, atau tingkat lanjutan seperti analisis laporan keuangan.">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">

@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tambah Paket Kursus')
+@section('title', 'Tambah Paket Mata Kuliah')
 
 @section('content')
 <!-- start page title -->
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0 font-size-18">Tambah Paket Kursus</h4>
+            <h4 class="mb-sm-0 font-size-18">Tambah Paket Mata Kuliah</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('getCoursePackage') }}">Modul Kursus</a></li>
-                    <li class="breadcrumb-item active">Tambah Paket Kursus</li>
+                    <li class="breadcrumb-item"><a href="{{ route('getCoursePackage') }}">Modul Mata Kuliah</a></li>
+                    <li class="breadcrumb-item active">Tambah Paket Mata Kuliah</li>
                 </ol>
             </div>
 
@@ -27,17 +27,17 @@
         <div class="card">
             <div class="card-body">
 
-                <h4 class="card-title">Tambah Paket Kursus</h4>
+                <h4 class="card-title">Tambah Paket Mata Kuliah</h4>
                 <p class="card-title-desc">
-                    Halaman ini memungkinkan Anda untuk menambahkan paket kursus baru.
-                    Isi informasi berikut untuk membuat paket kursus yang sesuai dengan kebutuhan Anda.
+                    Halaman ini memungkinkan Anda untuk menambahkan paket mata kuliah baru.
+                    Isi informasi berikut untuk membuat paket mata kuliah yang sesuai dengan kebutuhan Anda.
                 </p>
 
                 <form id="addCoursePackage" action="{{ route('postAddCoursePackage') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="mb-3 row">
-                        <label for="input-title" class="col-md-2 col-form-label">Nama Paket Kursus <span class="text-danger"
+                        <label for="input-title" class="col-md-2 col-form-label">Nama Paket Mata Kuliah <span class="text-danger"
                             data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                         <div class="col-md-10">
                             <input class="form-control" type="text" name="name"" placeholder=" Masukkan Nama Paket" value="{{ old('name') }}">
@@ -102,7 +102,7 @@
                     </div>
                     <div class="mb-3 row justify-content-end">
                         <div class="text-end">
-                            <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCoursePackage">Tambah Paket Kursus</button>
+                            <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCoursePackage">Tambah Paket Mata Kuliah</button>
                         </div>
                     </div>
                 </form>

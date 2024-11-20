@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add New Course')
+@section('title', 'Tambah Mata Kuliah')
 
 @section('content')
     <!-- start page title -->
@@ -29,7 +29,8 @@
 
                     <h4 class="card-title">Tambah Mata Kuliah Baru</h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda untuk menambah data mata kuliah baru. Pastikan informasi yang dimasukkan
+                        Halaman ini memungkinkan Anda untuk menambah data mata kuliah baru. Pastikan informasi yang
+                        dimasukkan
                         akurat agar peserta mata kuliah dapat menerima pengalaman belajar yang optimal.<br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
@@ -48,7 +49,8 @@
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                    placeholder="Masukkan Nama Course" value="{{ old('name') }}">
+                                    placeholder="Contoh: Dasar-dasar Ekonomi Mikro, Pengantar Akuntansi, Manajemen Risiko Keuangan"
+                                    value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -58,9 +60,10 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="slug" id="slug" readonly
+                                <input class="form-control" type="text" name="slug" id="slug"
+                                    placeholder="Slug otomatis berdasarkan nama mata kuliah" readonly
                                     value="{{ old('slug') }}">
                                 @if ($errors->has('slug'))
                                     @foreach ($errors->get('slug') as $error)
@@ -101,8 +104,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Mata Kuliah <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Mata Kuliah <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="type" data-placeholder="Pilih ..."
                                     id="type_selector">
@@ -228,7 +231,8 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Konten <small>(isi)</small></label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="content">{{ old('content') }}</textarea>
+                                <textarea id="elm1" name="content"
+                                    placeholder="Contoh: Materi terdiri dari 10 modul, mencakup analisis laporan keuangan, studi kasus bisnis, dan simulasi pasar.">{{ old('content') }}</textarea>
                                 @if ($errors->has('content'))
                                     @foreach ($errors->get('content') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -240,7 +244,8 @@
                         <div class="mb-3 row">
                             <label for="input-short-description" class="col-md-2 col-form-label">Deskripsi Pendek</label>
                             <div class="col-md-10">
-                                <textarea id="elmDesc" name="short_description" class="form-control">{{ old('short_description') }}</textarea>
+                                <textarea id="elmDesc" name="short_description" class="form-control"
+                                    placeholder="Contoh: Mata kuliah ini mengenalkan konsep dasar ekonomi mikro yang relevan untuk analisis bisnis kecil hingga menengah.">{{ old('short_description') }}</textarea>
                                 @if ($errors->has('short_description'))
                                     @foreach ($errors->get('short_description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -252,7 +257,8 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm3" name="description" class="form-control">{{ old('description') }}</textarea>
+                                <textarea id="elm3" name="description" class="form-control"
+                                    placeholder="Contoh: Mata kuliah ini membahas dasar-dasar ekonomi mikro seperti teori permintaan, penawaran, dan analisis pasar.">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>

@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Manfaat Paket Kursus')
+@section('title', 'Manfaat Paket Mata Kuliah')
 
 @section('content')
     <!-- Begin Page Title -->
@@ -13,8 +13,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCoursePackage') }}">Paket Kursus</a></li>
-                        <li class="breadcrumb-item active">Manfaat Paket Kursus</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCoursePackage') }}">Paket Mata Kuliah</a></li>
+                        <li class="breadcrumb-item active">Manfaat Paket Mata Kuliah</li>
                     </ol>
                 </div>
                 <!-- End Breadcrumb -->
@@ -28,27 +28,27 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Manfaat Paket Kursus</h4>
+                    <h4 class="card-title">Manfaat Paket Mata Kuliah</h4>
                     <p>
-                        Halaman ini menampilkan manfaat yang diperoleh dari setiap Paket Kursus. Anda dapat melihat keuntungan utama yang akan didapatkan peserta setelah mengikuti paket kursus tertentu, termasuk nama manfaat dan deskripsinya.
+                        Halaman ini menampilkan manfaat yang diperoleh dari setiap Paket Mata Kuliah. Anda dapat melihat keuntungan utama yang akan didapatkan peserta setelah mengikuti paket mata kuliah tertentu, termasuk nama manfaat dan deskripsinya.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                         <ul>
-                            <li><strong>Nama Manfaat Paket Kursus:</strong> Lihat nama manfaat dari setiap paket kursus yang dijelaskan secara singkat.</li>
-                            <li><strong>Deskripsi Manfaat:</strong> Baca deskripsi rinci tentang manfaat yang akan diperoleh peserta dari paket kursus ini.</li>
-                            <li><strong>Tambah Manfaat:</strong> Klik tombol <em>Tambah Manfaat</em> untuk menambahkan manfaat baru pada paket kursus.</li>
-                            <li><strong>Edit Manfaat:</strong> Klik tombol <em>Edit</em> di kolom "Aksi" untuk memperbarui informasi manfaat paket kursus.</li>
+                            <li><strong>Nama Manfaat Paket Mata Kuliah:</strong> Lihat nama manfaat dari setiap paket mata kuliah yang dijelaskan secara singkat.</li>
+                            <li><strong>Deskripsi Manfaat:</strong> Baca deskripsi rinci tentang manfaat yang akan diperoleh peserta dari paket mata kuliah ini.</li>
+                            <li><strong>Tambah Manfaat:</strong> Klik tombol <em>Tambah Manfaat</em> untuk menambahkan manfaat baru pada paket mata kuliah.</li>
+                            <li><strong>Edit Manfaat:</strong> Klik tombol <em>Edit</em> di kolom "Aksi" untuk memperbarui informasi manfaat paket mata kuliah.</li>
                         </ul>
                     </p>
-                    
+
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama Manfaat Paket Kursus</th>
-                                <th>ID Paket Kursus - Harga</th>
+                                <th class="data-medium">Nama Manfaat Paket Mata Kuliah</th>
+                                <th>ID Paket Mata Kuliah - Harga</th>
                                 <th class="data-long">Deskripsi</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
@@ -98,8 +98,8 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama Manfaat Paket Kursus</th>
-                                <th>ID Paket Kursus - Harga</th>
+                                <th class="data-medium">Nama Manfaat Paket Mata Kuliah</th>
+                                <th>ID Paket Mata Kuliah - Harga</th>
                                 <th class="data-long">Deskripsi</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>

@@ -39,10 +39,11 @@
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Nama <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
-                                    placeholder="Masukkan Nama Tipe Kemitraan" value="{{ old('name') }}">
+                                    placeholder="Contoh: Pendidikan, Penelitian, atau Pengabdian Masyarakat"
+                                    value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -53,7 +54,8 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" placeholder="Masukkan Deskripsi Tipe Kemitraan">{{ old('description') }}</textarea>
+                                <textarea id="elm1" name="description"
+                                    placeholder="Contoh: Kemitraan pendidikan bertujuan untuk mendukung program pertukaran pelajar, pelatihan, atau pengembangan kurikulum.">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">

@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tambah Kategori')
+@section('title', 'Tambah Program Studi')
 
 @section('content')
     <!-- Judul Halaman -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCategory') }}">Kategori</a></li>
-                        <li class="breadcrumb-item active">Tambah Kategori</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCategory') }}">Program Studi</a></li>
+                        <li class="breadcrumb-item active">Tambah Program Studi</li>
                     </ol>
                 </div>
 
@@ -27,10 +27,10 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Tambah Kategori Baru</h4>
+                    <h4 class="card-title">Tambah Program Studi Baru</h4>
                     <p class="card-title-desc">
-                        Gunakan halaman ini untuk menambahkan kategori baru dengan mengisi nama dan deskripsi kategori.
-                        Setelah selesai, klik "Tambah Kategori" untuk menyimpan data.
+                        Gunakan halaman ini untuk menambahkan program studi baru dengan mengisi nama dan deskripsi program studi.
+                        Setelah selesai, klik "Tambah Program studi" untuk menyimpan data.
                     </p>
 
 
@@ -43,7 +43,7 @@
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
-                                    placeholder="Masukkan Nama Kategori" value="{{ old('name') }}">
+                                placeholder="Contoh: Akuntansi, Manajemen Keuangan, atau Pemasaran Digital" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -54,7 +54,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" placeholder="Masukkan Deskripsi Kategori">{{ old('description') }}</textarea>
+                                <textarea id="elm1" name="description" placeholder="Contoh: Program Studi Akuntansi mencakup materi seperti laporan keuangan, perpajakan, dan audit.">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -73,7 +73,7 @@
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
-                                    form="addCategory">Tambah Kategori</button>
+                                    form="addCategory">Tambah Program Studi</button>
                             </div>
                         </div>
                     </form>

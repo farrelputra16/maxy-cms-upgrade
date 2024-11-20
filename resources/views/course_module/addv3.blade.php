@@ -13,7 +13,8 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a
-                                href="{{ route('getCourseModule', ['course_id' => $course_detail->id]) }}">Modul Mata Kuliah</a>
+                                href="{{ route('getCourseModule', ['course_id' => $course_detail->id]) }}">Modul Mata
+                                Kuliah</a>
                         </li>
                         <li class="breadcrumb-item active">Tambah Modul Mata Kuliah</li>
                     </ol>
@@ -30,7 +31,8 @@
                 <div class="card-body">
                     <h4 class="card-title">Tambah Modul untuk Mata Kuliah: {{ $course_detail->name }}</h4>
                     <p class="card-title-desc">
-                        Halaman ini digunakan untuk menambahkan modul baru ke dalam mata kuliah. Lengkapi seluruh data dengan
+                        Halaman ini digunakan untuk menambahkan modul baru ke dalam mata kuliah. Lengkapi seluruh data
+                        dengan
                         informasi yang akurat untuk memastikan peserta mendapatkan pengalaman belajar yang maksimal.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
@@ -55,12 +57,14 @@
                                 <input type="hidden" name="course_id" value="{{ $course_detail->id }}">
                             </div>
                         </div>
+
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Nama Modul <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
-                                    placeholder="Masukkan Nama Modul Mata Kuliah" value="{{ old('name') }}">
+                                    placeholder="Contoh: Analisis Laporan Keuangan, Dasar-dasar Manajemen, atau Pengantar Ekonomi Mikro"
+                                    value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -68,12 +72,14 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Hari / Prioritas <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-title" class="col-md-2 col-form-label">Hari / Prioritas <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority"
-                                    placeholder="Masukkan Urutan Prioritas" value="{{ old('priority') }}" min="1">
+                                    placeholder="Contoh: 1 untuk modul pertama, 2 untuk modul kedua, dan seterusnya"
+                                    value="{{ old('priority') }}" min="1">
                                 @if ($errors->has('priority'))
                                     @foreach ($errors->get('priority') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -81,20 +87,25 @@
                                 @endif
                             </div>
                         </div>
+
                         @if ($page_type == 'company_profile')
                             <div class="mb-3 row">
                                 <label for="input-content" class="col-md-2 col-form-label">Konten</label>
                                 <div class="col-md-10">
-                                    <textarea id="elm1" name="content">{{ old('content') }}</textarea>
+                                    <textarea id="elm1" name="content"
+                                        placeholder="Contoh: Masukkan konten deskripsi tentang pengelolaan keuangan perusahaan.">{{ old('content') }}</textarea>
                                 </div>
                             </div>
                         @endif
+
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
+                                <textarea id="elm1" name="description"
+                                    placeholder="Contoh: Modul ini membahas strategi pemasaran untuk perusahaan kecil dan menengah.">{{ old('description') }}</textarea>
                             </div>
                         </div>
+
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
@@ -103,6 +114,7 @@
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>
+
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"

@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Kategori')
+@section('title', 'Edit Program Studi')
 
 @section('content')
     <!-- Judul Halaman -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCategory') }}">Kategori</a></li>
-                        <li class="breadcrumb-item active">Edit Kategori</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCategory') }}">Program Studi</a></li>
+                        <li class="breadcrumb-item active">Edit Program Studi</li>
                     </ol>
                 </div>
 
@@ -29,8 +29,8 @@
 
                     <h4 class="card-title">Edit: {{ $Category->name }}</h4>
                     <p class="card-title-desc">
-                        Di halaman ini, Anda dapat memperbarui data kategori yang ada dengan mengisi atau mengedit informasi
-                        di bawah ini. Setelah selesai, klik "Simpan Perubahan" untuk memperbarui data kategori.
+                        Di halaman ini, Anda dapat memperbarui data program studi yang ada dengan mengisi atau mengedit informasi
+                        di bawah ini. Setelah selesai, klik "Simpan Perubahan" untuk memperbarui data program studi.
                     </p>
 
 

@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Kursus')
+@section('title', 'Edit Mata Kuliah')
 
 @section('content')
     <!-- start page title -->
@@ -12,10 +12,10 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCoursePackage') }}">Paket Kursus</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCoursePackage') }}">Paket Mata Kuliah</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCoursePackageBenefit') }}">Manfaat Paket
-                                Kursus</a></li>
-                        <li class="breadcrumb-item active">Edit Manfaat Paket Kursus</li>
+                                Mata Kuliah</a></li>
+                        <li class="breadcrumb-item active">Edit Manfaat Paket Mata Kuliah</li>
                     </ol>
                 </div>
 
@@ -29,18 +29,18 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Manfaat Paket Kursus: {{ $currentData->name }}</h4>
+                    <h4 class="card-title">Edit Manfaat Paket Mata Kuliah: {{ $currentData->name }}</h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda untuk memperbarui informasi manfaat dari paket kursus. 
+                        Halaman ini memungkinkan Anda untuk memperbarui informasi manfaat dari paket mata kuliah.
                         Pastikan semua detail yang dimasukkan akurat agar peserta mendapatkan pengalaman belajar terbaik.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                         <ul>
-                            <li>Isi kolom Nama Manfaat Paket Kursus, ID Paket Kursus, dan Deskripsi Manfaat sesuai kebutuhan.</li>
+                            <li>Isi kolom Nama Manfaat Paket Mata Kuliah, ID Paket Mata Kuliah, dan Deskripsi Manfaat sesuai kebutuhan.</li>
                             <li>Setelah semua detail terisi, gunakan tombol <strong>'Simpan & Perbarui'</strong> untuk menyimpan perubahan yang telah Anda buat.</li>
                         </ul>
                     </p>
-                    
+
 
                     <form action="{{ route('postEditCoursePackageBenefit', ['id' => request()->query('id')]) }}"
                         method="post" enctype="multipart/form-data">
@@ -66,7 +66,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Manfaat Paket Kursus</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Manfaat Paket Mata Kuliah</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" value="{{ $currentData->name }}">
                                 @if ($errors->has('name'))
@@ -77,7 +77,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">ID Paket Kursus</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">ID Paket Mata Kuliah</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_package_id">
                                     @if ($currentData != null)

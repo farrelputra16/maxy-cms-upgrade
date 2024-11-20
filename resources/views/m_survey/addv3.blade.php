@@ -51,17 +51,19 @@
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Nama <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name" placeholder="Masukkan Nama Survei"
+                                <input class="form-control" type="text" name="name"
+                                    placeholder="Contoh: Survei Kepuasan Mahasiswa, Kuis Akhir Mata Kuliah"
                                     value="{{ old('name') }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Tanggal Kedaluwarsa <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-title" class="col-md-2 col-form-label">Tanggal Kedaluwarsa <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" id="expired_date" name="expired_date"
+                                    placeholder="Pilih tanggal dan waktu kedaluwarsa survei"
                                     value="{{ old('expired_date') }}">
                                 @if ($errors->has('expired_date'))
                                     @foreach ($errors->get('expired_date') as $error)
@@ -73,7 +75,7 @@
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Tipe</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="type" data-placeholder="Pilih ..."
+                                <select class="form-control select2" name="type" data-placeholder="Pilih tipe survei"
                                     id="type_selector">
                                     <option value="0" {{ old('type') == 0 ? 'selected' : '' }}>Evaluasi</option>
                                     <option value="1" {{ old('type') == 1 ? 'selected' : '' }}>Kuis</option>
@@ -83,7 +85,8 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
+                                <textarea id="elm1" name="description"
+                                    placeholder="Contoh: Survei ini bertujuan untuk mengevaluasi efektivitas pengajaran selama semester berjalan.">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
@@ -96,8 +99,7 @@
                         </div>
                         <br>
                         <div class="mb-3 row">
-                            <h4>Survei <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></h4>
+                            <h4>Survei <span class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></h4>
                             <input type="hidden" name='survey' id='survey'>
                             <div id="surveyCreatorContainer" style="position: relative; height: 100%; width: 100%">
                             </div>

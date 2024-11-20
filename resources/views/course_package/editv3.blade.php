@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Paket Kursus')
+@section('title', 'Edit Paket Mata Kuliah')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Paket Kursus</h4>
+                <h4 class="mb-sm-0 font-size-18">Edit Paket Mata Kuliah</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCoursePackage') }}">Paket Kursus</a></li>
-                        <li class="breadcrumb-item active">Edit Paket Kursus: {{ $coursePackages->name }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCoursePackage') }}">Paket Mata Kuliah</a></li>
+                        <li class="breadcrumb-item active">Edit Paket Mata Kuliah: {{ $coursePackages->name }}</li>
                     </ol>
                 </div>
 
@@ -28,12 +28,12 @@
                 <div class="card-body">
                     <h4 class="card-title">{{ $coursePackages->name }} <small>[ ID: {{ $coursePackages->id }} ]</small></h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda memperbarui informasi paket kursus.
+                        Halaman ini memungkinkan Anda memperbarui informasi paket mata kuliah.
                         Pastikan detail yang dimasukkan akurat agar peserta mendapatkan pengalaman belajar terbaik.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                         <ul>
-                            <li>Isi kolom Nama Paket Kursus, Link Pembayaran, Deskrips, dan kolom lainnya sesuai kebutuhan.</li>
+                            <li>Isi kolom Nama Paket Mata Kuliah, Link Pembayaran, Deskrips, dan kolom lainnya sesuai kebutuhan.</li>
                             <li>Setelah semua detail terisi, gunakan tombol <strong>'Simpan & Perbarui'</strong> untuk menyimpan perubahan.</li>
                         </ul>
                     </p>
@@ -42,7 +42,7 @@
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Nama Paket Kursus <span class="text-danger"
+                            <label for="input-title" class="col-md-2 col-form-label">Nama Paket Mata Kuliah <span class="text-danger"
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"

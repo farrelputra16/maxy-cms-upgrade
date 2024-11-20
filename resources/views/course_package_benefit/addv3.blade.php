@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tambah Manfaat Paket Kursus')
+@section('title', 'Tambah Manfaat Paket Mata Kuliah')
 
 @section('content')
     <!-- start page title -->
@@ -14,8 +14,8 @@
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCoursePackage') }}">Course Package</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCoursePackageBenefit') }}">Manfaat Paket
-                                Kursus</a></li>
-                        <li class="breadcrumb-item active">Tambah Manfaat Paket Kursus</li>
+                                Mata Kuliah</a></li>
+                        <li class="breadcrumb-item active">Tambah Manfaat Paket Mata Kuliah</li>
                     </ol>
                 </div>
 
@@ -29,10 +29,10 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Tambah Manfaat Kursus</h4>
+                    <h4 class="card-title">Tambah Manfaat Mata Kuliah</h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda untuk menambahkan manfaat baru ke dalam Paket Kursus. 
-                        Isikan informasi berikut untuk menggambarkan manfaat yang akan didapatkan peserta dari paket kursus yang Anda buat.
+                        Halaman ini memungkinkan Anda untuk menambahkan manfaat baru ke dalam Paket Mata Kuliah.
+                        Isikan informasi berikut untuk menggambarkan manfaat yang akan didapatkan peserta dari paket mata kuliah yang Anda buat.
                     </p>
 
                     <form id="addCoursePackageBenefit" action="{{ route('postAddCoursePackageBenefit') }}" method="post" enctype="multipart/form-data">
@@ -47,7 +47,7 @@
                         @endisset
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Manfaat Paket Kursus</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Manfaat Paket Mata Kuliah</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     placeholder="Masukkan Package Benefit">
@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">ID Paket Kursus</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">ID Paket Mata Kuliah</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_package_id" data-placeholder="Choose ...">
                                     @foreach ($allCoursePackages as $item)
@@ -89,7 +89,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCoursePackageBenefit">Tambah Manfaat Paket Kursus</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCoursePackageBenefit">Tambah Manfaat Paket Mata Kuliah</button>
                             </div>
                         </div>
                     </form>

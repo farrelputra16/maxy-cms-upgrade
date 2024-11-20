@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Paket Kursus')
+@section('title', 'Paket Mata Kuliah')
 
 @section('content')
     <!-- Begin Page Title -->
@@ -13,7 +13,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Paket Kursus</li>
+                        <li class="breadcrumb-item active">Paket Mata Kuliah</li>
                     </ol>
                 </div>
                 <!-- End Breadcrumb -->
@@ -27,17 +27,17 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Paket Kursus</h4>
+                    <h4 class="card-title">Paket Mata Kuliah</h4>
                     <p>
-                        Halaman ini menampilkan daftar lengkap Paket Kursus yang tersedia. 
+                        Halaman ini menampilkan daftar lengkap Paket Mata Kuliah yang tersedia.
                         Setiap baris menunjukkan informasi penting seperti nama, slug, dan status aktif dari package.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                         <ul>
                             <li><strong>Cari Course Package:</strong> Gunakan kolom pencarian untuk mencari paket berdasarkan nama atau slug.</li>
                             <li><strong>Urutkan Data:</strong> Klik judul kolom untuk mengurutkan data berdasarkan kriteria seperti nama atau status.</li>
-                            <li><strong>Edit Data:</strong> Klik tombol <em>Edit</em> di kolom "Aksi" untuk memperbarui informasi paket kursus.</li>
-                            <li><strong>Tambah Paket Kursus Baru:</strong> Klik tombol <em>+</em> di pojok kanan bawah untuk menambahkan paket kursus baru.</li>
+                            <li><strong>Edit Data:</strong> Klik tombol <em>Edit</em> di kolom "Aksi" untuk memperbarui informasi paket mata kuliah.</li>
+                            <li><strong>Tambah Paket Mata Kuliah Baru:</strong> Klik tombol <em>+</em> di pojok kanan bawah untuk menambahkan paket mata kuliah baru.</li>
                         </ul>
                     </p>
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -45,7 +45,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama Paket Kursus</th>
+                                <th class="data-medium">Nama Paket Mata Kuliah</th>
                                 <th>Harga Fiktif</th>
                                 <th>Harga</th>
                                 <th class="data-medium">Link Pembayaran</th>
@@ -102,7 +102,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Nama Paket Kursus</th>
+                                <th>Nama Paket Mata Kuliah</th>
                                 <th>Harga Fiktif</th>
                                 <th>Harga</th>
                                 <th>Link Pembayaran</th>

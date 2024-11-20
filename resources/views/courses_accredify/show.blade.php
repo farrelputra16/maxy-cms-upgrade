@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <!-- Bagian konten detail kursus -->
+    <!-- Bagian konten detail mata kuliah -->
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -20,7 +20,7 @@
                     <h5 class="card-title" id="course_name">{{ $course['course_title'] ?? 'Loading...' }}</h5>
                     <p class="card-text">Here are the details of the selected course:</p>
 
-                    <!-- List group untuk menampilkan informasi kursus -->
+                    <!-- List group untuk menampilkan informasi mata kuliah -->
                     <ul class="list-group">
                         <li class="list-group-item"><strong>Course Code:</strong> <span id="course_code">{{ $course['course_code'] ?? 'Loading...' }}</span></li>
                         <li class="list-group-item"><strong>Issuance Type:</strong> <span id="issuance_type">{{ $course['issuance_type'] ?? 'Loading...' }}</span></li>
@@ -43,7 +43,7 @@
             // URL endpoint dengan token
             const url = `/api/courses/${courseId}?token=${token}`; // Sertakan token di URL
 
-            // Fetch detail kursus dari API dengan Authorization header
+            // Fetch detail mata kuliah dari API dengan Authorization header
             fetch(url, {
                 method: 'GET',
                 headers: {
