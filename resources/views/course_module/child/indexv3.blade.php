@@ -50,7 +50,7 @@
                             pembuatan.</li>
                         <li>Manfaatkan pencarian kolom untuk menemukan modul tertentu dengan cepat berdasarkan kata kunci.
                         </li>
-                        <li>Tekan tombol <b>Edit</b> pada kolom Aksi untuk memperbarui informasi modul child atau mengubah
+                        <li>Tekan tombol <b>Ubah</b> pada kolom Aksi untuk memperbarui informasi modul child atau mengubah
                             status aktif/nonaktif modul.</li>
                         <li>Klik tombol <b>Tambah</b> di sudut kanan bawah untuk menambahkan modul child baru ke dalam modul
                             utama.</li>
@@ -115,7 +115,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditChildModule', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                     </td>
                                 </tr>
                             @endforeach
