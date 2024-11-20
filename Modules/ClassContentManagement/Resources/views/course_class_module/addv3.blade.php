@@ -26,7 +26,8 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Tambah Modul Kelas Mata Kuliah</h4>
-                    <p class="card-title-desc">Halaman ini memungkinkan Anda untuk menambahkan informasi modul mata kuliah baru.
+                    <p class="card-title-desc">Halaman ini memungkinkan Anda untuk menambahkan informasi modul mata kuliah
+                        baru.
                         Pastikan semua data yang Anda masukkan sudah benar untuk memberikan pengalaman belajar terbaik
                         kepada peserta mata kuliah.</p>
 
@@ -45,8 +46,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Modul Mata Kuliah <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Modul Mata Kuliah <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_module_id"
                                     data-placeholder="Pilih Modul Mata Kuliah" id="type_selector">
@@ -67,10 +68,11 @@
 
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Hari ke-* <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority" required
-                                    value="{{ old('priority') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    value="{{ old('priority') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                    placeholder="Masukkan urutan hari pelaksanaan modul (misalnya: 1, 2, 3)">
                                 @if ($errors->has('priority'))
                                     @foreach ($errors->get('priority') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -81,7 +83,7 @@
 
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Tanggal Mulai <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="start" id="date"
                                     value="{{ old('start') }}">
@@ -94,8 +96,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Selesai <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Selesai <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="end" id="date"
                                     value="{{ old('end') }}">
@@ -110,7 +112,8 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
+                                <textarea id="elm1" name="description"
+                                    placeholder="Deskripsikan isi dan tujuan modul ini (misalnya: Modul ini mencakup pengantar konsep manajemen keuangan dasar)">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>

@@ -55,7 +55,7 @@
                             <label for="input-tag" class="col-md-2 col-form-label">Pilih Pengguna: </label>
                             <div class="col-md-10">
                                 <select class="form-control select2 multiple" multiple="multiple" name="users[]"
-                                    data-placeholder="Pilih Pengguna">
+                                    data-placeholder="Pilih pengguna yang ingin ditambahkan ke kelas">
                                     @foreach ($users as $item)
                                         <option value="{{ $item->id }}"
                                             {{ old('users') && in_array($item->id, old('users')) ? 'selected' : '' }}>
@@ -72,7 +72,7 @@
                                     <label for="mentor" class="col-md-2 col-form-label">Pilih Dosen: </label>
                                     <div class="col-md-4">
                                         <select class="form-control select2 mentor-select" name="mentor[]"
-                                            data-placeholder="Pilih Dosen">
+                                            data-placeholder="Pilih dosen yang akan mendampingi kelas">
                                             <option value="">Pilih Dosen</option>
                                             @foreach ($mentors as $mentor)
                                                 <option value="{{ $mentor->id }}"
@@ -85,7 +85,7 @@
                                     <label for="jobdesc" class="col-md-2 col-form-label">Deskripsi Pekerjaan</label>
                                     <div class="col-md-4">
                                         <select name="jobdesc[]" class="form-control select2 jobdesc-select"
-                                            data-placeholder="Pilih Deskripsi Pekerjaan">
+                                            data-placeholder="Pilih deskripsi tugas dosen">
                                             <option value="">Pilih Deskripsi Pekerjaan</option>
                                             @foreach ($jobdescriptions as $jobdesc)
                                                 <option value="{{ $jobdesc->id }}"
@@ -112,8 +112,8 @@
                             <div class="mb-3 row">
                                 <label for="input-tag" class="col-md-2 col-form-label">Pilih Mitra: </label>
                                 <div class="col-md-10">
-                                    <select class="form-control select2" name="partner" data-placeholder="Pilih Mitra"
-                                        required>
+                                    <select class="form-control select2" name="partner"
+                                        data-placeholder="Pilih mitra kerja sama (jika ada)" required>
                                         <option value="">Pilih Mitra</option>
                                         @foreach ($partners as $item)
                                             <option value="{{ $item->id }}"
@@ -129,7 +129,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi Kelas</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
+                                <textarea id="elm1" name="description" placeholder="Tambahkan deskripsi singkat tentang kelas (opsional)">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
@@ -271,17 +271,17 @@
             }
 
             /* #csv-upload input[type="file"] {
-                            display: block;
-                            margin: 0 auto;
-                            padding: 10px;
-                            border-radius: 4px;
-                            border: 1px solid #ccc;
-                        }
+                                display: block;
+                                margin: 0 auto;
+                                padding: 10px;
+                                border-radius: 4px;
+                                border: 1px solid #ccc;
+                            }
 
-                        #csv-upload label {
-                            margin-bottom: 10px;
-                            font-weight: bold;
-                        } */
+                            #csv-upload label {
+                                margin-bottom: 10px;
+                                font-weight: bold;
+                            } */
 
             .dz-message {
                 display: flex;

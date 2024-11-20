@@ -51,7 +51,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Angkatan <span class="text-danger"
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="batch" id="batch" placeholder="Masukkan nomor angkatan" value="{{ old('batch') }}">
+                                <input class="form-control" type="number" name="batch" id="batch" placeholder="Masukkan nomor angkatan (contoh: 2024)" value="{{ old('batch') }}">
                                 @error('batch')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -95,7 +95,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm2" name="description" class="form-control" placeholder="Deskripsi template sertifikat">{{ old('description') }}</textarea>
+                                <textarea id="elm2" name="description" class="form-control" placeholder="Deskripsi template sertifikat (misalnya: Sertifikat ini diberikan sebagai tanda bahwa peserta telah berhasil mengikuti program ini)">{{ old('description') }}</textarea>
                                 @error('description')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror

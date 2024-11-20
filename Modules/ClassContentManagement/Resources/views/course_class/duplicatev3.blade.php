@@ -28,17 +28,20 @@
                 <div class="card-body">
 
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda untuk menduplikasi kelas yang sudah ada dengan menambahkan kelas baru. 
-                        Pastikan semua informasi yang diisi sudah benar agar proses pembelajaran dapat berjalan dengan lancar dan optimal.
+                        Halaman ini memungkinkan Anda untuk menduplikasi kelas yang sudah ada dengan menambahkan kelas baru.
+                        Pastikan semua informasi yang diisi sudah benar agar proses pembelajaran dapat berjalan dengan
+                        lancar dan optimal.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
-                        <ul>
-                            <li>Isi kolom <strong>Mata Kuliah</strong> dengan memilih mata kuliah yang sesuai dari daftar yang tersedia.</li>
-                            <li>Masukkan <strong>Batch</strong> untuk menentukan angkatan dari kelas baru yang akan dibuat.</li>
-                            <li>Gunakan tombol <strong>'Duplikasi Modul Mata Kuliah'</strong> untuk menyimpan dan membuat kelas baru.</li>
-                        </ul>
+                    <ul>
+                        <li>Isi kolom <strong>Mata Kuliah</strong> dengan memilih mata kuliah yang sesuai dari daftar yang
+                            tersedia.</li>
+                        <li>Masukkan <strong>Batch</strong> untuk menentukan angkatan dari kelas baru yang akan dibuat.</li>
+                        <li>Gunakan tombol <strong>'Duplikasi Modul Mata Kuliah'</strong> untuk menyimpan dan membuat kelas
+                            baru.</li>
+                    </ul>
                     </p>
-                    
+
 
                     <form action="{{ route('postDuplicateCourseClass') }}" method="post" enctype="multipart/form-data">
                         @csrf
@@ -48,8 +51,8 @@
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Kelas</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="course_class_id" data-placeholder="Choose ..."
-                                    id="type_selector">
+                                <select class="form-control select2" name="course_class_id"
+                                    data-placeholder="Pilih kelas yang ingin diduplikasi..." id="type_selector">
                                     @foreach ($class_list as $item)
                                         <option value="{{ $item->id }}">{{ $item->course_name }} Aangkatan
                                             {{ $item->batch }}</option>
@@ -67,8 +70,8 @@
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Mata Kuliah</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="course_id" data-placeholder="Choose ..."
-                                    id="type_selector">
+                                <select class="form-control select2" name="course_id"
+                                    data-placeholder="Pilih mata kuliah untuk kelas baru..." id="type_selector">
                                     @foreach ($course_list as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
@@ -84,7 +87,7 @@
                             <label for="input-title" class="col-md-2 col-form-label">Angkatan</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="batch"
-                                    placeholder="Masukkan Batch">
+                                    placeholder="Masukkan angkatan (contoh: 2024)">
                                 @if ($errors->has('batch'))
                                     @foreach ($errors->get('batch') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -102,7 +105,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Duplikasi Modul Mata Kuliah</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Duplikasi Kelas Mata
+                                    Kuliah</button>
                             </div>
                         </div>
                     </form>

@@ -40,7 +40,7 @@
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_id" id="type_selector"
-                                    data-placeholder="Pilih Mata Kuliah...">
+                                    data-placeholder="Pilih Mata Kuliah yang tersedia">
                                     @foreach ($allCourses as $course)
                                         <option value="{{ $course->id }}" data-slug="{{ $course->slug }}"
                                             {{ old('course_id') == $course->id ? 'selected' : '' }}>
@@ -59,7 +59,7 @@
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="batch" id="batch"
-                                    placeholder="Masukkan Angkatan (contoh: 2023)" value="{{ old('batch') }}">
+                                    placeholder="Masukkan tahun angkatan (contoh: 2023)" value="{{ old('batch') }}">
                                 @error('batch')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -71,7 +71,8 @@
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug" id="slug"
-                                    value="{{ old('slug') }}" readonly>
+                                    value="{{ old('slug') }}"
+                                    placeholder="Slug akan diisi otomatis berdasarkan mata kuliah dan angkatan" readonly>
                                 @error('slug')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -107,7 +108,8 @@
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="quota" min="0" id="quota"
-                                    placeholder="Jumlah peserta maksimal" value="{{ old('quota') }}" min="1">
+                                    placeholder="Jumlah peserta maksimal (misalnya: 40)" value="{{ old('quota') }}"
+                                    min="1">
                                 @error('quota')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -119,7 +121,7 @@
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="credits" id="credits"
-                                    placeholder="Masukkan jumlah SKS" value="{{ old('credits') }}"
+                                    placeholder="Masukkan jumlah SKS (misalnya: 3)" value="{{ old('credits') }}"
                                     oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                             </div>
                         </div>
@@ -129,7 +131,7 @@
                                     class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration" id="duration"
-                                    placeholder="Durasi kelas dalam menit" value="{{ old('duration') }}"
+                                    placeholder="Durasi kelas dalam menit (misalnya: 90)" value="{{ old('duration') }}"
                                     oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                             </div>
                         </div>
@@ -137,21 +139,24 @@
                         <div class="mb-3 row">
                             <label for="announcement" class="col-md-2 col-form-label">Pengumuman</label>
                             <div class="col-md-10">
-                                <textarea class="form-control" id="elm1" name="announcement" placeholder="Tambahkan pengumuman jika ada">{{ old('announcement') }}</textarea>
+                                <textarea class="form-control" id="elm1" name="announcement"
+                                    placeholder="Tambahkan pengumuman khusus untuk kelas, misalnya: 'Kelas ini akan dimulai tepat pukul 08:00 setiap hari Rabu. Harap membawa kalkulator dan buku catatan untuk setiap pertemuan.'">{{ old('announcement') }}</textarea>
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="content" class="col-md-2 col-form-label">Konten Kelas</label>
                             <div class="col-md-10">
-                                <textarea class="form-control" id="content" name="content" placeholder="Deskripsi konten kelas">{{ old('content') }}</textarea>
+                                <textarea class="form-control" id="content" name="content"
+                                    placeholder="Deskripsikan konten kelas yang akan diajarkan, misalnya: 'Kelas ini mencakup konsep dasar Akuntansi Keuangan, termasuk jurnal umum, buku besar, neraca saldo, dan laporan keuangan. Mahasiswa juga akan belajar cara menggunakan perangkat lunak akuntansi modern untuk mencatat dan menganalisis data keuangan.'">{{ old('content') }}</textarea>
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="description" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea class="form-control" id="content" name="description" placeholder="Deskripsi singkat kelas">{{ old('description') }}</textarea>
+                                <textarea class="form-control" id="content" name="description"
+                                    placeholder="Deskripsi singkat mengenai kelas, misalnya: 'Kelas Akuntansi Keuangan dirancang untuk memberikan pemahaman dasar tentang pencatatan dan pelaporan keuangan yang penting untuk manajemen bisnis dan pengambilan keputusan strategis.'">{{ old('description') }}</textarea>
                             </div>
                         </div>
 
@@ -185,7 +190,8 @@
 
                         <div class="mb-3 row justify-content-end">
                             <div class="col-md-10 text-end">
-                                <button type="submit" class="custom-btn-submit btn btn-primary w-md" form="addCourseClass">Simpan Kelas</button>
+                                <button type="submit" class="custom-btn-submit btn btn-primary w-md"
+                                    form="addCourseClass">Simpan Kelas</button>
                             </div>
                         </div>
                     </form>

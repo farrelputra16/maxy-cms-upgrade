@@ -29,7 +29,8 @@
                     <h4 class="card-title">Tambah Presensi Kelas Baru</h4>
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda untuk menambahkan data presensi baru. Pastikan semua informasi yang
-                        Anda masukkan akurat agar dapat memberikan pengalaman pembelajaran yang terbaik bagi peserta mata kuliah.
+                        Anda masukkan akurat agar dapat memberikan pengalaman pembelajaran yang terbaik bagi peserta mata
+                        kuliah.
                     </p>
 
                     <form id="addCCAttendance" action="{{ route('postAddCourseClassAttendance') }}" method="post"
@@ -42,7 +43,8 @@
                             <label for="input-name" class="col-md-2 col-form-label">Nama Presensi</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                    placeholder="Masukkan Nama Presensi" value="{{ old('name') }}">
+                                    placeholder="Masukkan nama presensi, misalnya: 'Presensi Pertemuan 1'"
+                                    value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -69,7 +71,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" placeholder="Deskripsikan Presensi (opsional)">{{ old('description') }}</textarea>
+                                <textarea id="elm1" name="description" placeholder="Deskripsikan kegiatan atau topik presensi (opsional)">{{ old('description') }}</textarea>
                             </div>
                         </div>
 

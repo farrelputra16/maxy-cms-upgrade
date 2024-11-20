@@ -47,11 +47,10 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Modul <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="course_module_id" data-placeholder="Pilih ..."
-                                    id="type_selector">
-                                    <option value="0">-- Pilih Tipe Mata Kuliah --</option>
+                                <select class="form-control select2" name="course_module_id"
+                                    data-placeholder="Pilih Tipe Mata Kuliah..." id="type_selector">
                                     @foreach ($child_cm_list as $item)
                                         <option value="{{ $item->id }}"
                                             {{ old('course_module_id') == $item->id ? 'selected' : '' }}>
@@ -67,9 +66,10 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Prioritas <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="priority" required
+                                <input class="form-control" type="number" name="priority"
+                                    placeholder="Tentukan prioritas pelaksanaan modul (contoh: 1, 2, 3)" required
                                     value="{{ old('priority') }}">
                                 @if ($errors->has('priority'))
                                     @foreach ($errors->get('priority') as $error)
@@ -80,7 +80,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Tanggal Mulai <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="start" id="date"
                                     value="{{ old('start') }}">
@@ -92,8 +92,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Selesai <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-name" class="col-md-2 col-form-label">Tanggal Selesai <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="end" id="date"
                                     value="{{ old('end') }}">
@@ -107,7 +107,8 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
+                                <textarea id="elm1" name="description"
+                                    placeholder="Deskripsikan tujuan atau isi modul child (misalnya: Mengajarkan dasar-dasar akuntansi)">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
