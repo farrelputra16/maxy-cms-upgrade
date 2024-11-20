@@ -80,7 +80,7 @@
                                         </span>
                                     </div>
                                 </a></div>
-                            @if ($errors->any())
+                            {{-- @if ($errors->any())
                                 <div class="alert alert-danger" role="alert">
                                     <ul class="mb-0">
                                         @foreach ($errors->all() as $error)
@@ -90,7 +90,7 @@
                                         @endforeach
                                     </ul>
                                 </div>
-                            @endif
+                            @endif --}}
                             @if (session('error'))
                                 <div class="alert alert-danger">
                                     <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
@@ -100,16 +100,37 @@
                             <div class="p-2">
                                 <form class="form-horizontal" {{ route('login') }} method="post">
                                     @csrf
-                                    <div class="mb-3"><label class="form-label form-label">Email</label><input
-                                            name="email" id="email" placeholder="Masukkan email" type="text"
-                                            class="form-control form-control" aria-invalid="false" value=""></div>
-                                    <div class="mb-3"><label class="form-label form-label">Kata Sandi</label>
-                                        <div class="input-group auth-pass-inputgroup"><input name="password"
-                                                placeholder="Masukkan Kata Sandi" id="password" type="password"
-                                                class="form-control" aria-invalid="false" value=""><button
-                                                class="btn btn-light " type="button" id="password-addon"><i
-                                                    class="mdi mdi-eye-outline"></i></button></div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input name="email" id="email" placeholder="Masukkan email" type="text"
+                                               class="form-control" aria-invalid="false" required
+                                               oninvalid="this.setCustomValidity('Silakan masukkan email Anda.')"
+                                               oninput="this.setCustomValidity('')">
+                                        @foreach ($errors->get('email') as $error)
+                                            <span style="color: red;">{{ $error }}</span>
+                                        @endforeach
+                                        @if (session('error_email'))
+                                            <span style="color: red;">{{ session('error_email') }}</span>
+                                        @endif
                                     </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label">Kata Sandi</label>
+                                        <div class="input-group auth-pass-inputgroup">
+                                            <input name="password" placeholder="Masukkan Kata Sandi" id="password" type="password"
+                                                   class="form-control" aria-invalid="false" required
+                                                   oninvalid="this.setCustomValidity('Silakan masukkan kata sandi Anda.')"
+                                                   oninput="this.setCustomValidity('')">
+                                            <button class="btn btn-light " type="button" id="password-addon"><i
+                                                    class="mdi mdi-eye-outline"></i></button>
+                                        </div>
+                                        @foreach ($errors->get('password') as $error)
+                                            <span style="color: red;">{{ $error }}</span>
+                                        @endforeach
+                                        @if (session('error_password'))
+                                            <span style="color: red;">{{ session('error_password') }}</span>
+                                        @endif
+                                    </div>                                    
                                     <div class="mt-3 d-grid"><button class="btn btn-primary btn-block "
                                             type="submit">Masuk</button></div>
                                     {{-- <div class="mt-4 text-center">
