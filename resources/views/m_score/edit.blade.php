@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Tingkat Nilai')
+@section('title', 'Ubah Tingkat Nilai')
 
 @section('content')
     <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Ubah Data</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getScore') }}">Tingkat Nilai</a></li>
-                        <li class="breadcrumb-item active">Edit Tingkat Nilai: {{ $data->name }}</li>
+                        <li class="breadcrumb-item active">Ubah Tingkat Nilai: {{ $data->name }}</li>
                     </ol>
                 </div>
             </div>
@@ -101,7 +101,7 @@
 
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Save & Update</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Simpan & Perbarui</button>
                             </div>
                         </div>
                     </form>

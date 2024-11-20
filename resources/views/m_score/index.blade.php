@@ -97,7 +97,7 @@
                                     <td>
                                         <div class="btn-group">
                                             <a href="{{ route('getEditScore', ['id' => $item->id]) }}"
-                                                class="btn btn-primary">Edit</a>
+                                                class="btn btn-primary">Ubah</a>
                                         </div>
                                     </td>
                                 </tr>
