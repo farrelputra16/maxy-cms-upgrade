@@ -41,7 +41,7 @@
                             <li><strong>Pengurutan Data:</strong> Klik pada judul kolom seperti "Nama Jenis Mata Kuliah"
                                 atau "Status" untuk mengurutkan data, misalnya berdasarkan nama atau status aktif/non-aktif.
                             </li>
-                            <li><strong>Edit Informasi:</strong> Tekan tombol <em>Edit</em> pada kolom Aksi untuk
+                            <li><strong>Ubah Informasi:</strong> Tekan tombol <em>Ubah</em> pada kolom Aksi untuk
                                 memperbarui informasi jenis mata kuliah, termasuk nama, deskripsi, dan status.</li>
                             <li><strong>Tambah Jenis Mata Kuliah Baru:</strong> Klik tombol <em>+</em> di pojok kanan bawah
                                 halaman untuk menambahkan jenis mata kuliah baru ke dalam daftar.</li>
@@ -92,7 +92,7 @@
                                 <td>
                                     <div class="btn-group">
                                         <a href="{{ route('getEditCourseType', ['id' => $item->id, 'access' => 'm_course_type_update']) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                         <!-- <a href="{{ route('getCourseClassChildModule', ['id' => $item->id]) }}" class="btnModul">Sertifikat Template</a> -->
                                     </div>
                                 </td>
