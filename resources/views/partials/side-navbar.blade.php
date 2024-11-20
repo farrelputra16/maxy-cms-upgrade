@@ -74,7 +74,7 @@
                 @if ($userAccess == 'super')
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class='bx bx-lock-open'></i>
+                            <i class='bx bx-universal-access'></i>
                             <span key="t-user-access">Pengguna & Akses</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
