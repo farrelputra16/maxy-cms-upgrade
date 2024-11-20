@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit MBKM')
+@section('title', 'Ubah MBKM')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Ubah Data</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCourseMBKM') }}">MBKM</a></li>
-                        <li class="breadcrumb-item active">Edit MBKM</li>
+                        <li class="breadcrumb-item active">Ubah MBKM</li>
                     </ol>
                 </div>
             </div>
@@ -26,7 +26,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Program MBKM</h4>
+                    <h4 class="card-title">Ubah Program MBKM</h4>
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda memperbarui informasi program MBKM yang ada.
                         Pastikan semua detail yang dimasukkan akurat untuk memberikan pengalaman belajar terbaik bagi
@@ -37,7 +37,7 @@
                         <li>Lengkapi setiap kolom sesuai kebutuhan, seperti nama program, tingkat kesulitan, kategori
                             mata kuliah, dan tautan pembayaran.</li>
                         <li>Untuk mengganti gambar, unggah gambar baru melalui kolom "Gambar" dan lihat pratinjau.</li>
-                        <li>Gunakan tombol <b>'Save & Update'</b> setelah semua detail terisi untuk menyimpan perubahan.
+                        <li>Gunakan tombol <b>'Simpan & Perbarui'</b> setelah semua detail terisi untuk menyimpan perubahan.
                         </li>
                     </ul>
                     </p>
@@ -194,7 +194,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Save & Update</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Simpan & Perbarui</button>
                             </div>
                         </div>
                     </form>

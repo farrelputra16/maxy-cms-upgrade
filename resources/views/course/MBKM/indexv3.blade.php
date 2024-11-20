@@ -38,7 +38,7 @@
                             nama atau deskripsi.</li>
                         <li><strong>Mengurutkan Kolom:</strong> Klik pada judul kolom untuk mengurutkan data berdasarkan
                             kriteria tertentu seperti "Tanggal Dibuat" atau "Status".</li>
-                        <li><strong>Mengedit Data:</strong> Klik tombol <em>Edit</em> di kolom "Tindakan" untuk mengubah
+                        <li><strong>Mengubah Data:</strong> Klik tombol <em>Ubah</em> di kolom "Aksi" untuk mengubah
                             informasi program MBKM yang ada.</li>
                         <li><strong>Melihat Daftar Modul:</strong> Gunakan tombol <em>Daftar Modul</em> untuk melihat atau
                             menambahkan modul terkait dengan program yang dipilih.</li>
@@ -62,7 +62,7 @@
                                 <th>Waktu Diperbarui</th>
                                 <th>Diperbarui Oleh</th>
                                 <th>Status</th>
-                                <th>Tindakan</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -99,7 +99,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditMBKM', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                         <a href="{{ route('getCourseModule', ['course_id' => $item->id, 'page_type' => 'LMS']) }}"
                                             class="btn btn-outline-primary rounded">Daftar Modul</a>
                                     </td>
@@ -119,7 +119,7 @@
                                 <th>Waktu Diperbarui</th>
                                 <th>Diperbarui Oleh</th>
                                 <th>Status</th>
-                                <th>Tindakan</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>
