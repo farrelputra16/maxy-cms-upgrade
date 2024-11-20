@@ -45,7 +45,7 @@
                                 dihadapi peserta.</li>
                             <li><strong>Tambah Tingkat Kesulitan:</strong> Klik tombol <em>Tambah Tingkat Kesulitan</em>
                                 (ikon +) di pojok kanan bawah untuk menambahkan tingkat kesulitan baru ke dalam daftar.</li>
-                            <li><strong>Edit Tingkat Kesulitan:</strong> Tekan tombol <em>Edit</em> pada kolom "Aksi" untuk
+                            <li><strong>Ubah Tingkat Kesulitan:</strong> Tekan tombol <em>Ubah</em> pada kolom "Aksi" untuk
                                 memperbarui atau menyesuaikan informasi tingkat kesulitan yang ada.</li>
                         </ul>
                         </p>
@@ -91,7 +91,7 @@
                                     <td>
                                         <div class="btn-group">
                                             <a href="{{ route('getEditDifficultyType', ['id' => $item->id, 'access' => 'm_difficulty_type_update']) }}"
-                                                class="btn btn-primary">Edit</a>
+                                                class="btn btn-primary">Ubah</a>
                                         </div>
                                     </td>
                                 </tr>
