@@ -41,10 +41,10 @@
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Judul <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" value="{{ old('title') }}" name="title"
-                                    id="input-title">
+                                    id="input-title" placeholder="Masukkan judul blog...">
                                 @if ($errors->has('title'))
                                     @foreach ($errors->get('title') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -54,10 +54,10 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" value="{{ old('slug') }}" name="slug"
-                                    id="input-slug" readonly>
+                                    id="input-slug" placeholder="Slug akan otomatis terisi setelah judul diisi" readonly>
                                 @if ($errors->has('slug'))
                                     @foreach ($errors->get('slug') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -67,7 +67,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Tags <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2 select2-multiple" multiple="multiple" name="tag[]"
                                     data-placeholder="Pilih Tag...">
@@ -82,9 +82,10 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-file" class="col-md-2 col-form-label">Gambar Cover <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10" style="height: 200px">
-                                <input class="form-control" type="file" name="file_image" id="input-file">
+                                <input class="form-control" type="file" name="file_image" id="input-file"
+                                    placeholder="Pilih gambar untuk cover blog...">
                                 <img id="frame" src="" alt="preview.." class="img-fluid h-100" />
                                 @if ($errors->has('file_image'))
                                     @foreach ($errors->get('file_image') as $error)
@@ -95,9 +96,9 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Konten <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="content">{{ old('content') }}</textarea>
+                                <textarea id="elm1" name="content" placeholder="Masukkan konten artikel blog di sini...">{{ old('content') }}</textarea>
                                 @if ($errors->has('content'))
                                     @foreach ($errors->get('content') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -109,7 +110,8 @@
                             <label for="input-description" class="col-md-2 col-form-label">Deskripsi
                                 <small>(Admin)</small></label>
                             <div class="col-md-10">
-                                <textarea id="elmDesc" type="text" name="description" id="input-description">{{ old('description') }}</textarea>
+                                <textarea id="elmDesc" type="text" name="description" id="input-description"
+                                    placeholder="Deskripsi singkat untuk admin (opsional)">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>

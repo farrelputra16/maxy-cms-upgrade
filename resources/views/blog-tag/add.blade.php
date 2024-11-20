@@ -42,10 +42,10 @@
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Nama <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" value="{{ old('name') }}" name="name"
-                                    id="input-title">
+                                    id="input-title" placeholder="Masukkan nama tag blog...">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -56,10 +56,10 @@
 
                         <div class="mb-3 row">
                             <label for="input-color" class="col-md-2 col-form-label">Warna <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control color-picker" type="text" value="{{ old('color') }} "
-                                    name="color" id="input-color">
+                                    name="color" id="input-color" placeholder="Pilih warna untuk tag...">
                                 @if ($errors->has('color'))
                                     @foreach ($errors->get('color') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -72,7 +72,7 @@
                             <label for="input-description" class="col-md-2 col-form-label">Deskripsi
                                 <small>(Admin)</small></label>
                             <div class="col-md-10">
-                                <textarea id="elm1" type="text" name="description">{{ old('description') }}</textarea>
+                                <textarea id="elm1" type="text" name="description" placeholder="Masukkan deskripsi singkat tentang tag ini...">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>

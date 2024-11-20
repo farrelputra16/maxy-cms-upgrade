@@ -41,7 +41,7 @@
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Mitra <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="partner" data-placeholder="Pilih Mitra...">
                                     @foreach ($partners as $item)
@@ -72,9 +72,10 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-file" class="col-md-2 col-form-label">Gambar <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="file" name="file" id="file" accept="image/*"
+                                <input class="form-control" type="file" name="file" id="file"
+                                    placeholder="Unggah file gambar kerja sama (JPEG, PNG, max 5MB)" accept="image/*"
                                     onchange="previewImage()">
                                 <p class="text-muted mb-0 text-truncate">Gambar yang direkomendasikan maksimal 5MB.</p>
                                 @if ($errors->has('file'))
@@ -86,7 +87,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Tanggal Mulai <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="date_start" id="date_start"
                                     value="{{ old('date_start') }}">
@@ -99,7 +100,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Tanggal Akhir <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="date_end" id="date_end"
                                     value="{{ old('date_end') }}">
@@ -113,7 +114,8 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
+                                <textarea id="elm1" name="description"
+                                    placeholder="Tambahkan deskripsi kerja sama jika diperlukan. Contoh: 'Kerja sama meliputi pembiayaan program pelatihan.'">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>

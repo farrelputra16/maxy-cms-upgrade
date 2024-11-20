@@ -41,10 +41,10 @@
                         <input type="hidden" name="event_id" value="{{ $event_id }}">
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nama <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                    placeholder="Masukkan Nama Persyaratan">
+                                    placeholder="Contoh: Scan KTP, Surat Izin Orang Tua, atau Bukti Pembayaran">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -55,7 +55,8 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description"></textarea>
+                                <textarea id="elm1" name="description"
+                                    placeholder="Contoh: File ini harus berupa dokumen PDF dengan ukuran maksimal 2MB."></textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>

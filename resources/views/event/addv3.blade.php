@@ -35,7 +35,7 @@
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Tipe Event</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="event_type" data-placeholder="Choose ...">
+                                <select class="form-control select2" name="event_type" data-placeholder="Pilih Tipe Event">
                                     @foreach ($event_types as $item)
                                         <option value="{{ $item->id }}" {{ old('event_type') == $item->id ? 'selected' : '' }}> {{ $item->name }} </option>
                                     @endforeach
@@ -47,7 +47,7 @@
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                    placeholder="Masukkan Nama Event" value="{{ old('name') }}">
+                                placeholder="Masukkan nama event, contoh: 'Seminar Bisnis 2024'" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -109,7 +109,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{  old('description') }}</textarea>
+                                <textarea id="elm1" name="description" placeholder="Masukkan deskripsi event">{{  old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
