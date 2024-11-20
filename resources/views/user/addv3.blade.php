@@ -66,7 +66,8 @@
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="email" name="email" id="email"
-                                    placeholder="Masukkan Email" value="{{ old('email') }}">
+                                    placeholder="Masukkan Email Institusi atau Pribadi (contoh: budi@stiecontoh.ac.id)"
+                                    value="{{ old('email') }}">
                                 @if ($errors->has('email'))
                                     @foreach ($errors->get('email') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -79,8 +80,8 @@
                             <label for="input-tag" class="col-md-2 col-form-label">Peran <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="access_group" data-placeholder="Pilih Peran ..."
-                                    id="type_selector">
+                                <select class="form-control select2" name="access_group"
+                                    data-placeholder="Pilih Peran (contoh: Dosen, Mahasiswa, Admin...)" id="type_selector">
                                     @foreach ($allAccessGroups as $item)
                                         <option value="{{ $item->id }}"
                                             {{ old('access_group') == $item->id ? 'selected' : '' }}>[{{ $item->id }}]
@@ -100,7 +101,7 @@
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="phone" id="phone"
-                                    placeholder="Masukkan Nomor Telepon"
+                                    placeholder="Masukkan Nomor Telepon (contoh: 081234567890)"
                                     oninput="this.value = this.value.replace(/[^0-9]/g, '');" value="{{ old('phone') }}">
                                 @if ($errors->has('phone'))
                                     @foreach ($errors->get('phone') as $error)
@@ -115,7 +116,7 @@
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="password" name="password" id="password"
-                                    placeholder="Masukkan Kata Sandi" value="{{ old('password') }}">
+                                    placeholder="Masukkan Kata Sandi Minimal 8 Karakter" value="{{ old('password') }}">
                                 @if ($errors->has('password'))
                                     @foreach ($errors->get('password') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -128,7 +129,8 @@
                             <label for="input-name" class="col-md-2 col-form-label">Alamat</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="address" id="address"
-                                    placeholder="Masukkan Alamat" value="{{ old('address') }}">
+                                    placeholder="Masukkan Alamat Lengkap (contoh: Jl. Raya Pendidikan No. 123, Surabaya)"
+                                    value="{{ old('address') }}">
                                 @if ($errors->has('address'))
                                     @foreach ($errors->get('address') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -141,7 +143,7 @@
                             <label for="input-name" class="col-md-2 col-form-label">Kode Pos</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="postal_code" id="postal_code"
-                                    placeholder="Masukkan Kode Pos" value="{{ old('postal_code') }}">
+                                    placeholder="Masukkan Kode Pos (contoh: 60213)" value="{{ old('postal_code') }}">
                                 @if ($errors->has('postal_code'))
                                     @foreach ($errors->get('postal_code') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -154,7 +156,8 @@
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi Pengguna
                                 (Opsional)</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
+                                <textarea id="elm1"
+                                    name="description"placeholder="Opsional: Tambahkan informasi tambahan seperti keahlian, jabatan, atau deskripsi lainnya...">{{ old('description') }}</textarea>
                             </div>
                         </div>
 

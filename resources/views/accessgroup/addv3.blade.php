@@ -36,11 +36,12 @@
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Grup Akses (Peran) <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Grup Akses (Peran) <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                    placeholder="Masukkan Nama Grup Akses" value="{{ old('name') }}">
+                                    placeholder="Masukkan Nama Grup Akses (contoh: Dosen, Mahasiswa, Admin Keuangan)"
+                                    value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -52,7 +53,8 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description') }}</textarea>
+                                <textarea id="elm1" name="description"
+                                    placeholder="Tambahkan deskripsi grup akses, misalnya: 'Grup ini memiliki akses penuh untuk mengelola data mahasiswa dan kurikulum.'">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -63,7 +65,7 @@
 
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Pilih Hak Akses <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2 select2-multiple" multiple="multiple"
                                     name="access_master[]" id="access_master" data-placeholder="Pilih Hak Akses">
