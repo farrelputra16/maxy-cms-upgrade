@@ -37,7 +37,7 @@
                         <strong>Cara Penggunaan:</strong>
                     <ul>
                         <li>Klik ikon <b>+ Tambah</b> di sudut kanan bawah untuk menambahkan mata kuliah baru.</li>
-                        <li>Pada setiap baris, tombol <b>Edit</b> memungkinkan Anda memperbarui informasi mata kuliah, sementara
+                        <li>Pada setiap baris, tombol <b>Ubah</b> memungkinkan Anda memperbarui informasi mata kuliah, sementara
                             tombol <b>Daftar Modul</b> mengarahkan Anda ke daftar modul terkait mata kuliah tersebut.</li>
                         <li>Periksa kolom <b>Status</b> untuk melihat apakah mata kuliah dalam kondisi aktif atau nonaktif, yang
                             mempengaruhi ketersediaan mata kuliah bagi pengguna.</li>
@@ -107,7 +107,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditCourse', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                         <a href="{{ route('getCourseModule', ['course_id' => $item->id, 'page_type' => 'LMS']) }}"
                                             class="btn btn-outline-primary rounded-end">Daftar Modul</a>
                                     </td>
