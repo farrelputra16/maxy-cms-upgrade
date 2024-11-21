@@ -32,21 +32,27 @@ $(document).ready(function () {
                   }
                 : null, // Jika tidak server-side, tidak perlu ajax
             buttons: [
-                "copy",
-                "excel",
+                {
+                    extend: 'copy',
+                    text: 'Salin'
+                },
+                {
+                    extend: 'excel',
+                    text: 'Ekspor ke Excel'
+                },
                 {
                     extend: "pdfHtml5",
                     text: "Export PDF",
                     filename: pageTitle, // Menggunakan title halaman sebagai nama file PDF
                     title: pageTitle, // Menggunakan title halaman sebagai judul PDF
                     orientation: "landscape", // Atur orientasi halaman PDF
-                    pageSize: "A1", // Ukuran halaman
+                    pageSize: "A4", // Ukuran halaman
                     exportOptions: {
                         columns: ":visible", // Hanya kolom yang terlihat diekspor
                     },
                     customize: function (doc) {
                         // Kurangi margin untuk menambah ruang
-                        doc.styles.tableHeader.fontSize = 10; // Ukuran font header tabel
+                        doc.styles.tableHeader.fontSize = 7; // Ukuran font header tabel
                         doc.styles.tableBodyOdd.fillColor = "#f3f3f3"; // Warna latar baris ganjil
                         doc.styles.tableBodyEven.fillColor = "#ffffff"; // Warna latar baris genap
 
@@ -65,7 +71,7 @@ $(document).ready(function () {
                                     );
                                 })
                             );
-                            columnWidths.push(maxWidth * 6); // Sesuaikan faktor untuk lebar kolom
+                            columnWidths.push(maxWidth * 2); // Sesuaikan faktor untuk lebar kolom
                         }
 
                         // Terapkan lebar kolom yang dihitung
@@ -84,6 +90,9 @@ $(document).ready(function () {
                     },
                 },
             ],
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/2.1.8/i18n/id.json'  // Menambahkan URL bahasa Indonesia
+            },
             scrollX: true, // Mengaktifkan scroll horizontal jika tabel terlalu lebar
             scrollCollapse: true, // Mengaktifkan collapse scroll jika tidak penuh
             searching: true,
