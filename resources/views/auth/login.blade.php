@@ -98,39 +98,36 @@
                             @endif
 
                             <div class="p-2">
-                                <form class="form-horizontal" {{ route('login') }} method="post">
+                                <form id="loginForm" class="form-horizontal" {{ route('login') }} method="post">
                                     @csrf
                                     <div class="mb-3">
                                         <label class="form-label">Email</label>
                                         <input name="email" id="email" placeholder="Masukkan email" type="text"
-                                               class="form-control" aria-invalid="false" required
-                                               oninvalid="this.setCustomValidity('Silakan masukkan email Anda.')"
-                                               oninput="this.setCustomValidity('')">
-                                        @foreach ($errors->get('email') as $error)
-                                            <span style="color: red;">{{ $error }}</span>
-                                        @endforeach
-                                        @if (session('error_email'))
-                                            <span style="color: red;">{{ session('error_email') }}</span>
-                                        @endif
+                                            class="form-control">
+                                        <!-- Error client-side -->
+                                        <span id="emailError" class="text-danger small"></span>
+                                        <!-- Error server-side -->
+                                        @error('email')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                    
+
                                     <div class="mb-3">
                                         <label class="form-label">Kata Sandi</label>
                                         <div class="input-group auth-pass-inputgroup">
-                                            <input name="password" placeholder="Masukkan Kata Sandi" id="password" type="password"
-                                                   class="form-control" aria-invalid="false" required
-                                                   oninvalid="this.setCustomValidity('Silakan masukkan kata sandi Anda.')"
-                                                   oninput="this.setCustomValidity('')">
+                                            <input name="password" placeholder="Masukkan Kata Sandi" id="password"
+                                                type="password" class="form-control" aria-invalid="false"
+                                                minlength="6">
                                             <button class="btn btn-light " type="button" id="password-addon"><i
                                                     class="mdi mdi-eye-outline"></i></button>
                                         </div>
-                                        @foreach ($errors->get('password') as $error)
-                                            <span style="color: red;">{{ $error }}</span>
-                                        @endforeach
-                                        @if (session('error_password'))
-                                            <span style="color: red;">{{ session('error_password') }}</span>
-                                        @endif
-                                    </div>                                    
+                                        <!-- Error client-side -->
+                                        <span id="passwordError" class="text-danger small"></span>
+                                        <!-- Error server-side -->
+                                        @error('password')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                     <div class="mt-3 d-grid"><button class="btn btn-primary btn-block "
                                             type="submit">Masuk</button></div>
                                     {{-- <div class="mt-4 text-center">
@@ -166,12 +163,56 @@
     </section>
 
     <script>
+        // Toggle password visibility
         const passwordInput = document.getElementById('password');
         const passwordInputBtn = document.getElementById('password-addon');
 
         passwordInputBtn.addEventListener('click', () => {
-            passwordInput.type == 'password' ? passwordInput.type = 'text' : passwordInput.type = 'password';
-        })
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordInputBtn.innerHTML = '<i class="mdi mdi-eye-off-outline"></i>';
+            } else {
+                passwordInput.type = 'password';
+                passwordInputBtn.innerHTML = '<i class="mdi mdi-eye-outline"></i>';
+            }
+        });
+
+        // Client-side validation
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+
+            let isValid = true;
+
+            // Reset error messages
+            emailError.textContent = '';
+            passwordError.textContent = '';
+
+            // Validasi Email
+            if (!emailInput.value.trim()) {
+                emailError.textContent = 'Email tidak boleh kosong.';
+                isValid = false;
+            } else if (!/\S+@\S+\.\S+/.test(emailInput.value.trim())) {
+                emailError.textContent = 'Format email tidak valid.';
+                isValid = false;
+            }
+
+            // Validasi Password
+            if (!passwordInput.value.trim()) {
+                passwordError.textContent = 'Password tidak boleh kosong.';
+                isValid = false;
+            } else if (passwordInput.value.trim().length < 6) {
+                passwordError.textContent = 'Password harus minimal 6 karakter.';
+                isValid = false;
+            }
+
+            // Cegah submit jika validasi gagal
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
     </script>
 </body>
 
