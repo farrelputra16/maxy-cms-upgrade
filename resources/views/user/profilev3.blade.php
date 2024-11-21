@@ -887,41 +887,61 @@
                         </div>
                         <div class="mb-3 row">
                             <h6>Active Course</h6>
+                            @php
+                                $hasActiveCourses = false;
+                            @endphp
+
                             @foreach ($currentData->courseClassMembers as $portofolio)
                                 @if (isset($portofolio->courseClass) &&
                                         !is_null($portofolio->courseClass) &&
                                         $portofolio->courseClass->status_ongoing == 1)
+                                    @php
+                                        $hasActiveCourses = true;
+                                    @endphp
                                     <p class='active_course'>{{ $portofolio->courseClass->slug }}</p>
                                 @endif
                             @endforeach
-                            <div class="mb-3 row justify-content">
-                                <div class="">
-                                    <div class="border card border-danger">
-                                        <div class="card-body text-center">
-                                            <p class="card-text text-danger">No data available</p>
+
+                            @if (!$hasActiveCourses)
+                                <div class="mb-3 row justify-content">
+                                    <div class="">
+                                        <div class="border card border-danger">
+                                            <div class="card-body text-center">
+                                                <p class="card-text text-danger">No data available</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                         <div class="mb-3 row">
                             <h6>Completed Course</h6>
+                            @php
+                                $hasActiveCourses = false;
+                            @endphp
+
                             @foreach ($currentData->courseClassMembers as $portofolio)
                                 @if (isset($portofolio->courseClass) &&
                                         !is_null($portofolio->courseClass) &&
                                         $portofolio->courseClass->status_ongoing == 2)
-                                    <p class='completed_course'>{{ $portofolio->courseClass->slug }}</p>
+                                    @php
+                                        $hasActiveCourses = true;
+                                    @endphp
+                                    <p class='active_course'>{{ $portofolio->courseClass->slug }}</p>
                                 @endif
                             @endforeach
-                            <div class="mb-3 row justify-content">
-                                <div class="">
-                                    <div class="border card border-danger">
-                                        <div class="card-body text-center">
-                                            <p class="card-text text-danger">No data available</p>
+
+                            @if (!$hasActiveCourses)
+                                <div class="mb-3 row justify-content">
+                                    <div class="">
+                                        <div class="border card border-danger">
+                                            <div class="card-body text-center">
+                                                <p class="card-text text-danger">No data available</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                     </form>
 
