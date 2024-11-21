@@ -119,11 +119,11 @@
                                     <td>{{ $item->created_id }}</td>
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
-                                    <td>
+                                    <td value="{{ $item->status }}">
                                         @if ($item->status == 1)
-                                            <span class="btn btn-success" style="pointer-events: none;">Aktif</span>
+                                            <span class="badge bg-success">Aktif</span>
                                         @else
-                                            <span class="btn btn-danger" style="pointer-events: none;">Nonaktif</span>
+                                            <span class="badge bg-danger">Non Aktif</span>
                                         @endif
                                     </td>
                                     <td>
