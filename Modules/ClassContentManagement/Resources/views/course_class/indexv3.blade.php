@@ -44,7 +44,7 @@
                         <li><strong>Visibilitas Kolom dan Pengurutan:</strong> Atur tampilan dengan mengurutkan kolom
                             tertentu untuk mempermudah pencarian data spesifik. Anda juga bisa menggunakan bilah pencarian
                             untuk mencari kelas tertentu berdasarkan nama, angkatan, atau tipe.</li>
-                        <li><strong>Edit Data:</strong> Klik tombol <em>Ubah</em> pada kolom “Aksi” untuk memperbarui
+                        <li><strong>Ubah Data:</strong> Klik tombol <em>Ubah</em> pada kolom “Aksi” untuk memperbarui
                             informasi kelas.</li>
                         <li><strong>Modul dan Mahasiswa:</strong> Gunakan tombol <em>Modul</em> untuk mengelola modul, dan
                             tombol <em>Mahasiswa</em> untuk melihat daftar peserta di kelas tersebut.</li>
@@ -86,7 +86,7 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->id }}</td>
-                                    <td>{{ $item->course_name }} Batch {{ $item->batch }}</td>
+                                    <td>{{ $item->course_name }} Angkatan {{ $item->batch }}</td>
                                     <td>{{ $item->type }}</td>
                                     <td>
                                         @if ($item->status_ongoing == 0)
