@@ -93,7 +93,7 @@ class GenerateCertificateController extends Controller
 
         $certificateName = $uuidText . '_' . $user->name;
         $certificateImagePath = public_path("sertifikat\\" . $certificateName . '_certificate.png');
-        $templateImage->save($certificateImagePath);
+        $templateImage->save($certificateImagePath, 100);
 
         $pdfCertificate = PDF::loadView('enrollment::course_class_member.template-sertifikat', [
             'certificateImagePath' => $certificateImagePath,
