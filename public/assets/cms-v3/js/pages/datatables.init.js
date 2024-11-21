@@ -48,7 +48,11 @@ $(document).ready(function () {
                     orientation: "landscape", // Atur orientasi halaman PDF
                     pageSize: "A4", // Ukuran halaman
                     exportOptions: {
-                        columns: ":visible", // Hanya kolom yang terlihat diekspor
+                        // Mengekspor kolom yang terlihat dan bukan kolom terakhir
+                        columns: function (idx, data, node) {
+                            // Pilih hanya kolom yang terlihat dan bukan kolom terakhir
+                            return $(node).css('display') !== 'none' && !$(node).is(':last-child');
+                        }
                     },
                     customize: function (doc) {
                         // Kurangi margin untuk menambah ruang
