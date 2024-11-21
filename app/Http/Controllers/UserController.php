@@ -158,7 +158,9 @@ class UserController extends Controller
         foreach ($members as $member) {
             $courseName = CourseClass::where('id', $member->course_class_id)->value('slug');
 
-            $mentorJob = Jobdesc::where('id', $member->jobdesc_id)->value('jobdesc');
+            $mentorJob = DB::table('jobdesc')
+                ->where('id', $member->m_jobdesc_id)
+                ->value('jobdesc');
 
             $courseId = CourseClass::where('id', $member->course_class_id)->value('course_id');
 
