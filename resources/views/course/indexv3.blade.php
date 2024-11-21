@@ -29,17 +29,21 @@
                 <div class="card-body">
                     <h4 class="card-title">Mata Kuliah</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan daftar mata kuliah dalam format tabel interaktif yang memudahkan Anda mengelola
-                        mata kuliah yang tersedia. Setiap mata kuliah mencakup informasi seperti nama, deskripsi, harga, jenis mata kuliah,
+                        Halaman ini menampilkan daftar mata kuliah dalam format tabel interaktif yang memudahkan Anda
+                        mengelola
+                        mata kuliah yang tersedia. Setiap mata kuliah mencakup informasi seperti nama, deskripsi, harga,
+                        jenis mata kuliah,
                         SKS, durasi, dan status. Anda dapat menggunakan <b>fitur visibilitas kolom, pengurutan, dan
                             pencarian kolom</b> untuk menyesuaikan tampilan sesuai kebutuhan.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
                         <li>Klik ikon <b>+ Tambah</b> di sudut kanan bawah untuk menambahkan mata kuliah baru.</li>
-                        <li>Pada setiap baris, tombol <b>Ubah</b> memungkinkan Anda memperbarui informasi mata kuliah, sementara
+                        <li>Pada setiap baris, tombol <b>Ubah</b> memungkinkan Anda memperbarui informasi mata kuliah,
+                            sementara
                             tombol <b>Daftar Modul</b> mengarahkan Anda ke daftar modul terkait mata kuliah tersebut.</li>
-                        <li>Periksa kolom <b>Status</b> untuk melihat apakah mata kuliah dalam kondisi aktif atau nonaktif, yang
+                        <li>Periksa kolom <b>Status</b> untuk melihat apakah mata kuliah dalam kondisi aktif atau nonaktif,
+                            yang
                             mempengaruhi ketersediaan mata kuliah bagi pengguna.</li>
                         <li>Manfaatkan fitur <b>Visibilitas Kolom</b>, <b>Pengurutan</b>, dan <b>Pencarian</b> pada tabel
                             untuk menampilkan atau menyaring data mata kuliah dengan cepat sesuai kebutuhan.</li>
@@ -98,11 +102,11 @@
                                     </td>
                                     <td>{{ $item->created_at->format('Y-m-d H:i') }}</td>
                                     <td>{{ $item->updated_at->format('Y-m-d H:i') }}</td>
-                                    <td>
+                                    <td value="{{ $item->status }}">
                                         @if ($item->status == 1)
-                                            <span class="btn btn-success" style="pointer-events: none;">Aktif</span>
+                                            <span class="badge bg-success">Aktif</span>
                                         @else
-                                            <span class="btn btn-danger" style="pointer-events: none;">Nonaktif</span>
+                                            <span class="badge bg-danger">Non Aktif</span>
                                         @endif
                                     </td>
                                     <td>

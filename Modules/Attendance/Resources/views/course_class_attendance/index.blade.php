@@ -70,7 +70,7 @@
                                     <td>{{ $item->created_id }}</td>
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
-                                    <td>
+                                    <td value="{{ $item->status }}">
                                         @if ($item->status == 1)
                                             <span class="badge bg-success">Aktif</span>
                                         @else

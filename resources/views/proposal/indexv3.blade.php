@@ -63,7 +63,8 @@
                                         {!! \Str::limit($proposal->name, 30) !!}
                                     </td>
                                     <td>
-                                        <a href="{{ asset("/uploads/proposal/proposal/". $proposal->student_id ."/proposal/".$proposal->proposal) }}" target="_blank">{{ $proposal->proposal }}</a>
+                                        <a href="{{ asset('/uploads/proposal/proposal/' . $proposal->student_id . '/proposal/' . $proposal->proposal) }}"
+                                            target="_blank">{{ $proposal->proposal }}</a>
                                     </td>
                                     <td>{{ $proposal->created_at }}</td>
                                     <td>{{ $proposal->created_id }}</td>
@@ -71,19 +72,19 @@
                                     <td>{{ $proposal->updated_id }}</td>
                                     <td>
                                         @if ($proposal->m_proposal_status_id == 6)
-                                            <span class="btn btn-danger"
+                                            <span class="badge bg-danger"
                                                 style="pointer-events: none;">{{ $proposal->status }}</span>
                                         @elseif ($proposal->m_proposal_status_id == 7)
-                                            <span class="btn btn-success"
+                                            <span class="badge bg-success"
                                                 style="pointer-events: none;">{{ $proposal->status }}</span>
                                         @elseif ($proposal->m_proposal_status_id == 8)
-                                            <span class="btn btn-warning"
+                                            <span class="badge bg-warning"
                                                 style="pointer-events: none;">{{ $proposal->status }}</span>
                                         @elseif ($proposal->m_proposal_status_id == 9)
-                                            <span class="btn btn-primary"
+                                            <span class="badge bg-primary"
                                                 style="pointer-events: none;">{{ $proposal->status }}</span>
                                         @else
-                                            <span class="btn btn-info"
+                                            <span class="badge bg-info"
                                                 style="pointer-events: none;">{{ $proposal->status }}</span>
                                         @endif
                                     </td>

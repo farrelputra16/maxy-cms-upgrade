@@ -89,9 +89,9 @@
                                     <td>{{ $item->updated_id }}</td>
                                     <td value="{{ $item->status }}">
                                         @if ($item->status == 1)
-                                            <a class="btn btn-success" style="pointer-events: none;">Aktif</a>
+                                            <span class="badge bg-success">Aktif</span>
                                         @else
-                                            <a class="btn btn-danger" style="pointer-events: none;">Non Aktif</a>
+                                            <span class="badge bg-danger">Non Aktif</span>
                                         @endif
                                     </td>
                                     <td>
