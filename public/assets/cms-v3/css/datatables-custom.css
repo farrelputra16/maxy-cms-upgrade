@@ -53,6 +53,12 @@ Begin Column Visibility Button
 .buttons-colvisRestore {
     background-color: #e2e6ea !important;
 }
+
+.dt-buttons .dropdown-menu {
+    max-height: 200px; /* Atur tinggi maksimum */
+    overflow-y: auto; /* Aktifkan scroll secara vertikal */
+    overflow-x: hidden; /* Sembunyikan scroll horizontal */
+}
 /*
 End Column Visibility Button
 */

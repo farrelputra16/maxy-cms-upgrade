@@ -36,6 +36,8 @@ $(document).ready(function () {
                     },
                 },
             ],
+            scrollX: true, // Mengaktifkan scroll horizontal jika tabel terlalu lebar
+            scrollCollapse: true, // Mengaktifkan collapse scroll jika tidak penuh
             searching: true,
             columnDefs: [{ visible: false, targets: colVis }],
             initComplete: function () {
