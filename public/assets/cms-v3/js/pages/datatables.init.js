@@ -1,32 +1,80 @@
 $(document).ready(function () {
+    // Ambil title dari halaman HTML
+    var pageTitle = document.title; // Mengambil title dari tag <title> di HTML
+
     // Inisialisasi DataTable
     $(".table").each(function () {
         var table = $(this);
 
         // Cek apakah menggunakan server-side processing
         var isServerProcessing = table.data("server-processing") === true;
-        var ajaxUrl = table.data('url');
-        var colVis = table.data('colvis') ? table.data('colvis') : [-6, -5, -4, -3, 1] ;
+        var ajaxUrl = table.data("url");
+        var colVis = table.data("colvis")
+            ? table.data("colvis")
+            : [-6, -5, -4, -3, 1];
 
         // Inisialisasi DataTable dengan atau tanpa server-side processing
         var tableInstance = table.DataTable({
             dom: "Bftip",
+            autoWidth: true,
             scrollX: true,
             lengthChange: false,
             processing: isServerProcessing, // Tampilkan indikator loading jika server processing aktif
             serverSide: isServerProcessing, // Aktifkan server-side processing sesuai kebutuhan
-            ajax: isServerProcessing ? {
-                url: ajaxUrl, // Ganti dengan URL yang sesuai
-                type: 'GET',
-                data: function (d) {
-                    // Tambahkan data tambahan jika diperlukan
-                    d.class_id = $('#classSelect').val(); // Misal mengambil class_id dari dropdown
-                }
-            } : null, // Jika tidak server-side, tidak perlu ajax
+            ajax: isServerProcessing
+                ? {
+                      url: ajaxUrl, // Ganti dengan URL yang sesuai
+                      type: "GET",
+                      data: function (d) {
+                          // Tambahkan data tambahan jika diperlukan
+                          d.class_id = $("#classSelect").val(); // Misal mengambil class_id dari dropdown
+                      },
+                  }
+                : null, // Jika tidak server-side, tidak perlu ajax
             buttons: [
                 "copy",
                 "excel",
-                "pdf",
+                {
+                    extend: "pdfHtml5",
+                    text: "Export PDF",
+                    filename: pageTitle, // Menggunakan title halaman sebagai nama file PDF
+                    title: pageTitle, // Menggunakan title halaman sebagai judul PDF
+                    orientation: "landscape", // Atur orientasi halaman PDF
+                    pageSize: "A1", // Ukuran halaman
+                    exportOptions: {
+                        columns: ":visible", // Hanya kolom yang terlihat diekspor
+                    },
+                    customize: function (doc) {
+                        // Kurangi margin untuk menambah ruang
+                        doc.styles.tableHeader.fontSize = 10; // Ukuran font header tabel
+                        doc.styles.tableBodyOdd.fillColor = "#f3f3f3"; // Warna latar baris ganjil
+                        doc.styles.tableBodyEven.fillColor = "#ffffff"; // Warna latar baris genap
+
+                        // Sesuaikan lebar kolom agar sesuai dengan konten
+                        var table = doc.content[1].table;
+                        var columnCount = table.body[0].length;
+                        var columnWidths = [];
+
+                        // Tentukan lebar kolom berdasarkan konten terpanjang
+                        for (var i = 0; i < columnCount; i++) {
+                            var maxWidth = Math.max(
+                                ...table.body.map(function (row) {
+                                    return (
+                                        (row[i] && row[i].toString().length) ||
+                                        0
+                                    );
+                                })
+                            );
+                            columnWidths.push(maxWidth * 6); // Sesuaikan faktor untuk lebar kolom
+                        }
+
+                        // Terapkan lebar kolom yang dihitung
+                        table.widths = columnWidths;
+
+                        // Atur margin jika perlu
+                        doc.pageMargins = [30, 30, 30, 30]; // Margin atas, kiri, kanan, bawah
+                    },
+                },
                 {
                     extend: "colvis",
                     className: "custom-colvis-btn",
@@ -74,7 +122,11 @@ $(document).ready(function () {
                                 });
                         } else {
                             // Membuat elemen input text untuk kolom lainnya
-                            $('<input class="form-control" type="text" placeholder="Search ' + title + '" />')
+                            $(
+                                '<input class="form-control" type="text" placeholder="Search ' +
+                                    title +
+                                    '" />'
+                            )
                                 .appendTo($(column.footer()).empty())
                                 .on("keyup change clear", function () {
                                     if (column.search() !== this.value) {
@@ -84,10 +136,15 @@ $(document).ready(function () {
                         }
                     }
                 });
-            }
+            },
         });
 
         // Menempatkan tombol di dalam kontainer yang sesuai
-        tableInstance.buttons().container().appendTo(table.closest('.dataTables_wrapper').find('.col-md-6:eq(0)'));
+        tableInstance
+            .buttons()
+            .container()
+            .appendTo(
+                table.closest(".dataTables_wrapper").find(".col-md-6:eq(0)")
+            );
     });
 });
