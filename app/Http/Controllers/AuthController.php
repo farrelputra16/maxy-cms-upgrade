@@ -26,8 +26,8 @@ class AuthController extends Controller
             'password.min' => 'Password harus minimal 6 karakter.',
         ]);
 
-        $mentorAccessGroupId = DB::table('access_group')->where('name', 'mentor')->value('id');
-        $superAccessGroupId = DB::table('access_group')->where('name', 'super')->value('id');
+        $mentorAccessGroupId = DB::table('access_group')->where('id', '3')->value('id');
+        $superAccessGroupId = DB::table('access_group')->where('id', '1')->value('id');
 
         if (!Auth::attempt($validated)) {
             return redirect()->back()->withErrors([
