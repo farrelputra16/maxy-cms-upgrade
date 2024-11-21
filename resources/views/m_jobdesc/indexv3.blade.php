@@ -39,7 +39,7 @@
                         <strong>Cara Penggunaan:</strong>
                     <ul>
                         <li>Klik ikon <b>+ Tambah</b> di sudut kanan bawah untuk menambahkan rincian pekerjaan baru.</li>
-                        <li>Pada setiap baris, tombol <b>Edit</b> memungkinkan Anda memperbarui informasi pekerjaan
+                        <li>Pada setiap baris, tombol <b>Ubah</b> memungkinkan Anda memperbarui informasi pekerjaan
                             tersebut.</li>
                         <li>Periksa kolom <b>Status</b> untuk melihat apakah pekerjaan dalam kondisi aktif atau nonaktif.
                         </li>
@@ -95,7 +95,7 @@
                                                     </td>
                                                     <td>
                                                         <a href="{{ route('getEditJobdesc', ['id' => $item->id, 'access' => 'm_jobdesc_update']) }}"
-                                                            class="btn btn-primary rounded">Edit</a>
+                                                            class="btn btn-primary rounded">Ubah</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
