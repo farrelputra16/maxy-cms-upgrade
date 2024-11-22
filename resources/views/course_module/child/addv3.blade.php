@@ -122,7 +122,7 @@
                                             (MP4, YouTube, dll.)
                                         </option>
                                         <option value="assignment" {{ old('type') == 'assignment' ? 'selected' : '' }}>
-                                            Tugas (File Submission)</option>
+                                            Tugas (Unggah Berkas)</option>
                                         <option value="quiz" {{ old('type') == 'quiz' ? 'selected' : '' }}>Kuis (Pilih
                                             dari daftar kuis yang tersedia)</option>
                                         <option value="eval" {{ old('type') == 'eval' ? 'selected' : '' }}>Evaluasi Akhir
