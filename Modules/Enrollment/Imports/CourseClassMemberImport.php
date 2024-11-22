@@ -14,15 +14,29 @@ class CourseClassMemberImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
-        $user = DB::table('users')
-            ->select('id')
-            ->where('email', $row['email'])
-            ->first();
+        if (env('APP_ENV')=='local') {
+            $user = DB::table('users')
+                ->select('id')
+                ->where('email', $row['email_mahasiswa'])
+                ->first();
+        } else {
+            $user = DB::table('users')
+                ->select('id')
+                ->where('email', $row['email'])
+                ->first();
+        }
 
-        $mentor = DB::table('users')
-            ->select('id')
-            ->where('email', $row['mentor_email'])
-            ->first();
+        if (env('APP_ENV')=='local') {
+            $mentor = DB::table('users')
+                ->select('id')
+                ->where('email', $row['email_dosen'])
+                ->first();
+        } else {
+            $mentor = DB::table('users')
+                ->select('id')
+                ->where('email', $row['mentor_email'])
+                ->first();
+        }
 
         $course_class = DB::table('course_class')
             ->select('id')
