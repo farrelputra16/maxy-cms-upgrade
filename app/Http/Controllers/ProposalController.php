@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Proposal;
 use App\Models\ProposalBimbingan;
 use App\Models\MProposalStatus;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,7 @@ class ProposalController extends Controller
         $user = DB::table('users')
             ->leftJoin('access_group', 'users.access_group_id', '=', 'access_group.id')
             ->where('users.id', Auth::user()->id)
-            ->select('users.id', 'users.name', 'access_group.name as access_group_name')
+            ->select('users.id', 'users.name', 'access_group.id as access_group_id')
             ->first();
 
         if ($user) {
@@ -30,7 +31,7 @@ class ProposalController extends Controller
         }
 
         $proposals = collect();
-        if ($user->access_group_name == 'super') {
+        if ($user->access_group_id == 1) {
             $proposals = DB::table('proposal')
                 ->leftJoin('users', 'proposal.student_id', '=', 'users.id')
                 ->leftJoin('m_proposal_status', 'proposal.m_proposal_status_id', '=', 'm_proposal_status.id')
@@ -56,6 +57,8 @@ class ProposalController extends Controller
     function getEditProposal(Request $request)
     {
         $currentData = Proposal::with('User')->where('id', $request->id)->first();
+        $member = User::find($currentData->student_id);
+
         $status = MProposalStatus::where('status', 1)->get();
 
         $proposal_bimbingan = ProposalBimbingan::with('User')
@@ -81,7 +84,8 @@ class ProposalController extends Controller
         return view('proposal.editv3', [
             'currentData' => $currentData,
             'status' => $status,
-            'proposal_bimbingan' => $proposal_bimbingan
+            'proposal_bimbingan' => $proposal_bimbingan,
+            'member' => $member
         ]);
     }
 

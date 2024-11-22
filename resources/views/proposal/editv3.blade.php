@@ -139,10 +139,10 @@
                                                                         @foreach ($bimbingan->child as $child)
                                                                             <div class="d-flex flex-start mt-4">
                                                                                 <a class="me-3" href="#">
-                                                                                    @if (empty(auth()->user()->profile_picture))
+                                                                                    @if (empty($member->profile_picture))
                                                                                         <i class="fas fa-user-circle"></i>
                                                                                     @else
-                                                                                        <img src="{{ config('app.url_backend') }}/uploads/{{ auth()->user()->profile_picture }}"
+                                                                                        <img src="{{ config('app.url_backend') }}/uploads/{{ $member->profile_picture }}"
                                                                                             class="rounded-circle shadow-1-strong"
                                                                                             alt="Profile Picture"
                                                                                             width="65"
@@ -154,7 +154,7 @@
                                                                                         <div
                                                                                             class="d-flex justify-content-between align-items-center">
                                                                                             <p class="mb-1">
-                                                                                                {{ auth()->user()->name }}
+                                                                                                {{ $member->name }}
                                                                                                 <span class="small">-
                                                                                                     {{ $child->diff }}</span>
                                                                                             </p>
