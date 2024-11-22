@@ -14,8 +14,8 @@
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Mata Kuliah</a></li>
                         <li class="breadcrumb-item"><a
-                                href="{{ route('getCourseModule', ['course_id' => $parentModule->course_id, 'page_type' => 'LMS']) }}">Course
-                                Module</a></li>
+                                href="{{ route('getCourseModule', ['course_id' => $parentModule->course_id, 'page_type' => 'LMS']) }}">Modul
+                                Mata Kuliah</a></li>
                         <li class="breadcrumb-item active">Ubah Modul Child: {{ $parentModule->name }}</li>
                     </ol>
                 </div>
