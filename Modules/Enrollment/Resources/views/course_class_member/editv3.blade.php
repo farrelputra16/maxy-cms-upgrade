@@ -186,7 +186,7 @@
                                 <div class="col-md-10">
                                     <select class="form-control select2" name="partner" data-placeholder="Pilih Mitra"
                                         required>
-                                        <option value="">Pilih Partner</option>
+                                        <option value="">Pilih Mitra</option>
                                         @foreach ($partners as $item)
                                             <option value="{{ $item->id }}"
                                                 {{ old('partner') == $item->id ? 'selected' : '' }}

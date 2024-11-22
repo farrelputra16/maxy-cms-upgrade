@@ -113,7 +113,7 @@
                                 <label for="input-tag" class="col-md-2 col-form-label">Pilih Mitra: </label>
                                 <div class="col-md-10">
                                     <select class="form-control select2" name="partner"
-                                        data-placeholder="Pilih mitra kerja sama (jika ada)" required>
+                                        data-placeholder="Pilih Mitra" required>
                                         <option value="">Pilih Mitra</option>
                                         @foreach ($partners as $item)
                                             <option value="{{ $item->id }}"

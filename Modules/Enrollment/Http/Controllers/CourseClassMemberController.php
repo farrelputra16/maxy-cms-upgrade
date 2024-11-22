@@ -173,7 +173,8 @@ class CourseClassMemberController extends Controller
     function postEditCourseClassMember(Request $request)
     {
         $request->validate([
-            'mentor.*' => 'required',
+            'mentor' => 'required|array',
+            'mentor.*' => 'required|exists:users,id',
             'jobdesc.*' => 'required',
         ]);
 
