@@ -124,7 +124,7 @@
                     console.log('eventResize');
                     handleEventUpdate(info, 'u');
                 },
-                eventMouseEnter: function(info) {
+                eventClick: function(info) {
                     // Format the start time
                     let startTime = info.event.start.toLocaleTimeString([], {
                         hour: '2-digit',
@@ -135,6 +135,9 @@
                         hour: '2-digit',
                         minute: '2-digit'
                     }) : '';
+
+                    // Remove any existing tooltips
+                    $('.fc-tooltip').remove();
 
                     // Create the tooltip content
                     let tooltip =
@@ -175,11 +178,11 @@
                         });
                     });
 
-                    let hideTooltipTimeout;
-                    $(info.el).on('mouseleave', function() {
-                        hideTooltipTimeout = setTimeout(function() {
+                    $(document).on('click', function(e) {
+                        // Check if click is outside the tooltip and event element
+                        if (!$(e.target).closest('.fc-tooltip, .fc-event').length) {
                             $('.fc-tooltip').remove();
-                        }, 2000); // 2 seconds delay before tooltip disappears
+                        }
                     });
                 },
             });
