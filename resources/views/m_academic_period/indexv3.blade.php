@@ -43,7 +43,7 @@
                             spesifik berdasarkan nama atau deskripsi.</li>
                         <li><strong>Pengurutan Data:</strong> Klik pada judul kolom, seperti "Tanggal Mulai" atau "Status,"
                             untuk mengurutkan data sesuai kebutuhan.</li>
-                        <li><strong>Edit Data:</strong> Klik tombol <em>Edit</em> pada kolom "Aksi" untuk memperbarui
+                        <li><strong>Ubah Data:</strong> Klik tombol <em>Ubah</em> pada kolom "Aksi" untuk memperbarui
                             informasi dari periode akademik tertentu.</li>
                         <li><strong>Tambah Periode Akademik Baru:</strong> Gunakan tombol <em>+</em> di pojok kanan bawah
                             untuk menambahkan data periode akademik baru ke daftar.</li>
@@ -95,7 +95,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditAcademicPeriod', ['id' => $item->id, 'access' => 'm_Event_type_update']) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                     </td>
                                 </tr>
                             @endforeach

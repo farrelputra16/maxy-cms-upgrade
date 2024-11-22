@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Periode Akademik')
+@section('title', 'Ubah Periode Akademik')
 
 @section('content')
     <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Ubah Data</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getAcademicPeriod') }}">Periode Akademik</a></li>
-                        <li class="breadcrumb-item active">Edit Periode Akademik</li>
+                        <li class="breadcrumb-item active">Ubah Periode Akademik</li>
                     </ol>
                 </div>
 
@@ -27,7 +27,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Periode Akademik: {{ $currentData->name }}</h4>
+                    <h4 class="card-title">Ubah Periode Akademik: {{ $currentData->name }}</h4>
                     <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi data dengan
                         mengubah detail yang diperlukan di bawah ini. Pastikan semua informasi yang Anda masukkan akurat
                         untuk memberikan pengalaman belajar terbaik bagi peserta.</p>
