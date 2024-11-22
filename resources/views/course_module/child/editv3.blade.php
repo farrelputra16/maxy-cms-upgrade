@@ -112,8 +112,8 @@
                                         <option value="video_pembelajaran"
                                             @if ($childModule->type == 'video_pembelajaran') selected @endif>video_pembelajaran</option>
                                         <option value="assignment" @if ($childModule->type == 'assignment') selected @endif>
-                                            Assignment</option>
-                                        <option value="quiz" @if ($childModule->type == 'quiz') selected @endif>Quiz
+                                            Tugas</option>
+                                        <option value="quiz" @if ($childModule->type == 'quiz') selected @endif>Kuis
                                         </option>
                                         <option value="eval" @if ($childModule->type == 'eval') selected @endif>Evaluasi
                                         </option>
