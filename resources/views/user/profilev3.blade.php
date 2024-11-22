@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Profile User')
+@section('title', 'Profil Pengguna')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Profile User</h4>
+                <h4 class="mb-sm-0 font-size-18">Profil Pengguna</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">User & Access</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getUser') }}">Users</a></li>
-                        <li class="breadcrumb-item active">Profile User</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Pengguna & Akses</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getUser') }}">Pengguna</a></li>
+                        <li class="breadcrumb-item active">Profil Pengguna</li>
                     </ol>
                 </div>
 
@@ -27,10 +27,18 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Profile User: {{ $currentData->name }}</small></h4>
-                    <p class="card-title-desc">This page allows you to update a data's information by modifying the data
-                        listed below. Ensure that all the information you enter is accurate to provide the best learning
-                        experience for the course participants.</p>
+                    <h4 class="card-title">Profil Pengguna: {{ $currentData->name }}</small></h4>
+                    <p class="card-title-desc">
+                        Di halaman ini, Anda dapat melihat informasi profil Anda, termasuk nama, email, nomor telepon, dan data penting lainnya. 
+                        Informasi ini bersifat hanya untuk dilihat dan tidak dapat diubah langsung di halaman ini. 
+                        <br><br>
+                        <strong>Cara Mengelola Profil:</strong>
+                    <ul>
+                        <li><strong>Lihat Detail Profil:</strong> Gunakan halaman ini untuk memastikan informasi profil Anda sudah sesuai.</li>
+                        <li><strong>Perbarui Informasi:</strong> Jika Anda ingin memperbarui data profil, silakan masuk ke platform LMS.</li>
+                    </ul>
+                    </p>
+                    
 
                     <form method="post" enctype="multipart/form-data">
                         @csrf
@@ -43,7 +51,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Name</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Nama</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ $currentData->name ?? '-' }}" disabled>
@@ -244,7 +252,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Place</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Lokasi</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="place"
                                     value="{{ $currentData->place ?? '-' }}" disabled>
@@ -306,13 +314,13 @@
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                                     <thead>
                                         <tr>
-                                            <th>Position</th>
-                                            <th>Job Type</th>
-                                            <th>Company</th>
-                                            <th>Industry</th>
-                                            <th>Location</th>
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
+                                            <th>Posisi</th>
+                                            <th>Jenis Pekerjaan</th>
+                                            <th>Perusahaan</th>
+                                            <th>Industri</th>
+                                            <th>Lokasi</th>
+                                            <th>Tanggal Mulai</th>
+                                            <th>Tanggal Selesai</th>
                                             <!-- Add more table headers as needed -->
                                         </tr>
                                     </thead>
@@ -336,7 +344,7 @@
                                     <div class="">
                                         <div class="border card border-danger">
                                             <div class="card-body text-center">
-                                                <p class="card-text text-danger">No data available</p>
+                                                <p class="card-text text-danger">Belum ada data untuk ditampilkan.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -346,17 +354,17 @@
 
 
                         <div class="mb-3 row">
-                            <h6>Education</h6>
+                            <h6>Riwayat Pendidikan.</h6>
                             @if ($currentData->UserEducation->count() > 0)
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                                     <thead>
                                         <tr>
-                                            <th>School</th>
-                                            <th>Degree</th>
-                                            <th>Fields of Study</th>
-                                            <th>Score</th>
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
+                                            <th>Sekolah</th>
+                                            <th>Gelar</th>
+                                            <th>Bidang Studi</th>
+                                            <th>Nilai</th>
+                                            <th>Tanggal Mulai</th>
+                                            <th>Tanggal Selesai</th>
                                             <!-- Add more table headers as needed -->
                                         </tr>
                                     </thead>
@@ -379,7 +387,7 @@
                                     <div class="">
                                         <div class="border card border-danger">
                                             <div class="card-body text-center">
-                                                <p class="card-text text-danger">No data available</p>
+                                                <p class="card-text text-danger">Belum ada data untuk ditampilkan.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -394,7 +402,7 @@
                                     <thead>
                                         <tr>
                                             <th>URL</th>
-                                            <th>Date Created</th>
+                                            <th>Tanggal Dibuat</th>
                                             <!-- Add more table headers as needed -->
                                         </tr>
                                     </thead>
@@ -413,7 +421,7 @@
                                     <div class="">
                                         <div class="border card border-danger">
                                             <div class="card-body text-center">
-                                                <p class="card-text text-danger">No data available</p>
+                                                <p class="card-text text-danger">Belum ada data untuk ditampilkan.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -477,7 +485,7 @@
                                     <div class="">
                                         <div class="border card border-danger">
                                             <div class="card-body text-center">
-                                                <p class="card-text text-danger">No portfolio added yet</p>
+                                                <p class="card-text text-danger">Belum ada portofolio yang ditambahkan</p>
                                             </div>
                                         </div>
                                     </div>
@@ -567,7 +575,7 @@
                                     <div class="">
                                         <div class="border card border-danger">
                                             <div class="card-body text-center">
-                                                <p class="card-text text-danger">No pengabdian added yet</p>
+                                                <p class="card-text text-danger">Belum ada pengabdian yang ditambahkan</p>
                                             </div>
                                         </div>
                                     </div>
@@ -814,13 +822,13 @@
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Company</th>
-                                            <th>ID Credential</th>
-                                            <th>URL Credential</th>
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
-                                            <th>Description</th>
+                                            <th>Nama</th>
+                                            <th>Perusahaan</th>
+                                            <th>ID Kredensial</th>
+                                            <th>URL Kredensial</th>
+                                            <th>Tanggal Mulai</th>
+                                            <th>Tanggal Selesai</th>
+                                            <th>Deskripsi</th>
                                             <!-- Add more table headers as needed -->
                                         </tr>
                                     </thead>
@@ -844,7 +852,7 @@
                                     <div class="">
                                         <div class="border card border-danger">
                                             <div class="card-body text-center">
-                                                <p class="card-text text-danger">No data available</p>
+                                                <p class="card-text text-danger">Belum ada data untuk ditampilkan.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -853,13 +861,13 @@
                         </div>
                         <br>
                         <div class="mb-3 row">
-                            <h6>Language</h6>
+                            <h6>Bahasa</h6>
                             @if ($currentData->UserLanguage->count() > 0)
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                                     <thead>
                                         <tr>
-                                            <th>Language</th>
-                                            <th>Proficiency</th>
+                                            <th>Bahasa</th>
+                                            <th>Kemampuan</th>
                                             <!-- Add more table headers as needed -->
                                         </tr>
                                     </thead>
@@ -878,7 +886,7 @@
                                     <div class="">
                                         <div class="border card border-danger">
                                             <div class="card-body text-center">
-                                                <p class="card-text text-danger">No data available</p>
+                                                <p class="card-text text-danger">Belum ada data untuk ditampilkan.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -886,7 +894,7 @@
                             @endif
                         </div>
                         <div class="mb-3 row">
-                            <h6>Active Course</h6>
+                            <h6>Kelas yang Aktif</h6>
                             @php
                                 $hasActiveCourses = false;
                             @endphp
@@ -907,7 +915,7 @@
                                     <div class="">
                                         <div class="border card border-danger">
                                             <div class="card-body text-center">
-                                                <p class="card-text text-danger">No data available</p>
+                                                <p class="card-text text-danger">Belum ada data untuk ditampilkan.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -915,7 +923,7 @@
                             @endif
                         </div>
                         <div class="mb-3 row">
-                            <h6>Completed Course</h6>
+                            <h6>Kelas yang telah Diselesaikan</h6>
                             @php
                                 $hasActiveCourses = false;
                             @endphp
@@ -936,7 +944,7 @@
                                     <div class="">
                                         <div class="border card border-danger">
                                             <div class="card-body text-center">
-                                                <p class="card-text text-danger">No data available</p>
+                                                <p class="card-text text-danger">Belum ada data untuk ditampilkan.</p>
                                             </div>
                                         </div>
                                     </div>
