@@ -37,12 +37,13 @@
                     <h4 class="card-title">Ubah Kelas: {{ $course_name }} <small>[ Angkatan:
                             {{ $course_class_detail->batch }} ]</small>
                     </h4>
-                    <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi kelas mata kuliah dengan
+                    <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi kelas mata kuliah
+                        dengan
                         mengubah data di bawah ini. Pastikan semua informasi yang Anda masukkan sudah benar untuk memberikan
                         pengalaman belajar terbaik kepada peserta mata kuliah.</p>
 
-                    <form id="editCourseClass" action="{{ route('postEditCourseClass', ['id' => request()->query('id')]) }}" method="post"
-                        enctype="multipart/form-data">
+                    <form id="editCourseClass" action="{{ route('postEditCourseClass', ['id' => request()->query('id')]) }}"
+                        method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="course_class_id" value="{{ $course_class_detail->id }}">
 
@@ -113,6 +114,17 @@
                                         </option>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="credits" class="col-md-2 col-form-label">Semester <span class="text-danger"
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="number" name="semester" id="semester"
+                                    placeholder="Masukkan semester (misalnya: 1)"
+                                    value="{{ old('semester', $course_class_detail->semester) }}"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                             </div>
                         </div>
 
@@ -193,7 +205,8 @@
 
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="editCourseClass">Simpan & Perbarui</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="editCourseClass">Simpan & Perbarui</button>
                             </div>
                         </div>
                     </form>

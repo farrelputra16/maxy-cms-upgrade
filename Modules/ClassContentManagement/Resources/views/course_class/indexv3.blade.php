@@ -68,6 +68,7 @@
                                 <th>Mulai</th>
                                 <th>Selesai</th>
                                 <th>Kuota</th>
+                                <th>Semester</th>
                                 <th>SKS</th>
                                 <th>Durasi</th>
                                 <th>Pengumuman</th>
@@ -90,18 +91,23 @@
                                     <td>{{ $item->type }}</td>
                                     <td>
                                         @if ($item->status_ongoing == 0)
-                                            <span class="badge bg-secondary" style="pointer-events: none;">Belum Dimulai</span>
+                                            <span class="badge bg-secondary" style="pointer-events: none;">Belum
+                                                Dimulai</span>
                                         @elseif ($item->status_ongoing == 1)
-                                            <span class="badge bg-success" style="pointer-events: none;">Sedang Berlangsung</span>
+                                            <span class="badge bg-success" style="pointer-events: none;">Sedang
+                                                Berlangsung</span>
                                         @elseif ($item->status_ongoing == 2)
-                                            <span class="badge bg-primary" style="pointer-events: none;">Sudah Selesai</span>
+                                            <span class="badge bg-primary" style="pointer-events: none;">Sudah
+                                                Selesai</span>
                                         @else
-                                            <span class="badge bg-danger" style="pointer-events: none;">Status Tidak Diketahui</span>
+                                            <span class="badge bg-danger" style="pointer-events: none;">Status Tidak
+                                                Diketahui</span>
                                         @endif
                                     </td>
                                     <td>{{ $item->start_date }}</td>
                                     <td>{{ $item->end_date }}</td>
                                     <td>{{ $item->quota }}</td>
+                                    <td>{{ $item->semester }}</td>
                                     <td>{{ $item->credits }}</td>
                                     <td>{{ sprintf('%02d:00:00', $item->duration) }}</td>
                                     <td class="data-long" data-toggle="tooltip"
@@ -151,6 +157,7 @@
                                 <th>Mulai</th>
                                 <th>Selesai</th>
                                 <th>Kuota</th>
+                                <th>Semester</th>
                                 <th>SKS</th>
                                 <th>Durasi</th>
                                 <th>Pengumuman</th>

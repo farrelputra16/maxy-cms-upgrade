@@ -246,6 +246,7 @@ class CourseClassController extends Controller
             'end' => 'required|date|after:start',
             'quota' => 'required|integer|gte:1',
             'ongoing' => 'required',
+            'semester' => 'required|numeric|min:1'
         ]);
         // dd($request->all());
 
@@ -262,6 +263,7 @@ class CourseClassController extends Controller
                 'quota' => $request->quota,
                 'course_id' => $request->course_id,
                 'announcement' => $request->announcement,
+                'semester' => $request->semester,
                 'content' => $request->content,
                 'description' => $request->description,
                 'status_ongoing' => $request->ongoing,
@@ -356,6 +358,7 @@ class CourseClassController extends Controller
             'end' => 'required|date|after:start',
             'quota' => 'required|integer|gte:1',
             'ongoing' => 'required',
+            'semester' => 'required|numeric|min:1'
         ]);
 
         // Update data course class
@@ -372,6 +375,7 @@ class CourseClassController extends Controller
                 'duration' => $request->duration,
                 'course_id' => $request->course_id,
                 'announcement' => $request->announcement,
+                'semester' => $request->semester,
                 'content' => $request->content,
                 'status_ongoing' => $request->ongoing ? $request->ongoing : 0,
                 'description' => $request->description,
