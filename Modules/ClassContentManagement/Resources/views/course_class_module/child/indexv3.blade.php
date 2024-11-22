@@ -106,7 +106,7 @@
                                     <td>
                                         {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditCourseClassChildModule', ['id' => $item->id, 'parent_id' => $parent_module->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                         <a href="{{ route('getJournalCourseClassChildModule', ['id' => $item->id]) }}"
                                             class="btn btn-outline-primary rounded">Kelola Jurnal</a>
                                         {{-- </div> --}}

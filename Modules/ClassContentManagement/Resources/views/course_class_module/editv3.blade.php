@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Course')
+@section('title', 'Ubah Kelas')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Data Modul Kelas</h4>
+                <h4 class="mb-sm-0 font-size-18">Ubah Data Modul Kelas</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClassModule') }}">Course Module</a></li>
-                        <li class="breadcrumb-item active">Edit Module:
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClassModule') }}">Modul Mata Kuliah</a></li>
+                        <li class="breadcrumb-item active">Ubah Module:
                             @if ($course_class_module->course_module_type != '')
                                 [{{ $course_class_module->course_module_type }}]
                             @else
@@ -33,7 +33,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Modul Kelas: {{ $course_class_module->course_module_name }} <small>[ ID:
+                    <h4 class="card-title">Ubah Modul Kelas: {{ $course_class_module->course_module_name }} <small>[ ID:
                             {{ $classDetail->course_class_id }} ]</small></h4>
                     <p class="card-title-desc">Halaman ini memungkinkan Anda memperbarui informasi modul kelas. Pastikan
                         semua data yang Anda masukkan sudah benar untuk memberikan pengalaman belajar terbaik kepada peserta

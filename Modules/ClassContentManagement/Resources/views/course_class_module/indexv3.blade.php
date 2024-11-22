@@ -13,7 +13,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Course Class: {{ $class_detail->course_name }}</li>
+                        <li class="breadcrumb-item active">Modul Mata Kuliah: {{ $class_detail->course_name }}</li>
                     </ol>
                 </div>
                 <!-- End Breadcrumb -->

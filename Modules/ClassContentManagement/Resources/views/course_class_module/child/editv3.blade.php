@@ -1,21 +1,21 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Modul Child Kelas Mata Kuliah')
+@section('title', 'Ubah Modul Child Kelas Mata Kuliah')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Modul Child</h4>
+                <h4 class="mb-sm-0 font-size-18">Ubah Modul Child</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
-                        <li class="breadcrumb-item"><a>Daftar Modul</a></li>
+                        <li class="breadcrumb-item"><a>Ubah Modul</a></li>
                         <li class="breadcrumb-item"><a>Konten</a></li>
-                        <li class="breadcrumb-item active"><a>Edit Konten</a></li>
+                        <li class="breadcrumb-item active"><a>Ubah Konten</a></li>
                     </ol>
                 </div>
             </div>
@@ -28,7 +28,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Modul Child</h4>
+                    <h4 class="card-title">Ubah Modul Child</h4>
                     <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi modul anak dengan
                         mengedit data yang tercantum di bawah ini. Pastikan semua informasi yang Anda masukkan akurat untuk
                         memberikan pengalaman belajar terbaik bagi peserta mata kuliah.</p>
