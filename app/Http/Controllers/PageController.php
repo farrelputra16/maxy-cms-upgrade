@@ -131,12 +131,6 @@ class PageController extends Controller
     }
 
 
-
-
-
-
-
-
     public function showPage(Request $request)
     {
 
