@@ -34,6 +34,8 @@ Route::post('/course/class/add', [CourseClassController::class, 'postAddCourseCl
 Route::get('/course/class/edit', [CourseClassController::class, 'getEditCourseClass'])->name('getEditCourseClass')->middleware('access:course_class_update');
 Route::post('/course/class/edit', [CourseClassController::class, 'postEditCourseClass'])->name('postEditCourseClass')->middleware('access:course_class_update');
 
+Route::delete('/course/class/delete', [CourseClassController::class, 'deleteCourseClass'])->name('deleteCourseClass')->middleware('access:course_class_delete');
+
 Route::get('/course/class/scoring', [CourseClassController::class, 'getCourseClassScoring'])->name('getCourseClassScoring')->middleware('access:course_class_update');
 Route::post('/course/class/scoring', [CourseClassController::class, 'postCourseClassScoring'])->name('postCourseClassScoring')->middleware('access:course_class_update');
 

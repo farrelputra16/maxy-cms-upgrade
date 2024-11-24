@@ -143,6 +143,17 @@
                                             class="btn btn-outline-primary btn-sm">Absensi</a>
                                         <a href="{{ route('getCourseClassScoring', ['id' => $item->id]) }}"
                                             class="btn btn-outline-primary btn-sm">Penilaian</a>
+
+                                            <form id="delete-course-class-form-{{ $item->id }}"
+                                                action="{{ route('deleteCourseClass', ['id' => $item->id]) }}"
+                                                method="POST"
+                                                class="d-inline-block"
+                                                data-course-name="{{ $item->course_name }}">
+                                              @method('DELETE')
+                                              @csrf
+                                              <button type="button" class="btn btn-sm btn-danger delete-course-class-btn">Hapus</button>
+                                          </form>
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -208,4 +219,40 @@
             });
         @endif
     </script>
+
+<script>
+    $(document).ready(function () {
+        // Handle delete confirmation
+        $('.delete-course-class-btn').on('click', function () {
+            const formId = $(this).closest('form').attr('id');
+            const courseName = $(this).closest('form').data('course-name');
+
+            Swal.fire({
+                title: `Apakah Anda yakin akan menghapus kelas <strong>${courseName}</strong>?`,
+                html: `
+                    <p>Tindakan ini akan:</p>
+                    <ul class="text-start">
+                        <li><strong>Menghapus</strong> seluruh mahasiswa yang tergabung dalam kelas ini</li>
+                        <li><strong>Menghapus</strong> seluruh modul dalam kelas ini</li>
+                        <li><strong>Menghapus</strong> seluruh absensi dalam kelas ini</li>
+                        <li><strong>Menghapus</strong> seluruh penilaian dalam kelas ini</li>
+                    </ul>
+                    <p class="text-danger"><strong>Tindakan ini tidak dapat dipulihan!</strong></p>
+                `,
+                icon: 'error',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, Saya Mengerti',
+                cancelButtonText: 'Batal',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit the form programmatically
+                    $(`#${formId}`).submit();
+                }
+            });
+        });
+    });
+</script>
+
 @endsection
