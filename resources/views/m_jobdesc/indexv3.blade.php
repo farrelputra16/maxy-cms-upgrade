@@ -57,6 +57,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Id</th>
+                                                <th>ID</th>
                                                 <th class="data-medium">Nama</th>
                                                 <th class="data-long">Deskripsi</th>
                                                 <th>Dibuat Pada</th>
@@ -71,6 +72,7 @@
                                             @foreach ($MJobdesc as $key => $item)
                                                 <tr>
                                                     <td>{{ $key + 1 }}</td>
+                                                    <td>{{ $item->id }}</td>
                                                     <td>{{ $item->id }}</td>
                                                     <td class="data-medium" data-toggle="tooltip" data-placement="top"
                                                         title="{{ $item->name }}">
@@ -102,6 +104,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Id</th>
+                                                <th>ID</th>
                                                 <th>Nama</th>
                                                 <th>Deskripsi</th>
                                                 <th>Dibuat Pada</th>
