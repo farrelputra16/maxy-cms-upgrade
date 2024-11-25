@@ -41,7 +41,7 @@
                             <li><strong>Cari dan Urutkan Data:</strong> Gunakan fitur <em>pencarian</em> dan <em>pengurutan
                                     kolom</em> untuk menemukan Program Studi dengan cepat atau mengatur urutan data
                                 berdasarkan nama atau status.</li>
-                            <li><strong>Edit Informasi Program Studi:</strong> Klik tombol <em>Edit</em> pada kolom Aksi
+                            <li><strong>Ubah Informasi Program Studi:</strong> Klik tombol <em>Ubah</em> pada kolom Aksi
                                 untuk memperbarui informasi yang sudah ada, seperti nama atau deskripsi Program Studi.</li>
                             <li><strong>Tambah Program Studi Baru:</strong> Klik ikon <em>Tambah</em> di pojok kanan bawah
                                 untuk menambahkan Program Studi baru ke dalam sistem.</li>

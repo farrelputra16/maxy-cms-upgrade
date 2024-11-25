@@ -90,7 +90,7 @@
                                     <td>
                                         {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditCarousel', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                     </td>
                                 </tr>
                             @endforeach

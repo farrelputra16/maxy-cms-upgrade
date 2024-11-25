@@ -90,7 +90,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditProposal', ['id' => $proposal->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -42,7 +42,7 @@
                             berdasarkan nama, deskripsi, atau tipe.</li>
                         <li><strong>Pengurutan Data:</strong> Klik pada judul kolom seperti "Nama" atau "Tanggal Berakhir"
                             untuk mengurutkan data dalam tabel.</li>
-                        <li><strong>Edit Survei:</strong> Klik tombol <em>Edit</em> pada kolom "Aksi" untuk memperbarui
+                        <li><strong>Ubah Survei:</strong> Klik tombol <em>Ubah</em> pada kolom "Aksi" untuk memperbarui
                             informasi survei yang ada.</li>
                         <li><strong>Tambah Survei Baru:</strong> Klik tombol <em>+</em> di sudut kanan bawah untuk membuat
                             survei baru. Anda akan diarahkan ke halaman formulir untuk memasukkan detail survei yang baru.
@@ -107,7 +107,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditSurvey', ['id' => $item->id, 'access' => 'm_survey_update']) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                         <a href="{{ route('getSurveyResult', ['id' => $item->id, 'access' => 'survey_result_manage']) }}"
                                             class="btn btn-info rounded">Hasil</a>
                                     </td>

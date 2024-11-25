@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Carousel')
+@section('title', 'Ubah Carousel')
 
 @section('content')
     <!-- start page title -->
@@ -14,7 +14,7 @@
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a>Content</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCarousel') }}">Carousels</a></li>
-                        <li class="breadcrumb-item active">Edit Carousel</li>
+                        <li class="breadcrumb-item active">Ubah Carousel</li>
                     </ol>
                 </div>
 
@@ -28,7 +28,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Carousel</h4>
+                    <h4 class="card-title">Ubah Carousel</h4>
                     <p class="card-title-desc">This page allows you to update a data's information by modifying the data
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
@@ -103,7 +103,7 @@
                             <div class="col-md-10 d-flex align-items-center">
                                 <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
                                 <input type="hidden" name="status" value="0">
-                                
+
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
                                     value="1" name="status"
                                     {{ old('status', isset($carousel) ? $carousel->status : false) ? 'checked' : '' }}>

@@ -36,7 +36,7 @@
                         <ul>
                             <li><strong>Cari Course Package:</strong> Gunakan kolom pencarian untuk mencari paket berdasarkan nama atau slug.</li>
                             <li><strong>Urutkan Data:</strong> Klik judul kolom untuk mengurutkan data berdasarkan kriteria seperti nama atau status.</li>
-                            <li><strong>Edit Data:</strong> Klik tombol <em>Edit</em> di kolom "Aksi" untuk memperbarui informasi paket mata kuliah.</li>
+                            <li><strong>Ubah Data:</strong> Klik tombol <em>Ubah</em> di kolom "Aksi" untuk memperbarui informasi paket mata kuliah.</li>
                             <li><strong>Tambah Paket Mata Kuliah Baru:</strong> Klik tombol <em>+</em> di pojok kanan bawah untuk menambahkan paket mata kuliah baru.</li>
                         </ul>
                     </p>
@@ -90,7 +90,7 @@
                                     <td>
                                         {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditCoursePackage', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                         <a href="{{ route('getCoursePackageBenefit', ['course_id' => $item->id, 'page_type' => 'LMS']) }}"
                                             class="btn btn-outline-primary rounded-end">Benefit List</a>
                                         {{-- </div> --}}

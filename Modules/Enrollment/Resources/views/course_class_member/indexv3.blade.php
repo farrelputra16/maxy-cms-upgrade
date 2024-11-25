@@ -41,7 +41,7 @@
                         <li><strong>Visibilitas Kolom dan Pengurutan:</strong> Atur tampilan dengan mengurutkan kolom
                             tertentu untuk mempermudah pencarian data spesifik. Anda juga dapat menggunakan bilah pencarian
                             untuk mencari anggota tertentu berdasarkan nama atau ID.</li>
-                        <li><strong>Edit Data:</strong> Klik tombol <em>Edit</em> pada kolom “Aksi” untuk memperbarui
+                        <li><strong>Ubah Data:</strong> Klik tombol <em>Ubah</em> pada kolom “Aksi” untuk memperbarui
                             informasi anggota kelas.</li>
                         <li><strong>Generate Sertifikat:</strong> Gunakan tombol <em>Generate Sertifikat</em> untuk membuat
                             sertifikat kelulusan anggota kelas secara otomatis.</li>
@@ -99,7 +99,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditCourseClassMember', $item->id) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                         <a href="{{ route('getGenerateCertificate', ['course_class_member' => $item->id, 'user' => $item->user_id, 'course_class' => $courseClassDetail->id]) }}"
                                             class="btn btn-info rounded">Generate Sertifikat</a>
                                     </td>

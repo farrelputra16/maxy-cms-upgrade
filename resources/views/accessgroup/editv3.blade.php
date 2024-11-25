@@ -1,20 +1,20 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Grup Akses')
+@section('title', 'Ubah Grup Akses')
 
 @section('content')
     <!-- Mulai Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Ubah Data</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a>Pengguna & Akses</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getAccessGroup') }}">Grup Akses</a></li>
-                        <li class="breadcrumb-item active">Edit Grup Akses</li>
+                        <li class="breadcrumb-item active">Ubah Grup Akses</li>
                     </ol>
                 </div>
             </div>
@@ -27,7 +27,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Grup Akses: {{ $accessgroups->name }}</h4>
+                    <h4 class="card-title">Ubah Grup Akses: {{ $accessgroups->name }}</h4>
                     <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi grup akses yang
                         sudah ada. Pastikan semua data yang Anda masukkan sudah benar untuk memudahkan pengguna dalam
                         mengakses fitur sesuai hak akses yang diberikan.</p>

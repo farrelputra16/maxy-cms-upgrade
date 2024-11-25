@@ -37,7 +37,7 @@
                             <li><strong>Nama Manfaat Paket Mata Kuliah:</strong> Lihat nama manfaat dari setiap paket mata kuliah yang dijelaskan secara singkat.</li>
                             <li><strong>Deskripsi Manfaat:</strong> Baca deskripsi rinci tentang manfaat yang akan diperoleh peserta dari paket mata kuliah ini.</li>
                             <li><strong>Tambah Manfaat:</strong> Klik tombol <em>Tambah Manfaat</em> untuk menambahkan manfaat baru pada paket mata kuliah.</li>
-                            <li><strong>Edit Manfaat:</strong> Klik tombol <em>Edit</em> di kolom "Aksi" untuk memperbarui informasi manfaat paket mata kuliah.</li>
+                            <li><strong>Ubah Manfaat:</strong> Klik tombol <em>Ubah</em> di kolom "Aksi" untuk memperbarui informasi manfaat paket mata kuliah.</li>
                         </ul>
                     </p>
 
@@ -88,7 +88,7 @@
                                     <td>
                                         {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditCoursePackageBenefit', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                         {{-- </div> --}}
                                     </td>
                                 </tr>

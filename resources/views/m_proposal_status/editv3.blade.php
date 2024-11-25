@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Status Proposal')
+@section('title', 'Ubah Status Proposal')
 
 @section('content')
     <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Ubah Data</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getProposalStatus') }}">Status Proposal</a></li>
-                        <li class="breadcrumb-item active">Edit Status Proposal</li>
+                        <li class="breadcrumb-item active">Ubah Status Proposal</li>
                     </ol>
                 </div>
 
@@ -27,7 +27,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit: {{ $currentData->name }}</h4>
+                    <h4 class="card-title">Ubah: {{ $currentData->name }}</h4>
                     <p class="card-title-desc">
                         Di halaman ini, Anda dapat memperbarui informasi status proposal yang ada dengan mengisi atau
                         mengedit data di bawah ini. Setelah selesai, klik "Simpan & Perbarui" untuk menyimpan perubahan.

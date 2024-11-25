@@ -41,7 +41,7 @@
                             memfokuskan pada informasi tertentu.</li>
                         <li><strong>Pengurutan dan Pencarian:</strong> Klik pada header kolom untuk mengurutkan data, atau
                             gunakan kotak pencarian untuk menemukan hak akses berdasarkan kata kunci.</li>
-                        <li><strong>Edit Hak Akses:</strong> Klik tombol <em>Edit</em> di kolom "Aksi" untuk memperbarui
+                        <li><strong>Ubah Hak Akses:</strong> Klik tombol <em>Ubah</em> di kolom "Aksi" untuk memperbarui
                             detail hak akses utama.</li>
                         <li><strong>Tambah Hak Akses Baru:</strong> Klik ikon <em>Tambah</em> di kanan bawah untuk
                             menambahkan hak akses utama baru.</li>
@@ -86,7 +86,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditAccessMaster', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                     </td>
                                 </tr>
                             @endforeach

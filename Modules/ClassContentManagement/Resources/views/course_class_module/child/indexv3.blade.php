@@ -39,7 +39,7 @@
                             berdasarkan hari atau tanggal.</li>
                         <li><strong>Lihat Deskripsi Lengkap:</strong> Arahkan kursor ke deskripsi yang terpotong untuk
                             melihat konten penuh.</li>
-                        <li><strong>Edit Modul:</strong> Klik tombol <em>Edit</em> pada kolom “Aksi” untuk memperbarui
+                        <li><strong>Ubah Modul:</strong> Klik tombol <em>Ubah</em> pada kolom “Aksi” untuk memperbarui
                             informasi modul yang ada.</li>
                         <li><strong>Kelola Jurnal:</strong> Tombol <em>Kelola Jurnal</em> memungkinkan Anda mengakses jurnal
                             terkait modul.</li>

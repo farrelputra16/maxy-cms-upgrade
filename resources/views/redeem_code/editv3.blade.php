@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Redeem Code')
+@section('title', 'Ubah Redeem Code')
 
 @section('content')
     <!-- start page title -->
@@ -14,7 +14,7 @@
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a>Members</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getRedeemCode') }}">Redeem Codes</a></li>
-                        <li class="breadcrumb-item active">Edit Redeem Code</li>
+                        <li class="breadcrumb-item active">Ubah Redeem Code</li>
                     </ol>
                 </div>
 
@@ -28,7 +28,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Redeem Code: {{ $currentData->name }}</h4>
+                    <h4 class="card-title">Ubah Redeem Code: {{ $currentData->name }}</h4>
                     <p class="card-title-desc">Halaman ini digunakan untuk memperbarui informasi redeem code.</p>
 
                     <form action="{{ route('postEditRedeemCode') }}" method="post" enctype="multipart/form-data">

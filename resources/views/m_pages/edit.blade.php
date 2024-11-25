@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Halaman')
+@section('title', 'Ubah Halaman')
 
 @section('content')
     <!-- Judul Halaman -->
@@ -9,13 +9,13 @@
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                 <h4 class="mb-sm-0 font-size-18">
                     @if (isset($pageContents) && $pageContents->first()->page_id == 1)
-                        Edit Halaman - Beranda
+                        Ubah Halaman - Beranda
                     @elseif (isset($pageContents) && $pageContents->first()->page_id == 2)
-                        Edit Halaman - Jelajahi Kursus
+                        Ubah Halaman - Jelajahi Kursus
                     @elseif (isset($pageContents) && $pageContents->first()->page_id == 3)
-                        Edit Halaman - Blog
+                        Ubah Halaman - Blog
                     @else
-                        Edit Halaman - Konten Tidak Tersedia
+                        Ubah Halaman - Konten Tidak Tersedia
                     @endif
                 </h4>
                 <div class="page-title-right">
@@ -23,7 +23,7 @@
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a>Pengaturan</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getGeneral') }}">Halaman</a></li>
-                        <li class="breadcrumb-item active">Edit Halaman</li>
+                        <li class="breadcrumb-item active">Ubah Halaman</li>
                     </ol>
                 </div>
             </div>

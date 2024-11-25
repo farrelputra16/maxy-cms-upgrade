@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Blog')
+@section('title', 'Ubah Blog')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Ubah Data</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getBlog') }}">Blog</a></li>
-                        <li class="breadcrumb-item active">Edit Blog: {{ $data->title }}</li>
+                        <li class="breadcrumb-item active">Ubah Blog: {{ $data->title }}</li>
                     </ol>
                 </div>
 
@@ -27,7 +27,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Data Blog</h4>
+                    <h4 class="card-title">Ubah Data Blog</h4>
                     <p class="card-title-desc">
                         Halaman ini digunakan untuk memperbarui informasi blog. Anda dapat mengubah judul, slug, konten,
                         gambar

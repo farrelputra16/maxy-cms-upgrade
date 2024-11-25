@@ -1,20 +1,20 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Pengguna')
+@section('title', 'Ubah Pengguna')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Ubah Data</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a>Pengguna & Akses</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getUser') }}">Pengguna</a></li>
-                        <li class="breadcrumb-item active">Edit Pengguna</li>
+                        <li class="breadcrumb-item active">Ubah Pengguna</li>
                     </ol>
                 </div>
 
@@ -28,7 +28,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Pengguna: {{ $currentData->name }}</h4>
+                    <h4 class="card-title">Ubah Pengguna: {{ $currentData->name }}</h4>
                     <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi pengguna dengan
                         mengedit data yang tercantum di bawah ini. Pastikan semua data yang Anda masukkan benar untuk
                         memastikan kelancaran proses dan pengalaman pengguna yang optimal.</p>

@@ -41,7 +41,7 @@
                             ingin ditampilkan atau disembunyikan.</li>
                         <li><strong>Pengurutan dan Pencarian:</strong> Klik pada header kolom untuk mengurutkan data, atau
                             gunakan bilah pencarian untuk menemukan pengguna tertentu berdasarkan kata kunci.</li>
-                        <li><strong>Edit dan Lihat Profil:</strong> Gunakan tombol <em>Edit</em> untuk mengubah data
+                        <li><strong>Ubah dan Lihat Profil:</strong> Gunakan tombol <em>Ubah</em> untuk mengubah data
                             pengguna atau <em>Profil</em> untuk melihat profil pengguna secara detail.</li>
                         <li><strong>Tambah Pengguna Baru:</strong> Klik ikon <em>Tambah</em> di kanan bawah untuk
                             menambahkan pengguna baru.</li>
@@ -129,7 +129,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditUser', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                         <a href="{{ route('getProfileUser', ['id' => $item->id]) }}"
                                             class="btn btn-outline-primary rounded">Profil</a>
                                     </td>

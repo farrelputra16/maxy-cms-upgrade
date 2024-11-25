@@ -40,7 +40,7 @@
                         </li>
                         <li><strong>Urutkan & Cari:</strong> Klik judul kolom untuk mengurutkan data atau gunakan pencarian
                             untuk menemukan event berdasarkan kata kunci.</li>
-                        <li><strong>Edit & Akses Kehadiran:</strong> Gunakan tombol di kolom “Aksi” untuk mengedit detail
+                        <li><strong>Ubah & Akses Kehadiran:</strong> Gunakan tombol di kolom “Aksi” untuk mengubah detail
                             event, memeriksa kehadiran, atau mengelola persyaratan.</li>
                         <li><strong>Tambah Event:</strong> Klik ikon <em>Tambah</em> di kanan bawah untuk menambahkan event
                             baru.</li>
@@ -115,7 +115,7 @@
                                     <td>
                                         {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditEvent', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                         <a href="{{ route('getAttendanceEvent', ['id' => $item->id]) }}"
                                             class="btn btn-info">Kehadiran</a>
                                         <a href="{{ route('getEventRequirement', ['id' => $item->id]) }}"

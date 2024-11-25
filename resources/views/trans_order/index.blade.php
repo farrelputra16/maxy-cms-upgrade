@@ -123,7 +123,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditTransOrder', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                         <a href="{{ route('getTransOrderConfirm', ['id' => $item->id]) }}"
                                             class="btn btn-info rounded">Bukti Pembayaran</a>
                                     </td>

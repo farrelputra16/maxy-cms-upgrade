@@ -41,7 +41,7 @@
                             ingin ditampilkan atau disembunyikan.</li>
                         <li><strong>Pengurutan dan Pencarian:</strong> Klik pada header kolom untuk mengurutkan data, atau
                             gunakan bilah pencarian untuk menemukan grup akses tertentu berdasarkan kata kunci.</li>
-                        <li><strong>Edit Grup Akses:</strong> Klik tombol <em>Edit</em> pada kolom “Aksi” untuk memperbarui
+                        <li><strong>Ubah Grup Akses:</strong> Klik tombol <em>Ubah</em> pada kolom “Aksi” untuk memperbarui
                             informasi grup akses.</li>
                         <li><strong>Tambah Grup Akses Baru:</strong> Klik ikon <em>Tambah</em> di kanan bawah untuk
                             menambahkan grup akses baru.</li>
@@ -86,7 +86,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditAccessGroup', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                     </td>
                                 </tr>
                             @endforeach

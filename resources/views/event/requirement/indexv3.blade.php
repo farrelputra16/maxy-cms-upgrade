@@ -45,7 +45,7 @@
                             Anda dapat memprioritaskan pengecekan pada item yang diperlukan.</li>
                         <li>Kolom <b>Status</b> memberi tahu apakah persyaratan saat ini dalam kondisi <i>Aktif</i> atau
                             <i>Non Aktif</i>.</li>
-                        <li>Gunakan tombol <b>Edit</b> di kolom <b>Aksi</b> untuk memperbarui informasi persyaratan jika
+                        <li>Gunakan tombol <b>Ubah</b> di kolom <b>Aksi</b> untuk memperbarui informasi persyaratan jika
                             diperlukan.</li>
                         <li>Untuk menambahkan persyaratan baru, klik tombol tambah di sudut kanan bawah halaman ini.</li>
                         <li>Gunakan fitur <b>Visibilitas Kolom</b>, <b>Pengurutan</b>, dan <b>Pencarian</b> untuk mengatur
@@ -112,7 +112,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditEventRequirement', ['id' => $item->id, 'event_id' => $event->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                     </td>
                                 </tr>
                             @endforeach

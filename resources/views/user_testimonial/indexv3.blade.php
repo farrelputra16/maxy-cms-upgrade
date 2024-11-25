@@ -95,7 +95,7 @@
                                     <td>
                                         {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditTestimonial', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                         {{-- </div> --}}
                                     </td>
                                 </tr>

@@ -43,7 +43,7 @@
                             menjelaskan kategori atau tujuan penggunaannya.</li>
                         <li>Kolom <b>Status</b> menunjukkan apakah tag aktif (dapat digunakan dalam artikel) atau non-aktif
                             (tidak ditampilkan).</li>
-                        <li>Klik tombol <b>Edit</b> di kolom Aksi untuk memperbarui informasi tag, seperti mengganti warna
+                        <li>Klik tombol <b>Ubah</b> di kolom Aksi untuk memperbarui informasi tag, seperti mengganti warna
                             atau mengubah status tag.</li>
                         <li>Untuk menambahkan tag baru, klik tombol tambah di sudut kanan bawah halaman ini.</li>
                         <li>Manfaatkan fitur <b>Visibilitas Kolom</b>, <b>Pengurutan</b>, dan <b>Pencarian</b> untuk
@@ -102,7 +102,7 @@
                                     <td>
                                         <div class="btn-group">
                                             <a href="{{ route('getEditBlogTag', ['id' => $item->id]) }}"
-                                                class="btn btn-primary">Edit</a>
+                                                class="btn btn-primary">Ubah</a>
                                         </div>
                                     </td>
                                 </tr>

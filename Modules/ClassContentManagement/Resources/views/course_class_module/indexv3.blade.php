@@ -42,7 +42,7 @@
                             berdasarkan hari atau tanggal.</li>
                         <li><strong>Lihat Deskripsi Lengkap:</strong> Arahkan kursor ke teks yang terpotong pada kolom
                             deskripsi untuk melihat konten lengkap dari deskripsi modul.</li>
-                        <li><strong>Edit Modul:</strong> Klik tombol <em>Ubah</em> pada kolom “Aksi” untuk memperbarui
+                        <li><strong>Ubah Modul:</strong> Klik tombol <em>Ubah</em> pada kolom “Aksi” untuk memperbarui
                             informasi modul yang ada.</li>
                         <li><strong>Atur Konten Modul:</strong> Tombol <em>Atur Konten</em> memungkinkan Anda mengakses dan
                             mengelola sub-modul atau materi di dalam modul tersebut.</li>

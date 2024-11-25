@@ -44,7 +44,7 @@
                             kerja sama dengan mitra tersebut.</li>
                         <li>Kolom <b>Status</b> menunjukkan apakah kerja sama saat ini <i>Aktif</i> atau <i>Non Aktif</i>,
                             membantu Anda melacak kerja sama yang masih berlangsung.</li>
-                        <li>Gunakan kolom <b>Aksi</b> untuk mengedit informasi kerja sama dengan menekan tombol <b>Edit</b>
+                        <li>Gunakan kolom <b>Aksi</b> untuk mengedit informasi kerja sama dengan menekan tombol <b>Ubah</b>
                             di setiap baris data, jika terdapat perubahan pada detail kerja sama.</li>
                         <li>Untuk menambahkan data kerja sama baru, klik tombol tambah di sudut kanan bawah halaman ini.
                         </li>
@@ -113,7 +113,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditPartnership', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                     </td>
                                 </tr>
                             @endforeach

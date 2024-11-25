@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Event')
+@section('title', 'Ubah Event')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Ubah Data</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getEvent') }}">Event</a></li>
-                        <li class="breadcrumb-item active">Edit Event</li>
+                        <li class="breadcrumb-item active">Ubah Event</li>
                     </ol>
                 </div>
 
@@ -27,7 +27,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Edit Event</h4>
+                    <h4 class="card-title">Ubah Event</h4>
                     <p class="card-title-desc">Halaman ini digunakan untuk memperbarui informasi event.</p>
 
                     <form action="{{ route('postEditEvent', ['id' => request()->query('id')]) }}" method="post"
@@ -157,7 +157,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Edit Event</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Ubah Event</button>
                             </div>
                         </div>
                     </form>

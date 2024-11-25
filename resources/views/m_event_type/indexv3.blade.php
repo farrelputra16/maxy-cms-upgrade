@@ -43,7 +43,7 @@
                         <li><strong>Pengurutan Data:</strong> Klik pada judul kolom seperti "Nama Tipe Event" atau "Status"
                             untuk mengurutkan data dalam tabel berdasarkan kolom tersebut. Pengurutan ini membantu Anda
                             untuk meninjau data dengan lebih mudah dan teratur.</li>
-                        <li><strong>Edit Tipe Event:</strong> Gunakan tombol <em>Edit</em> pada kolom "Aksi" di setiap baris
+                        <li><strong>Ubah Tipe Event:</strong> Gunakan tombol <em>Ubah</em> pada kolom "Aksi" di setiap baris
                             untuk memperbarui informasi detail dari tipe event yang telah ada.</li>
                         <li><strong>Tambah Tipe Event Baru:</strong> Untuk menambahkan tipe event baru, klik tombol
                             <em>+</em> di pojok kanan bawah. Anda akan diarahkan ke formulir untuk menambahkan data tipe
@@ -95,7 +95,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditEventType', ['id' => $item->id, 'access' => 'm_Event_type_update']) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                     </td>
                                 </tr>
                             @endforeach

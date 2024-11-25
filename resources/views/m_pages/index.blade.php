@@ -41,7 +41,7 @@
                         <li><strong>Pengaturan Kolom:</strong> Klik header kolom untuk mengurutkan data berdasarkan nomor
                             atau nama halaman. Pilih kolom yang ingin ditampilkan atau disembunyikan sesuai kebutuhan Anda.
                         </li>
-                        <li><strong>Edit Halaman:</strong> Gunakan tombol <em>Edit</em> pada kolom "Aksi" untuk membuka
+                        <li><strong>Ubah Halaman:</strong> Gunakan tombol <em>Ubah</em> pada kolom "Aksi" untuk membuka
                             halaman pengaturan detail dari setiap halaman yang ingin Anda ubah.</li>
                         <li><strong>Tambah Halaman Baru:</strong> Klik tombol tambah di kanan bawah (ikon "+") untuk
                             menambahkan halaman baru ke dalam sistem, sehingga website tetap up-to-date dan sesuai
@@ -76,10 +76,10 @@
                                     </td>
 
 
-                                    {{-- Edit Button --}}
+                                    {{-- Ubah Button --}}
                                     <td>
                                         <a href="{{ route('getEditPage', ['id' => $section->page_id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                     </td>
                                 </tr>
                             @endforeach

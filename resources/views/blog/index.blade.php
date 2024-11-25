@@ -47,7 +47,7 @@
                             unggulan), yang ditandai dengan ikon cek hijau atau silang merah.</li>
                         <li>Kolom <b>Status</b> memperlihatkan apakah artikel sedang <i>Aktif</i> (diterbitkan) atau <i>Non
                                 Aktif</i> (tidak diterbitkan).</li>
-                        <li>Gunakan tombol <b>Edit</b> pada kolom <b>Aksi</b> untuk mengubah konten atau detail artikel yang
+                        <li>Gunakan tombol <b>Ubah</b> pada kolom <b>Aksi</b> untuk mengubah konten atau detail artikel yang
                             diinginkan.</li>
                         <li>Untuk menambah artikel blog baru, klik tombol tambah di sudut kanan bawah halaman.</li>
                         <li>Manfaatkan fitur <b>Visibilitas Kolom</b>, <b>Pengurutan</b>, dan <b>Pencarian</b> pada tabel
@@ -124,7 +124,7 @@
                                     <td>
                                         <div class="btn-group">
                                             <a href="{{ route('getEditBlog', ['id' => $item->id]) }}"
-                                                class="btn btn-primary">Edit</a>
+                                                class="btn btn-primary">Ubah</a>
                                         </div>
                                     </td>
                                 </tr>

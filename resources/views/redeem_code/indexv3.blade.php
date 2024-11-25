@@ -29,7 +29,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Kode Redeem</h4>
-                    <p class="card-title-desc">Halaman ini menampilkan table untuk melakukan manajemen kode redeem. Detail terkait kode Redeem dapat diakses melalui tombol action edit.
+                    <p class="card-title-desc">Halaman ini menampilkan table untuk melakukan manajemen kode redeem. Detail terkait kode Redeem dapat diakses melalui tombol aksi ubah.
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
@@ -84,7 +84,7 @@
                                     <td>
                                         {{-- <div class="btn-group"> --}}
                                         <a href="{{ route('getEditRedeemCode', ['id' => $redeemCode->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                         {{-- </div> --}}
                                     </td>
                                 </tr>

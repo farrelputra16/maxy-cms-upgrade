@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Template Sertifikat')
+@section('title', 'Ubah Template Sertifikat')
 
 @section('content')
     <!-- Mulai Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Template Sertifikat</h4>
+                <h4 class="mb-sm-0 font-size-18">Ubah Template Sertifikat</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('certificate-templates.index') }}">Template</a></li>
-                        <li class="breadcrumb-item active">Edit Template Sertifikat</li>
+                        <li class="breadcrumb-item active">Ubah Template Sertifikat</li>
                     </ol>
                 </div>
             </div>
@@ -25,7 +25,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Form Edit Template Sertifikat</h4>
+                    <h4 class="card-title">Form Ubah Template Sertifikat</h4>
                     <p class="card-title-desc">Gunakan form di bawah ini untuk memperbarui informasi template sertifikat.
                         Pastikan semua informasi yang Anda masukkan akurat agar sertifikat yang dihasilkan sesuai dengan
                         kebutuhan peserta mata kuliah.</p>

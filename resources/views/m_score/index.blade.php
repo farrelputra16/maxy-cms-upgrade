@@ -43,7 +43,7 @@
                             tertentu berdasarkan nama atau deskripsi.</li>
                         <li><strong>Pengurutan Data:</strong> Klik pada judul kolom, seperti "Tingkat Penilaian" atau
                             "Rentang Awal," untuk mengurutkan data sesuai kebutuhan.</li>
-                        <li><strong>Edit Data:</strong> Klik tombol <em>Edit</em> di kolom "Aksi" untuk memperbarui
+                        <li><strong>Ubah Data:</strong> Klik tombol <em>Ubah</em> di kolom "Aksi" untuk memperbarui
                             informasi tingkat penilaian tertentu.</li>
                         <li><strong>Tambah Tingkat Penilaian Baru:</strong> Gunakan tombol <em>+</em> di sudut kanan bawah
                             untuk menambahkan data tingkat penilaian baru ke daftar.</li>

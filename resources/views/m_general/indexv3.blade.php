@@ -45,7 +45,7 @@
                         <li>Kolom <b>Status</b> menunjukkan apakah pengaturan tersebut sedang aktif (ditandai dengan tombol
                             hijau) atau non-aktif (tombol merah), membantu Anda memverifikasi pengaturan yang sedang
                             diterapkan.</li>
-                        <li>Gunakan tombol <b>Edit</b> di kolom Aksi untuk memperbarui informasi pengaturan, seperti
+                        <li>Gunakan tombol <b>Ubah</b> di kolom Aksi untuk memperbarui informasi pengaturan, seperti
                             mengubah logo institusi atau memperbarui informasi kontak.</li>
                         <li>Untuk menambahkan pengaturan baru, klik tombol tambah di sudut kanan bawah halaman ini.</li>
                         <li>Manfaatkan fitur <b>Visibilitas Kolom</b>, <b>Pengurutan</b>, dan <b>Pencarian</b> untuk
@@ -99,7 +99,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditGeneral', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                     </td>
                                 </tr>
                             @endforeach

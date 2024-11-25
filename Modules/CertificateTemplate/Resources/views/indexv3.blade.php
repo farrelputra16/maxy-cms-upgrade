@@ -43,7 +43,7 @@
                             yang ingin disembunyikan.</li>
                         <li><strong>Lihat Gambar Template:</strong> Tinjau pratinjau gambar template di kolom Gambar untuk
                             memastikan tampilannya sesuai.</li>
-                        <li><strong>Edit dan Hapus:</strong> Gunakan tombol <em>Edit</em> untuk mengubah informasi template
+                        <li><strong>Ubah dan Hapus:</strong> Gunakan tombol <em>Ubah</em> untuk mengubah informasi template
                             atau <em>Hapus</em> untuk menghapus template.</li>
                         <li><strong>Tambah Template Baru:</strong> Klik tombol tambah di kanan bawah untuk menambahkan
                             template sertifikat baru ke dalam sistem.</li>
@@ -89,7 +89,7 @@
                                     <td>{{ $certificateTemplate->updated_id }}</td>
                                     <td>
                                         <a href="{{ route('certificate-templates.edit', $certificateTemplate->id) }}"
-                                            class="btn btn-primary">Edit</a>
+                                            class="btn btn-primary">Ubah</a>
                                         <!-- Delete Form -->
                                         <form
                                             action="{{ route('certificate-templates.destroy', $certificateTemplate->id) }}"

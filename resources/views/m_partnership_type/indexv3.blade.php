@@ -41,7 +41,7 @@
                             kemitraan tertentu dengan cepat.</li>
                         <li><strong>Pengurutan Data:</strong> Klik pada judul kolom seperti "Nama Tipe Kemitraan" atau
                             "Status" untuk mengurutkan data dalam tabel sesuai kebutuhan.</li>
-                        <li><strong>Edit Data:</strong> Klik tombol <em>Edit</em> pada kolom "Aksi" untuk memperbarui
+                        <li><strong>Ubah Data:</strong> Klik tombol <em>Ubah</em> pada kolom "Aksi" untuk memperbarui
                             informasi tipe kemitraan yang ada.</li>
                         <li><strong>Tambah Tipe Kemitraan Baru:</strong> Klik tombol <em>+</em> di sudut kanan bawah untuk
                             menambahkan tipe kemitraan baru. Anda akan diarahkan ke halaman formulir untuk memasukkan detail
@@ -90,7 +90,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditPartnershipType', ['id' => $item->id, 'access' => 'm_Partnership_type_update']) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                     </td>
                                 </tr>
                             @endforeach

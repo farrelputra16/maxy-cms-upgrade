@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Survei')
+@section('title', 'Ubah Survei')
 
 @section('style')
     <!-- Survey Builder -->
@@ -21,13 +21,13 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Ubah Data</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getSurvey') }}">Survei</a></li>
-                        <li class="breadcrumb-item active">Edit Survei</li>
+                        <li class="breadcrumb-item active">Ubah Survei</li>
                     </ol>
                 </div>
             </div>
@@ -39,7 +39,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Edit: {{ $currentData->name }}</h4>
+                    <h4 class="card-title">Ubah: {{ $currentData->name }}</h4>
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda memperbarui informasi survei. Pastikan semua informasi yang Anda
                         masukkan akurat untuk memberikan pengalaman terbaik bagi peserta.

@@ -42,7 +42,7 @@
                                 tertentu dengan cepat berdasarkan kata kunci seperti nama atau deskripsi.</li>
                             <li><strong>Pengurutan Kolom:</strong> Klik judul kolom tertentu untuk mengurutkan data,
                                 misalnya untuk menampilkan jenis proposal yang terakhir diperbarui di urutan atas.</li>
-                            <li><strong>Edit Data:</strong> Klik tombol <em>Edit</em> di kolom Aksi pada baris data yang
+                            <li><strong>Ubah Data:</strong> Klik tombol <em>Ubah</em> di kolom Aksi pada baris data yang
                                 ingin Anda perbarui untuk mengedit informasi atau status jenis proposal.</li>
                             <li><strong>Tambah Jenis Proposal Baru:</strong> Klik ikon <em>Tambah</em> di pojok kanan bawah
                                 untuk menambahkan jenis proposal baru ke dalam sistem.</li>
@@ -92,7 +92,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditProposalType', ['id' => $item->id, 'access' => 'm_proposal_type_update']) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                     </td>
                                 </tr>
                             @endforeach

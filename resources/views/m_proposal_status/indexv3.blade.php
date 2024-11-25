@@ -47,7 +47,7 @@
                                 tertentu secara cepat berdasarkan nama atau deskripsi.</li>
                             <li><strong>Pengurutan Kolom:</strong> Klik judul kolom untuk mengurutkan data, misalnya
                                 berdasarkan status aktif atau tanggal pembaruan, untuk kemudahan navigasi.</li>
-                            <li><strong>Edit Data:</strong> Klik tombol <em>Edit</em> di kolom "Aksi" pada baris data yang
+                            <li><strong>Ubah Data:</strong> Klik tombol <em>Ubah</em> di kolom "Aksi" pada baris data yang
                                 ingin diperbarui untuk mengubah informasi status atau status aktif/nonaktif dari proposal.
                             </li>
                             <li><strong>Tambah Status Proposal Baru:</strong> Gunakan ikon <em>+</em> di pojok kanan bawah
@@ -97,7 +97,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getEditProposalStatus', ['id' => $item->id, 'access' => 'm_proposal_Status_update']) }}"
-                                            class="btn btn-primary rounded">Edit</a>
+                                            class="btn btn-primary rounded">Ubah</a>
                                     </td>
                                 </tr>
                             @endforeach

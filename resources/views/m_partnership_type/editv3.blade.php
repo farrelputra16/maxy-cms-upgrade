@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Edit Tipe Kemitraan')
+@section('title', 'Ubah Tipe Kemitraan')
 
 @section('content')
     <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Edit Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Ubah Data</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getPartnershipType') }}">Tipe Kemitraan</a></li>
-                        <li class="breadcrumb-item active">Edit Tipe Kemitraan: {{ $currentData->name }}</li>
+                        <li class="breadcrumb-item active">Ubah Tipe Kemitraan: {{ $currentData->name }}</li>
                     </ol>
                 </div>
 
