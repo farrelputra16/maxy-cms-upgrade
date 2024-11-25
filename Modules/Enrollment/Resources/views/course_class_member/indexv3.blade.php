@@ -101,7 +101,7 @@
                                         <a href="{{ route('getEditCourseClassMember', $item->id) }}"
                                             class="btn btn-primary rounded">Ubah</a>
                                         <a href="{{ route('getGenerateCertificate', ['course_class_member' => $item->id, 'user' => $item->user_id, 'course_class' => $courseClassDetail->id]) }}"
-                                            class="btn btn-info rounded">Generate Sertifikat</a>
+                                            class="btn btn-info rounded">Buat Sertifikat</a>
                                     </td>
                                 </tr>
                             @endforeach
