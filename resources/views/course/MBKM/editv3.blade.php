@@ -47,22 +47,12 @@
                         @csrf
                         <input type="text" name="img_keep" value="{{ $courses->image }}" hidden>
 
-                        <div class="mb-3 row">
-                            <label for="input-code" class="col-md-2 col-form-label">
-                                Kode Mata Kuliah <span class="text-danger" data-bs-toggle="tooltip"
-                                    title="Wajib diisi">*</span>
-                            </label>
+                        <input type="hidden" name="mbkmForm">
 
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" name="code"
-                                    value="{{ old('code', (count(explode('-', $courses->name)) > 1 ? explode('-', $courses->name)[0] : '')) }}"
-                                    id="code">
-                            </div>
-                        </div>
 
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nama MBKM <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', count(explode('-', $courses->name)) > 1 ? explode('-', $courses->name)[1] : '') }}"
@@ -71,7 +61,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug" id="slug"
                                     value="{{ old('slug', $courses->slug) }}" readonly>
@@ -161,7 +151,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Konten Tambahan</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="content">{{ old('content', $courses->content) }}</textarea>
+                                <textarea id="content-editor" name="content">{{ old('content', $courses->content) }}</textarea>
                                 @if ($errors->has('content'))
                                     @foreach ($errors->get('content') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -172,7 +162,7 @@
                         <div class="mb-3 row">
                             <label for="input-short-description" class="col-md-2 col-form-label">Ringkasan Singkat</label>
                             <div class="col-md-10">
-                                <textarea id="elmDesc" name="short_description">{{ old('short_description', $courses->short_description) }}</textarea>
+                                <textarea id="short-description-editor" name="short_description">{{ old('short_description', $courses->short_description) }}</textarea>
                                 @if ($errors->has('short_description'))
                                     @foreach ($errors->get('short_description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -183,7 +173,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Detail Ringkasan</label>
                             <div class="col-md-10">
-                                <textarea id="elm2" name="description" class="form-control">{{ old('description', $courses->description) }}</textarea>
+                                <textarea id="description-editor" name="description" class="form-control">{{ old('description', $courses->description) }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -284,35 +274,88 @@
             }
         })
 
-        document.addEventListener("DOMContentLoaded", function() {
-            // Initialize TinyMCE for the 'content' textarea
-            if (document.getElementById("elmDesc")) {
-                tinymce.init({
-                    selector: "textarea#elmDesc",
-                    height: 350,
-                    plugins: [
-                        "advlist",
-                        "autolink",
-                        "lists",
-                        "link",
-                        "image",
-                        "charmap",
-                        "preview",
-                        "anchor",
-                        "searchreplace",
-                        "visualblocks",
-                        "code",
-                        "fullscreen",
-                        "insertdatetime",
-                        "media",
-                        "table",
-                        "help",
-                        "wordcount",
-                    ],
-                    toolbar: "undo redo | blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
-                    content_style: 'body { font-family:"Poppins",sans-serif; font-size:16px }',
-                });
-            }
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Inisialisasi untuk Konten
+            tinymce.init({
+                selector: '#content-editor',
+                height: 350,
+                plugins: [
+                    "advlist",
+                    "autolink",
+                    "lists",
+                    "link",
+                    "image",
+                    "charmap",
+                    "preview",
+                    "anchor",
+                    "searchreplace",
+                    "visualblocks",
+                    "code",
+                    "fullscreen",
+                    "insertdatetime",
+                    "media",
+                    "table",
+                    "help",
+                    "wordcount",
+                ],
+                toolbar: "undo redo | blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+                content_style: 'body { font-family:"Poppins",sans-serif; font-size:16px }',
+            });
+
+
+            tinymce.init({
+                selector: '#short-description-editor',
+                height: 350,
+                plugins: [
+                    "advlist",
+                    "autolink",
+                    "lists",
+                    "link",
+                    "image",
+                    "charmap",
+                    "preview",
+                    "anchor",
+                    "searchreplace",
+                    "visualblocks",
+                    "code",
+                    "fullscreen",
+                    "insertdatetime",
+                    "media",
+                    "table",
+                    "help",
+                    "wordcount",
+                ],
+                toolbar: "undo redo | blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+                content_style: 'body { font-family:"Poppins",sans-serif; font-size:16px }',
+            });
+
+            // Inisialisasi untuk Deskripsi
+            tinymce.init({
+                selector: '#description-editor',
+                height: 350,
+                plugins: [
+                    "advlist",
+                    "autolink",
+                    "lists",
+                    "link",
+                    "image",
+                    "charmap",
+                    "preview",
+                    "anchor",
+                    "searchreplace",
+                    "visualblocks",
+                    "code",
+                    "fullscreen",
+                    "insertdatetime",
+                    "media",
+                    "table",
+                    "help",
+                    "wordcount",
+                ],
+                toolbar: "undo redo | blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+                content_style: 'body { font-family:"Poppins",sans-serif; font-size:16px }',
+            });
         });
     </script>
 @endsection
