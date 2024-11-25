@@ -40,6 +40,20 @@
                         {{-- <input type="text" name="img_keep" value="{{ $blog->cover_img }}" hidden> --}}
 
                         <div class="mb-3 row">
+                            <label for="code" class="col-md-2 col-form-label">Kode <span class="text-danger"
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" name="code" id="code"
+                                    placeholder="Masukkan Kode" value="{{ old('code') }}">
+                                @if ($errors->has('code'))
+                                    @foreach ($errors->get('code') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nama MBKM <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">

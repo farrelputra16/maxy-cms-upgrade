@@ -48,16 +48,25 @@
                         <input type="text" name="img_keep" value="{{ $courses->image }}" hidden>
 
                         <div class="mb-3 row">
+                            <label for="input-code" class="col-md-2 col-form-label">
+                                Kode Mata Kuliah <span class="text-danger" data-bs-toggle="tooltip"
+                                    title="Wajib diisi">*</span>
+                            </label>
+
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" name="code"
+                                    value="{{ old('code', (count(explode('-', $courses->name)) > 1 ? explode('-', $courses->name)[0] : '')) }}"
+                                    id="code">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nama MBKM <span class="text-danger"
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="name" id="name"
-                                    value="{{ old('name', $courses->name) }}">
-                                @if ($errors->has('name'))
-                                    @foreach ($errors->get('name') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
+                                <input class="form-control" type="text" name="name"
+                                    value="{{ old('name', count(explode('-', $courses->name)) > 1 ? explode('-', $courses->name)[1] : '') }}"
+                                    id="name">
                             </div>
                         </div>
                         <div class="mb-3 row">
