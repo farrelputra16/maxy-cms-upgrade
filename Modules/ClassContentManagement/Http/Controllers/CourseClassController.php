@@ -68,7 +68,7 @@ class CourseClassController extends Controller
             ->get();
 
         if ($classes->isEmpty()) {
-            return redirect()->route('getCourseClass')->with('error', 'This class does not yet have any assignments to be assessed');
+            return redirect()->route('getCourseClass')->with('error', 'Kelas ini belum memiliki tugas yang akan dinilai');
         }
 
         // $coba = CourseClassModule::with(['CourseClass', 'CourseModule'])
@@ -397,72 +397,72 @@ class CourseClassController extends Controller
 
 
     public function deleteCourseClass(Request $request)
-{
-    // Cari kelas berdasarkan ID
-    $courseClassId = $request->id;
-    $courseClass = CourseClass::find($courseClassId);
+    {
+        // Cari kelas berdasarkan ID
+        $courseClassId = $request->id;
+        $courseClass = CourseClass::find($courseClassId);
 
-    if (!$courseClass) {
-        return redirect()->back()->with('error', 'Kelas tidak ditemukan');
-    }
-
-    // Cari semua course_class_module berdasarkan course_class_id
-    $courseClassModules = CourseClassModule::where('course_class_id', $courseClassId)->get();
-
-    if ($courseClassModules->isEmpty()) {
-        TransOrder::where('course_class_id', $courseClassId)->delete();
-        CourseClassMember::where('course_class_id', $courseClassId)->delete();
-        CourseClass::where('id', $courseClassId)->delete();
-
-        return redirect()->back()->with('success', 'Kelas telah berhasil dihapus');
-    }
-
-    try {
-        // Loop untuk menghapus semua data terkait modul
-        foreach ($courseClassModules as $module) {
-            // Cek dan hapus data attendance jika ada
-            $attendances = CourseClassAttendance::where('course_class_module_id', $module->id)->get();
-            if ($attendances->isNotEmpty()) {
-                CourseClassAttendance::where('course_class_module_id', $module->id)->delete();
-            }
-
-            // Cek dan hapus grading jika ada
-            $gradings = CourseClassMemberGrading::where('course_class_module_id', $module->id)->get();
-            if ($gradings->isNotEmpty()) {
-                CourseClassMemberGrading::where('course_class_module_id', $module->id)->delete();
-            }
-
-            // Cek dan hapus log jika ada
-            $logs = CourseClassMemberLog::where('course_class_module_id', $module->id)->get();
-            if ($logs->isNotEmpty()) {
-                CourseClassMemberLog::where('course_class_module_id', $module->id)->delete();
-            }
-
+        if (!$courseClass) {
+            return redirect()->back()->with('error', 'Kelas tidak ditemukan');
         }
 
-
-        // Hapus semua data terkait modul
+        // Cari semua course_class_module berdasarkan course_class_id
         $courseClassModules = CourseClassModule::where('course_class_id', $courseClassId)->get();
-        if ($courseClassModules->isNotEmpty()) {
-            CourseClassModule::where('course_class_id', $courseClassId)->delete();
-        }
 
-
-        // Cek dan hapus data anggota kelas jika ada
-        $courseClassMembers = CourseClassMember::where('course_class_id', $courseClassId)->get();
-        if ($courseClassMembers->isNotEmpty()) {
+        if ($courseClassModules->isEmpty()) {
+            TransOrder::where('course_class_id', $courseClassId)->delete();
             CourseClassMember::where('course_class_id', $courseClassId)->delete();
+            CourseClass::where('id', $courseClassId)->delete();
+
+            return redirect()->back()->with('success', 'Kelas telah berhasil dihapus');
         }
 
-        // Hapus kelas itu sendiri
-        CourseClass::where('id', $courseClassId)->delete();
+        try {
+            // Loop untuk menghapus semua data terkait modul
+            foreach ($courseClassModules as $module) {
+                // Cek dan hapus data attendance jika ada
+                $attendances = CourseClassAttendance::where('course_class_module_id', $module->id)->get();
+                if ($attendances->isNotEmpty()) {
+                    CourseClassAttendance::where('course_class_module_id', $module->id)->delete();
+                }
 
-        return redirect()->back()->with('success', 'Kelas telah berhasil terhapus');
+                // Cek dan hapus grading jika ada
+                $gradings = CourseClassMemberGrading::where('course_class_module_id', $module->id)->get();
+                if ($gradings->isNotEmpty()) {
+                    CourseClassMemberGrading::where('course_class_module_id', $module->id)->delete();
+                }
 
-    } catch (\Exception $e) {
-        return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus data.');
+                // Cek dan hapus log jika ada
+                $logs = CourseClassMemberLog::where('course_class_module_id', $module->id)->get();
+                if ($logs->isNotEmpty()) {
+                    CourseClassMemberLog::where('course_class_module_id', $module->id)->delete();
+                }
+
+            }
+
+
+            // Hapus semua data terkait modul
+            $courseClassModules = CourseClassModule::where('course_class_id', $courseClassId)->get();
+            if ($courseClassModules->isNotEmpty()) {
+                CourseClassModule::where('course_class_id', $courseClassId)->delete();
+            }
+
+
+            // Cek dan hapus data anggota kelas jika ada
+            $courseClassMembers = CourseClassMember::where('course_class_id', $courseClassId)->get();
+            if ($courseClassMembers->isNotEmpty()) {
+                CourseClassMember::where('course_class_id', $courseClassId)->delete();
+            }
+
+            // Hapus kelas itu sendiri
+            CourseClass::where('id', $courseClassId)->delete();
+
+            return redirect()->back()->with('success', 'Kelas telah berhasil terhapus');
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus data.');
+        }
     }
-}
 
 
 
