@@ -152,23 +152,24 @@
                         <div class="mb-3 row">
                             <label for="announcement" class="col-md-2 col-form-label">Pengumuman</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="announcement" class="form-control">{{ old('announcement', $course_class_detail->announcement) }}</textarea>
+                                <textarea id="announcement-editor" name="announcement" class="form-control">{{ old('announcement', $course_class_detail->announcement ?? '') }}</textarea>
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="content" class="col-md-2 col-form-label">Konten</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="content" class="form-control">{{ old('content', $course_class_detail->content) }}</textarea>
+                                <textarea id="content-editor" name="content" class="form-control">{{ old('content', $course_class_detail->content ?? '') }}</textarea>
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="description" class="col-md-2 col-form-label">Deskripsi</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" class="form-control">{{ old('description', $course_class_detail->description) }}</textarea>
+                                <textarea id="description-editor" name="description" class="form-control">{{ old('description', $course_class_detail->description ?? '') }}</textarea>
                             </div>
                         </div>
+
 
                         <div class="mb-3 row">
                             <label for="ongoing" class="col-md-2 col-form-label">Status Berjalan <span
@@ -238,5 +239,34 @@
 
             batchInput.addEventListener('input', updateSlug);
         });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    // Inisialisasi untuk Pengumuman
+    tinymce.init({
+        selector: '#announcement-editor',
+        plugins: 'lists link image table',
+        toolbar: 'bold italic | alignleft aligncenter alignright | bullist numlist | link',
+        height: 300,
+    });
+
+    // Inisialisasi untuk Konten
+    tinymce.init({
+        selector: '#content-editor',
+        plugins: 'lists link image table',
+        toolbar: 'bold italic | alignleft aligncenter alignright | bullist numlist | link',
+        height: 300,
+    });
+
+    // Inisialisasi untuk Deskripsi
+    tinymce.init({
+        selector: '#description-editor',
+        plugins: 'lists link image table',
+        toolbar: 'bold italic | alignleft aligncenter alignright | bullist numlist | link',
+        height: 300,
+    });
+});
+
     </script>
 @endsection
