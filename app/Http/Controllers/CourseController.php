@@ -8,6 +8,7 @@ use App\Models\MCourseType;
 use App\Models\MDifficultyType;
 use App\Models\Category;
 use App\Models\CourseCategory;
+use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -82,9 +83,10 @@ class CourseController extends Controller
 
     public function postAddCourse(Request $request)
 {
-    // Validasi input dengan pesan kustom
+
+    // Validasi input dengan aturan dinamis
     $validated = $request->validate([
-        'code' => 'required',
+        'code' => $request->has('mbkmForm') ? 'nullable' : 'required', // Code wajib jika route adalah /course/add
         'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
         'slug' => 'required',
         'type' => 'required',
@@ -179,12 +181,12 @@ class CourseController extends Controller
         } else {
             return app(HelperController::class)->Warning('getCourse');
         }
-
     } catch (\Exception $e) {
         \Log::error('Error adding course: ' . $e->getMessage());
         return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menambahkan mata kuliah.'])->withInput();
     }
 }
+
 
 
     function getEditCourse(Request $request)
@@ -202,9 +204,9 @@ class CourseController extends Controller
 
         $allCourseCategory = Category::where('status', 1)->get();
         $selectedCategoryId = DB::table('course_category')
-        ->where('course_id', $idCourse)
-        ->pluck('category_id')
-        ->toArray();
+            ->where('course_id', $idCourse)
+            ->pluck('category_id')
+            ->toArray();
 
 
         $currentDataCourse = Course::CurrentDataCourse($idCourse);
@@ -217,7 +219,7 @@ class CourseController extends Controller
             $allCoursePackages = CoursePackage::where('status', 1)->get();
         } else {
             $allCoursePackages = CoursePackage::where('id', '!=', $currentCoursePackages->course_package_id)->where('status', 1)->get();
-        }//dd($selectedCategoryId);
+        } //dd($selectedCategoryId);
 
         // dd(explode('-', $courses->name));
 
@@ -250,7 +252,7 @@ class CourseController extends Controller
             $allCoursePackages = CoursePackage::where('status', 1)->get();
         } else {
             $allCoursePackages = CoursePackage::where('id', '!=', $currentCoursePackages->course_package_id)->where('status', 1)->get();
-        }//dd($selectedCategoryId);
+        } //dd($selectedCategoryId);
 
         return view('course.MBKM.editv3', [
             'courses' => $courses,
@@ -266,61 +268,76 @@ class CourseController extends Controller
 
 
     function postEditCourse(Request $request)
-{
-    // Validasi input dengan pesan kustom
-    $validated = $request->validate([
-        'code' => 'required',
-        'name' => 'required|string|max:255',
-        'slug' => 'required|string|max:255',
-        'mini_fake_price' => 'nullable|string',
-        'mini_price' => 'nullable|string',
-        'credits' => 'nullable|numeric|min:0',
-        'duration' => 'nullable|numeric|min:0',
-        'short_description' => 'nullable|string|max:255',
-        'file_image' => [
-            'nullable',
-            'image',
-            'mimes:jpeg,png,jpg,gif,svg',
-            'max:2048', // Maksimal 2MB
-        ],
-    ], [
-        'file_image.max' => 'Ukuran gambar terlalu besar, maksimal 2MB.', // Pesan error spesifik
-        'file_image.image' => 'File yang diunggah harus berupa gambar.',
-        'file_image.mimes' => 'Format gambar harus salah satu dari: jpeg, png, jpg, gif, svg.',
-    ]);
+    {
+        // Validasi input dengan pesan kustom
+        $validated = $request->validate([
+            'code' => 'required',
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
+            'mini_fake_price' => 'nullable|string',
+            'mini_price' => 'nullable|string',
+            'credits' => 'nullable|numeric|min:0',
+            'duration' => 'nullable|numeric|min:0',
+            'short_description' => 'nullable|string|max:255',
+            'file_image' => [
+                'nullable',
+                'image',
+                'mimes:jpeg,png,jpg,gif,svg',
+                'max:2048', // Maksimal 2MB
+            ],
+        ], [
+            'file_image.max' => 'Ukuran gambar terlalu besar, maksimal 2MB.', // Pesan error spesifik
+            'file_image.image' => 'File yang diunggah harus berupa gambar.',
+            'file_image.mimes' => 'Format gambar harus salah satu dari: jpeg, png, jpg, gif, svg.',
+        ]);
 
-    try {
-        $updateData = Course::postEditCourse($request);
-        if (CourseCategory::where('course_id', $request->id)->exists()) {
-            DB::table('course_category')->where('course_id', $request->id)->delete();
-        }
-
-        $categories = $request->input('courseCategory');
-        if ($categories) {
-            foreach ($categories as $categoryId) {
-                DB::table('course_category')->insert([
-                    'course_id' => $request->id,
-                    'category_id' => $categoryId,
-                    'created_id' => Auth::user()->id,
-                    'updated_id' => Auth::user()->id,
-                ]);
+        try {
+            $updateData = Course::postEditCourse($request);
+            if (CourseCategory::where('course_id', $request->id)->exists()) {
+                DB::table('course_category')->where('course_id', $request->id)->delete();
             }
-        }
 
-        // Cek apakah course type adalah MBKM
-        $courseType = MCourseType::find($request->type);
-        if ($courseType && $courseType->name === 'MBKM') {
-            return redirect()->route('getCourseMBKM')->with('success', 'Berhasil mengubah mata kuliah MBKM!');
-        } else {
-            return redirect()->route('getCourse')->with('success', 'Berhasil mengubah mata kuliah!');
-        }
-    } catch (\Exception $e) {
-        // Log error untuk developer/admin
-        \Log::error('Error updating course: ' . $e->getMessage());
+            $categories = $request->input('courseCategory');
+            if ($categories) {
+                foreach ($categories as $categoryId) {
+                    DB::table('course_category')->insert([
+                        'course_id' => $request->id,
+                        'category_id' => $categoryId,
+                        'created_id' => Auth::user()->id,
+                        'updated_id' => Auth::user()->id,
+                    ]);
+                }
+            }
 
-        // Kembalikan pesan error yang ramah kepada user
-        return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat mengubah mata kuliah.'])->withInput();
+            // Cek apakah course type adalah MBKM
+            $courseType = MCourseType::find($request->type);
+            if ($courseType && $courseType->name === 'MBKM') {
+                return redirect()->route('getCourseMBKM')->with('success', 'Berhasil mengubah mata kuliah MBKM!');
+            } else {
+                return redirect()->route('getCourse')->with('success', 'Berhasil mengubah mata kuliah!');
+            }
+        } catch (\Exception $e) {
+            // Log error untuk developer/admin
+            \Log::error('Error updating course: ' . $e->getMessage());
+
+            // Kembalikan pesan error yang ramah kepada user
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat mengubah mata kuliah.'])->withInput();
+        }
     }
-}
 
+    public function postDeleteCourse(Request $request)
+    {
+        $idCourse = $request->id;
+
+        try{
+
+
+
+        } catch(Error $e){
+
+        }
+
+
+
+    }
 }
