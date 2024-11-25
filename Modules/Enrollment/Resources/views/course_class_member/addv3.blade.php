@@ -112,8 +112,8 @@
                             <div class="mb-3 row">
                                 <label for="input-tag" class="col-md-2 col-form-label">Pilih Mitra: </label>
                                 <div class="col-md-10">
-                                    <select class="form-control select2" name="partner"
-                                        data-placeholder="Pilih Mitra" required>
+                                    <select class="form-control select2" name="partner" data-placeholder="Pilih Mitra"
+                                        required>
                                         <option value="">Pilih Mitra</option>
                                         @foreach ($partners as $item)
                                             <option value="{{ $item->id }}"
@@ -167,7 +167,8 @@
                                                 <label for="csv_file" class="form-label">Unggah CSV disini</label>
                                                 <br>
                                                 <small>Sample: <i class="fa fa-file" aria-hidden="true"></i> <a
-                                                        href="{{ asset('csv/addccmember.csv') }}" download>Contoh CSV
+                                                        href="{{ env('APP_ENV') == 'local' ? asset('csv/addccmember.csv') : asset('csv/addccmember_maxy.csv') }}"
+                                                        download>Contoh CSV
                                                         (Klik untuk Unduh)</a></small>
                                                 <input class="form-control" type="file" id="csv_file"
                                                     name="csv_file">
@@ -271,17 +272,17 @@
             }
 
             /* #csv-upload input[type="file"] {
-                                display: block;
-                                margin: 0 auto;
-                                padding: 10px;
-                                border-radius: 4px;
-                                border: 1px solid #ccc;
-                            }
+                                    display: block;
+                                    margin: 0 auto;
+                                    padding: 10px;
+                                    border-radius: 4px;
+                                    border: 1px solid #ccc;
+                                }
 
-                            #csv-upload label {
-                                margin-bottom: 10px;
-                                font-weight: bold;
-                            } */
+                                #csv-upload label {
+                                    margin-bottom: 10px;
+                                    font-weight: bold;
+                                } */
 
             .dz-message {
                 display: flex;

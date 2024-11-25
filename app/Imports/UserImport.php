@@ -16,6 +16,12 @@ class UserImport implements ToModel, WithHeadingRow
 
         $existingUser = User::where('email', $row['email'])->first();
 
+        if (!filter_var($row['email'], FILTER_VALIDATE_EMAIL)) {
+            // Jika format email tidak valid, Anda bisa mengabaikan baris ini atau memberikan notifikasi
+            // session()->flash('error', 'Format email ' . $row['email'] . ' tidak valid.');
+            return null;
+        }
+
         // Jika user dengan email tersebut sudah ada, maka kirim notifikasi atau tampilkan pesan kesalahan
         if ($existingUser) {
             // Misalnya, jika menggunakan sesi Laravel, Anda dapat menyimpan pesan kesalahan dalam session
