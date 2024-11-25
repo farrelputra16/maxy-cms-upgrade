@@ -39,7 +39,7 @@
                         <strong>Cara Penggunaan:</strong>
                     <ul>
                         <li><strong>Tambah Individu:</strong> Pilih anggota menggunakan dropdown "Pilih User." Anda juga
-                            dapat menambahkan mentor dan mendeskripsikan tugasnya.</li>
+                            dapat menambahkan dosen dan mendeskripsikan tugasnya.</li>
                         <li><strong>Tambah Massal:</strong> Gunakan fitur unggah file CSV untuk menambahkan beberapa anggota
                             secara sekaligus.</li>
                         <li><strong>Konfigurasi Data:</strong> Pastikan data seperti deskripsi kelas, partner (jika
@@ -318,8 +318,8 @@
                 newMentorFieldGroup.innerHTML = `
                 <label for="mentor" class="col-md-2 col-form-label">Pilih Mentor: </label>
                 <div class="col-md-4">
-                    <select class="form-control select2 mentor-select" name="mentor[]" data-placeholder="Pilih Mentor">
-                        <option value="">Pilih Mentor</option>
+                    <select class="form-control select2 mentor-select" name="mentor[]" data-placeholder="Pilih Dosen">
+                        <option value="">Pilih Dosen</option>
                         @foreach ($mentors as $mentor)
                             <option value="{{ $mentor->id }}" data-jobdesc="{{ $jobdescriptions[$mentor->id] ?? '' }}">
                                 {{ $mentor->email }} - {{ $mentor->name }}
@@ -349,7 +349,7 @@
                 if (mentorFieldGroups.length > 1) {
                     mentorFieldsContainer.removeChild(mentorFieldGroups[mentorFieldGroups.length - 1]);
                 } else {
-                    alert("Minimal satu mentor harus tersedia.");
+                    alert("Minimal satu dosen harus tersedia.");
                 }
             });
         </script>
