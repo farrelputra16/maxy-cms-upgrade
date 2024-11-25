@@ -271,7 +271,8 @@ class CourseController extends Controller
     {
         // Validasi input dengan pesan kustom
         $validated = $request->validate([
-            'code' => 'required',
+        'code' => $request->has('mbkmForm') ? 'nullable' : 'required', // Code wajib jika route adalah /course/add
+        
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
             'mini_fake_price' => 'nullable|string',
