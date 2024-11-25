@@ -133,7 +133,7 @@
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
-                                    form="addCourseClassModuleChild">Balas Jurnal</button>
+                                    form="addCourseClassModuleChild">Tambah Balasan</button>
                             </div>
                         </div>
                     </form>
