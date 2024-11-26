@@ -133,7 +133,7 @@ class CourseController extends Controller
         // Concatenate kode mata kuliah dan nama mata kuliah
         $courseCode = $request->code;
         $courseName = $request->name;
-        $courseConcatenate = Str::upper($courseCode) . '-' . $courseName;
+        $courseConcatenate = $request->has('mbkmForm') ? $courseName : Str::upper($courseCode) . '-' . $courseName;
 
         // Simpan data course ke database
         $create = Course::create([
@@ -272,7 +272,7 @@ class CourseController extends Controller
         // Validasi input dengan pesan kustom
         $validated = $request->validate([
         'code' => $request->has('mbkmForm') ? 'nullable' : 'required', // Code wajib jika route adalah /course/add
-        
+
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
             'mini_fake_price' => 'nullable|string',

@@ -152,7 +152,8 @@ class CourseClassMember extends Model
                     'users.name',
                     'users.email',
                     'course_class.batch',
-                    'course.name'
+                    'course.name',
+                    'm_partner.name'
                 )
                 ->get();
         } else {
