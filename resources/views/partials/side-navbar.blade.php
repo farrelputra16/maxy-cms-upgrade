@@ -20,7 +20,7 @@
                         Session::get('access_master')->contains(function ($access) {
                             return in_array($access->access_master_name, [
                                 'course_manage',
-                                'm_Course_type_manage',
+                                'm_course_type_manage',
                                 'course_package_manage',
                                 'm_difficulty_type_manage',
                                 'm_partner_manage',
