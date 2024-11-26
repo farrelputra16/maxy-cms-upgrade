@@ -43,7 +43,8 @@ class MCourseTypeController extends Controller
 
     function getEditCourseType(Request $request){
         $currentData = MCourseType::find($request->id);
-        return view('m_course_type.editv3', ['currentData' => $currentData]);
+        $isMBKM = $currentData->name == 'MBKM' ? true : false;
+        return view('m_course_type.editv3', ['currentData' => $currentData, 'isMBKM' => $isMBKM]);
     }
 
     function postEditCourseType(Request $request){
@@ -58,6 +59,7 @@ class MCourseTypeController extends Controller
                     'name' => $request->name,
                     'slug' => $request->slug,
                     'description' => $request->description,
+                    'participate_limit' => $request->participate_limit,
                     'status' => $request->status ? 1 : 0,
                     'updated_id' => Auth::user()->id
                 ]);

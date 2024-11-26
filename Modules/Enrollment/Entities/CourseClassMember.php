@@ -229,6 +229,24 @@ class CourseClassMember extends Model
             ->first();
         return $result;
     }
+
+    public static function checkLimitMBKM($user_id)
+    {
+        $result = DB::table('course_class_member')
+            ->leftJoin('course_class', 'course_class_member.course_class_id', '=', 'course_class.id')
+            ->leftJoin('course', 'course_class.course_id', '=', 'course.id')
+            ->leftJoin('m_course_type', 'course.m_course_type_id', '=', 'm_course_type.id')
+            ->where('course_class_member.user_id', $user_id)
+            ->where('m_course_type.name', 'MBKM')
+            ->count();
+        $courseClassLimit = DB::table('m_course_type')
+            ->where('name', 'MBKM')
+            ->first()
+            ->participate_limit;
+        $limit = $courseClassLimit ?? 2;
+        return $result >= $limit;
+    }
+
     public static function getCCMByCourseClassId($course_class_id)
     {
         $result = DB::table('course_class_member as ccm')

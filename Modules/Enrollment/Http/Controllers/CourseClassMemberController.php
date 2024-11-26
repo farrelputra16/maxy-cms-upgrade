@@ -102,10 +102,13 @@ class CourseClassMemberController extends Controller
 
         foreach ($users as $user) {
             $existingUser = CourseClassMember::checkExistingCCM($user, $courseClassId);
+            $alreadyLimitMbkm = CourseClassMember::checkLimitMBKM($user);
 
             if ($existingUser) {
                 return redirect()->route('getCourseClassMember', ['id' => $courseClassId])->with('error', 'Failed to Enroll Member, user already exists');
-            } else if ($request->partner) {
+            } else if ($alreadyLimitMbkm) {
+                return redirect()->route('getCourseClassMember', ['id' => $courseClassId])->with('error', 'Failed to Enroll Member, user has reached the limit');
+            }else if ($request->partner) {
                 $created = CourseClassMember::create([
                     'user_id' => $user,
                     'course_class_id' => $courseClassId,
@@ -124,19 +127,19 @@ class CourseClassMemberController extends Controller
                     'created_id' => auth()->id(),
                     'updated_id' => auth()->id(),
                 ]);
+            }
 
-                if ($created) {
-                    foreach ($mentors as $index => $mentor) {
-                        if ($mentor){
-                            DB::table('user_mentorships')->insert([
-                                'member_id' => $user, // mentee
-                                'mentor_id' => $mentor, // mentor
-                                'course_class_id' => $courseClassId, // kelas yang terkait
-                                'm_jobdesc_id' => $request->jobdesc[$index],
-                                'created_id' => auth()->id(),
-                                'updated_id' => auth()->id(),
-                            ]);
-                        }
+            if ($created) {
+                foreach ($mentors as $index => $mentor) {
+                    if ($mentor){
+                        DB::table('user_mentorships')->insert([
+                            'member_id' => $user, // mentee
+                            'mentor_id' => $mentor, // mentor
+                            'course_class_id' => $courseClassId, // kelas yang terkait
+                            'm_jobdesc_id' => $request->jobdesc[$index],
+                            'created_id' => auth()->id(),
+                            'updated_id' => auth()->id(),
+                        ]);
                     }
                 }
             }

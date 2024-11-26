@@ -30,21 +30,21 @@
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda memperbarui informasi jenis mata kuliah.
                         Pastikan detail yang dimasukkan akurat agar peserta mendapatkan pengalaman belajar terbaik.
-                        <br><br>
+                        <br></br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
                         <li>Isi kolom "Nama Jenis Mata Kuliah," "Slug," dan "Deskripsi" sesuai kebutuhan.</li>
-                        <li>Setelah semua detail terisi, gunakan tombol <strong>'Simpan & Perbarui'</strong> untuk menyimpan perubahan.</li>
+                        <li>Setelah semua detail terisi, gunakan tombol <strong>'Simpan & Perbarui'</strong> untuk menyimpan
+                            perubahan.</li>
                     </ul>
                     </p>
-                </div>
                     <form action="{{ route('postEditCourseType', ['id' => request()->query('id')]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Jenis Mata Kuliah <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Jenis Mata Kuliah<span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $currentData->name) }}" id="name">
@@ -57,12 +57,27 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug"
                                     value="{{ old('slug', $currentData->slug) }}" id="slug" readonly>
                             </div>
                         </div>
+                        @if ($isMBKM)
+                            <div class="mb-3 row">
+                                <label for="input-name" class="col-md-2 col-form-label">Batas Partisipasi</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="number" name="participate_limit"
+                                        value="{{ old('participate_limit', $currentData->participate_limit) }}"
+                                        id="participate_limit">
+                                    @if ($errors->has('participate_limit'))
+                                        @foreach ($errors->get('participate_limit') as $error)
+                                            <span style="color: red;">{{ $error }}</span>
+                                        @endforeach
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
@@ -87,10 +102,11 @@
                             </div>
                         </div>
                     </form>
-
                 </div>
+
             </div>
-        </div> <!-- end col -->
+        </div>
+    </div> <!-- end col -->
     </div> <!-- end row -->
 @endsection
 
