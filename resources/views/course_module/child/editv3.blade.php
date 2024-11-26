@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Ubah Modul Child Mata Kuliah')
+@section('title', 'Ubah Sub Modul Mata Kuliah')
 
 @section('content')
     <!-- start page title -->
@@ -16,7 +16,7 @@
                         <li class="breadcrumb-item"><a
                                 href="{{ route('getCourseModule', ['course_id' => $parentModule->course_id, 'page_type' => 'LMS']) }}">Modul
                                 Mata Kuliah</a></li>
-                        <li class="breadcrumb-item active">Ubah Modul Child: {{ $parentModule->name }}</li>
+                        <li class="breadcrumb-item active">Ubah Sub Modul: {{ $parentModule->name }}</li>
                     </ol>
                 </div>
 
@@ -30,7 +30,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Ubah Modul Child untuk: {{ $parentModule->name }}</small></h4>
+                    <h4 class="card-title">Ubah Sub Modul untuk: {{ $parentModule->name }}</small></h4>
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda untuk memperbarui informasi modul anak dalam mata kuliah.
                         Isi data dengan lengkap dan pastikan akurat untuk memberikan pengalaman belajar terbaik bagi

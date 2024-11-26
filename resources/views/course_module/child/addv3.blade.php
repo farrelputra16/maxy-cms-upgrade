@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tambah Modul Child')
+@section('title', 'Tambah Sub Modul Mata Kuliah')
 
 @section('content')
     <!-- Awal Judul Halaman -->
@@ -16,7 +16,7 @@
                         <li class="breadcrumb-item"><a
                                 href="{{ route('getCourseModule', ['course_id' => $parent->course_id, 'page_type' => 'LMS']) }}">Modul
                                 Mata Kuliah</a></li>
-                        <li class="breadcrumb-item active">Tambah Modul Child Baru</li>
+                        <li class="breadcrumb-item active">Tambah Sub Modul Mata Kuliah Baru</li>
                     </ol>
                 </div>
             </div>
@@ -30,9 +30,9 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Tambah Modul Child Baru</h4>
+                    <h4 class="card-title">Tambah Sub Modul Mata Kuliah Baru</h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda untuk menambahkan modul child pada mata kuliah yang ada. Isi data-data
+                        Halaman ini memungkinkan Anda untuk menambahkan sub modul mata kuliah pada mata kuliah yang ada. Isi data-data
                         dengan lengkap dan pastikan informasinya akurat agar pengalaman belajar peserta mata kuliah
                         maksimal.
                         <br><br>
@@ -43,7 +43,7 @@
                         <li>Pilih <b>Jenis Modul</b> yang sesuai, kemudian isi konten tambahan yang muncul berdasarkan jenis
                             tersebut.</li>
                         <li>Pastikan untuk menambahkan deskripsi yang menjelaskan modul ini.</li>
-                        <li>Klik <b>Tambah Modul Child</b> untuk menyimpan data yang telah diisi.</li>
+                        <li>Klik <b>Tambah Sub Modul Mata Kuliah</b> untuk menyimpan data yang telah diisi.</li>
                     </ul>
                     </p>
 
@@ -156,7 +156,7 @@
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
-                                    form="addChildModule">Tambah Modul Child</button>
+                                    form="addChildModule">Tambah Sub Modul Mata Kuliah</button>
                             </div>
                         </div>
                     </form>

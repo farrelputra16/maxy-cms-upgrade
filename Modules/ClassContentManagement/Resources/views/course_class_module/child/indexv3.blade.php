@@ -1,13 +1,13 @@
 @extends('layout.main-v3')
 
-@section('title', 'Modul Kelas Child')
+@section('title', 'Sub Modul Kelas Child')
 
 @section('content')
     <!-- Begin Page Title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Modul Child untuk Modul Kelas</h4>
+                <h4 class="mb-sm-0 font-size-18">Data Sub Modul untuk Modul Kelas</h4>
 
                 <!-- Begin Breadcrumb -->
                 <div class="page-title-right">
@@ -26,7 +26,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Modul Child dalam: {{ $parent_module->detail->name }}</h4>
+                    <h4 class="card-title">Sub Modul dalam: {{ $parent_module->detail->name }}</h4>
                     <p class="card-title-desc">
                         Halaman ini menyediakan tampilan terorganisir dari semua modul anak yang termasuk dalam modul utama
                         ini. Setiap baris menampilkan detail utama, seperti nama modul, prioritas, tipe, konten, materi

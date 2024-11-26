@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tambah Modul Child Kelas Mata Kuliah')
+@section('title', 'Tambah Sub Modul Kelas Mata Kuliah')
 
 @section('content')
     <!-- start page title -->
@@ -14,7 +14,7 @@
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCourseClassModule') }}">Modul Kelas</a></li>
-                        <li class="breadcrumb-item active">Tambah Modul Child Baru</li>
+                        <li class="breadcrumb-item active">Tambah Sub Modul Baru</li>
                     </ol>
                 </div>
 
@@ -28,7 +28,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Tambah Modul Mata Kuliah Baru</h4>
+                    <h4 class="card-title">Tambah Sub Modul Mata Kuliah Baru</h4>
                     <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi data dengan
                         memodifikasi data yang tercantum di bawah ini. Pastikan semua informasi yang Anda masukkan akurat
                         untuk memberikan pengalaman belajar terbaik bagi peserta mata kuliah.</p>
@@ -108,7 +108,7 @@
                             <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
                                 <textarea class="form-control" id="content" name="description"
-                                    placeholder="Deskripsikan tujuan atau isi modul child (misalnya: Mengajarkan dasar-dasar akuntansi)">{{ old('description') }}</textarea>
+                                    placeholder="Deskripsikan tujuan atau isi modul (misalnya: Mengajarkan dasar-dasar akuntansi)">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
@@ -122,7 +122,7 @@
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
-                                    form="addCourseClassModuleChild">Tambah Modul Child</button>
+                                    form="addCourseClassModuleChild">Tambah Sub Modul</button>
                             </div>
                         </div>
                     </form>

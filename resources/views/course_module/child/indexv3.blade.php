@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Modul Child Mata Kuliah')
+@section('title', 'Sub Modul Mata Kuliah')
 
 @section('content')
     <!-- Awal Halaman Judul -->
@@ -21,7 +21,7 @@
                         <li class="breadcrumb-item"><a
                                 href="{{ route('getCourseModule', ['course_id' => $parent_module_detail->course_id, 'page_type' => 'LMS']) }}">Modul
                                 Mata Kuliah</a></li>
-                        <li class="breadcrumb-item active">Modul Child: {{ $parent_module_detail->name }}</li>
+                        <li class="breadcrumb-item active">Sub Modul: {{ $parent_module_detail->name }}</li>
                     </ol>
                 </div>
                 <!-- Akhir Breadcrumb -->
@@ -35,9 +35,9 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Modul Child untuk Mata Kuliah: {{ $parent_module_detail->name }}</h4>
+                    <h4 class="card-title">Sub Modul untuk Mata Kuliah: {{ $parent_module_detail->name }}</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan daftar modul child yang terkait dengan modul utama mata kuliah tertentu,
+                        Halaman ini menampilkan daftar sub modul yang terkait dengan modul utama mata kuliah tertentu,
                         dalam format tabel interaktif. Anda dapat melihat detail utama, seperti nama modul, prioritas,
                         jenis, materi, dan status. Fitur <b>pencarian, pengurutan, dan visibilitas kolom</b> membantu Anda
                         menyesuaikan tampilan dan menemukan data dengan cepat.
@@ -50,9 +50,9 @@
                             pembuatan.</li>
                         <li>Manfaatkan pencarian kolom untuk menemukan modul tertentu dengan cepat berdasarkan kata kunci.
                         </li>
-                        <li>Tekan tombol <b>Ubah</b> pada kolom Aksi untuk memperbarui informasi modul child atau mengubah
+                        <li>Tekan tombol <b>Ubah</b> pada kolom Aksi untuk memperbarui informasi sub modul atau mengubah
                             status aktif/nonaktif modul.</li>
-                        <li>Klik tombol <b>Tambah</b> di sudut kanan bawah untuk menambahkan modul child baru ke dalam modul
+                        <li>Klik tombol <b>Tambah</b> di sudut kanan bawah untuk menambahkan sub modul baru ke dalam modul
                             utama.</li>
                     </ul>
                     </p>
