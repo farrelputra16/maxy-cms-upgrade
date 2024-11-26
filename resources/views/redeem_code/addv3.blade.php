@@ -1,13 +1,13 @@
 @extends('layout.main-v3')
 
-@section('title', 'Add Redeem Code')
+@section('title', 'Tambah Kode Redeem')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Add New Data</h4>
+                <h4 class="mb-sm-0 font-size-18">Tambah Data Baru</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
@@ -92,9 +92,9 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" id="description" placeholder="Masukkan deskripsi">{{ old('description') }}</textarea>
+                                <textarea id="elm2" class="form-control" name="description" id="description" placeholder="Masukkan deskripsi">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">

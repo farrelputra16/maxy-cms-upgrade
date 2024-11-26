@@ -164,9 +164,9 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="description" class="col-md-2 col-form-label">Deskripsi</label>
+                            <label for="description" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea id="description-editor" name="description" class="form-control">{{ old('description', $course_class_detail->description ?? '') }}</textarea>
+                                <textarea id="content" name="description" class="form-control">{{ old('description', $course_class_detail->description ?? '') }}</textarea>
                             </div>
                         </div>
 

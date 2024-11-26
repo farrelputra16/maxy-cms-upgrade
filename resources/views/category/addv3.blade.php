@@ -52,9 +52,9 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" placeholder="Contoh: Program Studi Akuntansi mencakup materi seperti laporan keuangan, perpajakan, dan audit.">{{ old('description') }}</textarea>
+                                <textarea id="content" class="form-control" name="description" placeholder="Contoh: Program Studi Akuntansi mencakup materi seperti laporan keuangan, perpajakan, dan audit.">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>

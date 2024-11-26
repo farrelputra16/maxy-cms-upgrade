@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tingkat Penilaian')
+@section('title', 'Bobot Penilaian')
 
 @section('content')
     <!-- Judul Halaman -->
@@ -13,7 +13,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Tingkat Penilaian</li>
+                        <li class="breadcrumb-item active">Bobot Penilaian</li>
                     </ol>
                 </div>
                 <!-- Akhir Breadcrumb -->
@@ -28,10 +28,10 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Tingkat Penilaian</h4>
+                    <h4 class="card-title">Bobot Penilaian</h4>
                     <p class="card-title-desc">
-                        Di halaman ini, Anda dapat melihat dan mengelola data tingkat penilaian yang tersedia. Setiap baris
-                        dalam tabel ini memuat informasi penting tentang tingkat penilaian, termasuk nama, rentang nilai
+                        Di halaman ini, Anda dapat melihat dan mengelola data bobot penilaian yang tersedia. Setiap baris
+                        dalam tabel ini memuat informasi penting tentang bobot penilaian, termasuk nama, rentang nilai
                         awal dan akhir, serta deskripsi. Gunakan <b>fitur visibilitas kolom, pengurutan, dan pencarian
                             kolom</b> untuk mempermudah navigasi dan menemukan informasi yang Anda butuhkan dengan cepat.
                         <br><br>
@@ -39,14 +39,14 @@
                     <ul>
                         <li><strong>Visibilitas Kolom:</strong> Atur kolom yang ingin Anda tampilkan atau sembunyikan untuk
                             fokus pada data tertentu yang penting.</li>
-                        <li><strong>Pencarian Data:</strong> Manfaatkan kolom pencarian untuk menemukan tingkat penilaian
+                        <li><strong>Pencarian Data:</strong> Manfaatkan kolom pencarian untuk menemukan bobot penilaian
                             tertentu berdasarkan nama atau deskripsi.</li>
-                        <li><strong>Pengurutan Data:</strong> Klik pada judul kolom, seperti "Tingkat Penilaian" atau
+                        <li><strong>Pengurutan Data:</strong> Klik pada judul kolom, seperti "Bobot Penilaian" atau
                             "Rentang Awal," untuk mengurutkan data sesuai kebutuhan.</li>
                         <li><strong>Ubah Data:</strong> Klik tombol <em>Ubah</em> di kolom "Aksi" untuk memperbarui
-                            informasi tingkat penilaian tertentu.</li>
-                        <li><strong>Tambah Tingkat Penilaian Baru:</strong> Gunakan tombol <em>+</em> di sudut kanan bawah
-                            untuk menambahkan data tingkat penilaian baru ke daftar.</li>
+                            informasi bobot penilaian tertentu.</li>
+                        <li><strong>Tambah Bobot Penilaian Baru:</strong> Gunakan tombol <em>+</em> di sudut kanan bawah
+                            untuk menambahkan data bobot penilaian baru ke daftar.</li>
                     </ul>
                     </p>
 
@@ -55,7 +55,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Tingkat Penilaian</th>
+                                <th>Bobot Penilaian</th>
                                 <th>Rentang Awal</th>
                                 <th>Rentang Akhir</th>
                                 <th>Deskripsi</th>
@@ -107,7 +107,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Tingkat penilaian</th>
+                                <th>Bobot penilaian</th>
                                 <th>Rentang Awal</th>
                                 <th>Rentang Akhir</th>
                                 <th>Deskripsi</th>

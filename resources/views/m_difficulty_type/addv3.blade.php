@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tingkat Kesulitan')
+@section('title', 'Tingkat Kesulitan Mata Kuliah')
 
 @section('content')
     <!-- start page title -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getDifficulty') }}">Tingkat Kesulitan</a></li>
-                        <li class="breadcrumb-item active">Tambah Tingkat Kesulitan</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getDifficulty') }}">Tingkat Kesulitan Mata Kuliah</a></li>
+                        <li class="breadcrumb-item active">Tambah Tingkat Kesulitan Mata Kuliah</li>
                     </ol>
                 </div>
 
@@ -27,7 +27,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Tambah Tingkat Kesulitan</h4>
+                    <h4 class="card-title">Tambah Tingkat Kesulitan Mata Kuliah</h4>
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda untuk menambahkan tingkat kesulitan baru pada Paket Mata Kuliah.
                         Isikan informasi berikut untuk menggambarkan tingkat kesulitan yang akan dihadapi peserta selama
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
                                 <textarea id="elm3" name="description" class="form-control"
                                     placeholder="Contoh: Tingkat kesulitan ini mencakup dasar-dasar ekonomi seperti teori permintaan dan penawaran, atau tingkat lanjutan seperti analisis laporan keuangan.">{{ old('description') }}</textarea>

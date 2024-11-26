@@ -125,9 +125,9 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-description" class="col-md-2 col-form-label">Deskripsi</label>
+                            <label for="input-description" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" id="description" placeholder="Masukkan Deskripsi">{{ old('description', $currentData->description) }}</textarea>
+                                <textarea id="elm2" class="form-control" name="description" id="description" placeholder="Masukkan Deskripsi">{{ old('description', $currentData->description) }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">

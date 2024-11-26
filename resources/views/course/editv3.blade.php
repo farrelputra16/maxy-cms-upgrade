@@ -204,7 +204,7 @@
 
                         <div class="mb-3 row">
                             <label for="input-duration" class="col-md-2 col-form-label">Durasi <small>(dalam
-                                    menit)</small></label>
+                                    jam)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration" id="duration"
                                     value="{{ old('duration', $currentDataCourse ? $currentDataCourse->duration : '') }}"
@@ -238,15 +238,15 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Konten <small>(isi)</small></label>
+                            <label for="input-content" class="col-md-2 col-form-label">Konten</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="content">{{ old('content', $courses->content) }}</textarea>
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-short-description" class="col-md-2 col-form-label">Deskripsi Pendek</label>
+                            <label for="input-short-description" class="col-md-2 col-form-label">Deskripsi Pratinjau</label>
                             <div class="col-md-10">
-                                <textarea id="elmDesc" name="short_description" class="form-control">{{ old('short_description', $courses->short_description) }}</textarea>
+                                <textarea id="elm1" name="short_description" class="form-control">{{ old('short_description', $courses->short_description) }}</textarea>
                                 @if ($errors->has('short_description'))
                                     @foreach ($errors->get('short_description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -255,7 +255,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
                                 <textarea id="elm3" name="description" class="form-control">{{ old('description', $courses->description) }}</textarea>
                             </div>

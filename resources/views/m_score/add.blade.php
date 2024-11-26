@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tambah Tingkat Nilai Baru')
+@section('title', 'Tambah Bobot Nilai Baru')
 
 @section('content')
     <!-- Judul Halaman -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getScore') }}">Tingkat Nilai</a></li>
-                        <li class="breadcrumb-item active">Tambah Tingkat Nilai Baru</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getScore') }}">Bobot Nilai</a></li>
+                        <li class="breadcrumb-item active">Tambah Bobot Nilai Baru</li>
                     </ol>
                 </div>
             </div>
@@ -27,7 +27,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Tambah Tingkat Nilai Baru</h4>
+                    <h4 class="card-title">Tambah Bobot Nilai Baru</h4>
                     <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi dengan mengubah
                         data yang tercantum di bawah ini. Pastikan semua informasi yang Anda masukkan akurat untuk
                         memberikan pengalaman belajar terbaik bagi peserta mata kuliah.</p>
@@ -35,7 +35,7 @@
                     <form id="addScore" action="{{ route('postAddScore') }}" method="post">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Tingkat Nilai <span class="text-danger"
+                            <label for="input-title" class="col-md-2 col-form-label">Bobot Nilai <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="input-title"
@@ -81,11 +81,10 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-description" class="col-md-2 col-form-label">Deskripsi
-                                <small>(Admin)</small></label>
+                            <label for="input-description" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea type="text" name="description" id="elm1"
-                                    placeholder="Contoh: Tingkat nilai ini untuk mahasiswa dengan performa sangat baik.">{{ old('description') }}</textarea>
+                                <textarea type="text" name="description" id="content" class="form-control"
+                                    placeholder="Contoh: Bobot nilai ini untuk mahasiswa dengan performa sangat baik.">{{ old('description') }}</textarea>
                             </div>
                         </div>
 

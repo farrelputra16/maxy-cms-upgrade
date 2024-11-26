@@ -51,19 +51,6 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
-                            <div class="col-md-10">
-                                <textarea id="elm1" name="description"
-                                    placeholder="Tambahkan deskripsi grup akses, misalnya: 'Grup ini memiliki akses penuh untuk mengelola data mahasiswa dan kurikulum.'">{{ old('description') }}</textarea>
-                                @if ($errors->has('description'))
-                                    @foreach ($errors->get('description') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Pilih Hak Akses <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
@@ -78,6 +65,19 @@
                                 </select>
                                 @if ($errors->has('access_master'))
                                     @foreach ($errors->get('access_master') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
+                            <div class="col-md-10">
+                                <textarea id="content" class="form-control" name="description"
+                                    placeholder="Tambahkan deskripsi grup akses, misalnya: 'Grup ini memiliki akses penuh untuk mengelola data mahasiswa dan kurikulum.'">{{ old('description') }}</textarea>
+                                @if ($errors->has('description'))
+                                    @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
                                     @endforeach
                                 @endif

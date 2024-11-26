@@ -107,10 +107,9 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-description" class="col-md-2 col-form-label">Deskripsi
-                                <small>(Admin)</small></label>
+                            <label for="input-description" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea id="elmDesc" type="text" name="description" id="input-description"
+                                <textarea id="content" class="form-control" type="text" name="description" id="input-description"
                                     placeholder="Deskripsi singkat untuk admin (opsional)">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)

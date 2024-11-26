@@ -218,7 +218,7 @@
 
                         <div class="mb-3 row">
                             <label for="input-duration" class="col-md-2 col-form-label">Durasi <small>(dalam
-                                    menit)</small></label>
+                                    jam)</small></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="duration" id="duration"
                                     value="{{ old('duration') }}" min="0">
@@ -244,7 +244,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Konten <small>(isi)</small></label>
+                            <label for="input-content" class="col-md-2 col-form-label">Konten</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="content"
                                     placeholder="Contoh: Materi terdiri dari 10 modul, mencakup analisis laporan keuangan, studi kasus bisnis, dan simulasi pasar.">{{ old('content') }}</textarea>
@@ -257,9 +257,9 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-short-description" class="col-md-2 col-form-label">Deskripsi Pendek</label>
+                            <label for="input-short-description" class="col-md-2 col-form-label">Deskripsi Pratinjau</label>
                             <div class="col-md-10">
-                                <textarea id="elmDesc" name="short_description" class="form-control"
+                                <textarea id="elm1" name="short_description" class="form-control"
                                     placeholder="Contoh: Mata kuliah ini mengenalkan konsep dasar ekonomi mikro yang relevan untuk analisis bisnis kecil hingga menengah.">{{ old('short_description') }}</textarea>
                                 @if ($errors->has('short_description'))
                                     @foreach ($errors->get('short_description') as $error)
@@ -270,7 +270,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
                                 <textarea id="elm3" name="description" class="form-control"
                                     placeholder="Contoh: Mata kuliah ini membahas dasar-dasar ekonomi mikro seperti teori permintaan, penawaran, dan analisis pasar.">{{ old('description') }}</textarea>

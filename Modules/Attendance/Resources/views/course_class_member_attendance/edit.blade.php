@@ -94,9 +94,9 @@
                         @endif
 
                         <div class="mb-3 row">
-                            <label for="input-description" class="col-md-2 col-form-label">Deskripsi</label>
+                            <label for="input-description" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" placeholder="Tambahkan deskripsi jika diperlukan">{{ old('description', $class->description) }}</textarea>
+                                <textarea class="form-control" id="content" name="description" placeholder="Tambahkan catatan jika diperlukan">{{ old('description', $class->description) }}</textarea>
                             </div>
                         </div>
 

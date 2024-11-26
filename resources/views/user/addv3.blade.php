@@ -153,11 +153,10 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi Pengguna
-                                (Opsional)</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea id="elm1"
-                                    name="description"placeholder="Opsional: Tambahkan informasi tambahan seperti keahlian, jabatan, atau deskripsi lainnya...">{{ old('description') }}</textarea>
+                                <textarea id="elm2" class="form-control" name="description"
+                                    placeholder="Opsional: Tambahkan informasi tambahan seperti keahlian, jabatan, atau deskripsi lainnya...">{{ old('description') }}</textarea>
                             </div>
                         </div>
 

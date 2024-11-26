@@ -149,7 +149,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Konten Tambahan</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Konten</label>
                             <div class="col-md-10">
                                 <textarea id="content-editor" name="content">{{ old('content', $courses->content) }}</textarea>
                                 @if ($errors->has('content'))
@@ -160,7 +160,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-short-description" class="col-md-2 col-form-label">Ringkasan Singkat</label>
+                            <label for="input-short-description" class="col-md-2 col-form-label">Deskripsi Pratinjau</label>
                             <div class="col-md-10">
                                 <textarea id="short-description-editor" name="short_description">{{ old('short_description', $courses->short_description) }}</textarea>
                                 @if ($errors->has('short_description'))
@@ -171,9 +171,9 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Detail Ringkasan</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea id="description-editor" name="description" class="form-control">{{ old('description', $courses->description) }}</textarea>
+                                <textarea id="elm2" name="description" class="form-control">{{ old('description', $courses->description) }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>

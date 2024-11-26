@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Ubah Tingkat Nilai')
+@section('title', 'Ubah Bobot Nilai')
 
 @section('content')
     <!-- Judul Halaman -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getScore') }}">Tingkat Nilai</a></li>
-                        <li class="breadcrumb-item active">Ubah Tingkat Nilai: {{ $data->name }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getScore') }}">Bobot Nilai</a></li>
+                        <li class="breadcrumb-item active">Ubah Bobot Nilai: {{ $data->name }}</li>
                     </ol>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                     <form action="{{ route('postEditScore', ['id' => request()->query('id')]) }}" method="post">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Tingkat Nilai <span class="text-danger"
+                            <label for="input-title" class="col-md-2 col-form-label">Bobot Nilai <span class="text-danger"
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
@@ -80,8 +80,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-description" class="col-md-2 col-form-label">Deskripsi
-                                <small>(Admin)</small></label>
+                            <label for="input-description" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
                                 <textarea type="text" name="description" id="elm1">{{ old('description', $data->description) }}</textarea>
                             </div>

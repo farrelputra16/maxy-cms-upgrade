@@ -163,7 +163,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="description" class="col-md-2 col-form-label">Deskripsi</label>
+                            <label for="description" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
                                 <textarea class="form-control" id="content" name="description"
                                     placeholder="Deskripsi singkat mengenai kelas, misalnya: 'Kelas Akuntansi Keuangan dirancang untuk memberikan pemahaman dasar tentang pencatatan dan pelaporan keuangan yang penting untuk manajemen bisnis dan pengambilan keputusan strategis.'">{{ old('description') }}</textarea>

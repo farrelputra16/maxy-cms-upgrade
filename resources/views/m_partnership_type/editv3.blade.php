@@ -50,9 +50,9 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" placeholder="Masukkan Deskripsi Tipe Kemitraan">{{ old('description', $currentData->description) }}</textarea>
+                                <textarea id="content" class="form-control" name="description" placeholder="Masukkan Deskripsi Tipe Kemitraan">{{ old('description', $currentData->description) }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">

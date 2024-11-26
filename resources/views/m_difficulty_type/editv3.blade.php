@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Ubah Tingkat Kesulitan')
+@section('title', 'Ubah Tingkat Kesulitan Mata Kuliah')
 
 @section('content')
     <!-- start page title -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getDifficulty') }}">Jenis Mata Kuliah</a></li>
-                        <li class="breadcrumb-item active">Ubah Jenis Mata Kuliah: {{ $currentData->name }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getDifficulty') }}">Tingkat Kesulitan Mata Kuliah</a></li>
+                        <li class="breadcrumb-item active">Ubah Tingkat Kesulitan Mata Kuliah: {{ $currentData->name }}</li>
                     </ol>
                 </div>
 
@@ -58,7 +58,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
                                 <textarea id="elm2" name="description" class="form-control">{{ old('description', $currentData->description) }}</textarea>
                             </div>

@@ -185,9 +185,9 @@
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
+                    <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                     <div class="col-md-10">
-                        <textarea id="elm1" name="description">{{ $childModule->description }}</textarea>
+                        <textarea id="content" class="form-control" name="description">{{ $childModule->description }}</textarea>
                     </div>
                 </div>
                 {{-- <div id="quiz-content">
@@ -238,7 +238,6 @@
 @endsection
 
 @section('script')
-    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 
     @if ($course_type->slug != 'rapid-onboarding')
         <script>

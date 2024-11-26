@@ -118,8 +118,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-description" class="col-md-2 col-form-label">Deskripsi
-                                <small>(Admin)</small></label>
+                            <label for="input-description" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="description"
                                     value="{{ old('description', strip_tags($data->description)) }}"

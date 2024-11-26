@@ -151,8 +151,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Konten Tambahan
-                                <small>(isi)</small></label>
+                            <label for="input-content" class="col-md-2 col-form-label">Konten</label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="content"
                                     placeholder="Contoh: Kegiatan meliputi magang di perusahaan akuntansi dan proyek kolaborasi bisnis.">{{ old('content') }}</textarea>
@@ -164,7 +163,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-short-description" class="col-md-2 col-form-label">Ringkasan Singkat</label>
+                            <label for="input-short-description" class="col-md-2 col-form-label">Deskripsi Pratinjau</label>
                             <div class="col-md-10">
                                 <textarea id="elmDesc" name="short_description" class="form-control"
                                     placeholder="Contoh: Program MBKM ini memberikan pengalaman praktis melalui magang di perusahaan keuangan terkemuka.">{{ old('short_description') }}</textarea>
@@ -176,7 +175,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Detail Ringkasan</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
                                 <textarea id="elm3" name="description" class="form-control"
                                     placeholder="Contoh: Program MBKM ini bertujuan untuk mengasah kemampuan analisis laporan keuangan dan manajemen risiko.">{{ old('description') }}</textarea>

@@ -145,7 +145,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
                                 <textarea id="elm2" name="description" class="form-control" placeholder="Contoh: Mitra ini berfokus pada pelatihan keterampilan ekonomi dan manajemen.">{{ old('description') }}</textarea>
                             </div>

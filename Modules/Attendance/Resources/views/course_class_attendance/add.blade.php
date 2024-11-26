@@ -69,9 +69,9 @@
 
                         <!-- Deskripsi Presensi -->
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description" placeholder="Deskripsikan kegiatan atau topik presensi (opsional)">{{ old('description') }}</textarea>
+                                <textarea class="form-control" id="content" name="description" placeholder="Deskripsikan kegiatan atau topik presensi (opsional)">{{ old('description') }}</textarea>
                             </div>
                         </div>
 
