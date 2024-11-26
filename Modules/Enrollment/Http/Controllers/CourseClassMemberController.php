@@ -88,13 +88,13 @@ class CourseClassMemberController extends Controller
 
         foreach ($mentors as $mentor) {
             if (is_null($mentor) || $mentor === '') {
-                return back()->withInput()->with('error', 'Enrollment failed. Please enter a mentor.');
+                return back()->withInput()->with('error', 'Enrollment failed. Silahkan masukkan dosen.');
             }
         }
 
         foreach ($jobdescs as $jobdesc) {
             if (is_null($jobdesc) || $jobdesc === '') {
-                return back()->withInput()->with('error', 'Failed to Enroll Member, please provide a job description for each mentor');
+                return back()->withInput()->with('error', 'Gagal Menambahkan Peserta, berikan deskripsi pekerjaan untuk setiap dosen');
             }
         }
 
@@ -105,9 +105,9 @@ class CourseClassMemberController extends Controller
             $alreadyLimitMbkm = CourseClassMember::checkLimitMBKM($user);
 
             if ($existingUser) {
-                return redirect()->route('getCourseClassMember', ['id' => $courseClassId])->with('error', 'Failed to Enroll Member, user already exists');
+                return redirect()->route('getCourseClassMember', ['id' => $courseClassId])->with('error', 'Gagal Menambahkan Peserta, peserta sudah ada');
             } else if ($alreadyLimitMbkm) {
-                return redirect()->route('getCourseClassMember', ['id' => $courseClassId])->with('error', 'Failed to Enroll Member, user has reached the limit');
+                return redirect()->route('getCourseClassMember', ['id' => $courseClassId])->with('error', 'Gagal Menambahkan Peserta, pengguna telah mencapai batas MBKM');
             }else if ($request->partner) {
                 $created = CourseClassMember::create([
                     'user_id' => $user,
@@ -146,9 +146,9 @@ class CourseClassMemberController extends Controller
         }
 
         if ($created) {
-            return redirect()->route('getCourseClassMember', ['id' => $courseClassId])->with('success', 'Enroll Member Success');
+            return redirect()->route('getCourseClassMember', ['id' => $courseClassId])->with('success', 'Sukses menambahkan peserta');
         } else {
-            return redirect()->route('getCourseClassMember', ['id' => $courseClassId])->with('error', 'Failed to Enroll Member, please try again');
+            return redirect()->route('getCourseClassMember', ['id' => $courseClassId])->with('error', 'Gagal Menambahkan Peserta, silahkan coba lagi');
         }
     }
 
@@ -193,7 +193,7 @@ class CourseClassMemberController extends Controller
 
         foreach ($jobdescs as $jobdesc) {
             if (is_null($jobdesc) || $jobdesc === '') {
-                return back()->withInput()->with('error', 'Failed to Enroll Member, please provide a job description for each mentor');
+                return back()->withInput()->with('error', 'Gagal Menambahkan Peserta, please provide a job description for each mentor');
             }
         }
 
