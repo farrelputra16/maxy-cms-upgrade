@@ -67,9 +67,9 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description"
+                                <textarea id="content" class="form-control" name="description"
                                     placeholder="Contoh: Jenis mata kuliah ini mencakup teori dasar, studi kasus, dan praktik lapangan yang relevan dengan keuangan dan bisnis.">{{ old('description') }}</textarea>
                             </div>
                         </div>
