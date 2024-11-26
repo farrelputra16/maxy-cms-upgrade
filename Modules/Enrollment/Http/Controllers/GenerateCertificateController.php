@@ -23,13 +23,14 @@ class GenerateCertificateController extends Controller
         $classModules = CourseClass::getClassKompByClassId($user->id, $courseClass->id);
 
         $certificateTemplate = CertificateTemplate::where('m_course_type_id', $courseClass->course->type->id)
-                                ->where('batch', $courseClass->batch)
-                                ->first();
+            ->where('batch', $courseClass->batch)
+            ->first();
+        // dd($certificateTemplate->template_content);
         if (!$certificateTemplate) {
             return redirect()->back()->with('error', 'Template sertifikat tidak ditemukan');
         }
 
-        $className = \Str::upper("$classDetail->course_type_name $classDetail->course_name MAXY ACADEMY BERSERTIFIKAT");
+        $className = \Str::upper("$classDetail->course_type_name $classDetail->course_name");
         $templatePath = public_path('uploads/certificate/' . $courseClass->course->type->id . "/$certificateTemplate->filename");
 
         if (!file_exists($templatePath)) {
@@ -65,6 +66,7 @@ class GenerateCertificateController extends Controller
             $font->valign('middle');
         });
 
+        // perlu taruh di bawah kiri
         $templateImage->text("UUID:" . $uuidText, $templateImage->width() / 2, $templateImage->height() / 2.2, function ($font) use ($openSansBoldPath) {
             $font->file($openSansBoldPath);
             $font->size(64);
@@ -73,19 +75,10 @@ class GenerateCertificateController extends Controller
             $font->valign('middle');
         });
 
-        $content = "Telah berhasil menyelesaikan kegiatannya dalam Program $classDetail->course_type_name Bersertifikat di Maxy Academy\n";
+        $content = strip_tags($certificateTemplate->template_content);
         $templateImage->text($content, $templateImage->width() / 2, $templateImage->height() / 1.6 + 60, function ($font) use ($openSansBoldPath) {
             $font->file($openSansBoldPath);
-            $font->size(40);
-            $font->color('#2C2C64');
-            $font->align('center');
-            $font->valign('middle');
-        });
-
-        $content = "dengan project/kegiatan $classDetail->course_name Learning $classDetail->course_type_name";
-        $templateImage->text($content, $templateImage->width() / 2, $templateImage->height() / 1.6 + 120, function ($font) use ($openSansBoldPath) {
-            $font->file($openSansBoldPath);
-            $font->size(40);
+            $font->size(72);
             $font->color('#2C2C64');
             $font->align('center');
             $font->valign('middle');
@@ -166,7 +159,6 @@ class GenerateCertificateController extends Controller
         }
 
         return view('enrollment::course_class_member.generate_certificate.edit', ['classDetail' => $classDetail, 'checkTemplate' => $checkTemplate]);
-
     }
 
     public function postEditCertificateTemplate(Request $request)
