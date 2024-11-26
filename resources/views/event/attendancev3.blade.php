@@ -33,11 +33,11 @@
                     <p class="card-title-desc">
                         Halaman ini menyediakan ringkasan data kehadiran peserta untuk acara tertentu secara interaktif.
                         Data ditampilkan dalam tabel yang dapat diatur sesuai kebutuhan Anda, termasuk informasi penting
-                        seperti nama peserta, deskripsi acara, dan status kehadiran.
+                        seperti nama peserta, catatan admin acara, dan status kehadiran.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
-                        <li>Gunakan kolom <b>Nama Peserta</b> dan <b>Deskripsi</b> untuk melihat informasi peserta dan
+                        <li>Gunakan kolom <b>Nama Peserta</b> dan <b>Catatan Admin</b> untuk melihat informasi peserta dan
                             detail singkat tentang kehadiran mereka. Arahkan kursor pada teks untuk melihat informasi
                             selengkapnya melalui tooltip.</li>
                         <li>Perhatikan kolom <b>Status</b> untuk mengetahui apakah peserta sudah <i>Hadir</i> atau masih
@@ -57,7 +57,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Nama Peserta</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>
@@ -103,7 +103,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Nama Peserta</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>

@@ -36,7 +36,7 @@
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                         <ul>
-                            <li>Isi kolom Nama Manfaat Paket Mata Kuliah, ID Paket Mata Kuliah, dan Deskripsi Manfaat sesuai kebutuhan.</li>
+                            <li>Isi kolom Nama Manfaat Paket Mata Kuliah, ID Paket Mata Kuliah, dan Catatan Admin sesuai kebutuhan.</li>
                             <li>Setelah semua detail terisi, gunakan tombol <strong>'Simpan & Perbarui'</strong> untuk menyimpan perubahan yang telah Anda buat.</li>
                         </ul>
                     </p>

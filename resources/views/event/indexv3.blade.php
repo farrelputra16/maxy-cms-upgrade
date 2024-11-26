@@ -30,7 +30,7 @@
                     <h4 class="card-title">Event</h4>
                     <p class="card-title-desc">
                         Halaman ini menampilkan data lengkap dari semua event atau kegiatan yang terdaftar dalam tabel
-                        interaktif. Setiap baris berisi informasi penting, seperti nama event, tanggal, deskripsi, serta
+                        interaktif. Setiap baris berisi informasi penting, seperti nama event, tanggal, catatan admin, serta
                         status publikasi dan verifikasi. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian
                             kolom</b> untuk menyesuaikan tampilan dan menemukan event yang Anda butuhkan dengan cepat.
                         <br><br>
@@ -56,7 +56,7 @@
                                 <th>Gambar</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Akhir</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Verifikasi</th>
                                 <th>Publik</th>
                                 <th>Created At</th>

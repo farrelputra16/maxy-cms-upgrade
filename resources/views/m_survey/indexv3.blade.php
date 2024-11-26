@@ -39,7 +39,7 @@
                         <li><strong>Visibilitas Kolom:</strong> Atur kolom yang ingin Anda tampilkan atau sembunyikan untuk
                             fokus pada data yang relevan.</li>
                         <li><strong>Pencarian Data:</strong> Gunakan kolom pencarian untuk menemukan survei tertentu
-                            berdasarkan nama, deskripsi, atau tipe.</li>
+                            berdasarkan nama, catatan admin, atau tipe.</li>
                         <li><strong>Pengurutan Data:</strong> Klik pada judul kolom seperti "Nama" atau "Tanggal Berakhir"
                             untuk mengurutkan data dalam tabel.</li>
                         <li><strong>Ubah Survei:</strong> Klik tombol <em>Ubah</em> pada kolom "Aksi" untuk memperbarui
@@ -61,7 +61,7 @@
                                 <th class="data-medium">URL</th>
                                 <th>Tanggal Berakhir</th>
                                 <th>Tipe</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>
@@ -122,7 +122,7 @@
                                 <th>URL</th>
                                 <th>Tanggal Berakhir</th>
                                 <th>Tipe</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>

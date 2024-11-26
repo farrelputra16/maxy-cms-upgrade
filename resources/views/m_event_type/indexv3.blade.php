@@ -30,7 +30,7 @@
                     <h4 class="card-title">Tipe Event</h4>
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda untuk mengelola data tipe event yang digunakan dalam sistem. Setiap
-                        baris pada tabel menampilkan detail utama dari tipe event, seperti nama dan deskripsi tipe event.
+                        baris pada tabel menampilkan detail utama dari tipe event, seperti nama dan catatan admin tipe event.
                         Halaman ini menyediakan fitur interaktif untuk memudahkan pengelolaan data event melalui tabel.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
@@ -39,7 +39,7 @@
                             yang ingin Anda tampilkan atau sembunyikan, sehingga Anda dapat fokus pada informasi yang
                             relevan.</li>
                         <li><strong>Pencarian Data:</strong> Masukkan kata kunci pada kolom pencarian untuk menemukan tipe
-                            event tertentu berdasarkan nama atau deskripsi.</li>
+                            event tertentu berdasarkan nama atau catatan admin.</li>
                         <li><strong>Pengurutan Data:</strong> Klik pada judul kolom seperti "Nama Tipe Event" atau "Status"
                             untuk mengurutkan data dalam tabel berdasarkan kolom tersebut. Pengurutan ini membantu Anda
                             untuk meninjau data dengan lebih mudah dan teratur.</li>
@@ -59,7 +59,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Nama Tipe Event</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>
@@ -105,7 +105,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th>Nama Modul</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>

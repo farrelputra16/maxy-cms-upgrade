@@ -68,7 +68,7 @@
                                 <th>Jenis</th>
                                 <th class="data-long">Materi</th>
                                 <th class="data-long">Konten</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>
@@ -129,7 +129,7 @@
                                 <th>Jenis</th>
                                 <th>Materi</th>
                                 <th>Konten</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>

@@ -49,7 +49,7 @@
                                 <th>Harga Fiktif</th>
                                 <th>Harga</th>
                                 <th class="data-medium">Link Pembayaran</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>
@@ -106,7 +106,7 @@
                                 <th>Harga Fiktif</th>
                                 <th>Harga</th>
                                 <th>Link Pembayaran</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>

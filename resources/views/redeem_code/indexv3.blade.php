@@ -41,7 +41,7 @@
                                 <th>Kuota</th>
                                 <th>Tipe</th>
                                 <th>Waktu Kadaluarsa</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>ID Pembuatan</th>
                                 <th>Created By</th>

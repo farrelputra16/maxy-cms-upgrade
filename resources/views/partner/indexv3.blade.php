@@ -31,7 +31,7 @@
                     <p class="card-title-desc">
                         Halaman ini menampilkan daftar mitra dalam format tabel interaktif yang memudahkan Anda mengelola
                         data mitra yang terdaftar. Setiap baris tabel berisi informasi detail seperti nama partner, logo,
-                        tipe, alamat, kontak, deskripsi, dan status. Anda bisa menggunakan <b>fitur visibilitas kolom,
+                        tipe, alamat, kontak, catatan admin, dan status. Anda bisa menggunakan <b>fitur visibilitas kolom,
                             pencarian, dan pengurutan</b> untuk menyesuaikan tampilan data sesuai kebutuhan.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
@@ -60,7 +60,7 @@
                                 <th>Email</th>
                                 <th>Kontak Person</th>
                                 <th>Status Sorotan</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>
@@ -138,7 +138,7 @@
                                 <th>Email</th>
                                 <th>Kontak Person</th>
                                 <th>Status Sorotan</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>

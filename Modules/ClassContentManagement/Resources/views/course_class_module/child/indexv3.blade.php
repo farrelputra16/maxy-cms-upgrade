@@ -37,7 +37,7 @@
                     <ul>
                         <li><strong>Atur Kolom:</strong> Gunakan pengurutan di header kolom untuk mengelompokkan data
                             berdasarkan hari atau tanggal.</li>
-                        <li><strong>Lihat Deskripsi Lengkap:</strong> Arahkan kursor ke deskripsi yang terpotong untuk
+                        <li><strong>Lihat Catatan Admin Lengkap:</strong> Arahkan kursor ke catatan admin yang terpotong untuk
                             melihat konten penuh.</li>
                         <li><strong>Ubah Modul:</strong> Klik tombol <em>Ubah</em> pada kolom “Aksi” untuk memperbarui
                             informasi modul yang ada.</li>
@@ -60,7 +60,7 @@
                                 <th class="data-long">Materi Mata Kuliah</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Selesai</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>
@@ -125,7 +125,7 @@
                                 <th>Materi Mata Kuliah</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Selesai</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>

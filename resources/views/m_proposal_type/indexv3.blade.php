@@ -31,7 +31,7 @@
                     <div class="card-title-desc">
                         <p>
                             Halaman ini menyediakan daftar semua jenis proposal yang ada dalam bentuk tabel interaktif.
-                            Setiap baris menampilkan informasi kunci, seperti nama jenis proposal, deskripsi singkat, status
+                            Setiap baris menampilkan informasi kunci, seperti nama jenis proposal, catatan admin singkat, status
                             aktif atau nonaktif, serta data terkait pembuat dan pembaruan. <br><br>
 
                             <strong>Cara Penggunaan:</strong>
@@ -39,7 +39,7 @@
                             <li><strong>Visibilitas Kolom:</strong> Sesuaikan kolom yang ingin ditampilkan di tabel untuk
                                 melihat data yang lebih relevan sesuai kebutuhan Anda.</li>
                             <li><strong>Pencarian Data:</strong> Gunakan kolom pencarian untuk menemukan jenis proposal
-                                tertentu dengan cepat berdasarkan kata kunci seperti nama atau deskripsi.</li>
+                                tertentu dengan cepat berdasarkan kata kunci seperti nama atau catatan admin.</li>
                             <li><strong>Pengurutan Kolom:</strong> Klik judul kolom tertentu untuk mengurutkan data,
                                 misalnya untuk menampilkan jenis proposal yang terakhir diperbarui di urutan atas.</li>
                             <li><strong>Ubah Data:</strong> Klik tombol <em>Ubah</em> di kolom Aksi pada baris data yang
@@ -57,7 +57,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Nama Jenis Proposal</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>
@@ -102,7 +102,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th>Nama</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>

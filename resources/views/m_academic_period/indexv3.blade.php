@@ -31,7 +31,7 @@
                     <p class="card-title-desc">
                         Di halaman ini, Anda dapat melihat dan mengelola daftar periode akademik yang tersedia. Setiap baris
                         dalam tabel ini memberikan detail penting tentang periode akademik, seperti nama, tanggal mulai,
-                        tanggal selesai, dan deskripsi. Gunakan <b>fitur visibilitas kolom, pengurutan, dan pencarian
+                        tanggal selesai, dan catatan admin. Gunakan <b>fitur visibilitas kolom, pengurutan, dan pencarian
                             kolom</b> untuk menyesuaikan tampilan sesuai kebutuhan dan menemukan informasi dengan lebih
                         cepat.
                         <br><br>
@@ -40,7 +40,7 @@
                         <li><strong>Visibilitas Kolom:</strong> Tentukan kolom mana yang ingin Anda tampilkan atau
                             sembunyikan untuk fokus pada data tertentu.</li>
                         <li><strong>Pencarian Data:</strong> Manfaatkan kolom pencarian untuk menemukan periode akademik
-                            spesifik berdasarkan nama atau deskripsi.</li>
+                            spesifik berdasarkan nama atau catatan admin.</li>
                         <li><strong>Pengurutan Data:</strong> Klik pada judul kolom, seperti "Tanggal Mulai" atau "Status,"
                             untuk mengurutkan data sesuai kebutuhan.</li>
                         <li><strong>Ubah Data:</strong> Klik tombol <em>Ubah</em> pada kolom "Aksi" untuk memperbarui
@@ -58,7 +58,7 @@
                                 <th class="data-medium">Nama</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Selesai</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>ID Pembuat</th>
                                 <th>Diperbarui Pada</th>
@@ -107,7 +107,7 @@
                                 <th>Nama</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Selesai</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>ID Pembuat</th>
                                 <th>Diperbarui Pada</th>

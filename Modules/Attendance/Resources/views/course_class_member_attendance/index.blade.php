@@ -44,7 +44,7 @@
                                 <th>ID</th>
                                 <th class="data-medium">Nama</th>
                                 <th class="data-medium">Feedback</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>ID Pembuat</th>
                                 <th>Diperbarui Pada</th>
@@ -104,7 +104,7 @@
                                 <th>ID</th>
                                 <th class="data-medium">Nama</th>
                                 <th class="data-medium">Feedback</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>ID Pembuat</th>
                                 <th>Diperbarui Pada</th>

@@ -35,7 +35,7 @@
                         <strong>Cara Penggunaan:</strong>
                         <ul>
                             <li><strong>Nama Manfaat Paket Mata Kuliah:</strong> Lihat nama manfaat dari setiap paket mata kuliah yang dijelaskan secara singkat.</li>
-                            <li><strong>Deskripsi Manfaat:</strong> Baca deskripsi rinci tentang manfaat yang akan diperoleh peserta dari paket mata kuliah ini.</li>
+                            <li><strong>Catatan Admin:</strong> Baca catatan admin rinci tentang manfaat yang akan diperoleh peserta dari paket mata kuliah ini.</li>
                             <li><strong>Tambah Manfaat:</strong> Klik tombol <em>Tambah Manfaat</em> untuk menambahkan manfaat baru pada paket mata kuliah.</li>
                             <li><strong>Ubah Manfaat:</strong> Klik tombol <em>Ubah</em> di kolom "Aksi" untuk memperbarui informasi manfaat paket mata kuliah.</li>
                         </ul>
@@ -49,7 +49,7 @@
                                 <th>Id</th>
                                 <th class="data-medium">Nama Manfaat Paket Mata Kuliah</th>
                                 <th>ID Paket Mata Kuliah - Harga</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>
@@ -100,7 +100,7 @@
                                 <th>Id</th>
                                 <th class="data-medium">Nama Manfaat Paket Mata Kuliah</th>
                                 <th>ID Paket Mata Kuliah - Harga</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>

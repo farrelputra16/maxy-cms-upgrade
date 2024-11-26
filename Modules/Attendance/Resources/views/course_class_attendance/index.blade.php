@@ -43,7 +43,7 @@
                                 <th>ID</th>
                                 <th class="data-medium">Nama Modul</th>
                                 <th>Hari</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Dibuat Oleh</th>
                                 <th>Diperbarui Pada</th>
@@ -92,7 +92,7 @@
                                 <th>ID</th>
                                 <th class="data-medium">Nama Modul</th>
                                 <th>Hari</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Dibuat Oleh</th>
                                 <th>Diperbarui Pada</th>

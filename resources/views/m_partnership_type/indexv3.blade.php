@@ -30,7 +30,7 @@
                     <h4 class="card-title">Tipe Kemitraan</h4>
                     <p class="card-title-desc">
                         Halaman ini menyediakan fitur untuk mengelola berbagai tipe kemitraan yang tersedia di dalam sistem.
-                        Setiap baris tabel menampilkan informasi utama seperti nama tipe kemitraan dan deskripsi. Fitur
+                        Setiap baris tabel menampilkan informasi utama seperti nama tipe kemitraan dan catatan admin. Fitur
                         interaktif pada tabel ini memudahkan pengguna dalam mengelola data kemitraan.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
@@ -55,7 +55,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Nama Tipe Kemitraan</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>
@@ -100,7 +100,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th>Nama</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>

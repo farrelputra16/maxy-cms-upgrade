@@ -31,7 +31,7 @@
                     <h4 class="card-title">Hak Akses Utama</h4>
                     <p class="card-title-desc">
                         Halaman ini menyediakan data terperinci tentang seluruh hak akses utama dalam tabel interaktif.
-                        Setiap baris menampilkan informasi penting, seperti nama hak akses, deskripsi, dan status aktif atau
+                        Setiap baris menampilkan informasi penting, seperti nama hak akses, catatan admin, dan status aktif atau
                         tidak aktif. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk
                         menyesuaikan tampilan dan menemukan data yang Anda perlukan dengan cepat.
                         <br><br>
@@ -54,7 +54,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th>Nama Hak Akses</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Dibuat Oleh</th>
                                 <th>Diperbarui Pada</th>
@@ -96,7 +96,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th>Nama Hak Akses</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Dibuat Oleh</th>
                                 <th>Diperbarui Pada</th>

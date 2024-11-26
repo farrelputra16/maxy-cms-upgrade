@@ -32,7 +32,7 @@
                     <p class="card-title-desc">
                         Halaman ini menampilkan rincian pekerjaan dalam format tabel interaktif, memungkinkan Anda untuk
                         mengelola data pekerjaan secara efisien. Setiap baris dalam tabel ini berisi informasi penting
-                        seperti nama, deskripsi, dan status pekerjaan. Anda dapat menggunakan <b>fitur visibilitas kolom,
+                        seperti nama, catatan admin, dan status pekerjaan. Anda dapat menggunakan <b>fitur visibilitas kolom,
                             pengurutan, dan kolom pencarian</b> untuk menyesuaikan tampilan sesuai kebutuhan dan dengan
                         cepat menemukan informasi spesifik yang diperlukan.
                         <br><br>
@@ -59,7 +59,7 @@
                                                 <th>Id</th>
                                                 <th>ID</th>
                                                 <th class="data-medium">Nama</th>
-                                                <th class="data-long">Deskripsi</th>
+                                                <th class="data-long">Catatan Admin</th>
                                                 <th>Dibuat Pada</th>
                                                 <th>Id Pembuat</th>
                                                 <th>Diperbarui Pada</th>
@@ -106,7 +106,7 @@
                                                 <th>Id</th>
                                                 <th>ID</th>
                                                 <th>Nama</th>
-                                                <th>Deskripsi</th>
+                                                <th>Catatan Admin</th>
                                                 <th>Dibuat Pada</th>
                                                 <th>Id Pembuat</th>
                                                 <th>Diperbarui Pada</th>

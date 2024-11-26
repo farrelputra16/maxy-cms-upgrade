@@ -32,7 +32,7 @@
                     <div class="card-title-desc">
                         <p>
                             Halaman ini memberikan ringkasan tentang tingkat kesulitan yang terkait dengan setiap
-                            mata kuliah. Pengguna dapat melihat berbagai level kesulitan yang tersedia beserta deskripsi
+                            mata kuliah. Pengguna dapat melihat berbagai level kesulitan yang tersedia beserta catatan admin
                             masing-masing. Tingkat kesulitan membantu mengatur ekspektasi peserta terhadap materi dan
                             kompleksitas yang akan dihadapi.
                             <br><br>
@@ -40,7 +40,7 @@
                         <ul>
                             <li><strong>Nama Tingkat Kesulitan:</strong> Lihat nama tingkat kesulitan untuk setiap
                                 mata kuliah yang ditampilkan di tabel ini.</li>
-                            <li><strong>Deskripsi Tingkat Kesulitan:</strong> Bacalah deskripsi singkat tentang kesulitan
+                            <li><strong>Catatan Admin Tingkat Kesulitan:</strong> Bacalah catatan admin singkat tentang kesulitan
                                 dari setiap tingkat, yang mencakup gambaran umum dari materi atau tantangan yang akan
                                 dihadapi peserta.</li>
                             <li><strong>Tambah Tingkat Kesulitan:</strong> Klik tombol <em>Tambah Tingkat Kesulitan</em>
@@ -58,7 +58,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Nama Tingkat Kesulitan</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>
@@ -102,7 +102,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Nama Tingkat Kesulitan</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>

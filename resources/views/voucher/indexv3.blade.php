@@ -31,7 +31,7 @@
                     <h4 class="card-title">Voucher</h4>
                     <p class="card-title-desc">
                         Halaman ini menampilkan ringkasan lengkap data voucher dalam format tabel interaktif yang dapat
-                        diurutkan. Setiap baris berisi detail penting seperti nama, deskripsi, dan status. Gunakan fitur
+                        diurutkan. Setiap baris berisi detail penting seperti nama, catatan admin, dan status. Gunakan fitur
                         <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk menyesuaikan tampilan dan mengakses
                         informasi yang Anda butuhkan dengan cepat.
                     </p>
@@ -48,7 +48,7 @@
                                 <th>Jenis Diskon</th>
                                 <th>Diskon</th>
                                 <th>Maks Diskon</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>ID Pembuat</th>
                                 <th>Diperbarui Pada</th>
@@ -105,7 +105,7 @@
                                 <th>Jenis Diskon</th>
                                 <th>Diskon</th>
                                 <th>Maks Diskon</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>ID Pembuat</th>
                                 <th>Diperbarui Pada</th>

@@ -35,7 +35,7 @@
                         <strong>Cara Penggunaan:</strong>
                         <ul>
                             <li><strong>Nama Tingkat Kesulitan:</strong> Isi kolom dengan nama tingkat kesulitan (misalnya, Mudah, Menengah, Sulit) yang sesuai.</li>
-                            <li><strong>Deskripsi:</strong> Jelaskan secara singkat deskripsi tingkat kesulitan tersebut, seperti level keterampilan atau tantangan yang dihadapi peserta.</li>
+                            <li><strong>Catatan Admin:</strong> Jelaskan secara singkat catatan admin tingkat kesulitan tersebut, seperti level keterampilan atau tantangan yang dihadapi peserta.</li>
                             <li>Setelah semua detail terisi, gunakan tombol <strong>'Simpan & Perbarui'</strong> untuk menyimpan perubahan yang telah Anda buat.</li>
                         </ul>
                     </p>

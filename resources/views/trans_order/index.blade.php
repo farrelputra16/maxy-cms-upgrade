@@ -31,7 +31,7 @@
                     <h4 class="card-title">Pesanan</h4>
                     <p class="card-title-desc">
                         Halaman ini menampilkan ringkasan data pesanan dalam format tabel interaktif yang mudah diurutkan.
-                        Setiap baris berisi informasi penting, seperti nama, deskripsi, dan status pesanan. Gunakan fitur
+                        Setiap baris berisi informasi penting, seperti nama, catatan admin, dan status pesanan. Gunakan fitur
                         <b>pengaturan kolom, pengurutan, dan pencarian kolom</b> untuk menyesuaikan tampilan sesuai
                         kebutuhan Anda
                         dan menemukan informasi yang diinginkan dengan cepat.
@@ -53,7 +53,7 @@
                                 <th>Promo</th>
                                 <th>Agen Penjual</th>
                                 <th>Status Pembayaran</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Dibuat Oleh</th>
                                 <th>Diperbarui Pada</th>
@@ -146,7 +146,7 @@
                                 <th>Promo</th>
                                 <th>Agen Penjual</th>
                                 <th>Status Pembayaran</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Dibuat Oleh</th>
                                 <th>Diperbarui Pada</th>

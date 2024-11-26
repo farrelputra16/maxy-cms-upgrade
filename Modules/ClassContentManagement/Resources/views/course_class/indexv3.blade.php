@@ -73,7 +73,7 @@
                                 <th>Durasi</th>
                                 <th>Pengumuman</th>
                                 <th>Konten</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>
@@ -173,7 +173,7 @@
                                 <th>Durasi</th>
                                 <th>Pengumuman</th>
                                 <th>Konten</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>

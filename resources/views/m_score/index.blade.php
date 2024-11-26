@@ -32,7 +32,7 @@
                     <p class="card-title-desc">
                         Di halaman ini, Anda dapat melihat dan mengelola data bobot penilaian yang tersedia. Setiap baris
                         dalam tabel ini memuat informasi penting tentang bobot penilaian, termasuk nama, rentang nilai
-                        awal dan akhir, serta deskripsi. Gunakan <b>fitur visibilitas kolom, pengurutan, dan pencarian
+                        awal dan akhir, serta catatan admin. Gunakan <b>fitur visibilitas kolom, pengurutan, dan pencarian
                             kolom</b> untuk mempermudah navigasi dan menemukan informasi yang Anda butuhkan dengan cepat.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
@@ -40,7 +40,7 @@
                         <li><strong>Visibilitas Kolom:</strong> Atur kolom yang ingin Anda tampilkan atau sembunyikan untuk
                             fokus pada data tertentu yang penting.</li>
                         <li><strong>Pencarian Data:</strong> Manfaatkan kolom pencarian untuk menemukan bobot penilaian
-                            tertentu berdasarkan nama atau deskripsi.</li>
+                            tertentu berdasarkan nama atau catatan admin.</li>
                         <li><strong>Pengurutan Data:</strong> Klik pada judul kolom, seperti "Bobot Penilaian" atau
                             "Rentang Awal," untuk mengurutkan data sesuai kebutuhan.</li>
                         <li><strong>Ubah Data:</strong> Klik tombol <em>Ubah</em> di kolom "Aksi" untuk memperbarui
@@ -58,7 +58,7 @@
                                 <th>Bobot Penilaian</th>
                                 <th>Rentang Awal</th>
                                 <th>Rentang Akhir</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>ID Pembuat</th>
                                 <th>Diperbarui Pada</th>
@@ -110,7 +110,7 @@
                                 <th>Bobot penilaian</th>
                                 <th>Rentang Awal</th>
                                 <th>Rentang Akhir</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>ID Pembuat</th>
                                 <th>Diperbarui Pada</th>

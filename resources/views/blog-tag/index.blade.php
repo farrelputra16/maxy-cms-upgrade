@@ -31,7 +31,7 @@
                     <h4 class="card-title">Data Tag Blog</h4>
                     <p class="card-title-desc">
                         Halaman ini berisi data tag blog yang akan digunakan untuk mengelompokkan artikel di halaman blog.
-                        Setiap tag memiliki atribut seperti nama, warna, deskripsi, dan status aktif/non-aktif. Data tag
+                        Setiap tag memiliki atribut seperti nama, warna, catatan admin, dan status aktif/non-aktif. Data tag
                         ditampilkan dalam tabel interaktif yang memudahkan navigasi dan pengelolaan.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
@@ -39,7 +39,7 @@
                         <li>Kolom <b>Nama</b> dan <b>Warna</b> memudahkan Anda mengidentifikasi tag yang tersedia dan
                             visualisasi warnanya. Arahkan kursor pada nama tag untuk melihat nama lengkap melalui tooltip.
                         </li>
-                        <li>Gunakan kolom <b>Deskripsi</b> untuk melihat keterangan singkat tentang setiap tag, yang
+                        <li>Gunakan kolom <b>Catatan Admin</b> untuk melihat keterangan singkat tentang setiap tag, yang
                             menjelaskan kategori atau tujuan penggunaannya.</li>
                         <li>Kolom <b>Status</b> menunjukkan apakah tag aktif (dapat digunakan dalam artikel) atau non-aktif
                             (tidak ditampilkan).</li>
@@ -58,7 +58,7 @@
                                 <th>Id</th>
                                 <th>Nama</th>
                                 <th>Warna</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>
@@ -114,7 +114,7 @@
                                 <th>Id</th>
                                 <th class="data-medium">Nama</th>
                                 <th>Warna</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>

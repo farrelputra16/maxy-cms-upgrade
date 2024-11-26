@@ -31,7 +31,7 @@
                     <h4 class="card-title">Data Blog</h4>
                     <p class="card-title-desc">
                         Halaman ini memuat tabel berisi data blog yang dipublikasikan. Setiap baris menampilkan informasi
-                        penting seperti judul, slug, konten, tag, highlight, deskripsi, dan status artikel. Data ini diatur
+                        penting seperti judul, slug, konten, tag, highlight, catatan admin, dan status artikel. Data ini diatur
                         dalam format interaktif sehingga Anda dapat dengan mudah mengakses dan mengelola artikel.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
@@ -65,7 +65,7 @@
                                 <th>Konten</th>
                                 <th>Tags</th>
                                 <th>Highlight</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>
@@ -139,7 +139,7 @@
                                 <th class="data-long">Konten</th>
                                 <th>Tags</th>
                                 <th>Highlight</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>

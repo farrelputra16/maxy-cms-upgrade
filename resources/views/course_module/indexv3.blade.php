@@ -35,7 +35,7 @@
                     <h4 class="card-title">Modul Utama untuk Mata Kuliah: {{ $course_detail->name }}</h4>
                     <p class="card-title-desc">
                         Halaman ini menampilkan daftar modul utama dari mata kuliah yang telah dipilih, termasuk informasi
-                        detail seperti nama modul, hari pelaksanaan, konten, deskripsi, dan status aktif. Anda dapat
+                        detail seperti nama modul, hari pelaksanaan, konten, catatan admin, dan status aktif. Anda dapat
                         mengelola modul dengan mudah melalui fitur tabel interaktif yang menyediakan <b>pencarian,
                             pengurutan, dan visibilitas kolom</b>.
                         <br><br>
@@ -44,7 +44,7 @@
                         <li>Klik ikon <b>+</b> di pojok kanan bawah untuk menambahkan modul baru ke dalam mata kuliah ini.
                         </li>
                         <li>Tekan tombol <b>Ubah</b> pada kolom Tindakan untuk memperbarui informasi modul seperti nama atau
-                            deskripsi.</li>
+                            catatan admin.</li>
                         <li>Pilih tombol <b>Konten</b> untuk mengelola sub-modul atau materi yang ada dalam modul tersebut.
                         </li>
                         <li>Gunakan kolom <b>Status</b> untuk mengetahui apakah modul sedang aktif atau non-aktif, yang
@@ -63,7 +63,7 @@
                                 <th class="data-medium">Nama Modul</th>
                                 <th>Hari</th>
                                 <th>Konten</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>ID Pembuat</th>
                                 <th>Diubah Pada</th>
@@ -119,7 +119,7 @@
                                 <th>Nama Modul</th>
                                 <th>Hari</th>
                                 <th>Konten</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>ID Pembuat</th>
                                 <th>Diubah Pada</th>

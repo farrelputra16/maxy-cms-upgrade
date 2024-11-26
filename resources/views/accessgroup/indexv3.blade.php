@@ -31,7 +31,7 @@
                     <h4 class="card-title">Grup Akses</h4>
                     <p class="card-title-desc">
                         Halaman ini menyediakan data lengkap tentang semua grup akses di platform. Setiap baris berisi
-                        informasi penting, seperti nama grup, deskripsi, dan status aktif atau tidak aktif. Gunakan fitur
+                        informasi penting, seperti nama grup, catatan admin, dan status aktif atau tidak aktif. Gunakan fitur
                         <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk menyesuaikan tampilan data dan
                         menemukan informasi yang relevan dengan cepat.
                         <br><br>
@@ -54,7 +54,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th>Nama Grup Akses</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Dibuat Oleh</th>
                                 <th>Diperbarui Pada</th>
@@ -96,7 +96,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th>Nama Grup Akses</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Dibuat Oleh</th>
                                 <th>Diperbarui Pada</th>

@@ -31,18 +31,18 @@
                     <div class="card-title-desc">
                         <p>
                             Halaman ini menampilkan data program studi yang ada di sistem, termasuk informasi mendetail
-                            tentang setiap program studi seperti nama, deskripsi, waktu pembuatan, dan status
+                            tentang setiap program studi seperti nama, catatan admin, waktu pembuatan, dan status
                             aktif/non-aktif. Pengguna dapat dengan mudah mengelola data ini melalui tabel interaktif.
                             <br><br>
                             <strong>Cara Penggunaan:</strong>
                         <ul>
                             <li><strong>Lihat Program Studi:</strong> Setiap baris di tabel mewakili Program Studi tertentu
-                                dengan informasi mendetail yang mencakup nama, deskripsi, dan status.</li>
+                                dengan informasi mendetail yang mencakup nama, catatan admin, dan status.</li>
                             <li><strong>Cari dan Urutkan Data:</strong> Gunakan fitur <em>pencarian</em> dan <em>pengurutan
                                     kolom</em> untuk menemukan Program Studi dengan cepat atau mengatur urutan data
                                 berdasarkan nama atau status.</li>
                             <li><strong>Ubah Informasi Program Studi:</strong> Klik tombol <em>Ubah</em> pada kolom Aksi
-                                untuk memperbarui informasi yang sudah ada, seperti nama atau deskripsi Program Studi.</li>
+                                untuk memperbarui informasi yang sudah ada, seperti nama atau catatan admin Program Studi.</li>
                             <li><strong>Tambah Program Studi Baru:</strong> Klik ikon <em>Tambah</em> di pojok kanan bawah
                                 untuk menambahkan Program Studi baru ke dalam sistem.</li>
                         </ul>
@@ -56,7 +56,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Nama Program Studi</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>
@@ -102,7 +102,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th>Nama Modul</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>

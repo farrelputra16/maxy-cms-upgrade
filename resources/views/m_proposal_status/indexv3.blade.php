@@ -33,7 +33,7 @@
                             Halaman ini menampilkan daftar semua status proposal yang tersedia dalam format tabel interaktif
                             (DataTable).
                             Setiap baris pada tabel ini menyajikan informasi penting terkait status proposal, termasuk nama
-                            status, deskripsi,
+                            status, catatan admin,
                             dan status aktif atau nonaktif. Halaman ini dirancang untuk membantu pengguna mengelola data
                             status proposal dengan
                             cepat dan efisien.
@@ -44,7 +44,7 @@
                             <li><strong>Visibilitas Kolom:</strong> Sesuaikan kolom yang ingin ditampilkan pada tabel untuk
                                 melihat data yang lebih relevan bagi kebutuhan Anda.</li>
                             <li><strong>Pencarian Data:</strong> Gunakan kolom pencarian untuk menemukan status proposal
-                                tertentu secara cepat berdasarkan nama atau deskripsi.</li>
+                                tertentu secara cepat berdasarkan nama atau catatan admin.</li>
                             <li><strong>Pengurutan Kolom:</strong> Klik judul kolom untuk mengurutkan data, misalnya
                                 berdasarkan status aktif atau tanggal pembaruan, untuk kemudahan navigasi.</li>
                             <li><strong>Ubah Data:</strong> Klik tombol <em>Ubah</em> di kolom "Aksi" pada baris data yang
@@ -62,7 +62,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Nama Status Proposal</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>
@@ -107,7 +107,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th>Nama</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>

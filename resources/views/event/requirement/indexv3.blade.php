@@ -33,11 +33,11 @@
                         Halaman ini memungkinkan Anda untuk melihat dan mengelola daftar persyaratan yang diperlukan untuk
                         mengikuti acara <b>{{ $event->name }}</b>.
                         Data ditampilkan dalam tabel interaktif dengan informasi yang komprehensif, termasuk nama
-                        persyaratan, status unggahan, keharusan, dan deskripsi singkat.
+                        persyaratan, status unggahan, keharusan, dan catatan admin singkat.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
-                        <li>Gunakan kolom <b>Nama</b> dan <b>Deskripsi</b> untuk mengetahui detail setiap persyaratan.
+                        <li>Gunakan kolom <b>Nama</b> dan <b>Catatan Admin</b> untuk mengetahui detail setiap persyaratan.
                             Arahkan kursor pada teks untuk melihat informasi selengkapnya melalui tooltip.</li>
                         <li>Perhatikan kolom <b>Upload</b> untuk memastikan apakah persyaratan tersebut memerlukan unggahan
                             dokumen dari peserta, dengan indikasi "Ya" atau "Tidak".</li>
@@ -62,7 +62,7 @@
                                 <th class="data-medium">Nama</th>
                                 <th>Upload</th>
                                 <th>Wajib</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>
@@ -124,7 +124,7 @@
                                 <th class="data-medium">Nama</th>
                                 <th>Upload</th>
                                 <th>Wajib</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>

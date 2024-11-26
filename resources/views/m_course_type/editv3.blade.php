@@ -33,7 +33,7 @@
                         <br></br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
-                        <li>Isi kolom "Nama Jenis Mata Kuliah," "Slug," dan "Deskripsi" sesuai kebutuhan.</li>
+                        <li>Isi kolom "Nama Jenis Mata Kuliah," "Slug," dan "Catatan Admin" sesuai kebutuhan.</li>
                         <li>Setelah semua detail terisi, gunakan tombol <strong>'Simpan & Perbarui'</strong> untuk menyimpan
                             perubahan.</li>
                     </ul>

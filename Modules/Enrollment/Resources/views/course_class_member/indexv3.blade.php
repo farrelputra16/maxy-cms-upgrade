@@ -34,7 +34,7 @@
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda untuk mengelola dan memantau data anggota kelas yang tersedia di
                         platform. Setiap baris dalam tabel ini berisi informasi penting mengenai anggota kelas, termasuk
-                        nama, deskripsi, status, dan tanggal pembaruan data.
+                        nama, catatan admin, status, dan tanggal pembaruan data.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
@@ -63,7 +63,7 @@
                                 @if ($courseClassDetail->course_type_id == $mbkmType)
                                     <th>Mitra</th>
                                 @endif
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Dibuat Oleh</th>
                                 <th>Diperbarui Pada</th>
@@ -115,7 +115,7 @@
                                 @if ($courseClassDetail->course_type_id == $mbkmType)
                                     <th>Mitra</th>
                                 @endif
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Dibuat Oleh</th>
                                 <th>Diperbarui Pada</th>

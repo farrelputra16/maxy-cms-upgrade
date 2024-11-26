@@ -39,7 +39,7 @@
                     <ul>
                         <li>Isi <b>Nama Modul</b> dengan judul modul yang sesuai.</li>
                         <li>Gunakan kolom <b>Hari/Prioritas</b> untuk menentukan urutan modul di dalam mata kuliah.</li>
-                        <li>Isi kolom <b>Deskripsi</b> dengan ringkasan isi modul, dan aktifkan status modul dengan
+                        <li>Isi kolom <b>Catatan Admin</b> dengan ringkasan isi modul, dan aktifkan status modul dengan
                             mencentang kotak <b>Status</b> agar dapat diakses peserta.</li>
                         <li>Klik tombol <b>Simpan Modul</b> untuk menambahkan modul ke dalam mata kuliah.</li>
                     </ul>

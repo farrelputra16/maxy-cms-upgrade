@@ -56,7 +56,7 @@
                                 <th>Nama Pengguna</th>
                                 <th>Email</th>
                                 <th>Grup Akses</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Tanggal Lahir</th>
                                 <th>Telepon</th>
                                 <th>Alamat</th>
@@ -143,7 +143,7 @@
                                 <th>Nama Pengguna</th>
                                 <th>Email</th>
                                 <th>Grup Akses</th>
-                                <th>Deskripsi</th>
+                                <th>Catatan Admin</th>
                                 <th>Tanggal Lahir</th>
                                 <th>Telepon</th>
                                 <th>Alamat</th>

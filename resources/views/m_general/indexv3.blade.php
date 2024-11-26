@@ -32,7 +32,7 @@
                     <p class="card-title-desc">
                         Halaman ini menyediakan akses ke pengaturan umum sistem yang meliputi logo, alamat, kontak, dan
                         berbagai data institusi lainnya. Anda dapat melihat dan mengelola detail pengaturan umum ini melalui
-                        tabel di bawah, yang menampilkan informasi seperti nama pengaturan, isi, deskripsi, status, serta
+                        tabel di bawah, yang menampilkan informasi seperti nama pengaturan, isi, catatan admin, status, serta
                         waktu pembuatan dan pembaruan.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
@@ -40,7 +40,7 @@
                         <li>Kolom <b>Nama</b> dan <b>Isi</b> menampilkan nama pengaturan dan nilai dari pengaturan tersebut,
                             seperti alamat atau nomor kontak. Arahkan kursor pada teks untuk melihat informasi lebih lengkap
                             melalui tooltip.</li>
-                        <li>Gunakan kolom <b>Deskripsi</b> untuk memahami fungsi atau tujuan dari setiap pengaturan secara
+                        <li>Gunakan kolom <b>Catatan Admin</b> untuk memahami fungsi atau tujuan dari setiap pengaturan secara
                             lebih mendalam.</li>
                         <li>Kolom <b>Status</b> menunjukkan apakah pengaturan tersebut sedang aktif (ditandai dengan tombol
                             hijau) atau non-aktif (tombol merah), membantu Anda memverifikasi pengaturan yang sedang
@@ -60,7 +60,7 @@
                                 <th>Id</th>
                                 <th class="data-medium">Nama</th>
                                 <th class="data-medium">Isi</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>
@@ -110,7 +110,7 @@
                                 <th>Id</th>
                                 <th class="data-medium">Nama</th>
                                 <th class="data-medium">Isi</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>

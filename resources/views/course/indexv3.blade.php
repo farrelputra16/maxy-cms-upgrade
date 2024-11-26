@@ -31,7 +31,7 @@
                     <p class="card-title-desc">
                         Halaman ini menampilkan daftar mata kuliah dalam format tabel interaktif yang memudahkan Anda
                         mengelola
-                        mata kuliah yang tersedia. Setiap mata kuliah mencakup informasi seperti nama, deskripsi, harga,
+                        mata kuliah yang tersedia. Setiap mata kuliah mencakup informasi seperti nama, catatan admin, harga,
                         jenis mata kuliah,
                         SKS, durasi, dan status. Anda dapat menggunakan <b>fitur visibilitas kolom, pengurutan, dan
                             pencarian kolom</b> untuk menyesuaikan tampilan sesuai kebutuhan.
@@ -62,8 +62,8 @@
                                 <th>Jenis Mata Kuliah</th>
                                 <th>SKS</th>
                                 <th>Durasi</th>
-                                <th class="data-long">Deskripsi Singkat</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Deskripsi Pratinjau</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th class="data-long">Konten</th>
                                 <th>Dibuat Pada</th>
                                 <th>Diperbarui Pada</th>
@@ -128,8 +128,8 @@
                                 <th>Jenis Mata Kuliah</th>
                                 <th>SKS</th>
                                 <th>Durasi</th>
-                                <th>Deskripsi Singkat</th>
-                                <th>Deskripsi</th>
+                                <th>Deskripsi Pratinjau</th>
+                                <th>Catatan Admin</th>
                                 <th>Konten</th>
                                 <th>Dibuat Pada</th>
                                 <th>Diperbarui Pada</th>

@@ -32,7 +32,7 @@
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda untuk mengelola modul dalam kelas yang telah dipilih. Setiap
                         baris dalam tabel berikut berisi informasi penting mengenai modul, seperti nama modul, hari
-                        pelaksanaan, tanggal mulai dan selesai, serta deskripsi singkat. Fitur-fitur seperti <b>pengaturan
+                        pelaksanaan, tanggal mulai dan selesai, serta catatan admin singkat. Fitur-fitur seperti <b>pengaturan
                             kolom, pengurutan, dan pencarian</b> tersedia untuk membantu Anda menyesuaikan tampilan dan
                         menemukan modul tertentu dengan cepat.
                         <br><br>
@@ -40,8 +40,8 @@
                     <ul>
                         <li><strong>Atur Kolom:</strong> Gunakan pengurutan di header kolom untuk mengelompokkan data
                             berdasarkan hari atau tanggal.</li>
-                        <li><strong>Lihat Deskripsi Lengkap:</strong> Arahkan kursor ke teks yang terpotong pada kolom
-                            deskripsi untuk melihat konten lengkap dari deskripsi modul.</li>
+                        <li><strong>Lihat Catatan SAdmin Lengkap:</strong> Arahkan kursor ke teks yang terpotong pada kolom
+                            catatan admin untuk melihat konten lengkap dari catatan admin modul.</li>
                         <li><strong>Ubah Modul:</strong> Klik tombol <em>Ubah</em> pada kolom “Aksi” untuk memperbarui
                             informasi modul yang ada.</li>
                         <li><strong>Atur Konten Modul:</strong> Tombol <em>Atur Konten</em> memungkinkan Anda mengakses dan
@@ -60,7 +60,7 @@
                                 <th>Hari Modul</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Selesai</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>
@@ -112,7 +112,7 @@
                                 <th>Hari Modul</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Selesai</th>
-                                <th class="data-long">Deskripsi</th>
+                                <th class="data-long">Catatan Admin</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>

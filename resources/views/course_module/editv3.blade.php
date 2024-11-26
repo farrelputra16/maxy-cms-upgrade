@@ -38,7 +38,7 @@
                     <ul>
                         <li>Isi kolom <b>Nama Modul</b> dengan judul yang mencerminkan isi modul.</li>
                         <li>Tentukan <b>Hari/Prioritas</b> untuk mengatur urutan tampilan modul di dalam mata kuliah.</li>
-                        <li>Berikan ringkasan dalam <b>Deskripsi</b> untuk menjelaskan materi yang akan dibahas di modul
+                        <li>Berikan ringkasan dalam <b>Catatan Admin</b> untuk menjelaskan materi yang akan dibahas di modul
                             ini.</li>
                         <li>Centang kotak <b>Status</b> agar modul ini aktif dan dapat diakses peserta mata kuliah.</li>
                         <li>Klik <b>Simpan & Perbarui</b> untuk menyimpan perubahan.</li>

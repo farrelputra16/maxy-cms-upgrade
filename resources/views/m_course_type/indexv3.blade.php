@@ -32,7 +32,7 @@
                         <p>
                             Halaman ini memberikan tampilan menyeluruh tentang jenis-jenis mata kuliah yang tersedia di
                             sistem. Setiap jenis mata kuliah dicantumkan bersama informasi detail seperti nama, slug,
-                            deskripsi, dan status aktif/non-aktif.
+                            catatan admin, dan status aktif/non-aktif.
                             <br><br>
                             <strong>Cara Penggunaan:</strong>
                         <ul>
@@ -42,7 +42,7 @@
                                 atau "Status" untuk mengurutkan data, misalnya berdasarkan nama atau status aktif/non-aktif.
                             </li>
                             <li><strong>Ubah Informasi:</strong> Tekan tombol <em>Ubah</em> pada kolom Aksi untuk
-                                memperbarui informasi jenis mata kuliah, termasuk nama, deskripsi, dan status.</li>
+                                memperbarui informasi jenis mata kuliah, termasuk nama, catatan admin, dan status.</li>
                             <li><strong>Tambah Jenis Mata Kuliah Baru:</strong> Klik tombol <em>+</em> di pojok kanan bawah
                                 halaman untuk menambahkan jenis mata kuliah baru ke dalam daftar.</li>
                         </ul>
@@ -58,7 +58,7 @@
                             <th>Id</th>
                             <th class="data-medium">Nama Jenis Mata Kuliah</th>
                             <th>Slug</th>
-                            <th class="data-long">Deskripsi</th>
+                            <th class="data-long">Catatan Admin</th>
                             <th>Created At</th>
                             <th>Created Id</th>
                             <th>Updated At</th>
@@ -105,7 +105,7 @@
                             <th>Id</th>
                             <th class="data-medium">Nama Jenis Mata Kuliah</th>
                             <th>Slug</th>
-                            <th class="data-long">Deskripsi</th>
+                            <th class="data-long">Catatan Admin</th>
                             <th>Created At</th>
                             <th>Created Id</th>
                             <th>Updated At</th>
