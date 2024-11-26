@@ -17,7 +17,7 @@
                 </li>
 
                 @if (Session::has('access_master') && Session::get('access_master')->contains(function ($access) {
-                    return in_array($access->access_master_name, ['course_manage', 'm_Course_type_manage', 'course_package_manage', 'm_difficulty_type_manage', 'm_partner_manage', 'category_manage', 'm_proposal_type_manage', 'm_proposal_status_manage', 
+                    return in_array($access->access_master_name, ['course_manage', 'm_Course_type_manage', 'course_package_manage', 'm_difficulty_type_manage', 'm_partner_manage', 'category_manage', 'm_proposal_type_manage', 'm_proposal_status_manage',
                                     'm_event_type_manage', 'm_partnership_type_manage', 'm_survey_manage', 'm_academic_period_manage', 'm_score_manage', 'm_jobdesc_manage']);
                 }))
                 <li>
@@ -70,7 +70,7 @@
                             <li><a href="{{ route('getAcademicPeriod') }}" key="t-blog">Periode Akademik</a></li>
                         @endif
                         @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'm_score_manage'))
-                            <li><a href="{{ route('getScore') }}" key="t-blog">Tingkat Penilaian</a></li>
+                            <li><a href="{{ route('getScore') }}" key="t-blog">Bobot Penilaian</a></li>
                         @endif
                         @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'm_jobdesc_manage'))
                             <li><a href="{{ route('getJobdesc') }}" key="t-blog">Deskripsi Pekerjaan</a></li>
