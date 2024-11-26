@@ -55,7 +55,7 @@
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
-                                    value="{{ old('name', count(explode('-', $courses->name)) > 1 ? explode('-', $courses->name)[1] : '') }}"
+                                    value="{{ old('name', $courses->name) }}"
                                     id="name">
                             </div>
                         </div>

@@ -121,7 +121,7 @@ class Course extends Model
 
         // dd($request->name);
 
-        $courseConcatenate = Str::upper($courseCode) . '-' . $courseName;
+        $courseConcatenate = $request->has('mbkmForm') ? $courseName : Str::upper($courseCode) . '-' . $courseName;
 
 
         if ($request->package && $courses->fake_price && $courses->price){
