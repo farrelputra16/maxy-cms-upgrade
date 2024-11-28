@@ -84,7 +84,7 @@
                                         <img src="{{ asset('uploads/partner/' . $item->logo) }}" alt="Logo Mitra"
                                             style="max-width: 200px; max-height: 150px;">
                                     </td>
-                                    <td>{{ $item->type }}</td>
+                                    <td>{{ $item->MPartnerType->name }}</td>
                                     <td>{{ \Str::limit($item->url, 20) }}</td>
                                     <td class="data-medium" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->address) !!}">

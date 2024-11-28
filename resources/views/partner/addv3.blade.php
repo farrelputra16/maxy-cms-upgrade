@@ -57,16 +57,12 @@
                             <label for="input-tag" class="col-md-2 col-form-label">Tipe <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="type" data-placeholder="Pilih ..."
-                                    id="type_selector">
-                                    <option value="UNIVERSITY" {{ old('type') == 'UNIVERSITY' ? 'selected' : '' }}>
-                                        UNIVERSITAS</option>
-                                    <option value="COMPANY" {{ old('type') == 'COMPANY' ? 'selected' : '' }}>PERUSAHAAN
-                                    </option>
-                                    <option value="GOVERNMENT" {{ old('type') == 'GOVERNMENT' ? 'selected' : '' }}>
-                                        PEMERINTAH</option>
-                                    <option value="UPSKILLING" {{ old('type') == 'UPSKILLING' ? 'selected' : '' }}>
-                                        UPSKILLING</option>
+                                <select class="form-control select2" name="type" data-placeholder="Pilih ..." id="type_selector">
+                                    @foreach ($partnerTypes as $item)
+                                        <option value="{{ $item->id }}"
+                                            {{ old('type') == $item->id ? 'selected' : '' }}> {{ $item->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

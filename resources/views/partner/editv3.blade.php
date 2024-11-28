@@ -58,26 +58,13 @@
                             <label for="input-tag" class="col-md-2 col-form-label">Tipe <span class="text-danger"
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="type" data-placeholder="Pilih ..."
-                                    id="type_selector">
+                                <select class="form-control select2" name="type" data-placeholder="Pilih ..." id="type_selector">
                                     <!-- Menampilkan pilihan yang ada di database (jika ada) -->
-                                    @if ($partners->type)
-                                        <option value="{{ $partners->type }}" selected>{{ $partners->type }}</option>
-                                    @endif
-
-                                    <!-- Menampilkan opsi statis jika type belum di-set atau pilihan lain -->
-                                    <option value="UNIVERSITY"
-                                        {{ old('type', $partners->type) == 'UNIVERSITY' ? 'selected' : '' }}>UNIVERSITAS
-                                    </option>
-                                    <option value="COMPANY"
-                                        {{ old('type', $partners->type) == 'COMPANY' ? 'selected' : '' }}>PERUSAHAAN
-                                    </option>
-                                    <option value="GOVERNMENT"
-                                        {{ old('type', $partners->type) == 'GOVERNMENT' ? 'selected' : '' }}>PEMERINTAH
-                                    </option>
-                                    <option value="UPSKILLING"
-                                        {{ old('type', $partners->type) == 'UPSKILLING' ? 'selected' : '' }}>UPSKILLING
-                                    </option>
+                                    @foreach ($partnerTypes as $item)
+                                        <option value="{{ $item->id }}"
+                                            {{ old('type', $partners->type) == $item->id ? 'selected' : '' }}>
+                                            {{ $item->name }} </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
