@@ -87,6 +87,10 @@
                                     Session::get('access_master')->contains('access_master_name', 'm_partnership_type_manage'))
                                 <li><a href="{{ route('getPartnershipType') }}" key="t-blog">Tipe Kemitraan</a></li>
                             @endif
+                            @if (Session::has('access_master') &&
+                                    Session::get('access_master')->contains('access_master_name', 'm_partner_type_manage'))
+                                <li><a href="{{ route('getPartnerType') }}" key="t-blog">Tipe Mitra</a></li>
+                            @endif
                             @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'm_survey_manage'))
                                 <li><a href="{{ route('getSurvey') }}" key="t-blog">Survei</a></li>
                             @endif
