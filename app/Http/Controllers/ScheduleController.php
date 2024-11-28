@@ -238,45 +238,57 @@ class ScheduleController extends Controller
             $prodi = $request->input('prodi');
             $academic_period = $request->input('academic_period');
 
-            // Ambil data m_academic_period berdasarkan ID
+            // Ambil data m_academic_period berdasarkan ID jika ada
             $academicPeriod = MAcademicPeriod::find($academic_period);
 
+            // Jika academic period tidak ditemukan, gunakan data tanpa filter tanggal
             if (!$academicPeriod) {
-                return response()->json(['error' => 'Academic period not found'], 404);
+                $start_date = null;
+                $end_date = null;
+            } else {
+                $start_date = $academicPeriod->date_start;
+                $end_date = $academicPeriod->date_end;
             }
 
-            $start_date = $academicPeriod->date_start;
-            $end_date = $academicPeriod->date_end;
-
             // Ambil kelas dengan tutor
-            $classWithTutor = CourseClass::whereHas('course.CourseCategory', function ($query) use ($prodi) {
-                    $query->where('category_id', $prodi);
-                })
-                ->where('status_ongoing', '!=', 2)
-                ->whereIn('id', function ($query) {
-                    $query->select('course_class_id')
-                        ->from('user_mentorships');
-                })
-                ->where(function ($query) use ($start_date, $end_date) {
+            $classWithTutorQuery = CourseClass::whereHas('course.CourseCategory', function ($query) use ($prodi) {
+                $query->where('category_id', $prodi);
+            })
+            ->where('status_ongoing', '!=', 2)
+            ->whereIn('id', function ($query) {
+                $query->select('course_class_id')
+                    ->from('user_mentorships');
+            });
+
+            // Tambahkan filter tanggal jika ada academic period
+            if ($start_date && $end_date) {
+                $classWithTutorQuery->where(function ($query) use ($start_date, $end_date) {
                     $query->whereBetween('start_date', [$start_date, $end_date])
                         ->orWhereBetween('end_date', [$start_date, $end_date]);
-                })
-                ->get();
+                });
+            }
+
+            $classWithTutor = $classWithTutorQuery->get();
 
             // Ambil ID kelas yang sudah memiliki tutor
             $classWithTutorIds = $classWithTutor->pluck('id')->toArray();
 
             // Ambil kelas tanpa tutor
-            $classWithoutTutor = CourseClass::whereHas('course.CourseCategory', function ($query) use ($prodi) {
-                    $query->where('category_id', $prodi);
-                })
-                ->where('status_ongoing', '!=', 2)
-                ->whereNotIn('id', $classWithTutorIds)
-                ->where(function ($query) use ($start_date, $end_date) {
+            $classWithoutTutorQuery = CourseClass::whereHas('course.CourseCategory', function ($query) use ($prodi) {
+                $query->where('category_id', $prodi);
+            })
+            ->where('status_ongoing', '!=', 2)
+            ->whereNotIn('id', $classWithTutorIds);
+
+            // Tambahkan filter tanggal jika ada academic period
+            if ($start_date && $end_date) {
+                $classWithoutTutorQuery->where(function ($query) use ($start_date, $end_date) {
                     $query->whereBetween('start_date', [$start_date, $end_date])
                         ->orWhereBetween('end_date', [$start_date, $end_date]);
-                })
-                ->get();
+                });
+            }
+
+            $classWithoutTutor = $classWithoutTutorQuery->get();
 
             return response()->json([
                 'classWithTutor' => $classWithTutor,

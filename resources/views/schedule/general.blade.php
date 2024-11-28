@@ -35,7 +35,7 @@
         </select>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-3" id="prodi-container" hidden>
         <label for="prodi" class="form-label">Pilih Program Studi</label>
         <select id="prodi" class="form-select">
             <option value="">Pilih Program Studi</option>
@@ -190,7 +190,46 @@
             calendar.render();
 
             $('#academic-period').on('change', function() {
-                calendar.refetchEvents();
+                let selectedPeriod = $(this).val();
+                if (selectedPeriod) {
+                    $('#prodi-container').removeAttr('hidden'); // Tampilkan dropdown Prodi
+                    calendar.refetchEvents(); // Refetch event berdasarkan period
+                } else {
+                    $('#prodi-container').attr('hidden', true); // Sembunyikan dropdown Prodi
+                    $('#prodi').val(''); // Reset nilai Prodi
+                    calendar.removeAllEvents();
+                }
+
+                $.ajax({
+                    url: "{{ route('getOngoingCourseClassByCourseCategory') }}",
+                    dataType: 'json',
+                    data: {
+                        prodi: $('#prodi').val(),
+                        academic_period: $('#academic-period').val()
+                    },
+                    success: function(data) {
+                        $('#external-events').html('');
+
+                        // Menampilkan kelas yang memiliki tutor
+                        data.classWithTutor.forEach(item => {
+                            $('#external-events').append(
+                                `<div class='fc-event' data-id="${item.id}">${item.slug}</div>`
+                            );
+                        });
+
+                        // Menampilkan pesan dan kelas yang tidak memiliki tutor
+                        if (data.classWithoutTutor.length > 0) {
+                            $('#external-events').append(
+                                "<br><p style='text-align: center;'><strong>Kelas-kelas di bawah ini tidak dapat ditambahkan karena belum memiliki pengajar</strong></p>"
+                            );
+                            data.classWithoutTutor.forEach(item => {
+                                $('#external-events').append(
+                                    `<div class='fc-event no-tutor' data-id="${item.id}" style="background-color: #ffcccc; draggable: false">${item.slug}</div>`
+                                );
+                            });
+                        }
+                    }
+                });
             });
 
             $('#prodi').on('change', function() {
