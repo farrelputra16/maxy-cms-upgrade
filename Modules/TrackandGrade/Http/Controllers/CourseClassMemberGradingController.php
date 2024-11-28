@@ -50,14 +50,26 @@ class CourseClassMemberGradingController extends Controller
                 ->where('course_class.status_ongoing', 1)
                 ->get();
         } else {
-            $class_list = DB::table('course_class')
-                ->join('course', 'course.id', '=', 'course_class.course_id')
-                ->join('course_class_member', 'course_class.id', '=', 'course_class_member.course_class_id')
-                ->select('course.name as course_name', 'course_class.batch', 'course_class.id as class_id')
+            $class_list = DB::table('user_mentorships')
+                ->leftJoin('course_class', 'user_mentorships.course_class_id', '=', 'course_class.id')
+                ->leftJoin('course', 'course_class.course_id', '=', 'course.id')
+                ->leftJoin('m_course_type', 'course.m_course_type_id', '=', 'm_course_type.id')
                 ->where('course_class.status', 1)
                 ->where('course_class.status_ongoing', 1)
-                ->where('course_class_member.user_id', Auth::user()->id)
+                ->where('user_mentorships.mentor_id', Auth::user()->id)
+                ->select('course.name as course_name', 'course_class.batch', 'course_class.id as class_id')
+                ->distinct()
                 ->get();
+
+
+            // DB::table('course_class')
+            //     ->join('course', 'course.id', '=', 'course_class.course_id')
+            //     ->join('course_class_member', 'course_class.id', '=', 'course_class_member.course_class_id')
+            //     ->select('course.name as course_name', 'course_class.batch', 'course_class.id as class_id')
+            //     ->where('course_class.status', 1)
+            //     ->where('course_class.status_ongoing', 1)
+            //     ->where('course_class_member.user_id', Auth::user()->id)
+            //     ->get();
         }
 
         // if class has been picked
