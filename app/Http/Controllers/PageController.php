@@ -15,7 +15,7 @@ class PageController extends Controller
     public function getPages()
     {
 
-        $sections = MPageContent::select('page_id')
+        $sections = MPageContent::select('page_id', 'status')
             ->distinct()
             ->get();
 

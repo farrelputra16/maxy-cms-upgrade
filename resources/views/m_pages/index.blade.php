@@ -50,11 +50,12 @@
                     </p>
 
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100" data-colvis="[2]">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Halaman</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -74,9 +75,8 @@
                                             Unknown Page
                                         @endif
                                     </td>
-
-
                                     {{-- Ubah Button --}}
+                                    <td>{{ $section->status == 1 ? 'Aktif' : 'Non Aktif' }}</td>
                                     <td>
                                         <a href="{{ route('getEditPage', ['id' => $section->page_id]) }}"
                                             class="btn btn-primary rounded">Ubah</a>
@@ -88,6 +88,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Halaman</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </tfoot>
