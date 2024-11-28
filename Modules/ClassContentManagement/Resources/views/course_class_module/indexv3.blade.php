@@ -27,7 +27,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Modul untuk Kelas: {{ $course_detail->name }} Angkatan {{ $batch_number }}
+                    <h4 class="card-title">Modul untuk Kelas: {{ $course_detail->name }} Kelas Paralel {{ $batch_number }}
                     </h4>
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda untuk mengelola modul dalam kelas yang telah dipilih. Setiap

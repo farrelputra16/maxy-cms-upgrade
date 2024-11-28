@@ -209,7 +209,7 @@ return [
         'discount_type' => 'Tipe diskon',
         'discount' => 'Diskon',
         'max_discount' => 'Diskon maksimal',
-        'batch' => 'Angkatan',
+        'batch' => 'Kelas Paralel',
         'start' => 'Tanggal mulai',
         'end' => 'Tanggal selesai',
         'ongoing' => 'Status kelas',

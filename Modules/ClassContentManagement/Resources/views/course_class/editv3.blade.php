@@ -34,7 +34,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Ubah Kelas: {{ $course_name }} <small>[ Angkatan:
+                    <h4 class="card-title">Ubah Kelas: {{ $course_name }} <small>[ Kelas Paralel:
                             {{ $course_class_detail->batch }} ]</small>
                     </h4>
                     <p class="card-title-desc">Halaman ini memungkinkan Anda untuk memperbarui informasi kelas mata kuliah
@@ -48,7 +48,7 @@
                         <input type="hidden" name="course_class_id" value="{{ $course_class_detail->id }}">
 
                         <div class="mb-3 row">
-                            <label for="batch" class="col-md-2 col-form-label">Angkatan <span class="text-danger"
+                            <label for="batch" class="col-md-2 col-form-label">Kelas Paralel <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="batch"

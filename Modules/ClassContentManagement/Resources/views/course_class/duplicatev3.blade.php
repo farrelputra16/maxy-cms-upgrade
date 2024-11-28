@@ -36,7 +36,7 @@
                     <ul>
                         <li>Isi kolom <strong>Mata Kuliah</strong> dengan memilih mata kuliah yang sesuai dari daftar yang
                             tersedia.</li>
-                        <li>Masukkan <strong>Batch</strong> untuk menentukan angkatan dari kelas baru yang akan dibuat.</li>
+                        <li>Masukkan <strong>Batch</strong> untuk menentukan kelas paralel dari kelas baru yang akan dibuat.</li>
                         <li>Gunakan tombol <strong>'Duplikasi Modul Mata Kuliah'</strong> untuk menyimpan dan membuat kelas
                             baru.</li>
                     </ul>
@@ -84,10 +84,10 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Angkatan</label>
+                            <label for="input-title" class="col-md-2 col-form-label">Kelas Paralel</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="batch"
-                                    placeholder="Masukkan angkatan (contoh: 2024)">
+                                    placeholder="Masukkan kelas paralel (contoh: 2024)">
                                 @if ($errors->has('batch'))
                                     @foreach ($errors->get('batch') as $error)
                                         <span style="color: red;">{{ $error }}</span>

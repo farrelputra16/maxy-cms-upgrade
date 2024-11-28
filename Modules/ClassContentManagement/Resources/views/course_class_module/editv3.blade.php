@@ -119,7 +119,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Kelas Mata Kuliah (Angkatan) - Mata Kuliah</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Kelas Mata Kuliah (Kelas Paralel) - Mata Kuliah</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="courseclassid" disabled>
                                     <option value="{{ $classDetail->course_class_id }}">Batch {{ $classDetail->batch }} -

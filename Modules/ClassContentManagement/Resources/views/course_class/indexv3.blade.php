@@ -36,14 +36,14 @@
                     <h4 class="card-title">Daftar Kelas</h4>
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda untuk mengelola dan memantau data kelas yang tersedia di platform.
-                        Setiap baris dalam tabel ini berisi informasi penting mengenai kelas, termasuk angkatan, tipe,
+                        Setiap baris dalam tabel ini berisi informasi penting mengenai kelas, termasuk kelas paralel, tipe,
                         tanggal mulai dan selesai, kuota, SKS, durasi, dan status kelas.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
                         <li><strong>Visibilitas Kolom dan Pengurutan:</strong> Atur tampilan dengan mengurutkan kolom
                             tertentu untuk mempermudah pencarian data spesifik. Anda juga bisa menggunakan bilah pencarian
-                            untuk mencari kelas tertentu berdasarkan nama, angkatan, atau tipe.</li>
+                            untuk mencari kelas tertentu berdasarkan nama, kelas paralel, atau tipe.</li>
                         <li><strong>Ubah Data:</strong> Klik tombol <em>Ubah</em> pada kolom “Aksi” untuk memperbarui
                             informasi kelas.</li>
                         <li><strong>Modul dan Mahasiswa:</strong> Gunakan tombol <em>Modul</em> untuk mengelola modul, dan
@@ -62,7 +62,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Angkatan</th>
+                                <th>Kelas Paralel</th>
                                 <th>Tipe</th>
                                 <th>Berjalan</th>
                                 <th>Mulai</th>
@@ -87,7 +87,7 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->id }}</td>
-                                    <td>{{ $item->course_name }} Angkatan {{ $item->batch }}</td>
+                                    <td>{{ $item->course_name }} Kelas Paralel {{ $item->batch }}</td>
                                     <td>{{ $item->type }}</td>
                                     <td>
                                         @if ($item->status_ongoing == 0)
@@ -162,7 +162,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Angkatan</th>
+                                <th>Kelas Paralel</th>
                                 <th>Tipe</th>
                                 <th>Berjalan</th>
                                 <th>Mulai</th>

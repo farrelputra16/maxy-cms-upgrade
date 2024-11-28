@@ -48,10 +48,10 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Angkatan <span class="text-danger"
+                            <label for="input-name" class="col-md-2 col-form-label">Kelas Paralel <span class="text-danger"
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="batch" id="batch" placeholder="Masukkan nomor angkatan (contoh: 2024)" value="{{ old('batch') }}">
+                                <input class="form-control" type="number" name="batch" id="batch" placeholder="Masukkan nomor kelas paralel (contoh: 2024)" value="{{ old('batch') }}">
                                 @error('batch')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror

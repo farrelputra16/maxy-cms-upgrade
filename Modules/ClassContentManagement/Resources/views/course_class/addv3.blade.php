@@ -55,11 +55,11 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="batch" class="col-md-2 col-form-label">Angkatan <span class="text-danger"
+                            <label for="batch" class="col-md-2 col-form-label">Kelas Paralel <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="batch" id="batch"
-                                    placeholder="Masukkan tahun angkatan (contoh: 2023)" value="{{ old('batch') }}">
+                                <input class="form-control" type="text" name="batch" id="batch"
+                                    placeholder="Masukkan tahun kelas paralel (contoh: 2023)" value="{{ old('batch') }}">
                                 @error('batch')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -72,7 +72,7 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug" id="slug"
                                     value="{{ old('slug') }}"
-                                    placeholder="Slug akan diisi otomatis berdasarkan mata kuliah dan angkatan" readonly>
+                                    placeholder="Slug akan diisi otomatis berdasarkan mata kuliah dan kelas paralel" readonly>
                                 @error('slug')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror

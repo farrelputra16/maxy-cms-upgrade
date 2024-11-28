@@ -31,7 +31,7 @@
                     <p class="card-title-desc">
                         Halaman ini menampilkan daftar template sertifikat yang tersedia untuk mata kuliah. Setiap baris
                         dalam
-                        tabel di bawah ini menyajikan informasi penting, termasuk jenis mata kuliah, angkatan, gambar
+                        tabel di bawah ini menyajikan informasi penting, termasuk jenis mata kuliah, kelas paralel, gambar
                         template,
                         status penanda, dan konten template. Gunakan fitur <b>visibilitas kolom, pengurutan, dan
                             pencarian</b> untuk mempermudah navigasi dan menemukan template yang Anda butuhkan dengan cepat.
@@ -56,7 +56,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Jenis Mata Kuliah - Angkatan</th>
+                                <th>Jenis Mata Kuliah - Kelas Paralel</th>
                                 <th>Gambar</th>
                                 <th>Status Penanda</th>
                                 <th>Konten Template</th>
@@ -72,7 +72,7 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $certificateTemplate->id }}</td>
-                                    <td>{{ $certificateTemplate->type->name . ' - ' . "Angkatan $certificateTemplate->batch" ?? '-' }}
+                                    <td>{{ $certificateTemplate->type->name . ' - ' . "Kelas Paralel $certificateTemplate->batch" ?? '-' }}
                                     </td>
                                     <td>
                                         <img src="{{ asset('uploads/certificate/' . $certificateTemplate->type->id . '/' . $certificateTemplate->filename) }}"
@@ -107,7 +107,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Jenis Mata Kuliah - Angkatan</th>
+                                <th>Jenis Mata Kuliah - Kelas Paralel</th>
                                 <th>Gambar</th>
                                 <th>Status Penanda</th>
                                 <th>Konten Template</th>
