@@ -108,12 +108,21 @@ class CourseClass extends Model
     public static function getAllCourseClassbyMentor()
     {
         // dd(Auth::user()->id);
-        $class_list = DB::table('course_class as cc')
-            ->select('cc.*', 'c.name as course_name', 'mct.name as type')
-            ->join('course as c', 'c.id', '=', 'cc.course_id')
-            ->join('m_course_type as mct', 'mct.id', '=', 'c.m_course_type_id')
-            ->join('course_class_member as ccmember', 'ccmember.course_class_id', '=', 'cc.id')
-            ->where('ccmember.user_id', Auth::user()->id)
+        // $class_list = DB::table('course_class as cc')
+        //     ->select('cc.*', 'c.name as course_name', 'mct.name as type')
+        //     ->join('course as c', 'c.id', '=', 'cc.course_id')
+        //     ->join('m_course_type as mct', 'mct.id', '=', 'c.m_course_type_id')
+        //     ->join('course_class_member as ccmember', 'ccmember.course_class_id', '=', 'cc.id')
+        //     ->where('ccmember.user_id', Auth::user()->id)
+        //     ->get();
+        
+        $class_list = DB::table('user_mentorships')
+            ->leftJoin('course_class', 'user_mentorships.course_class_id', '=', 'course_class.id')
+            ->leftJoin('course', 'course_class.course_id', '=', 'course.id')
+            ->leftJoin('m_course_type', 'course.m_course_type_id', '=', 'm_course_type.id')
+            ->where('user_mentorships.mentor_id', Auth::user()->id)
+            ->select('course_class.*', 'course.name as course_name', 'm_course_type.name as type')
+            ->distinct()
             ->get();
 
         return $class_list;

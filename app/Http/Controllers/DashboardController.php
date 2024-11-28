@@ -8,6 +8,7 @@ use App\Models\CourseClass;
 use App\Models\Partnership;
 use App\Models\Partner;
 use App\Models\User;
+use App\Models\UserMentorship;
 use Illuminate\Support\Facades\Http;
 // use Illuminate\Foundation\Auth\User;
 use Carbon\Carbon;
@@ -30,7 +31,7 @@ class DashboardController extends Controller
         //     ['course_name' => 'UI/UX', 'batch' => 1, 'class_id' => 3],
         //     ['course_name' => 'Digital Marketing', 'batch' => 1, 'class_id' => 4]
         // ];
-        $active_class_list = CourseClass::getActiveClass();
+        $active_class_list = auth()->user()->access_group_id == 3 ? UserMentorship::getActiveClass($loggedInUserId) : CourseClass::getActiveClass();
 
         // $totalStu = DB::table('users')->get();
         $totalStu = User::where('access_group_id', 2)->count();
