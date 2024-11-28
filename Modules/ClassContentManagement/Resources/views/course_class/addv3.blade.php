@@ -58,8 +58,13 @@
                             <label for="batch" class="col-md-2 col-form-label">Kelas Paralel <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
+                                @if (env('APP_ENV') == 'local')
                                 <input class="form-control" type="text" name="batch" id="batch"
                                     placeholder="Masukkan tahun kelas paralel (contoh: 2023)" value="{{ old('batch') }}">
+                                @else
+                                <input class="form-control" type="number" name="batch" id="batch"
+                                    placeholder="Masukkan tahun kelas paralel (contoh: 2023)" value="{{ old('batch') }}">
+                                @endif
                                 @error('batch')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
