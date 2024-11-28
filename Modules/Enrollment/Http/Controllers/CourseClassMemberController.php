@@ -99,6 +99,7 @@ class CourseClassMemberController extends Controller
         }
 
         $courseClassId = $request->course_class;
+        $courseClass = CourseClass::where('id', $courseClassId)->with(['course.type'])->first();
 
         foreach ($users as $user) {
             $existingUser = CourseClassMember::checkExistingCCM($user, $courseClassId);
@@ -106,7 +107,7 @@ class CourseClassMemberController extends Controller
 
             if ($existingUser) {
                 return redirect()->route('getCourseClassMember', ['id' => $courseClassId])->with('error', 'Gagal Menambahkan Peserta, peserta sudah ada');
-            } else if ($alreadyLimitMbkm) {
+            } else if ($alreadyLimitMbkm && $courseClass->course->type->slug == 'mbkm') {
                 return redirect()->route('getCourseClassMember', ['id' => $courseClassId])->with('error', 'Gagal Menambahkan Peserta, pengguna telah mencapai batas MBKM');
             }else if ($request->partner) {
                 $created = CourseClassMember::create([
