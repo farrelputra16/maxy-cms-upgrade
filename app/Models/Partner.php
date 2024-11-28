@@ -35,4 +35,9 @@ class Partner extends Model
     {
         return $this->hasMany(Partnership::class, 'id')->where('status', 1);
     }
+
+    public function MPartnerType()
+    {
+        return $this->belongsTo(MPartnerType::class, 'type')->where('status', 1);
+    }
 }

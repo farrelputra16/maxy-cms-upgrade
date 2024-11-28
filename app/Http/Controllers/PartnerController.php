@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Partner;
+use App\Models\MPartnerType;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
@@ -11,28 +12,22 @@ class PartnerController extends Controller
 {
     //
     function getPartner(){
-        $partners = Partner::all();
+        $partners = Partner::with('MPartnerType')->get();
         return view('partner.indexv3', ['partners' => $partners]);
     }
 
     function getAddPartner() {
-        $partnerTypes = Partner::select('type')
-            ->whereNotNull('type')
-            ->Where('type', '!=', '')
-            ->groupBy('type')
-            ->get();
+        $partnerTypes = MPartnerType::where('status', 1)->get();
         return view('partner.addv3', ['partnerTypes' => $partnerTypes]);
     }
 
     function postAddPartner(Request $request){
-
         $fileName = null;
         if ($request->hasFile('logo')) {
             $file = $request->file('logo');
             $fileName = $file->getClientOriginalName();
             $file->move(public_path('/uploads/partner'), $fileName);
         }
-
 
         $validate = $request->validate([
             'name' => 'required|string|max:255',
@@ -71,11 +66,7 @@ class PartnerController extends Controller
 
     function getEditPartner(Request $request){
         $partners = Partner::find($request->id);
-        $partnerTypes = Partner::select('type')
-            ->whereNotNull('type')
-            ->Where('type', '!=', '')
-            ->groupBy('type')
-            ->get();
+        $partnerTypes = MPartnerType::where('status', 1)->get();
         return view('partner.editv3', ['partners' => $partners, 'partnerTypes' => $partnerTypes]);
     }
 
