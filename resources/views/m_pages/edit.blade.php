@@ -46,8 +46,27 @@
                             <div class="mb-3 row">
                                 <label for="input-content" class="col-md-2 col-form-label">Pratinjau Tampilan</label>
                                 <div class="col-md-10">
-                                    <img src="{{ asset('assets/m_pages/' . $section->section_name . '.PNG') }}"
-                                        alt="Pratinjau bagian" class="img-fluid border border-3 rounded">
+
+                                    @if ($section->section_name == 'hero')
+                                        <div class="border border-3 rounded">
+                                            {!! $heroContent !!}
+                                        </div>
+                                    @elseif ($section->section_name == 'partner')
+                                        <div class="border border-3 rounded">
+                                            {!! $partnerContent !!}
+                                        </div>
+                                    @elseif ($section->section_name == 'event')
+                                        <div class="border border-3 rounded">
+                                            {!! $eventContent !!}
+                                        </div>
+                                    @elseif ($section->section_name == 'blog-small')
+                                        <div class="border border-3 rounded">
+                                            {!! $blogSmallContent !!}
+                                        </div>
+                                    @elseif ($section->section_name == 'blog-trending')
+                                        <div class="border border-3 rounded">
+                                            {!! $blogTrendingContent !!}
+                                    @endif
                                 </div>
                             </div>
 
@@ -89,8 +108,19 @@
                 <button type="submit" class="btn btn-primary">Simpan & Perbarui</button>
             @endif
         </div>
+
     </form>
 @endsection
 
 @section('script')
+    <script>
+        fetch('https://lms.stie-binakarya.ac.id')
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const section = doc.querySelector('#home');
+                document.getElementById('home-preview').appendChild(section);
+            });
+    </script>
 @endsection

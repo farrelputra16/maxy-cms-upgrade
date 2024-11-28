@@ -9,6 +9,8 @@ use App\Models\MPageContent;
 use App\Models\Partner;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
+use Symfony\Component\DomCrawler\Crawler;
 
 class PageController extends Controller
 {
@@ -24,13 +26,35 @@ class PageController extends Controller
         return view('m_pages.index', compact('sections'));
     }
 
+    // public function getEditPage(Request $request)
+    // {
+    //     $pageContents = MPageContent::where('page_id', $request->id)
+    //         ->orderBy('order', 'asc')  // Order by 'order' column in ascending order
+    //         ->get();
+
+    //     return view('m_pages.edit', compact('pageContents'));
+    // }
+
     public function getEditPage(Request $request)
     {
+        // Ambil konten dari database
         $pageContents = MPageContent::where('page_id', $request->id)
-            ->orderBy('order', 'asc')  // Order by 'order' column in ascending order
+            ->orderBy('order', 'asc')
             ->get();
 
-        return view('m_pages.edit', compact('pageContents'));
+        // Ambil konten elemen tertentu dari situs eksternal
+        $heroContent = $this->getExternalSection('https://lms.stie-binakarya.ac.id', '#home'); // Ganti URL dan selector
+
+        $partnerContent = $this->getExternalSection('https://lms.stie-binakarya.ac.id', '#partner-text');
+
+        $eventContent = $this->getExternalSection('https://lms.stie-binakarya.ac.id', '#event-text');
+
+        $blogSmallContent = $this->getExternalSection('https://lms.stie-binakarya.ac.id/blog', '#all-blog');
+
+        $blogTrendingContent = $this->getExternalSection('https://lms.stie-binakarya.ac.id/blog', '#trending');
+
+        // Gabungkan data dan lempar ke view
+        return view('m_pages.edit', compact('pageContents', 'heroContent', 'partnerContent', 'eventContent', 'blogSmallContent', 'blogTrendingContent'));
     }
 
     // Save the page content
@@ -175,5 +199,74 @@ class PageController extends Controller
         }
 
         return view('m_pages.show', compact($page));
+    }
+
+    public function getSection()
+    {
+        $url = 'https://example.com'; // Ganti dengan URL target
+        $client = new Client();
+
+        try {
+            // Ambil HTML dari URL target
+            $response = $client->get($url);
+            $htmlContent = $response->getBody()->getContents();
+
+            // Load HTML ke DOMDocument
+            $dom = new \DOMDocument();
+            libxml_use_internal_errors(true); // Supaya tidak error dengan HTML yang tidak valid
+            $dom->loadHTML($htmlContent);
+            libxml_clear_errors();
+
+            // Gunakan XPath untuk memilih elemen tertentu
+            $xpath = new \DOMXPath($dom);
+            $elements = $xpath->query('//*[@id="home"]'); // Ganti dengan ID/selector elemen yang diinginkan
+
+            $selectedContent = '';
+            if ($elements->length > 0) {
+                $selectedContent = $dom->saveHTML($elements->item(0)); // Ambil elemen pertama dengan ID tersebut
+            }
+            // Kembalikan bagian yang diambil ke view
+            return view('show-section', ['content' => $selectedSection]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Tidak dapat mengambil data dari URL.'], 500);
+        }
+    }
+
+    private function getExternalSection(string $url, string $selector)
+    {
+        $client = new Client();
+
+        try {
+            // Ambil HTML dari situs eksternal
+            $response = $client->get($url);
+            $htmlContent = $response->getBody()->getContents();
+
+            // Load HTML ke DOMDocument
+            $dom = new \DOMDocument();
+            libxml_use_internal_errors(true);
+            $dom->loadHTML($htmlContent);
+            libxml_clear_errors();
+
+            // Gunakan XPath untuk memilih elemen
+            $xpath = new \DOMXPath($dom);
+
+            // Ubah selector menjadi XPath
+            if (strpos($selector, '#') === 0) {
+                $id = substr($selector, 1); // Hilangkan '#' di depan ID
+                $query = "//*[@id='$id']";
+            } else {
+                $query = $selector;
+            }
+
+            $elements = $xpath->query($query);
+
+            if ($elements->length > 0) {
+                return $dom->saveHTML($elements->item(0)); // Kembalikan elemen yang ditemukan
+            }
+
+            return '<p>Elemen tidak ditemukan.</p>';
+        } catch (\Exception $e) {
+            return '<p>Gagal mengambil data dari situs eksternal.</p>';
+        }
     }
 }
