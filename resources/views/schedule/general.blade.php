@@ -214,7 +214,7 @@
                         // Menampilkan pesan dan kelas yang tidak memiliki tutor
                         if (data.classWithoutTutor.length > 0) {
                             $('#external-events').append(
-                                "<br><p style='text-align: center;'><strong>The classes below cannot be added because they do not have lecturers yet</strong></p>"
+                                "<br><p style='text-align: center;'><strong>Kelas-kelas di bawah ini tidak dapat ditambahkan karena belum memiliki pengajar</strong></p>"
                             );
                             data.classWithoutTutor.forEach(item => {
                                 $('#external-events').append(
