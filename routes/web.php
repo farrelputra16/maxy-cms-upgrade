@@ -112,6 +112,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/course/edit/MBKM', [CourseController::class, 'getEditMBKM'])->name('getEditMBKM')->middleware('access:course_update');
 
+    Route::post('/course/delete', [CourseController::class, 'postDeleteCourse'])->name('postDeleteCourse')->middleware('access:course_delete');
+
     // categori route ###########################################################################################################
     Route::get('/category', [CategoryController::class, 'getCategory'])->name('getCategory')->middleware('access:category_manage');
 
