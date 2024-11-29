@@ -20,6 +20,8 @@ use App\Models\MScore;
 use App\Models\TransOrder;
 use Modules\Attendance\Entities\CourseClassAttendance;
 use Modules\Attendance\Entities\MemberAttendance;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 
 class CourseClassController extends Controller
@@ -364,6 +366,8 @@ class CourseClassController extends Controller
             'semester' => 'required|numeric|min:1'
         ]);
 
+        // dd($request->announcement);
+
         // Update data course class
         $courseClassId = $request->id;
 
@@ -403,135 +407,73 @@ class CourseClassController extends Controller
         $courseClass = CourseClass::find($courseClassId);
 
         if (!$courseClass) {
-            return redirect()->back()->with('error', 'Kelas tidak ditemukan');
-        }
-
-        // Cari semua course_class_module berdasarkan course_class_id
-        $courseClassModules = CourseClassModule::where('course_class_id', $courseClassId)->get();
-
-        if ($courseClassModules->isEmpty()) {
-            TransOrder::where('course_class_id', $courseClassId)->delete();
-            CourseClassMember::where('course_class_id', $courseClassId)->delete();
-            CourseClass::where('id', $courseClassId)->delete();
-
-            return redirect()->back()->with('success', 'Kelas telah berhasil dihapus');
+            return redirect()->back()->with('error', 'Kelas tidak ditemukan.');
         }
 
         try {
-            // Loop untuk menghapus semua data terkait modul
-            foreach ($courseClassModules as $module) {
-                // Cek dan hapus data attendance jika ada
-                $attendances = CourseClassAttendance::where('course_class_module_id', $module->id)->get();
-                if ($attendances->isNotEmpty()) {
-                    CourseClassAttendance::where('course_class_module_id', $module->id)->delete();
-                }
-
-                // Cek dan hapus grading jika ada
-                $gradings = CourseClassMemberGrading::where('course_class_module_id', $module->id)->get();
-                if ($gradings->isNotEmpty()) {
-                    CourseClassMemberGrading::where('course_class_module_id', $module->id)->delete();
-                }
-
-                // Cek dan hapus log jika ada
-                $logs = CourseClassMemberLog::where('course_class_module_id', $module->id)->get();
-                if ($logs->isNotEmpty()) {
-                    CourseClassMemberLog::where('course_class_module_id', $module->id)->delete();
-                }
-
-            }
-
-
-            // Hapus semua data terkait modul
+            // Cari semua modul yang terkait dengan kelas
             $courseClassModules = CourseClassModule::where('course_class_id', $courseClassId)->get();
-            if ($courseClassModules->isNotEmpty()) {
-                CourseClassModule::where('course_class_id', $courseClassId)->delete();
+
+            foreach ($courseClassModules as $module) {
+                // 1. Hapus file submission
+                $gradings = CourseClassMemberGrading::where('course_class_module_id', $module->id)->get();
+
+                foreach ($gradings as $grading) {
+                    if ($grading->submitted_file) {
+                        // Generate folder path berdasarkan informasi kelas, modul, dan user
+                        $moduleFolder = $this->generateFolder(
+                            $courseClass->course->name,
+                            $grading->user->name,
+                            $module->courseModule->name
+                        );
+
+                        // Hapus file dari storage
+                        $filePath = "$moduleFolder/{$grading->submitted_file}";
+                        if (Storage::disk('be')->exists($filePath)) {
+                            Storage::disk('be')->delete($filePath);
+                        }
+                    }
+                }
+
+                // Hapus data grading dari database
+                CourseClassMemberGrading::where('course_class_module_id', $module->id)->delete();
+
+                // 2. Hapus log terkait modul
+                CourseClassMemberLog::where('course_class_module_id', $module->id)->delete();
+
+                // 3. Hapus data attendance
+                CourseClassAttendance::where('course_class_module_id', $module->id)->delete();
             }
 
+            // Hapus data modul dari database
+            CourseClassModule::where('course_class_id', $courseClassId)->delete();
 
-            // Cek dan hapus data anggota kelas jika ada
-            $courseClassMembers = CourseClassMember::where('course_class_id', $courseClassId)->get();
-            if ($courseClassMembers->isNotEmpty()) {
-                CourseClassMember::where('course_class_id', $courseClassId)->delete();
-            }
+            // Hapus anggota kelas
+            CourseClassMember::where('course_class_id', $courseClassId)->delete();
+
+            // Hapus transaksi yang terkait dengan kelas
+            TransOrder::where('course_class_id', $courseClassId)->delete();
 
             // Hapus kelas itu sendiri
-            CourseClass::where('id', $courseClassId)->delete();
+            $courseClass->delete();
 
-            return redirect()->back()->with('success', 'Kelas telah berhasil terhapus');
-
+            return redirect()->back()->with('success', 'Kelas telah berhasil dihapus.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus data.');
+            // Log error jika terjadi masalah
+            \Log::error('Error saat menghapus kelas: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus kelas.');
         }
     }
 
-
-
-
-
-
-
-    public function index()
-    {
-        return view('classcontentmanagement::index');
-    }
-
     /**
-     * Show the form for creating a new resource.
-     * @return Renderable
+     * Fungsi untuk menghasilkan path folder berdasarkan nama kelas, nama pengguna, dan nama modul.
      */
-    public function create()
+    private function generateFolder($courseName, $userName, $moduleName)
     {
-        return view('classcontentmanagement::create');
-    }
+        $courseName = Str::snake(Str::lower($courseName));
+        $userName = Str::snake(Str::lower($userName));
+        $moduleName = Str::snake(Str::lower($moduleName));
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('classcontentmanagement::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('classcontentmanagement::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        return "course_class_member_grading/$courseName/$userName/$moduleName";
     }
 }
