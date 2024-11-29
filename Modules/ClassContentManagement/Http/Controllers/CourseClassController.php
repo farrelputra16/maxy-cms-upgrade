@@ -295,6 +295,7 @@ class CourseClassController extends Controller
     {
         $courseClass = CourseClass::where('id', $request->course_class_id)->first();
         $courseClass->batch = $request->batch;
+        $courseClass->semester = $request->semester;
         $courseClass->course_id = $request->course_id;
 
         // insert course class yang telah diubah
