@@ -266,6 +266,117 @@
             });
         @endif
     </script>
+
+    <!-- Status Button For Models -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.body.addEventListener('click', function (e) {
+                if (e.target.classList.contains('btn-status')) {
+                    const button = e.target;
+                    const courseId = button.getAttribute('data-id');
+                    const currentStatus = button.getAttribute('data-status');
+                    const courseModel = button.getAttribute('data-model');
+
+                    Swal.fire({
+                        title: 'Konfirmasi',
+                        text: `Apakah Anda yakin ingin mengubah status data ini?`,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Ya, Ubah!',
+                        cancelButtonText: 'Batal',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            fetch("{{ route('updateStatus') }}", {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                },
+                                body: JSON.stringify({
+                                    model: `App\\Models\\${courseModel}`,
+                                    id: courseId,
+                                    column: 'status' // Kolom yang ingin diubah
+                                })
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        button.setAttribute('data-status', data.newStatus);
+                                        button.classList.toggle('btn-success', data.newStatus == 1);
+                                        button.classList.toggle('btn-danger', data.newStatus == 0);
+                                        button.textContent = data.newStatus == 1 ? 'Aktif' : 'Nonaktif';
+
+                                        Swal.fire('Berhasil!', data.message, 'success');
+                                    } else {
+                                        Swal.fire('Gagal!', data.message, 'error');
+                                    }
+                                })
+                                .catch(error => {
+                                    Swal.fire('Error!', 'Terjadi kesalahan saat mengubah status.', 'error');
+                                    console.error('Error:', error);
+                                });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- Status Button For Entities -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.body.addEventListener('click', function (e) {
+                if (e.target.classList.contains('btn-status-entities')) {
+                    const button = e.target;
+                    const courseId = button.getAttribute('data-id');
+                    const currentStatus = button.getAttribute('data-status');
+                    const parentEntities = button.getAttribute('data-parent');
+                    const courseModel = button.getAttribute('data-model');
+
+                    Swal.fire({
+                        title: 'Konfirmasi',
+                        text: `Apakah Anda yakin ingin mengubah status data ini?`,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Ya, Ubah!',
+                        cancelButtonText: 'Batal',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            fetch("{{ route('updateStatus') }}", {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                },
+                                body: JSON.stringify({
+                                    model: `Modules\\${parentEntities}\\Entities\\${courseModel}`,
+                                    id: courseId,
+                                    column: 'status' // Kolom yang ingin diubah
+                                })
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        button.setAttribute('data-status', data.newStatus);
+                                        button.classList.toggle('btn-success', data.newStatus == 1);
+                                        button.classList.toggle('btn-danger', data.newStatus == 0);
+                                        button.textContent = data.newStatus == 1 ? 'Aktif' : 'Nonaktif';
+
+                                        Swal.fire('Berhasil!', data.message, 'success');
+                                    } else {
+                                        Swal.fire('Gagal!', data.message, 'error');
+                                    }
+                                })
+                                .catch(error => {
+                                    Swal.fire('Error!', 'Terjadi kesalahan saat mengubah status.', 'error');
+                                    console.log('Error:', error);
+                                });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
     @yield('script')
 
 </body>

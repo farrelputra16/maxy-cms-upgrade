@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GlobalStatusController;
 use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseClassMemberController;
@@ -555,3 +556,5 @@ Route::prefix('agent')->name('agent.')->group(function () {
 
     Route::get('/logout', [AgentController::class, 'postLogout'])->name('logout');
 });
+
+Route::post('/update-status', [GlobalStatusController::class, 'updateStatus'])->name('updateStatus');
