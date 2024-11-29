@@ -32,7 +32,8 @@
 
                     <h4 class="card-title">Tambah Sub Modul Mata Kuliah Baru</h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda untuk menambahkan sub modul mata kuliah pada mata kuliah yang ada. Isi data-data
+                        Halaman ini memungkinkan Anda untuk menambahkan sub modul mata kuliah pada mata kuliah yang ada. Isi
+                        data-data
                         dengan lengkap dan pastikan informasinya akurat agar pengalaman belajar peserta mata kuliah
                         maksimal.
                         <br><br>
@@ -175,6 +176,10 @@
             var duration = document.getElementById('duration');
 
             function loadType() {
+                if (tinymce.get('elm1')) {
+                    tinymce.get('elm1').remove();
+                }
+
                 if (typeSelector.value === 'materi_pembelajaran') {
                     material.innerHTML = `
                     <div class="mb-3 row">
@@ -189,7 +194,7 @@
                 <div class="mb-3 row">
                     <label for="input-content" class="col-md-2 col-form-label">Konten</label>
                     <div class="col-md-10">
-                        <textarea class="form-control" name="content">{{ old('content') }}</textarea>
+                        <textarea id="elm1" name="content">{{ old('content') }}</textarea>
                     </div>
                 </div>
                 `;
@@ -212,7 +217,7 @@
                     <div class="mb-3 row">
                         <label for="input-content" class="col-md-2 col-form-label">Konten</label>
                         <div class="col-md-10">
-                            <textarea class="form-control" name="content">{{ old('content') }}</textarea>
+                            <textarea id="elm1" name="content">{{ old('content') }}</textarea>
                         </div>
                     </div>
                 `;
@@ -230,7 +235,7 @@
                 <div class="mb-3 row">
                     <label for="input-content" class="col-md-2 col-form-label">Konten</label>
                     <div class="col-md-10">
-                        <textarea class="form-control" name="content">{{ old('content') }}</textarea>
+                        <textarea id="elm1" name="content">{{ old('content') }}</textarea>
                     </div>
                 </div>
                 `;
@@ -268,6 +273,21 @@
                     </div>
                 `;
                     duration.innerHTML = `<input type="hidden" name="duration" value="">`;
+                }
+
+                if (document.querySelector("textarea#elm1")) {
+                    tinymce.init({
+                        selector: "textarea#elm1",
+                        height: 350,
+                        plugins: [
+                            "advlist", "autolink", "lists", "link", "image", "charmap", "preview", "anchor",
+                            "searchreplace",
+                            "visualblocks", "code", "fullscreen", "insertdatetime", "media", "table", "help",
+                            "wordcount",
+                        ],
+                        toolbar: "undo redo | blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+                        content_style: 'body { font-family:"Poppins",sans-serif; font-size:16px }',
+                    });
                 }
             }
 
