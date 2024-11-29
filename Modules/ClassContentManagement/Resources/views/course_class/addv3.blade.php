@@ -59,11 +59,13 @@
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 @if (env('APP_ENV') == 'local')
-                                <input class="form-control" type="text" name="batch" id="batch"
-                                    placeholder="Masukkan tahun kelas paralel (contoh: 2023)" value="{{ old('batch') }}">
+                                    <input class="form-control" type="text" name="batch" id="batch"
+                                        placeholder="Masukkan tahun kelas paralel (contoh: 2023)"
+                                        value="{{ old('batch') }}">
                                 @else
-                                <input class="form-control" type="number" name="batch" id="batch"
-                                    placeholder="Masukkan tahun kelas paralel (contoh: 2023)" value="{{ old('batch') }}">
+                                    <input class="form-control" type="number" name="batch" id="batch"
+                                        placeholder="Masukkan tahun kelas paralel (contoh: 2023)"
+                                        value="{{ old('batch') }}">
                                 @endif
                                 @error('batch')
                                     <span class="text-danger">{{ $message }}</span>
@@ -77,7 +79,8 @@
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug" id="slug"
                                     value="{{ old('slug') }}"
-                                    placeholder="Slug akan diisi otomatis berdasarkan mata kuliah dan kelas paralel" readonly>
+                                    placeholder="Slug akan diisi otomatis berdasarkan mata kuliah dan kelas paralel"
+                                    readonly>
                                 @error('slug')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -85,13 +88,13 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="type_selector" class="col-md-2 col-form-label">Jenis Kelas <span class="text-danger"
+                            <label for="class_type_id" class="col-md-2 col-form-label">Jenis Kelas <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="class_type_id" id="type_selector"
+                                <select id="class_type_id" class="form-control select2" name="class_type_id"
                                     data-placeholder="Pilih Mata Kuliah yang tersedia">
                                     @foreach ($allClassType as $ctype)
-                                        <option value="{{ $ctype->id }}" data-slug="{{ $ctype->slug }}"
+                                        <option value="{{ $ctype->id }}"
                                             {{ old('class_type_id') == $ctype->id ? 'selected' : '' }}>
                                             {{ $ctype->name }}
                                         </option>

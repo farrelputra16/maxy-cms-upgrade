@@ -229,6 +229,7 @@ class CourseClassController extends Controller
     function getDuplicateCourseClass()
     {
         $classes = CourseClass::all();
+        $allClassType = MClassType::where('status', 1)->get();
         $classList = [];
 
         foreach ($classes as $c) {
@@ -240,7 +241,8 @@ class CourseClassController extends Controller
 
         return view('classcontentmanagement::course_class.duplicatev3', [
             'course_list' => $courseList,
-            'class_list' => $classList
+            'class_list' => $classList,
+            'allClassType' => $allClassType
         ]);
     }
 
@@ -296,6 +298,7 @@ class CourseClassController extends Controller
         $courseClass = CourseClass::where('id', $request->course_class_id)->first();
         $courseClass->batch = $request->batch;
         $courseClass->semester = $request->semester;
+        $courseClass->m_class_type_id = $request->class_type_id;
         $courseClass->course_id = $request->course_id;
 
         // insert course class yang telah diubah

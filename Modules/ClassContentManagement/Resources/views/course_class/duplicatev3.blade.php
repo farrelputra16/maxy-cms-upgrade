@@ -55,7 +55,7 @@
                                 <select class="form-control select2" name="course_class_id"
                                     data-placeholder="Pilih kelas yang ingin diduplikasi..." id="type_selector">
                                     @foreach ($class_list as $item)
-                                        <option value="{{ $item->id }}">{{ $item->course_name }} Aangkatan
+                                        <option value="{{ $item->id }}">{{ $item->course_name }} Angkatan
                                             {{ $item->batch }}</option>
                                     @endforeach
                                 </select>
@@ -105,6 +105,24 @@
                                         <span style="color: red;">{{ $error }}</span>
                                     @endforeach
                                 @endif
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="class_type_id" class="col-md-2 col-form-label">Jenis Kelas <span class="text-danger"
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <div class="col-md-10">
+                                <select id="class_type_id" class="form-control select2" name="class_type_id"
+                                    data-placeholder="Pilih Mata Kuliah yang tersedia">
+                                    @foreach ($allClassType as $ctype)
+                                        <option value="{{ $ctype->id }}"
+                                            {{ old('class_type_id') == $ctype->id ? 'selected' : '' }}>
+                                            {{ $ctype->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('class_type_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
