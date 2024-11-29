@@ -97,7 +97,7 @@ class CourseClass extends Model
     public static function getAllCourseClass()
     {
         $class_list = DB::table('course_class as cc')
-            ->select('cc.*', 'c.name as course_name', 'mct.name as type', 'ct.name as class_type')
+            ->select('cc.*', 'c.name as course_name', 'c.slug as course_slug', 'mct.name as type', 'mct.slug as type_slug', 'ct.name as class_type')
             ->join('course as c', 'c.id', '=', 'cc.course_id')
             ->join('m_course_type as mct', 'mct.id', '=', 'c.m_course_type_id')
             ->join('m_class_type as ct', 'ct.id', '=', 'cc.m_class_type_id')
@@ -118,14 +118,14 @@ class CourseClass extends Model
         //     ->join('course_class_member as ccmember', 'ccmember.course_class_id', '=', 'cc.id')
         //     ->where('ccmember.user_id', Auth::user()->id)
         //     ->get();
-        
+
         $class_list = DB::table('user_mentorships')
             ->leftJoin('course_class', 'user_mentorships.course_class_id', '=', 'course_class.id')
             ->leftJoin('course', 'course_class.course_id', '=', 'course.id')
             ->leftJoin('m_course_type', 'course.m_course_type_id', '=', 'm_course_type.id')
             ->leftJoin('m_class_type', 'course_class.m_class_type_id', '=', 'm_class_type.id')
             ->where('user_mentorships.mentor_id', Auth::user()->id)
-            ->select('course_class.*', 'course.name as course_name', 'm_course_type.name as type', 'm_class_type.name as class_type')
+            ->select('course_class.*', 'course.name as course_name', 'course.slug as course_slug', 'm_course_type.name as type', 'm_course_type.slug as type_slug', 'm_class_type.name as class_type')
             ->orderBy('course_class.batch', 'asc')
             ->orderBy('course_class.slug', 'asc')
             ->distinct()

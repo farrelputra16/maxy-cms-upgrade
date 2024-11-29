@@ -73,6 +73,7 @@
                                 <th>SKS</th>
                                 <th>Durasi</th>
                                 <th>Pengumuman</th>
+                                <th>KRS URL</th>
                                 <th>Konten</th>
                                 <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
@@ -118,6 +119,9 @@
                                         title="{{ strip_tags($item->announcement) }}">
                                         {{ \Str::limit(strip_tags($item->announcement), 30, '...') }}
                                     </td>
+                                    <td class="data-long">
+                                        {{ env('FRONTEND_APP_URL') . '/lms/krs/course/' . $item->type_slug . '/' . $item->course_slug }}
+                                    </td>
                                     <td class="data-long" data-toggle="tooltip" title="{{ strip_tags($item->content) }}">
                                         {{ \Str::limit(strip_tags($item->content), 30, '...') }}
                                     </td>
@@ -130,10 +134,9 @@
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
                                     <td>
-                                        <button 
-                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}" 
-                                            data-id="{{ $item->id }}" 
-                                            data-status="{{ $item->status }}"
+                                        <button
+                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
+                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
                                             data-model="CourseClass">
                                             {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
                                         </button>
@@ -150,15 +153,14 @@
                                         <a href="{{ route('getCourseClassScoring', ['id' => $item->id]) }}"
                                             class="btn btn-outline-primary btn-sm">Penilaian</a>
 
-                                            <form id="delete-course-class-form-{{ $item->id }}"
-                                                action="{{ route('deleteCourseClass', ['id' => $item->id]) }}"
-                                                method="POST"
-                                                class="d-inline-block"
-                                                data-course-name="{{ $item->course_name }}">
-                                              @method('DELETE')
-                                              @csrf
-                                              <button type="button" class="btn btn-sm btn-danger delete-course-class-btn">Hapus</button>
-                                          </form>
+                                        <form id="delete-course-class-form-{{ $item->id }}"
+                                            action="{{ route('deleteCourseClass', ['id' => $item->id]) }}" method="POST"
+                                            class="d-inline-block" data-course-name="{{ $item->course_name }}">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="button"
+                                                class="btn btn-sm btn-danger delete-course-class-btn">Hapus</button>
+                                        </form>
 
                                     </td>
                                 </tr>
@@ -179,6 +181,7 @@
                                 <th>SKS</th>
                                 <th>Durasi</th>
                                 <th>Pengumuman</th>
+                                <th>KRS URL</th>
                                 <th>Konten</th>
                                 <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
@@ -227,16 +230,16 @@
         @endif
     </script>
 
-<script>
-    $(document).ready(function () {
-        // Handle delete confirmation
-        $('.delete-course-class-btn').on('click', function () {
-            const formId = $(this).closest('form').attr('id');
-            const courseName = $(this).closest('form').data('course-name');
+    <script>
+        $(document).ready(function() {
+            // Handle delete confirmation
+            $('.delete-course-class-btn').on('click', function() {
+                const formId = $(this).closest('form').attr('id');
+                const courseName = $(this).closest('form').data('course-name');
 
-            Swal.fire({
-                title: `Apakah Anda yakin akan menghapus kelas <strong>${courseName}</strong>?`,
-                html: `
+                Swal.fire({
+                    title: `Apakah Anda yakin akan menghapus kelas <strong>${courseName}</strong>?`,
+                    html: `
                     <p>Tindakan ini akan:</p>
                     <ul class="text-start">
                         <li><strong>Menghapus</strong> seluruh mahasiswa yang tergabung dalam kelas ini</li>
@@ -246,20 +249,20 @@
                     </ul>
                     <p class="text-danger"><strong>Tindakan ini tidak dapat dipulihan!</strong></p>
                 `,
-                icon: 'error',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ya, Saya Mengerti',
-                cancelButtonText: 'Batal',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Submit the form programmatically
-                    $(`#${formId}`).submit();
-                }
+                    icon: 'error',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Saya Mengerti',
+                    cancelButtonText: 'Batal',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Submit the form programmatically
+                        $(`#${formId}`).submit();
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
 
 @endsection
