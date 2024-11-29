@@ -13,7 +13,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a>Members</a></li>
+                        <li class="breadcrumb-item"><a>Mahasiswa</a></li>
                         <li class="breadcrumb-item active">Proposals</li>
                     </ol>
                 </div>
