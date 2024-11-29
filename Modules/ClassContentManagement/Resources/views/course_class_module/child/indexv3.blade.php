@@ -96,12 +96,15 @@
                                     <td>{{ $item->created_id }}</td>
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
-                                    <td value="{{ $item->status }}">
-                                        @if ($item->status == 1)
-                                            <span class="badge bg-success">Aktif</span>
-                                        @else
-                                            <span class="badge bg-danger">Non Aktif</span>
-                                        @endif
+                                    <td>
+                                        <button 
+                                            class="btn btn-status-entities {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}" 
+                                            data-id="{{ $item->id }}" 
+                                            data-status="{{ $item->status }}"
+                                            data-parent="ClassContentManagement"
+                                            data-model="CourseClassModule">
+                                            {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
+                                        </button>
                                     </td>
                                     <td>
                                         {{-- <div class="btn-group"> --}}

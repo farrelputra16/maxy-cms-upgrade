@@ -80,12 +80,14 @@
                                     <td>{{ $item->created_id }}</td>
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
-                                    <td value="{{ $item->status }}">
-                                        @if ($item->status == 1)
-                                            <a class="btn btn-success" style="pointer-events: none;">Aktif</a>
-                                        @else
-                                            <a class="btn btn-danger" style="pointer-events: none;">Tidak Aktif</a>
-                                        @endif
+                                    <td>
+                                        <button 
+                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}" 
+                                            data-id="{{ $item->id }}" 
+                                            data-status="{{ $item->status }}"
+                                            data-model="CourseJournal">
+                                            {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
+                                        </button>
                                     </td>
                                     <td>
                                         <a href="{{ route('getAddJournalCourseClassChildModule', ['id' => $item->id, 'user_id' => $item->User->id, 'course_class_module_id' => $parent_module->id]) }}"
