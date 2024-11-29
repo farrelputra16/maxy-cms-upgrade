@@ -104,6 +104,9 @@
                             @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'm_jobdesc_manage'))
                                 <li><a href="{{ route('getJobdesc') }}" key="t-blog">Deskripsi Pekerjaan</a></li>
                             @endif
+                            @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'm_class_type_manage'))
+                                <li><a href="{{ route('getClassType') }}" key="t-blog">Jenis Kelas</a></li>
+                            @endif
                         </ul>
                     </li>
                 @endif

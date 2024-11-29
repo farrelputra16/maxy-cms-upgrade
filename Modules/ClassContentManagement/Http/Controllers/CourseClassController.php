@@ -15,6 +15,7 @@ use Modules\Enrollment\Entities\CourseClassMember;
 use App\Models\Course;
 use App\Models\CourseModule;
 use App\Models\AccessMaster;
+use App\Models\MClassType;
 use App\Models\Transkrip;
 use App\Models\MScore;
 use App\Models\TransOrder;
@@ -217,9 +218,11 @@ class CourseClassController extends Controller
     function getAddCourseClass()
     {
         $allCourses = Course::all();
+        $allClassType = MClassType::where('status', 1)->get();
 
         return view('classcontentmanagement::course_class.addv3', [
-            'allCourses' => $allCourses
+            'allCourses' => $allCourses,
+            'allClassType' => $allClassType
         ]);
     }
 
@@ -247,6 +250,7 @@ class CourseClassController extends Controller
         $validated = $request->validate([
             'batch' => 'required',
             'slug' => 'required|unique:course_class,slug', // Pastikan slug unik
+            'class_type_id' => 'required',
             'start' => 'required|date',
             'end' => 'required|date|after:start',
             'quota' => 'required|integer|gte:1',
@@ -267,6 +271,7 @@ class CourseClassController extends Controller
                 'end_date' => $request->end,
                 'quota' => $request->quota,
                 'course_id' => $request->course_id,
+                'm_class_type_id' => $request->class_type_id,
                 'announcement' => $request->announcement,
                 'semester' => $request->semester,
                 'content' => $request->content,
@@ -346,10 +351,12 @@ class CourseClassController extends Controller
         $courseClassDetail = CourseClass::getClassDetailByClassId($courseClassId);
 
         $courseList = Course::get();
+        $classTypeList = MClassType::where('status', 1)->get();
 
         return view('classcontentmanagement::course_class.editv3', [
             'course_class_detail' => $courseClassDetail,
-            'course_list' => $courseList
+            'course_list' => $courseList,
+            'class_type_list' => $classTypeList
         ]);
     }
 
@@ -381,6 +388,7 @@ class CourseClassController extends Controller
                 'credits' => $request->credits,
                 'duration' => $request->duration,
                 'course_id' => $request->course_id,
+                'm_class_type_id' => $request->class_type_id,
                 'announcement' => $request->announcement,
                 'semester' => $request->semester,
                 'content' => $request->content,

@@ -118,6 +118,23 @@
                         </div>
 
                         <div class="mb-3 row">
+                            <label for="class_type_id" class="col-md-2 col-form-label">Jenis Kelas <span class="text-danger"
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <div class="col-md-10">
+                                <select class="form-control select2" name="class_type_id" data-placeholder="Choose ..."
+                                    id="class_type_id">
+                                    @foreach ($class_type_list as $items)
+                                        <option value="{{ $items->id }}" data-slug="{{ $items->slug }}"
+                                            {{ old('class_type_id') == $items->id ? 'selected' : '' }}
+                                            @if ($items->id == $course_class_detail->m_class_type_id) selected @endif>
+                                            {{ $items->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
                             <label for="credits" class="col-md-2 col-form-label">Semester <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">

@@ -85,6 +85,25 @@
                         </div>
 
                         <div class="mb-3 row">
+                            <label for="type_selector" class="col-md-2 col-form-label">Jenis Kelas <span class="text-danger"
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <div class="col-md-10">
+                                <select class="form-control select2" name="class_type_id" id="type_selector"
+                                    data-placeholder="Pilih Mata Kuliah yang tersedia">
+                                    @foreach ($allClassType as $ctype)
+                                        <option value="{{ $ctype->id }}" data-slug="{{ $ctype->slug }}"
+                                            {{ old('class_type_id') == $ctype->id ? 'selected' : '' }}>
+                                            {{ $ctype->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('class_type_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
                             <label for="start" class="col-md-2 col-form-label">Tanggal Mulai <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">

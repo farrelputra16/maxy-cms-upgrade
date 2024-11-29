@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GlobalStatusController;
+use App\Http\Controllers\MClassTypeController;
 use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseClassMemberController;
@@ -245,6 +246,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/jobdesc/edit', [MJobdescController::class, 'getEditJobdesc'])->name('getEditJobdesc')->middleware('access:m_jobdesc_update');
     Route::post('/jobdesc/edit', [MJobdescController::class, 'postEditJobdesc'])->name('postEditJobdesc')->middleware('access:m_jobdesc_update');
+
+    // Class Type
+    Route::get('/classtype', [MClassTypeController::class, 'getClassType'])->name('getClassType')->middleware('access:m_class_type_manage');
+    Route::get('/classtype/add', [MClassTypeController::class, 'getAddClassType'])->name('getAddClassType')->middleware('access:m_class_type_create');
+    Route::post('/classtype/add', [MClassTypeController::class, 'postAddClassType'])->name('postAddClassType')->middleware('access:m_class_type_create');
+
+    Route::get('/classtype/edit', [MClassTypeController::class, 'getEditClassType'])->name('getEditClassType')->middleware('access:m_class_type_update');
+    Route::post('/classtype/edit', [MClassTypeController::class, 'postEditClassType'])->name('postEditClassType')->middleware('access:m_class_type_update');
 
     // survey
     Route::get('/survey', [MSurveyController::class, 'getSurvey'])->name('getSurvey')->middleware('access:m_survey_manage');

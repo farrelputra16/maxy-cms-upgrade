@@ -64,6 +64,7 @@
                                 <th>Id</th>
                                 <th>Kelas Paralel</th>
                                 <th>Tipe</th>
+                                <th>Jenis Kelas</th>
                                 <th>Berjalan</th>
                                 <th>Mulai</th>
                                 <th>Selesai</th>
@@ -89,6 +90,9 @@
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->course_name }} Kelas Paralel {{ $item->batch }}</td>
                                     <td>{{ $item->type }}</td>
+                                    <td>
+                                        {{ $item->class_type }}
+                                    </td>
                                     <td>
                                         @if ($item->status_ongoing == 0)
                                             <span class="badge bg-secondary" style="pointer-events: none;">Belum
@@ -166,6 +170,7 @@
                                 <th>Id</th>
                                 <th>Kelas Paralel</th>
                                 <th>Tipe</th>
+                                <th>Jenis Kelas</th>
                                 <th>Berjalan</th>
                                 <th>Mulai</th>
                                 <th>Selesai</th>
