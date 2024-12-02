@@ -55,7 +55,7 @@
                                 <select class="form-control select2" name="course_class_id"
                                     data-placeholder="Pilih kelas yang ingin diduplikasi..." id="type_selector">
                                     @foreach ($class_list as $item)
-                                        <option value="{{ $item->id }}">{{ $item->course_name }} Angkatan
+                                        <option value="{{ $item->id }}">{{ $item->course_name }} Kelas Paralel
                                             {{ $item->batch }}</option>
                                     @endforeach
                                 </select>

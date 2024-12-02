@@ -26,19 +26,25 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Form Tambah Template Sertifikat</h4>
-                    <p class="card-title-desc">Isi form di bawah ini untuk membuat template sertifikat baru. Pastikan informasi yang Anda masukkan benar agar sertifikat yang dihasilkan sesuai dengan kebutuhan peserta mata kuliah.</p>
+                    <p class="card-title-desc">Isi form di bawah ini untuk membuat template sertifikat baru. Pastikan
+                        informasi yang Anda masukkan benar agar sertifikat yang dihasilkan sesuai dengan kebutuhan peserta
+                        mata kuliah.</p>
 
-                    <form id="addTemplate" action="{{ route('certificate-templates.store') }}" method="post" enctype="multipart/form-data">
+                    <form id="addTemplate" action="{{ route('certificate-templates.store') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Mata Kuliah <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Mata Kuliah <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="m_course_type_id" data-placeholder="Pilih Tipe Mata Kuliah" id="type_selector">
+                                <select class="form-control select2" name="m_course_type_id"
+                                    data-placeholder="Pilih Tipe Mata Kuliah" id="type_selector">
                                     <option value="" disabled selected>Pilih Tipe Mata Kuliah</option>
                                     @foreach ($courseTypes as $courseType)
-                                        <option value="{{ $courseType->id }}" {{ old('m_course_type_id') == $courseType->id ? 'selected' : '' }}>{{ $courseType->name }}</option>
+                                        <option value="{{ $courseType->id }}"
+                                            {{ old('m_course_type_id') == $courseType->id ? 'selected' : '' }}>
+                                            {{ $courseType->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('m_course_type_id')
@@ -49,9 +55,10 @@
 
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Kelas Paralel <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="batch" id="batch" placeholder="Masukkan nomor kelas paralel (contoh: 2024)" value="{{ old('batch') }}">
+                                <input class="form-control" type="text" name="batch" id="batch"
+                                    placeholder="Masukkan kelas paralel (contoh: 2024)" value="{{ old('batch') }}">
                                 @error('batch')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -61,19 +68,22 @@
                         <div class="mb-3 row">
                             <label for="Image" class="col-md-2 col-form-label">Contoh Template</label>
                             <div class="col-md-10">
-                                <img src="{{ asset('uploads/certificate/template_example.png') }}" class="img-fluid" alt="Contoh Template Sertifikat" />
+                                <img src="{{ asset('uploads/certificate/template_example.png') }}" class="img-fluid"
+                                    alt="Contoh Template Sertifikat" />
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="Image" class="col-md-2 col-form-label">Unggah Template <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="file" name="filename" id="templateImage" accept=".png">
+                                <input class="form-control" type="file" name="filename" id="templateImage"
+                                    accept=".png">
                                 <small>* Hanya menerima file dengan format .png</small>
                                 <div class="position-relative d-flex flex-column justify-content-center align-items-center">
                                     <img id="sourceImage" class="img-fluid" alt="Pratinjau Template" src="" />
-                                    <img id="originalImage" class="img-fluid position-absolute" alt="Pratinjau Template" src="" />
+                                    <img id="originalImage" class="img-fluid position-absolute" alt="Pratinjau Template"
+                                        src="" />
                                 </div>
                                 @error('filename')
                                     <div class="text-danger">{{ $message }}</div>
@@ -82,8 +92,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Isi Template <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-content" class="col-md-2 col-form-label">Isi Template <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="template_content" placeholder="Contoh: Telah menyelesaikan program [[class_name]]">{{ old('template_content') }}</textarea>
                                 @error('template_content')
@@ -95,7 +105,8 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea id="elm2" name="description" class="form-control" placeholder="Deskripsi template sertifikat (misalnya: Sertifikat ini diberikan sebagai tanda bahwa peserta telah berhasil mengikuti program ini)">{{ old('description') }}</textarea>
+                                <textarea id="elm2" name="description" class="form-control"
+                                    placeholder="Deskripsi template sertifikat (misalnya: Sertifikat ini diberikan sebagai tanda bahwa peserta telah berhasil mengikuti program ini)">{{ old('description') }}</textarea>
                                 @error('description')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -104,7 +115,8 @@
 
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addTemplate">Simpan Template</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addTemplate">Simpan Template</button>
                             </div>
                         </div>
                     </form>

@@ -64,8 +64,7 @@
                                         value="{{ old('batch') }}">
                                 @else
                                     <input class="form-control" type="number" name="batch" id="batch"
-                                        placeholder="Masukkan tahun kelas paralel (contoh: 2023)"
-                                        value="{{ old('batch') }}">
+                                        placeholder="Masukkan kelas paralel (contoh: 2023)" value="{{ old('batch') }}">
                                 @endif
                                 @error('batch')
                                     <span class="text-danger">{{ $message }}</span>

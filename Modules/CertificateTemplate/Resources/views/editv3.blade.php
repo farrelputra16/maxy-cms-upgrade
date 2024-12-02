@@ -36,8 +36,8 @@
                         @method('PUT')
 
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Mata Kuliah <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Mata Kuliah <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="m_course_type_id" id="courseType">
                                     @foreach ($courseTypes as $courseType)
@@ -55,11 +55,11 @@
 
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Paralel <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" name="batch" id="batch" min="0"
+                                <input class="form-control" type="text" name="batch" id="batch" min="0"
                                     value="{{ old('batch', $certificateTemplate->batch) }}"
-                                    placeholder="Masukkan nomor paralel">
+                                    placeholder="Masukkan kelas paralel (contoh: 2024)">
                                 @error('batch')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -76,7 +76,7 @@
 
                         <div class="mb-3 row">
                             <label for="Image" class="col-md-2 col-form-label">Unggah Template <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="file" name="filename" id="templateImage"
                                     accept=".png">
@@ -95,8 +95,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Isi Template <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-content" class="col-md-2 col-form-label">Isi Template <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="template_content"
                                     placeholder="Contoh: Telah berhasil menyelesaikan program [[class_name]]">{{ old('template_content', $certificateTemplate->template_content) }}</textarea>
