@@ -29,7 +29,7 @@ class CourseModuleController extends Controller
 
         $bcMBKM = false;
 
-        if ($mbkmType) {            
+        if ($mbkmType) {
             if ($course_detail->m_course_type_id == $mbkmType->id) {
                 $bcMBKM = true;
             }
@@ -56,7 +56,7 @@ class CourseModuleController extends Controller
 
         $bcMBKM = false;
 
-        if ($mbkmType) {            
+        if ($mbkmType) {
             if ($course_detail->m_course_type_id == $mbkmType->id) {
                 $bcMBKM = true;
             }
@@ -310,9 +310,17 @@ class CourseModuleController extends Controller
         }
 
         if ($create) {
-            return redirect()->route('getCourseSubModule', ['course_id' => $parentModule->course_id, 'module_id' => $parentModule->id, 'page_type' => 'LMS_child'])->with('success', 'Sukses Update Module');
+            if ($request->current_page == 'class_management') {
+                return redirect()->back()->with('success', 'Sukses Menambah Modul');
+            } else {
+                return redirect()->route('getCourseSubModule', ['course_id' => $parentModule->course_id, 'module_id' => $parentModule->id, 'page_type' => 'LMS_child'])->with('success', 'Sukses Update Module');
+            }
         } else {
-            return redirect()->route('getCourseSubModule', ['course_id' => $parentModule->course_id, 'module_id' => $parentModule->id, 'page_type' => 'LMS_child'])->with('error', 'Gagal Update Modul, silahkan coba lagi');
+            if ($request->current_page == 'class_management') {
+                return redirect()->back()->with('error', 'Gagal Menambah Modul, silahkan coba lagi');
+            } else {
+                return redirect()->route('getCourseSubModule', ['course_id' => $parentModule->course_id, 'module_id' => $parentModule->id, 'page_type' => 'LMS_child'])->with('error', 'Gagal Update Modul, silahkan coba lagi');
+            }
         }
     }
 

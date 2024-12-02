@@ -63,33 +63,45 @@
                             <label for="input-content" class="col-md-2 col-form-label">Konten</label>
                             <div class="col-md-10">
                                 @php
-                                    $contentData = json_decode($currentData->content, true); // Decode JSON data
-                                    $hasData = false; // Flag untuk melacak jika ada item valid
+                                    $surveyData = json_decode($survey->survey, true); // Decode JSON data untuk survey
+                                    $contentData = json_decode($currentData->content, true); // Decode JSON data untuk jawaban pengguna
                                 @endphp
 
-                                @if ($contentData)
-                                    @foreach ($contentData as $key => $value)
-                                        @if ($key != 'id' && $key != 'score')
-                                            @php
-                                                $formattedKey = str_replace('_', ' ', $key);
-                                                $hasData = true; // Set flag menjadi true jika ditemukan data valid
-                                            @endphp
+                                @if ($surveyData)
+                                    @foreach ($surveyData['pages'] as $page)
+                                        @foreach ($page['elements'] as $element)
                                             <div class="mb-3 p-3 border rounded bg-light">
-                                                <p class="font-weight-bold mb-1">Q:
-                                                    {{ $formattedKey }}{{ substr($formattedKey, -1) == '?' ? '' : '?' }}</p>
-                                                    <p class="mb-0">A: 
-                                                        @if (is_array($value))
-                                                            {{ implode(', ', $value) }}
-                                                        @else
-                                                            {{ $value }}
-                                                        @endif
-                                                    </p>                                                    
-                                            </div>
-                                        @endif
-                                    @endforeach
-                                @endif
+                                                <p class="font-weight-bold mb-1">
+                                                    Q:
+                                                    {{ $element['title'] }}{{ substr($element['title'], -1) == '?' ? '' : '?' }}
+                                                </p>
 
-                                @if (!$hasData)
+                                                @php
+                                                    // Menyimpan jawaban yang benar dari survey
+                                                    $correctAnswer = $element['correctAnswer'];
+                                                    $correctChoice = collect($element['choices'])->firstWhere(
+                                                        'value',
+                                                        $correctAnswer,
+                                                    );
+                                                    $correctText = $correctChoice['text'] ?? 'N/A';
+
+                                                    // Menyimpan jawaban pengguna dari contentData
+                                                    $userAnswer = $contentData[$element['name']] ?? 'Belum dijawab'; // Mengambil jawaban pengguna
+                                                    $userChoice = collect($element['choices'])->firstWhere(
+                                                        'value',
+                                                        $userAnswer,
+                                                    );
+                                                    $userAnswerText = $userChoice['text'] ?? $userAnswer;
+                                                @endphp
+
+                                                <p class="mb-0">
+                                                    <strong>Jawaban Anda:</strong> {{ $userAnswerText }}<br>
+                                                    <strong>Jawaban yang Benar:</strong> {{ $correctText }}
+                                                </p>
+                                            </div>
+                                        @endforeach
+                                    @endforeach
+                                @else
                                     <div class="alert alert-secondary" role="alert">Tidak ada data.</div>
                                 @endif
                             </div>

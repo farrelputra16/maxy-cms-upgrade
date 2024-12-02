@@ -14,6 +14,7 @@ use App\Http\Controllers\HelperController;
 
 use App\Models\CourseModule;
 use App\Models\CourseJournal;
+use App\Models\MSurvey;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
@@ -200,18 +201,26 @@ class CourseClassModuleController extends Controller
     function getAddCourseClassChildModule(Request $request)
     {
         // dd($request->all()); // dapat course_class_module_id parent nya
-        $parent_ccmod_detail = CourseClassModule::find($request->id);
+        $parent_ccmod_detail = CourseClassModule::with('CourseModule')->find($request->id);
         $parent_cm_detail = CourseModule::getCourseModuleDetailByModuleId($parent_ccmod_detail->course_module_id);
         $class_detail = CourseClass::getClassDetailByClassId($parent_ccmod_detail->course_class_id);
         $child_cm_list = CourseModule::getCourseModuleChildByParentId($parent_cm_detail->id);
         // dd($child_cm_list);
 
+        $quiz = MSurvey::where('type', 1)->get();
+        $eval = MSurvey::where('type', 0)->get();
+        // dd($parent_ccmod_detail, $parent_cm_detail, $class_detail, $child_cm_list);
+
         return view('classcontentmanagement::course_class_module.child.addv3', [
             'child_cm_list' => $child_cm_list,
             'class_detail' => $class_detail,
             'parent_ccmod_detail' => $parent_ccmod_detail,
+            'parent_cm_detail' => $parent_cm_detail,
+            'quiz' => $quiz,
+            'eval' => $eval,
         ]);
     }
+
     function postAddCourseClassChildModule(Request $request)
     {
         // dd($request->all()); // dapat course_class_module_id parent nya
