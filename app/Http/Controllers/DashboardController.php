@@ -21,8 +21,8 @@ class DashboardController extends Controller
         $accessMaster = AccessMaster::count();
         $user = User::count();
         $loggedInUserId = auth()->user()->id;
-        $universityCount = Partner::where('type', '2')->count(); //Menghitung jumlah University
-        $companyCount = Partner::where('type', '1')->count(); // Menghitung jumlah company
+        $universityCount = Partner::where('m_partner_type_id', '2')->count(); //Menghitung jumlah University
+        $companyCount = Partner::where('m_partner_type_id', '1')->count(); // Menghitung jumlah company
         $studentCount = User::where('type', 'member')->count(); // Menghitung jumlah student
         $activeEvents = Event::where('status', 1)->get();
         $activePartnerships = Partnership::where('status', 1)->with('Partner', 'MPartnershipType')->get();
