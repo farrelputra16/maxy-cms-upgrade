@@ -50,7 +50,7 @@ class AttendanceController extends Controller
             $attendance = new CourseClassAttendance();
             $attendance->name = $request->name;
             $attendance->course_class_module_id = $request->day;
-            $attendance->question = '[{"question":"apakah pengajar hadir tepat waktu?","type":"radio","option":["yes","no"]},{"question":"apakah materi pembelajaran jelas dan sesuai?","type":"radio","option":["tidak jelas","cukup jelas","jelas","sangat jelas"]},{"question":"apa saran/pendapatmu terhadap pembelajaran di pertemuan ini?","type":"text"}]';
+            $attendance->question = '[{"question":"apakah pengajar hadir tepat waktu?","type":"radio","option":["iya","tidak"]},{"question":"apakah materi pembelajaran jelas dan sesuai?","type":"radio","option":["tidak jelas","cukup jelas","jelas","sangat jelas"]},{"question":"apa saran/pendapatmu terhadap pembelajaran di pertemuan ini?","type":"text"}]';
             $attendance->description = $request->description ? $request->description : '';
             $attendance->status = $request->status ? $request->status : 0;
             $attendance->created_id = Auth::user()->id;
