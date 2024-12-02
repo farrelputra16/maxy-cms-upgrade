@@ -13,7 +13,9 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
-                        <li class="breadcrumb-item"><a>Ubah Modul</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getCourseClassChildModule', ['id' => $parent_ccmod_detail->id]) }}">Modul
+                                Kelas</a></li>
                         <li class="breadcrumb-item"><a>Konten</a></li>
                         <li class="breadcrumb-item active"><a>Ubah Konten</a></li>
                     </ol>
@@ -47,8 +49,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Modul Mata Kuliah <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Modul Mata Kuliah <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_module_id" data-placeholder="Pilih ...">
                                     @foreach ($child_cm_list as $item)
@@ -67,7 +69,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Prioritas <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority"
                                     value="{{ old('priority', $child_detail->priority) }}">
@@ -80,7 +82,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Waktu Mulai <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" id="date" type="date" name="start"
                                     value="{{ old('start', \Carbon\Carbon::parse($child_detail->start_date)->format('Y-m-d')) }}">
@@ -93,7 +95,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Waktu Berakhir <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" id="date" type="date" name="end"
                                     value="{{ old('end', \Carbon\Carbon::parse($child_detail->end_date)->format('Y-m-d')) }}">

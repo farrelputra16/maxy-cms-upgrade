@@ -13,7 +13,9 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClassModule') }}">Modul Kelas</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getCourseClassChildModule', ['id' => $parent_ccmod_detail->id]) }}">Modul
+                                Kelas</a></li>
                         <li class="breadcrumb-item active">Tambah Sub Modul Baru</li>
                     </ol>
                 </div>
