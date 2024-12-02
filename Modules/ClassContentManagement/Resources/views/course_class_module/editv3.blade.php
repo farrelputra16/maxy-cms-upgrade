@@ -130,7 +130,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Deskripsi Modul Kelas Mata Kuliah</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="description">{{ old('description', $course_class_module->description) }}</textarea>
+                                <textarea class="form-control" id="content" name="description">{{ old('description', $course_class_module->description) }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
