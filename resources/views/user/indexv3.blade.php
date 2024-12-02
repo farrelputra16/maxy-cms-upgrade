@@ -120,7 +120,7 @@
                                     <td>{{ $item->created_id }}</td>
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
-                                    <td>
+                                    <td  data-export="{{ $item->status == 1? 'Aktif' : 'Nonaktif'}}">
                                         <button 
                                             class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}" 
                                             data-id="{{ $item->id }}" 

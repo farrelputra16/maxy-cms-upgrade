@@ -40,51 +40,104 @@ $(document).ready(function () {
                     extend: 'excel',
                     text: 'Ekspor ke Excel'
                 },
+                // {
+                //     extend: "pdfHtml5",
+                //     text: "Export PDF",
+                //     filename: pageTitle, // Menggunakan title halaman sebagai nama file PDF
+                //     title: pageTitle, // Menggunakan title halaman sebagai judul PDF
+                //     orientation: "landscape", // Atur orientasi halaman PDF
+                //     pageSize: "A4", // Ukuran halaman
+                //     exportOptions: {
+                //         // Mengekspor kolom yang terlihat dan bukan kolom terakhir
+                //         columns: function (idx, data, node) {
+                //             // Pilih hanya kolom yang terlihat dan bukan kolom terakhir
+                //             return $(node).css('display') !== 'none' && !$(node).is(':last-child');
+                //         }
+                //     },
+                //     customize: function (doc) {
+                //         // Kurangi margin untuk menambah ruang
+                //         doc.styles.tableHeader.fontSize = 7; // Ukuran font header tabel
+                //         doc.styles.tableBodyOdd.fillColor = "#f3f3f3"; // Warna latar baris ganjil
+                //         doc.styles.tableBodyEven.fillColor = "#ffffff"; // Warna latar baris genap
+
+                //         // Sesuaikan lebar kolom agar sesuai dengan konten
+                //         var table = doc.content[1].table;
+                //         var columnCount = table.body[0].length;
+                //         var columnWidths = [];
+
+                //         // Tentukan lebar kolom berdasarkan konten terpanjang
+                //         for (var i = 0; i < columnCount; i++) {
+                //             var maxWidth = Math.max(
+                //                 ...table.body.map(function (row) {
+                //                     return (
+                //                         (row[i] && row[i].toString().length) ||
+                //                         0
+                //                     );
+                //                 })
+                //             );
+                //             columnWidths.push(maxWidth * 2); // Sesuaikan faktor untuk lebar kolom
+                //         }
+
+                //         // Terapkan lebar kolom yang dihitung
+                //         table.widths = columnWidths;
+
+                //         // Atur margin jika perlu
+                //         doc.pageMargins = [30, 30, 30, 30]; // Margin atas, kiri, kanan, bawah
+                //     },
+                // },
                 {
                     extend: "pdfHtml5",
                     text: "Export PDF",
-                    filename: pageTitle, // Menggunakan title halaman sebagai nama file PDF
-                    title: pageTitle, // Menggunakan title halaman sebagai judul PDF
-                    orientation: "landscape", // Atur orientasi halaman PDF
-                    pageSize: "A4", // Ukuran halaman
+                    filename: pageTitle, // Gunakan title halaman sebagai nama file
+                    title: pageTitle, // Gunakan title halaman sebagai judul PDF
+                    orientation: "landscape", // Orientasi landscape untuk tabel lebar
+                    pageSize: "A4", // Ukuran kertas
                     exportOptions: {
-                        // Mengekspor kolom yang terlihat dan bukan kolom terakhir
                         columns: function (idx, data, node) {
-                            // Pilih hanya kolom yang terlihat dan bukan kolom terakhir
-                            return $(node).css('display') !== 'none' && !$(node).is(':last-child');
+                            // Ekspor hanya kolom yang terlihat (tidak disembunyikan)
+                            return $(node).css("display") !== "none" && !$(node).is(":last-child");
+                        },
+
+                        format: {
+                            body: function (data, row, column, node) {
+                                // Ambil data dari atribut data-export jika ada
+                                var exportData = $(node).data("export");
+                                return exportData !== undefined ? exportData : data;
+                            }
                         }
                     },
                     customize: function (doc) {
-                        // Kurangi margin untuk menambah ruang
-                        doc.styles.tableHeader.fontSize = 7; // Ukuran font header tabel
-                        doc.styles.tableBodyOdd.fillColor = "#f3f3f3"; // Warna latar baris ganjil
-                        doc.styles.tableBodyEven.fillColor = "#ffffff"; // Warna latar baris genap
+                        // Gunakan margin kecil untuk memaksimalkan ruang kertas
+                        doc.pageMargins = [10, 10, 10, 10];
 
-                        // Sesuaikan lebar kolom agar sesuai dengan konten
+                        // Ambil tabel dari konten
                         var table = doc.content[1].table;
                         var columnCount = table.body[0].length;
-                        var columnWidths = [];
 
-                        // Tentukan lebar kolom berdasarkan konten terpanjang
-                        for (var i = 0; i < columnCount; i++) {
-                            var maxWidth = Math.max(
-                                ...table.body.map(function (row) {
-                                    return (
-                                        (row[i] && row[i].toString().length) ||
-                                        0
-                                    );
-                                })
-                            );
-                            columnWidths.push(maxWidth * 2); // Sesuaikan faktor untuk lebar kolom
+                        // Tentukan lebar total halaman (A4 landscape dalam pt adalah 595)
+                        var totalWidth = 595 - 20; // 20 adalah total margin (10 + 10)
+
+                        // Jika tabel memiliki banyak kolom, kecilkan proporsional agar fit
+                        if (columnCount > 10) {
+                            table.widths = Array(columnCount).fill(totalWidth / columnCount);
+                        } else {
+                            // Jika kolom sedikit, gunakan auto-fit
+                            table.widths = Array(columnCount).fill("*");
                         }
 
-                        // Terapkan lebar kolom yang dihitung
-                        table.widths = columnWidths;
+                        // Sesuaikan ukuran font untuk keterbacaan
+                        doc.defaultStyle.fontSize = columnCount > 10 ? 6 : 8; // Font lebih kecil jika kolom banyak
+                        doc.styles.tableHeader.fontSize = columnCount > 10 ? 7 : 9; // Header lebih kecil juga jika kolom banyak
 
-                        // Atur margin jika perlu
-                        doc.pageMargins = [30, 30, 30, 30]; // Margin atas, kiri, kanan, bawah
-                    },
+                        // Warna latar baris bergantian
+                        doc.content[1].layout = {
+                            fillColor: function (rowIndex) {
+                                return rowIndex % 2 === 0 ? "#d9d9d9" : null; // Baris ganjil diberi warna
+                            }
+                        };
+                    }
                 },
+
                 {
                     extend: "colvis",
                     className: "custom-colvis-btn",

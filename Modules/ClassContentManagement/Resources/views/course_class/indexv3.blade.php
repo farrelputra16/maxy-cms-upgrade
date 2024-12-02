@@ -94,21 +94,18 @@
                                     <td>
                                         {{ $item->class_type }}
                                     </td>
-                                    <td>
+                                    <td data-export="{{ $item->status_ongoing == 0 ? 'Belum Dimulai' : ($item->status_ongoing == 1 ? 'Sedang Berlangsung' : ($item->status_ongoing == 2 ? 'Sudah Selesai' : 'Status Tidak Diketahui')) }}">
                                         @if ($item->status_ongoing == 0)
-                                            <span class="badge bg-secondary" style="pointer-events: none;">Belum
-                                                Dimulai</span>
+                                            <span class="badge bg-secondary" style="pointer-events: none;">Belum Dimulai</span>
                                         @elseif ($item->status_ongoing == 1)
-                                            <span class="badge bg-success" style="pointer-events: none;">Sedang
-                                                Berlangsung</span>
+                                            <span class="badge bg-success" style="pointer-events: none;">Sedang Berlangsung</span>
                                         @elseif ($item->status_ongoing == 2)
-                                            <span class="badge bg-primary" style="pointer-events: none;">Sudah
-                                                Selesai</span>
+                                            <span class="badge bg-primary" style="pointer-events: none;">Sudah Selesai</span>
                                         @else
-                                            <span class="badge bg-danger" style="pointer-events: none;">Status Tidak
-                                                Diketahui</span>
+                                            <span class="badge bg-danger" style="pointer-events: none;">Status Tidak Diketahui</span>
                                         @endif
                                     </td>
+                                    
                                     <td>{{ $item->start_date }}</td>
                                     <td>{{ $item->end_date }}</td>
                                     <td>{{ $item->quota }}</td>
@@ -133,7 +130,7 @@
                                     <td>{{ $item->created_id }}</td>
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
-                                    <td>
+                                    <td data-export="{{ $item->status == 1? 'Aktif' : 'Nonaktif'}}">
                                         <button
                                             class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
                                             data-id="{{ $item->id }}" data-status="{{ $item->status }}"

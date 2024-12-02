@@ -51,14 +51,14 @@
                     </p>
 
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100" colvis=[]>
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama Mata Kuliah</th>
-                                <th>Harga Promo</th>
-                                <th>Harga</th>
+                                <th class="data-long">Nama Mata Kuliah</th>
+                                {{-- <th>Harga Promo</th>
+                                <th>Harga</th> --}}
                                 <th>Jenis Mata Kuliah</th>
                                 <th>SKS</th>
                                 <th>Durasi</th>
@@ -76,23 +76,24 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->id }}</td>
-                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
+                                    <td data-export="{{ $item->name }}" class="data-medium" data-toggle="tooltip" data-placement="top"
                                         title="{{ $item->name }}">
                                         {!! \Str::limit($item->name, 30) !!}
                                     </td>
-                                    <td>{{ $item->fake_price ? 'Rp ' . number_format($item->fake_price, 0, ',', '.') : '-' }}
+                                    {{-- <td>{{ $item->fake_price ? 'Rp ' . number_format($item->fake_price, 0, ',', '.') : '-' }}
                                     </td>
-                                    <td>{{ $item->price ? 'Rp ' . number_format($item->price, 0, ',', '.') : '-' }}</td>
-                                    <td>
+                                    <td>{{ $item->price ? 'Rp ' . number_format($item->price, 0, ',', '.') : '-' }}</td> --}}
+
+                                    <td class="data-long">
                                         {{ $item->type->name }}
                                     </td>
                                     <td>{{ $item->credits }}</td>
                                     <td>{{ sprintf('%02d:00:00', $item->duration) }}</td>
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                    <td data-export="{!! strip_tags($item->short_description) !!}" class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->short_description) !!}">
                                         {{ !empty($item->short_description) ? \Str::limit(strip_tags($item->short_description), 30) : '-' }}
                                     </td>
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                    <td data-export="{{ $item->description }}" class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->description) !!}">
                                         {{ !empty($item->description) ? \Str::limit(strip_tags($item->description), 30) : '-' }}
                                     </td>
@@ -102,11 +103,10 @@
                                     </td>
                                     <td>{{ $item->created_at->format('Y-m-d H:i') }}</td>
                                     <td>{{ $item->updated_at->format('Y-m-d H:i') }}</td>
-                                    <td>
-                                        <button 
-                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}" 
-                                            data-id="{{ $item->id }}" 
-                                            data-status="{{ $item->status }}"
+                                    <td data-export="{{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}">
+                                        <button
+                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
+                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
                                             data-model="Course">
                                             {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
                                         </button>
@@ -124,9 +124,9 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Nama Mata Kuliah</th>
-                                <th>Harga Promo</th>
-                                <th>Harga</th>
+                                <th class="">Nama Mata Kuliah</th>
+                                {{-- <th>Harga Promo</th>
+                                <th>Harga</th> --}}
                                 <th>Jenis Mata Kuliah</th>
                                 <th>SKS</th>
                                 <th>Durasi</th>
