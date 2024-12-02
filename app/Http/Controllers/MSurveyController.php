@@ -101,7 +101,7 @@ class MSurveyController extends Controller
         $SurveyResult = SurveyResult::with('MSurvey', 'User')
             ->where('id', $request->id)
             ->first();
-        $survey = MSurvey::where('id', $SurveyResult->survey_id)->first();
-        return view('m_survey.result.detailv3', ['currentData' => $SurveyResult, 'survey' => $survey]);
+
+        return view('m_survey.result.detailv3', ['currentData' => $SurveyResult]);
     }
 }

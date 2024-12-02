@@ -63,49 +63,22 @@
                             <label for="input-content" class="col-md-2 col-form-label">Konten</label>
                             <div class="col-md-10">
                                 @php
-                                    $surveyData = json_decode($survey->survey, true); // Decode JSON data untuk survey
-                                    $contentData = json_decode($currentData->content, true); // Decode JSON data untuk jawaban pengguna
+                                    $contentData = json_decode($currentData->content, true); // Decode JSON data
+                                    $surveyData = $contentData['surveyData'] ?? []; // Ambil surveyData dari JSON
                                 @endphp
-
-                                @if ($surveyData)
-                                    @foreach ($surveyData['pages'] as $page)
-                                        @foreach ($page['elements'] as $element)
-                                            <div class="mb-3 p-3 border rounded bg-light">
-                                                <p class="font-weight-bold mb-1">
-                                                    Q:
-                                                    {{ $element['title'] }}{{ substr($element['title'], -1) == '?' ? '' : '?' }}
-                                                </p>
-
-                                                @php
-                                                    // Menyimpan jawaban yang benar dari survey
-                                                    $correctAnswer = $element['correctAnswer'];
-                                                    $correctChoice = collect($element['choices'])->firstWhere(
-                                                        'value',
-                                                        $correctAnswer,
-                                                    );
-                                                    $correctText = $correctChoice['text'] ?? 'N/A';
-
-                                                    // Menyimpan jawaban pengguna dari contentData
-                                                    $userAnswer = $contentData[$element['name']] ?? 'Belum dijawab'; // Mengambil jawaban pengguna
-                                                    $userChoice = collect($element['choices'])->firstWhere(
-                                                        'value',
-                                                        $userAnswer,
-                                                    );
-                                                    $userAnswerText = $userChoice['text'] ?? $userAnswer;
-                                                @endphp
-
-                                                <p class="mb-0">
-                                                    <strong>Jawaban Anda:</strong> {{ $userAnswerText }}<br>
-                                                    <strong>Jawaban yang Benar:</strong> {{ $correctText }}
-                                                </p>
-                                            </div>
-                                        @endforeach
+                        
+                                @if (!empty($surveyData))
+                                    @foreach ($surveyData as $data)
+                                        <div class="mb-3 p-3 border rounded bg-light">
+                                            <p class="font-weight-bold mb-1">Q: {{ $data['questionTitle'] }}</p>
+                                            <p class="mb-0">A: {{ $data['userAnswer'] }}</p>
+                                        </div>
                                     @endforeach
                                 @else
-                                    <div class="alert alert-secondary" role="alert">Tidak ada data.</div>
+                                    <div class="alert alert-secondary" role="alert">Tidak ada data survei yang ditemukan.</div>
                                 @endif
                             </div>
-                        </div>
+                        </div>                        
                     </form>
                 </div>
             </div>
