@@ -48,6 +48,8 @@
                         <input type="text" name="img_keep" value="{{ $courses->image }}" hidden>
 
                         <input type="hidden" name="mbkmForm">
+                        <input type="hidden" name="type" value="{{ $currentDataCourse->m_course_type_id }}">
+                        <input type="hidden" name="level" value="1">
 
 
                         <div class="mb-3 row">
@@ -55,8 +57,7 @@
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
-                                    value="{{ old('name', $courses->name) }}"
-                                    id="name">
+                                    value="{{ old('name', $courses->name) }}" id="name">
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -86,35 +87,6 @@
                                 </div>
                             </div>
                         @endif
-                        <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Tingkat Kesulitan</label>
-                            <div class="col-md-10">
-                                <select class="form-control select2" name="level" data-placeholder="Choose ...">
-                                    @if ($currentDataCourse)
-                                        <option selected value="{{ $currentDataCourse->m_difficulty_type_id }}">
-                                            {{ $currentDataCourse->course_difficulty }}
-                                        </option>
-                                    @endif
-                                    @foreach ($allDifficultyTypes as $item)
-                                        <option value="{{ $item->id }}"
-                                            {{ old('level') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Jenis MBKM</label>
-                            <div class="col-md-10">
-                                <select class="form-control select2" name="type" data-placeholder="Choose ..."
-                                    id="type_selector">
-                                    @if ($currentDataCourse)
-                                        <option selected value="{{ $currentDataCourse->m_course_type_id }}">
-                                            {{ $currentDataCourse->course_type_name }}
-                                        </option>
-                                    @endif
-                                </select>
-                            </div>
-                        </div>
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Kategori Mata Kuliah</label>
                             <div class="col-md-10">
@@ -160,7 +132,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-short-description" class="col-md-2 col-form-label">Deskripsi Pratinjau</label>
+                            <label for="input-short-description" class="col-md-2 col-form-label">Deskripsi
+                                Pratinjau</label>
                             <div class="col-md-10">
                                 <textarea id="short-description-editor" name="short_description">{{ old('short_description', $courses->short_description) }}</textarea>
                                 @if ($errors->has('short_description'))

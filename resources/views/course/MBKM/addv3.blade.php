@@ -38,6 +38,8 @@
                     <form id="mbkmForm" action="{{ route('postAddCourse') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="mbkmForm">
+                        <input type="hidden" name="type" value="{{ $mbkmTypeId }}">
+                        <input type="hidden" name="level" value="1">
                         {{-- <input type="text" name="img_keep" value="{{ $blog->cover_img }}" hidden> --}}
 
 
@@ -60,7 +62,7 @@
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug" id="slug"
-                                    placeholder="Slug otomatis berdasarkan nama MBKM" readonly>
+                                    value="{{ old('slug') }}" placeholder="Slug otomatis berdasarkan nama MBKM" readonly>
                                 @if ($errors->has('slug'))
                                     @foreach ($errors->get('slug') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -82,36 +84,6 @@
                                 </div>
                             </div>
                         @endif
-                        <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Tingkat Kesulitan <small>(Program
-                                    MBKM)</small></label>
-                            <div class="col-md-10">
-                                <select class="form-control select2" name="level"
-                                    data-placeholder="Pilih Tingkat Kesulitan">
-                                    @foreach ($allCourseDifficulty as $item)
-                                        <option value="{{ $item->id }}"
-                                            {{ old('level') == $item->id ? 'selected' : '' }}> {{ $item->name }} </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Jenis MBKM <span class="text-danger"
-                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
-                            <div class="col-md-10">
-                                <!-- Menampilkan nilai MBKM yang sudah dipilih dan tidak bisa diubah -->
-                                <input class="form-control" type="text" value="MBKM" disabled>
-
-                                <!-- Mengirimkan nilai type yang readonly ke server melalui hidden input -->
-                                <input type="hidden" name="type" value="{{ $mbkmTypeId }}">
-
-                                @if ($errors->has('type'))
-                                    @foreach ($errors->get('type') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Kategori Mata Kuliah
                                 <small>(Prodi)</small></label>
@@ -163,7 +135,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-short-description" class="col-md-2 col-form-label">Deskripsi Pratinjau</label>
+                            <label for="input-short-description" class="col-md-2 col-form-label">Deskripsi
+                                Pratinjau</label>
                             <div class="col-md-10">
                                 <textarea id="elmDesc" name="short_description" class="form-control"
                                     placeholder="Contoh: Program MBKM ini memberikan pengalaman praktis melalui magang di perusahaan keuangan terkemuka.">{{ old('short_description') }}</textarea>
