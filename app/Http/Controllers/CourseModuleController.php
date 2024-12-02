@@ -196,11 +196,33 @@ class CourseModuleController extends Controller
     public function postAddChildModule(Request $request)
     {
         // Validasi input yang diperlukan
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'priority' => 'required|integer|min:1',
-            'type' => 'required',
-        ]);
+        if ($request->type == 'materi_pembelajaran') {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'priority' => 'required|integer|min:1',
+                'type' => 'required',
+                'material' => 'required'
+            ], [
+                'material.required' => 'File materi pembelajaraan harus diisi.',
+            ]);
+        } else if ($request->type == 'video_pembelajaran') {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'priority' => 'required|integer|min:1',
+                'type' => 'required',
+                'material' => 'required',
+                'duration' => 'required',
+            ], [
+                'material.required' => 'Link video harus diisi.',
+                'duration.required' => 'Durasi video harus diisi.',
+            ]);
+        } else {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'priority' => 'required|integer|min:1',
+                'type' => 'required',
+            ]);
+        }
 
         $parentModule = CourseModule::find($request->parentId);
 

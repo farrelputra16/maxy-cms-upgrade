@@ -186,6 +186,11 @@
                         <label class="col-md-2 col-form-label">File Materi Pembelajaran</label>
                         <div class="col-md-10">
                             <input class="form-control" type="file" name="material" placeholder="Unggah dokumen seperti PDF atau slide presentasi terkait topik ekonomi/bisnis.">
+                            @if ($errors->has('material'))
+                                @foreach ($errors->get('material') as $error)
+                                    <span style="color: red;">{{ $error }}</span>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                 `;
@@ -204,6 +209,11 @@
                         <label class="col-md-2 col-form-label">Link Video</label>
                         <div class="col-md-10">
                             <input class="form-control" type="text" name="material" placeholder="Masukkan tautan video dari YouTube seperti 'Pengantar Investasi Pasar Modal'." value="{{ old('material') }}">
+                            @if ($errors->has('material'))
+                                @foreach ($errors->get('material') as $error)
+                                    <span style="color: red;">{{ $error }}</span>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                 `;
@@ -212,6 +222,11 @@
                         <label class="col-md-2 col-form-label">Durasi Video</label>
                         <div class="col-md-10">
                             <input class="form-control" type="number" name="duration" placeholder="Durasi dalam menit, misalnya 15 atau 30." value="{{ old('duration') }}">
+                            @if ($errors->has('duration'))
+                                @foreach ($errors->get('duration') as $error)
+                                    <span style="color: red;">{{ $error }}</span>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                     <div class="mb-3 row">
