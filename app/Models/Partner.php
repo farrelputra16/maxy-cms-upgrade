@@ -15,7 +15,7 @@ class Partner extends Model
 
     protected $fillable = [
         'name',
-        'type',
+        'm_partner_type_id',
         'url',
         'address',
         'phone',
@@ -38,6 +38,6 @@ class Partner extends Model
 
     public function MPartnerType()
     {
-        return $this->belongsTo(MPartnerType::class, 'type')->where('status', 1);
+        return $this->belongsTo(MPartnerType::class, 'm_partner_type_id')->where('status', 1);
     }
 }

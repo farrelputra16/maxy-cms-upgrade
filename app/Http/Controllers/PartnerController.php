@@ -42,7 +42,7 @@ class PartnerController extends Controller
         if ($validate){
             $create = Partner::create([
                 'name' => $request->name,
-                'type' => $request->type,
+                'm_partner_type_id' => $request->type,
                 'logo' => $fileName,
                 'url' => $request->url,
                 'address' => $request->address,
@@ -96,7 +96,7 @@ class PartnerController extends Controller
             $update = Partner::where('id', $request->id)
                 ->update([
                     'name' => $request->name,
-                    'type' => $request->type,
+                    'm_partner_type_id' => $request->type,
                     'logo' => $fileName,
                     'url' => $request->url,
                     'address' => $request->address,

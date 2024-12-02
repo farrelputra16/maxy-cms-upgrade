@@ -61,7 +61,7 @@
                                 <select class="form-control select2" name="type" data-placeholder="Pilih ..." id="type_selector">
                                     <!-- Menampilkan pilihan yang ada di database (jika ada) -->
                                     @foreach ($partnerTypes as $item)
-                                        <option value="{{ $item->id }}"
+                                        <option value="{{ $item->id }}" {{ $partners->m_partner_type_id == $item->id ? 'selected' : '' }}
                                             {{ old('type', $partners->type) == $item->id ? 'selected' : '' }}>
                                             {{ $item->name }} </option>
                                     @endforeach
