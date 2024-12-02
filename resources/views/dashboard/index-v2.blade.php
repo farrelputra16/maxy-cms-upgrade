@@ -42,7 +42,8 @@
                             <div class="col-sm-4">
                                 <div class="avatar-md profile-user-wid mb-4">
                                     @if (auth()->user()->profile_picture)
-                                        <img src="{{ asset('uploads/' . auth()->user()->profile_picture) }}" alt="{{ auth()->user()->name }} profile"
+                                        <img src="{{ asset('uploads/' . auth()->user()->profile_picture) }}"
+                                            alt="{{ auth()->user()->name }} profile"
                                             class="img-thumbnail rounded-circle d-inline-block w-100 h-100">
                                     @else
                                         <img src="{{ asset('img/default_profile.png') }}" alt=""
@@ -289,6 +290,36 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
+            var activeEvents = @json($activeEvents);
+            var activePartnerships = @json($activePartnerships);
+
+            var eventDatas = [];
+
+            // Loop untuk menambahkan activeEvents
+            activeEvents.forEach(function(event) {
+                eventDatas.push({
+                    title: event.name.slice(0, 30) + '...',
+                    start: event
+                        .date_start,
+                    end: event.date_end,
+                    message: "Acara: " + event.name + "\nTanggal Mulai: " + event.date_start +
+                        "\nTanggal Selesai: " + event.date_end,
+                });
+            });
+
+            // Loop untuk menambahkan activePartnerships, yang hanya membutuhkan end date
+            activePartnerships.forEach(function(partnership) {
+                eventDatas.push({
+                    title: partnership.m_partnership_type.name + ' - ' + partnership.partner.name,
+                    start: partnership.date_end,
+                    backgroundColor: '#B22222',
+                    message: "Mitra: " + partnership.partner.name + "\nTipe Kemitraan: " +
+                        partnership
+                        .m_partnership_type.name + "\nTanggal Berakhir: " + partnership.date_end,
+                });
+            });
+
+            console.log(eventDatas);
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
@@ -297,17 +328,13 @@
                     center: 'title',
                     right: 'today'
                 },
-                editable: true,
-                events: [{
-                        title: 'Acara 1',
-                        start: '2024-09-30'
-                    },
-                    {
-                        title: 'Acara 2',
-                        start: '2024-10-01',
-                        end: '2024-10-02'
-                    }
-                ],
+                editable: false,
+                events: eventDatas,
+                eventClick: function(info) {
+                    // Menampilkan informasi ketika event diklik
+                    var eventInfo = info.event;
+                    alert(eventInfo.extendedProps.message);
+                },
                 dateClick: function(info) {
                     alert('Tanggal: ' + info.dateStr);
                 }
