@@ -530,6 +530,7 @@ Route::post('/user/import-csv', [UserController::class, 'importCSV'])->name('use
 Route::get('/updateGKCourseImage', [MiscController::class, 'updateGKCourseImage'])->name('updateGKCourseImage');
 Route::get('/reorderUpskillingPriority', [MiscController::class, 'reorderUpskillingPriority'])->name('reorderUpskillingPriority');
 Route::get('/updateSlugCourseClass', [MiscController::class, 'updateSlugCourseClass'])->name('updateSlugCourseClass');
+Route::get('/clean-descriptions', [MiscController::class, 'cleanDescriptions']);
 
 // jago digital route ###########################################################################################################
 Route::prefix('agent')->name('agent.')->group(function () {

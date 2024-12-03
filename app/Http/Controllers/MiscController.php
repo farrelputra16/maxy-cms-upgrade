@@ -125,4 +125,34 @@ class MiscController extends Controller
             }
         }
     }
+
+    public function cleanDescriptions()
+    {
+        // Get the current database name
+        $database = env('DB_DATABASE');
+
+        // Retrieve all tables with a 'description' column
+        $tables = DB::select("
+            SELECT TABLE_NAME
+            FROM INFORMATION_SCHEMA.COLUMNS
+            WHERE COLUMN_NAME = 'description' 
+            AND TABLE_SCHEMA = ?
+        ", [$database]);
+
+        // Iterate over the tables and clean the 'description' column
+        foreach ($tables as $table) {
+            $tableName = $table->TABLE_NAME;
+
+            // Update the 'description' column to remove HTML tags
+            DB::statement("
+                UPDATE `$tableName`
+                SET description = REGEXP_REPLACE(description, '<[^>]*>', '')
+            ");
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'HTML tags removed from all description columns.'
+        ]);
+    }
 }
