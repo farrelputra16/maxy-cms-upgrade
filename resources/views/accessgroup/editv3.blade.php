@@ -96,7 +96,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-description" class="col-md-2 col-form-label">Catatam Admin</label>
+                            <label for="input-description" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
                                 <textarea class="form-control" id="content" name="description">{{ old('description', $accessgroups->description) }}</textarea>
                                 @if ($errors->has('description'))
