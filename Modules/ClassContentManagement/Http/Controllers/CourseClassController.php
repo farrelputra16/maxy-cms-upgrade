@@ -257,7 +257,9 @@ class CourseClassController extends Controller
             'end' => 'required|date|after:start',
             'quota' => 'required|integer|gte:1',
             'ongoing' => 'required',
-            'semester' => 'required|numeric|min:1'
+            'semester' => 'required|numeric|min:1',
+            'credits' => 'required',
+            'duration' => 'required'
         ]);
         // dd($request->all());
 
@@ -374,7 +376,9 @@ class CourseClassController extends Controller
             'end' => 'required|date|after:start',
             'quota' => 'required|integer|gte:1',
             'ongoing' => 'required',
-            'semester' => 'required|numeric|min:1'
+            'semester' => 'required|numeric|min:1',
+            'credits' => 'required',
+            'duration' => 'required'
         ]);
 
         // dd($request->announcement);
