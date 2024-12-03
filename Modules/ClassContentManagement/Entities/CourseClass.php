@@ -289,7 +289,7 @@ class CourseClass extends Model
                 ->where('ccm.level', '=', 2)
                 ->where('cm.course_module_parent_id', '=', $parent->course_module_id)
                 ->where('cm.type', '=', 'assignment')
-                ->select('ccm.*', 'ccg.grade as grade', 'ccg.created_at as created_at', 'ccg.updated_at as updated_at', 'cc.batch as batch', 'ccm.status as status', 'ccm.created_at as created_at', 'ccm.updated_at as updated_at', 'ccmh.user_id as user_id')
+                ->select('ccm.*', 'cm.course_module_parent_id as module_parent_id', 'ccg.grade as grade', 'ccg.created_at as created_at', 'ccg.updated_at as updated_at', 'cc.batch as batch', 'ccm.status as status', 'ccm.created_at as created_at', 'ccm.updated_at as updated_at', 'ccmh.user_id as user_id')
                 ->get();
 
             $parent->modulesChild = $modulesChild;

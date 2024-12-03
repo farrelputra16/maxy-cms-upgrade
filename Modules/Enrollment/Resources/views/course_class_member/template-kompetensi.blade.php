@@ -77,38 +77,48 @@
             <tbody>
                 @php
                     $index = 1;
-                    $totalAverage = 0; // Inisialisasi nilai total rata-rata
-                    $totalGradesSum = 0; // Menyimpan total nilai seluruh grades
-                    $totalModulesCount = 0; // Menyimpan jumlah total modul anak
+                    $totalGradesSum = 0; // Total sum of all grades
+                    $totalModulesCount = 0; // Total number of modules that have grades
                 @endphp
+
                 @foreach ($classModules as $item)
                     @if (!empty($item->course_module_name))
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->course_module_name }}</td>
                             <td>{!! $item->description !!}</td>
-                            <td>{{ count($item->modulesChild) > 0 ? $item->modulesChild[0]->percentage . '%' : '0%' }}
+                            <td>{{ count($item->modulesChild) > 0 ? $item->modulesChild[0]->percentage . '%' : 'No score weight available' }}
                             </td>
                             <td>
                                 @if (!empty($item->modulesChild))
                                     @php
                                         $totalGrades = 0;
-                                        $numChildModules = count($item->modulesChild);
+                                        $numChildModules = 0;
+                                        $numParentModules = [];
                                     @endphp
 
                                     @foreach ($item->modulesChild as $child)
-                                        @php
-                                            $totalGrades += $child->grade ?? 0;
-                                        @endphp
+                                        @if (isset($child->grade))
+                                            {{-- Only count modules with a grade --}}
+                                            @php
+                                                $totalGrades += $child->grade ?? 0;
+                                                $numChildModules++;
+                                                if (!in_array($child->module_parent_id, $numParentModules)) {
+                                                    $numParentModules[] = $child->module_parent_id;
+                                                }
+                                            @endphp
+                                        @endif
                                     @endforeach
 
                                     @if ($numChildModules > 0)
                                         @php
                                             $averageGrade = $totalGrades / $numChildModules;
-                                            $totalGradesSum += $totalGrades; // Menambahkan nilai total grades ke total global
-                                            $totalModulesCount += $numChildModules; // Menambahkan jumlah modul ke total global
+                                            $totalGradesSum += $averageGrade; // Add to global sum
+                                            $totalModulesCount += count($numParentModules); // Add to global count
                                         @endphp
                                         {{ number_format($averageGrade, 2) }}
+                                    @else
+                                        No grades available
                                     @endif
                                 @else
                                     No child modules
@@ -117,6 +127,7 @@
                         </tr>
                     @endif
                 @endforeach
+
                 <tr>
                     <td colspan="4" class="table-total">Nilai Total</td>
                     @if (env('APP_ENV') != 'local')
