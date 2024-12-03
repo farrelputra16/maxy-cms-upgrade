@@ -125,9 +125,12 @@
                             </section>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Komentar</label>
                             <div class="col-md-10">
                                 <textarea class="form-control" id="content" name="description">{{ old('description') }}</textarea>
+                                @foreach ($errors->get('description') as $error)
+                                    <span style="color: red;">{{ $error }}</span>
+                                @endforeach
                             </div>
                         </div>
                         <div class="mb-3 row justify-content-end">

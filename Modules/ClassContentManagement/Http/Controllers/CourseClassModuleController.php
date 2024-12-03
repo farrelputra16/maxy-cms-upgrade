@@ -338,6 +338,11 @@ class CourseClassModuleController extends Controller
     }
     function postAddJournalCourseClassChildModule(Request $request)
     {
+        $validated = $request->validate([
+            'description' => 'required',
+        ], [
+            'description.required' => 'Komentar harus diisi',
+        ]);
         // dd($request->all());
         // $level = CourseJournal::find()
         //     ->where('user_id', $request->user_id)
