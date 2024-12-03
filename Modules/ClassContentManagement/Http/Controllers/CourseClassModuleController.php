@@ -240,6 +240,7 @@ class CourseClassModuleController extends Controller
             'level' => 2,
             'course_module_id' => $request->course_module_id,
             'course_class_id' => $request->course_class_id,
+            'content' => $request->class_content,
             'description' => $request->description,
             'status' => $request->status ? 1 : 0,
             'created_id' => Auth::user()->id,
@@ -252,6 +253,13 @@ class CourseClassModuleController extends Controller
             return redirect()->route('getCourseClassChildModule', ['id' => $request->ccmod_parent_id])->with('failed', 'Gagal Menambahkan Modul, silahkan coba lagi');
         }
     }
+
+    function getCourseModuleContent($id)
+    {
+        $module = CourseModule::find($id);
+        return response()->json($module);
+    }
+
     function getEditCourseClassChildModule(Request $request)
     {
         // dd($request->all());

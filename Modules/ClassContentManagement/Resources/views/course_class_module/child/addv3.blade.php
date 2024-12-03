@@ -53,7 +53,10 @@
                             <div class="col-md-10">
                                 <div class="d-flex gap-2 justify-content-between align-items-center">
                                     <select class="form-control select2 flex-grow-1" name="course_module_id"
-                                        data-placeholder="Pilih Tipe Mata Kuliah..." id="type_selector">
+                                        data-placeholder="Pilih Modul..." id="type_selector">
+                                        <option value="" disabled
+                                            {{ old('course_module_id') == '' ? 'selected' : '' }}>
+                                            Pilih Modul</option>
                                         @foreach ($child_cm_list as $item)
                                             <option value="{{ $item->id }}"
                                                 {{ old('course_module_id') == $item->id ? 'selected' : '' }}>
@@ -115,6 +118,41 @@
                                 @endif
                             </div>
                         </div>
+                        {{-- Rich Text Field --}}
+                        <div id="input-class-content" class="mb-3 row" style="display: none;">
+                            <label class="col-md-2 col-form-label">Konten</label>
+                            <div class="col-md-10">
+                                <textarea id="elm1" name="class_content">{{ old('class_content') }}</textarea>
+                            </div>
+                        </div>
+                        {{-- Dropdown Quiz Field --}}
+                        <div id="input-class-quiz" class="mb-3 row" style="display: none;">
+                            <label class="col-md-2 col-form-label">Konten</label>
+                            <div class="col-md-10">
+                                <select class="form-control select2" name="class_content" id="quiz_content"
+                                    style="width: 100%">
+                                    @foreach ($quiz as $item)
+                                        <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}">
+                                            {{ $item->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        {{-- Dropdown Eval Field --}}
+                        <div id="input-class-eval" class="mb-3 row" style="display: none;">
+                            <label class="col-md-2 col-form-label">Konten</label>
+                            <div class="col-md-10">
+                                <select class="form-control select2" name="class_content" id="eval_content"
+                                    style="width: 100%">
+                                    @foreach ($eval as $item)
+                                        <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}">
+                                            {{ $item->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
@@ -151,7 +189,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTitleId">
-                        Modal title
+                        Tambah Modul Baru
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -283,27 +321,95 @@
 @endsection
 
 @section('script')
-    <!-- Optional: Place to the bottom of scripts -->
-    {{-- <script>
-        const myModal = new bootstrap.Modal(
-            document.getElementById("modalId"),
-            options,
-        );
-    </script> --}}
+    <script>
+        $(document).ready(function() {
+            $('#type_selector').on('change', function() {
+                const moduleId = $(this).val();
+                const frontendUrl = '{{ config('app.frontend_app_url') }}';
+                const editor = tinymce.get('elm1');
+
+                if (!editor) {
+                    console.error('Editor not found');
+                    return;
+                }
+
+                if (moduleId) {
+                    $.ajax({
+                        url: `/get-course-module-content/${moduleId}`,
+                        method: 'GET',
+                        success: function(data) {
+                            console.log('Module content fetched:', data);
+
+                            if (data.type === 'quiz') {
+                                var idQuiz = afterLastSlash(data.content);
+
+                                $('#quiz_content').val(frontendUrl + '/lms/survey/' + idQuiz);
+                                $('#quiz_content').trigger('change');
+
+                                $('#input-class-content').hide();
+                                $('#input-class-quiz').show();
+                                $('#input-class-eval').hide();
+
+                                $('#elm1').removeAttr('name');
+                                $('#eval_content').removeAttr('name');
+                            } else if (data.type === 'eval') {
+                                var idEval = afterLastSlash(data.content);
+
+                                $('#eval_content').val(frontendUrl + '/lms/survey/' + idEval);
+                                $('#eval_content').trigger('change');
+
+                                $('#input-class-content').hide();
+                                $('#input-class-quiz').hide();
+                                $('#input-class-eval').show();
+
+                                $('#elm1').removeAttr('name');
+                                $('#quiz_content').removeAttr('name');
+                            } else {
+                                editor.setContent(data.content || '');
+
+                                $('#input-class-content').show();
+                                $('#input-class-quiz').hide();
+                                $('#input-class-eval').hide();
+
+                                $('#quiz_content').removeAttr('name');
+                                $('#eval_content').removeAttr('name');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error fetching module content:', error);
+                        }
+                    });
+                } else {
+                    // Reset the editor and hide both inputs if no moduleId is selected
+                    editor.setContent('');
+                    $('#input-class-content').hide();
+                    $('#input-class-quiz').hide();
+                    $('#input-class-eval').hide();
+                }
+            });
+        });
+
+        function afterLastSlash(str) {
+            // Find the position of the last '/'
+            const lastIndex = str.lastIndexOf('/');
+
+            // Get the substring after the last '/'
+            return lastIndex !== -1 ? str.substring(lastIndex + 1) : '';
+        }
+    </script>
 
     @if ($class_detail->course_type_slug != 'rapid-onboarding')
         <script>
-            var typeSelector = document.getElementById('type_selector_modal');
+            var typeSelectorModal = document.getElementById('type_selector_modal');
             var material = document.getElementById('material');
             var duration = document.getElementById('duration');
 
             function loadType() {
-                console.log("Dropdown changed to: ", typeSelector.value);
                 if (tinymce.get('elm1')) {
                     tinymce.get('elm1').remove();
                 }
 
-                if (typeSelector.value === 'materi_pembelajaran') {
+                if (typeSelectorModal.value === 'materi_pembelajaran') {
                     material.innerHTML = `
                     <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">File Materi Pembelajaran</label>
@@ -326,7 +432,7 @@
                     </div>
                 </div>
                 `;
-                } else if (typeSelector.value === 'video_pembelajaran') {
+                } else if (typeSelectorModal.value === 'video_pembelajaran') {
                     material.innerHTML = `
                     <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">Link Video</label>
@@ -359,7 +465,7 @@
                         </div>
                     </div>
                 `;
-                } else if (typeSelector.value === 'assignment') {
+                } else if (typeSelectorModal.value === 'assignment') {
                     material.innerHTML = `
                     <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">File Tugas</label>
@@ -377,7 +483,7 @@
                     </div>
                 </div>
                 `;
-                } else if (typeSelector.value === 'quiz') {
+                } else if (typeSelectorModal.value === 'quiz') {
                     material.innerHTML = `
                     <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">Pilih Kuis</label>
@@ -394,7 +500,7 @@
                     </div>
                 `;
                     duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-                } else if (typeSelector.value === 'eval') {
+                } else if (typeSelectorModal.value === 'eval') {
                     material.innerHTML = `
                     <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">Pilih Kuis</label>
@@ -434,8 +540,8 @@
                 loadType();
             });
 
-            // Panggil loadType() saat typeSelector diubah
-            typeSelector.addEventListener('change', loadType);
+            // Panggil loadType() saat typeSelectorModal diubah
+            typeSelectorModal.addEventListener('change', loadType);
         </script>
     @endif
 @endsection

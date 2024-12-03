@@ -37,7 +37,8 @@
                     <ul>
                         <li><strong>Atur Kolom:</strong> Gunakan pengurutan di header kolom untuk mengelompokkan data
                             berdasarkan hari atau tanggal.</li>
-                        <li><strong>Lihat Catatan Admin Lengkap:</strong> Arahkan kursor ke catatan admin yang terpotong untuk
+                        <li><strong>Lihat Catatan Admin Lengkap:</strong> Arahkan kursor ke catatan admin yang terpotong
+                            untuk
                             melihat konten penuh.</li>
                         <li><strong>Ubah Modul:</strong> Klik tombol <em>Ubah</em> pada kolom “Aksi” untuk memperbarui
                             informasi modul yang ada.</li>
@@ -79,8 +80,8 @@
                                         {{ $item->priority }} </td>
                                     <td>{{ $item->type }}</td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->course_module_content) !!}">
-                                        {!! !empty($item->course_module_content) ? \Str::limit($item->course_module_content, 30) : '-' !!}
+                                        title="{!! strip_tags($item->content) !!}">
+                                        {!! !empty($item->content) ? \Str::limit($item->content, 30) : '-' !!}
                                     </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->course_module_material) !!}">
@@ -97,12 +98,10 @@
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
                                     <td>
-                                        <button 
-                                            class="btn btn-status-entities {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}" 
-                                            data-id="{{ $item->id }}" 
-                                            data-status="{{ $item->status }}"
-                                            data-parent="ClassContentManagement"
-                                            data-model="CourseClassModule">
+                                        <button
+                                            class="btn btn-status-entities {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
+                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
+                                            data-parent="ClassContentManagement" data-model="CourseClassModule">
                                             {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
                                         </button>
                                     </td>

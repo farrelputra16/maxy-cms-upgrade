@@ -67,3 +67,6 @@ Route::delete('/courseclassmodule/delete/{id}', [CourseClassModuleController::cl
 Route::prefix('ClassContentManagement')->group(function () {
     Route::get('/', 'ClassContentManagementController@index');
 });
+
+Route::get('/get-course-module-content/{id}', [CourseClassModuleController::class, 'getCourseModuleContent'])->name('getCourseModuleContent')
+    ->middleware('access:course_class_module_manage');
