@@ -9,6 +9,10 @@ class SanitizeInput
 {
     public function handle($request, Closure $next)
     {
+        if ($request->is('blog/add') || $request->is('blog/edit')) {
+            return $next($request); // Langsung lewati middleware tanpa sanitasi
+        }
+
         $input = $request->all();
 
         // Bersihkan setiap input menggunakan Purifier, kecuali null

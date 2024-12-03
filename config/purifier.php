@@ -25,8 +25,8 @@ return [
     'settings'      => [
         'default' => [
             'HTML.Doctype'             => 'HTML 4.01 Transitional',
-            'HTML.Allowed'             => 'div,b,strong,i,em,u,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src]',
-            'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align,line-height',
+            'HTML.Allowed'             => 'div,b,strong,i,em,u,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src],h1,h2,h3,h4,h5,h6,blockquote,pre,code,table[border|cellspacing|cellpadding|width],thead,tbody,tr,th,td,figcaption,figure,hr',
+            'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,padding-right,padding-top,padding-bottom,margin-left,margin-right,margin-top,margin-bottom,color,background-color,text-align,line-height,vertical-align,letter-spacing,word-spacing,border,border-width,border-color,border-style,border-radius,box-shadow,width,height,max-width,min-width,max-height,min-height,overflow,display,white-space,position,top,right,bottom,left,float,clear',
             'AutoFormat.AutoParagraph' => false,
             'AutoFormat.RemoveEmpty'   => true,
         ],
@@ -97,6 +97,10 @@ return [
         ],
         'custom_attributes' => [
             ['a', 'target', 'Enum#_blank,_self,_target,_top'],
+            ['img', 'src', 'URI'],                            // Gambar dengan sumber
+            ['iframe', 'allowfullscreen', 'Bool'],            // Video atau konten embed
+            ['table', 'border', 'Text'],                      // Tabel dengan border
+            ['div', 'class', 'Text'],                         // Custom class untuk div
         ],
         'custom_elements' => [
             ['u', 'Inline', 'Inline', 'Common'],
