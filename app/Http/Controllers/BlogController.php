@@ -28,7 +28,7 @@ class BlogController extends Controller
     {
         // Validasi input
         $request->validate([
-            'title' => 'required|regex:/^[^<>#$]+$/|max:255',
+            'title' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:m_blog,slug',  // Validasi slug unik
             'content' => 'required|string|max:16777215',
             'description' => 'nullable|string|max:65535',
@@ -98,7 +98,7 @@ class BlogController extends Controller
         $request->validate([
             'title' => 'required|regex:/^[^<>#$]+$/|max:255',
             'slug' => 'required|string|max:255|unique:m_blog,slug,' . $request->id,  // Validasi slug unik kecuali untuk blog yang sedang di-edit
-            'content' => 'nullable|string|max:16777215',
+            'content' => 'required|string|max:16777215',
             'description' => 'nullable|string|max:65535',
             'status' => 'nullable|boolean',
             'file_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  // Validasi file gambar
