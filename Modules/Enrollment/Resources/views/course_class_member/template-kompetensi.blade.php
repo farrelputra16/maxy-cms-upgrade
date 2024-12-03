@@ -87,7 +87,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->course_module_name }}</td>
                             <td>{!! $item->description !!}</td>
-                            <td>{{ count($item->modulesChild) > 0 ? $item->modulesChild[0]->percentage . '%' : 'No score weight available' }}
+                            <td>{{ count($item->modulesChild) > 0 ? $item->modulesChild[0]->percentage . '%' : 'Tidak ada bobot nilai' }}
                             </td>
                             <td>
                                 @if (!empty($item->modulesChild))
@@ -118,10 +118,10 @@
                                         @endphp
                                         {{ number_format($averageGrade, 2) }}
                                     @else
-                                        No grades available
+                                        Tidak ada nilai
                                     @endif
                                 @else
-                                    No child modules
+                                    Tidak ada sub module
                                 @endif
                             </td>
                         </tr>
