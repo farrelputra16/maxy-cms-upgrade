@@ -143,6 +143,8 @@ class CourseClass extends Model
             ->join('course_class as cc', 'cc.id', '=', 'ccm.course_class_id')
             ->join('course as c', 'c.id', '=', 'cc.course_id')
             ->whereIn('cm.type', ['assignment'])
+            ->where('ccm.status', 1)
+            ->where('cm.status', 1)
             ->where('cc.id', $class_id)
             ->get();
 
