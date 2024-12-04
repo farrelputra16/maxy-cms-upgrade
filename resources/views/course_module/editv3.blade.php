@@ -12,8 +12,9 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Mata Kuliah</a></li>
                         <li class="breadcrumb-item"><a
-                                href="{{ route('getCourseModule', ['course_id' => $module_detail->course_id]) }}">Modul
+                                href="{{ route('getCourseModule', ['course_id' => $module_detail->course_id, 'page_type' => $page_type]) }}">Modul
                                 Mata Kuliah</a>
                         </li>
                         <li class="breadcrumb-item active">Ubah Modul: {{ $module_detail->name }}</li>
@@ -52,7 +53,7 @@
 
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nama Modul <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $module_detail->name) }}" id="name"
@@ -65,8 +66,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Hari / Prioritas <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-title" class="col-md-2 col-form-label">Hari / Prioritas <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority"
                                     value="{{ old('priority', $module_detail->priority) }}"

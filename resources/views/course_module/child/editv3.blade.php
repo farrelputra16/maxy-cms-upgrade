@@ -16,6 +16,9 @@
                         <li class="breadcrumb-item"><a
                                 href="{{ route('getCourseModule', ['course_id' => $parentModule->course_id, 'page_type' => 'LMS']) }}">Modul
                                 Mata Kuliah</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getCourseSubModule', ['course_id' => $parentModule->course_id, 'module_id' => $parentModule->id, 'page_type' => 'LMS_child']) }}">Sub
+                                Modul Mata Kuliah</a></li>
                         <li class="breadcrumb-item active">Ubah Sub Modul: {{ $parentModule->name }}</li>
                     </ol>
                 </div>
@@ -58,7 +61,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nama Modul <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" value="{{ $childModule->name }}">
                                 @if ($errors->has('name'))
@@ -70,7 +73,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Prioritas <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="priority"
                                     value="{{ $childModule->priority }}" min="1">
@@ -126,7 +129,8 @@
                                                 <p class="pt-2">{{ $childModule->material }}</p>
                                                 <label for="input-name" class="col-md-2 col-form-label">Ganti File</label>
                                                 <input class="form-control" type="file" id="formFile" name="material">
-                                                <input class="form-control" type="hidden" name="duration" value="">
+                                                <input class="form-control" type="hidden" name="duration"
+                                                    value="">
                                             </div>
                                         @elseif ($childModule->type === 'video_pembelajaran')
                                             <label for="" class="form-label" style="margin-top: 1%">Link
@@ -141,7 +145,8 @@
                                             <label for="input-name" class="col-md-2 col-form-label"
                                                 style="margin-top: 1%">File Penugasan Saat Ini</label>
                                             <p class="pt-2">{{ $childModule->material }}</p>
-                                            <label for="" class="form-label" style="margin-top: 1%"> Ganti File Penugasan</label>
+                                            <label for="" class="form-label" style="margin-top: 1%"> Ganti File
+                                                Penugasan</label>
                                             <input class="form-control" type="file" id="formFile" name="material">
                                             <input type="hidden" name="duration"
                                                 @if ($childModule->type == 'asignment') value="{{ $childModule->material }}" @endif>
@@ -178,7 +183,9 @@
                         <label for="input-content" class="col-md-2 col-form-label">Konten</label>
                         <div class="col-md-10">
                             <textarea id="elm1" name="content">
-                                @if ($childModule->type != 'quiz' && $childModule->type != 'eval'){{ $childModule->content }}@endif
+                                @if ($childModule->type != 'quiz' && $childModule->type != 'eval')
+{{ $childModule->content }}
+@endif
                             </textarea>
                         </div>
                     </div>
@@ -258,7 +265,7 @@
                 console.log(typeSelector.value)
 
                 if (typeSelector.value === 'quiz' || typeSelector.value === 'eval') {
-                contentDiv.style.display = 'none';
+                    contentDiv.style.display = 'none';
                 } else {
                     contentDiv.style.display = 'block';
                 }

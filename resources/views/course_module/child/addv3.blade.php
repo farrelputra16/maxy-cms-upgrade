@@ -16,6 +16,9 @@
                         <li class="breadcrumb-item"><a
                                 href="{{ route('getCourseModule', ['course_id' => $parent->course_id, 'page_type' => 'LMS']) }}">Modul
                                 Mata Kuliah</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getCourseSubModule', ['course_id' => $parent->course_id, 'module_id' => $parent->id, 'page_type' => 'LMS_child']) }}">Sub
+                                Modul Mata Kuliah</a></li>
                         <li class="breadcrumb-item active">Tambah Sub Modul Mata Kuliah Baru</li>
                     </ol>
                 </div>
