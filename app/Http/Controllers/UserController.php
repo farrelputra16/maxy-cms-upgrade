@@ -337,7 +337,7 @@ class UserController extends Controller
                     ->update([
                         'name' => $name,
                         'email' => $request->email,
-                        'password' => $request->password != $users->password ? bcrypt($request->password) : $request->password,
+                        'password' => $request->password ? bcrypt($request->password) : $users->password,
                         'access_group_id' => $request->access_group,
                         'description' => $request->description,
                         'status' => $request->status ? 1 : 0,
@@ -365,7 +365,7 @@ class UserController extends Controller
                     ->update([
                         'name' => $request->name,
                         'email' => $request->email,
-                        'password' => $request->password != $users->password ? bcrypt($request->password) : $request->password,
+                        'password' => $request->password ? bcrypt($request->password) : $users->password,
                         'access_group_id' => $request->access_group,
                         'description' => $request->description,
                         'status' => $request->status ? 1 : 0,
