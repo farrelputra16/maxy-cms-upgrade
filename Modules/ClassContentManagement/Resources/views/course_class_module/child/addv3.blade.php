@@ -63,12 +63,10 @@
                                                 [{{ $item->type }}] {{ $item->name }}</option>
                                         @endforeach
                                     </select>
-                                    @if (env('APP_ENV') != 'local')
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#modalId">
-                                            Tambah Modul Baru
-                                        </button>
-                                    @endif
+                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#modalId">
+                                        Tambah Modul Baru
+                                    </button>
                                 </div>
 
                                 @if ($errors->has('course_module_id'))
