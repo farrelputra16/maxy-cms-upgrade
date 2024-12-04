@@ -100,9 +100,19 @@ $(document).ready(function () {
 
                         format: {
                             body: function (data, row, column, node) {
-                                // Ambil data dari atribut data-export jika ada
-                                var exportData = $(node).data("export");
-                                return exportData !== undefined ? exportData : data;
+                                // Ambil jumlah kolom dalam tabel
+                                var totalColumns = $(node).closest('table').find('th').length;
+
+                                // Periksa apakah kolom saat ini adalah dua kolom terakhir
+                                if (column === totalColumns - 2 || column === totalColumns - 1) {
+                                    // Ambil nilai yang sudah di-strip dari HTML (misal menggunakan data-export)
+                                    var exportData = $(node).data("export");
+                                    return exportData !== undefined ? exportData : $(node).text();
+                                } else {
+                                    // Untuk kolom lain, gunakan atribut data-export jika ada, atau data mentah
+                                    var exportData = $(node).data("export");
+                                    return exportData !== undefined ? exportData : data;
+                                }
                             }
                         }
                     },
