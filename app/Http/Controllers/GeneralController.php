@@ -22,29 +22,45 @@ class GeneralController extends Controller
         return view('m_general.addv3');
     }
 
-    function postAddGeneral(Request $request){
-        $validate = $request->validate([
-            'name' => 'required',
-            'value' => 'required'
+    function postAddGeneral(Request $request)
+    {
+        // Validasi awal untuk memastikan name dan type ada
+        $request->validate([
+            'name' => 'required|string',
+            'type' => 'required|in:text,richtext',
         ]);
 
-        if ($validate){
-            $create = General::create([
-                'name' => $request->name,
-                'value' => $request->value,
-                'description' => $request->description,
-                'status' => $request->status ? 1 : 0,
-                'created_id' => Auth::user()->id,
-                'updated_id' => Auth::user()->id
+        // Validasi tambahan berdasarkan tipe input
+        if ($request->type === 'text') {
+            $request->validate([
+                'value-text' => 'required|string',
             ]);
+            $value = $request->input('value-text');
+        } elseif ($request->type === 'richtext') {
+            $request->validate([
+                'value-richtext' => 'required|string',
+            ]);
+            $value = $request->input('value-richtext');
+        }
 
-            if($create){
-                return app(HelperController::class)->Positive('getGeneral');
-            } else {
-                return app(HelperController::class)->Negative('getGeneral');
-            }
+        // Simpan data ke database
+        $create = General::create([
+            'name' => $request->input('name'),
+            'value' => $value,
+            'description' => $request->input('description'),
+            'status' => $request->input('status') ? 1 : 0,
+            'created_id' => Auth::user()->id,
+            'updated_id' => Auth::user()->id,
+        ]);
+
+        // Cek hasil penyimpanan
+        if ($create) {
+            return app(HelperController::class)->Positive('getGeneral');
+        } else {
+            return app(HelperController::class)->Negative('getGeneral');
         }
     }
+
 
     function getEditGeneral(Request $request){
         $idgeneral = $request->id;
@@ -55,55 +71,84 @@ class GeneralController extends Controller
         ]);
     }
 
-    function postEditGeneral(Request $request){
-        $idgeneral = $request->id;
+    public function postEditGeneral(Request $request)
+{
+    $idgeneral = $request->id;
 
-        $validate = $request->validate([
-            'name' => 'required',
-            'value' => 'required',
-            'image' => 'nullable|image|mimes:png|max:2048'
-        ]);
+    // Validasi untuk input name dan value
+    $validate = $request->validate([
+        'name' => 'required',
+        'status' => 'nullable|boolean',
+    ]);
 
-
-        if ($validate) {
-            $imagePath = $request->value; // Default to the value from the request
-
-            // Mengecek apakah ada file gambar yang diupload
-            // if ($request->hasFile('image')) {
-            //     // Ambil file gambar yang diupload
-            //     $image = $request->file('image');
-
-            //     // Rename file gambar menjadi 'logo.png' dan simpan path-nya
-            //     $imagePath = $image->storeAs('/images', 'logo.png', 'public');
-            // }
-
+    if ($validate) {
+        // Mengecek apakah name adalah 'logo' atau 'icon'
+        if ($request->name == 'logo' || $request->name == 'icon') {
+            // Jika ada file gambar yang diupload
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
-                $fileName = 'logo.png';
+                $fileName = $request->name . '.png'; // Menyimpan file sebagai logo.png atau icon.png
                 $destinationPath = public_path('/uploads/images');
+
+                // Membuat folder jika belum ada
                 if (!File::exists($destinationPath)) {
                     File::makeDirectory($destinationPath, 0777, true, true);
                 }
+
+                // Menyimpan file ke dalam folder
                 $file->move($destinationPath, $fileName);
+
+                // Path gambar yang baru
+                $imagePath = '/uploads/images/' . $fileName;
+            } else {
+                // Jika tidak ada gambar yang diupload, menggunakan value yang ada
+                $imagePath = $request->value;
             }
 
-            // Update data pada tabel General dengan menyimpan path gambar di kolom `value`
+            // Update data untuk logo atau icon
             $update = General::where('id', $idgeneral)
                 ->update([
                     'name' => $request->name,
-                    'value' => $imagePath, // Menyimpan path gambar ke kolom value
+                    'value' => $imagePath, // Menyimpan path gambar di kolom value
                     'description' => $request->description,
                     'status' => $request->status ? 1 : 0,
                     'updated_id' => Auth::user()->id,
                 ]);
-
-            if ($update) {
-                return app(HelperController::class)->Positive('getGeneral');
-            } else {
-                return app(HelperController::class)->Warning('getGeneral');
+        } else {
+            // Jika bukan logo atau icon, menangani text atau richtext
+            if ($request->type == 'text') {
+                // Validasi untuk text
+                $request->validate([
+                    'value-text' => 'required|string',
+                ]);
+                $value = $request->input('value-text');
+            } elseif ($request->type == 'richtext') {
+                // Validasi untuk richtext
+                $request->validate([
+                    'value-richtext' => 'required|string',
+                ]);
+                $value = $request->input('value-richtext');
             }
+
+            // Update data untuk teks atau richtext
+            $update = General::where('id', $idgeneral)
+                ->update([
+                    'name' => $request->name,
+                    'value' => $value, // Menyimpan value text atau richtext
+                    'description' => $request->description,
+                    'status' => $request->status ? 1 : 0,
+                    'updated_id' => Auth::user()->id,
+                ]);
+        }
+
+        if ($update) {
+            return app(HelperController::class)->Positive('getGeneral');
+        } else {
+            return app(HelperController::class)->Warning('getGeneral');
         }
     }
+}
+
 
     function deactivateGeneral(Request $request, $id) {
         $general = General::find($id);
