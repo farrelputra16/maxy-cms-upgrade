@@ -16,8 +16,7 @@
                         <li class="breadcrumb-item"><a
                                 href="{{ route('getCourseClassChildModule', ['id' => $parent_ccmod_detail->id]) }}">Modul
                                 Kelas</a></li>
-                        <li class="breadcrumb-item"><a>Konten</a></li>
-                        <li class="breadcrumb-item active"><a>Ubah Konten</a></li>
+                        <li class="breadcrumb-item active"><a>Ubah Sub Modul</a></li>
                     </ol>
                 </div>
             </div>

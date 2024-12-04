@@ -12,7 +12,10 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClassModule') }}">Modul Mata Kuliah</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Daftar Kelas</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getCourseClassModule', ['id' => $course_class_module->course_class_id]) }}">Modul
+                                Kelas</a></li>
                         <li class="breadcrumb-item active">Ubah Module:
                             @if ($course_class_module->course_module_type != '')
                                 [{{ $course_class_module->course_module_type }}]
@@ -46,7 +49,7 @@
 
                         <div class="mb-3 row">
                             <label for="input-batch" class="col-md-2 col-form-label">Tanggal Mulai <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="start"
                                     value="{{ old('start', \Carbon\Carbon::parse($course_class_module->start_date)->format('Y-m-d')) }}">
@@ -58,8 +61,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-batch" class="col-md-2 col-form-label">Tanggal Selesai <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-batch" class="col-md-2 col-form-label">Tanggal Selesai <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="date" name="end"
                                     value="{{ old('end', \Carbon\Carbon::parse($course_class_module->end_date)->format('Y-m-d')) }}">
@@ -72,10 +75,11 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Tingkat <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="level"
-                                    value="{{ old('level', $course_class_module->level) }}" id="name" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    value="{{ old('level', $course_class_module->level) }}" id="name"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @if ($errors->has('level'))
                                     @foreach ($errors->get('level') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -85,10 +89,11 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Hari ke-* <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="priority"
-                                    value="{{ old('priority', $course_class_module->priority) }}" id="slug" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    value="{{ old('priority', $course_class_module->priority) }}" id="slug"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                 @if ($errors->has('priority'))
                                     @foreach ($errors->get('priority') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -97,8 +102,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Modul Mata Kuliah <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Modul Mata Kuliah <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="coursemodulesid" data-placeholder="Pilih ...">
                                     {{-- <option>Select</option> --}}
@@ -119,7 +124,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Kelas Mata Kuliah (Kelas Paralel) - Mata Kuliah</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Kelas Mata Kuliah (Kelas Paralel) - Mata
+                                Kuliah</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="courseclassid" disabled>
                                     <option value="{{ $classDetail->course_class_id }}">Batch {{ $classDetail->batch }} -
@@ -128,7 +134,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi Modul Kelas Mata Kuliah</label>
+                            <label for="input-content" class="col-md-2 col-form-label">Deskripsi Modul Kelas Mata
+                                Kuliah</label>
                             <div class="col-md-10">
                                 <textarea class="form-control" id="content" name="description">{{ old('description', $course_class_module->description) }}</textarea>
                                 @if ($errors->has('description'))

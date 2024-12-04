@@ -13,7 +13,9 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Modul Mata Kuliah: {{ $class_detail->course_name }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Daftar Kelas</a></li>
+                        <li class="breadcrumb-item active">Modul Kelas: {{ $class_detail->course->name }}</li>
+
                     </ol>
                 </div>
                 <!-- End Breadcrumb -->
@@ -32,7 +34,8 @@
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda untuk mengelola modul dalam kelas yang telah dipilih. Setiap
                         baris dalam tabel berikut berisi informasi penting mengenai modul, seperti nama modul, hari
-                        pelaksanaan, tanggal mulai dan selesai, serta catatan admin singkat. Fitur-fitur seperti <b>pengaturan
+                        pelaksanaan, tanggal mulai dan selesai, serta catatan admin singkat. Fitur-fitur seperti
+                        <b>pengaturan
                             kolom, pengurutan, dan pencarian</b> tersedia untuk membantu Anda menyesuaikan tampilan dan
                         menemukan modul tertentu dengan cepat.
                         <br><br>
@@ -87,12 +90,10 @@
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
                                     <td>
-                                        <button 
-                                            class="btn btn-status-entities {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}" 
-                                            data-id="{{ $item->id }}" 
-                                            data-status="{{ $item->status }}"
-                                            data-parent="ClassContentManagement"
-                                            data-model="CourseClassModule">
+                                        <button
+                                            class="btn btn-status-entities {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
+                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
+                                            data-parent="ClassContentManagement" data-model="CourseClassModule">
                                             {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
                                         </button>
                                     </td>

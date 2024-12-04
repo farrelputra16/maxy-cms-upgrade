@@ -13,9 +13,11 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClassModule', ['id' => $parent_module->course_class_id]) }}">Daftar Modul</a></li>
-                        <li class="breadcrumb-item active">Konten: {{ $parent_module->detail->name }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Daftar Kelas</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getCourseClassModule', ['id' => $parent_module->course_class_id]) }}">Modul
+                                Kelas</a></li>
+                        <li class="breadcrumb-item active">Sub Modul Kelas: {{ $parent_module->detail->name }}</li>
                     </ol>
                 </div>
                 <!-- End Breadcrumb -->

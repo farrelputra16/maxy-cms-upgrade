@@ -12,7 +12,10 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClassModule') }}">Modul Mata Kuliah</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Daftar Kelas</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getCourseClassModule', ['id' => $course_class_id]) }}">Modul
+                                Kelas</a></li>
                         <li class="breadcrumb-item active">Tambah Modul Kelas Mata Kuliah</li>
                     </ol>
                 </div>

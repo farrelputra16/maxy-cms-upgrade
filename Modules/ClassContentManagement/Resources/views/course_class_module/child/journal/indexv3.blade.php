@@ -13,9 +13,14 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
-                        <li class="breadcrumb-item"><a>Daftar Modul</a></li>
-                        <li class="breadcrumb-item">Konten: {{ $parent_module->detail->name }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Daftar Kelas</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getCourseClassModule', ['id' => $parent_module->course_class_id]) }}">Modul
+                                Kelas</a></li>
+                        <li class="breadcrumb-item">Sub
+                            Modul
+                            Kelas: {{ $parent_module->detail->name }}
+                        </li>
                         <li class="breadcrumb-item active">Jurnal</li>
                     </ol>
                 </div>
@@ -33,7 +38,8 @@
                     <h4 class="card-title">Entri Jurnal: Modul Anak dari {{ $parent_module->detail->name }}</h4>
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda untuk melihat dan mengelola entri jurnal yang terkait dengan setiap
-                        modul anak dalam kelas mata kuliah ini. Setiap entri mencakup detail seperti nama penulis, komentar, dan
+                        modul anak dalam kelas mata kuliah ini. Setiap entri mencakup detail seperti nama penulis, komentar,
+                        dan
                         status. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian</b> untuk menyesuaikan
                         tampilan dan menemukan entri tertentu dengan cepat. Misalnya, Anda dapat mengurutkan data dengan
                         mengklik header kolom atau menggunakan fitur tooltip untuk melihat deskripsi penuh.
@@ -81,10 +87,9 @@
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
                                     <td>
-                                        <button 
-                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}" 
-                                            data-id="{{ $item->id }}" 
-                                            data-status="{{ $item->status }}"
+                                        <button
+                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
+                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
                                             data-model="CourseJournal">
                                             {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
                                         </button>
@@ -141,7 +146,8 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="confirmationModalLabel">Konfirmasi Tindakan</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body" id="confirmationModalBody">
                                     <!-- Isi modal akan dinamis berdasarkan tombol yang diklik -->
@@ -170,7 +176,8 @@
                 // Dapatkan ID, course_class_module_id, dan status dari atribut data button yang diklik
                 let id = this.getAttribute('data-id');
                 let course_class_module_id = this.getAttribute('data-course_class_module_id');
-                let status = this.innerText.trim().toLowerCase(); // Ambil teks tombol (sembunyikan/tunjukkan)
+                let status = this.innerText.trim()
+                    .toLowerCase(); // Ambil teks tombol (sembunyikan/tunjukkan)
 
                 // Tampilkan modal konfirmasi
                 var confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
@@ -183,7 +190,8 @@
 
                 if (status === 'sembunyikan') {
                     modalTitle.innerText = 'Konfirmasi Sembunyikan';
-                    modalBody.innerText = 'Apakah Anda yakin ingin menyembunyikan entri jurnal ini? Tindakan ini tidak dapat dibatalkan.';
+                    modalBody.innerText =
+                        'Apakah Anda yakin ingin menyembunyikan entri jurnal ini? Tindakan ini tidak dapat dibatalkan.';
                     confirmButton.innerText = 'Sembunyikan';
                 } else {
                     modalTitle.innerText = 'Konfirmasi Tunjukkan';
