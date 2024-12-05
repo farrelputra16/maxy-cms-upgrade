@@ -23,6 +23,7 @@ class CourseModule extends Model
         'course_module_parent_id',
         'type',
         'material',
+        'grade_status',
         'duration',
         'content',
         'description',

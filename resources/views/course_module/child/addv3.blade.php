@@ -247,6 +247,14 @@
                             <input class="form-control" type="file" name="material">
                         </div>
                     </div>
+                    <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
+                        <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Dapat Dinilai</label>
+                        <div class="col-md-10 d-flex align-items-center">
+                            <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
+                                name="grade_status" {{ old('grade_status') ? 'checked' : '' }}>
+                            <label class="m-0">Iya</label>
+                        </div>
+                    </div>
                 `;
                     duration.innerHTML = `
                 <input type="hidden" name="duration" value="">

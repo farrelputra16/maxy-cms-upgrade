@@ -142,6 +142,14 @@
                                             <input class="form-control" type="number" name="duration"
                                                 value="{{ $childModule->duration }}">
                                         @elseif($childModule->type === 'assignment')
+                                            <label class="form-label pt-2" for="SwitchCheckSizemd">Dapat
+                                                Dinilai</label>
+                                            <div class="form-switch form-switch-md" style="margin-left: -2rem">
+                                                <input class="form-check-input p-0 m-0" type="checkbox"
+                                                    id="SwitchCheckSizemd" name="grade_status"
+                                                    {{ $childModule->grade_status ? 'checked' : '' }}>
+                                                <label class="m-0">Iya</label>
+                                            </div>
                                             <label for="input-name" class="col-md-2 col-form-label"
                                                 style="margin-top: 1%">File Penugasan Saat Ini</label>
                                             <p class="pt-2">{{ $childModule->material }}</p>

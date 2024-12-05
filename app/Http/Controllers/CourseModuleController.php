@@ -195,6 +195,7 @@ class CourseModuleController extends Controller
 
     public function postAddChildModule(Request $request)
     {
+        // dd($request->all());
         // Validasi input yang diperlukan
         if ($request->type == 'materi_pembelajaran') {
             $validated = $request->validate([
@@ -300,6 +301,7 @@ class CourseModuleController extends Controller
                 'course_module_parent_id' => $parentModule->id,
                 'type' => $request->type,
                 'material' => $material,
+                'grade_status' => $request->grade_status ? 1 : 0,
                 'duration' => $request->duration,
                 'content' => $request->content,
                 'description' => $request->description,
@@ -427,6 +429,7 @@ class CourseModuleController extends Controller
                     'priority' => $request->priority,
                     'type' => $request->type,
                     'material' => $material,
+                    'grade_status' => $request->grade_status ? 1 : 0,
                     'duration' => $request->duration,
                     'content' => $request->content,
                     'description' => $request->description,
