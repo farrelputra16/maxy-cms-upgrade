@@ -12,9 +12,11 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
-                        <li class="breadcrumb-item"><a href="">Daftar Anggota</a></li>
-                        <li class="breadcrumb-item active">Ubah Anggota Kelas</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Daftar Kelas</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getCourseClassMember', ['id' => $courseClassMember->courseClass->id]) }}">Daftar
+                                Anggota</a></li>
+                        <li class="breadcrumb-item active">Ubah Anggota: {{ $courseClassMember->user->name }}</li>
                     </ol>
                 </div>
 

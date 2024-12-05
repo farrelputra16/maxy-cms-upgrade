@@ -14,7 +14,8 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Daftar Kelas</a></li>
-                        <li class="breadcrumb-item active">Modul Kelas: {{ $class_detail->course->name }}</li>
+                        <li class="breadcrumb-item active">Modul Kelas: {{ $class_detail->course->name }}
+                            {{ $class_detail->batch }}</li>
 
                     </ol>
                 </div>

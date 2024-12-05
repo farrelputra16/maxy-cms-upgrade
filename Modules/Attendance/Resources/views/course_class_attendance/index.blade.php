@@ -13,9 +13,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Daftar Modul</a></li>
-                        <li class="breadcrumb-item active">Presensi</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Daftar Kelas</a></li>
+                        <li class="breadcrumb-item active">Presensi: {{ $class->course_name }} {{ $class->batch }}</li>
                     </ol>
                 </div>
                 <!-- Akhir Breadcrumb -->
@@ -71,12 +70,10 @@
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
                                     <td>
-                                        <button 
-                                            class="btn btn-status-entities {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}" 
-                                            data-id="{{ $item->id }}" 
-                                            data-status="{{ $item->status }}"
-                                            data-parent="Attendance"
-                                            data-model="CourseClassAttendance">
+                                        <button
+                                            class="btn btn-status-entities {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
+                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
+                                            data-parent="Attendance" data-model="CourseClassAttendance">
                                             {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
                                         </button>
                                     </td>

@@ -13,9 +13,14 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Presensi</a></li>
-                        <li class="breadcrumb-item active">Ubah Kehadiran Mahasiswa</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Daftar Kelas</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getCourseClassAttendance', ['id' => $class->id]) }}">Presensi</a>
+                        </li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getMemberAttendance', ['id' => $attendance->course_class_attendance_id, 'class_id' => $class->id]) }}">Presensi
+                                Mahasiswa</a></li>
+                        <li class="breadcrumb-item active">Ubah Kehadiran Mahasiswa: {{ $attendance->user_name }}</li>
                     </ol>
                 </div>
                 <!-- Akhir Breadcrumb -->

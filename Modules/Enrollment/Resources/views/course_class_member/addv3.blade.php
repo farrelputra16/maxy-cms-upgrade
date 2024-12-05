@@ -12,10 +12,10 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Daftar Kelas</a></li>
                         <li class="breadcrumb-item"><a
-                                href="{{ route('getCourseClassMember', ['id' => $course_class_detail->id]) }}">Anggota
-                                Kelas</a></li>
+                                href="{{ route('getCourseClassMember', ['id' => $course_class_detail->id]) }}">Daftar
+                                Anggota</a></li>
                         <li class="breadcrumb-item active">Tambah Anggota Baru</li>
                     </ol>
                 </div>
@@ -129,7 +129,8 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea class="form-control" id="content" name="description" placeholder="Tambahkan deskripsi singkat tentang kelas (opsional)">{{ old('description') }}</textarea>
+                                <textarea class="form-control" id="content" name="description"
+                                    placeholder="Tambahkan deskripsi singkat tentang kelas (opsional)">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
@@ -272,17 +273,17 @@
             }
 
             /* #csv-upload input[type="file"] {
-                                    display: block;
-                                    margin: 0 auto;
-                                    padding: 10px;
-                                    border-radius: 4px;
-                                    border: 1px solid #ccc;
-                                }
+                                        display: block;
+                                        margin: 0 auto;
+                                        padding: 10px;
+                                        border-radius: 4px;
+                                        border: 1px solid #ccc;
+                                    }
 
-                                #csv-upload label {
-                                    margin-bottom: 10px;
-                                    font-weight: bold;
-                                } */
+                                    #csv-upload label {
+                                        margin-bottom: 10px;
+                                        font-weight: bold;
+                                    } */
 
             .dz-message {
                 display: flex;

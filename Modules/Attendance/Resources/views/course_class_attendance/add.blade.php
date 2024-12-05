@@ -12,8 +12,9 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Kelas</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Presensi</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Daftar Kelas</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getCourseClassAttendance', ['id' => $class->id]) }}">Presensi</a></li>
                         <li class="breadcrumb-item active">Tambah Presensi Baru</li>
                     </ol>
                 </div>
@@ -71,7 +72,8 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea class="form-control" id="content" name="description" placeholder="Deskripsikan kegiatan atau topik presensi (opsional)">{{ old('description') }}</textarea>
+                                <textarea class="form-control" id="content" name="description"
+                                    placeholder="Deskripsikan kegiatan atau topik presensi (opsional)">{{ old('description') }}</textarea>
                             </div>
                         </div>
 
