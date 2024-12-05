@@ -60,7 +60,8 @@
                 <div class="card-body">
                     <h4 class="card-title">Penilaian Tugas</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan data penilaian tugas mahasiswa dalam kelas yang dipilih. Setiap baris pada tabel
+                        Halaman ini menampilkan data penilaian tugas mahasiswa dalam kelas yang dipilih. Setiap baris pada
+                        tabel
                         di bawah ini menyediakan informasi penting seperti nama mahasiswa, status pengumpulan, nilai, dan
                         komentar. Anda dapat menggunakan fitur <b>pengaturan kolom, pengurutan, dan pencarian</b> untuk
                         menyesuaikan tampilan sesuai kebutuhan. Klik pada judul kolom untuk mengurutkan data, atau arahkan
@@ -132,8 +133,8 @@
                                             <td>
                                                 @if (isset($member->submission))
                                                     <div
-                                                        class="badge {{ $member->submission->grade ? 'bg-success' : 'bg-warning' }}">
-                                                        {{ $member->submission->grade ? 'Sudah Dinilai' : 'Menunggu Penilaian' }}
+                                                        class="badge {{ $item->module_grade_status ? ($member->submission->grade ? 'bg-success' : 'bg-warning') : 'bg-primary' }}">
+                                                        {{ $item->module_grade_status ? ($member->submission->grade ? 'Sudah Dinilai' : 'Menunggu Penilaian') : 'Tidak Memerlukan Nilai' }}
                                                     </div>
                                                 @else
                                                     <div class="badge bg-danger">Belum Mengumpulkan</div>
@@ -142,7 +143,7 @@
                                             <td>
                                                 @if ($member->submission)
                                                     <a href="{{ route('getEditGrade', ['id' => $member->submission->id]) }}"
-                                                        class="btn btn-primary btn-sm">Nilai Tugas</a>
+                                                        class="btn btn-primary btn-sm">{{ $item->module_grade_status ? 'Nilai Tugas' : 'Lihat Tugas' }}</a>
                                                 @else
                                                     -
                                                 @endif

@@ -65,7 +65,8 @@ class CourseClassController extends Controller
         $classes = CourseClassModule::with(['CourseClass', 'CourseModule'])
             ->where('course_class_id', $request->id)
             ->whereHas('CourseModule', function ($query) {
-                $query->where('type', 'assignment');
+                $query->where('type', 'assignment')
+                    ->where('grade_status', 1);
             })
             ->orderBy('course_class_module.id')
             ->get();

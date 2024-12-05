@@ -138,7 +138,7 @@ class CourseClass extends Model
     {
         // get assignment & quiz modules
         $module_list = DB::table('course_module as cm')
-            ->select('ccm.*', 'cm.name as module_name', 'cm.course_module_parent_id as parent_id', 'c.name as course_name', 'cc.batch as batch', 'cc.id as class_id')
+            ->select('ccm.*', 'cm.name as module_name', 'cm.grade_status as module_grade_status', 'cm.course_module_parent_id as parent_id', 'c.name as course_name', 'cc.batch as batch', 'cc.id as class_id')
             ->join('course_class_module as ccm', 'ccm.course_module_id', '=', 'cm.id')
             ->join('course_class as cc', 'cc.id', '=', 'ccm.course_class_id')
             ->join('course as c', 'c.id', '=', 'cc.course_id')
@@ -294,6 +294,14 @@ class CourseClass extends Model
                 ->where('cm.grade_status', '=', 1)
                 ->select('ccm.*', 'cm.course_module_parent_id as module_parent_id', 'ccg.grade as grade', 'ccg.created_at as created_at', 'ccg.updated_at as updated_at', 'cc.batch as batch', 'ccm.status as status', 'ccm.created_at as created_at', 'ccm.updated_at as updated_at', 'ccmh.user_id as user_id')
                 ->get();
+
+                foreach ($modulesChild as $child) {
+                    $courseModule = DB::table('course_module as cm')
+                        ->where('cm.id', $child->course_module_id)
+                        ->first();
+
+                    $child->courseModule = $courseModule;
+                }
 
             $parent->modulesChild = $modulesChild;
         }

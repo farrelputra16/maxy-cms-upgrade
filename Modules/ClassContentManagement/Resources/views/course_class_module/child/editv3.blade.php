@@ -117,7 +117,7 @@
 
                             <div class="field">
                                 <label for=""></label>
-                                <textarea id="elm1" name="content" readonly>{{ old('content', $child_cm_detail->content) }}</textarea>
+                                <textarea id="elm1" name="content" readonly>{{ old('content', $child_detail->content ?? $child_cm_detail->content) }}</textarea>
                             </div>
                         </div>
                         <div class="mb-3 row">
