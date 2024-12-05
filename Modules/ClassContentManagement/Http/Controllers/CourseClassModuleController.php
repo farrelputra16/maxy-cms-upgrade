@@ -287,6 +287,9 @@ class CourseClassModuleController extends Controller
     {
         $ccmod_parent = CourseClassModule::find($request->id);
         $ccmod_parent->detail = CourseModule::find($ccmod_parent->course_module_id);
+        $ccmod_child_parent = CourseClassModule::where('course_module_id', $ccmod_parent->detail->course_module_parent_id)
+            ->where('course_class_id', $ccmod_parent->course_class_id)
+            ->first();
         $users = CourseJournal::with('User')
             ->where('course_class_module_id', $request->id)
             ->whereNull('course_journal_parent_id')
@@ -297,6 +300,7 @@ class CourseClassModuleController extends Controller
         return view('classcontentmanagement::course_class_module.child.journal.indexv3', [
             'users' => $users,
             'parent_module' => $ccmod_parent,
+            'child_parent_module' => $ccmod_child_parent,
         ]);
     }
     function getAddJournalCourseClassChildModule(Request $request)
@@ -304,6 +308,9 @@ class CourseClassModuleController extends Controller
         // dd($request->all());
         $ccmod_parent = CourseClassModule::find($request->course_class_module_id);
         $ccmod_parent->detail = CourseModule::find($ccmod_parent->course_module_id);
+        $ccmod_child_parent = CourseClassModule::where('course_module_id', $ccmod_parent->detail->course_module_parent_id)
+            ->where('course_class_id', $ccmod_parent->course_class_id)
+            ->first();
         // $comments = CourseJournal::where('course_class_module_id', $request->course_class_module_id)
         //     ->where('user_id', $request->user_id)
         //     ->whereNull('course_journal_parent_id')
@@ -333,6 +340,7 @@ class CourseClassModuleController extends Controller
         return view('classcontentmanagement::course_class_module.child.journal.addv3', [
             'comment' => $comment,
             'parent_module' => $ccmod_parent,
+            'child_parent_module' => $ccmod_child_parent,
             'course_journal_parent_id' => $request->id,
         ]);
     }

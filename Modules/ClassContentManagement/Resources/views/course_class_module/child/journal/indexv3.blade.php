@@ -17,11 +17,10 @@
                         <li class="breadcrumb-item"><a
                                 href="{{ route('getCourseClassModule', ['id' => $parent_module->course_class_id]) }}">Modul
                                 Kelas</a></li>
-                        <li class="breadcrumb-item">Sub
-                            Modul
-                            Kelas: {{ $parent_module->detail->name }}
-                        </li>
-                        <li class="breadcrumb-item active">Jurnal</li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getCourseClassChildModule', ['id' => $child_parent_module->id]) }}">Sub
+                                Modul Kelas</a></li>
+                        <li class="breadcrumb-item active">Jurnal: {{ $parent_module->detail->name }}</li>
                     </ol>
                 </div>
                 <!-- End Breadcrumb -->
