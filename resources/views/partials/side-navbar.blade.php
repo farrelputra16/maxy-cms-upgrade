@@ -51,7 +51,7 @@
                             @endif
                             @if (Session::has('access_master') &&
                                     Session::get('access_master')->contains('access_master_name', 'm_course_type_manage'))
-                                <li><a href="{{ route('getCourseType') }}" key="t-testimonial">Tipe Mata Kuliah</a></li>
+                                <li><a href="{{ route('getCourseType') }}" key="t-testimonial">Jenis Mata Kuliah</a></li>
                             @endif
                             @if (env('APP_ENV') != 'local')
                                 @if (Session::has('access_master') &&
@@ -102,7 +102,7 @@
                                 <li><a href="{{ route('getScore') }}" key="t-blog">Bobot Penilaian</a></li>
                             @endif
                             @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'm_jobdesc_manage'))
-                                <li><a href="{{ route('getJobdesc') }}" key="t-blog">Deskripsi Pekerjaan</a></li>
+                                <li><a href="{{ route('getJobdesc') }}" key="t-blog">Rincian Pekerjaan</a></li>
                             @endif
                             @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'm_class_type_manage'))
                                 <li><a href="{{ route('getClassType') }}" key="t-blog">Jenis Kelas</a></li>
@@ -123,7 +123,7 @@
                         <ul class="sub-menu" aria-expanded="false">
                             @if (Session::has('access_master') &&
                                     Session::get('access_master')->contains('access_master_name', 'course_class_manage'))
-                                <li><a href="{{ route('getCourseClass') }}" key="t-class">Manajemen Kelas</a></li>
+                                <li><a href="{{ route('getCourseClass') }}" key="t-class">Daftar Kelas</a></li>
                             @endif
 
                             @if (Session::has('access_master') &&

@@ -1,13 +1,13 @@
 @extends('layout.main-v3')
 
-@section('title', 'Event')
+@section('title', 'Acara')
 
 @section('content')
     <!-- Begin Page Title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
+                <h4 class="mb-sm-0 font-size-18">Ringkasan Data</h4>
 
                 <!-- Begin Breadcrumb -->
                 <div class="page-title-right">
@@ -27,22 +27,22 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Event</h4>
+                    <h4 class="card-title">Acara</h4>
                     <p class="card-title-desc">
                         Halaman ini menampilkan data lengkap dari semua event atau kegiatan yang terdaftar dalam tabel
-                        interaktif. Setiap baris berisi informasi penting, seperti nama event, tanggal, catatan admin, serta
+                        interaktif. Setiap baris berisi informasi penting, seperti nama acara, tanggal, catatan admin, serta
                         status publikasi dan verifikasi. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian
-                            kolom</b> untuk menyesuaikan tampilan dan menemukan event yang Anda butuhkan dengan cepat.
+                            kolom</b> untuk menyesuaikan tampilan dan menemukan acara yang Anda butuhkan dengan cepat.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
                         <li><strong>Atur Kolom:</strong> Sesuaikan kolom yang terlihat untuk memfokuskan pada data tertentu.
                         </li>
                         <li><strong>Urutkan & Cari:</strong> Klik judul kolom untuk mengurutkan data atau gunakan pencarian
-                            untuk menemukan event berdasarkan kata kunci.</li>
+                            untuk menemukan acara berdasarkan kata kunci.</li>
                         <li><strong>Ubah & Akses Kehadiran:</strong> Gunakan tombol di kolom “Aksi” untuk mengubah detail
                             event, memeriksa kehadiran, atau mengelola persyaratan.</li>
-                        <li><strong>Tambah Event:</strong> Klik ikon <em>Tambah</em> di kanan bawah untuk menambahkan event
+                        <li><strong>Tambah Acara:</strong> Klik ikon <em>Tambah</em> di kanan bawah untuk menambahkan acara
                             baru.</li>
                     </ul>
                     </p>

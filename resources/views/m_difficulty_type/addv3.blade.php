@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tingkat Kesulitan Mata Kuliah')
+@section('title', 'Tambah Tingkat Kesulitan Mata Kuliah')
 
 @section('content')
     <!-- start page title -->

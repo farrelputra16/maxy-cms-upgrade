@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'General Schedule')
+@section('title', 'Jadwal Umum')
 
 @section('style')
     <meta name="csrf-token" content="{{ csrf_token() }}">
