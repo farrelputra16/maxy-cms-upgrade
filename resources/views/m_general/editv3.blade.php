@@ -73,35 +73,35 @@
                             </div>
                         @else
                             <div class="mb-3 row">
-                            <label for="input-type" class="col-md-2 col-form-label">Isi
-                                <span class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span>
-                            </label>
-                            <div class="col-md-10">
-                                <select id="input-type" class="form-control mb-2" name="type">
-                                    <option value="text">Teks sederhana</option>
-                                    <option value="richtext">Teks kompleks
-                                    </option>
-                                </select>
+                                <label for="input-type" class="col-md-2 col-form-label">Isi
+                                    <span class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span>
+                                </label>
+                                <div class="col-md-10">
+                                    <select id="input-type" class="form-control mb-2" name="type">
+                                        <option value="text">Teks sederhana</option>
+                                        <option value="richtext">Teks kompleks
+                                        </option>
+                                    </select>
 
-                                <input class="form-control d-none" type="text" name="value-text" id="value-text"
-                                    placeholder="Masukkan isi data" value="{!! strip_tags($generals->value) !!}">
+                                    <input class="form-control d-none" type="text" name="value-text" id="value-text"
+                                        placeholder="Masukkan isi data" value="{!! strip_tags($generals->value) !!}">
 
-                                <div id="richtext-container" class="position-relative d-none">
-                                    <div id="loading-spinner"
-                                        class="spinner-border text-primary position-absolute top-50 start-50" role="status"
-                                        style="display: none; z-index: 1;">
-                                        <span class="visually-hidden">Loading...</span>
+                                    <div id="richtext-container" class="position-relative d-none">
+                                        <div id="loading-spinner"
+                                            class="spinner-border text-primary position-absolute top-50 start-50"
+                                            role="status" style="display: none; z-index: 1;">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                        <textarea class="form-control" name="value-richtext" id="value-richtext" placeholder="Masukkan isi data">{{ $generals->value }}</textarea>
                                     </div>
-                                    <textarea class="form-control" name="value-richtext" id="value-richtext" placeholder="Masukkan isi data">{{ $generals->value }}</textarea>
-                                </div>
 
-                                @if ($errors->has('value'))
-                                    @foreach ($errors->get('value') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
+                                    @if ($errors->has('value'))
+                                        @foreach ($errors->get('value') as $error)
+                                            <span style="color: red;">{{ $error }}</span>
+                                        @endforeach
+                                    @endif
+                                </div>
                             </div>
-                        </div>
 
                         @endif
 
@@ -151,28 +151,49 @@
 
 @section('script')
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const inputTypeSelector = document.getElementById('input-type');
             const textInput = document.getElementById('value-text');
             const richTextContainer = document.getElementById('richtext-container');
             const richTextInput = document.getElementById('value-richtext');
             const spinner = document.getElementById('loading-spinner');
 
-            // Fungsi untuk toggle tampilan input
-            function toggleInputType() {
-                const selectedType = inputTypeSelector.value;
+            // Fungsi untuk menghapus tag HTML dari string
+            function stripTags(input) {
+                const doc = new DOMParser().parseFromString(input, 'text/html');
+                return doc.body.textContent || '';
+            }
 
+            // Fungsi untuk toggle tampilan input
+            function toggleInputType(initialLoad = false) {
+                const selectedType = initialLoad
+                    ? (isHTML(richTextInput.value) ? 'richtext' : 'text')
+                    : inputTypeSelector.value;
+
+                // Jika tipe adalah "text" (Teks Sederhana)
                 if (selectedType === 'text') {
+                    // Sinkronisasi dropdown dan input
+                    inputTypeSelector.value = 'text';
+
+                    // Pindah ke input teks biasa
                     textInput.classList.remove('d-none');
                     richTextContainer.classList.add('d-none');
+
+                    // Menghapus tag HTML jika konten dari database adalah rich text
+                    textInput.value = stripTags(richTextInput.value); // Hapus tag HTML
 
                     // Hapus editor TinyMCE jika ada
                     if (tinymce.get("value-richtext")) {
                         tinymce.remove("#value-richtext");
                     }
                 } else if (selectedType === 'richtext') {
+                    // Sinkronisasi dropdown dan input
+                    inputTypeSelector.value = 'richtext';
+
+                    // Pindah ke editor TinyMCE
                     textInput.classList.add('d-none');
                     richTextContainer.classList.remove('d-none');
+                    // richTextInput.value = "{{ $generals->value }}"; // Sinkronisasi nilai dari teks biasa
 
                     // Tampilkan spinner setiap kali richtext dipilih
                     spinner.style.display = 'block';
@@ -189,8 +210,8 @@
                             ],
                             toolbar: "undo redo | blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
                             content_style: 'body { font-family: "Poppins", sans-serif"; font-size: 16px; }',
-                            setup: function(editor) {
-                                editor.on('init', function() {
+                            setup: function (editor) {
+                                editor.on('init', function () {
                                     // Sembunyikan spinner setelah TinyMCE selesai dimuat
                                     spinner.style.display = 'none';
                                 });
@@ -203,11 +224,23 @@
                 }
             }
 
-            // Event listener untuk perubahan dropdown
-            inputTypeSelector.addEventListener('change', toggleInputType);
+            // Fungsi untuk mendeteksi apakah string berisi HTML
+            function isHTML(str) {
+                const doc = new DOMParser().parseFromString(str, "text/html");
+                return Array.from(doc.body.childNodes).some(node => node.nodeType === 1);
+            }
 
-            // Set tampilan awal
-            toggleInputType();
+            // Event listener untuk perubahan dropdown
+            inputTypeSelector.addEventListener('change', function () {
+                toggleInputType(false);
+            });
+
+            // Set tampilan awal berdasarkan isi value dari database
+            toggleInputType(true);
         });
     </script>
 @endsection
+
+
+
+

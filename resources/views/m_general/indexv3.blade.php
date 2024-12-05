@@ -78,22 +78,21 @@
                                         title="{{ $item->name }}">
                                         {!! \Str::limit($item->name, 30) !!}
                                     </td>
-                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->value }}">
-                                        {!! \Str::limit($item->value, 30) !!}
+                                    <td class="data-medium" data-toggle="tooltip" data-placement="top">
+                                        {!! !empty($item->value) ? \Str::limit(strip_tags($item->value), 30) : '-' !!}
                                     </td>
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->description) !!}">
-                                        {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
+                                    <td class="data-long" data-toggle="tooltip" data-placement="top">
+                                        {!! !empty($item->description) ? \Str::limit(strip_tags($item->description), 30) : '-' !!}
                                     </td>
+
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->created_id }}</td>
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
                                     <td>
-                                        <button 
-                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}" 
-                                            data-id="{{ $item->id }}" 
+                                        <button
+                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
+                                            data-id="{{ $item->id }}"
                                             data-status="{{ $item->status }}"
                                             data-model="General">
                                             {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
