@@ -13,8 +13,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a>Pengguna & Akses</a></li>
-                        <li class="breadcrumb-item active">Grup Akses</li>
+                        <li class="breadcrumb-item active">Hak Grup Akses</li>
                     </ol>
                 </div>
                 <!-- Breadcrumb Selesai -->
@@ -31,7 +30,8 @@
                     <h4 class="card-title">Grup Akses</h4>
                     <p class="card-title-desc">
                         Halaman ini menyediakan data lengkap tentang semua grup akses di platform. Setiap baris berisi
-                        informasi penting, seperti nama grup, catatan admin, dan status aktif atau tidak aktif. Gunakan fitur
+                        informasi penting, seperti nama grup, catatan admin, dan status aktif atau tidak aktif. Gunakan
+                        fitur
                         <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk menyesuaikan tampilan data dan
                         menemukan informasi yang relevan dengan cepat.
                         <br><br>
@@ -78,10 +78,9 @@
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
                                     <td>
-                                        <button 
-                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}" 
-                                            data-id="{{ $item->id }}" 
-                                            data-status="{{ $item->status }}"
+                                        <button
+                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
+                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
                                             data-model="AccessGroup">
                                             {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
                                         </button>

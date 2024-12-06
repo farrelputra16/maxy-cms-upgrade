@@ -12,7 +12,6 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a>Pengguna & Akses</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getAccessMaster') }}">Hak Akses Utama</a></li>
                         <li class="breadcrumb-item active">Tambah Hak Akses Utama</li>
                     </ol>
@@ -37,7 +36,7 @@
 
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nama Hak Akses <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     placeholder="Masukkan Nama Hak Akses" value="{{ old('name') }}">
@@ -52,7 +51,8 @@
                         <div class="mb-3 row">
                             <label for="input-description" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea id="content" class="form-control" name="description" placeholder="Masukkan deskripsi hak akses jika diperlukan">{{ old('description') }}</textarea>
+                                <textarea id="content" class="form-control" name="description"
+                                    placeholder="Masukkan deskripsi hak akses jika diperlukan">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>

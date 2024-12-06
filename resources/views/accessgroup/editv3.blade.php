@@ -12,8 +12,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a>Pengguna & Akses</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getAccessGroup') }}">Grup Akses</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getAccessGroup') }}">Hak Grup Akses</a></li>
                         <li class="breadcrumb-item active">Ubah Grup Akses</li>
                     </ol>
                 </div>
@@ -44,8 +43,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Grup Akses (Peran) <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Grup Akses (Peran) <span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $accessgroups->name) }}" id="name">

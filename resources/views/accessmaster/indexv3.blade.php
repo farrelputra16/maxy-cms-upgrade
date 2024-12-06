@@ -13,7 +13,6 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a>Pengguna & Akses</a></li>
                         <li class="breadcrumb-item active">Hak Akses Utama</li>
                     </ol>
                 </div>
@@ -31,7 +30,8 @@
                     <h4 class="card-title">Hak Akses Utama</h4>
                     <p class="card-title-desc">
                         Halaman ini menyediakan data terperinci tentang seluruh hak akses utama dalam tabel interaktif.
-                        Setiap baris menampilkan informasi penting, seperti nama hak akses, catatan admin, dan status aktif atau
+                        Setiap baris menampilkan informasi penting, seperti nama hak akses, catatan admin, dan status aktif
+                        atau
                         tidak aktif. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian kolom</b> untuk
                         menyesuaikan tampilan dan menemukan data yang Anda perlukan dengan cepat.
                         <br><br>
@@ -78,10 +78,9 @@
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
                                     <td>
-                                        <button 
-                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}" 
-                                            data-id="{{ $item->id }}" 
-                                            data-status="{{ $item->status }}"
+                                        <button
+                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
+                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
                                             data-model="AccessMaster">
                                             {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
                                         </button>

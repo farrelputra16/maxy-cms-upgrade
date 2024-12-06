@@ -12,7 +12,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getScore') }}">Bobot Nilai</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getScore') }}">Bobot Penilaian</a></li>
                         <li class="breadcrumb-item active">Ubah Bobot Nilai: {{ $data->name }}</li>
                     </ol>
                 </div>
@@ -36,7 +36,7 @@
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Bobot Nilai <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $data->name) }}" id="input-title">
@@ -50,7 +50,7 @@
 
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Rentang Awal <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="range_start"
                                     value="{{ old('range_start', $data->range_start) }}" id="input-title"
@@ -66,11 +66,12 @@
 
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Rentang Akhir <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="number" name="range_end"
                                     value="{{ old('range_end', $data->range_end) }}" id="input-title" inputmode="numeric"
-                                    pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" max="100">
+                                    pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                    max="100">
                                 @if ($errors->has('range_end'))
                                     @foreach ($errors->get('range_end') as $error)
                                         <span style="color: red;">{{ $error }}</span>

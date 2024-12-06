@@ -11,7 +11,7 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Pengguna & Akses</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getUser') }}">Pengguna</a></li>
                         <li class="breadcrumb-item active">Profil Pengguna</li>
                     </ol>
@@ -29,16 +29,19 @@
 
                     <h4 class="card-title">Profil Pengguna: {{ $currentData->name }}</small></h4>
                     <p class="card-title-desc">
-                        Di halaman ini, Anda dapat melihat informasi profil Anda, termasuk nama, email, nomor telepon, dan data penting lainnya. 
-                        Informasi ini bersifat hanya untuk dilihat dan tidak dapat diubah langsung di halaman ini. 
+                        Di halaman ini, Anda dapat melihat informasi profil Anda, termasuk nama, email, nomor telepon, dan
+                        data penting lainnya.
+                        Informasi ini bersifat hanya untuk dilihat dan tidak dapat diubah langsung di halaman ini.
                         <br><br>
                         <strong>Cara Mengelola Profil:</strong>
                     <ul>
-                        <li><strong>Lihat Detail Profil:</strong> Gunakan halaman ini untuk memastikan informasi profil Anda sudah sesuai.</li>
-                        <li><strong>Perbarui Informasi:</strong> Jika Anda ingin memperbarui data profil, silakan masuk ke platform LMS.</li>
+                        <li><strong>Lihat Detail Profil:</strong> Gunakan halaman ini untuk memastikan informasi profil Anda
+                            sudah sesuai.</li>
+                        <li><strong>Perbarui Informasi:</strong> Jika Anda ingin memperbarui data profil, silakan masuk ke
+                            platform LMS.</li>
                     </ul>
                     </p>
-                    
+
 
                     <form method="post" enctype="multipart/form-data">
                         @csrf
@@ -297,7 +300,8 @@
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Video Perkenalan</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="video_perkenalan" value="{{ $currentData->detail_description_video ?? '-' }}" disabled>
+                                <input class="form-control" type="text" name="video_perkenalan"
+                                    value="{{ $currentData->detail_description_video ?? '-' }}" disabled>
                             </div>
                         </div>
 
