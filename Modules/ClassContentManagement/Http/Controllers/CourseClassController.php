@@ -2,6 +2,8 @@
 
 namespace Modules\ClassContentManagement\Http\Controllers;
 
+use App\Models\CourseJournal;
+use App\Models\UserMentorship;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -19,6 +21,7 @@ use App\Models\MClassType;
 use App\Models\Transkrip;
 use App\Models\MScore;
 use App\Models\TransOrder;
+use Illuminate\Support\Facades\Log;
 use Modules\Attendance\Entities\CourseClassAttendance;
 use Modules\Attendance\Entities\MemberAttendance;
 use Illuminate\Support\Str;
@@ -432,25 +435,24 @@ class CourseClassController extends Controller
             $courseClassModules = CourseClassModule::where('course_class_id', $courseClassId)->get();
 
             foreach ($courseClassModules as $module) {
+                 // 1. Hapus course_journal yang terkait dengan module terlebih dahulu
+                $courseJournals = CourseJournal::where('course_class_module_id', $module->id)->get();
+                foreach ($courseJournals as $journal) {
+                    $journal->delete(); // Hapus setiap jurnal terkait
+                }
+
                 // 1. Hapus file submission
                 $gradings = CourseClassMemberGrading::where('course_class_module_id', $module->id)->get();
 
                 foreach ($gradings as $grading) {
                     if ($grading->submitted_file) {
-                        // Generate folder path berdasarkan informasi kelas, modul, dan user
-                        $moduleFolder = $this->generateFolder(
-                            $courseClass->course->name,
-                            $grading->user->name,
-                            $module->courseModule->name
-                        );
-
                         // Hapus file dari storage
-                        $filePath = "$moduleFolder/{$grading->submitted_file}";
-                        if (Storage::disk('be')->exists($filePath)) {
-                            Storage::disk('be')->delete($filePath);
-                        }
+                        $folderPath = public_path("uploads/"."course_class_member_grading/"."$courseClass->id");
+                        $this->deleteFolderRecursive($folderPath);
                     }
                 }
+                // Hapus user_mentorships yang terkait dengan course_class
+                UserMentorship::where('course_class_id', $courseClassId)->delete();
 
                 // Hapus data grading dari database
                 CourseClassMemberGrading::where('course_class_module_id', $module->id)->delete();
@@ -478,19 +480,45 @@ class CourseClassController extends Controller
         } catch (\Exception $e) {
             // Log error jika terjadi masalah
             \Log::error('Error saat menghapus kelas: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus kelas.');
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
     /**
      * Fungsi untuk menghasilkan path folder berdasarkan nama kelas, nama pengguna, dan nama modul.
      */
-    private function generateFolder($courseName, $userName, $moduleName)
-    {
-        $courseName = Str::snake(Str::lower($courseName));
-        $userName = Str::snake(Str::lower($userName));
-        $moduleName = Str::snake(Str::lower($moduleName));
+    // private function generateFolder($courseClassId, $userName, $moduleName)
+    // {
+    //     $courseClassId = Str::snake(Str::lower($courseClassId));
+    //     $userName = Str::snake(Str::lower($userName));
+    //     $moduleName = Str::snake(Str::lower($moduleName));
 
-        return "course_class_member_grading/$courseName/$userName/$moduleName";
+    //     return "course_class_member_grading/$courseClassId/$userName/$moduleName";
+    // }
+
+    private function deleteFolderRecursive($folderPath)
+    {
+        if (is_dir($folderPath)) {
+            // Ambil semua file dan folder di dalam folder
+            Log::debug("Memeriksa folder: $folderPath");
+            $files = array_diff(scandir($folderPath), array('.', '..'));
+
+            // Hapus setiap file dan subfolder
+            foreach ($files as $file) {
+                $filePath = $folderPath . DIRECTORY_SEPARATOR . $file;
+                if (is_dir($filePath)) {
+                    // Jika itu adalah folder, hapus secara rekursif
+                    $this->deleteFolderRecursive($filePath);
+                } else {
+                    Log::debug("Menghapus file: $filePath");
+                    // Jika itu adalah file, hapus file
+                    unlink($filePath);
+                }
+            }
+
+            // Setelah semua file dan subfolder dihapus, hapus folder itu sendiri
+            Log::debug("Menghapus folder: $folderPath");
+            rmdir($folderPath);
+        }
     }
 }

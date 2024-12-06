@@ -139,11 +139,11 @@ class CourseClassMemberGradingController extends Controller
         $data = CourseClassMemberGrading::getSubmissionDetailById($request->id);
         $module = CourseClassModule::where('id', $data->course_class_module_id)->with('CourseModule')->first();
 
-        $course_name = Str::snake(Str::lower($data->course_name));
+        $class_id = Str::snake(Str::lower($data->class_id));
         $user_name = Str::snake(Str::lower($data->user_name));
         $module_name = Str::snake(Str::lower($data->module_name));
 
-        $data->submission_url = 'uploads/course_class_member_grading/' . $course_name . '/' . $user_name . '/' . $module_name . '/' . $data->submitted_file;
+        $data->submission_url = 'uploads/course_class_member_grading/' . $class_id . '/' . $user_name . '/' . $module_name . '/' . $data->submitted_file;
 
         return view('trackandgrade::course_class_member_grading.edit', compact('data', 'module'));
     }
