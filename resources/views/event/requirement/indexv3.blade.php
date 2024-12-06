@@ -13,7 +13,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href={{ route('getEvent') }}>Acara</a></li>
+                        <li class="breadcrumb-item"><a href={{ route('getEvent') }}>Event</a></li>
                         <li class="breadcrumb-item active">Persyaratan</li>
                     </ol>
                 </div>
@@ -44,7 +44,8 @@
                         <li>Kolom <b>Wajib</b> menunjukkan apakah persyaratan tersebut bersifat wajib bagi peserta, sehingga
                             Anda dapat memprioritaskan pengecekan pada item yang diperlukan.</li>
                         <li>Kolom <b>Status</b> memberi tahu apakah persyaratan saat ini dalam kondisi <i>Aktif</i> atau
-                            <i>Non Aktif</i>.</li>
+                            <i>Non Aktif</i>.
+                        </li>
                         <li>Gunakan tombol <b>Ubah</b> di kolom <b>Aksi</b> untuk memperbarui informasi persyaratan jika
                             diperlukan.</li>
                         <li>Untuk menambahkan persyaratan baru, klik tombol tambah di sudut kanan bawah halaman ini.</li>

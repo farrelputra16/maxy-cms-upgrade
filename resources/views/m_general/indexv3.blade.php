@@ -13,8 +13,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a>Pengaturan</a></li>
-                        <li class="breadcrumb-item active">Umum</li>
+                        <li class="breadcrumb-item"><a>Pengaturan Umum</a></li>
                     </ol>
                 </div>
                 <!-- End Breadcrumb -->
@@ -32,7 +31,8 @@
                     <p class="card-title-desc">
                         Halaman ini menyediakan akses ke pengaturan umum sistem yang meliputi logo, alamat, kontak, dan
                         berbagai data institusi lainnya. Anda dapat melihat dan mengelola detail pengaturan umum ini melalui
-                        tabel di bawah, yang menampilkan informasi seperti nama pengaturan, isi, catatan admin, status, serta
+                        tabel di bawah, yang menampilkan informasi seperti nama pengaturan, isi, catatan admin, status,
+                        serta
                         waktu pembuatan dan pembaruan.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
@@ -40,7 +40,8 @@
                         <li>Kolom <b>Nama</b> dan <b>Isi</b> menampilkan nama pengaturan dan nilai dari pengaturan tersebut,
                             seperti alamat atau nomor kontak. Arahkan kursor pada teks untuk melihat informasi lebih lengkap
                             melalui tooltip.</li>
-                        <li>Gunakan kolom <b>Catatan Admin</b> untuk memahami fungsi atau tujuan dari setiap pengaturan secara
+                        <li>Gunakan kolom <b>Catatan Admin</b> untuk memahami fungsi atau tujuan dari setiap pengaturan
+                            secara
                             lebih mendalam.</li>
                         <li>Kolom <b>Status</b> menunjukkan apakah pengaturan tersebut sedang aktif (ditandai dengan tombol
                             hijau) atau non-aktif (tombol merah), membantu Anda memverifikasi pengaturan yang sedang
@@ -92,8 +93,7 @@
                                     <td>
                                         <button
                                             class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
-                                            data-id="{{ $item->id }}"
-                                            data-status="{{ $item->status }}"
+                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
                                             data-model="General">
                                             {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
                                         </button>

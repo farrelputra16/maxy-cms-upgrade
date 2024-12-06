@@ -12,8 +12,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a>Pengaturan</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getGeneral') }}">Umum</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getGeneral') }}">Pengaturan Umum</a></li>
                         <li class="breadcrumb-item active">Ubah Data</li>
                     </ol>
                 </div>
@@ -151,7 +150,7 @@
 
 @section('script')
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const inputTypeSelector = document.getElementById('input-type');
             const textInput = document.getElementById('value-text');
             const richTextContainer = document.getElementById('richtext-container');
@@ -166,9 +165,9 @@
 
             // Fungsi untuk toggle tampilan input
             function toggleInputType(initialLoad = false) {
-                const selectedType = initialLoad
-                    ? (isHTML(richTextInput.value) ? 'richtext' : 'text')
-                    : inputTypeSelector.value;
+                const selectedType = initialLoad ?
+                    (isHTML(richTextInput.value) ? 'richtext' : 'text') :
+                    inputTypeSelector.value;
 
                 // Jika tipe adalah "text" (Teks Sederhana)
                 if (selectedType === 'text') {
@@ -210,8 +209,8 @@
                             ],
                             toolbar: "undo redo | blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
                             content_style: 'body { font-family: "Poppins", sans-serif"; font-size: 16px; }',
-                            setup: function (editor) {
-                                editor.on('init', function () {
+                            setup: function(editor) {
+                                editor.on('init', function() {
                                     // Sembunyikan spinner setelah TinyMCE selesai dimuat
                                     spinner.style.display = 'none';
                                 });
@@ -231,7 +230,7 @@
             }
 
             // Event listener untuk perubahan dropdown
-            inputTypeSelector.addEventListener('change', function () {
+            inputTypeSelector.addEventListener('change', function() {
                 toggleInputType(false);
             });
 
@@ -240,7 +239,3 @@
         });
     </script>
 @endsection
-
-
-
-

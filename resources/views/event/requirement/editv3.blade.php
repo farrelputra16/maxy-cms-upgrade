@@ -13,7 +13,8 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getEvent') }}">Event</a></li>
-                        <li class="breadcrumb-item"><a>Persyaratan</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getEventRequirement', ['id' => $event_id]) }}">Persyaratan</a></li>
                         <li class="breadcrumb-item active">Ubah Persyaratan Event</li>
                     </ol>
                 </div>
@@ -41,7 +42,7 @@
                         <input type="hidden" name="event_id" value="{{ $event_id }}">
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nama <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     value="{{ $requirement->name }}">

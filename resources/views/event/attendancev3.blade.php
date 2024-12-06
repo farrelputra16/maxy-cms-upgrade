@@ -13,7 +13,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getEvent') }}">Acara</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getEvent') }}">Event</a></li>
                         <li class="breadcrumb-item active">Kehadiran</li>
                     </ol>
                 </div>
