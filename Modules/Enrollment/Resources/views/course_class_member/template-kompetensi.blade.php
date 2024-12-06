@@ -77,55 +77,32 @@
             <tbody>
                 @php
                     $index = 1;
-                    $totalGradesSum = 0; // Total sum of all grades
-                    $totalModulesCount = 0; // Total number of modules that have grades
+                    $totalResultSum = 0; // Untuk menyimpan total nilai result
+                    $totalModules = 0;
                 @endphp
 
-                @foreach ($classModules as $item)
-                    @if (!empty($item->course_module_name))
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->course_module_name }}</td>
-                            <td>{!! $item->description !!}</td>
-                            <td>{{ count($item->modulesChild) > 0 ? $item->modulesChild[0]->percentage . '%' : 'Tidak ada bobot nilai' }}
-                            </td>
-                            <td>
-                                @if (!empty($item->modulesChild))
-                                    @php
-                                        $totalGrades = 0;
-                                        $numChildModules = 0;
-                                        $numParentModules = [];
-                                    @endphp
+                @foreach ($classModules as $classModule)
+                    @foreach ($classModule->modulesChild as $item)
+                        @if (!empty($item->cm_name))
+                            @php
+                                // Hitung nilai result (percentage * grade), pastikan nilai null di-handle
+                                $percentage = $item->percentage ?? 0;
+                                $grade = $item->grade ?? 0;
+                                $result = $percentage * $grade / 100;
 
-                                    @foreach ($item->modulesChild as $child)
-                                        @if (isset($child->grade))
-                                            {{-- Only count modules with a grade --}}
-                                            @php
-                                                $totalGrades += $child->grade ?? 0;
-                                                $numChildModules++;
-                                                if (!in_array($child->module_parent_id, $numParentModules)) {
-                                                    $numParentModules[] = $child->module_parent_id;
-                                                }
-                                            @endphp
-                                        @endif
-                                    @endforeach
-
-                                    @if ($numChildModules > 0)
-                                        @php
-                                            $averageGrade = $totalGrades / $numChildModules;
-                                            $totalGradesSum += $averageGrade; // Add to global sum
-                                            $totalModulesCount += count($numParentModules); // Add to global count
-                                        @endphp
-                                        {{ number_format($averageGrade, 2) }}
-                                    @else
-                                        Tidak ada nilai
-                                    @endif
-                                @else
-                                    Tidak ada sub module
-                                @endif
-                            </td>
-                        </tr>
-                    @endif
+                                // Tambahkan nilai result ke total
+                                $totalResultSum += $result;
+                                $totalModules++;
+                            @endphp
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->cm_name }}</td>
+                                <td>{!! $item->description !!}</td>
+                                <td>{{ $percentage > 0 ? $percentage . '%' : 'Tidak ada bobot nilai' }}</td>
+                                <td>{{ $grade > 0 ? $grade : 'Tidak ada nilai' }}</td>
+                            </tr>
+                        @endif
+                    @endforeach
                 @endforeach
 
                 <tr>
@@ -134,8 +111,8 @@
                         <td colspan="1">{{ $courseClassMember->final_score }}</td>
                     @else
                         <td colspan="1">
-                            @if ($totalModulesCount > 0)
-                                {{ number_format($totalGradesSum / $totalModulesCount, 2) }}
+                            @if($totalModules > 0)
+                                {{ $totalResultSum }}
                             @else
                                 0
                             @endif
