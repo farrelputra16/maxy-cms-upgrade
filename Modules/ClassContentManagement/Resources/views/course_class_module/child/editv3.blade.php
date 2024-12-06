@@ -112,7 +112,7 @@
                             <div class="field">
                                 <label for=""></label>
                                 <a href="{{ asset('fe/public/files/' . $child_cm_detail->material) }}"
-                                    download>{{ $child_cm_detail->material }}</a>
+                                    target="_blank">{{ $child_cm_detail->material }}</a>
                             </div>
 
                             <div class="field">

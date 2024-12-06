@@ -60,8 +60,7 @@
                         <div class="mb-3 row">
                             <label for="input-submission" class="col-md-2 col-form-label">Tugas yang Dikirim</label>
                             <div class="col-md-10">
-                                <a href="{{ asset($data->submission_url) }}" target="_blank"
-                                    download="{{ $data->submitted_file }}">{{ $data->submitted_file }}</a>
+                                <a href="{{ asset($data->submission_url) }}" target="_blank">{{ $data->submitted_file }}</a>
                             </div>
                         </div>
 

@@ -128,7 +128,7 @@
                                             <label for="input-name" class="col-md-2 col-form-label"
                                                 style="margin-top: 1%">File Saat Ini Materi Pembelajaran</label>
                                             <div class="col-md-10">
-                                                <p class="pt-2">{{ $childModule->material }}</p>
+                                                <p class="pt-2"><a href="{{ asset('fe/public/files/' . $childModule->material) }}" target="_blank">{{ $childModule->material }}</a></p>
                                                 <label for="input-name" class="col-md-2 col-form-label">Ganti File</label>
                                                 <input class="form-control" type="file" id="formFile" name="material">
                                                 <input class="form-control" type="hidden" name="duration"
@@ -154,7 +154,7 @@
                                             </div>
                                             <label for="input-name" class="col-md-2 col-form-label"
                                                 style="margin-top: 1%">File Penugasan Saat Ini</label>
-                                            <p class="pt-2">{{ $childModule->material }}</p>
+                                            <p class="pt-2"><a href="{{ asset('fe/public/files/' . $childModule->material) }}" target="_blank">{{ $childModule->material }}</a></p>
                                             <label for="" class="form-label" style="margin-top: 1%"> Ganti File
                                                 Penugasan</label>
                                             <input class="form-control" type="file" id="formFile" name="material">
