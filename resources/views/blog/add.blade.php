@@ -119,6 +119,13 @@
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
+                            <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Highlight</label>
+                            <div class="col-md-10" style="display: flex; align-items: center;">
+                                <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
+                                    name="status_highlight" style="left: 0;" {{ old('status_highlight') ? 'checked' : '' }}>
+                            </div>
+                        </div>
+                        <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10" style="display: flex; align-items: center;">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"

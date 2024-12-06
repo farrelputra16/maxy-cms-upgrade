@@ -45,6 +45,7 @@ class BlogController extends Controller
             $blog->cover_img = 'temp';  // Placeholder sementara
             $blog->status_highlight = $request->status_highlight == '' ? 0 : 1;
             $blog->description = $request->description;
+            $blog->status_highlight = $request->status_highlight == '' ? 0 : 1;
             $blog->status = $request->status == '' ? 0 : 1;
             $blog->created_id = Auth::user()->id;
             $blog->updated_id = Auth::user()->id;
