@@ -129,11 +129,11 @@ class CourseModuleController extends Controller
         // dd($request->all());
         $module_id = $request->id;
         $module_detail = CourseModule::getCourseModuleDetailByModuleId($module_id);
-
-        // dd($module_detail);
+        $course = Course::where('id', $module_detail->course_id)->with('type')->first();
 
         return view('course_module.editv3', [
             'module_detail' => $module_detail,
+            'course' => $course,
             'page_type' => $request->page_type,
         ]);
     }

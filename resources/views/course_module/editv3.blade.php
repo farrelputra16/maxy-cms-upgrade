@@ -12,10 +12,12 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourse') }}">Mata Kuliah</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ $course->type->slug == 'mbkm' ? route('getCourseMBKM') : route('getCourse') }}">{{ $course->type->slug == 'mbkm' ? 'MBKM' : 'Mata Kuliah' }}</a>
+                        </li>
                         <li class="breadcrumb-item"><a
                                 href="{{ route('getCourseModule', ['course_id' => $module_detail->course_id, 'page_type' => $page_type]) }}">Modul
-                                Mata Kuliah</a>
+                                {{ $course->type->slug == 'mbkm' ? 'MBKM' : 'Mata Kuliah' }}</a>
                         </li>
                         <li class="breadcrumb-item active">Ubah Modul: {{ $module_detail->name }}</li>
                     </ol>
