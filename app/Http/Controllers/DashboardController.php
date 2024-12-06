@@ -24,21 +24,12 @@ class DashboardController extends Controller
         $universityCount = Partner::where('m_partner_type_id', '2')->count(); //Menghitung jumlah University
         $companyCount = Partner::where('m_partner_type_id', '1')->count(); // Menghitung jumlah company
         $studentCount = User::where('type', 'member')->count(); // Menghitung jumlah student
+        $activeStudentCount = User::where('type', 'member')->where('status', 1)->count(); // Menghitung jumlah student yang aktif
+        $inactiveStudentCount = User::where('type', 'member')->where('status', 0)->count(); // Menghitung jumlah student yang tidak aktif
         $activeEvents = Event::where('status', 1)->get();
         $activePartnerships = Partnership::where('status', 1)->with('Partner', 'MPartnershipType')->get();
 
-        // ambil data active class
-        // $active_class_list = [
-        //     ['course_name' => 'Backend', 'batch' => 1, 'class_id' => 1],
-        //     ['course_name' => 'Frontend', 'batch' => 1, 'class_id' => 2],
-        //     ['course_name' => 'UI/UX', 'batch' => 1, 'class_id' => 3],
-        //     ['course_name' => 'Digital Marketing', 'batch' => 1, 'class_id' => 4]
-        // ];
         $active_class_list = auth()->user()->access_group_id == 3 ? UserMentorship::getActiveClass($loggedInUserId) : CourseClass::getActiveClass();
-
-        // $totalStu = DB::table('users')->get();
-        $totalStu = User::where('access_group_id', 2)->count();
-        $stuActive = User::where('access_group_id', 2)->where('status', 1)->count();
 
         $now = Carbon::now();
         $oneMonthFromNow = $now->copy()->addMonth();
@@ -57,13 +48,13 @@ class DashboardController extends Controller
             'accessMaster' => $accessMaster,
             'user' => $user,
             'active_class_list' => $active_class_list,
-            'totalStu' => $totalStu,
-            'stuActive' => $stuActive,
             'partnerships' => $partnerships,
             'admin' => $admin,
             'universityCount' => $universityCount,
             'companyCount' => $companyCount,
             'studentCount' => $studentCount,
+            'activeStudentCount' => $activeStudentCount,
+            'inactiveStudentCount' => $inactiveStudentCount,
             'activeEvents' => $activeEvents,
             'activePartnerships' => $activePartnerships
         ]);

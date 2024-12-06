@@ -194,13 +194,13 @@
                             <div class="card-body">
                                 <div id="student-chart" style="height: 100%;"></div>
                                 <div class="justify-content-center row">
-                                    <div class="col-sm-4 text-center">
-                                        <h5 id="user-active" class="mb-0">879</h5>
-                                        <p class="text-muted text-truncate">Aktif</p>
+                                    <div class="col-6 text-center">
+                                        <h5 id="user-active" class="mb-0">{{ $activeStudentCount }}</h5>
+                                        <p class="text-muted">Aktif</p>
                                     </div>
-                                    <div class="col-sm-4 text-center">
-                                        <h5 id="user-inactive" class="mb-0">23</h5>
-                                        <p class="text-muted text-truncate">Tidak Aktif</p>
+                                    <div class="col-6 text-center">
+                                        <h5 id="user-inactive" class="mb-0">{{ $inactiveStudentCount }}</h5>
+                                        <p class="text-muted">Tidak Aktif</p>
                                     </div>
                                 </div>
                             </div>
@@ -299,11 +299,11 @@
             activeEvents.forEach(function(event) {
                 eventDatas.push({
                     title: event.name.slice(0, 30) + '...',
-                    start: event
-                        .date_start,
-                    end: event.date_end,
-                    message: "Acara: " + event.name + "\nTanggal Mulai: " + event.date_start +
-                        "\nTanggal Selesai: " + event.date_end,
+                    start: new Date(event.date_start).toISOString().split('T')[0],
+                    end: new Date(event.date_end).toISOString().split('T')[0],
+                    message: "<strong>Acara:</strong> " + event.name + "<br/>" +
+                        "<strong>Tanggal Mulai:</strong> " + event.date_start + "<br/>" +
+                        "<strong>Tanggal Selesai:</strong> " + event.date_end,
                 });
             });
 
@@ -313,9 +313,10 @@
                     title: partnership.m_partnership_type.name + ' - ' + partnership.partner.name,
                     start: partnership.date_end,
                     backgroundColor: '#B22222',
-                    message: "Mitra: " + partnership.partner.name + "\nTipe Kemitraan: " +
-                        partnership
-                        .m_partnership_type.name + "\nTanggal Berakhir: " + partnership.date_end,
+                    message: "<strong>Mitra:</strong> " + partnership.partner.name + "<br/>" +
+                        "<strong>Tipe Kemitraan:</strong> " + partnership.m_partnership_type.name +
+                        "<br/>" +
+                        "<strong>Tanggal Berakhir:</strong> " + partnership.date_end,
                 });
             });
 
@@ -333,7 +334,12 @@
                 eventClick: function(info) {
                     // Menampilkan informasi ketika event diklik
                     var eventInfo = info.event;
-                    alert(eventInfo.extendedProps.message);
+                    Swal.fire({
+                        title: 'Informasi',
+                        html: eventInfo.extendedProps.message,
+                        icon: 'info',
+                        confirmButtonText: 'OK',
+                    });
                 },
                 dateClick: function(info) {
                     alert('Tanggal: ' + info.dateStr);
