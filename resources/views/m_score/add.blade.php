@@ -12,7 +12,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getScore') }}">Bobot Nilai</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getScore') }}">Bobot Penilaian</a></li>
                         <li class="breadcrumb-item active">Tambah Bobot Nilai Baru</li>
                     </ol>
                 </div>

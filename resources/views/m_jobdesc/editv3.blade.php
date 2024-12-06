@@ -13,7 +13,7 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getJobdesc') }}">Rincian Pekerjaan</a></li>
-                        <li class="breadcrumb-item active">Ubah Event Type: {{ $currentData->name }}</li>
+                        <li class="breadcrumb-item active">Ubah Rincian Pekerjaan: {{ $currentData->name }}</li>
                     </ol>
                 </div>
 

@@ -13,7 +13,6 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a>Konten</a></li>
                         <li class="breadcrumb-item active">Rincian Pekerjaan</li>
                     </ol>
                 </div>
@@ -32,7 +31,8 @@
                     <p class="card-title-desc">
                         Halaman ini menampilkan rincian pekerjaan dalam format tabel interaktif, memungkinkan Anda untuk
                         mengelola data pekerjaan secara efisien. Setiap baris dalam tabel ini berisi informasi penting
-                        seperti nama, catatan admin, dan status pekerjaan. Anda dapat menggunakan <b>fitur visibilitas kolom,
+                        seperti nama, catatan admin, dan status pekerjaan. Anda dapat menggunakan <b>fitur visibilitas
+                            kolom,
                             pengurutan, dan kolom pencarian</b> untuk menyesuaikan tampilan sesuai kebutuhan dan dengan
                         cepat menemukan informasi spesifik yang diperlukan.
                         <br><br>
@@ -87,10 +87,9 @@
                                                     <td>{{ $item->updated_at }}</td>
                                                     <td>{{ $item->updated_id }}</td>
                                                     <td>
-                                                        <button 
-                                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}" 
-                                                            data-id="{{ $item->id }}" 
-                                                            data-status="{{ $item->status }}"
+                                                        <button
+                                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
+                                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
                                                             data-model="MJobdesc">
                                                             {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
                                                         </button>

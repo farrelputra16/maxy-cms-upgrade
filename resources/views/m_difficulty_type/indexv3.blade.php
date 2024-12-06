@@ -13,7 +13,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Tingkat Kesulitan </li>
+                        <li class="breadcrumb-item active">Tingkat Kesulitan Mata Kuliah</li>
                     </ol>
                 </div>
                 <!-- end breadcrumb -->
@@ -40,7 +40,8 @@
                         <ul>
                             <li><strong>Nama Tingkat Kesulitan:</strong> Lihat nama tingkat kesulitan untuk setiap
                                 mata kuliah yang ditampilkan di tabel ini.</li>
-                            <li><strong>Catatan Admin Tingkat Kesulitan:</strong> Bacalah catatan admin singkat tentang kesulitan
+                            <li><strong>Catatan Admin Tingkat Kesulitan:</strong> Bacalah catatan admin singkat tentang
+                                kesulitan
                                 dari setiap tingkat, yang mencakup gambaran umum dari materi atau tantangan yang akan
                                 dihadapi peserta.</li>
                             <li><strong>Tambah Tingkat Kesulitan:</strong> Klik tombol <em>Tambah Tingkat Kesulitan</em>
@@ -82,10 +83,9 @@
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
                                     <td>
-                                        <button 
-                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}" 
-                                            data-id="{{ $item->id }}" 
-                                            data-status="{{ $item->status }}"
+                                        <button
+                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
+                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
                                             data-model="MDifficultyType">
                                             {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
                                         </button>

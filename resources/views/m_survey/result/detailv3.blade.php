@@ -14,6 +14,9 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getSurvey') }}">Survei</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getSurveyResult', ['id' => $currentData->survey_id, 'access' => 'survey_result_manage']) }}">Hasil
+                                Survei</a></li>
                         <li class="breadcrumb-item active">Detail Hasil Survei</li>
                     </ol>
                 </div>
@@ -66,7 +69,7 @@
                                     $contentData = json_decode($currentData->content, true); // Decode JSON data
                                     $surveyData = $contentData['surveyData'] ?? []; // Ambil surveyData dari JSON
                                 @endphp
-                        
+
                                 @if (!empty($surveyData))
                                     @foreach ($surveyData as $data)
                                         <div class="mb-3 p-3 border rounded bg-light">
@@ -75,10 +78,11 @@
                                         </div>
                                     @endforeach
                                 @else
-                                    <div class="alert alert-secondary" role="alert">Tidak ada data survei yang ditemukan.</div>
+                                    <div class="alert alert-secondary" role="alert">Tidak ada data survei yang ditemukan.
+                                    </div>
                                 @endif
                             </div>
-                        </div>                        
+                        </div>
                     </form>
                 </div>
             </div>

@@ -12,7 +12,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getJobdesc') }}">Jobdesc</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getJobdesc') }}">Rincian Pekerjaan</a></li>
                         <li class="breadcrumb-item active">Tambah Rincian Pekerjaan Baru</li>
                     </ol>
                 </div>
@@ -39,7 +39,8 @@
                             <label for="input-title" class="col-md-2 col-form-label">Nama</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
-                                placeholder="Contoh: Administrator Database, Manajer Proyek, atau Analis Keuangan" value="{{ old('name') }}">
+                                    placeholder="Contoh: Administrator Database, Manajer Proyek, atau Analis Keuangan"
+                                    value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -50,7 +51,8 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea id="content" class="form-control" name="description" placeholder="Contoh: Administrator Database bertanggung jawab atas pemeliharaan, keamanan, dan pengelolaan data perusahaan.">{{ old('description') }}</textarea>
+                                <textarea id="content" class="form-control" name="description"
+                                    placeholder="Contoh: Administrator Database bertanggung jawab atas pemeliharaan, keamanan, dan pengelolaan data perusahaan.">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
