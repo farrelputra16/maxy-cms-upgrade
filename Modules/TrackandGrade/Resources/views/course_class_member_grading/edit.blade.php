@@ -13,8 +13,9 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getGrade') }}">Daftar Pengumpulan</a></li>
-                        <li class="breadcrumb-item active">Penilaian Pengumpulan</li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('getGrade', ['class_id' => $data->class_id]) }}">Penilaian Tugas</a></li>
+                        <li class="breadcrumb-item active">Nilai Tugas</li>
                     </ol>
                 </div>
                 <!-- Akhir Breadcrumb -->
@@ -29,7 +30,8 @@
                 <div class="card-body">
                     <h4 class="card-title">Detail Pengumpulan Tugas <small>[ID: {{ $data->id }}]</small></h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda untuk menilai tugas yang telah dikumpulkan oleh mahasiswa. Pastikan bahwa
+                        Halaman ini memungkinkan Anda untuk menilai tugas yang telah dikumpulkan oleh mahasiswa. Pastikan
+                        bahwa
                         informasi yang Anda masukkan lengkap dan akurat agar memberikan pengalaman pembelajaran terbaik bagi
                         mahasiswa.
                     </p>
@@ -72,14 +74,16 @@
                             </div>
                         </div>
 
-                        <div class="mb-3 row">
-                            <label for="input-grade" class="col-md-2 col-form-label">Nilai <span class="text-danger"
-                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="number" name="grade" value="{{ $data->grade }}"
-                                    id="input-grade" placeholder="Masukkan nilai tugas (0-100)">
+                        @if ($module->CourseModule->grade_status)
+                            <div class="mb-3 row">
+                                <label for="input-grade" class="col-md-2 col-form-label">Nilai <span class="text-danger"
+                                        data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="number" name="grade" value="{{ $data->grade }}"
+                                        id="input-grade" placeholder="Masukkan nilai tugas (0-100)">
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         <div class="mb-3 row">
                             <label for="input-tutor-comment" class="col-md-2 col-form-label">Komentar Dosen</label>

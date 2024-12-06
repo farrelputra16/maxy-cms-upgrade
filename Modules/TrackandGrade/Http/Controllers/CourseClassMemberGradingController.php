@@ -137,6 +137,7 @@ class CourseClassMemberGradingController extends Controller
         // dd($request->all());
 
         $data = CourseClassMemberGrading::getSubmissionDetailById($request->id);
+        $module = CourseClassModule::where('id', $data->course_class_module_id)->with('CourseModule')->first();
 
         $course_name = Str::snake(Str::lower($data->course_name));
         $user_name = Str::snake(Str::lower($data->user_name));
@@ -144,7 +145,7 @@ class CourseClassMemberGradingController extends Controller
 
         $data->submission_url = 'uploads/course_class_member_grading/' . $course_name . '/' . $user_name . '/' . $module_name . '/' . $data->submitted_file;
 
-        return view('trackandgrade::course_class_member_grading.edit', compact('data'));
+        return view('trackandgrade::course_class_member_grading.edit', compact('data', 'module'));
     }
 
     function postEditGrade(Request $request)
