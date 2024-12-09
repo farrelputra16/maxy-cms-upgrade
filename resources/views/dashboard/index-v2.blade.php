@@ -39,7 +39,7 @@
                     </div>
                     <div class="card-body pt-0">
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <div class="avatar-md profile-user-wid mb-4">
                                     @if (auth()->user()->profile_picture)
                                         <img src="{{ asset('uploads/' . auth()->user()->profile_picture) }}"
@@ -167,7 +167,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Kelas</th>
-                                                <th>Angkatan</th>
+                                                <th>Paralel</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -215,7 +215,7 @@
                     <div id="calendar"></div>
                 </div>
             </div>
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-body">
                     <h5>Jadwal Hari Ini</h5>
                     <hr>
@@ -231,7 +231,7 @@
                         @endif
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection
