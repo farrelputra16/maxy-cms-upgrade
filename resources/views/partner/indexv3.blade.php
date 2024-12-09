@@ -46,7 +46,7 @@
                     </ul>
                     </p>
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100" data-server-processing="true" data-url="{{ route('getPartnerData') }}" data-colvis="[-3, -4, -5, -6, -17]">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -70,70 +70,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($partners as $key => $item)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->id }}</td>
-
-                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->name }}">
-                                        {!! \Str::limit($item->name, 30) !!}
-                                    </td>
-
-                                    <td>
-                                        <img src="{{ asset('uploads/partner/' . $item->logo) }}" alt="Logo Mitra"
-                                            style="max-width: 200px; max-height: 150px;">
-                                    </td>
-                                    <td>
-                                        {{ $item->MPartnerType->name }}
-                                    </td>
-                                    <td>{{ \Str::limit($item->url, 20) }}</td>
-                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->address) !!}">
-                                        {!! !empty($item->address) ? \Str::limit($item->address, 30) : '-' !!}
-                                    </td>
-                                    <td data-toggle="tooltip" data-placement="top" title="{!! strip_tags($item->phone) !!}">
-                                        {!! !empty($item->phone) ? \Str::limit($item->phone, 30) : '-' !!}
-                                    <td data-toggle="tooltip" data-placement="top" title="{!! strip_tags($item->email) !!}">
-                                        {!! !empty($item->email) ? \Str::limit($item->email, 30) : '-' !!}
-                                    <td data-toggle="tooltip" data-placement="top" title="{!! strip_tags($item->contact_person) !!}">
-                                        {!! !empty($item->contact_person) ? \Str::limit($item->contact_person, 30) : '-' !!}
-                                    <td>
-                                        @if ($item->status_highlight == 1)
-                                            <button class="btn btn-success" style="pointer-events: none;">Aktif</button>
-                                        @else
-                                            <button class="btn btn-danger" style="pointer-events: none;">Nonaktif</button>
-                                        @endif
-                                    </td>
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->description) !!}">
-                                        {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
-                                    </td>
-                                    <td>{{ $item->created_at }}</td>
-                                    <td>{{ $item->created_id }}</td>
-                                    <td>{{ $item->updated_at }}</td>
-                                    <td>{{ $item->updated_id }}</td>
-                                    <td>
-                                        <button 
-                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}" 
-                                            data-id="{{ $item->id }}" 
-                                            data-status="{{ $item->status }}"
-                                            data-model="Partner">
-                                            {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('getEditPartner', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Ubah</a>
-                                    </td>
-                                </tr>
-                            @endforeach
+                            
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Nama Modul</th>
+                                <th>Nama Partner</th>
                                 <th>Logo</th>
                                 <th>Tipe</th>
                                 <th>URL</th>
@@ -168,5 +111,26 @@
 @endsection
 
 @section('script')
-
+<script>
+    const columns = [
+        { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
+        { data: "id", name: "id" },
+        { data: "name", name: "name", orderable: true, searchable: true },
+        { data: "logo", name: "logo", orderable: false, searchable: false },
+        { data: "m_partner_type", name: "m_partner_type", orderable: true, searchable: true },
+        { data: "url", name: "url", orderable: true, searchable: true },
+        { data: "address", name: "address", orderable: true, searchable: true },
+        { data: "phone", name: "phone", orderable: true, searchable: true },
+        { data: "email", name: "email", orderable: true, searchable: true },
+        { data: "contact_person", name: "contact_person", orderable: true, searchable: true },
+        { data: "status_highlight", name: "status_highlight", orderable: true, searchable: true },
+        { data: "description", name: "description", orderable: true, searchable: true },
+        { data: "created_at", name: "created_at" },
+        { data: "created_id", name: "created_id" },
+        { data: "updated_at", name: "updated_at" },
+        { data: "updated_id", name: "updated_id" },
+        { data: "status", name: "status", orderable: true, searchable: true },
+        { data: "action", name: "action", orderable: false, searchable: false },
+    ];
+</script>
 @endsection

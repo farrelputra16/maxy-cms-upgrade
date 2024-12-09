@@ -101,6 +101,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // course route ###########################################################################################################
     Route::get('/course', [CourseController::class, 'getCourse'])->name('getCourse')->middleware('access:course_manage');
+    Route::get('/course/data', [CourseController::class, 'getCourseData'])->name('getCourseData');
 
     Route::get('/course/add', [CourseController::class, 'getAddCourse'])->name('getAddCourse')->middleware('access:course_create');
     Route::post('/course/add', [CourseController::class, 'postAddCourse'])->name('postAddCourse')->middleware('access:course_create');
@@ -376,6 +377,7 @@ Route::group(['middleware' => 'auth'], function () {
 //                                      PARTNER
 // partner routes
 Route::get('/partner', [PartnerController::class, 'getPartner'])->name('getPartner')->middleware('access:m_partner_manage');
+Route::get('/partner/data', [PartnerController::class, 'getPartnerData'])->name('getPartnerData');
 
 Route::get('/partner/add', [PartnerController::class, 'getAddPartner'])->name('getAddPartner')->middleware('access:m_partner_create');
 Route::post('/partner/add', [PartnerController::class, 'postAddPartner'])->name('postAddPartner')->middleware('access:m_partner_create');
