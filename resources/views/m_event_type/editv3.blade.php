@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Ubah Tipe Event')
+@section('title', 'Ubah Tipe Acara')
 
 @section('content')
     <!-- Judul Halaman -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getEventType') }}">Tipe Event</a></li>
-                        <li class="breadcrumb-item active">Ubah Tipe Event: {{ $currentData->name }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getEventType') }}">Tipe Acara</a></li>
+                        <li class="breadcrumb-item active">Ubah Tipe Acara: {{ $currentData->name }}</li>
                     </ol>
                 </div>
 
@@ -29,7 +29,7 @@
 
                     <h4 class="card-title">{{ $currentData->name }} <small>[ ID: {{ $currentData->id }} ]</small></h4>
                     <p class="card-title-desc">
-                        Di halaman ini, Anda dapat memperbarui informasi tipe event yang ada dengan mengisi atau mengedit
+                        Di halaman ini, Anda dapat memperbarui informasi tipe acara yang ada dengan mengisi atau mengedit
                         data di bawah ini. Setelah selesai, klik "Simpan & Perbarui" untuk menyimpan perubahan.
                     </p>
 
@@ -53,7 +53,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea id="content" class="form-control" name="description" placeholder="Masukkan Deskripsi Tipe Event">{{ old('description', $currentData->description) }}</textarea>
+                                <textarea id="content" class="form-control" name="description" placeholder="Masukkan Deskripsi Tipe Acara">{{ old('description', $currentData->description) }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">

@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Ubah Persyaratan Event')
+@section('title', 'Ubah Persyaratan Acara')
 
 @section('content')
     <!-- start page title -->
@@ -12,10 +12,10 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getEvent') }}">Event</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getEvent') }}">Acara</a></li>
                         <li class="breadcrumb-item"><a
                                 href="{{ route('getEventRequirement', ['id' => $event_id]) }}">Persyaratan</a></li>
-                        <li class="breadcrumb-item active">Ubah Persyaratan Event</li>
+                        <li class="breadcrumb-item active">Ubah Persyaratan Acara</li>
                     </ol>
                 </div>
 
@@ -33,7 +33,7 @@
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda memperbarui informasi persyaratan dengan mengubah data di bawah ini.
                         Pastikan semua informasi yang Anda masukkan akurat untuk memberikan pengalaman terbaik bagi peserta
-                        event.
+                        acara.
                     </p>
 
                     <form action="{{ route('postEditEventRequirement') }}" method="post" enctype="multipart/form-data">

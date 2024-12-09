@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Ubah Event')
+@section('title', 'Ubah Acara')
 
 @section('content')
     <!-- start page title -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getEvent') }}">Event</a></li>
-                        <li class="breadcrumb-item active">Ubah Event</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getEvent') }}">Acara</a></li>
+                        <li class="breadcrumb-item active">Ubah Acara</li>
                     </ol>
                 </div>
 
@@ -27,8 +27,8 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Ubah Event</h4>
-                    <p class="card-title-desc">Halaman ini digunakan untuk memperbarui informasi event.</p>
+                    <h4 class="card-title">Ubah Acara</h4>
+                    <p class="card-title-desc">Halaman ini digunakan untuk memperbarui informasi acara.</p>
 
                     <form action="{{ route('postEditEvent', ['id' => request()->query('id')]) }}" method="post"
                         enctype="multipart/form-data">
@@ -157,7 +157,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Ubah Event</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">Ubah Acara</button>
                             </div>
                         </div>
                     </form>

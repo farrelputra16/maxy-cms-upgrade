@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Event Verification')
+@section('title', 'Verifikasi Acara')
 
 @section('content')
     <!-- begin page title -->
@@ -13,7 +13,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getEvent') }}">Event</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getEvent') }}">Acara</a></li>
                         <li class="breadcrumb-item"><a
                                 href="{{ route('getAttendanceEvent', ['id' => $event_id]) }}">Kehadiran</a></li>
                         <li class="breadcrumb-item active">Verifikasi Kehadiran</li>
@@ -31,7 +31,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Event Verification</h4>
+                    <h4 class="card-title">Verifikasi Acara</h4>
                     <p class="card-title-desc">
                         This page presents a comprehensive overview of all available data, displayed in an interactive
                         and sortable DataTable format. Each row represents a unique data, providing key details such as

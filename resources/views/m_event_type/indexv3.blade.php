@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tipe Event')
+@section('title', 'Tipe Acara')
 
 @section('content')
     <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Tipe Event</h4>
+                <h4 class="mb-sm-0 font-size-18">Data Tipe Acara</h4>
 
                 <!-- Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Tipe Event</li>
+                        <li class="breadcrumb-item active">Tipe Acara</li>
                     </ol>
                 </div>
                 <!-- Akhir Breadcrumb -->
@@ -27,11 +27,11 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Tipe Event</h4>
+                    <h4 class="card-title">Tipe Acara</h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda untuk mengelola data tipe event yang digunakan dalam sistem. Setiap
-                        baris pada tabel menampilkan detail utama dari tipe event, seperti nama dan catatan admin tipe event.
-                        Halaman ini menyediakan fitur interaktif untuk memudahkan pengelolaan data event melalui tabel.
+                        Halaman ini memungkinkan Anda untuk mengelola data tipe acara yang digunakan dalam sistem. Setiap
+                        baris pada tabel menampilkan detail utama dari tipe acara, seperti nama dan catatan admin tipe acara.
+                        Halaman ini menyediakan fitur interaktif untuk memudahkan pengelolaan data acara melalui tabel.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
                     <ul>
@@ -39,15 +39,15 @@
                             yang ingin Anda tampilkan atau sembunyikan, sehingga Anda dapat fokus pada informasi yang
                             relevan.</li>
                         <li><strong>Pencarian Data:</strong> Masukkan kata kunci pada kolom pencarian untuk menemukan tipe
-                            event tertentu berdasarkan nama atau catatan admin.</li>
-                        <li><strong>Pengurutan Data:</strong> Klik pada judul kolom seperti "Nama Tipe Event" atau "Status"
+                            acara tertentu berdasarkan nama atau catatan admin.</li>
+                        <li><strong>Pengurutan Data:</strong> Klik pada judul kolom seperti "Nama Tipe Acara" atau "Status"
                             untuk mengurutkan data dalam tabel berdasarkan kolom tersebut. Pengurutan ini membantu Anda
                             untuk meninjau data dengan lebih mudah dan teratur.</li>
-                        <li><strong>Ubah Tipe Event:</strong> Gunakan tombol <em>Ubah</em> pada kolom "Aksi" di setiap baris
-                            untuk memperbarui informasi detail dari tipe event yang telah ada.</li>
-                        <li><strong>Tambah Tipe Event Baru:</strong> Untuk menambahkan tipe event baru, klik tombol
+                        <li><strong>Ubah Tipe Acara:</strong> Gunakan tombol <em>Ubah</em> pada kolom "Aksi" di setiap baris
+                            untuk memperbarui informasi detail dari tipe acara yang telah ada.</li>
+                        <li><strong>Tambah Tipe Acara Baru:</strong> Untuk menambahkan tipe acara baru, klik tombol
                             <em>+</em> di pojok kanan bawah. Anda akan diarahkan ke formulir untuk menambahkan data tipe
-                            event yang baru.</li>
+                            acara yang baru.</li>
                     </ul>
                     </p>
 
@@ -58,7 +58,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama Tipe Event</th>
+                                <th class="data-medium">Nama Tipe Acara</th>
                                 <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>Id Pembuat</th>
@@ -126,7 +126,7 @@
     <!-- Tombol Tambah -->
     <div id="floating-whatsapp-button">
         <a href="{{ route('getAddEventType', ['access' => 'm_Event_type_create']) }}" target="_blank" data-toggle="tooltip"
-            title="Tambah Tipe Event Baru">
+            title="Tambah Tipe Acara Baru">
             <i class="fas fa-plus"></i>
         </a>
     </div>

@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tambah Event')
+@section('title', 'Tambah Acara')
 
 @section('content')
     <!-- start page title -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getEvent') }}">Event</a></li>
-                        <li class="breadcrumb-item active">Tambah Event</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getEvent') }}">Acara</a></li>
+                        <li class="breadcrumb-item active">Tambah Acara</li>
                     </ol>
                 </div>
 
@@ -27,15 +27,15 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Tambahkan Data Event Baru</h4>
-                    <p class="card-title-desc">Halaman ini digunakan untuk menambahkan data event baru.</p>
+                    <h4 class="card-title">Tambahkan Data Acara Baru</h4>
+                    <p class="card-title-desc">Halaman ini digunakan untuk menambahkan data acara baru.</p>
 
                     <form id="addEvent" action="{{ route('postAddEvent') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Event</label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Tipe Acara</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="event_type" data-placeholder="Pilih Tipe Event">
+                                <select class="form-control select2" name="event_type" data-placeholder="Pilih Tipe Acara">
                                     @foreach ($event_types as $item)
                                         <option value="{{ $item->id }}" {{ old('event_type') == $item->id ? 'selected' : '' }}> {{ $item->name }} </option>
                                     @endforeach
@@ -47,7 +47,7 @@
                                 data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                placeholder="Masukkan nama event, contoh: 'Seminar Bisnis 2024'" value="{{ old('name') }}">
+                                placeholder="Masukkan nama acara, contoh: 'Seminar Bisnis 2024'" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -109,7 +109,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea id="content" class="form-control" name="description" placeholder="Masukkan catatan mengenai event">{{  old('description') }}</textarea>
+                                <textarea id="content" class="form-control" name="description" placeholder="Masukkan catatan mengenai acara">{{  old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -141,7 +141,7 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addEvent">Add Event</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addEvent">Add Acara</button>
                             </div>
                         </div>
                     </form>

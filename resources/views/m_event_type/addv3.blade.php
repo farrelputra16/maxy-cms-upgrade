@@ -1,6 +1,6 @@
 @extends('layout.main-v3')
 
-@section('title', 'Tambah Tipe Event')
+@section('title', 'Tambah Tipe Acara')
 
 @section('content')
     <!-- Judul Halaman -->
@@ -12,8 +12,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getEventType') }}">Tipe Event</a></li>
-                        <li class="breadcrumb-item active">Tambah Tipe Event</li>
+                        <li class="breadcrumb-item"><a href="{{ route('getEventType') }}">Tipe Acara</a></li>
+                        <li class="breadcrumb-item active">Tambah Tipe Acara</li>
                     </ol>
                 </div>
 
@@ -27,10 +27,10 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">Tambah Tipe Event</h4>
+                    <h4 class="card-title">Tambah Tipe Acara</h4>
                     <p class="card-title-desc">
-                        Di halaman ini, Anda dapat menambahkan tipe event baru dengan mengisi nama dan deskripsinya. Setelah
-                        selesai, klik "Tambah Tipe Event" untuk menyimpan data baru.
+                        Di halaman ini, Anda dapat menambahkan tipe acara baru dengan mengisi nama dan deskripsinya. Setelah
+                        selesai, klik "Tambah Tipe Acara" untuk menyimpan data baru.
                     </p>
 
 
@@ -55,7 +55,7 @@
                             <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
                                 <textarea id="content" class="form-control" name="description"
-                                    placeholder="Contoh: Tipe event ini dirancang untuk memberikan wawasan praktis kepada peserta melalui sesi interaktif.">{{ old('description') }}</textarea>
+                                    placeholder="Contoh: Tipe acara ini dirancang untuk memberikan wawasan praktis kepada peserta melalui sesi interaktif.">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
@@ -69,7 +69,7 @@
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
-                                    form="addEventType">Tambah Tipe Event</button>
+                                    form="addEventType">Tambah Tipe Acara</button>
                             </div>
                         </div>
                     </form>

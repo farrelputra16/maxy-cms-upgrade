@@ -13,7 +13,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
-                        <li class="breadcrumb-item active">Event</li>
+                        <li class="breadcrumb-item active">Acara</li>
                     </ol>
                 </div>
                 <!-- End Breadcrumb -->
@@ -29,7 +29,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Acara</h4>
                     <p class="card-title-desc">
-                        Halaman ini menampilkan data lengkap dari semua event atau kegiatan yang terdaftar dalam tabel
+                        Halaman ini menampilkan data lengkap dari semua acara atau kegiatan yang terdaftar dalam tabel
                         interaktif. Setiap baris berisi informasi penting, seperti nama acara, tanggal, catatan admin, serta
                         status publikasi dan verifikasi. Gunakan fitur <b>visibilitas kolom, pengurutan, dan pencarian
                             kolom</b> untuk menyesuaikan tampilan dan menemukan acara yang Anda butuhkan dengan cepat.
@@ -41,7 +41,7 @@
                         <li><strong>Urutkan & Cari:</strong> Klik judul kolom untuk mengurutkan data atau gunakan pencarian
                             untuk menemukan acara berdasarkan kata kunci.</li>
                         <li><strong>Ubah & Akses Kehadiran:</strong> Gunakan tombol di kolom “Aksi” untuk mengubah detail
-                            event, memeriksa kehadiran, atau mengelola persyaratan.</li>
+                            acara, memeriksa kehadiran, atau mengelola persyaratan.</li>
                         <li><strong>Tambah Acara:</strong> Klik ikon <em>Tambah</em> di kanan bawah untuk menambahkan acara
                             baru.</li>
                     </ul>
