@@ -246,6 +246,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Partner type
     Route::get('/partner/type', [MPartnerTypeController::class, 'getPartnerType'])->name('getPartnerType')->middleware('access:m_partner_type_manage');
 
+    Route::get('/partner/type/data', [MPartnerTypeController::class, 'getPartnerTypeData'])->name('getPartnerTypeData');
+
     Route::get('/partner/type/add', [MPartnerTypeController::class, 'getAddPartnerType'])->name('getAddPartnerType')->middleware('access:m_partner_type_create');
     Route::post('/partner/type/add', [MPartnerTypeController::class, 'postAddPartnerType'])->name('postAddPartnerType')->middleware('access:m_partner_type_create');
 
