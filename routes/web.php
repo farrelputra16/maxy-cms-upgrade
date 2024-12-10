@@ -235,6 +235,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Partnership type
     Route::get('/partnership/type', [MPartnershipTypeController::class, 'getPartnershipType'])->name('getPartnershipType')->middleware('access:m_partnership_type_manage');
 
+    Route::get('/partnership/type/data', [MPartnershipTypeController::class, 'getPartnershipTypeData'])->name('getPartnershipTypeData');
+
     Route::get('/partnership/type/add', [MPartnershipTypeController::class, 'getAddPartnershipType'])->name('getAddPartnershipType')->middleware('access:m_partnership_type_create');
     Route::post('/partnership/type/add', [MPartnershipTypeController::class, 'postAddPartnershipType'])->name('postAddPartnershipType')->middleware('access:m_partnership_type_create');
 
