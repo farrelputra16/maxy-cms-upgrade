@@ -120,6 +120,8 @@ Route::group(['middleware' => 'auth'], function () {
     // categori route ###########################################################################################################
     Route::get('/category', [CategoryController::class, 'getCategory'])->name('getCategory')->middleware('access:category_manage');
 
+    Route::get('/category/data', [CategoryController::class, 'getCategoryData'])->name('getCategoryData');
+
     Route::get('/category/add', [CategoryController::class, 'getAddCategory'])->name('getAddCategory')->middleware('access:category_create');
     Route::post('/category/add', [CategoryController::class, 'postAddCategory'])->name('postAddCategory')->middleware('access:category_create');
 
