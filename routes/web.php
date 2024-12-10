@@ -213,6 +213,8 @@ Route::group(['middleware' => 'auth'], function () {
     // proposal status
     Route::get('/proposal/status', [MProposalStatusController::class, 'getProposalStatus'])->name('getProposalStatus')->middleware('access:m_proposal_status_manage');
 
+    Route::get('/proposal/status/data', [MProposalStatusController::class, 'getProposalStatusData'])->name('getProposalStatusData');
+
     Route::get('/proposal/status/add', [MProposalStatusController::class, 'getAddProposalStatus'])->name('getAddProposalStatus')->middleware('access:m_proposal_status_create');
     Route::post('/proposal/status/add', [MProposalStatusController::class, 'postAddProposalStatus'])->name('postAddProposalStatus')->middleware('access:m_proposal_status_create');
 

@@ -89,7 +89,7 @@ class MCourseTypeController extends Controller
                 </button>';
             })
             ->addColumn('action', function ($row) {
-                return '<a href="' . route('getEditCourseType', ['id' => $row->id]) . '" 
+                return '<a href="' . route('getEditCourseType', ['id' => $row->id, 'access' => 'm_course_type_update']) . '" 
                             class="btn btn-primary rounded">Ubah</a>';
             })
             ->orderColumn('id', 'id $1')

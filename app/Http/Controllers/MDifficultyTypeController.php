@@ -101,7 +101,7 @@ class MDifficultyTypeController extends Controller
                 </button>';
             })
             ->addColumn('action', function ($row) {
-                return '<a href="' . route('getEditDifficultyType', ['id' => $row->id]) . '" 
+                return '<a href="' . route('getEditDifficultyType', ['id' => $row->id, 'access' => 'm_difficulty_type_update']) . '" 
                             class="btn btn-primary rounded">Ubah</a>';
             })
             ->orderColumn('id', 'id $1')
