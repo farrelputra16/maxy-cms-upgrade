@@ -188,6 +188,7 @@ Route::group(['middleware' => 'auth'], function () {
     // course type
     Route::get('/course/type', [MCourseTypeController::class, 'getCourseType'])->name('getCourseType')->middleware('access:m_Course_type_manage');
 
+    Route::get('/course/type/data', [MCourseTypeController::class, 'getMCourseTypeData'])->name('getMCourseTypeData');
     Route::get('/course/type/add', [MCourseTypeController::class, 'getAddCourseType'])->name('getAddCourseType')->middleware('access:m_Course_type_create');
     Route::post('/course/type/add', [MCourseTypeController::class, 'postAddCourseType'])->name('postAddCourseType')->middleware('access:m_Course_type_create');
 
