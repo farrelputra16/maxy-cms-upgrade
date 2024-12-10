@@ -4,13 +4,109 @@ namespace App\Http\Controllers;
 use App\Models\MDifficultyType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class MDifficultyTypeController extends Controller
 {
     //
     function getDifficulty(){
-        $mDifficulties = MDifficultyType::all();
-        return view('m_difficulty_type.indexv3', ['mDifficulties' => $mDifficulties]);
+        // $mDifficulties = MDifficultyType::all();
+        return view('m_difficulty_type.indexv3');
+    }
+
+    function getMDifficultyData(Request $request){
+        $searchValue = $request->input('search.value');
+        $orderColumnIndex = $request->input('order.1.column');
+        $orderDirection = $request->input('order.1.dir', 'asc');
+        $columns = $request->input('columns');//dd($orderDirection);
+
+        $orderColumn = 'id';
+        if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
+            $orderColumn = $columns[$orderColumnIndex]['data'];
+        }
+
+        $mDifficulties = MDifficultyType::select('id', 'name', 'description', 'created_at', 'created_id', 'updated_at', 'updated_id', 'status')
+            ->orderBy($orderColumn, $orderDirection);
+
+        // global search datatable
+        // if (!empty($searchValue)) {
+        //     $partners->where(function ($q) use ($searchValue, $columns) {
+        //         foreach ($columns as $column) {
+        //             $columnName = $column['data'];
+
+        //             if (in_array($columnName, ['DT_RowIndex', 'action'])) {
+        //                 continue;
+        //             } else if ($columnName === 'm_partner_type') {
+        //                 $q->orWhereHas('MPartnerType', function ($query) use ($searchValue) {
+        //                     $query->where('name', 'like', "%{$searchValue}%");
+        //                 });
+        //             } else {
+        //                 $q->orWhere($columnName, 'like', "%{$searchValue}%");
+        //             }
+        //         }
+        //     });
+        // }
+
+        // Filter kolom
+        foreach ($columns as $column) {
+            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnName = $column['data'];
+            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
+                continue;
+            } else if ($columnName == 'status') {
+                if (strpos(strtolower($columnSearchValue), 'non') !== false)
+                    $mDifficulties->where('status', '=', 0);
+                else
+                    $mDifficulties->where('status', '=', 1);
+            } else {
+                $mDifficulties->where($columnName, 'like', "%{$columnSearchValue}%");
+            }
+        }
+
+        return DataTables::of($mDifficulties)
+            ->addIndexColumn() // Adds DT_RowIndex for serial number
+            ->addColumn('id', function ($row) {
+                return $row->id;
+            })
+            ->addColumn('name', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->name) . '">'
+                    . \Str::limit(e($row->name), 30)
+                    . '</span>';
+            })
+            ->addColumn('description', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' 
+                    . e(strip_tags($row->description)) . '">' 
+                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') 
+                    . '</span>';
+            })
+            ->addColumn('created_at', function ($row) {
+                return $row->created_at;
+            })
+            ->addColumn('created_id', function ($row) {
+                return $row->created_id;
+            })
+            ->addColumn('updated_at', function ($row) {
+                return $row->updated_at;
+            })
+            ->addColumn('updated_id', function ($row) {
+                return $row->updated_id;
+            })
+            ->addColumn('status', function ($row) {
+                return '<button 
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
+                    data-id="' . $row->id . '" 
+                    data-status="' . $row->status . '"
+                    data-model="MDifficultyType">
+                    ' . ($row->status == 1 ? 'Aktif' : 'Non aktif') . '
+                </button>';
+            })
+            ->addColumn('action', function ($row) {
+                return '<a href="' . route('getEditDifficultyType', ['id' => $row->id]) . '" 
+                            class="btn btn-primary rounded">Ubah</a>';
+            })
+            ->orderColumn('id', 'id $1')
+            ->rawColumns(['name', 'slug', 'description', 'status', 'action']) // Allow HTML rendering
+            ->make(true);
     }
 
     function getAddDifficulty(){
@@ -19,7 +115,7 @@ class MDifficultyTypeController extends Controller
 
     function postAddDifficulty(Request $request){
         $validate = $request->validate([
-            'name' => 'required'
+            'name' => 'required|string|max:255'
         ]);
 
         if ($validate){
@@ -45,7 +141,7 @@ class MDifficultyTypeController extends Controller
 
     function postEditDifficulty(Request $request){
         $validate = $request->validate([
-            'name' => 'required'
+            'name' => 'required|string|max:255'
         ]);
 
         if($validate){

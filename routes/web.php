@@ -179,6 +179,8 @@ Route::group(['middleware' => 'auth'], function () {
     // difficulty course route
     Route::get('/course/difficulty', [MDifficultyTypeController::class, 'getDifficulty'])->name('getDifficulty')->middleware('access:m_difficulty_type_manage');
 
+    Route::get('/course/difficulty/data', [MDifficultyTypeController::class, 'getMDifficultyData'])->name('getMDifficultyData');
+
     Route::get('/course/difficulty/add', [MDifficultyTypeController::class, 'getAddDifficulty'])->name('getAddDifficultyType')->middleware('access:m_difficulty_type_create');
     Route::post('/course/difficulty/add', [MDifficultyTypeController::class, 'postAddDifficulty'])->name('postAddDifficultyType')->middleware('access:m_difficulty_type_create');
 
