@@ -51,95 +51,91 @@
                     </p>
 
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100" colvis=[]>
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Id</th>
-                                <th class="data-long">Nama Mata Kuliah</th>
-                                {{-- <th>Harga Promo</th>
-                                <th>Harga</th> --}}
-                                <th>Jenis Mata Kuliah</th>
-                                <th>SKS</th>
-                                <th>Durasi</th>
-                                <th class="data-long">Deskripsi Pratinjau</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th class="data-long">Konten</th>
-                                <th>Dibuat Pada</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Status</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($courses as $key => $item)
+                    @if (env('APP_ENV')=='local')
+                        <table id="datatable" class="table table-bordered dt-responsive nowrap w-100" data-server-processing="true" data-url="{{ route('getCourseData') }}" data-colvis="[-3, -4, -5, -6, -12]">
+                            <thead>
                                 <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->id }}</td>
-                                    <td data-export="{{ $item->name }}" class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->name }}">
-                                        {!! \Str::limit($item->name, 30) !!}
-                                    </td>
-                                    {{-- <td>{{ $item->fake_price ? 'Rp ' . number_format($item->fake_price, 0, ',', '.') : '-' }}
-                                    </td>
-                                    <td>{{ $item->price ? 'Rp ' . number_format($item->price, 0, ',', '.') : '-' }}</td> --}}
-
-                                    <td class="data-long">
-                                        {{ $item->type->name }}
-                                    </td>
-                                    <td>{{ $item->credits }}</td>
-                                    <td>{{ sprintf('%02d:00:00', $item->duration) }}</td>
-                                    <td data-export="{!! strip_tags($item->short_description) !!}" class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->short_description) !!}">
-                                        {{ !empty($item->short_description) ? \Str::limit(strip_tags($item->short_description), 30) : '-' }}
-                                    </td>
-                                    <td data-export="{{ $item->description }}" class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->description) !!}">
-                                        {{ !empty($item->description) ? \Str::limit(strip_tags($item->description), 30) : '-' }}
-                                    </td>
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->content) !!}">
-                                        {{ !empty($item->content) ? \Str::limit(strip_tags($item->content), 30) : '-' }}
-                                    </td>
-                                    <td>{{ $item->created_at->format('Y-m-d H:i') }}</td>
-                                    <td>{{ $item->updated_at->format('Y-m-d H:i') }}</td>
-                                    <td data-export="{{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}">
-                                        <button
-                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
-                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
-                                            data-model="Course">
-                                            {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('getEditCourse', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Ubah</a>
-                                        <a href="{{ route('getCourseModule', ['course_id' => $item->id, 'page_type' => 'LMS']) }}"
-                                            class="btn btn-outline-primary rounded-end">Daftar Modul</a>
-                                    </td>
+                                    <th>No</th>
+                                    <th>Id</th>
+                                    <th class="data-long">Nama Mata Kuliah</th>
+                                    <th>Jenis Mata Kuliah</th>
+                                    <th>SKS</th>
+                                    <th>Durasi</th>
+                                    <th class="data-long">Deskripsi Pratinjau</th>
+                                    <th class="data-long">Catatan Admin</th>
+                                    <th class="data-long">Konten</th>
+                                    <th>Dibuat Pada</th>
+                                    <th>Diperbarui Pada</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>No</th>
-                                <th>Id</th>
-                                <th class="">Nama Mata Kuliah</th>
-                                {{-- <th>Harga Promo</th>
-                                <th>Harga</th> --}}
-                                <th>Jenis Mata Kuliah</th>
-                                <th>SKS</th>
-                                <th>Durasi</th>
-                                <th>Deskripsi Pratinjau</th>
-                                <th>Catatan Admin</th>
-                                <th>Konten</th>
-                                <th>Dibuat Pada</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Status</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Id</th>
+                                    <th class="">Nama Mata Kuliah</th>
+                                    <th>Jenis Mata Kuliah</th>
+                                    <th>SKS</th>
+                                    <th>Durasi</th>
+                                    <th>Deskripsi Pratinjau</th>
+                                    <th>Catatan Admin</th>
+                                    <th>Konten</th>
+                                    <th>Dibuat Pada</th>
+                                    <th>Diperbarui Pada</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    @else
+                        <table id="datatable" class="table table-bordered dt-responsive nowrap w-100" data-server-processing="true" data-url="{{ route('getCourseData') }}" data-colvis="[-3, -4, -5, -6, -11, -12, -15]">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Id</th>
+                                    <th class="data-long">Nama Mata Kuliah</th>
+                                    <th>Harga Promo</th>
+                                    <th>Harga</th>
+                                    <th>Jenis Mata Kuliah</th>
+                                    <th>SKS</th>
+                                    <th>Durasi</th>
+                                    <th class="data-long">Deskripsi Pratinjau</th>
+                                    <th class="data-long">Catatan Admin</th>
+                                    <th class="data-long">Konten</th>
+                                    <th>Dibuat Pada</th>
+                                    <th>Diperbarui Pada</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Id</th>
+                                    <th class="">Nama Mata Kuliah</th>
+                                    <th>Harga Promo</th>
+                                    <th>Harga</th>
+                                    <th>Jenis Mata Kuliah</th>
+                                    <th>SKS</th>
+                                    <th>Durasi</th>
+                                    <th>Deskripsi Pratinjau</th>
+                                    <th>Catatan Admin</th>
+                                    <th>Konten</th>
+                                    <th>Dibuat Pada</th>
+                                    <th>Diperbarui Pada</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    @endif
                 </div>
             </div>
         </div>
@@ -156,6 +152,43 @@
 @endsection
 
 @section('script')
+    <script>
+        @if (env('APP_ENV')=='local')
+            const columns = [
+                { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
+                { data: "id", name: "id" },
+                { data: "name", name: "name", orderable: true, searchable: true },
+                { data: "m_course_type_id", name: "m_course_type_id", orderable: true, searchable: true },
+                { data: "credits", name: "credits", orderable: true, searchable: true },
+                { data: "duration", name: "duration", orderable: true, searchable: true },
+                { data: "short_description", name: "short_description", orderable: true, searchable: true },
+                { data: "description", name: "description", orderable: true, searchable: true },
+                { data: "content", name: "content", orderable: true, searchable: true },
+                { data: "created_at", name: "created_at" },
+                { data: "updated_at", name: "updated_at" },
+                { data: "status", name: "status", orderable: true, searchable: true },
+                { data: "action", name: "action", orderable: false, searchable: false },
+            ];
+        @else
+            const columns = [
+                { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
+                { data: "id", name: "id" },
+                { data: "name", name: "name", orderable: true, searchable: true },
+                { data: "fake_price", name: "fake_price", orderable: true, searchable: true },
+                { data: "price", name: "price", orderable: true, searchable: true },
+                { data: "m_course_type_id", name: "m_course_type_id", orderable: true, searchable: true },
+                { data: "credits", name: "credits", orderable: true, searchable: true },
+                { data: "duration", name: "duration", orderable: true, searchable: true },
+                { data: "short_description", name: "short_description", orderable: true, searchable: true },
+                { data: "description", name: "description", orderable: true, searchable: true },
+                { data: "content", name: "content", orderable: true, searchable: true },
+                { data: "created_at", name: "created_at" },
+                { data: "updated_at", name: "updated_at" },
+                { data: "status", name: "status", orderable: true, searchable: true },
+                { data: "action", name: "action", orderable: false, searchable: false },
+            ];
+        @endif
+    </script>
     <!-- Tambahkan skrip kustom di sini jika diperlukan -->
     @if (session('course_added'))
         <script>

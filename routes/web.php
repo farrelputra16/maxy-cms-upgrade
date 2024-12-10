@@ -110,6 +110,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/course/edit', [CourseController::class, 'postEditCourse'])->name('postEditCourse')->middleware('access:course_update');
 
     Route::get('/course/MBKM', [CourseController::class, 'getCourseMBKM'])->name('getCourseMBKM')->middleware('access:course_manage');
+    Route::get('/course/MBKM/data', [CourseController::class, 'getCourseMBKMData'])->name('getCourseMBKMData');
 
     Route::get('/course/add/MBKM', [CourseController::class, 'getAddMBKM'])->name('getAddMBKM')->middleware('access:course_create');
 
