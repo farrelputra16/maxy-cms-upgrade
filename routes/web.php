@@ -224,6 +224,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Event type
     Route::get('/event/type', [MEventTypeController::class, 'getEventType'])->name('getEventType')->middleware('access:m_event_type_manage');
 
+    Route::get('/event/type/data', [MEventTypeController::class, 'getEventTypeData'])->name('getEventTypeData');
+
     Route::get('/event/type/add', [MEventTypeController::class, 'getAddEventType'])->name('getAddEventType')->middleware('access:m_event_type_create');
     Route::post('/event/type/add', [MEventTypeController::class, 'postAddEventType'])->name('postAddEventType')->middleware('access:m_event_type_create');
 
