@@ -202,6 +202,8 @@ Route::group(['middleware' => 'auth'], function () {
     // proposal type
     Route::get('/proposal/type', [MProposalTypeController::class, 'getProposalType'])->name('getProposalType')->middleware('access:m_proposal_type_manage');
 
+    Route::get('/proposal/type/data', [MProposalTypeController::class, 'getProposalTypeData'])->name('getProposalTypeData');
+
     Route::get('/proposal/type/add', [MProposalTypeController::class, 'getAddProposalType'])->name('getAddProposalType')->middleware('access:m_proposal_type_create');
     Route::post('/proposal/type/add', [MProposalTypeController::class, 'postAddProposalType'])->name('postAddProposalType')->middleware('access:m_proposal_type_create');
 
