@@ -149,16 +149,16 @@
                                             class="btn btn-outline-primary btn-sm">Absensi</a>
                                         <a href="{{ route('getCourseClassScoring', ['id' => $item->id]) }}"
                                             class="btn btn-outline-primary btn-sm">Penilaian</a>
-
-                                        <form id="delete-course-class-form-{{ $item->id }}"
-                                            action="{{ route('deleteCourseClass', ['id' => $item->id]) }}" method="POST"
-                                            class="d-inline-block" data-course-name="{{ $item->course_name }}">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="button"
-                                                class="btn btn-sm btn-danger delete-course-class-btn">Hapus</button>
-                                        </form>
-
+                                        @if(Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'course_class_delete'))
+                                            <form id="delete-course-class-form-{{ $item->id }}"
+                                                action="{{ route('deleteCourseClass', ['id' => $item->id]) }}" method="POST"
+                                                class="d-inline-block" data-course-name="{{ $item->course_name }}">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="button"
+                                                    class="btn btn-sm btn-danger delete-course-class-btn">Hapus</button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -197,6 +197,8 @@
     <!-- Akhir Konten -->
 
     <!-- FAB Add Starts -->
+    @if(Session::has('access_master') && 
+        Session::get('access_master')->contains('access_master_name', 'course_class_create'))
     <div id="floating-whatsapp-button" style='margin-bottom: 5%;'>
         <a href="{{ route('getAddCourseClass') }}" target="_blank" data-toggle="tooltip" title="Add New Course Class">
             <i class="fas fa-plus"></i>
@@ -208,6 +210,7 @@
             <i class="fa-solid fa-copy"></i>
         </a>
     </div>
+    @endif
     <!-- FAB Add Ends -->
 @endsection
 
