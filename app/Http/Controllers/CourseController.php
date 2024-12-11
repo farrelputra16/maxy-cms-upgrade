@@ -538,7 +538,7 @@ class CourseController extends Controller
             'mini_price' => 'nullable|string',
             'credits' => 'nullable|numeric|min:0',
             'duration' => 'nullable|numeric|min:0',
-            'short_description' => 'nullable|string|max:255',
+            'short_description' => 'nullable|string',
             'file_image' => [
                 'nullable',
                 'image',
