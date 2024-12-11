@@ -11,8 +11,8 @@ use Yajra\DataTables\Facades\DataTables;
 class MJobdescController extends Controller
 {
     function getJobdesc(){
-        $MJobdesc = MJobdesc::all();
-        return view('m_jobdesc.indexv3', ['MJobdesc' => $MJobdesc]);
+        // $MJobdesc = MJobdesc::all();
+        return view('m_jobdesc.indexv3');
     }
 
     function getJobdescData(Request $request){

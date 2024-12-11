@@ -268,6 +268,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Class Type
     Route::get('/classtype', [MClassTypeController::class, 'getClassType'])->name('getClassType')->middleware('access:m_class_type_manage');
+
+    Route::get('/classtype/data', [MClassTypeController::class, 'getClassTypeData'])->name('getClassTypeData');
     Route::get('/classtype/add', [MClassTypeController::class, 'getAddClassType'])->name('getAddClassType')->middleware('access:m_class_type_create');
     Route::post('/classtype/add', [MClassTypeController::class, 'postAddClassType'])->name('postAddClassType')->middleware('access:m_class_type_create');
 
