@@ -258,6 +258,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Jobdesc
     Route::get('/jobdesc', [MJobdescController::class, 'getJobdesc'])->name('getJobdesc')->middleware('access:m_jobdesc_manage');
 
+    Route::get('/jobdesc/data', [MJobdescController::class, 'getJobdescData'])->name('getJobdescData');
+
     Route::get('/jobdesc/add', [MJobdescController::class, 'getAddJobdesc'])->name('getAddJobdesc')->middleware('access:m_jobdesc_create');
     Route::post('/jobdesc/add', [MJobdescController::class, 'postAddJobdesc'])->name('postAddJobdesc')->middleware('access:m_jobdesc_create');
 
