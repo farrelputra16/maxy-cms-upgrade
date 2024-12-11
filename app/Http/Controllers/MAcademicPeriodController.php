@@ -11,8 +11,8 @@ use Yajra\DataTables\Facades\DataTables;
 class MAcademicPeriodController extends Controller
 {
     function getAcademicPeriod(){
-        $MAcademicPeriod = MAcademicPeriod::all();
-        return view('m_academic_period.indexv3', ['MAcademicPeriod' => $MAcademicPeriod]);
+        // $MAcademicPeriod = MAcademicPeriod::all();
+        return view('m_academic_period.indexv3');
     }
 
     function getMAcademicPeriodData(Request $request){

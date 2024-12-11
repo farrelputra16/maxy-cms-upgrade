@@ -301,6 +301,8 @@ Route::group(['middleware' => 'auth'], function () {
     // score
     Route::get('/m_score', [MScoreController::class, 'getScore'])->name('getScore')->middleware('access:m_score_manage');
 
+    Route::get('/m_score/data', [MScoreController::class, 'getScoreData'])->name('getScoreData');
+
     Route::get('/m_score/add', [MScoreController::class, 'getAddScore'])->name('getAddScore')->middleware('access:m_score_create');
     Route::post('/m_score/add', [MScoreController::class, 'postAddScore'])->name('postAddScore')->middleware('access:m_score_create');
 

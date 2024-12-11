@@ -97,7 +97,7 @@
     <!-- Akhir Konten -->
     <!-- Tombol Tambah -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddAcademicPeriod', ['access' => 'm_Event_type_create']) }}" target="_blank">
+        <a href="{{ route('getAddAcademicPeriod', ['access' => 'm_academic_period_create']) }}" target="_blank">
             <i class="fas fa-plus"></i>
         </a>
     </div>
