@@ -33,7 +33,7 @@ $(document).ready(function () {
                       },
                   }
                 : null, // Jika tidak server-side, tidak perlu ajax
-            columns: columns,
+            ...(isServerProcessing && { columns: columns }),
             buttons: [
                 {
                     extend: 'copy',
