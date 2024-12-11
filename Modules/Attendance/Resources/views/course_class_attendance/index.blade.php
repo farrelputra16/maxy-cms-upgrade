@@ -40,7 +40,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>ID</th>
-                                <th class="data-medium">Nama Modul</th>
+                                <th class="data-medium">Nama Presensi</th>
                                 <th>Hari</th>
                                 <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
