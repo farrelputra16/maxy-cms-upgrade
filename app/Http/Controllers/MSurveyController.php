@@ -7,12 +7,123 @@ use Illuminate\Http\Request;
 use App\Models\MSurvey;
 use App\Models\SurveyResult;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Yajra\DataTables\Facades\DataTables;
 
 class MSurveyController extends Controller
 {
     function getSurvey(){
-        $MSurvey = MSurvey::all();
-        return view('m_survey.indexv3', ['MSurvey' => $MSurvey]);
+        // $MSurvey = MSurvey::all();
+        return view('m_survey.indexv3');
+    }
+
+    function getSurveyData(Request $request){
+        $searchValue = $request->input('search.value');
+        $orderColumnIndex = $request->input('order.1.column');
+        $orderDirection = $request->input('order.1.dir', 'asc');
+        $columns = $request->input('columns');//dd($orderDirection);
+
+        $orderColumn = 'id';
+        if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
+            $orderColumn = $columns[$orderColumnIndex]['data'];
+        }
+
+        $mSurvey = MSurvey::select('id', 'name', 'expired_date', 'type', 'description', 'created_at', 'created_id', 'updated_at', 'updated_id', 'status')
+            ->orderBy($orderColumn, $orderDirection);
+
+        // global search datatable
+        // if (!empty($searchValue)) {
+        //     $partners->where(function ($q) use ($searchValue, $columns) {
+        //         foreach ($columns as $column) {
+        //             $columnName = $column['data'];
+
+        //             if (in_array($columnName, ['DT_RowIndex', 'action'])) {
+        //                 continue;
+        //             } else if ($columnName === 'm_partner_type') {
+        //                 $q->orWhereHas('MPartnerType', function ($query) use ($searchValue) {
+        //                     $query->where('name', 'like', "%{$searchValue}%");
+        //                 });
+        //             } else {
+        //                 $q->orWhere($columnName, 'like', "%{$searchValue}%");
+        //             }
+        //         }
+        //     });
+        // }
+
+        // Filter kolom
+        foreach ($columns as $column) {
+            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnName = $column['data'];
+            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
+                continue;
+            } else if ($columnName == 'status') {
+                if (strpos(strtolower($columnSearchValue), 'non') !== false)
+                    $mSurvey->where('status', '=', 0);
+                else
+                    $mSurvey->where('status', '=', 1);
+            } else {
+                $mSurvey->where($columnName, 'like', "%{$columnSearchValue}%");
+            }
+        }
+
+        return DataTables::of($mSurvey)
+            ->addIndexColumn() // Adds DT_RowIndex for serial number
+            ->addColumn('id', function ($row) {
+                return $row->id;
+            })
+            ->addColumn('name', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->name) . '">'
+                    . \Str::limit(e($row->name), 30)
+                    . '</span>';
+            })
+            ->addColumn('url', function ($row) {
+                return config('app.frontend_app_url') . '/lms/survey/' . $row->id;
+            })
+            ->addColumn('expired_date', function ($row) {
+                return $row->expired_date;
+            })
+            ->addColumn('type', function ($row) {
+                if ($row->type == 0)
+                    return '<span class="badge text-bg-warning" style="padding: 15%; font-size: smaller;">Evaluasi</span>';
+                elseif ($row->type == 1)
+                    return '<span class="badge text-bg-primary" style="padding: 15%; font-size: smaller;">Kuis</span>';
+            })
+            ->addColumn('description', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' 
+                    . e(strip_tags($row->description)) . '">' 
+                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') 
+                    . '</span>';
+            })
+            ->addColumn('created_at', function ($row) {
+                return $row->created_at;
+            })
+            ->addColumn('created_id', function ($row) {
+                return $row->created_id;
+            })
+            ->addColumn('updated_at', function ($row) {
+                return $row->updated_at;
+            })
+            ->addColumn('updated_id', function ($row) {
+                return $row->updated_id;
+            })
+            ->addColumn('status', function ($row) {
+                return '<button 
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
+                    data-id="' . $row->id . '" 
+                    data-status="' . $row->status . '"
+                    data-model="MSurvey">
+                    ' . ($row->status == 1 ? 'Aktif' : 'Non aktif') . '
+                </button>';
+            })
+            ->addColumn('action', function ($row) {
+                return '<a href="' . route('getEditSurvey', ['id' => $row->id, 'access' => 'm_survey_update']) . '" 
+                            class="btn btn-primary rounded">Ubah</a>' . " " .
+                        '<a href="' . route('getSurveyResult', ['id' => $row->id, 'access' => 'survey_result_manage']) . '" 
+                            class="btn btn-info rounded">Hasil</a>';
+            })
+            ->orderColumn('id', 'id $1')
+            ->rawColumns(['name', 'type', 'description', 'status', 'action']) // Allow HTML rendering
+            ->make(true);
     }
 
     function getAddSurvey(){
@@ -91,10 +202,107 @@ class MSurveyController extends Controller
     }
 
     function getSurveyResult(Request $request){
-        $SurveyResult = SurveyResult::with('MSurvey', 'User')
-            ->where('survey_id', $request->id)
-            ->get();
-        return view('m_survey.result.indexv3', ['SurveyResult' => $SurveyResult]);
+        // $SurveyResult = SurveyResult::with('MSurvey', 'User')
+        //     ->where('survey_id', $request->id)
+        //     ->get();
+        $surveyId = $request->id;
+        return view('m_survey.result.indexv3', compact('surveyId'));
+    }
+
+    function getSurveyResultData(Request $request){
+        $surveyId = $request->input('id');
+        $searchValue = $request->input('search.value');
+        $orderColumnIndex = $request->input('order.1.column');
+        $orderDirection = $request->input('order.1.dir', 'asc');
+        $columns = $request->input('columns');//dd($orderDirection);
+
+        $orderColumn = 'id';
+        if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
+            $orderColumn = $columns[$orderColumnIndex]['data'];
+        }
+
+        $mSurveyResult = SurveyResult::with('MSurvey', 'User')
+            ->where('survey_id', $surveyId)
+            ->select('id', 'survey_id', 'user_id', 'content', 'score', 'created_at', 'created_id', 'updated_at', 'updated_id')
+            ->orderBy($orderColumn, $orderDirection);
+        
+        // global search datatable
+        // if (!empty($searchValue)) {
+        //     $partners->where(function ($q) use ($searchValue, $columns) {
+        //         foreach ($columns as $column) {
+        //             $columnName = $column['data'];
+
+        //             if (in_array($columnName, ['DT_RowIndex', 'action'])) {
+        //                 continue;
+        //             } else if ($columnName === 'm_partner_type') {
+        //                 $q->orWhereHas('MPartnerType', function ($query) use ($searchValue) {
+        //                     $query->where('name', 'like', "%{$searchValue}%");
+        //                 });
+        //             } else {
+        //                 $q->orWhere($columnName, 'like', "%{$searchValue}%");
+        //             }
+        //         }
+        //     });
+        // }
+
+        // Filter kolom
+        foreach ($columns as $column) {
+            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnName = $column['data'];
+            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
+                continue;
+            } else if ($columnName == 'status') {
+                if (strpos(strtolower($columnSearchValue), 'non') !== false)
+                    $mSurveyResult->where('status', '=', 0);
+                else
+                    $mSurveyResult->where('status', '=', 1);
+            } else {
+                $mSurveyResult->where($columnName, 'like', "%{$columnSearchValue}%");
+            }
+        }
+
+        return DataTables::of($mSurveyResult)
+            ->addIndexColumn() // Adds DT_RowIndex for serial number
+            ->addColumn('id', function ($row) {
+                return $row->id;
+            })
+            ->addColumn('name', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->MSurvey->name) . '">'
+                    . $row->MSurvey->name ? \Str::limit(e($row->MSurvey->name), 30) : "-"
+                    . '</span>';
+            })
+            ->addColumn('responden_name', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->User->name) . '">'
+                    . $row->User->name ? \Str::limit(e($row->User->name), 30) : "-"
+                    . '</span>';
+            })
+            ->addColumn('content', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->content)) . '">'
+                    . !empty($row->content) ? \Str::limit(e($row->content), 30) : "-"
+                    . '</span>';
+            })
+            ->addColumn('score', function ($row) {
+                return $row->score;
+            })
+            ->addColumn('created_at', function ($row) {
+                return $row->created_at;
+            })
+            ->addColumn('created_id', function ($row) {
+                return $row->created_id;
+            })
+            ->addColumn('updated_at', function ($row) {
+                return $row->updated_at;
+            })
+            ->addColumn('updated_id', function ($row) {
+                return $row->updated_id;
+            })
+            ->addColumn('action', function ($row) {
+                return '<a href="' . route('getSurveyResultDetail', ['id' => $row->id, 'access' => 'survey_result_read']) . '" 
+                            class="btn btn-primary rounded">Detail</a>';
+            })
+            ->orderColumn('id', 'id $1')
+            ->rawColumns(['name', 'responden_name', 'content','action']) // Allow HTML rendering
+            ->make(true);
     }
 
     function getSurveyResultDetail(Request $request){

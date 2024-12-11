@@ -49,7 +49,10 @@
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
-                        data-colvis="[1, 6, 7, 8, 9]">
+                        data-server-processing="true" 
+                        data-url="{{ route('getSurveyResultData') }}" 
+                        data-colvis="[1, -3, -4, -5, -6]"
+                        data-id="{{ $surveyId }}">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -66,33 +69,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($SurveyResult as $key => $item)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->id }}</td>
-                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->MSurvey->name }}">
-                                        {!! \Str::limit($item->MSurvey->name, 30) !!}
-                                    </td>
-                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->User->name }}">
-                                        {!! \Str::limit($item->User->name, 30) !!}
-                                    </td>
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->content) !!}">
-                                        {!! !empty($item->content) ? \Str::limit($item->content, 30) : '-' !!}
-                                    </td>
-                                    <td>{{ $item->score }}</td>
-                                    <td>{{ $item->created_at }}</td>
-                                    <td>{{ $item->created_id }}</td>
-                                    <td>{{ $item->updated_at }}</td>
-                                    <td>{{ $item->updated_id }}</td>
-                                    <td>
-                                        <a href="{{ route('getSurveyResultDetail', ['id' => $item->id, 'access' => 'survey_result_read']) }}"
-                                            class="btn btn-primary rounded">Detail</a>
-                                    </td>
-                                </tr>
-                            @endforeach
+                            
                         </tbody>
                         <tfoot>
                             <tr>
@@ -118,5 +95,19 @@
 @endsection
 
 @section('script')
-
+<script>
+    const columns = [
+        { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
+        { data: "id", name: "id" },
+        { data: "name", name: "name", orderable: true, searchable: true },
+        { data: "responden_name", name: "responden_name", orderable: true, searchable: true },
+        { data: "content", name: "content", orderable: true, searchable: true },
+        { data: "score", name: "score", orderable: true, searchable: true },
+        { data: "created_at", name: "created_at", orderable: true, searchable: false },
+        { data: "created_id", name: "created_id", orderable: false, searchable: false },
+        { data: "updated_at", name: "updated_at", orderable: true, searchable: false },
+        { data: "updated_id", name: "updated_id", orderable: false, searchable: false },
+        { data: "action", name: "action", orderable: false, searchable: false },
+    ];
+</script>
 @endsection

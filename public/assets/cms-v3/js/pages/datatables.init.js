@@ -12,6 +12,7 @@ $(document).ready(function () {
         var colVis = table.data("colvis")
             ? table.data("colvis")
             : [-6, -5, -4, -3, 1];
+        var id = table.data("id");
 
         // Inisialisasi DataTable dengan atau tanpa server-side processing
         var tableInstance = table.DataTable({
@@ -28,6 +29,7 @@ $(document).ready(function () {
                       data: function (d) {
                           // Tambahkan data tambahan jika diperlukan
                           d.class_id = $("#classSelect").val(); // Misal mengambil class_id dari dropdown
+                          d.id = id;
                       },
                   }
                 : null, // Jika tidak server-side, tidak perlu ajax

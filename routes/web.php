@@ -275,6 +275,8 @@ Route::group(['middleware' => 'auth'], function () {
     // survey
     Route::get('/survey', [MSurveyController::class, 'getSurvey'])->name('getSurvey')->middleware('access:m_survey_manage');
 
+    Route::get('/survey/data', [MSurveyController::class, 'getSurveyData'])->name('getSurveyData');
+
     Route::get('/survey/add', [MSurveyController::class, 'getAddSurvey'])->name('getAddSurvey')->middleware('access:m_survey_create');
     Route::post('/survey/add', [MSurveyController::class, 'postAddSurvey'])->name('postAddSurvey')->middleware('access:m_survey_create');
 
@@ -282,6 +284,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/survey/edit', [MSurveyController::class, 'postEditSurvey'])->name('postEditSurvey')->middleware('access:m_survey_update');
 
     Route::get('/survey/result', [MSurveyController::class, 'getSurveyResult'])->name('getSurveyResult')->middleware('access:survey_result_manage');
+    Route::get('/survey/result/data', [MSurveyController::class, 'getSurveyResultData'])->name('getSurveyResultData');
     Route::get('/survey/result/detail', [MSurveyController::class, 'getSurveyResultDetail'])->name('getSurveyResultDetail')->middleware('access:survey_result_read');
 
     // academic period
