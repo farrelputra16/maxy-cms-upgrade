@@ -241,10 +241,10 @@ class CourseClassController extends Controller
             $classList[] = $classDetail;
         }
 
-        $courseList = Course::all();
+        // $courseList = Course::all();
 
         return view('classcontentmanagement::course_class.duplicatev3', [
-            'course_list' => $courseList,
+            // 'course_list' => $courseList,
             'class_list' => $classList,
             'allClassType' => $allClassType
         ]);
@@ -301,58 +301,69 @@ class CourseClassController extends Controller
 
     public function postDuplicateCourseClass(Request $request)
     {
-        $courseClass = CourseClass::where('id', $request->course_class_id)->first();
-        $courseClass->batch = $request->batch;
-        $courseClass->semester = $request->semester;
-        $courseClass->m_class_type_id = $request->class_type_id;
-        $courseClass->course_id = $request->course_id;
+        $validated = $request->validate([
+            'class_type_id' => 'required',
+            'ongoing' => 'required',
+        ]);
 
-        // insert course class yang telah diubah
-        $newCourseClass = $courseClass->replicate();
-
-        // Memeriksa jika start_date tidak valid dan menggantinya dengan tanggal hari ini
-        if ($newCourseClass->start_date == '0000-00-00') {
-            $currentDate = date('Y-m-d');
-            $newCourseClass->start_date = $currentDate;
-        }
-        // Memeriksa jika end_date tidak valid dan menggantinya dengan tanggal hari ini
-        if ($newCourseClass->end_date == '0000-00-00') {
-            $currentDate = date('Y-m-d');
-            $newCourseClass->end_date = $currentDate;
-        }
-        // mengubah status dari class baru
-        if ($request->status == null) {
-            $newCourseClass->status = 0;
-        } else {
-            $newCourseClass->status = 1;
-        }
-
-        $newCourseClass->save();
-
-        // mengambil id course class yang barusan dibuat
-        $lastCourseClassId = CourseClass::orderBy('id', 'desc')->first();
-
-        // mengambil id course class module yang ingin di duplicate
-        $courseClassModule = CourseClassModule::where('course_class_id', $request->course_class_id)->get();
-
-        // Duplicate setiap course class module
-        foreach ($courseClassModule as $module) {
-            $newModule = $module->replicate();
-            $newModule->course_class_id = $lastCourseClassId->id;
-
-            // Memeriksa jika start_date tidak valid dan menggantinya dengan waktu hari ini
-            if ($newModule->start_date == '0000-00-00 00:00:00') {
-                $newModule->start_date = now();
+        if ($validated) {
+            $courseClass = CourseClass::with('course')->where('id', $request->course_class_id)->first();
+            $courseClass->slug = $courseClass->course->name . '-' . $request->batch;
+            $courseClass->batch = $request->batch;
+            $courseClass->semester = $request->semester;
+            $courseClass->m_class_type_id = $request->class_type_id;
+            if ($request->ongoing != null) {
+                $courseClass->status_ongoing = $request->ongoing;
             }
-            // Memeriksa jika end_date tidak valid dan menggantinya dengan waktu hari ini
-            if ($newModule->end_date == '0000-00-00 00:00:00') {
-                $newModule->end_date = now();
+            // $courseClass->course_id = $request->course_id;
+            
+            // insert course class yang telah diubah
+            $newCourseClass = $courseClass->replicate();
+            
+            // Memeriksa jika start_date tidak valid dan menggantinya dengan tanggal hari ini
+            if ($newCourseClass->start_date == '0000-00-00') {
+                $currentDate = date('Y-m-d');
+                $newCourseClass->start_date = $currentDate;
             }
-
-            $newModule->save();
+            // Memeriksa jika end_date tidak valid dan menggantinya dengan tanggal hari ini
+            if ($newCourseClass->end_date == '0000-00-00') {
+                $currentDate = date('Y-m-d');
+                $newCourseClass->end_date = $currentDate;
+            }
+            // mengubah status dari class baru
+            if ($request->status == null) {
+                $newCourseClass->status = 0;
+            } else {
+                $newCourseClass->status = 1;
+            }
+    
+            $newCourseClass->save();
+    
+            // mengambil id course class yang barusan dibuat
+            $lastCourseClassId = CourseClass::orderBy('id', 'desc')->first();
+    
+            // mengambil id course class module yang ingin di duplicate
+            $courseClassModule = CourseClassModule::where('course_class_id', $request->course_class_id)->get();
+    
+            // Duplicate setiap course class module
+            foreach ($courseClassModule as $module) {
+                $newModule = $module->replicate();
+                $newModule->course_class_id = $lastCourseClassId->id;
+    
+                // Memeriksa jika start_date tidak valid dan menggantinya dengan waktu hari ini
+                if ($newModule->start_date == '0000-00-00 00:00:00') {
+                    $newModule->start_date = now();
+                }
+                // Memeriksa jika end_date tidak valid dan menggantinya dengan waktu hari ini
+                if ($newModule->end_date == '0000-00-00 00:00:00') {
+                    $newModule->end_date = now();
+                }
+    
+                $newModule->save();
+            }
+    
+            return app(HelperController::class)->Positive('getCourseClass');
         }
-
-        return app(HelperController::class)->Positive('getCourseClass');
     }
 
     function getEditCourseClass(Request $request)

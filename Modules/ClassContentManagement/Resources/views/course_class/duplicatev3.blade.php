@@ -68,7 +68,7 @@
                         </div>
                         <br>
                         <h4><b>Kelas Baru</b></h4>
-                        <div class="mb-3 row">
+                        {{-- <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Mata Kuliah</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_id"
@@ -83,7 +83,7 @@
                                     @endforeach
                                 @endif
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Kelas Paralel</label>
                             <div class="col-md-10">
@@ -121,6 +121,24 @@
                                     @endforeach
                                 </select>
                                 @error('class_type_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="ongoing" class="col-md-2 col-form-label">Status Kelas <span class="text-danger"
+                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <div class="col-md-10">
+                                <select class="form-control select2" name="ongoing" id="ongoing"
+                                    data-placeholder="Pilih Status Kelas">
+                                    <option value="" disabled selected>Pilih Status...</option>
+                                    <option value="0" {{ old('ongoing') == '0' ? 'selected' : '' }}>Belum Dimulai
+                                    </option>
+                                    <option value="1" {{ old('ongoing') == '1' ? 'selected' : '' }}>Sedang Berjalan
+                                    </option>
+                                    <option value="2" {{ old('ongoing') == '2' ? 'selected' : '' }}>Selesai</option>
+                                </select>
+                                @error('ongoing')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
