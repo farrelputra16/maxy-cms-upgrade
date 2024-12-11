@@ -290,6 +290,8 @@ Route::group(['middleware' => 'auth'], function () {
     // academic period
     Route::get('/academic_period', [MAcademicPeriodController::class, 'getAcademicPeriod'])->name('getAcademicPeriod')->middleware('access:m_academic_period_manage');
 
+    Route::get('/academic_period/data', [MAcademicPeriodController::class, 'getMAcademicPeriodData'])->name('getMAcademicPeriodData');
+
     Route::get('/academic_period/add', [MAcademicPeriodController::class, 'getAddAcademicPeriod'])->name('getAddAcademicPeriod')->middleware('access:m_academic_period_create');
     Route::post('/academic_period/add', [MAcademicPeriodController::class, 'postAddAcademicPeriod'])->name('postAddAcademicPeriod')->middleware('access:m_academic_period_create');
 
