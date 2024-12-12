@@ -47,7 +47,9 @@
                     </ul>
                     </p>
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
+                        data-server-processing="true" data-url="{{ route('getEventData') }}"
+                        data-colvis="[1, -3, -4, -5, -6]">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -68,63 +70,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($events as $key => $item)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->id }}</td>
-
-                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->name }}">
-                                        {!! \Str::limit($item->name, 30) !!}
-                                    </td>
-                                    <td>
-                                        <img src="{{ asset('uploads/event/' . $item->image) }}" alt="Image"
-                                            style="max-width: 200px; max-height: 150px;">
-                                    </td>
-                                    <td>{{ $item->date_start }}</td>
-                                    <td>{{ $item->date_end }}</td>
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->description) !!}">
-                                        {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
-                                    </td>
-                                    <td>
-                                        @if ($item->is_need_verification == 1)
-                                            <a class="btn btn-success" style="pointer-events: none;">Ya</a>
-                                        @else
-                                            <a class="btn btn-danger" style="pointer-events: none;">Tidak</a>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($item->is_public == 1)
-                                            <a class="btn btn-success" style="text-decoration: none;">Ya</a>
-                                        @else
-                                            <a class="btn btn-danger" style="text-decoration: none;">Tidak</a>
-                                        @endif
-                                    </td>
-                                    <td>{{ $item->created_at }}</td>
-                                    <td>{{ $item->created_id }}</td>
-                                    <td>{{ $item->updated_at }}</td>
-                                    <td>{{ $item->updated_id }}</td>
-                                    <td>
-                                        <button
-                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
-                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
-                                            data-model="Event">
-                                            {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
-                                        </button>
-                                    </td>
-                                    <td>
-                                        {{-- <div class="btn-group"> --}}
-                                        <a href="{{ route('getEditEvent', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Ubah</a>
-                                        <a href="{{ route('getAttendanceEvent', ['id' => $item->id]) }}"
-                                            class="btn btn-info">Kehadiran</a>
-                                        <a href="{{ route('getEventRequirement', ['id' => $item->id]) }}"
-                                            class="btn btn-secondary">Persyaratan</a>
-                                        {{-- </div> --}}
-                                    </td>
-                                </tr>
-                            @endforeach
+                            
                         </tbody>
                         <tfoot>
                             <tr>
@@ -153,14 +99,107 @@
     <!-- End Content -->
 
     <!-- FAB Add Starts -->
+    @if (Session::has('access_master') &&
+            Session::get('access_master')->contains('access_master_name', 'event_create'))
     <div id="floating-whatsapp-button">
         <a href="{{ route('getAddEvent') }}" target="_blank">
             <i class="fas fa-plus"></i>
         </a>
     </div>
+    @endif
     <!-- FAB Add Ends -->
 @endsection
 
 @section('script')
-
+<script>
+    const columns = [{
+            data: "DT_RowIndex",
+            name: "DT_RowIndex",
+            orderable: false,
+            searchable: false
+        },
+        {
+            data: "id",
+            name: "id"
+        },
+        {
+            data: "name",
+            name: "name",
+            orderable: true,
+            searchable: true
+        },
+        {
+            data: "image",
+            name: "image",
+            orderable: false,
+            searchable: false
+        },
+        {
+            data: "date_start",
+            name: "date_start",
+            orderable: true,
+            searchable: true
+        },
+        {
+            data: "date_end",
+            name: "date_end",
+            orderable: true,
+            searchable: true
+        },
+        {
+            data: "description",
+            name: "description",
+            orderable: true,
+            searchable: true
+        },
+        {
+            data: "is_need_verification",
+            name: "is_need_verification",
+            orderable: true,
+            searchable: false
+        },
+        {
+            data: "is_public",
+            name: "is_public",
+            orderable: true,
+            searchable: false
+        },
+        {
+            data: "created_at",
+            name: "created_at",
+            orderable: true,
+            searchable: false
+        },
+        {
+            data: "created_id",
+            name: "created_id",
+            orderable: false,
+            searchable: false
+        },
+        {
+            data: "updated_at",
+            name: "updated_at",
+            orderable: true,
+            searchable: false
+        },
+        {
+            data: "updated_id",
+            name: "updated_id",
+            orderable: false,
+            searchable: false
+        },
+        {
+            data: "status",
+            name: "status",
+            orderable: true,
+            searchable: true
+        },
+        {
+            data: "action",
+            name: "action",
+            orderable: false,
+            searchable: false
+        },
+    ];
+</script>
 @endsection

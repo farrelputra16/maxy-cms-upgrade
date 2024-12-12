@@ -527,6 +527,8 @@ Route::post('/carousel/edit', [CarouselController::class, 'postEditCarousel'])->
 //Event Routes #########################################################################################################
 Route::get('/event', [EventController::class, 'getEvent'])->name('getEvent')->middleware('access:event_manage');
 
+Route::get('/event/data', [EventController::class, 'getEventData'])->name('getEventData');
+
 Route::get('/event/add', [EventController::class, 'getAddEvent'])->name('getAddEvent')->middleware('access:event_create');
 Route::post('/event/add', [EventController::class, 'postAddEvent'])->name('postAddEvent')->middleware('access:event_create');
 
