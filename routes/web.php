@@ -501,6 +501,8 @@ Route::post('/proposal/edit', [ProposalController::class, 'postEditProposal'])->
 //Transkrip Routes #########################################################################################################
 Route::get('/transkrip', [TranskripController::class, 'getTranskrip'])->name('getTranskrip')->middleware('access:transkrip_read');
 
+Route::get('/transkrip/data', [TranskripController::class, 'getTranskripData'])->name('getTranskripData');
+
 //                                     Maxy Talks
 //Testimonial Routes #########################################################################################################
 Route::get('maxytalk', [MaxyTalkController::class, 'getMaxyTalk'])->name('getMaxyTalk')->middleware('access:maxy_talk_manage');

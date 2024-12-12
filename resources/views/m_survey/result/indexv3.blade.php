@@ -50,8 +50,9 @@
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
                         data-server-processing="true" 
+                        data-no-status="true"
                         data-url="{{ route('getSurveyResultData') }}" 
-                        data-colvis="[1, -3, -4, -5, -6]"
+                        data-colvis="[1, -2, -3, -4, -5]"
                         data-id="{{ $surveyId }}">
                         <thead>
                             <tr>

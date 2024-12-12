@@ -47,7 +47,10 @@
 
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
-                        data-colvis="[1, 6, 7, 8, 9]">
+                        data-server-processing="true" 
+                        data-url="{{ route('getTranskripData') }}" 
+                        data-no-status="true"
+                        data-colvis="[1, -1, -2, -3, -4]">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -63,24 +66,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $key => $item)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->id }}</td>
-                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->User->name }}">
-                                        {!! \Str::limit($item->User->name, 30) !!}
-                                    </td>
-                                    <td>{{ optional(optional($item->CourseClass->Schedule->first())->MAcademicPeriod)->name ?? 'N/A' }}
-                                    </td>
-                                    <td>{{ $item->CourseClass->slug }}</td>
-                                    <td>{{ $item->MScore->name }}</td>
-                                    <td>{{ $item->created_at }}</td>
-                                    <td>{{ $item->created_id }}</td>
-                                    <td>{{ $item->updated_at }}</td>
-                                    <td>{{ $item->updated_id }}</td>
-                                </tr>
-                            @endforeach
+                            
                         </tbody>
                         <tfoot>
                             <tr>
@@ -105,5 +91,18 @@
 @endsection
 
 @section('script')
-
+<script>
+    const columns = [
+        { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
+        { data: "id", name: "id" },
+        { data: "name", name: "name", orderable: true, searchable: true },
+        { data: "academic_period", name: "academic_period", orderable: true, searchable: true },
+        { data: "slug", name: "slug", orderable: true, searchable: true },
+        { data: "score", name: "score", orderable: true, searchable: true },
+        { data: "created_at", name: "created_at", orderable: true, searchable: false },
+        { data: "created_id", name: "created_id", orderable: false, searchable: false },
+        { data: "updated_at", name: "updated_at", orderable: true, searchable: false },
+        { data: "updated_id", name: "updated_id", orderable: false, searchable: false },
+    ];
+</script>
 @endsection

@@ -13,6 +13,7 @@ $(document).ready(function () {
             ? table.data("colvis")
             : [-6, -5, -4, -3, 1];
         var id = table.data("id");
+        var noStatus = table.data("no-status");
 
         // Inisialisasi DataTable dengan atau tanpa server-side processing
         var tableInstance = table.DataTable({
@@ -167,29 +168,47 @@ $(document).ready(function () {
                     var title = $(column.header()).text(); // Ambil judul kolom dari header
                     var columnIndex = column.index();
                     var totalColumns = api.columns().count();
-                    var statusColumnIndex = totalColumns - 2; // Indeks kolom status (ke-2 dari akhir)
+                    if (!noStatus) {
+                        var statusColumnIndex = totalColumns - 2; // Indeks kolom status (ke-2 dari akhir)
 
-                    // Cek apakah kolom memiliki footer
-                    if ($(column.footer()).length) {
-                        if (columnIndex === statusColumnIndex) {
-                            // Membuat elemen dropdown untuk kolom status
-                            var select = $(
-                                '<select class="form-control"><option value="">All</option><option value="Aktif">Aktif</option><option value="Non Aktif">Nonaktif</option></select>'
-                            )
-                                .appendTo($(column.footer()).empty())
-                                .on("change", function () {
-                                    var val = $.fn.dataTable.util.escapeRegex(
-                                        $(this).val()
-                                    );
-                                    column
-                                        .search(
-                                            val ? "^" + val + "$" : "",
-                                            true,
-                                            false
-                                        )
-                                        .draw();
-                                });
-                        } else {
+                        // Cek apakah kolom memiliki footer
+                        if ($(column.footer()).length) {
+                            if (columnIndex === statusColumnIndex) {
+                                // Membuat elemen dropdown untuk kolom status
+                                var select = $(
+                                    '<select class="form-control"><option value="">All</option><option value="Aktif">Aktif</option><option value="Non Aktif">Nonaktif</option></select>'
+                                )
+                                    .appendTo($(column.footer()).empty())
+                                    .on("change", function () {
+                                        var val =
+                                            $.fn.dataTable.util.escapeRegex(
+                                                $(this).val()
+                                            );
+                                        column
+                                            .search(
+                                                val ? "^" + val + "$" : "",
+                                                true,
+                                                false
+                                            )
+                                            .draw();
+                                    });
+                            } else {
+                                // Membuat elemen input text untuk kolom lainnya
+                                $(
+                                    '<input class="form-control" type="text" placeholder="Search ' +
+                                        title +
+                                        '" />'
+                                )
+                                    .appendTo($(column.footer()).empty())
+                                    .on("keyup change clear", function () {
+                                        if (column.search() !== this.value) {
+                                            column.search(this.value).draw();
+                                        }
+                                    });
+                            }
+                        }
+                    } else {
+                        if ($(column.footer()).length) {
                             // Membuat elemen input text untuk kolom lainnya
                             $(
                                 '<input class="form-control" type="text" placeholder="Search ' +
