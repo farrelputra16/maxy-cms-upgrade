@@ -352,6 +352,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/accessmaster', [AccessMasterController::class, 'getAccessMaster'])->name('getAccessMaster')->middleware('access:access_master_manage');
 
+    Route::get('/accessmaster/data', [AccessMasterController::class, 'getAccessMasterData'])->name('getAccessMasterData')->middleware('access:access_master_manage');
     Route::get('/accessmaster/add', [AccessMasterController::class, 'getAddAccessMaster'])->name('getAddAccessMaster')->middleware('access:access_master_create');
     Route::post('/accessmaster/add', [AccessMasterController::class, 'postAddAccessMaster'])->name('postAddAccessMaster')->middleware('access:access_master_create');
 
