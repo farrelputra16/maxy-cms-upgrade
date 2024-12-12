@@ -360,6 +360,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/user', [UserController::class, 'getUser'])->name('getUser')->middleware('access:users_manage');
 
+    Route::get('/user/data', [UserController::class, 'getUserData'])->name('getUserData')->middleware('access:users_manage');
+
     Route::get('/user/add', [UserController::class, 'getAddUser'])->name('getAddUser')->middleware('access:users_create');
     Route::post('/user/add', [UserController::class, 'postAddUser'])->name('postAddUser')->middleware('access:users_create');
 

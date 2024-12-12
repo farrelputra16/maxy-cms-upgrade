@@ -47,7 +47,10 @@
                     </ul>
                     </p>
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
+                        data-server-processing="true" 
+                        data-url="{{ route('getUserData') }}" 
+                        data-colvis="[1, -3, -4, -5, -6]">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -80,61 +83,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $key => $item)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->id }}</td>
-                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->name }}">
-                                        {!! \Str::limit($item->name, 30) !!}
-                                    </td>
-                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->email }}">
-                                        {!! \Str::limit($item->email, 30) !!}
-                                    </td>
-                                    <td>{{ $item->accessgroup }}</td>
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->description) !!}">
-                                        {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
-                                    </td>
-                                    <td>{!! !empty($item->date_of_birth) ? \Str::limit($item->date_of_birth, 30) : '-' !!}</td>
-                                    <td>{{ $item->phone }}</td>
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->address) !!}">
-                                        {!! !empty($item->address) ? \Str::limit($item->address, 30) : '-' !!}
-                                    </td>
-                                    <td>{!! !empty($item->university) ? \Str::limit($item->university, 30) : '-' !!}</td>
-                                    <td>{!! !empty($item->major) ? \Str::limit($item->major, 30) : '-' !!}</td>
-                                    <td>{!! !empty($item->semester) ? \Str::limit($item->semester, 30) : '-' !!}</td>
-                                    <td>{!! !empty($item->city) ? \Str::limit($item->city, 30) : '-' !!}</td>
-                                    <td>{!! !empty($item->country) ? \Str::limit($item->country, 30) : '-' !!}</td>
-                                    <td>{{ $item->level }}</td>
-                                    <td>{!! !empty($item->supervisor_name) ? \Str::limit($item->supervisor_name, 30) : '-' !!}</td>
-                                    <td>{!! !empty($item->supervisor_email) ? \Str::limit($item->supervisor_email, 30) : '-' !!}</td>
-                                    <td>{!! !empty($item->ipk) ? \Str::limit($item->ipk, 30) : '-' !!}</td>
-                                    <td>{!! !empty($item->religion) ? \Str::limit($item->religion, 30) : '-' !!}</td>
-                                    <td>{!! !empty($item->hobby) ? \Str::limit($item->hobby, 30) : '-' !!}</td>
-                                    <td>{!! !empty($item->citizenship_status) ? \Str::limit($item->citizenship_status, 30) : '-' !!}</td>
-                                    <td>{{ $item->created_at }}</td>
-                                    <td>{{ $item->created_id }}</td>
-                                    <td>{{ $item->updated_at }}</td>
-                                    <td>{{ $item->updated_id }}</td>
-                                    <td data-export="{{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}">
-                                        <button
-                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
-                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
-                                            data-model="User">
-                                            {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('getEditUser', ['id' => $item->id]) }}"
-                                            class="btn btn-primary rounded">Ubah</a>
-                                        <a href="{{ route('getProfileUser', ['id' => $item->id]) }}"
-                                            class="btn btn-outline-primary rounded">Profil</a>
-                                    </td>
-                                </tr>
-                            @endforeach
+                            
                         </tbody>
                         <tfoot>
                             <tr>
@@ -184,5 +133,35 @@
 @endsection
 
 @section('script')
-
+<script>
+    const columns = [
+        { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
+        { data: "id", name: "id" },
+        { data: "name", name: "name", orderable: true, searchable: true },
+        { data: "email", name: "email", orderable: true, searchable: true },
+        { data: "accessgroup", name: "accessgroup", orderable: true, searchable: true },
+        { data: "description", name: "description", orderable: true, searchable: true },
+        { data: "date_of_birth", name: "date_of_birth", orderable: true, searchable: true },
+        { data: "phone", name: "phone", orderable: true, searchable: true },
+        { data: "address", name: "address", orderable: true, searchable: true },
+        { data: "university", name: "university", orderable: true, searchable: true },
+        { data: "major", name: "major", orderable: true, searchable: true },
+        { data: "semester", name: "semester", orderable: true, searchable: true },
+        { data: "city", name: "city", orderable: true, searchable: true },
+        { data: "country", name: "country", orderable: true, searchable: true },
+        { data: "level", name: "level", orderable: true, searchable: true },
+        { data: "supervisor_name", name: "supervisor_name", orderable: true, searchable: true },
+        { data: "supervisor_email", name: "supervisor_email", orderable: true, searchable: true },
+        { data: "ipk", name: "ipk", orderable: true, searchable: true },
+        { data: "religion", name: "religion", orderable: true, searchable: true },
+        { data: "hobby", name: "hobby", orderable: true, searchable: true },
+        { data: "citizenship_status", name: "citizenship_status", orderable: true, searchable: true },
+        { data: "created_at", name: "created_at", orderable: true, searchable: false },
+        { data: "created_id", name: "created_id", orderable: false, searchable: false },
+        { data: "updated_at", name: "updated_at", orderable: true, searchable: false },
+        { data: "updated_id", name: "updated_id", orderable: false, searchable: false },
+        { data: "status", name: "status", orderable: true, searchable: true },
+        { data: "action", name: "action", orderable: false, searchable: false },
+    ];
+</script>
 @endsection

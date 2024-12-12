@@ -14,6 +14,7 @@ use App\Models\CourseClass;
 use App\Models\CourseClassMember;
 use Illuminate\Support\Facades\DB;
 use Modules\Enrollment\Entities\Jobdesc;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
@@ -23,9 +24,180 @@ class UserController extends Controller
         // $userlist = User::all();
         // return view('userlist.index',['userlist' => $userlist]);
 
-        $users = User::getAllUserWithAccessGroup();
+        // $users = User::getAllUserWithAccessGroup();
 
-        return view('user.indexv3', ['users' => $users]);
+        return view('user.indexv3');
+    }
+
+    function getUserData(Request $request)
+    {
+        $searchValue = $request->input('search.value');
+        $orderColumnIndex = $request->input('order.1.column');
+        $orderDirection = $request->input('order.1.dir', 'asc');
+        $columns = $request->input('columns');//dd($orderDirection);
+
+        $orderColumn = 'id';
+        if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
+            $orderColumn = $columns[$orderColumnIndex]['data'];
+        }
+
+        $user = User::select('users.*', 'access_group.name AS accessgroup')
+            ->join('access_group', 'users.access_group_id', '=', 'access_group.id')
+            ->orderBy($orderColumn, $orderDirection);
+
+        // global search datatable
+        // if (!empty($searchValue)) {
+        //     $partners->where(function ($q) use ($searchValue, $columns) {
+        //         foreach ($columns as $column) {
+        //             $columnName = $column['data'];
+
+        //             if (in_array($columnName, ['DT_RowIndex', 'action'])) {
+        //                 continue;
+        //             } else if ($columnName === 'm_partner_type') {
+        //                 $q->orWhereHas('MPartnerType', function ($query) use ($searchValue) {
+        //                     $query->where('name', 'like', "%{$searchValue}%");
+        //                 });
+        //             } else {
+        //                 $q->orWhere($columnName, 'like', "%{$searchValue}%");
+        //             }
+        //         }
+        //     });
+        // }
+
+        // Filter kolom
+        foreach ($columns as $column) {
+            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnName = $column['data'];
+            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
+                continue;
+            } else if ($columnName == 'accessgroup') {
+                $user->where('access_group.name', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'status') {
+                if (strpos(strtolower($columnSearchValue), 'non') !== false)
+                    $user->where('status', '=', 0);
+                else
+                    $user->where('user.status', '=', 1);
+            } else if ($columnName == 'name') {
+                $user->where('users.name', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'description') {
+                $user->where('users.description', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'id') {
+                $user->where('users.id', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'created_at') {
+                $user->where('users.created_at', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'created_id') {
+                $user->where('users.created_id', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'updated_at') {
+                $user->where('users.updated_at', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'updated_id') {
+                $user->where('users.updated_id', 'like', "%{$columnSearchValue}%");
+            } else {
+                $user->where($columnName, 'like', "%{$columnSearchValue}%");
+            }
+        }
+
+        return DataTables::of($user)
+            ->addIndexColumn() // Adds DT_RowIndex for serial number
+            ->addColumn('id', function ($row) {
+                return $row->id;
+            })
+            ->addColumn('name', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->name) . '">'
+                    . \Str::limit(e($row->name), 30)
+                    . '</span>';
+            })
+            ->addColumn('email', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->name) . '">'
+                    . \Str::limit(e($row->email), 30)
+                    . '</span>';
+            })
+            ->addColumn('accessgroup', function ($row) {
+                return $row->accessgroup;
+            })
+            ->addColumn('description', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' 
+                    . e(strip_tags($row->description)) . '">' 
+                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') 
+                    . '</span>';
+            })
+            ->addColumn('date_of_birth', function ($row) {
+                return !empty($row->date_of_birth) ? \Str::limit($row->date_of_birth, 30) : '-';
+            })
+            ->addColumn('phone', function ($row) {
+                return $row->phone;
+            })
+            ->addColumn('address', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' 
+                    . e(strip_tags($row->address)) . '">' 
+                    . (!empty($row->address) ? \Str::limit(strip_tags($row->address), 30) : '-') 
+                    . '</span>';
+            })
+            ->addColumn('university', function ($row) {
+                return !empty($row->university) ? \Str::limit($row->university, 30) : '-';
+            })
+            ->addColumn('major', function ($row) {
+                return !empty($row->major) ? \Str::limit($row->major, 30) : '-';
+            })
+            ->addColumn('semester', function ($row) {
+                return !empty($row->semester) ? \Str::limit($row->semester, 30) : '-';
+            })
+            ->addColumn('city', function ($row) {
+                return !empty($row->city) ? \Str::limit($row->city, 30) : '-';
+            })
+            ->addColumn('country', function ($row) {
+                return !empty($row->country) ? \Str::limit($row->country, 30) : '-';
+            })
+            ->addColumn('level', function ($row) {
+                return $row->level;
+            })
+            ->addColumn('supervisor_name', function ($row) {
+                return !empty($row->supervisor_name) ? \Str::limit($row->supervisor_name, 30) : '-';
+            })
+            ->addColumn('supervisor_email', function ($row) {
+                return !empty($row->supervisor_email) ? \Str::limit($row->supervisor_email, 30) : '-';
+            })
+            ->addColumn('ipk', function ($row) {
+                return !empty($row->ipk) ? \Str::limit($row->ipk, 30) : '-';
+            })
+            ->addColumn('religion', function ($row) {
+                return !empty($row->religion) ? \Str::limit($row->religion, 30) : '-';
+            })
+            ->addColumn('hobby', function ($row) {
+                return !empty($row->hobby) ? \Str::limit($row->hobby, 30) : '-';
+            })
+            ->addColumn('citizenship_status', function ($row) {
+                return !empty($row->citizenship_status) ? \Str::limit($row->citizenship_status, 30) : '-';
+            })
+            ->addColumn('created_at', function ($row) {
+                return $row->created_at;
+            })
+            ->addColumn('created_id', function ($row) {
+                return $row->created_id;
+            })
+            ->addColumn('updated_at', function ($row) {
+                return $row->updated_at;
+            })
+            ->addColumn('updated_id', function ($row) {
+                return $row->updated_id;
+            })
+            ->addColumn('status', function ($row) {
+                return '<button 
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
+                    data-id="' . $row->id . '" 
+                    data-status="' . $row->status . '"
+                    data-model="User">
+                    ' . ($row->status == 1 ? 'Aktif' : 'Non aktif') . '
+                </button>';
+            })
+            ->addColumn('action', function ($row) {
+                return '<a href="' . route('getEditUser', ['id' => $row->id]) . '" 
+                            class="btn btn-primary rounded">Ubah</a>' . " " .
+                        '<a href="' . route('getProfileUser', ['id' => $row->id]) . '" 
+                            class="btn btn-outline-primary rounded">Profil</a>';
+            })
+            ->orderColumn('id', 'id $1')
+            ->rawColumns(['name', 'email', 'description', 'address','status', 'action']) // Allow HTML rendering
+            ->make(true);
     }
 
     function getProfileUser(Request $request)
