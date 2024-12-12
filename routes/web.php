@@ -340,6 +340,8 @@ Route::group(['middleware' => 'auth'], function () {
     //AccessGroup Route #######################################################################################################
     Route::get('/accessgroup', [AccessGroupController::class, 'getAccessGroup'])->name('getAccessGroup')->middleware('access:access_group_manage');
 
+    Route::get('/accessgroup/data', [AccessGroupController::class, 'getAccessGroupData'])->name('getAccessGroupData')->middleware('access:access_group_manage');
+
     Route::get('/accessgroup/add', [AccessGroupController::class, 'getAddAccessGroup'])->name('getAddAccessGroup')->middleware('access:access_group_create');
     Route::post('/accessgroup/add', [AccessGroupController::class, 'postAddAccessGroup'])->name('postAddAccessGroup')->middleware('access:access_group_create');
 
