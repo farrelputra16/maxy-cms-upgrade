@@ -11,7 +11,7 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Konten</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getBlog') }}">Blog</a></li>
                         <li class="breadcrumb-item active">Tambah Blog Baru</li>
                     </ol>
@@ -122,7 +122,8 @@
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Highlight</label>
                             <div class="col-md-10" style="display: flex; align-items: center;">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status_highlight" style="left: 0;" {{ old('status_highlight') ? 'checked' : '' }}>
+                                    name="status_highlight" style="left: 0;"
+                                    {{ old('status_highlight') ? 'checked' : '' }}>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">

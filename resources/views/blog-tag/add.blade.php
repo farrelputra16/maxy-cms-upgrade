@@ -11,7 +11,7 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Konten</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getBlogTag') }}">Tag Blog</a></li>
                         <li class="breadcrumb-item active">Tambah Tag Blog Baru</li>
                     </ol>
@@ -71,7 +71,8 @@
                         <div class="mb-3 row">
                             <label for="input-description" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea id="content" class="form-control" type="text" name="description" placeholder="Masukkan deskripsi singkat tentang tag ini...">{{ old('description') }}</textarea>
+                                <textarea id="content" class="form-control" type="text" name="description"
+                                    placeholder="Masukkan deskripsi singkat tentang tag ini...">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>

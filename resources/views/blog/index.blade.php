@@ -12,7 +12,7 @@
                 <!-- begin breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Konten</a></li>
                         <li class="breadcrumb-item active">Blog</li>
                     </ol>
                 </div>
@@ -31,7 +31,8 @@
                     <h4 class="card-title">Data Blog</h4>
                     <p class="card-title-desc">
                         Halaman ini memuat tabel berisi data blog yang dipublikasikan. Setiap baris menampilkan informasi
-                        penting seperti judul, slug, konten, tag, highlight, catatan admin, dan status artikel. Data ini diatur
+                        penting seperti judul, slug, konten, tag, highlight, catatan admin, dan status artikel. Data ini
+                        diatur
                         dalam format interaktif sehingga Anda dapat dengan mudah mengakses dan mengelola artikel.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
@@ -115,10 +116,9 @@
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
                                     <td>
-                                        <button 
-                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}" 
-                                            data-id="{{ $item->id }}" 
-                                            data-status="{{ $item->status }}"
+                                        <button
+                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
+                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
                                             data-model="MBlog">
                                             {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
                                         </button>

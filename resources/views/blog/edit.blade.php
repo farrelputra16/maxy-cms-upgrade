@@ -11,7 +11,7 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Konten</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getBlog') }}">Blog</a></li>
                         <li class="breadcrumb-item active">Ubah Blog: {{ $data->title }}</li>
                     </ol>
@@ -41,7 +41,7 @@
 
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Judul <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="title"
                                     value="{{ old('title', $data->title) }}" id="input-title">
@@ -54,7 +54,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-slug" class="col-md-2 col-form-label">Slug <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="slug"
                                     value="{{ old('slug', $data->slug) }}" id="input-slug" readonly>
@@ -92,7 +92,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-file" class="col-md-2 col-form-label">Gambar Cover <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10" style="height: 200px">
                                 <input class="form-control" type="file" name="file_image" id="input-file">
                                 <img id="frame"
@@ -107,7 +107,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Konten <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <textarea id="elm1" name="content">{{ old('content', $data->content) }}</textarea>
                                 @if ($errors->has('content'))

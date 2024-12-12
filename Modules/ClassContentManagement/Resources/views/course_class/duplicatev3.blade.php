@@ -11,7 +11,7 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Kelas</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Daftar Kelas</a></li>
                         <li class="breadcrumb-item active">Duplikasi Kelas</li>
                     </ol>
@@ -127,7 +127,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="ongoing" class="col-md-2 col-form-label">Status Kelas <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="ongoing" id="ongoing"
                                     data-placeholder="Pilih Status Kelas">

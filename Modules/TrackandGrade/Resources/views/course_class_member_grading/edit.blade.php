@@ -12,7 +12,7 @@
                 <!-- Mulai Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Kelas</a></li>
                         <li class="breadcrumb-item"><a
                                 href="{{ route('getGrade', ['class_id' => $data->class_id]) }}">Penilaian Tugas</a></li>
                         <li class="breadcrumb-item active">Nilai Tugas</li>

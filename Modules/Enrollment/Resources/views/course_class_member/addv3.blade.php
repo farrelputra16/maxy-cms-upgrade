@@ -11,7 +11,7 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Kelas</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Daftar Kelas</a></li>
                         <li class="breadcrumb-item"><a
                                 href="{{ route('getCourseClassMember', ['id' => $course_class_detail->id]) }}">Daftar
@@ -273,17 +273,17 @@
             }
 
             /* #csv-upload input[type="file"] {
-                                        display: block;
-                                        margin: 0 auto;
-                                        padding: 10px;
-                                        border-radius: 4px;
-                                        border: 1px solid #ccc;
-                                    }
+                                            display: block;
+                                            margin: 0 auto;
+                                            padding: 10px;
+                                            border-radius: 4px;
+                                            border: 1px solid #ccc;
+                                        }
 
-                                    #csv-upload label {
-                                        margin-bottom: 10px;
-                                        font-weight: bold;
-                                    } */
+                                        #csv-upload label {
+                                            margin-bottom: 10px;
+                                            font-weight: bold;
+                                        } */
 
             .dz-message {
                 display: flex;

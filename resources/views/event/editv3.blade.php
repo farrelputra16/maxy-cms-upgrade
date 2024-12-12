@@ -11,7 +11,7 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Konten</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getEvent') }}">Acara</a></li>
                         <li class="breadcrumb-item active">Ubah Acara</li>
                     </ol>
@@ -38,8 +38,7 @@
                             <div class="col-md-10">
                                 <select class="form-control select2" name="event_type" data-placeholder="Choose ...">
                                     @foreach ($event_types as $item)
-                                        <option value="{{ $item->id }}"
-                                            {{-- Pilih opsi berdasarkan old data atau data dari model event --}}
+                                        <option value="{{ $item->id }}" {{-- Pilih opsi berdasarkan old data atau data dari model event --}}
                                             {{ old('event_type', $event->m_event_type_id) == $item->id ? 'selected' : '' }}>
                                             {{ $item->name }}
                                         </option>
@@ -49,7 +48,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nama <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     value="{{ old('name', $event->name) }}">
@@ -62,7 +61,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Tanggal Mulai <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" name="date_start" id="date"
                                     value="{{ old('date_start', $event->date_start) }}">
@@ -75,7 +74,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Tanggal Akhir <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="datetime-local" name="date_end" id="date"
                                     value="{{ old('date_end', $event->date_end) }}">
@@ -100,7 +99,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-file" class="col-md-2 col-form-label">Gambar <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10" style="height: 200px">
                                 <input class="form-control" type="file" name="image" id="image" accept="image/*"
                                     onchange="previewImage()">
@@ -131,7 +130,8 @@
                                 <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
                                 <input type="hidden" name="need_verification" value="0">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="need_verification" {{ old('need_verification', isset($event) ? $event->is_need_verification : false) ? 'checked' : '' }}>
+                                    name="need_verification"
+                                    {{ old('need_verification', isset($event) ? $event->is_need_verification : false) ? 'checked' : '' }}>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
@@ -140,7 +140,8 @@
                                 <!-- Hidden input untuk mengirim nilai 0 jika checkbox tidak dicentang -->
                                 <input type="hidden" name="public" value="0">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="public" {{ old('public', isset($event) ? $event->is_public : false) ? 'checked' : '' }}>
+                                    name="public"
+                                    {{ old('public', isset($event) ? $event->is_public : false) ? 'checked' : '' }}>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">

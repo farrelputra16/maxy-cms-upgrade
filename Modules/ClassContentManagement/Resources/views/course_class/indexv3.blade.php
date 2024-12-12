@@ -18,7 +18,7 @@
                 <!-- Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Kelas</a></li>
                         <li class="breadcrumb-item active">Daftar Kelas</li>
                     </ol>
                 </div>
@@ -94,18 +94,23 @@
                                     <td>
                                         {{ $item->class_type }}
                                     </td>
-                                    <td data-export="{{ $item->status_ongoing == 0 ? 'Belum Dimulai' : ($item->status_ongoing == 1 ? 'Sedang Berlangsung' : ($item->status_ongoing == 2 ? 'Sudah Selesai' : 'Status Tidak Diketahui')) }}">
+                                    <td
+                                        data-export="{{ $item->status_ongoing == 0 ? 'Belum Dimulai' : ($item->status_ongoing == 1 ? 'Sedang Berlangsung' : ($item->status_ongoing == 2 ? 'Sudah Selesai' : 'Status Tidak Diketahui')) }}">
                                         @if ($item->status_ongoing == 0)
-                                            <span class="badge bg-secondary" style="pointer-events: none;">Belum Dimulai</span>
+                                            <span class="badge bg-secondary" style="pointer-events: none;">Belum
+                                                Dimulai</span>
                                         @elseif ($item->status_ongoing == 1)
-                                            <span class="badge bg-success" style="pointer-events: none;">Sedang Berlangsung</span>
+                                            <span class="badge bg-success" style="pointer-events: none;">Sedang
+                                                Berlangsung</span>
                                         @elseif ($item->status_ongoing == 2)
-                                            <span class="badge bg-primary" style="pointer-events: none;">Sudah Selesai</span>
+                                            <span class="badge bg-primary" style="pointer-events: none;">Sudah
+                                                Selesai</span>
                                         @else
-                                            <span class="badge bg-danger" style="pointer-events: none;">Status Tidak Diketahui</span>
+                                            <span class="badge bg-danger" style="pointer-events: none;">Status Tidak
+                                                Diketahui</span>
                                         @endif
                                     </td>
-                                    
+
                                     <td>{{ $item->start_date }}</td>
                                     <td>{{ $item->end_date }}</td>
                                     <td>{{ $item->quota }}</td>
@@ -130,7 +135,7 @@
                                     <td>{{ $item->created_id }}</td>
                                     <td>{{ $item->updated_at }}</td>
                                     <td>{{ $item->updated_id }}</td>
-                                    <td data-export="{{ $item->status == 1? 'Aktif' : 'Nonaktif'}}">
+                                    <td data-export="{{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}">
                                         <button
                                             class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
                                             data-id="{{ $item->id }}" data-status="{{ $item->status }}"
@@ -149,10 +154,12 @@
                                             class="btn btn-outline-primary btn-sm">Absensi</a>
                                         <a href="{{ route('getCourseClassScoring', ['id' => $item->id]) }}"
                                             class="btn btn-outline-primary btn-sm">Penilaian</a>
-                                        @if(Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'course_class_delete'))
+                                        @if (Session::has('access_master') &&
+                                                Session::get('access_master')->contains('access_master_name', 'course_class_delete'))
                                             <form id="delete-course-class-form-{{ $item->id }}"
-                                                action="{{ route('deleteCourseClass', ['id' => $item->id]) }}" method="POST"
-                                                class="d-inline-block" data-course-name="{{ $item->course_name }}">
+                                                action="{{ route('deleteCourseClass', ['id' => $item->id]) }}"
+                                                method="POST" class="d-inline-block"
+                                                data-course-name="{{ $item->course_name }}">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button type="button"
@@ -197,19 +204,19 @@
     <!-- Akhir Konten -->
 
     <!-- FAB Add Starts -->
-    @if(Session::has('access_master') && 
-        Session::get('access_master')->contains('access_master_name', 'course_class_create'))
-    <div id="floating-whatsapp-button" style='margin-bottom: 5%;'>
-        <a href="{{ route('getAddCourseClass') }}" target="_blank" data-toggle="tooltip" title="Add New Course Class">
-            <i class="fas fa-plus"></i>
-        </a>
-    </div>
-    <div id="floating-whatsapp-button">
-        <a href="{{ route('getDuplicateCourseClass') }}" target="_blank" data-toggle="tooltip"
-            title="Duplicate Course Class">
-            <i class="fa-solid fa-copy"></i>
-        </a>
-    </div>
+    @if (Session::has('access_master') &&
+            Session::get('access_master')->contains('access_master_name', 'course_class_create'))
+        <div id="floating-whatsapp-button" style='margin-bottom: 5%;'>
+            <a href="{{ route('getAddCourseClass') }}" target="_blank" data-toggle="tooltip" title="Add New Course Class">
+                <i class="fas fa-plus"></i>
+            </a>
+        </div>
+        <div id="floating-whatsapp-button">
+            <a href="{{ route('getDuplicateCourseClass') }}" target="_blank" data-toggle="tooltip"
+                title="Duplicate Course Class">
+                <i class="fa-solid fa-copy"></i>
+            </a>
+        </div>
     @endif
     <!-- FAB Add Ends -->
 @endsection

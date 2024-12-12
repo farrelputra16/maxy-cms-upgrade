@@ -11,7 +11,7 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Konten</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getEvent') }}">Acara</a></li>
                         <li class="breadcrumb-item active">Tambah Acara</li>
                     </ol>
@@ -37,17 +37,20 @@
                             <div class="col-md-10">
                                 <select class="form-control select2" name="event_type" data-placeholder="Pilih Tipe Acara">
                                     @foreach ($event_types as $item)
-                                        <option value="{{ $item->id }}" {{ old('event_type') == $item->id ? 'selected' : '' }}> {{ $item->name }} </option>
+                                        <option value="{{ $item->id }}"
+                                            {{ old('event_type') == $item->id ? 'selected' : '' }}> {{ $item->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nama <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
-                                placeholder="Masukkan nama acara, contoh: 'Seminar Bisnis 2024'" value="{{ old('name') }}">
+                                    placeholder="Masukkan nama acara, contoh: 'Seminar Bisnis 2024'"
+                                    value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -57,9 +60,10 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Tanggal Mulai <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="datetime-local" name="date_start" id="date" value="{{ old('date_start') }}">
+                                <input class="form-control" type="datetime-local" name="date_start" id="date"
+                                    value="{{ old('date_start') }}">
                                 @if ($errors->has('date'))
                                     @foreach ($errors->get('date') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -69,9 +73,10 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Tanggal Akhir <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" type="datetime-local" name="date_end" id="date" value="{{ old('date_end') }}">
+                                <input class="form-control" type="datetime-local" name="date_end" id="date"
+                                    value="{{ old('date_end') }}">
                                 @if ($errors->has('date'))
                                     @foreach ($errors->get('date') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -93,11 +98,11 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="input-file" class="col-md-2 col-form-label">Gambar <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10" style="height: 200px">
-                                <input class="form-control" type="file" name="image" id="image"
-                                    accept="image/*" onchange="previewImage()">
-                                    <p class="text-muted mb-0 text-truncate">Ukuran yang direkomendasikan maksimal 5MB.</p>
+                                <input class="form-control" type="file" name="image" id="image" accept="image/*"
+                                    onchange="previewImage()">
+                                <p class="text-muted mb-0 text-truncate">Ukuran yang direkomendasikan maksimal 5MB.</p>
                                 <img id="frame" src="" alt="Preview Image" class="img-fluid h-100" />
                                 @if ($errors->has('image'))
                                     @foreach ($errors->get('image') as $error)
@@ -109,7 +114,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
-                                <textarea id="content" class="form-control" name="description" placeholder="Masukkan catatan mengenai acara">{{  old('description') }}</textarea>
+                                <textarea id="content" class="form-control" name="description" placeholder="Masukkan catatan mengenai acara">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -141,7 +146,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addEvent">Add Acara</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addEvent">Add Acara</button>
                             </div>
                         </div>
                     </form>

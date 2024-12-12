@@ -11,7 +11,7 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Kelas</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('certificate-templates.index') }}">Template
                                 Sertifikat</a></li>
                         <li class="breadcrumb-item active">Tambah Template Sertifikat</li>

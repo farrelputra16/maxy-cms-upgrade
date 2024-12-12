@@ -12,7 +12,7 @@
                 <!-- Breadcrumb Mulai -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Pengguna & Akses</a></li>
                         <li class="breadcrumb-item active">Hak Grup Akses</li>
                     </ol>
                 </div>
@@ -49,8 +49,7 @@
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
-                        data-server-processing="true" 
-                        data-url="{{ route('getAccessGroupData') }}" 
+                        data-server-processing="true" data-url="{{ route('getAccessGroupData') }}"
                         data-colvis="[1, -3, -4, -5, -6]">
                         <thead>
                             <tr>
@@ -67,7 +66,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                         </tbody>
                         <tfoot>
                             <tr>
@@ -91,30 +90,77 @@
     <!-- Konten Selesai -->
 
     <!-- FAB Tambah Mulai -->
-    @if(Session::has('access_master') && 
-        Session::get('access_master')->contains('access_master_name', 'access_group_create'))
-    <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddAccessGroup') }}" target="_blank" data-toggle="tooltip" title="Tambah Grup Akses">
-            <i class="fas fa-plus"></i>
-        </a>
-    </div>
+    @if (Session::has('access_master') &&
+            Session::get('access_master')->contains('access_master_name', 'access_group_create'))
+        <div id="floating-whatsapp-button">
+            <a href="{{ route('getAddAccessGroup') }}" target="_blank" data-toggle="tooltip" title="Tambah Grup Akses">
+                <i class="fas fa-plus"></i>
+            </a>
+        </div>
     @endif
     <!-- FAB Tambah Selesai -->
 @endsection
 
 @section('script')
-<script>
-    const columns = [
-        { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
-        { data: "id", name: "id" },
-        { data: "name", name: "name", orderable: true, searchable: true },
-        { data: "description", name: "description", orderable: true, searchable: true },
-        { data: "created_at", name: "created_at", orderable: true, searchable: false },
-        { data: "created_id", name: "created_id", orderable: false, searchable: false },
-        { data: "updated_at", name: "updated_at", orderable: true, searchable: false },
-        { data: "updated_id", name: "updated_id", orderable: false, searchable: false },
-        { data: "status", name: "status", orderable: true, searchable: true },
-        { data: "action", name: "action", orderable: false, searchable: false },
-    ];
-</script>
+    <script>
+        const columns = [{
+                data: "DT_RowIndex",
+                name: "DT_RowIndex",
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: "id",
+                name: "id"
+            },
+            {
+                data: "name",
+                name: "name",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "description",
+                name: "description",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "created_at",
+                name: "created_at",
+                orderable: true,
+                searchable: false
+            },
+            {
+                data: "created_id",
+                name: "created_id",
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: "updated_at",
+                name: "updated_at",
+                orderable: true,
+                searchable: false
+            },
+            {
+                data: "updated_id",
+                name: "updated_id",
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: "status",
+                name: "status",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "action",
+                name: "action",
+                orderable: false,
+                searchable: false
+            },
+        ];
+    </script>
 @endsection

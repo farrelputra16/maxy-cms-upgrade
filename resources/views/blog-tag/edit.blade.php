@@ -11,7 +11,7 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Konten</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getBlogTag') }}">Tag Blog</a></li>
                         <li class="breadcrumb-item active">Ubah Tag Blog: {{ $data->name }}</li>
                     </ol>
@@ -39,7 +39,7 @@
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-title" class="col-md-2 col-form-label">Nama <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
                                     value="{{ old('name', $data->name) }}" id="input-title">
@@ -53,7 +53,7 @@
 
                         <div class="mb-3 row">
                             <label for="input-color" class="col-md-2 col-form-label">Warna <span class="text-danger"
-                                data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control color-picker" type="text" name="color"
                                     value="{{ old('color', $data->color) }}" id="input-color">

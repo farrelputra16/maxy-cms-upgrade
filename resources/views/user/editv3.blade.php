@@ -11,7 +11,7 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Pengguna & Akses</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('getUser') }}">Pengguna</a></li>
                         <li class="breadcrumb-item active">Ubah Pengguna</li>
                     </ol>
