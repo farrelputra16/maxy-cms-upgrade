@@ -541,6 +541,8 @@ Route::get('/event/attendance', [EventController::class, 'getAttendanceEvent'])-
 //Partnership Routes #########################################################################################################
 Route::get('/partnership', [PartnershipController::class, 'getPartnership'])->name('getPartnership')->middleware('access:partnership_manage');
 
+Route::get('/partnership/data', [PartnershipController::class, 'getPartnershipData'])->name('getPartnershipData');
+
 Route::get('/partnership/add', [PartnershipController::class, 'getAddPartnership'])->name('getAddPartnership')->middleware('access:partnership_create');
 Route::post('/partnership/add', [PartnershipController::class, 'postAddPartnership'])->name('postAddPartnership')->middleware('access:partnership_create');
 
