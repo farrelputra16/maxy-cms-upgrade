@@ -22,40 +22,34 @@
     </div>
     <!-- Akhir Judul Halaman -->
 
-    <!-- Mulai Konten -->
     <div class="row">
         <div class="col-12">
-            <!-- Mulai Card Pemilihan Kelas -->
+            <!-- Class Selection Card -->
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Pilih Kelas</h4>
-
-                    <!-- Mulai Pemilihan Kelas -->
-                    <form action="{{ route('getGrade') }}" method="GET">
+                    <form id="class-selection-form">
                         @csrf
                         <div class="row">
                             <div class="col-10">
-                                <select class="form-control select2 w-100" name="class_id"
-                                    data-placeholder="Pilih Kelas ...">
+                                <select id="classSelect" class="form-control select2 w-100" name="class_id" data-placeholder="Pilih Kelas ...">
                                     @foreach ($class_list as $item)
                                         <option value="{{ $item->class_id }}"
-                                            @if ($class_id == $item->class_id) selected @endif>
+                                            @if (isset($class_id) && $class_id == $item->class_id) selected @endif>
                                             {{ $item->course_name }} - Batch {{ $item->batch }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-2 d-flex align-items-center justify-content-end">
-                                <button type="submit" class="btn btn-primary">Tampilkan</button>
+                                <button type="button" id="show-grades" class="btn btn-primary">Tampilkan</button>
                             </div>
                         </div>
                     </form>
-                    <!-- Akhir Pemilihan Kelas -->
                 </div>
             </div>
-            <!-- Akhir Card Pemilihan Kelas -->
 
-            <!-- Mulai Card DataTables -->
+            <!-- DataTables Card -->
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Penilaian Tugas</h4>
@@ -78,109 +72,140 @@
                     </ul>
                     </p>
 
-                    <!-- Mulai DataTables Pengumpulan Tugas -->
-                    @if (count($data) > 0)
-                        <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>ID</th>
-                                    <th>Modul</th>
-                                    <th>Hari</th>
-                                    <th>Nama Mahasiswa</th>
-                                    <th>Berkas Tugas</th>
-                                    <th>Waktu Pengumpulan</th>
-                                    <th>Nilai</th>
-                                    <th>Diperbarui Pada</th>
-                                    <th>Komentar Mahasiswa</th>
-                                    <th>Komentar Dosen</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php $data_index = 0; @endphp
-                                @foreach ($data as $item)
-                                    @foreach ($item->member_list as $key => $member)
-                                        @php $data_index += 1; @endphp
-                                        <tr>
-                                            <td>{{ str_pad($data_index, 2, '0', STR_PAD_LEFT) }}</td>
-                                            <td>{{ isset($member->submission) ? str_pad($member->submission->id, 2, '0', STR_PAD_LEFT) : '-' }}
-                                            </td>
-                                            <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                                title="{{ $item->module_name }}">
-                                                {!! \Str::limit($item->module_name, 30) !!}
-                                            </td>
-                                            <td>{{ isset($item->parent->priority) ? str_pad($item->parent->priority, 2, '0', STR_PAD_LEFT) : '-' }}
-                                            </td>
-                                            <td>{{ $member->user_name }}</td>
-                                            <td>{{ $member->submission->submitted_file ?? '-' }}</td>
-                                            <td>{{ $member->submission->submitted_at ?? '-' }}</td>
-                                            <td>{{ $member->submission->grade ?? '-' }}</td>
-                                            <td>{{ $member->submission->updated_at ?? '-' }}</td>
-                                            <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                                title="{{ $member->submission ? strip_tags($member->submission->comment) : '-' }}">
-                                                {!! $member->submission && $member->submission->comment
-                                                    ? \Str::limit(strip_tags($member->submission->comment), 30)
-                                                    : '-' !!}
-                                            </td>
-                                            <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                                title="{{ $member->submission ? strip_tags($member->submission->tutor_comment) : '-' }}">
-                                                {!! $member->submission && $member->submission->tutor_comment
-                                                    ? \Str::limit(strip_tags($member->submission->tutor_comment), 30)
-                                                    : '-' !!}
-                                            </td>
-                                            <td>
-                                                @if (isset($member->submission))
-                                                    <div
-                                                        class="badge {{ $item->module_grade_status ? ($member->submission->grade ? 'bg-success' : 'bg-warning') : 'bg-primary' }}">
-                                                        {{ $item->module_grade_status ? ($member->submission->grade ? 'Sudah Dinilai' : 'Menunggu Penilaian') : 'Tidak Memerlukan Nilai' }}
-                                                    </div>
-                                                @else
-                                                    <div class="badge bg-danger">Belum Mengumpulkan</div>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if ($member->submission)
-                                                    <a href="{{ route('getEditGrade', ['id' => $member->submission->id]) }}"
-                                                        class="btn btn-primary btn-sm">{{ $item->module_grade_status ? 'Nilai Tugas' : 'Lihat Tugas' }}</a>
-                                                @else
-                                                    -
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endforeach
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>No</th>
-                                    <th>ID</th>
-                                    <th>Modul</th>
-                                    <th>Hari</th>
-                                    <th>Nama Mahasiswa</th>
-                                    <th>Berkas Tugas</th>
-                                    <th>Waktu Pengumpulan</th>
-                                    <th>Nilai</th>
-                                    <th>Diperbarui Pada</th>
-                                    <th>Komentar Mahasiswa</th>
-                                    <th>Komentar Tutor</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    @else
-                        <p class="text-center text-muted">Silakan pilih kelas terlebih dahulu...</p>
-                    @endif
+                    <table 
+                        id="datatable" 
+                        class="table table-bordered dt-responsive nowrap w-100" 
+                        data-server-processing="true"
+                        data-url="{{ route('getGradeData') }}"
+                        data-colvis="[-6, -5, -4, -3, 1]"
+                    >
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>ID</th>
+                                <th>Modul</th>
+                                <th>Hari</th>
+                                <th>Nama Mahasiswa</th>
+                                <th>Berkas Tugas</th>
+                                <th>Waktu Pengumpulan</th>
+                                <th>Nilai</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Komentar Mahasiswa</th>
+                                <th>Komentar Dosen</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>No</th>
+                                <th>ID</th>
+                                <th>Modul</th>
+                                <th>Hari</th>
+                                <th>Nama Mahasiswa</th>
+                                <th>Berkas Tugas</th>
+                                <th>Waktu Pengumpulan</th>
+                                <th>Nilai</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Komentar Mahasiswa</th>
+                                <th>Komentar Dosen</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
-            <!-- Akhir Card DataTables -->
         </div>
     </div>
-    <!-- Akhir Konten -->
 @endsection
 
 @section('script')
+<script>
+$("#show-grades").on("click", function () {
+    var selectedClassId = $("#classSelect").val(); // Ambil nilai class_id yang dipilih
+    $(".table").DataTable().ajax.reload(null, false) // Reload DataTable tanpa reset pagination
+});
 
+// Define columns array to match the DataTables initialization
+var columns = [
+    { 
+        data: 'no',
+        searchable: true
+    },
+    { 
+        data: 'id',
+        searchable: true
+    },
+    { 
+        data: 'module',
+        searchable: true,
+        render: function(data, type, row) {
+            return type === 'display' 
+                ? `<span title="${row.module_full}">${data}</span>` 
+                : data;
+        }
+    },
+    { 
+        data: 'day',
+        searchable: true
+    },
+    { 
+        data: 'student_name',
+        searchable: true
+    },
+    { 
+        data: 'file',
+        searchable: true
+    },
+    { 
+        data: 'submission_time',
+        searchable: true
+    },
+    { 
+        data: 'grade',
+        searchable: true
+    },
+    { 
+        data: 'updated_at',
+        searchable: true
+    },
+    { 
+        data: 'student_comment',
+        searchable: true,
+        render: function(data, type, row) {
+            return type === 'display' 
+                ? `<span title="${row.student_comment_full}">${data}</span>` 
+                : data;
+        }
+    },
+    { 
+        data: 'tutor_comment',
+        searchable: true,
+        render: function(data, type, row) {
+            return type === 'display' 
+                ? `<span title="${row.tutor_comment_full}">${data}</span>` 
+                : data;
+        }
+    },
+    { 
+        data: 'status',
+        searchable: true,
+        render: function(data, type, row) {
+            if (type === 'display' && data) {
+                return `<div class="badge ${data.class}">${data.text}</div>`;
+            }
+            return data ? data.text : '';
+        }
+    },
+    { 
+        data: 'action',
+        searchable: false, // Kolom aksi tidak bisa dicari
+        orderable: false,
+        render: function(data, type, row) {
+            return data; // Since we're now returning HTML directly
+        }
+    }
+];
+</script>
 @endsection

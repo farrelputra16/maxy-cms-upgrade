@@ -73,15 +73,206 @@ class CourseClassMemberGradingController extends Controller
         }
 
         // if class has been picked
-        if ($request->has('class_id')) {
-            $data = CourseClass::getAssignmentModulesByClassId($request->class_id);
-        }
+        // if ($request->has('class_id')) {
+        //     $data = CourseClass::getAssignmentModulesByClassId($request->class_id);
+        // }
 
         return view('trackandgrade::course_class_member_grading.index', [
-            'data' => isset($data) ? $data : [],
+            // 'data' => isset($data) ? $data : [],
             'class_list' => $class_list,
             'class_id' => $request->class_id,
         ]);
+    }
+
+    public function getGradeData(Request $request)
+    {
+        $class_id = $request->input('class_id');
+        $draw = $request->input('draw');
+        $start = $request->input('start', 0);
+        $length = $request->input('length', 10);
+        $searchValue = $request->input('search.value');
+        $columns = $request->input('columns');
+        
+        $orderColumnIndex = $request->input('order.0.column');
+        $orderDirection = $request->input('order.0.dir', 'asc');
+
+        // Validate class_id is provided
+        if (!$class_id) {
+            return response()->json([
+                'draw' => $draw,
+                'recordsTotal' => 0, 
+                'recordsFiltered' => 0,
+                'data' => []
+            ]);
+        }
+
+        // Get assignment modules for the class
+        $data = CourseClass::getAssignmentModulesByClassId($class_id);
+
+        // Prepare the data for DataTables
+        $processedData = [];
+        $filteredData = [];
+        $data_index = 0;
+
+        foreach ($data as $item) {
+            foreach ($item->member_list as $key => $member) {
+                $data_index++;
+                
+                // Fungsi untuk mendapatkan status
+                $status = $this->getStatusBadge($item, $member);
+                
+                // Fungsi untuk mendapatkan tombol aksi
+                $action = $this->getActionButton($member, $item);
+
+                $rowData = [
+                    'no' => str_pad($data_index, 2, '0', STR_PAD_LEFT),
+                    'id' => isset($member->submission) ? str_pad($member->submission->id, 2, '0', STR_PAD_LEFT) : '-',
+                    'module' => \Str::limit($item->module_name, 30),
+                    'module_full' => $item->module_name,
+                    'day' => isset($item->parent->priority) ? str_pad($item->parent->priority, 2, '0', STR_PAD_LEFT) : '-',
+                    'student_name' => $member->user_name,
+                    'file' => $member->submission->submitted_file ?? '-',
+                    'submission_time' => $member->submission->submitted_at ?? '-',
+                    'grade' => $member->submission->grade ?? '-',
+                    'updated_at' => $member->submission->updated_at ?? '-',
+                    'student_comment' => $member->submission && $member->submission->comment 
+                        ? \Str::limit(strip_tags($member->submission->comment), 30) 
+                        : '-',
+                    'student_comment_full' => $member->submission ? strip_tags($member->submission->comment) : '-',
+                    'tutor_comment' => $member->submission && $member->submission->tutor_comment 
+                        ? \Str::limit(strip_tags($member->submission->tutor_comment), 30) 
+                        : '-',
+                    'tutor_comment_full' => $member->submission ? strip_tags($member->submission->tutor_comment) : '-',
+                    'status' => $status,
+                    'action' => $action
+                ];
+
+                // Global search
+                $matchesGlobalSearch = empty($searchValue) || $this->rowMatchesSearch($rowData, $searchValue);
+
+                // Individual column search
+                $matchesColumnSearch = $this->rowMatchesColumnSearch($rowData, $columns);
+
+                if ($matchesGlobalSearch && $matchesColumnSearch) {
+                    $filteredData[] = $rowData;
+                }
+            }
+        }
+
+        // Sorting
+        if ($orderColumnIndex !== null) {
+            $orderColumn = $columns[$orderColumnIndex]['data'];
+            usort($filteredData, function($a, $b) use ($orderColumn, $orderDirection) {
+                $valueA = $this->getSortValue($a, $orderColumn);
+                $valueB = $this->getSortValue($b, $orderColumn);
+
+                return $orderDirection === 'asc' 
+                    ? strcmp($valueA, $valueB) 
+                    : strcmp($valueB, $valueA);
+            });
+        }
+
+        // Potong data sesuai pagination
+        $paginatedData = array_slice($filteredData, $start, $length);
+
+        return response()->json([
+            'draw' => $draw,
+            'recordsTotal' => count($data),
+            'recordsFiltered' => count($filteredData),
+            'data' => $paginatedData
+        ]);
+    }
+
+    // Metode tambahan untuk pencarian global
+    private function rowMatchesSearch($row, $search)
+    {
+        $search = strtolower($search);
+
+        $searchableColumns = [
+            'no', 'id', 'module', 'day', 'student_name', 
+            'file', 'submission_time', 'grade', 'updated_at', 
+            'student_comment', 'tutor_comment'
+        ];
+
+        foreach ($searchableColumns as $column) {
+            $value = strtolower($row[$column] ?? '');
+            if (strpos($value, $search) !== false) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // Metode tambahan untuk pencarian per kolom
+    private function rowMatchesColumnSearch($row, $columns)
+    {
+        foreach ($columns as $column) {
+            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnName = $column['data'];
+
+            // Skip empty search values and non-searchable columns
+            if (empty($columnSearchValue) || in_array($columnName, ['action', 'status'])) {
+                continue;
+            }
+
+            $value = strtolower($row[$columnName] ?? '');
+            $searchValue = strtolower($columnSearchValue);
+
+            if (strpos($value, $searchValue) === false) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // Metode untuk mendapatkan nilai sorting
+    private function getSortValue($row, $column)
+    {
+        // Tambahkan logika khusus untuk kolom tertentu jika diperlukan
+        return $row[$column] ?? '';
+    }
+
+    // Tambahkan metode untuk mendapatkan status
+    private function getStatusBadge($item, $member)
+    {
+        if (!isset($member->submission)) {
+            return [
+                'text' => 'Belum Mengumpulkan',
+                'class' => 'bg-danger'
+            ];
+        }
+
+        if (!$item->module_grade_status) {
+            return [
+                'text' => 'Tidak Memerlukan Nilai',
+                'class' => 'bg-primary'
+            ];
+        }
+
+        return $member->submission->grade 
+            ? [
+                'text' => 'Sudah Dinilai',
+                'class' => 'bg-success'
+            ]
+            : [
+                'text' => 'Menunggu Penilaian',
+                'class' => 'bg-warning'
+            ];
+    }
+
+    // Tambahkan metode untuk mendapatkan tombol aksi
+    private function getActionButton($member, $item)
+    {
+        if (!$member->submission) {
+            return '-';
+        }
+
+        $route = route('getEditGrade', ['id' => $member->submission->id]);
+        $buttonText = $item->module_grade_status ? 'Nilai Tugas' : 'Lihat Tugas';
+
+        return '<a href="' . $route . '" class="btn btn-primary rounded">' . $buttonText . '</a>';
     }
 
     // function getGradeCCMH(Request $request)

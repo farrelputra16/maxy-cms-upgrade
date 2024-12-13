@@ -21,6 +21,8 @@ Route::get('/course/class/member/history/serverside/COBAA', [CourseClassMemberLo
 
 Route::get('/grading', [CourseClassMemberGradingController::class, 'getGrade'])->name('getGrade')->middleware('access:course_class_member_grading_manage');
 
+Route::get('/grading/data', [CourseClassMemberGradingController::class, 'getGradeData'])->name('getGradeData')->middleware('access:course_class_member_grading_manage');
+
 Route::get('/grading/edit', [CourseClassMemberGradingController::class, 'getEditGrade'])->name('getEditGrade')->middleware('access:course_class_member_grading_update');
 Route::post('/grading/post', [CourseClassMemberGradingController::class, 'postEditGrade'])->name('postEditGrade')->middleware('access:course_class_member_grading_update');
 
