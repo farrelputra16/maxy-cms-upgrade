@@ -57,7 +57,10 @@
                     </ul>
                     </p>
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
+                        data-server-processing="true" 
+                        data-url="{{ route('getCourseClassData') }}"
+                        data-colvis="[1, -3, -4, -5, -6]">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -85,90 +88,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($course_list as $key => $item)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->id }}</td>
-                                    <td>{{ $item->course_name }} Kelas Paralel {{ $item->batch }}</td>
-                                    <td>{{ $item->type }}</td>
-                                    <td>
-                                        {{ $item->class_type }}
-                                    </td>
-                                    <td
-                                        data-export="{{ $item->status_ongoing == 0 ? 'Belum Dimulai' : ($item->status_ongoing == 1 ? 'Sedang Berlangsung' : ($item->status_ongoing == 2 ? 'Sudah Selesai' : 'Status Tidak Diketahui')) }}">
-                                        @if ($item->status_ongoing == 0)
-                                            <span class="badge bg-secondary" style="pointer-events: none;">Belum
-                                                Dimulai</span>
-                                        @elseif ($item->status_ongoing == 1)
-                                            <span class="badge bg-success" style="pointer-events: none;">Sedang
-                                                Berlangsung</span>
-                                        @elseif ($item->status_ongoing == 2)
-                                            <span class="badge bg-primary" style="pointer-events: none;">Sudah
-                                                Selesai</span>
-                                        @else
-                                            <span class="badge bg-danger" style="pointer-events: none;">Status Tidak
-                                                Diketahui</span>
-                                        @endif
-                                    </td>
-
-                                    <td>{{ $item->start_date }}</td>
-                                    <td>{{ $item->end_date }}</td>
-                                    <td>{{ $item->quota }}</td>
-                                    <td>{{ $item->semester }}</td>
-                                    <td>{{ $item->credits }}</td>
-                                    <td>{{ sprintf('%02d:00:00', $item->duration) }}</td>
-                                    <td class="data-long" data-toggle="tooltip"
-                                        title="{{ strip_tags($item->announcement) }}">
-                                        {{ \Str::limit(strip_tags($item->announcement), 30, '...') }}
-                                    </td>
-                                    <td class="data-long">
-                                        {{ env('FRONTEND_APP_URL') . '/lms/krs/course/' . $item->type_slug . '/' . $item->course_slug }}
-                                    </td>
-                                    <td class="data-long" data-toggle="tooltip" title="{{ strip_tags($item->content) }}">
-                                        {{ \Str::limit(strip_tags($item->content), 30, '...') }}
-                                    </td>
-                                    <td class="data-long" data-toggle="tooltip"
-                                        title="{{ strip_tags($item->description) }}">
-                                        {{ \Str::limit(strip_tags($item->description), 30, '...') }}
-                                    </td>
-                                    <td>{{ $item->created_at }}</td>
-                                    <td>{{ $item->created_id }}</td>
-                                    <td>{{ $item->updated_at }}</td>
-                                    <td>{{ $item->updated_id }}</td>
-                                    <td data-export="{{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}">
-                                        <button
-                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
-                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
-                                            data-model="CourseClass">
-                                            {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('getEditCourseClass', ['id' => $item->id]) }}"
-                                            class="btn btn-primary btn-sm">Ubah</a>
-                                        <a href="{{ route('getCourseClassModule', ['id' => $item->id]) }}"
-                                            class="btn btn-info btn-sm">Modul</a>
-                                        <a href="{{ route('getCourseClassMember', ['id' => $item->id]) }}"
-                                            class="btn btn-info btn-sm">Mahasiswa</a>
-                                        <a href="{{ route('getCourseClassAttendance', ['id' => $item->id]) }}"
-                                            class="btn btn-outline-primary btn-sm">Absensi</a>
-                                        <a href="{{ route('getCourseClassScoring', ['id' => $item->id]) }}"
-                                            class="btn btn-outline-primary btn-sm">Penilaian</a>
-                                        @if (Session::has('access_master') &&
-                                                Session::get('access_master')->contains('access_master_name', 'course_class_delete'))
-                                            <form id="delete-course-class-form-{{ $item->id }}"
-                                                action="{{ route('deleteCourseClass', ['id' => $item->id]) }}"
-                                                method="POST" class="d-inline-block"
-                                                data-course-name="{{ $item->course_name }}">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="button"
-                                                    class="btn btn-sm btn-danger delete-course-class-btn">Hapus</button>
-                                            </form>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
+                            
                         </tbody>
                         <tfoot>
                             <tr>
@@ -223,6 +143,151 @@
 
 @section('script')
     <script>
+        const columns = [
+            {
+                data: "DT_RowIndex", 
+                name: "DT_RowIndex",
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: "id", 
+                name: "id"
+            },
+            {
+                data: "course_name", 
+                name: "course_name",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "type", 
+                name: "type",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "class_type", 
+                name: "class_type",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "status_ongoing", 
+                name: "status_ongoing",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "start_date", 
+                name: "start_date",
+                orderable: true,
+                searchable: false
+            },
+            {
+                data: "end_date", 
+                name: "end_date",
+                orderable: true,
+                searchable: false
+            },
+            {
+                data: "quota", 
+                name: "quota",
+                orderable: true,
+                searchable: false
+            },
+            {
+                data: "semester", 
+                name: "semester",
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: "credits", 
+                name: "credits",
+                orderable: true,
+                searchable: false
+            },
+            {
+                data: "duration", 
+                name: "duration",
+                orderable: true,
+                searchable: false
+            },
+            {
+                data: "announcement", 
+                name: "announcement",
+                orderable: false,
+                searchable: true,
+                render: function(data, type, row) {
+                    return data && data.length > 30 ? data.substr(0, 30) + '...' : data;
+                }
+            },
+            {
+                data: "id", 
+                name: "krs_url",
+                orderable: false,
+                searchable: false,
+                render: function(data, type, row) {
+                    return "{{ env('FRONTEND_APP_URL') }}/lms/krs/course/" + row.type_slug + "/" + row.course_slug;
+                }
+            },
+            {
+                data: "content", 
+                name: "content",
+                orderable: false,
+                searchable: true,
+                render: function(data, type, row) {
+                    return data && data.length > 30 ? data.substr(0, 30) + '...' : data;
+                }
+            },
+            {
+                data: "description", 
+                name: "description",
+                orderable: false,
+                searchable: true,
+                render: function(data, type, row) {
+                    return data && data.length > 30 ? data.substr(0, 30) + '...' : data;
+                }
+            },
+            {
+                data: "created_at", 
+                name: "created_at",
+                orderable: true,
+                searchable: false
+            },
+            {
+                data: "created_id", 
+                name: "created_id",
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: "updated_at", 
+                name: "updated_at",
+                orderable: true,
+                searchable: false
+            },
+            {
+                data: "updated_id", 
+                name: "updated_id",
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: "status", 
+                name: "status",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "action", 
+                name: "action",
+                orderable: false,
+                searchable: false
+            }
+        ];
+
         $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });

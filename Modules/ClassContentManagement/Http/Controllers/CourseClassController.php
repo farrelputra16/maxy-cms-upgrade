@@ -21,11 +21,14 @@ use App\Models\MClassType;
 use App\Models\Transkrip;
 use App\Models\MScore;
 use App\Models\TransOrder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Modules\Attendance\Entities\CourseClassAttendance;
 use Modules\Attendance\Entities\MemberAttendance;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Facades\DataTables;
 
 
 class CourseClassController extends Controller
@@ -191,27 +194,27 @@ class CourseClassController extends Controller
 
     function getCourseClass()
     {
-        $broGotAccessMaster = AccessMaster::getUserAccessMaster();
-        $hasManageAllClass = false;
+        // $broGotAccessMaster = AccessMaster::getUserAccessMaster();
+        // $hasManageAllClass = false;
 
-        foreach ($broGotAccessMaster as $access) {
-            if ($access->name === 'manage_all_class') {
-                $hasManageAllClass = true;
-                break;
-            }
-        }
+        // foreach ($broGotAccessMaster as $access) {
+        //     if ($access->name === 'manage_all_class') {
+        //         $hasManageAllClass = true;
+        //         break;
+        //     }
+        // }
 
-        if ($hasManageAllClass) {
-            $courseList = CourseClass::getAllCourseClass();
-        } else {
-            $courseList = CourseClass::getAllCourseClassbyMentor();
-        }
+        // if ($hasManageAllClass) {
+        //     $courseList = CourseClass::getAllCourseClass();
+        // } else {
+        //     $courseList = CourseClass::getAllCourseClassbyMentor();
+        // }
 
-        $batchTitle = $courseList->isNotEmpty() ? $courseList[0]->batch : 'No Batch Available';
+        // $batchTitle = $courseList->isNotEmpty() ? $courseList[0]->batch : 'No Batch Available';
 
         return view('classcontentmanagement::course_class.indexv3', [
-            'course_list' => $courseList,
-            'batch_title' => $batchTitle
+            // 'course_list' => $courseList,
+            // 'batch_title' => $batchTitle
         ]);
 
         // $courseList = CourseClass::getAllCourseClass();
@@ -219,6 +222,161 @@ class CourseClassController extends Controller
         // return view('classcontentmanagement::course_class.index', ['course_list' => $courseList]);
     }
 
+    public function getCourseClassData(Request $request)
+    {
+        $searchValue = $request->input('search.value');
+        $orderColumnIndex = $request->input('order.1.column');
+        $orderDirection = $request->input('order.1.dir', 'asc');
+        $columns = $request->input('columns');
+
+        $orderColumn = 'id';
+        if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
+            $orderColumn = $columns[$orderColumnIndex]['data'];
+        }
+
+        // Determine if user has manage_all_class access
+        $broGotAccessMaster = AccessMaster::getUserAccessMaster();
+        $hasManageAllClass = $broGotAccessMaster->contains('name', 'manage_all_class');
+
+        // Base query
+        $query = CourseClass::select(
+            'course_class.*', 
+            'course.name as course_name', 
+            'course.slug as course_slug', 
+            'm_course_type.name as type', 
+            'm_course_type.slug as type_slug', 
+            'm_class_type.name as class_type'
+        )
+        ->join('course', 'course.id', '=', 'course_class.course_id')
+        ->join('m_course_type', 'm_course_type.id', '=', 'course.m_course_type_id')
+        ->join('m_class_type', 'm_class_type.id', '=', 'course_class.m_class_type_id');
+
+        // If user doesn't have manage_all_class, filter by mentor
+        if (!$hasManageAllClass) {
+            $query->join('user_mentorships', 'user_mentorships.course_class_id', '=', 'course_class.id')
+                ->where('user_mentorships.mentor_id', Auth::user()->id);
+        }
+
+        $query->orderBy($orderColumn, $orderDirection);
+
+        // Column-specific filtering
+        foreach ($columns as $column) {
+            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnName = $column['data'];
+            
+            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action', 'krs_url', 'status_ongoing'])) {
+                continue;
+            } else if ($columnName == 'course_name') {
+                $query->where('course.name', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'type') {
+                $query->where('m_course_type.name', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'class_type') {
+                $query->where('m_class_type.name', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'status') {
+                $query->where('course_class.status', '=', $columnSearchValue == 'Aktif' ? 1 : 0);
+            } else if ($columnName == 'description') {
+                $query->where('course_class.description', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'content') {
+                $query->where('course_class.content', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'credits') {
+                $query->where('course_class.credits', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'duration') {
+                $query->where('course_class.duration', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'id') {
+                $query->where('course_class.id', 'like', "%{$columnSearchValue}%");
+                \Log::info($query->toSql());
+            } else if ($columnName == 'created_at') {
+                $query->where('course_class.created_at', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'created_id') {
+                $query->where('course_class.created_id', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'updated_at') {
+                $query->where('course_class.updated_at', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'updated_id') {
+                $query->where('course_class.updated_id', 'like', "%{$columnSearchValue}%");
+            } else {
+                $query->where($columnName, 'like', "%{$columnSearchValue}%");
+            }
+        }
+
+        return DataTables::of($query)
+            ->addIndexColumn()
+            ->addColumn('course_name', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->course_name) . '">'
+                    . \Str::limit(e($row->course_name . ' Kelas Paralel ' . $row->batch), 30)
+                    . '</span>';
+            })
+            ->addColumn('type', function ($row) {
+                return \Str::limit($row->type, 30);
+            })
+            ->addColumn('class_type', function ($row) {
+                return \Str::limit($row->class_type, 30);
+            })
+            ->addColumn('status_ongoing', function ($row) {
+                $statusLabels = [
+                    0 => ['text' => 'Belum Dimulai', 'class' => 'bg-secondary'],
+                    1 => ['text' => 'Sedang Berlangsung', 'class' => 'bg-success'],
+                    2 => ['text' => 'Sudah Selesai', 'class' => 'bg-primary']
+                ];
+                $status = $statusLabels[$row->status_ongoing] ?? ['text' => 'Status Tidak Diketahui', 'class' => 'bg-danger'];
+                
+                return "<span class='badge {$status['class']}' style='pointer-events: none;'>{$status['text']}</span>";
+            })
+            ->addColumn('start_date', function ($row) {
+                return !empty($row->start_date) ? \Str::limit($row->start_date, 30) : '-';
+            })
+            ->addColumn('end_date', function ($row) {
+                return !empty($row->end_date) ? \Str::limit($row->end_date, 30) : '-';
+            })
+            ->addColumn('created_at', function ($row) {
+                return $row->created_at;
+            })
+            ->addColumn('created_id', function ($row) {
+                return $row->created_id;
+            })
+            ->addColumn('updated_at', function ($row) {
+                return $row->updated_at;
+            })
+            ->addColumn('updated_id', function ($row) {
+                return $row->updated_id;
+            })
+            ->addColumn('status', function ($row) {
+                return '<button 
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
+                    data-id="' . $row->id . '" 
+                    data-status="' . $row->status . '"
+                    data-model="CourseClass">
+                    ' . ($row->status == 1 ? 'Aktif' : 'Nonaktif') . '
+                </button>';
+            })
+            ->addColumn('action', function ($row) {
+                $actions = [
+                    '<a href="' . route('getEditCourseClass', ['id' => $row->id]) . '" class="btn btn-primary btn-sm">Ubah</a>',
+                    '<a href="' . route('getCourseClassModule', ['id' => $row->id]) . '" class="btn btn-info btn-sm">Modul</a>',
+                    '<a href="' . route('getCourseClassMember', ['id' => $row->id]) . '" class="btn btn-info btn-sm">Mahasiswa</a>',
+                    '<a href="' . route('getCourseClassAttendance', ['id' => $row->id]) . '" class="btn btn-outline-primary btn-sm">Absensi</a>',
+                    '<a href="' . route('getCourseClassScoring', ['id' => $row->id]) . '" class="btn btn-outline-primary btn-sm">Penilaian</a>'
+                ];
+
+                // Conditionally add delete button based on user session
+                if (Session::has('access_master') && 
+                    Session::get('access_master')->contains('access_master_name', 'course_class_delete')) {
+                    $actions[] = '
+                    <form id="delete-course-class-form-' . $row->id . '" 
+                        action="' . route('deleteCourseClass', ['id' => $row->id]) . '" 
+                        method="POST" class="d-inline-block"
+                        data-course-name="' . $row->course_name . '">
+                        ' . method_field('DELETE') . '
+                        ' . csrf_field() . '
+                        <button type="button" class="btn btn-sm btn-danger delete-course-class-btn">Hapus</button>
+                    </form>';
+                }
+
+                return implode(' ', $actions);
+            })
+            ->orderColumn('id', 'course_class.id $1')
+            ->rawColumns(['course_name', 'status_ongoing', 'status', 'action'])
+            ->make(true);
+    }
     function getAddCourseClass()
     {
         $allCourses = Course::all();

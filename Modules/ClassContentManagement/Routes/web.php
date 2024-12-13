@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Route;
 // course class
 Route::get('/course/class', [CourseClassController::class, 'getCourseClass'])->name('getCourseClass')->middleware('access:course_class_manage');
 
+Route::get('/course/class/data', [CourseClassController::class, 'getCourseClassData'])->name('getCourseClassData')->middleware('access:course_class_manage');
+
 Route::get('/course/class/generate-student-attendance', [CourseClassController::class, 'generateAttendanceAllClass'])->name('generateAttendanceAllClass')->middleware('access:course_class_manage');
 
 Route::get('/course/class/duplicate', [CourseClassController::class, 'getDuplicateCourseClass'])->name('getDuplicateCourseClass')->middleware('access:course_class_create');
@@ -41,6 +43,7 @@ Route::post('/course/class/scoring', [CourseClassController::class, 'postCourseC
 
 // course class module
 Route::get('/course/class/module', [CourseClassModuleController::class, 'getCourseClassParentModule'])->name('getCourseClassModule')->middleware('access:course_class_module_manage');
+Route::get('/course/class/module/data', [CourseClassModuleController::class, 'getCourseClassParentModuleData'])->name('getCourseClassParentModuleData')->middleware('access:course_class_module_manage');
 Route::get('/course/class/module/add', [CourseClassModuleController::class, 'getAddCourseClassModule'])->name('getAddCourseClassModule')->middleware('access:course_class_module_create');
 Route::post('/course/class/module/add', [CourseClassModuleController::class, 'postAddCourseClassModule'])->name('postAddCourseClassModule')->middleware('access:course_class_module_create');
 Route::get('/course/class/module/edit', [CourseClassModuleController::class, 'getEditCourseClassModule'])->name('getEditCourseClassModule')->middleware('access:course_class_module_update');

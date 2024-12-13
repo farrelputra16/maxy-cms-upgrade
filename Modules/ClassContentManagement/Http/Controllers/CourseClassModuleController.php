@@ -18,6 +18,7 @@ use App\Models\MSurvey;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
+use Yajra\DataTables\Facades\DataTables;
 
 
 class CourseClassModuleController extends Controller
@@ -58,6 +59,100 @@ class CourseClassModuleController extends Controller
             'class_detail' => $class_detail,
             'batch_number' => $batch_number, // Mengirim detail batch ke view
         ]);
+    }
+
+    function getCourseClassParentModuleData(Request $request)
+    {
+        $searchValue = $request->input('search.value');
+        $orderColumnIndex = $request->input('order.1.column');
+        $orderDirection = $request->input('order.1.dir', 'asc');
+        $columns = $request->input('columns');
+        $course_class_id = $request->input('id');
+
+        $orderColumn = 'id';
+        if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
+            $orderColumn = $columns[$orderColumnIndex]['data'];
+        }
+        
+
+        // Base query
+        $query = DB::table('course_class_module')
+            ->select(
+                'course_class_module.*',
+                'cm.name AS course_module_name',
+                'cc.batch AS course_class_batch',
+                'cm.course_module_parent_id as parent_id',
+                'c.name AS course_name'
+            )
+            ->join('course_module as cm', 'cm.id', '=', 'course_class_module.course_module_id')
+            ->join('course_class as cc', 'cc.id', '=', 'course_class_module.course_class_id')
+            ->join('course as c', 'c.id', '=', 'cm.course_id')
+            ->where('course_class_module.course_class_id', $course_class_id)
+            ->where('course_class_module.level', 1);
+
+        // Ordering
+        $query->orderBy($orderColumn, $orderDirection);
+
+        // Column-specific filtering
+        foreach ($columns as $column) {
+            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnName = $column['data'];
+            
+            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
+                continue;
+            } else if ($columnName == 'id') {
+                $query->where('course_class_module.id', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'course_module_name') {
+                $query->where('cm.name', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'priority') {
+                $query->where('course_class_module.priority', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'start_date') {
+                $query->where('course_class_module.start_date', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'end_date') {
+                $query->where('course_class_module.end_date', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'description') {
+                $query->where('course_class_module.description', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'status') {
+                $query->where('course_class_module.status', '=', $columnSearchValue == 'Aktif' ? 1 : 0);
+            } else if ($columnName == 'created_at') {
+                $query->where('course_class_module.created_at', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'created_id') {
+                $query->where('course_class_module.created_id', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'updated_at') {
+                $query->where('course_class_module.updated_at', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'updated_id') {
+                $query->where('course_class_module.updated_id', 'like', "%{$columnSearchValue}%");
+            }
+        }
+
+        return DataTables::of($query)
+            ->addIndexColumn()
+            ->addColumn('course_module_name', function ($row) {
+                return '<span class="batch" scope="row">' . e($row->course_module_name) . '</span>';
+            })
+            ->addColumn('description', function ($row) {
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->description)) . '">
+                    ' . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') . '
+                </span>';
+            })
+            ->addColumn('status', function ($row) {
+                return '<button 
+                    class="btn btn-status-entities ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
+                    data-id="' . $row->id . '" 
+                    data-status="' . $row->status . '"
+                    data-parent="ClassContentManagement"
+                    data-model="CourseClassModule">
+                    ' . ($row->status == 1 ? 'Aktif' : 'Nonaktif') . '
+                </button>';
+            })
+            ->addColumn('action', function ($row) {
+                return '
+                    <a href="' . route('getEditCourseClassModule', ['id' => $row->id]) . '" class="btn btn-primary rounded">Ubah</a>
+                    <a href="' . route('getCourseClassChildModule', ['id' => $row->id]) . '" class="btn btn-outline-primary rounded">Atur Konten</a>
+                ';
+            })
+            ->rawColumns(['course_module_name', 'description', 'status', 'action'])
+            ->make(true);
     }
 
 
