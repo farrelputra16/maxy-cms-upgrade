@@ -155,6 +155,8 @@ Route::group(['middleware' => 'auth'], function () {
     // course module ##########################################################################################################
     Route::get('/course/module', [CourseModuleController::class, 'getCourseModule'])->name('getCourseModule')->middleware('access:course_module_manage');
 
+    Route::get('/course/module/data', [CourseModuleController::class, 'getCourseModuleData'])->name('getCourseModuleData');
+
     Route::get('/course/module/add', [CourseModuleController::class, 'getAddCourseModule'])->name('getAddCourseModule')->middleware('access:course_module_create');
     Route::post('/course/module/add', [CourseModuleController::class, 'postAddCourseModule'])->name('postAddCourseModule')->middleware('access:course_module_create');
 
@@ -170,7 +172,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::post('/course/module/child/edit', [CourseModuleController::class, 'postEditChildModule'])->name('postEditChildModule')->middleware('access:course_module_update');
 
     Route::get('/course/module/child', [CourseModuleController::class, 'getCourseSubModule'])->name('getCourseSubModule')->middleware('access:course_module_manage');
-    Route::get('/course/module/child', [CourseModuleController::class, 'getCourseSubModule'])->name('getCourseSubModule')->middleware('access:course_module_manage');
+    Route::get('/course/module/child/data', [CourseModuleController::class, 'getCourseSubModuleData'])->name('getCourseSubModuleData');
     Route::get('/course/module/child/add', [CourseModuleController::class, 'getAddCourseChildModule'])->name('getAddCourseChildModule')->middleware('access:course_module_create');
     Route::post('/course/module/child/add', [CourseModuleController::class, 'postAddChildModule'])->name('postAddChildModule')->middleware('access:course_module_create');
     Route::get('/course/module/child/edit', [CourseModuleController::class, 'getEditChildModule'])->name('getEditChildModule')->middleware('access:course_module_update');
