@@ -49,7 +49,7 @@
                     </p>
 
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100" data-server-processing="true" data-url="{{ route('getPagesData') }}" data-colvis="[-2]>
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100" data-server-processing="true" data-url="{{ route('getPagesData') }}" data-colvis="[-2]">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -89,7 +89,7 @@
 
 @section('script')
 <script>
-    const columns: [
+    const columns= [
         {
             data: 'DT_RowIndex',
             name: 'DT_RowIndex',
