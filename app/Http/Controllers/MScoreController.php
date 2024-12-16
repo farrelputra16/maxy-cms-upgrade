@@ -122,7 +122,7 @@ class MScoreController extends Controller
 
     function postAddScore(Request $request){
         $validate = $request->validate([
-            'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
+            'name' => 'required|max:255',
             'range_start' => 'required|numeric|max:100',
             'range_end' => 'required|numeric|max:100|gt:range_start',
             'description' => 'nullable|string|max:65535',
@@ -155,7 +155,7 @@ class MScoreController extends Controller
 
     function postEditScore(Request $request){
         $validate = $request->validate([
-            'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
+            'name' => 'required|max:255',
             'range_start' => 'required|numeric|max:100',
             'range_end' => 'required|numeric|max:100|gt:range_start',
             'description' => 'nullable|string|max:65535',
