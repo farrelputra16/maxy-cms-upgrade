@@ -101,12 +101,15 @@
     <!-- Akhir Konten -->
 
     <!-- Tombol Tambah -->
+    @if (Session::has('access_master') &&
+            Session::get('access_master')->contains('access_master_name', 'm_survey_create'))
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddSurvey', ['access' => 'm_survey_create']) }}" target="_blank" data-toggle="tooltip"
+        <a href="{{ route('getAddSurvey') }}" target="_blank" data-toggle="tooltip"
             title="Tambah Survei Baru">
             <i class="fas fa-plus"></i>
         </a>
     </div>
+    @endif
     <!-- Akhir Tombol Tambah -->
 @endsection
 

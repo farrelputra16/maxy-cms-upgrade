@@ -143,11 +143,14 @@
     <!-- Akhir Konten -->
 
     <!-- Tombol Tambah Mata kuliah -->
+    @if (Session::has('access_master') &&
+            Session::get('access_master')->contains('access_master_name', 'course_create'))
     <div id="floating-whatsapp-button">
         <a href="{{ route('getAddCourse') }}" target="_blank">
             <i class="fas fa-plus"></i>
         </a>
     </div>
+    @endif
     <!-- Akhir Tombol Tambah Mata kuliah -->
 @endsection
 

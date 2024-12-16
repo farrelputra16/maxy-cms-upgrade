@@ -93,11 +93,14 @@
     <!-- Akhir Konten -->
 
     <!-- Tombol Tambah -->
+    @if (Session::has('access_master') &&
+            Session::get('access_master')->contains('access_master_name', 'category_create'))
     <div id="floating-whatsapp-button">
         <a href="{{ route('getAddCategory') }}" target="_blank" data-toggle="tooltip" title="Tambah Program Studi Baru">
             <i class="fas fa-plus"></i>
         </a>
     </div>
+    @endif
     <!-- Akhir Tombol Tambah -->
 @endsection
 

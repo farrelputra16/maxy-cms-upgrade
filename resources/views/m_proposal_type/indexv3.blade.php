@@ -94,12 +94,15 @@
     <!-- Akhir Konten -->
 
     <!-- Tombol Tambah -->
+    @if (Session::has('access_master') &&
+            Session::get('access_master')->contains('access_master_name', 'm_proposal_type_create'))
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddProposalType', ['access' => 'm_Proposal_type_create']) }}" target="_blank"
+        <a href="{{ route('getAddProposalType') }}" target="_blank"
             data-toggle="tooltip" title="Tambah Jenis Proposal Baru">
             <i class="fas fa-plus"></i>
         </a>
     </div>
+    @endif
     <!-- Akhir Tombol Tambah -->
 @endsection
 

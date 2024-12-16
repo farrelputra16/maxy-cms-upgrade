@@ -96,12 +96,15 @@
     <!-- Akhir Konten -->
 
     <!-- Tombol Tambah -->
+    @if (Session::has('access_master') &&
+            Session::get('access_master')->contains('access_master_name', 'm_event_type_create'))
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddEventType', ['access' => 'm_Event_type_create']) }}" target="_blank" data-toggle="tooltip"
+        <a href="{{ route('getAddEventType') }}" target="_blank" data-toggle="tooltip"
             title="Tambah Tipe Acara Baru">
             <i class="fas fa-plus"></i>
         </a>
     </div>
+    @endif
     <!-- Akhir Tombol Tambah -->
 @endsection
 

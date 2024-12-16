@@ -92,12 +92,15 @@
     <!-- Akhir Konten -->
 
     <!-- Tombol Tambah -->
+    @if (Session::has('access_master') &&
+            Session::get('access_master')->contains('access_master_name', 'm_partnership_type_create'))
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddPartnershipType', ['access' => 'm_Partnership_type_create']) }}" target="_blank"
+        <a href="{{ route('getAddPartnershipType') }}" target="_blank"
             data-toggle="tooltip" title="Tambah Tipe Kemitraan Baru">
             <i class="fas fa-plus"></i>
         </a>
     </div>
+    @endif
     <!-- Akhir Tombol Tambah -->
 @endsection
 

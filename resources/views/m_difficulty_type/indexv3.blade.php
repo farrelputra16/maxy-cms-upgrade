@@ -96,11 +96,14 @@
     <!-- end content -->
 
     <!-- FAB add starts -->
+    @if (Session::has('access_master') &&
+            Session::get('access_master')->contains('access_master_name', 'm_difficulty_type_create'))
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddDifficultyType', ['access' => 'm_difficulty_type_create']) }}" target="_blank">
+        <a href="{{ route('getAddDifficultyType') }}" target="_blank">
             <i class="fas fa-plus"></i>
         </a>
     </div>
+    @endif
     <!-- FAB add ends -->
 @endsection
 
