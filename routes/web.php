@@ -493,6 +493,8 @@ Route::post('/redeemcode/edit', [RedeemCodeController::class, 'postEditRedeemCod
 //Proposal Routes #########################################################################################################
 Route::get('/proposal', [ProposalController::class, 'getProposal'])->name('getProposal')->middleware('access:proposal_manage');
 
+Route::get('/proposal/data', [ProposalController::class, 'getProposalData'])->name('getProposalData');
+
 Route::get('/proposal/add', [ProposalController::class, 'getAddProposal'])->name('getAddProposal')->middleware('access:proposal_create');
 Route::post('/proposal/add', [ProposalController::class, 'postAddProposal'])->name('postAddProposal')->middleware('access:proposal_create');
 

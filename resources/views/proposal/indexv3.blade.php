@@ -32,7 +32,10 @@
                         Halaman ini menampilkan table untuk melakukan manajemen proposal.
                     </p>
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
+                        data-server-processing="true" data-url="{{ route('getProposalData') }}"
+                        data-no-status="true"
+                        data-colvis="[1, -3, -4, -5, -6]">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -40,59 +43,16 @@
                                 <th class="data-medium">Nama</th>
                                 <th class="data-medium">Judul</th>
                                 <th>Proposal</th>
-                                <th>Tanggal Pembuatan</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Dibuat Pada</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Diperbarui Oleh</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($proposals as $key => $proposal)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $proposal->id }}</td>
-                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $proposal->user_name }}">
-                                        {!! \Str::limit($proposal->user_name, 30) !!}
-                                    </td>
-                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $proposal->name }}">
-                                        {!! \Str::limit($proposal->name, 30) !!}
-                                    </td>
-                                    <td>
-                                        <a href="{{ asset('/uploads/proposal/proposal/' . $proposal->student_id . '/proposal/' . $proposal->proposal) }}"
-                                            target="_blank">{{ $proposal->proposal }}</a>
-                                    </td>
-                                    <td>{{ $proposal->created_at }}</td>
-                                    <td>{{ $proposal->created_id }}</td>
-                                    <td>{{ $proposal->updated_at }}</td>
-                                    <td>{{ $proposal->updated_id }}</td>
-                                    <td>
-                                        @if ($proposal->m_proposal_status_id == 6)
-                                            <span class="badge bg-danger"
-                                                style="pointer-events: none;">{{ $proposal->status }}</span>
-                                        @elseif ($proposal->m_proposal_status_id == 7)
-                                            <span class="badge bg-success"
-                                                style="pointer-events: none;">{{ $proposal->status }}</span>
-                                        @elseif ($proposal->m_proposal_status_id == 8)
-                                            <span class="badge bg-warning"
-                                                style="pointer-events: none;">{{ $proposal->status }}</span>
-                                        @elseif ($proposal->m_proposal_status_id == 9)
-                                            <span class="badge bg-primary"
-                                                style="pointer-events: none;">{{ $proposal->status }}</span>
-                                        @else
-                                            <span class="badge bg-info"
-                                                style="pointer-events: none;">{{ $proposal->status }}</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('getEditProposal', ['id' => $proposal->id]) }}"
-                                            class="btn btn-primary rounded">Ubah</a>
-                                    </td>
-                                </tr>
-                            @endforeach
+                            
                         </tbody>
                         <tfoot>
                             <tr>
@@ -101,12 +61,12 @@
                                 <th class="data-medium">Name</th>
                                 <th class="data-medium">Title</th>
                                 <th>Proposal</th>
-                                <th>Created At</th>
-                                <th>Created Id</th>
-                                <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Dibuat Pada</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Diperbarui Pada</th>
+                                <th>Diperbarui Oleh</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -118,5 +78,71 @@
 @endsection
 
 @section('script')
-
+<script>
+    const columns = [{
+            data: "DT_RowIndex",
+            name: "DT_RowIndex",
+            orderable: false,
+            searchable: false
+        },
+        {
+            data: "id",
+            name: "id"
+        },
+        {
+            data: "user_name",
+            name: "user_name",
+            orderable: true,
+            searchable: true
+        },
+        {
+            data: "name",
+            name: "name",
+            orderable: true,
+            searchable: true
+        },
+        {
+            data: "proposal",
+            name: "proposal",
+            orderable: false,
+            searchable: true
+        },
+        {
+            data: "created_at",
+            name: "created_at",
+            orderable: true,
+            searchable: false
+        },
+        {
+            data: "created_id",
+            name: "created_id",
+            orderable: false,
+            searchable: false
+        },
+        {
+            data: "updated_at",
+            name: "updated_at",
+            orderable: true,
+            searchable: false
+        },
+        {
+            data: "updated_id",
+            name: "updated_id",
+            orderable: false,
+            searchable: false
+        },
+        {
+            data: "proposal_status", // Changed from 'status'
+            name: "proposal_status",
+            orderable: true,
+            searchable: true
+        },
+        {
+            data: "action",
+            name: "action",
+            orderable: false,
+            searchable: false
+        },
+    ];
+</script>
 @endsection
