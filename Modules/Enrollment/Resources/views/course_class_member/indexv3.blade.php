@@ -93,6 +93,8 @@
     <!-- Akhir Konten -->
 
     <!-- Tombol FAB Tambah -->
+    @if (Session::has('access_master') &&
+            Session::get('access_master')->contains('access_master_name', 'course_class_member_create'))
     <div id="floating-whatsapp-button">
         @if (!empty($courseClassDetail->id))
             <a href="{{ route('getAddCourseClassMember', ['id' => $courseClassDetail->id]) }}" target="_blank"
@@ -104,6 +106,7 @@
         <i class="fas fa-plus"></i>
         </a>
     </div>
+    @endif
     <!-- Akhir Tombol FAB Tambah -->
 @endsection
 
