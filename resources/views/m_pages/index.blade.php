@@ -49,7 +49,7 @@
                     </p>
 
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100" data-colvis="[2]">
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100" data-server-processing="true" data-url="{{ route('getPagesData') }}" data-colvis="[-2]>
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -59,29 +59,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($sections as $section)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    {{-- Page Name --}}
-                                    <td>
-                                        @if ($section->page_id == 1)
-                                            Home
-                                        @elseif ($section->page_id == 2)
-                                            Browse Courses
-                                        @elseif ($section->page_id == 3)
-                                            Blog
-                                        @else
-                                            Unknown Page
-                                        @endif
-                                    </td>
-                                    {{-- Ubah Button --}}
-                                    <td>{{ $section->status == 1 ? 'Aktif' : 'Non Aktif' }}</td>
-                                    <td>
-                                        <a href="{{ route('getEditPage', ['id' => $section->page_id]) }}"
-                                            class="btn btn-primary rounded">Ubah</a>
-                                    </td>
-                                </tr>
-                            @endforeach
+
                         </tbody>
                         <tfoot>
                             <tr>
@@ -110,5 +88,32 @@
 @endsection
 
 @section('script')
-
+<script>
+    const columns: [
+        {
+            data: 'DT_RowIndex',
+            name: 'DT_RowIndex',
+            orderable: false,
+            searchable: false,
+            width: '10%'
+        },
+        {
+            data: 'page_name',
+            name: 'page_name',
+            width: '40%'
+        },
+        {
+            data: 'status',
+            name: 'status',
+            width: '20%'
+        },
+        {
+            data: 'action',
+            name: 'action',
+            orderable: false,
+            searchable: false,
+            width: '30%'
+        }
+    ];
+</script>
 @endsection

@@ -387,6 +387,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Settings Pages
     #########################################################################################################
     Route::get('/pages', [PageController::class, 'getPages'])->name('getPages');
+    Route::get('/pages/data', [PageController::class, 'getPagesData'])->name('getPagesData');
     Route::get('/pages/edit', [PageController::class, 'getEditPage'])->name('getEditPage');
     Route::get('/pages/show', [PageController::class, 'showPage'])->name('getShowPage');
     Route::post('/save-page-content', [PageController::class, 'savePageContent'])->name('savePageContent');

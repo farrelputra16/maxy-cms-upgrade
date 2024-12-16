@@ -11,19 +11,60 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Symfony\Component\DomCrawler\Crawler;
+use Yajra\DataTables\Facades\DataTables;
 
 class PageController extends Controller
 {
     public function getPages()
     {
 
-        $sections = MPageContent::select('page_id', 'status')
-            ->distinct()
-            ->get();
-
+        // $sections = MPageContent::select('page_id', 'status')
+        //     ->distinct()
+        //     ->get();
         // dd($sections);
+        // return view('m_pages.index', compact('sections'));
+        return view('m_pages.index');
+    }
 
-        return view('m_pages.index', compact('sections'));
+    public function getPagesData()
+    {
+        // Fetch pages with their details
+        $pages = MPageContent::select('page_id', 'status')
+            ->distinct()
+            ->get()
+            ->map(function ($page) {
+                // Map page_id to page names
+                switch ($page->page_id) {
+                    case 1:
+                        $pageName = 'Home';
+                        break;
+                    case 2:
+                        $pageName = 'Browse Courses';
+                        break;
+                    case 3:
+                        $pageName = 'Blog';
+                        break;
+                    default:
+                        $pageName = 'Unknown Page';
+                }
+
+                return [
+                    'no' => null, // This will be handled by DataTables
+                    'page_id' => $page->page_id,
+                    'page_name' => $pageName,
+                    'status' => $page->status == 1 ? 'Aktif' : 'Non Aktif',
+                    'action' => route('getEditPage', ['id' => $page->page_id])
+                ];
+            });
+
+        // Return DataTables compatible JSON response
+        return DataTables::of($pages)
+            ->addIndexColumn() // This adds the index column (equivalent to $loop->iteration)
+            ->addColumn('action', function($page) {
+                return '<a href="' . $page['action'] . '" class="btn btn-primary rounded">Ubah</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
     // public function getEditPage(Request $request)
