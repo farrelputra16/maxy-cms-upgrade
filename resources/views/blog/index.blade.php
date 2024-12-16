@@ -56,7 +56,8 @@
                     </ul>
                     </p>
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
+                        data-server-processing="true" data-url="{{ route('getBlogData') }}" data-colvis="[-3, -4, -11]">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -68,15 +69,13 @@
                                 <th>Highlight</th>
                                 <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
-                                <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>
-                                <th>Id Pembaruan</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $key => $item)
+                            {{-- @foreach ($data as $key => $item)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->id }}</td>
@@ -112,9 +111,7 @@
                                         {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
                                     </td>
                                     <td>{{ $item->created_at }}</td>
-                                    <td>{{ $item->created_id }}</td>
                                     <td>{{ $item->updated_at }}</td>
-                                    <td>{{ $item->updated_id }}</td>
                                     <td>
                                         <button
                                             class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
@@ -130,7 +127,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @endforeach --}}
                         </tbody>
                         <tfoot>
                             <tr>
@@ -143,9 +140,7 @@
                                 <th>Highlight</th>
                                 <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
-                                <th>Id Pembuat</th>
                                 <th>Diperbarui Pada</th>
-                                <th>Id Pembaruan</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -167,5 +162,77 @@
 @endsection
 
 @section('script')
-
+    <script>
+        const columns = [{
+                data: "DT_RowIndex",
+                name: "DT_RowIndex",
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: "id",
+                name: "id"
+            },
+            {
+                data: "title",
+                name: "title",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "slug",
+                name: "slug",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "content",
+                name: "content",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "tags",
+                name: "tags",
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: "highlight_status",
+                name: "highlight_status",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "description",
+                name: "description",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "created_at",
+                name: "created_at",
+                orderable: true,
+                searchable: false
+            },
+            {
+                data: "updated_at",
+                name: "updated_at",
+                orderable: true,
+                searchable: false
+            },
+            {
+                data: "status",
+                name: "status",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "action",
+                name: "action",
+                orderable: false,
+                searchable: false
+            }
+        ];
+    </script>
 @endsection

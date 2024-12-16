@@ -9,6 +9,7 @@ use App\Models\MBlogTag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Yajra\DataTables\Facades\DataTables;
 
 class BlogController extends Controller
 {
@@ -16,8 +17,125 @@ class BlogController extends Controller
     public function getBlog()
     {
         $data = MBlog::orderBy('created_at', 'desc')->get();
+
+        // dd($data);
         return view('blog.index', compact('data'));
     }
+
+    public function getBlogData(Request $request)
+    {
+        $searchValue = $request->input('search.value');
+        $orderColumnIndex = $request->input('order.1.column');
+        $orderDirection = $request->input('order.1.dir', 'asc');
+        $columns = $request->input('columns');
+
+        $orderColumn = 'id';
+        if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
+            $orderColumn = $columns[$orderColumnIndex]['data'];
+        }
+
+        $blogs = MBlog::select(
+            'm_blog.*',
+            'm_blog.status_highlight AS highlight_status'
+        )
+        ->with('tags');
+
+        // Global search
+        if (!empty($searchValue)) {
+            $blogs->where(function ($query) use ($searchValue) {
+                $query->where('title', 'like', "%{$searchValue}%")
+                    ->orWhere('slug', 'like', "%{$searchValue}%")
+                    ->orWhere('content', 'like', "%{$searchValue}%");
+            });
+        }
+
+        // Column-specific search
+        foreach ($columns as $column) {
+            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnName = $column['data'];
+
+            if (!empty($columnSearchValue) && $columnName !== 'action') {
+                switch ($columnName) {
+                    case 'title':
+                        $blogs->where('title', 'like', "%{$columnSearchValue}%");
+                        break;
+                    case 'slug':
+                        $blogs->where('slug', 'like', "%{$columnSearchValue}%");
+                        break;
+                    case 'content':
+                        $blogs->where('content', 'like', "%{$columnSearchValue}%");
+                        break;
+                    case 'highlight_status':
+                        $blogs->where('status_highlight', $columnSearchValue);
+                        break;
+                    case 'status':
+                        $blogs->where('status', $columnSearchValue);
+                        break;
+                }
+            }
+        }
+
+        // Ordering
+        $blogs->orderBy($orderColumn, $orderDirection);
+
+        return DataTables::of($blogs)
+            ->addIndexColumn()
+            ->addColumn('id', function ($row) {
+                return $row->id;
+            })
+            ->addColumn('title', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->title) . '">'
+                    . \Str::limit(e($row->title), 30)
+                    . '</span>';
+            })
+            ->addColumn('slug', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->slug) . '">'
+                    . '<a href="' . env('FRONTEND_APP_URL') . '/blog/' . e($row->slug) . '" target="_blank">'
+                    . \Str::limit(e($row->slug), 30) . '</a>'
+                    . '</span>';
+            })
+            ->addColumn('content', function ($row) {
+                $strippedContent = strip_tags($row->content);
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e($strippedContent) . '">'
+                    . \Str::limit(e($strippedContent), 30)
+                    . '</span>';
+            })
+            ->addColumn('tags', function ($row) {
+                return $row->tags->map(function ($tag) {
+                    return '<div class="badge bg-secondary px-2">' . $tag->name . '</div>';
+                })->implode(' ');
+            })
+            ->addColumn('highlight_status', function ($row) {
+                $isHighlighted = $row->highlight_status == 1;
+                return '<a class="btn ' . ($isHighlighted ? 'btn-success' : 'btn-danger') . '">
+                    <i class="fas fa-' . ($isHighlighted ? 'check' : 'times') . '"></i> &nbsp; '
+                    . ($isHighlighted ? 'Ya' : 'Tidak') . '</a>';
+            })
+            ->addColumn('description', function ($row) {
+                $description = strip_tags($row->description);
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e($description) . '">'
+                    . (!empty($description) ? \Str::limit(e($description), 30) : '-')
+                    . '</span>';
+            })
+            ->addColumn('status', function ($row) {
+                return '<button
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '"
+                    data-id="' . $row->id . '"
+                    data-status="' . $row->status . '"
+                    data-model="MBlog">
+                    ' . ($row->status == 1 ? 'Aktif' : 'Nonaktif') . '
+                </button>';
+            })
+            ->addColumn('action', function ($row) {
+                return '<div class="btn-group">
+                    <a href="' . route('getEditBlog', ['id' => $row->id]) . '"
+                        class="btn btn-primary">Ubah</a>
+                </div>';
+            })
+            ->rawColumns(['title', 'slug', 'content', 'tags', 'highlight_status', 'description', 'status', 'action'])
+            ->make(true);
+    }
+
     public function getAddBlog()
     {
         $data = MBlogTag::where('status', 1)->get();

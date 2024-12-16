@@ -375,6 +375,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Blog Routes #########################################################################################################
     Route::get('/blog', [BlogController::class, 'getBlog'])->name('getBlog');
+    Route::get('/get-blog-data', [BlogController::class, 'getBlogData'])->name('getBlogData');
 
     Route::get('/blog/add', [BlogController::class, 'getAddBlog'])->name('getAddBlog');
     Route::post('/blog/add', [BlogController::class, 'postAddBlog'])->name('postAddBlog');
