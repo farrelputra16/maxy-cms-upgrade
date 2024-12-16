@@ -105,12 +105,15 @@
     <!-- End Content -->
 
     <!-- FAB Add Starts -->
+    @if (Session::has('access_master') &&
+            Session::get('access_master')->contains('access_master_name', 'course_class_module_create'))
     <div id="floating-whatsapp-button">
         <a href="{{ route('getAddCourseClassModule', ['id' => $course_class_id]) }}" target="_blank" data-toggle="tooltip"
             title="Tambah Modul Baru">
             <i class="fas fa-plus"></i>
         </a>
     </div>
+    @endif
     <!-- FAB Add Ends -->
 @endsection
 

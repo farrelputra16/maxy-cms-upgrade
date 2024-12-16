@@ -18,6 +18,8 @@ use App\Models\MSurvey;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\Facades\DataTables;
 
 
@@ -113,7 +115,7 @@ class CourseClassModuleController extends Controller
             } else if ($columnName == 'description') {
                 $query->where('course_class_module.description', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'status') {
-                $query->where('course_class_module.status', '=', $columnSearchValue == 'Aktif' ? 1 : 0);
+                $query->where('course_class_module.status', '=', stripos($columnSearchValue, 'Non') !== false ? 0 : 1);
             } else if ($columnName == 'created_at') {
                 $query->where('course_class_module.created_at', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'created_id') {
@@ -293,6 +295,110 @@ class CourseClassModuleController extends Controller
             'parent_module' => $ccmod_parent,
         ]);
     }
+
+    function getCourseClassChildModuleData(Request $request)
+    {
+        $searchValue = $request->input('search.value');
+        $orderColumnIndex = $request->input('order.1.column');
+        $orderDirection = $request->input('order.1.dir', 'asc');
+        $columns = $request->input('columns');
+        $parent_id = $request->input('id');
+
+        $orderColumn = 'id';
+        if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
+            $orderColumn = $columns[$orderColumnIndex]['data'];
+        }
+
+        $ccmod_parent = CourseClassModule::find($parent_id);
+        $ccmod_parent->detail = CourseModule::find($ccmod_parent->course_module_id);
+
+        // Base query
+        $query = DB::table('course_class_module')
+            ->select(
+                'course_class_module.*',
+                'cm.name AS course_module_name',
+                'cc.batch AS course_class_batch',
+                'cm.course_module_parent_id as parent_id',
+                'c.name AS course_name',
+                'cm.content AS course_module_content',
+                'cm.material AS course_module_material',
+                'cm.type AS type'
+            )
+            ->join('course_module as cm', 'cm.id', '=', 'course_class_module.course_module_id')
+            ->join('course_class as cc', 'cc.id', '=', 'course_class_module.course_class_id')
+            ->join('course as c', 'c.id', '=', 'cm.course_id')
+            ->where('course_class_module.course_class_id', $ccmod_parent->course_class_id)
+            ->where('course_class_module.level', 2)
+            ->where('cm.course_module_parent_id', $ccmod_parent->course_module_id);
+
+        // Ordering
+        $query->orderBy($orderColumn, $orderDirection);
+
+        // Column-specific filtering
+        foreach ($columns as $column) {
+            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnName = $column['data'];
+
+            
+            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
+                continue;
+            } else if ($columnName == 'id') {
+                $query->where('course_class_module.id', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'course_module_name') {
+                $query->where('cm.name', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'type') {
+                $query->where('cm.type', 'like', "%{$columnSearchValue}%"); 
+            } else if ($columnName == 'priority') {
+                $query->where('course_class_module.priority', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'start_date') {
+                $query->where('course_class_module.start_date', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'end_date') {
+                $query->where('course_class_module.end_date', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'description') {
+                $query->where('course_class_module.description', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'status') {
+                $query->where('course_class_module.status', '=', stripos($columnSearchValue, 'Non') !== false ? 0 : 1);
+            } else if ($columnName == 'created_at') {
+                $query->where('course_class_module.created_at', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'created_id') {
+                $query->where('course_class_module.created_id', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'updated_at') {
+                $query->where('course_class_module.updated_at', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'updated_id') {
+                $query->where('course_class_module.updated_id', 'like', "%{$columnSearchValue}%");
+            }
+        }
+
+        return DataTables::of($query)
+            ->addIndexColumn()
+            ->addColumn('course_module_name', function ($row) {
+                return '<span class="batch" scope="row">' . e($row->course_module_name) . '</span>';
+            })
+            ->addColumn('description', function ($row) {
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->description)) . '">
+                    ' . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') . '
+                </span>';
+            })
+            ->addColumn('status', function ($row) {
+                return '<button 
+                    class="btn btn-status-entities ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
+                    data-id="' . $row->id . '" 
+                    data-status="' . $row->status . '"
+                    data-parent="ClassContentManagement"
+                    data-model="CourseClassModule">
+                    ' . ($row->status == 1 ? 'Aktif' : 'Nonaktif') . '
+                </button>';
+            })
+            ->addColumn('action', function ($row) {
+                return '
+                    <a href="' . route('getEditCourseClassChildModule', ['id' => $row->id]) . '" class="btn btn-primary rounded">Ubah</a>
+                    <a href="' . route('getJournalCourseClassChildModule', ['id' => $row->id]) . '" class="btn btn-outline-primary rounded">Kelola Jurnal</a>
+                ';
+            })
+            ->rawColumns(['course_module_name', 'description', 'status', 'action'])
+            ->make(true);
+    }
+
     function getAddCourseClassChildModule(Request $request)
     {
         // dd($request->all()); // dapat course_class_module_id parent nya
@@ -397,6 +503,110 @@ class CourseClassModuleController extends Controller
             'parent_module' => $ccmod_parent,
             'child_parent_module' => $ccmod_child_parent,
         ]);
+    }
+    function getJournalCourseClassChildModuleData(Request $request)
+    {
+        $searchValue = $request->input('search.value');
+        $orderColumnIndex = $request->input('order.1.column');
+        $orderDirection = $request->input('order.1.dir', 'asc');
+        $columns = $request->input('columns');
+        $parent_id = $request->input('id');
+
+        $orderColumn = 'id';
+        if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
+            $orderColumn = $columns[$orderColumnIndex]['data'];
+        }
+
+        // Base query
+        $query = DB::table('course_journal')
+            ->select(
+                'course_journal.*',
+                'users.name AS user_name'
+            )
+            ->join('users', 'users.id', '=', 'course_journal.user_id')
+            ->where('course_journal.course_class_module_id', $parent_id)
+            ->whereNull('course_journal.course_journal_parent_id')
+            ->where('course_journal.priority', 1);
+
+        // Ordering
+        $query->orderBy($orderColumn, $orderDirection);
+
+        // Column-specific filtering
+        foreach ($columns as $column) {
+            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnName = $column['data'];
+            
+            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
+                continue;
+            } else if ($columnName == 'id') {
+                $query->where('course_journal.id', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'user_name') {
+                $query->where('users.name', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'description') {
+                $query->where('course_journal.description', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'created_at') {
+                $query->where('course_journal.created_at', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'created_id') {
+                $query->where('course_journal.created_id', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'updated_at') {
+                $query->where('course_journal.updated_at', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'updated_id') {
+                $query->where('course_journal.updated_id', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'status') {
+                $query->where('course_journal.status', '=', stripos($columnSearchValue, 'Non') !== false ? 0 : 1);
+            }
+        }
+
+        return DataTables::of($query)
+            ->addIndexColumn()
+            ->addColumn('user_name', function ($row) {
+                return '<span class="batch" scope="row">' . e($row->user_name) . '</span>';
+            })
+            ->addColumn('description', function ($row) {
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->description)) . '">
+                    ' . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') . '
+                </span>';
+            })
+            ->addColumn('status', function ($row) {
+                return '<button 
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
+                    data-id="' . $row->id . '" 
+                    data-status="' . $row->status . '"
+                    data-model="CourseJournal">
+                    ' . ($row->status == 1 ? 'Aktif' : 'Nonaktif') . '
+                </button>';
+            })
+            ->addColumn('action', function ($row) {
+                $html = '';
+
+                // Check for access using Session
+                if (Session::has('access_master') && 
+                    Session::get('access_master')->contains('access_master_name', 'course_class_module_journal_create')) {
+                    $html .= '<a href="' . route('getAddJournalCourseClassChildModule', [
+                        'id' => $row->id, 
+                        'user_id' => $row->user_id, 
+                        'course_class_module_id' => $row->course_class_module_id
+                    ]) . '" class="btn btn-primary rounded">Balas</a>';
+                }
+
+                $html .= $row->status == 1 
+                    ? ' <button type="button" class="btn btn-danger hide-button" data-id="' . $row->id . '" data-course_class_module_id="' . $row->course_class_module_id . '">Sembunyikan</button>'
+                    : ' <button type="button" class="btn btn-success hide-button" data-id="' . $row->id . '" data-course_class_module_id="' . $row->course_class_module_id . '">Tunjukkan</button>';
+
+                $html .= $row->acceptable == 1
+                    ? ' <form action="' . route('postRejectJournalCourseClassChildModule', ['id' => $row->id, 'course_class_module_id' => $row->course_class_module_id]) . '" method="POST" style="display:inline;">
+                        ' . csrf_field() . '
+                        <button type="submit" class="btn btn-danger">Tolak</button>
+                    </form>'
+                    : ' <form action="' . route('postRejectJournalCourseClassChildModule', ['id' => $row->id, 'course_class_module_id' => $row->course_class_module_id]) . '" method="POST" style="display:inline;">
+                        ' . csrf_field() . '
+                        <button type="submit" class="btn btn-success">Terima</button>
+                    </form>';
+
+                return $html;
+            })
+            ->rawColumns(['user_name', 'description', 'status', 'action'])
+            ->make(true);
     }
     function getAddJournalCourseClassChildModule(Request $request)
     {

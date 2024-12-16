@@ -225,14 +225,34 @@ class CourseClassController extends Controller
     public function getCourseClassData(Request $request)
     {
         $searchValue = $request->input('search.value');
-        $orderColumnIndex = $request->input('order.1.column');
-        $orderDirection = $request->input('order.1.dir', 'asc');
+        $orderColumnIndex = $request->input('order.0.column');
+        $orderDirection = $request->input('order.0.dir', 'asc');
         $columns = $request->input('columns');
 
         $orderColumn = 'id';
         if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
             $orderColumn = $columns[$orderColumnIndex]['data'];
         }
+
+        // Mapping kolom untuk pengurutan yang benar
+        $orderColumnMapping = [
+            'DT_RowIndex' => 'id',
+            'course_name' => 'course.name',
+            'type' => 'm_course_type.name',
+            'class_type' => 'm_class_type.name',
+            'status_ongoing' => 'course_class.status_ongoing',
+            'start_date' => 'course_class.start_date',
+            'end_date' => 'course_class.end_date',
+            'quota' => 'course_class.quota',
+            'credits' => 'course_class.credits',
+            'duration' => 'course_class.duration',
+            'created_at' => 'course_class.created_at',
+            'updated_at' => 'course_class.updated_at',
+            'status' => 'course_class.status'
+        ];
+
+        // Gunakan mapping untuk menentukan kolom pengurutan
+        $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
         // Determine if user has manage_all_class access
         $broGotAccessMaster = AccessMaster::getUserAccessMaster();
@@ -257,7 +277,7 @@ class CourseClassController extends Controller
                 ->where('user_mentorships.mentor_id', Auth::user()->id);
         }
 
-        $query->orderBy($orderColumn, $orderDirection);
+        $query->orderBy($finalOrderColumn, $orderDirection);
 
         // Column-specific filtering
         foreach ($columns as $column) {
@@ -273,7 +293,7 @@ class CourseClassController extends Controller
             } else if ($columnName == 'class_type') {
                 $query->where('m_class_type.name', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'status') {
-                $query->where('course_class.status', '=', $columnSearchValue == 'Aktif' ? 1 : 0);
+                $query->where('course_class.status', '=', stripos($columnSearchValue, 'Non') !== false ? 0 : 1);
             } else if ($columnName == 'description') {
                 $query->where('course_class.description', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'content') {
@@ -284,7 +304,6 @@ class CourseClassController extends Controller
                 $query->where('course_class.duration', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'id') {
                 $query->where('course_class.id', 'like', "%{$columnSearchValue}%");
-                \Log::info($query->toSql());
             } else if ($columnName == 'created_at') {
                 $query->where('course_class.created_at', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'created_id') {

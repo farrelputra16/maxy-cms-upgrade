@@ -56,7 +56,11 @@
                     </ul>
                     </p>
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
+                        data-server-processing="true" 
+                        data-url="{{ route('getJournalCourseClassChildModuleData') }}"
+                        data-colvis="[1, -3, -4, -5, -6]"
+                        data-id="{{ $parent_module->id}}">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -72,56 +76,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $key => $item)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->id }}</td>
-                                    <td class="batch" scope="row">{{ $item->User->name }}</td>
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->description) !!}">
-                                        {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
-                                    </td>
-                                    <td>{{ $item->created_at }}</td>
-                                    <td>{{ $item->created_id }}</td>
-                                    <td>{{ $item->updated_at }}</td>
-                                    <td>{{ $item->updated_id }}</td>
-                                    <td>
-                                        <button
-                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
-                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
-                                            data-model="CourseJournal">
-                                            {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('getAddJournalCourseClassChildModule', ['id' => $item->id, 'user_id' => $item->User->id, 'course_class_module_id' => $parent_module->id]) }}"
-                                            class="btn btn-primary rounded">Balas</a>
-                                        @if ($item->status == 1)
-                                            <button type="button" class="btn btn-danger hide-button"
-                                                data-id="{{ $item->id }}"
-                                                data-course_class_module_id="{{ $parent_module->id }}">
-                                                Sembunyikan
-                                            </button>
-                                        @else
-                                            <button type="button" class="btn btn-success hide-button"
-                                                data-id="{{ $item->id }}"
-                                                data-course_class_module_id="{{ $parent_module->id }}">
-                                                Tunjukkan
-                                            </button>
-                                        @endif
-                                        <form
-                                            action="{{ route('postRejectJournalCourseClassChildModule', ['id' => $item->id, 'course_class_module_id' => $parent_module->id]) }}"
-                                            method="POST" style="display:inline;">
-                                            @csrf
-                                            @if ($item->acceptable == 1)
-                                                <button type="submit" class="btn btn-danger">Tolak</button>
-                                            @else
-                                                <button type="submit" class="btn btn-success">Terima</button>
-                                            @endif
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
+                            
                         </tbody>
                         <tfoot>
                             <tr>
@@ -167,16 +122,15 @@
 @endsection
 
 @section('script')
-
     <script>
         // Dengarkan klik pada elemen dengan class 'hide-button'
-        document.querySelectorAll('.hide-button').forEach(button => {
-            button.addEventListener('click', function() {
+        document.addEventListener('click', function() {
+            const hidebutton = event.target.closest('.hide-button');
+            if (hidebutton) {
                 // Dapatkan ID, course_class_module_id, dan status dari atribut data button yang diklik
-                let id = this.getAttribute('data-id');
-                let course_class_module_id = this.getAttribute('data-course_class_module_id');
-                let status = this.innerText.trim()
-                    .toLowerCase(); // Ambil teks tombol (sembunyikan/tunjukkan)
+                let id = hidebutton.getAttribute('data-id');
+                let course_class_module_id = hidebutton.getAttribute('data-course_class_module_id');
+                let status = hidebutton.innerText.trim().toLowerCase(); // Ambil teks tombol (sembunyikan/tunjukkan)
 
                 // Tampilkan modal konfirmasi
                 var confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
@@ -244,8 +198,21 @@
                             });
                         });
                 };
-            });
+            }
         });
     </script>
-
+    <script>
+        const columns = [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+                    { data: 'id', name: 'id' },
+                    { data: 'user_name', name: 'user_name' },
+                    { data: 'description', name: 'description' },
+                    { data: 'created_at', name: 'created_at' },
+                    { data: 'created_id', name: 'created_id' },
+                    { data: 'updated_at', name: 'updated_at' },
+                    { data: 'updated_id', name: 'updated_id' },
+                    { data: 'status', name: 'status' },
+                    { data: 'action', name: 'action', orderable: false, searchable: false }
+                ]
+    </script>
 @endsection

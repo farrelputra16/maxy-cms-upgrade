@@ -51,7 +51,11 @@
                     </ul>
                     </p>
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
+                        data-server-processing="true" 
+                        data-url="{{ route('getCourseClassChildModuleData') }}"
+                        data-colvis="[1, -3, -4, -5, -6]"
+                        data-id="{{ $parent_module->id}}">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -73,50 +77,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($child_modules as $key => $item)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->id }}</td>
-                                    <td class="batch" scope="row">{{ $item->course_module_name }}</td>
-                                    <td data-toggle="tooltip" data-placement="top" title="Urutan prioritas dalam modul">
-                                        {{ $item->priority }} </td>
-                                    <td>{{ $item->type }}</td>
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->content) !!}">
-                                        {!! !empty($item->content) ? \Str::limit($item->content, 30) : '-' !!}
-                                    </td>
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->course_module_material) !!}">
-                                        {!! !empty($item->course_module_material) ? \Str::limit($item->course_module_material, 30) : '-' !!}
-                                    </td>
-                                    <td>{{ $item->start_date }}</td>
-                                    <td>{{ $item->end_date }}</td>
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->description) !!}">
-                                        {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
-                                    </td>
-                                    <td>{{ $item->created_at }}</td>
-                                    <td>{{ $item->created_id }}</td>
-                                    <td>{{ $item->updated_at }}</td>
-                                    <td>{{ $item->updated_id }}</td>
-                                    <td>
-                                        <button
-                                            class="btn btn-status-entities {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
-                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
-                                            data-parent="ClassContentManagement" data-model="CourseClassModule">
-                                            {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
-                                        </button>
-                                    </td>
-                                    <td>
-                                        {{-- <div class="btn-group"> --}}
-                                        <a href="{{ route('getEditCourseClassChildModule', ['id' => $item->id, 'parent_id' => $parent_module->id]) }}"
-                                            class="btn btn-primary rounded">Ubah</a>
-                                        <a href="{{ route('getJournalCourseClassChildModule', ['id' => $item->id]) }}"
-                                            class="btn btn-outline-primary rounded">Kelola Jurnal</a>
-                                        {{-- </div> --}}
-                                    </td>
-                                </tr>
-                            @endforeach
+                            
                         </tbody>
                         <tfoot>
                             <tr>
@@ -146,15 +107,86 @@
     <!-- End Content -->
 
     <!-- FAB Add Starts -->
+    @if (Session::has('access_master') &&
+            Session::get('access_master')->contains('access_master_name', 'course_class_module_create'))
     <div id="floating-whatsapp-button">
         <a href="{{ route('getAddCourseClassChildModule', ['id' => $parent_module->id]) }}" target="_blank"
             data-toggle="tooltip" title="Tambah Modul Anak">
             <i class="fas fa-plus"></i>
         </a>
     </div>
+    @endif
     <!-- FAB Add Ends -->
 @endsection
 
 @section('script')
-
+<script>
+    const columns = [
+            { 
+                data: 'DT_RowIndex', 
+                name: 'DT_RowIndex', 
+                orderable: false, 
+                searchable: false 
+            },
+            { data: 'id', name: 'id' },
+            { 
+                data: 'course_module_name', 
+                name: 'course_module_name',
+                render: function(data) {
+                    return '<span class="batch" scope="row">' + data + '</span>';
+                }
+            },
+            { 
+                data: 'priority', 
+                name: 'priority',
+                render: function(data) {
+                    return '<span data-toggle="tooltip" data-placement="top" title="Urutan prioritas dalam modul">' + data + '</span>';
+                }
+            },
+            { 
+                data: 'type', 
+                name: 'cm.type',
+                render: function(data) {
+                    return data;
+                }
+            },
+            { 
+                data: 'content', 
+                name: 'cm.content',
+                render: function(data) {
+                    return data ? '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' + data + '">' + (data.length > 30 ? data.substr(0, 30) + '...' : data) + '</span>' : '-';
+                }
+            },
+            { 
+                data: 'course_module_material', 
+                name: 'cm.material',
+                render: function(data) {
+                    return data ? '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' + data + '">' + (data.length > 30 ? data.substr(0, 30) + '...' : data) + '</span>' : '-';
+                }
+            },
+            { data: 'start_date', name: 'start_date' },
+            { data: 'end_date', name: 'end_date' },
+            { 
+                data: 'description', 
+                name: 'description',
+                render: function(data) {
+                    return data ? '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' + data + '">' + (data.length > 30 ? data.substr(0, 30) + '...' : data) + '</span>' : '-';
+                }
+            },
+            { data: 'created_at', name: 'created_at' },
+            { data: 'created_id', name: 'created_id' },
+            { data: 'updated_at', name: 'updated_at' },
+            { data: 'updated_id', name: 'updated_id' },
+            { 
+                data: 'status', 
+                name: 'status'
+            },
+            { 
+                data: 'action', 
+                name: 'action', 
+                orderable: false, 
+                searchable: false 
+            }
+        ]
+</script>
 @endsection
