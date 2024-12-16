@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 // course class member route ############################################################################################
 Route::get('/course/class/member', [CourseClassMemberController::class, 'getCourseClassMember'])->name('getCourseClassMember')->middleware('access:course_class_member_manage');
+Route::get('/get-course-class-member-data', [CourseClassMemberController::class, 'getCourseClassMemberData'])->name('getCourseClassMemberData');
 
 Route::get('/course/class/member/add', [CourseClassMemberController::class, 'getAddCourseClassMember'])->name('getAddCourseClassMember')->middleware('access:course_class_member_create');
 Route::post('/course/class/member/add', [CourseClassMemberController::class, 'postAddCourseClassMember'])->name('postAddCourseClassMember')->middleware('access:course_class_member_create');

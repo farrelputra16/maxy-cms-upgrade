@@ -53,59 +53,24 @@
                     </ul>
                     </p>
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
+                        data-server-processing="true" data-url="{{ route('getCourseClassMemberData') }}" data-colvis="[-8]"
+                        data-id="{{ $idCourseClass }}">>
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Nama</th>
                                 <th class="data-medium">Email</th>
-                                @if ($courseClassDetail->course_type_id == $mbkmType)
-                                    <th>Mitra</th>
-                                @endif
+                                <th>Kelas</th>
+                                <th>Partner</th>
                                 <th class="data-long">Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Dibuat Oleh</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Diperbarui Oleh</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($courseClassMembers as $key => $item)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->id }}</td>
-                                    <td class="batch" scope="row">{{ $item->user_name }}</td>
-                                    <td class="batch" scope="row">{{ $item->user_email }}</td>
-                                    @if ($courseClassDetail->course_type_id == $mbkmType)
-                                        <td>{{ $item->partner_name }}</td>
-                                    @endif
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->description) !!}">
-                                        {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
-                                    </td>
-                                    <td>{{ $item->created_at }}</td>
-                                    <td>{{ $item->created_id }}</td>
-                                    <td>{{ $item->updated_at }}</td>
-                                    <td>{{ $item->updated_id }}</td>
-                                    <td>
-                                        <button
-                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
-                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
-                                            data-model="CourseClassMember">
-                                            {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('getEditCourseClassMember', $item->id) }}"
-                                            class="btn btn-primary rounded">Ubah</a>
-                                        <a href="{{ route('getGenerateCertificate', ['course_class_member' => $item->id, 'user' => $item->user_id, 'course_class' => $courseClassDetail->id]) }}"
-                                            class="btn btn-info rounded">Buat Sertifikat</a>
-                                    </td>
-                                </tr>
-                            @endforeach
+
                         </tbody>
                         <tfoot>
                             <tr>
@@ -113,14 +78,9 @@
                                 <th>Id</th>
                                 <th>Nama</th>
                                 <th>Email</th>
-                                @if ($courseClassDetail->course_type_id == $mbkmType)
-                                    <th>Mitra</th>
-                                @endif
+                                <th>Kelas</th>
+                                <th>Partner</th>
                                 <th>Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Dibuat Oleh</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Diperbarui Oleh</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -148,5 +108,65 @@
 @endsection
 
 @section('script')
-
+    <script>
+        const columns = [{
+                data: "DT_RowIndex",
+                name: "DT_RowIndex",
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: "id",
+                name: "id"
+            },
+            {
+                data: "user_name",
+                name: "user_name",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "user_email",
+                name: "user_email",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "course_name",
+                name: "course_name",
+                orderable: true,
+                searchable: true
+            },
+            // {
+            //     data: "course_class_batch",
+            //     name: "course_class_batch",
+            //     orderable: true,
+            //     searchable: true
+            // },
+            {
+                data: "partner_name",
+                name: "partner_name",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "description",
+                name: "description",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "status",
+                name: "status",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "action",
+                name: "action",
+                orderable: false,
+                searchable: false
+            },
+        ];
+    </script>
 @endsection

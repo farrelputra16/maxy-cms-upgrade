@@ -15,6 +15,7 @@ use Modules\Enrollment\Imports\CourseClassMemberImport;
 use Modules\ClassContentManagement\Entities\CourseClass;
 use App\Models\MJobdesc;
 use App\Models\Partner;
+use Yajra\DataTables\Facades\DataTables;
 
 class CourseClassMemberController extends Controller
 {
@@ -28,7 +29,6 @@ class CourseClassMemberController extends Controller
         $idCourseClass = $request->id;
         $users = User::where('access_group_id', 2)->get();
         $courseClassDetail = CourseClass::getClassDetailByClassId($idCourseClass);
-        // dd($courseClassDetail);
         $mbkmType = DB::table('m_course_type')->where('slug', 'mbkm')->where('status', 1)->value('id');
         if ($courseClassDetail->course_type_id == $mbkmType) {
             $courseClassMembers = CourseClassMember::getCourseClassMemberMbkm($request);
@@ -41,8 +41,135 @@ class CourseClassMemberController extends Controller
             'users' => $users,
             'courseClassMembers' => $courseClassMembers,
             'courseClassDetail' => $courseClassDetail,
-            'mbkmType' => $mbkmType
+            'mbkmType' => $mbkmType,
+            'idCourseClass' => $idCourseClass
         ]);
+    }
+
+    public function getCourseClassMemberData(Request $request)
+    {
+        $idCourse = $request->input('id');
+        $searchValue = $request->input('search.value');
+        $orderColumnIndex = $request->input('order.1.column');
+        $orderDirection = $request->input('order.1.dir', 'asc');
+        $columns = $request->input('columns');
+
+        $orderColumn = 'id';
+        if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
+            $orderColumn = $columns[$orderColumnIndex]['data'];
+        }
+
+        $courseClassMembers = DB::table('course_class_member')
+            ->select(
+                'course_class_member.id AS id',
+                'course_class_member.description AS description',
+                'course_class_member.status AS status',
+                'course_class_member.created_at AS created_at',
+                'course_class_member.created_id AS created_id',
+                'course_class_member.updated_at AS updated_at',
+                'course_class_member.updated_id AS updated_id',
+                'users.id AS user_id',
+                'users.name AS user_name',
+                'users.email AS user_email',
+                'course_class.batch AS course_class_batch',
+                'course.name AS course_name',
+                'm_partner.name AS partner_name'
+            )
+            ->join('users', 'course_class_member.user_id', '=', 'users.id')
+            ->join('course_class', 'course_class_member.course_class_id', '=', 'course_class.id')
+            ->join('course', 'course_class.course_id', '=', 'course.id')
+            ->leftJoin('m_partner', 'course_class_member.m_partner_id', '=', 'm_partner.id')
+            ->leftJoin('user_mentorships', function ($join) {
+                $join->on('course_class_member.user_id', '=', 'user_mentorships.mentor_id')
+                    ->where('users.type', '=', 'tutor');
+            })
+            ->where('course_class_member.course_class_id', $idCourse);
+
+        // Global search
+        if (!empty($searchValue)) {
+            $courseClassMembers->where(function($query) use ($searchValue) {
+                $query->where('users.name', 'like', "%{$searchValue}%")
+                    ->orWhere('users.email', 'like', "%{$searchValue}%")
+                    ->orWhere('course.name', 'like', "%{$searchValue}%")
+                    ->orWhere('m_partner.name', 'like', "%{$searchValue}%");
+            });
+        }
+
+        // Column-specific search
+        foreach ($columns as $column) {
+            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnName = $column['data'];
+
+            if (!empty($columnSearchValue) && $columnName !== 'action') {
+                switch ($columnName) {
+                    case 'user_name':
+                        $courseClassMembers->where('users.name', 'like', "%{$columnSearchValue}%");
+                        break;
+                    case 'user_email':
+                        $courseClassMembers->where('users.email', 'like', "%{$columnSearchValue}%");
+                        break;
+                    case 'course_name':
+                        $courseClassMembers->where('course.name', 'like', "%{$columnSearchValue}%");
+                        break;
+                    case 'partner_name':
+                        $courseClassMembers->where('m_partner.name', 'like', "%{$columnSearchValue}%");
+                        break;
+                    case 'status':
+                        $courseClassMembers->where('course_class_member.status', $columnSearchValue);
+                        break;
+                }
+            }
+        }
+
+        // Ordering
+        $courseClassMembers->orderBy($orderColumn, $orderDirection);
+
+        return DataTables::of($courseClassMembers)
+            ->addIndexColumn()
+            ->addColumn('id', function ($row) {
+                return $row->id;
+            })
+            ->addColumn('user_name', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->user_name) . '">'
+                    . \Str::limit(e($row->user_name), 30)
+                    . '</span>';
+            })
+            ->addColumn('user_email', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->user_email) . '">'
+                    . \Str::limit(e($row->user_email), 30)
+                    . '</span>';
+            })
+            ->addColumn('course_name', function ($row) {
+                return $row->course_name . ' ' . $row->course_class_batch;
+            })
+            // ->addColumn('course_class_batch', function ($row) {
+            //     return $row->course_class_batch;
+            // })
+            ->addColumn('partner_name', function ($row) {
+                return $row->partner_name ?? '-';
+            })
+            ->addColumn('description', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->description) . '">'
+                    . (!empty($row->description) ? \Str::limit(e($row->description), 30) : '-')
+                    . '</span>';
+            })
+            ->addColumn('status', function ($row) {
+                return '<button
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '"
+                    data-id="' . $row->id . '"
+                    data-status="' . $row->status . '"
+                    data-model="CourseClassMember">
+                    ' . ($row->status == 1 ? 'Aktif' : 'Non aktif') . '
+                </button>';
+            })
+            ->addColumn('action', function ($row) use ($idCourse) {
+                return '<a href="' . route('getEditCourseClassMember', ['course_class_member' => $row->id]) . '"
+                        class="btn btn-primary rounded">Ubah</a>
+                        <a href="' . route('getGenerateCertificate', ['course_class_member' => $row->id, 'user' => $row->user_id, 'course_class' => $idCourse]) . '"
+                                            class="btn btn-info rounded">Buat Sertifikat</a>';
+            })
+            ->rawColumns(['user_name', 'user_email', 'description', 'status', 'action'])
+            ->make(true);
     }
 
     function getAddCourseClassMember(Request $request)
