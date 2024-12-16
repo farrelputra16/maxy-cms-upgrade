@@ -3,6 +3,7 @@
 namespace Modules\CertificateTemplate\Http\Controllers;
 
 use App\Models\MCourseType;
+use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Modules\CertificateTemplate\Entities\CertificateTemplate;
 use Modules\CertificateTemplate\Http\Requests\StoreCertificateTemplateRequest;
 use Modules\CertificateTemplate\Http\Requests\UpdateCertificateTemplateRequest;
+use Yajra\DataTables\Facades\DataTables;
 
 class CertificateTemplateController extends Controller
 {
@@ -21,6 +23,123 @@ class CertificateTemplateController extends Controller
     {
         $certificateTemplates = CertificateTemplate::all();
         return view('certificatetemplate::indexv3', compact('certificateTemplates'));
+    }
+
+    public function getCertificateTemplateData(Request $request)
+    {
+        $searchValue = $request->input('search.value');
+        $orderColumnIndex = $request->input('order.0.column');
+        $orderDirection = $request->input('order.0.dir', 'asc');
+        $columns = $request->input('columns');
+
+        $orderColumn = 'id';
+        if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
+            $orderColumn = $columns[$orderColumnIndex]['data'];
+        }
+
+        // Tambahkan mapping kolom yang dapat diurutkan
+        $sortableColumns = [
+            'id' => 'certificate_template.id', // Tambahkan nama tabel
+            'type_mata_kuliah' => 'type.name',
+            'marker_state' => 'certificate_template.marker_state',
+            'template_content' => 'certificate_template.template_content',
+            'created_at' => 'certificate_template.created_at',
+            'updated_at' => 'certificate_template.updated_at'
+        ];
+
+        // Pastikan kolom yang diminta untuk diurutkan valid
+        $orderColumn = $sortableColumns[$orderColumn] ?? 'certificate_template.id';
+
+        $certificateTemplates = CertificateTemplate::select(
+            'certificate_template.id', 
+            'certificate_template.m_course_type_id', 
+            'certificate_template.batch', 
+            'certificate_template.filename', 
+            'certificate_template.marker_state', 
+            'certificate_template.template_content', 
+            'certificate_template.created_at',
+            'certificate_template.updated_at',
+            'm_course_type.name as type_name' // Tambahkan nama tipe kuliah
+        )
+        ->leftJoin('m_course_type', 'm_course_type.id', '=', 'certificate_template.m_course_type_id')
+        ->with('type');
+
+        // Jika kolom pengurutan adalah nama tipe
+        if ($orderColumn === 'type.name') {
+            $certificateTemplates->orderBy('m_course_type.name', $orderDirection);
+        } else {
+            $certificateTemplates->orderBy($orderColumn, $orderDirection);
+        }
+
+        // Filter kolom
+        foreach ($columns as $column) {
+            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnName = $column['data'];
+            
+            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action', 'id_pembuat', 'id_pembaruan'])) {
+                continue;
+            }
+
+            // Special handling for specific columns
+            switch ($columnName) {
+                case 'type_mata_kuliah':
+                    $certificateTemplates->where(function ($query) use ($columnSearchValue) {
+                        $query->whereHas('type', function ($q) use ($columnSearchValue) {
+                            $q->where('name', 'like', "%{$columnSearchValue}%");
+                        })->orWhere('batch', 'like', "%{$columnSearchValue}%");
+                    });
+                    break;
+                default:
+                    $certificateTemplates->where('certificate_template.'.$columnName, 'like', "%{$columnSearchValue}%");
+            }
+        }
+
+        return DataTables::of($certificateTemplates)
+            ->addIndexColumn()
+            ->addColumn('id', function ($row) {
+                return $row->id;
+            })
+            ->addColumn('type_mata_kuliah', function ($row) {
+                return $row->type->name . ' - ' . "Kelas Paralel $row->batch" ?? '-';
+            })
+            ->addColumn('filename', function ($row) {
+                $imagePath = asset('uploads/certificate/' . $row->type->id . '/' . $row->filename);
+                return '<img src="' . $imagePath . '" alt="' . $row->filename . '" width="225">';
+            })
+            ->addColumn('status_penanda', function ($row) {
+                return \Str::limit($row->marker_state);
+            })
+            ->addColumn('konten_template', function ($row) {
+                $content = !empty($row->template_content) ? \Str::limit(strip_tags($row->template_content)) : '-';
+                return '<span data-toggle="tooltip" data-placement="top" title="' . e($row->template_content) . '">' . $content . '</span>';
+            })
+            ->addColumn('dibuat_pada', function ($row) {
+                return $row->created_at;
+            })
+            ->addColumn('id_pembuat', function ($row) {
+                return $row->created_id;
+            })
+            ->addColumn('diperbarui_pada', function ($row) {
+                return $row->updated_at;
+            })
+            ->addColumn('id_pembaruan', function ($row) {
+                return $row->updated_id;
+            })
+            ->addColumn('action', function ($row) {
+                $editRoute = route('certificate-templates.edit', $row->id);
+                $deleteRoute = route('certificate-templates.destroy', $row->id);
+                
+                return '
+                    <a href="' . $editRoute . '" class="btn btn-primary">Ubah</a>
+                    <form action="' . $deleteRoute . '" method="POST" style="display:inline-block;">
+                        ' . csrf_field() . '
+                        ' . method_field('DELETE') . '
+                        <button type="submit" class="btn btn-danger" onclick="return confirm(\'Apakah Anda yakin ingin menghapus template ini?\')">Hapus</button>
+                    </form>
+                ';
+            })
+            ->rawColumns(['filename', 'konten_template', 'action'])
+            ->make(true);
     }
 
     /**

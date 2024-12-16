@@ -51,6 +51,9 @@
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
+                        data-server-processing="true" 
+                        data-url="{{ route('getCertificateTemplateData') }}"
+                        data-no-status="true"
                         data-colvis="[1, 6, 7, 8, 9]">
                         <thead>
                             <tr>
@@ -68,40 +71,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($certificateTemplates as $key => $certificateTemplate)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $certificateTemplate->id }}</td>
-                                    <td>{{ $certificateTemplate->type->name . ' - ' . "Kelas Paralel $certificateTemplate->batch" ?? '-' }}
-                                    </td>
-                                    <td>
-                                        <img src="{{ asset('uploads/certificate/' . $certificateTemplate->type->id . '/' . $certificateTemplate->filename) }}"
-                                            alt="{{ $certificateTemplate->filename }}" width="225">
-                                    </td>
-                                    <td class="text-wrap">{{ \Str::limit($certificateTemplate->marker_state) }}</td>
-                                    <td id="description" class="text-wrap" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $certificateTemplate->template_content }}">{!! !empty($certificateTemplate->template_content)
-                                            ? \Str::limit(strip_tags($certificateTemplate->template_content))
-                                            : '-' !!}</td>
-                                    <td>{{ $certificateTemplate->created_at }}</td>
-                                    <td>{{ $certificateTemplate->created_id }}</td>
-                                    <td>{{ $certificateTemplate->updated_at }}</td>
-                                    <td>{{ $certificateTemplate->updated_id }}</td>
-                                    <td>
-                                        <a href="{{ route('certificate-templates.edit', $certificateTemplate->id) }}"
-                                            class="btn btn-primary">Ubah</a>
-                                        <!-- Delete Form -->
-                                        <form
-                                            action="{{ route('certificate-templates.destroy', $certificateTemplate->id) }}"
-                                            method="POST" style="display:inline-block;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger"
-                                                onclick="return confirm('Apakah Anda yakin ingin menghapus template ini?')">Hapus</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
+                            
                         </tbody>
                         <tfoot>
                             <tr>
@@ -137,5 +107,72 @@
 @endsection
 
 @section('script')
-
+<script>
+    const columns = [
+        {
+            data: "DT_RowIndex",
+            name: "DT_RowIndex",
+            orderable: false,
+            searchable: false
+        },
+        {
+            data: "id",
+            name: "id"
+        },
+        {
+            data: "type_mata_kuliah",
+            name: "type_mata_kuliah",
+            orderable: true,
+            searchable: true
+        },
+        {
+            data: "filename",
+            name: "gambar",
+            orderable: false,
+            searchable: false
+        },
+        {
+            data: "marker_state",
+            name: "status_penanda",
+            orderable: true,
+            searchable: true
+        },
+        {
+            data: "template_content",
+            name: "konten_template",
+            orderable: true,
+            searchable: true
+        },
+        {
+            data: "created_at",
+            name: "dibuat_pada",
+            orderable: true,
+            searchable: false
+        },
+        {
+            data: "id_pembuat",
+            name: "created_id",
+            orderable: false,
+            searchable: false
+        },
+        {
+            data: "updated_at",
+            name: "diperbarui_pada",
+            orderable: true,
+            searchable: false
+        },
+        {
+            data: "id_pembaruan",
+            name: "updated_id",
+            orderable: false,
+            searchable: false
+        },
+        {
+            data: "action",
+            name: "aksi",
+            orderable: false,
+            searchable: false
+        }
+    ];
+</script>
 @endsection
