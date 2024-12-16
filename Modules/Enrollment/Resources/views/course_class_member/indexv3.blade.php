@@ -55,7 +55,7 @@
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
                         data-server-processing="true" data-url="{{ route('getCourseClassMemberData') }}" data-colvis="[-8]"
-                        data-id="{{ $idCourseClass }}">>
+                        data-id="{{ $idCourseClass }}">
                         <thead>
                             <tr>
                                 <th>No</th>

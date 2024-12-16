@@ -71,7 +71,7 @@
                             <div class="col-md-10">
                                 <select class="form-control select2 select2-multiple" multiple="multiple" name="tag[]"
                                     data-placeholder="Pilih Tag...">
-                                    <option>Pilih</option>
+                                    <option disabled>Pilih</option>
                                     @foreach ($data as $item)
                                         <option value="{{ $item->id }}"
                                             {{ in_array($item->id, old('tag', [])) ? 'selected' : '' }}> {{ $item->name }}
