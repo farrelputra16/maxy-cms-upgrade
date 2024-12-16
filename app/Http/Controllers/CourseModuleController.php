@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 use Str;
+use Yajra\DataTables\Facades\DataTables;
 
 class CourseModuleController extends Controller
 {
@@ -42,6 +43,123 @@ class CourseModuleController extends Controller
             'bcMBKM' => $bcMBKM,
         ]);
     }
+    function getCourseModuleData(Request $request)
+    {
+        $course_id = $request->input('id');
+        $page_type = $request->input('page_type', 'LMS');
+
+        $searchValue = $request->input('search.value');
+        $orderColumnIndex = $request->input('order.1.column');
+        $orderDirection = $request->input('order.1.dir', 'asc');
+        $columns = $request->input('columns');
+
+        // Default order column
+        $orderColumn = 'id';
+        if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
+            $orderColumn = $columns[$orderColumnIndex]['data'];
+        }
+
+        // Base query for course modules
+        $parentModules = CourseModule::select(
+            'id', 
+            'name', 
+            'priority', 
+            'content', 
+            'description', 
+            'created_at', 
+            'created_id', 
+            'updated_at', 
+            'updated_id', 
+            'status'
+        )
+        ->where('course_id', $course_id)
+        ->where('course_module_parent_id', null)
+        ->when($page_type != 'CP', function ($query) {
+            return $query->where('type', '!=', 'company_profile');
+        })
+        ->when($page_type == 'CP', function ($query) {
+            return $query->where('type', 'company_profile');
+        })
+        ->orderBy($orderColumn, $orderDirection);
+
+        // Filter columns
+        foreach ($columns as $column) {
+            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnName = $column['data'];
+            
+            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
+                continue;
+            } else if ($columnName == 'status') {
+                if (strpos(strtolower($columnSearchValue), 'non') !== false) {
+                    $parentModules->where('status', '=', 0);
+                } else {
+                    $parentModules->where('status', '=', 1);
+                }
+            } else {
+                $parentModules->where($columnName, 'like', "%{$columnSearchValue}%");
+            }
+        }
+
+        return DataTables::of($parentModules)
+            ->addIndexColumn() // Adds DT_RowIndex for serial number
+            ->addColumn('id', function ($row) {
+                return $row->id;
+            })
+            ->addColumn('name', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->name) . '">'
+                    . \Str::limit(e($row->name), 30)
+                    . '</span>';
+            })
+            ->addColumn('priority', function ($row) {
+                return $row->priority;
+            })
+            ->addColumn('content', function ($row) {
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->content)) . '">'
+                    . (!empty($row->content) ? \Str::limit(strip_tags($row->content), 30) : '-')
+                    . '</span>';
+            })
+            ->addColumn('description', function ($row) {
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->description)) . '">'
+                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-')
+                    . '</span>';
+            })
+            ->addColumn('created_at', function ($row) {
+                return $row->created_at;
+            })
+            ->addColumn('created_id', function ($row) {
+                return $row->created_id;
+            })
+            ->addColumn('updated_at', function ($row) {
+                return $row->updated_at;
+            })
+            ->addColumn('updated_id', function ($row) {
+                return $row->updated_id;
+            })
+            ->addColumn('status', function ($row) {
+                return '<button 
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
+                    data-id="' . $row->id . '" 
+                    data-status="' . $row->status . '"
+                    data-model="CourseModule">
+                    ' . ($row->status == 1 ? 'Aktif' : 'Nonaktif') . '
+                </button>';
+            })
+            ->addColumn('action', function ($row) use ($page_type, $course_id) {
+                $editRoute = route('getEditCourseModule', ['id' => $row->id, 'page_type' => $page_type]);
+                $contentRoute = route('getCourseSubModule', ['course_id' => $course_id, 'module_id' => $row->id, 'page_type' => 'LMS_child']);
+                
+                $actions = '<a href="' . $editRoute . '" class="btn btn-primary rounded">Ubah</a>';
+                
+                if ($page_type == 'LMS') {
+                    $actions .= ' <a href="' . $contentRoute . '" class="btn btn-outline-primary rounded-end">Konten</a>';
+                }
+                
+                return $actions;
+            })
+            ->orderColumn('id', 'id $1')
+            ->rawColumns(['name', 'content', 'description', 'status', 'action']) // Allow HTML rendering
+            ->make(true);
+    }
     function getCourseSubModule(Request $request)
     {
         // dd($request->all());
@@ -70,6 +188,120 @@ class CourseModuleController extends Controller
             'page_type' => $request->page_type,
             'bcMBKM' => $bcMBKM,
         ]);
+    }
+    function getCourseSubModuleData(Request $request)
+    {
+        $course_id = $request->input('course_id');
+        $module_id = $request->input('id');
+        $page_type = $request->input('page_type', 'LMS_child');
+
+        $searchValue = $request->input('search.value');
+        $orderColumnIndex = $request->input('order.1.column');
+        $orderDirection = $request->input('order.1.dir', 'asc');
+        $columns = $request->input('columns');
+
+        // Default order column
+        $orderColumn = 'id';
+        if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
+            $orderColumn = $columns[$orderColumnIndex]['data'];
+        }
+
+        // Base query for course sub modules
+        $subModules = CourseModule::select(
+            'id', 
+            'name', 
+            'priority', 
+            'type',
+            'material',
+            'content', 
+            'description', 
+            'created_at', 
+            'created_id', 
+            'updated_at', 
+            'updated_id', 
+            'status'
+        )
+        ->where('course_module_parent_id', $module_id)
+        ->orderBy($orderColumn, $orderDirection);
+
+        // Filter columns
+        foreach ($columns as $column) {
+            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnName = $column['data'];
+            
+            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
+                continue;
+            } else if ($columnName == 'status') {
+                if (strpos(strtolower($columnSearchValue), 'non') !== false) {
+                    $subModules->where('status', '=', 0);
+                } else {
+                    $subModules->where('status', '=', 1);
+                }
+            } else {
+                $subModules->where($columnName, 'like', "%{$columnSearchValue}%");
+            }
+        }
+
+        return DataTables::of($subModules)
+            ->addIndexColumn() // Adds DT_RowIndex for serial number
+            ->addColumn('id', function ($row) {
+                return $row->id;
+            })
+            ->addColumn('name', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->name) . '">'
+                    . \Str::limit(e($row->name), 30)
+                    . '</span>';
+            })
+            ->addColumn('priority', function ($row) {
+                return $row->priority;
+            })
+            ->addColumn('type', function ($row) {
+                return $row->type;
+            })
+            ->addColumn('material', function ($row) {
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->material)) . '">'
+                    . (!empty($row->material) ? \Str::limit(strip_tags($row->material), 10) : '-')
+                    . '</span>';
+            })
+            ->addColumn('content', function ($row) {
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->content)) . '">'
+                    . (!empty($row->content) ? \Str::limit(strip_tags($row->content), 30) : '-')
+                    . '</span>';
+            })
+            ->addColumn('description', function ($row) {
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->description)) . '">'
+                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-')
+                    . '</span>';
+            })
+            ->addColumn('created_at', function ($row) {
+                return $row->created_at;
+            })
+            ->addColumn('created_id', function ($row) {
+                return $row->created_id;
+            })
+            ->addColumn('updated_at', function ($row) {
+                return $row->updated_at;
+            })
+            ->addColumn('updated_id', function ($row) {
+                return $row->updated_id;
+            })
+            ->addColumn('status', function ($row) {
+                return '<button 
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
+                    data-id="' . $row->id . '" 
+                    data-status="' . $row->status . '"
+                    data-model="CourseModule">
+                    ' . ($row->status == 1 ? 'Aktif' : 'Nonaktif') . '
+                </button>';
+            })
+            ->addColumn('action', function ($row) {
+                $editRoute = route('getEditChildModule', ['id' => $row->id]);
+                
+                return '<a href="' . $editRoute . '" class="btn btn-primary rounded">Ubah</a>';
+            })
+            ->orderColumn('id', 'id $1')
+            ->rawColumns(['name', 'material', 'content', 'description', 'status', 'action']) // Allow HTML rendering
+            ->make(true);
     }
 
     function getAddCourseModule(Request $request)

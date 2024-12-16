@@ -55,7 +55,11 @@
                     </p>
 
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
+                        data-server-processing="true" 
+                        data-url="{{ route('getCourseModuleData') }}" 
+                        data-colvis="[1, -3, -4, -5, -6]"
+                        data-id="{{ $course_detail->id }}">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -73,46 +77,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($parent_modules as $key => $item)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->id }}</td>
-                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->name }}">
-                                        {!! \Str::limit($item->name, 30) !!}
-                                    </td>
-                                    <td>{{ $item->priority }}</td>
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{{ strip_tags($item->content) }}">
-                                        {{ !empty($item->content) ? \Str::limit(strip_tags($item->content), 30) : '-' }}
-                                    </td>
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{{ strip_tags($item->description) }}">
-                                        {{ !empty($item->description) ? \Str::limit(strip_tags($item->description), 30) : '-' }}
-                                    </td>
-                                    <td>{{ $item->created_at }}</td>
-                                    <td>{{ $item->created_id }}</td>
-                                    <td>{{ $item->updated_at }}</td>
-                                    <td>{{ $item->updated_id }}</td>
-                                    <td>
-                                        <button 
-                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}" 
-                                            data-id="{{ $item->id }}" 
-                                            data-status="{{ $item->status }}"
-                                            data-model="CourseModule">
-                                            {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('getEditCourseModule', ['id' => $item->id, 'page_type' => $page_type]) }}"
-                                            class="btn btn-primary rounded">Ubah</a>
-                                        @if ($page_type == 'LMS')
-                                            <a href="{{ route('getCourseSubModule', ['course_id' => $course_detail->id, 'module_id' => $item->id, 'page_type' => 'LMS_child']) }}"
-                                                class="btn btn-outline-primary rounded-end">Konten</a>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
+                            
                         </tbody>
                         <tfoot>
                             <tr>
@@ -148,6 +113,23 @@
 @endsection
 
 @section('script')
+    <script>
+        const columns = [
+            { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
+            { data: "id", name: "id" },
+            { data: "name", name: "name", orderable: true, searchable: true },
+            { data: "priority", name: "priority", orderable: true, searchable: true },
+            { data: "content", name: "content", orderable: true, searchable: true },
+            { data: "description", name: "description", orderable: true, searchable: true },
+            { data: "created_at", name: "created_at" },
+            { data: "created_id", name: "created_id" },
+            { data: "updated_at", name: "updated_at" },
+            { data: "updated_id", name: "updated_id" },
+            { data: "status", name: "status", orderable: true, searchable: true },
+            { data: "action", name: "action", orderable: false, searchable: false },
+        ];
+    </script>
+
     @if (session('parent_module_added'))
         <script>
             document.addEventListener("DOMContentLoaded", function() {
