@@ -459,6 +459,7 @@ Route::post('/voucher/edit', [VoucherController::class, 'postEditVoucher'])->nam
 //                                     General
 //General Routes #########################################################################################################
 Route::get('/general', [GeneralController::class, 'getGeneral'])->name('getGeneral')->middleware('access:m_general_manage');
+Route::get('/general/data', [GeneralController::class, 'getGeneralData'])->name('getGeneralData');
 
 Route::get('/general/add', [GeneralController::class, 'getAddGeneral'])->name('getAddGeneral')->middleware('access:m_general_create');
 Route::post('/general/add', [GeneralController::class, 'postAddGeneral'])->name('postAddGeneral')->middleware('access:m_general_create');
