@@ -10,6 +10,7 @@ use Modules\Attendance\Entities\CourseClassAttendance;
 use Modules\Attendance\Entities\MemberAttendance;
 use Modules\ClassContentManagement\Entities\CourseClass;
 use Modules\Enrollment\Entities\CourseClassMember;
+use Yajra\DataTables\Facades\DataTables;
 
 class AttendanceController extends Controller
 {
@@ -27,6 +28,101 @@ class AttendanceController extends Controller
             'attendance' => $attendance_list,
             'class' => $class,
         ]);
+    }
+    public function getCourseClassAttendanceData(Request $request)
+    {
+        $searchValue = $request->input('search.value');
+        $orderColumnIndex = $request->input('order.1.column');
+        $orderDirection = $request->input('order.1.dir', 'asc');
+        $columns = $request->input('columns');
+        $class_id = $request->input('id');
+
+        $orderColumn = 'id';
+        if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
+            $orderColumn = $columns[$orderColumnIndex]['data'];
+        }
+
+        // Base query
+        $query = DB::table('course_class_attendance as cca')
+            ->select(
+                'cca.*', 
+                'ccmod.priority as day'
+            )
+            ->join('course_class_module as ccmod', 'ccmod.id', '=', 'cca.course_class_module_id')
+            ->join('course_class as cc', 'cc.id', '=', 'ccmod.course_class_id')
+            ->where('cc.id', $class_id)
+            ->where('ccmod.level', 1);
+
+        // Ordering
+        $query->orderBy($orderColumn, $orderDirection);
+
+        // Column-specific filtering
+        foreach ($columns as $column) {
+            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnName = $column['data'];
+            
+            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
+                continue;
+            } else if ($columnName == 'id') {
+                $query->where('cca.id', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'name') {
+                $query->where('cca.name', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'day') {
+                $query->where('ccmod.priority', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'description') {
+                $query->where('cca.description', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'created_at') {
+                $query->where('cca.created_at', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'created_id') {
+                $query->where('cca.created_id', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'updated_at') {
+                $query->where('cca.updated_at', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'updated_id') {
+                $query->where('cca.updated_id', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'status') {
+                $query->where('cca.status', '=', stripos($columnSearchValue, 'Non') !== false ? 0 : 1);
+            }
+        }
+
+        return DataTables::of($query)
+            ->addIndexColumn()
+            ->addColumn('name', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->name) . '">
+                    ' . \Str::limit($row->name, 30) . '
+                </span>';
+            })
+            ->addColumn('day', function ($row) {
+                return e($row->day);
+            })
+            ->addColumn('description', function ($row) {
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->description)) . '">
+                    ' . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') . '
+                </span>';
+            })
+            ->addColumn('status', function ($row) {
+                return '<button 
+                    class="btn btn-status-entities ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
+                    data-id="' . $row->id . '" 
+                    data-status="' . $row->status . '"
+                    data-parent="Attendance"
+                    data-model="CourseClassAttendance">
+                    ' . ($row->status == 1 ? 'Aktif' : 'Nonaktif') . '
+                </button>';
+            })
+            ->addColumn('action', function ($row) use ($request) {
+                $class_id = $request->input('id');
+                $html = '';
+
+                // Edit button
+                $html .= '<a href="' . route('getEditCourseClassAttendance', ['id' => $row->id, 'class_id' => $class_id]) . '" class="btn btn-primary rounded">Ubah</a>';
+                
+                // View Member Attendance button
+                $html .= ' <a href="' . route('getMemberAttendance', ['id' => $row->id, 'class_id' => $class_id]) . '" class="btn btn-outline-primary rounded">Lihat Kehadiran Siswa</a>';
+
+                return $html;
+            })
+            ->rawColumns(['name', 'day', 'description', 'status', 'action'])
+            ->make(true);
     }
     public function getAddCourseClassAttendance(Request $request)
     {
@@ -114,6 +210,129 @@ class AttendanceController extends Controller
             'class' => $class,
             'class_attendance_id' => $request->id,
         ]);
+    }
+    public function getMemberAttendanceData(Request $request)
+    {
+        $searchValue = $request->input('search.value');
+        $orderColumnIndex = $request->input('order.1.column');
+        $orderDirection = $request->input('order.1.dir', 'asc');
+        $columns = $request->input('columns');
+        $class_id = $request->input('class_id');
+        $class_attendance_id = $request->input('id');
+
+        $orderColumn = 'id';
+        if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
+            $orderColumn = $columns[$orderColumnIndex]['data'];
+        }
+
+        // Base query
+        $query = DB::table('course_class_member as ccm')
+            ->select(
+                'ccm.*', 
+                'u.name as user_name',
+                'ma.id as attendance_id', 
+                'ma.feedback', 
+                'ma.description as attendance_description', 
+                'ma.status as attendance_status'
+            )
+            ->join('users as u', 'u.id', '=', 'ccm.user_id')
+            ->leftJoin('member_attendance as ma', function($join) use ($class_attendance_id) {
+                $join->on('ma.user_id', '=', 'ccm.user_id')
+                    ->where('ma.course_class_attendance_id', '=', $class_attendance_id);
+            })
+            ->where('ccm.course_class_id', $class_id);
+
+        // Ordering
+        $query->orderBy($orderColumn, $orderDirection);
+
+        // Column-specific filtering
+        foreach ($columns as $column) {
+            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnName = $column['data'];
+            
+            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
+                continue;
+            } else if ($columnName == 'id') {
+                $query->where('ccm.id', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'user_name') {
+                $query->where('u.name', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'feedback') {
+                $query->where('ma.feedback', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'description') {
+                $query->where('ma.description', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'created_at') {
+                $query->where('ccm.created_at', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'created_id') {
+                $query->where('ccm.created_id', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'updated_at') {
+                $query->where('ccm.updated_at', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'updated_id') {
+                $query->where('ccm.updated_id', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'status') {
+                $query->where('ma.status', '=', match(strtolower($columnSearchValue)) {
+                    'hadir' => 1,
+                    'izin' => 2,
+                    default => 0
+                });
+            }
+        }
+
+        return DataTables::of($query)
+            ->addIndexColumn()
+            ->addColumn('user_name', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->user_name) . '">
+                    ' . \Str::limit($row->user_name, 30) . '
+                </span>';
+            })
+            ->addColumn('feedback', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->feedback ?? '-') . '">
+                    ' . \Str::limit($row->feedback ?? '-', 30) . '
+                </span>';
+            })
+            ->addColumn('description', function ($row) {
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->attendance_description ?? '-')) . '">
+                    ' . (!empty($row->attendance_description) ? \Str::limit(strip_tags($row->attendance_description), 30) : '-') . '
+                </span>';
+            })
+            ->addColumn('status', function ($row) {
+                $status = $row->attendance_status ?? 0;
+                $statusClass = match($status) {
+                    1 => 'badge bg-primary',
+                    2 => 'badge bg-warning',
+                    default => 'badge bg-danger'
+                };
+                $statusText = match($status) {
+                    1 => 'Hadir',
+                    2 => 'Izin',
+                    default => 'Tidak Hadir'
+                };
+
+                return '<button 
+                    class="btn btn-status-entities ' . $statusClass . '" 
+                    data-id="' . $row->attendance_id . '" 
+                    data-status="' . $status . '"
+                    data-parent="MemberAttendance"
+                    data-model="MemberAttendance">
+                    ' . $statusText . '
+                </button>';
+            })
+            ->addColumn('action', function ($row) use ($request) {
+                $class_id = $request->input('class_id');
+                $class_attendance_id = $request->input('id');
+                
+                // If attendance exists, show edit button
+                if ($row->attendance_id) {
+                    return '<a href="' . route('getEditMemberAttendance', [
+                        'id' => $row->attendance_id, 
+                        'class_id' => $class_id, 
+                        'class_attendance_id' => $class_attendance_id
+                    ]) . '" class="btn btn-primary rounded">Ubah</a>';
+                }
+                
+                return '-';
+            })
+            ->rawColumns(['user_name', 'feedback', 'description', 'status', 'action'])
+            ->make(true);
     }
     public function getEditMemberAttendance(Request $request)
     {

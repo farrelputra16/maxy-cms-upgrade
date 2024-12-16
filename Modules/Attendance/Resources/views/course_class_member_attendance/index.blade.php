@@ -37,8 +37,13 @@
                         menggunakan fitur <b>tampilan kolom, pengurutan, dan pencarian</b> untuk menyesuaikan tampilan
                         sesuai kebutuhan.
                     </p>
+                    <input type="text" id="classSelect" value="{{ $class->id }}" hidden>
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
+                        data-server-processing="true" 
+                        data-url="{{ route('getMemberAttendanceData') }}"
+                        data-colvis="[1, -3, -4, -5, -6]"
+                        data-id="{{ $class_attendance_id }}">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -55,49 +60,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($attendance as $key => $item)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->attendance ? $item->attendance->id : '-' }}</td>
-                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->user_name }}">
-                                        {!! \Str::limit($item->user_name, 30) !!}
-                                    </td>
-                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->attendance ? $item->attendance->feedback : '-' }}">
-                                        {!! \Str::limit($item->attendance ? $item->attendance->feedback : '-', 30) !!}
-                                    </td>
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->attendance ? $item->attendance->description : '-') !!}">
-                                        {!! !empty($item->attendance) ? \Str::limit($item->attendance->description, 30) : '-' !!}
-                                    </td>
-                                    <td>{{ $item->created_at }}</td>
-                                    <td>{{ $item->created_id }}</td>
-                                    <td>{{ $item->updated_at }}</td>
-                                    <td>{{ $item->updated_id }}</td>
-                                    <td value="{{ $item->attendance ? $item->attendance->status : 0 }}">
-                                        @if ($item->attendance)
-                                            @if ($item->attendance->status == 0)
-                                                <span class="badge bg-danger">Tidak Hadir</span>
-                                            @elseif ($item->attendance->status == 1)
-                                                <span class="badge bg-primary">Hadir</span>
-                                            @elseif($item->attendance->status == 2)
-                                                <span class="badge bg-warning">Izin</span>
-                                            @endif
-                                        @else
-                                            <span class="badge bg-danger">Tidak Hadir</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($item->attendance)
-                                            <a href="{{ route('getEditMemberAttendance', ['id' => $item->attendance->id, 'class_id' => $class->id, 'class_attendance_id' => $class_attendance_id]) }}"
-                                                class="btn btn-primary">Ubah</a>
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
+                            
                         </tbody>
                         <tfoot>
                             <tr>
@@ -124,5 +87,29 @@
 @endsection
 
 @section('script')
-
+<script>
+    const columns = [
+            { 
+                data: 'DT_RowIndex', 
+                name: 'DT_RowIndex', 
+                orderable: false, 
+                searchable: false 
+            },
+            { data: 'id', name: 'id' },
+            { data: 'user_name', name: 'user_name' },
+            { data: 'feedback', name: 'feedback' },
+            { data: 'description', name: 'ma.description' },
+            { data: 'created_at', name: 'created_at' },
+            { data: 'created_id', name: 'created_id' },
+            { data: 'updated_at', name: 'updated_at' },
+            { data: 'updated_id', name: 'updated_id' },
+            { data: 'status', name: 'status' },
+            { 
+                data: 'action', 
+                name: 'action', 
+                orderable: false, 
+                searchable: false 
+            }
+        ]
+</script>
 @endsection
