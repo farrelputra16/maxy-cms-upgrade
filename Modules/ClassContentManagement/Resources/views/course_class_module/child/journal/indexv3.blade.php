@@ -59,7 +59,8 @@
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
                         data-server-processing="true" 
                         data-url="{{ route('getJournalCourseClassChildModuleData') }}"
-                        data-colvis="[1, -3, -4, -5, -6]"
+                        data-colvis="[1, -3, -4, -5]"
+                        data-no-status="true"
                         data-id="{{ $parent_module->id}}">
                         <thead>
                             <tr>
@@ -71,7 +72,6 @@
                                 <th>Dibuat Oleh</th>
                                 <th>Diperbarui Pada</th>
                                 <th>Diperbarui Oleh</th>
-                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -88,7 +88,6 @@
                                 <th>Dibuat Oleh</th>
                                 <th>Diperbarui Pada</th>
                                 <th>Diperbarui Oleh</th>
-                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </tfoot>
@@ -211,7 +210,6 @@
                     { data: 'created_id', name: 'created_id' },
                     { data: 'updated_at', name: 'updated_at' },
                     { data: 'updated_id', name: 'updated_id' },
-                    { data: 'status', name: 'status' },
                     { data: 'action', name: 'action', orderable: false, searchable: false }
                 ]
     </script>

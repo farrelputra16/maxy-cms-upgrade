@@ -567,15 +567,6 @@ class CourseClassModuleController extends Controller
                     ' . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') . '
                 </span>';
             })
-            ->addColumn('status', function ($row) {
-                return '<button 
-                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
-                    data-id="' . $row->id . '" 
-                    data-status="' . $row->status . '"
-                    data-model="CourseJournal">
-                    ' . ($row->status == 1 ? 'Aktif' : 'Nonaktif') . '
-                </button>';
-            })
             ->addColumn('action', function ($row) {
                 $html = '';
 
