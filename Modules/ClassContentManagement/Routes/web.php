@@ -50,6 +50,7 @@ Route::get('/course/class/module/edit', [CourseClassModuleController::class, 'ge
 Route::post('/course/class/module/edit', [CourseClassModuleController::class, 'postEditCourseClassModule'])->name('postEditCourseClassModule')->middleware('access:course_class_module_update');
 
 Route::get('/courseclassmodule/child', [CourseClassModuleController::class, 'getCourseClassChildModule'])->name('getCourseClassChildModule')->middleware('access:course_class_module_manage');
+Route::get('/courseclassmodule/child/data', [CourseClassModuleController::class, 'getCourseClassChildModuleData'])->name('getCourseClassChildModuleData')->middleware('access:course_class_module_manage');
 
 Route::get('/courseclassmodule/child/add', [CourseClassModuleController::class, 'getAddCourseClassChildModule'])->name('getAddCourseClassChildModule')->middleware('access:course_class_module_create');
 Route::post('/courseclassmodule/child/add', [CourseClassModuleController::class, 'postAddCourseClassChildModule'])->name('postAddCourseClassChildModule')->middleware('access:course_class_module_create');
@@ -58,6 +59,7 @@ Route::get('/courseclassmodule/child/edit', [CourseClassModuleController::class,
 Route::post('/courseclassmodule/child/edit', [CourseClassModuleController::class, 'postEditCourseClassChildModule'])->name('postEditCourseClassChildModule')->middleware('access:course_class_module_update');
 
 Route::get('/courseclassmodule/child/journal', [CourseClassModuleController::class, 'getJournalCourseClassChildModule'])->name('getJournalCourseClassChildModule')->middleware('access:course_class_module_journal_manage');
+Route::get('/courseclassmodule/child/journal/data', [CourseClassModuleController::class, 'getJournalCourseClassChildModuleData'])->name('getJournalCourseClassChildModuleData')->middleware('access:course_class_module_journal_manage');
 Route::get('/courseclassmodule/child/journal/create', [CourseClassModuleController::class, 'getAddJournalCourseClassChildModule'])->name('getAddJournalCourseClassChildModule')->middleware('access:course_class_module_journal_create');
 Route::post('/courseclassmodule/child/journal/create', [CourseClassModuleController::class, 'postAddJournalCourseClassChildModule'])->name('postAddJournalCourseClassChildModule')->middleware('access:course_class_module_journal_create');
 Route::post('/courseclassmodule/child/journal/reject', [CourseClassModuleController::class, 'postRejectJournalCourseClassChildModule'])->name('postRejectJournalCourseClassChildModule')->middleware('access:course_class_module_journal_update');
