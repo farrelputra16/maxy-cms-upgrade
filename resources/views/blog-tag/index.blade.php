@@ -51,7 +51,9 @@
                     </ul>
                     </p>
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
+                        data-server-processing="true" data-url="{{ route('getBlogTagData') }}"
+                        data-colvis="[1, -3, -4, -5, -6]">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -69,45 +71,7 @@
                         </thead>
 
                         <tbody>
-                            @foreach ($data as $key => $item)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->id }}</td>
-                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
-                                        title="{{ $item->name }}">
-                                        {!! \Str::limit($item->name, 30) !!}
-                                    </td>
-
-                                    <td data-toggle="tooltip" data-placement="top" title="{{ $item->color }}">
-                                        <div class="rounded w-25 h-100"
-                                            style="color: {{ $item->color }}; background-color: {{ $item->color }}">-
-                                        </div>
-                                    </td>
-
-                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
-                                        title="{!! strip_tags($item->description) !!}">
-                                        {!! !empty($item->description) ? \Str::limit($item->description, 30) : '-' !!}
-                                    </td>
-                                    <td>{{ $item->created_at }}</td>
-                                    <td>{{ $item->created_id }}</td>
-                                    <td>{{ $item->updated_at }}</td>
-                                    <td>{{ $item->updated_id }}</td>
-                                    <td>
-                                        <button
-                                            class="btn btn-status {{ $item->status == 1 ? 'btn-success' : 'btn-danger' }}"
-                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
-                                            data-model="MBlogTag">
-                                            {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <a href="{{ route('getEditBlogTag', ['id' => $item->id]) }}"
-                                                class="btn btn-primary">Ubah</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
+                            
                         </tbody>
                         <tfoot>
                             <tr>
@@ -141,5 +105,71 @@
 @endsection
 
 @section('script')
-
+<script>
+    const columns = [{
+            data: "DT_RowIndex",
+            name: "DT_RowIndex",
+            orderable: false,
+            searchable: false
+        },
+        {
+            data: "id",
+            name: "id"
+        },
+        {
+            data: "name",
+            name: "name",
+            orderable: true,
+            searchable: true
+        },
+        {
+            data: "color",
+            name: "color",
+            orderable: true,
+            searchable: true
+        },
+        {
+            data: "description",
+            name: "description",
+            orderable: true,
+            searchable: true
+        },
+        {
+            data: "created_at",
+            name: "created_at",
+            orderable: true,
+            searchable: false
+        },
+        {
+            data: "created_id",
+            name: "created_id",
+            orderable: true,
+            searchable: false
+        },
+        {
+            data: "updated_at",
+            name: "updated_at",
+            orderable: true,
+            searchable: false
+        },
+        {
+            data: "updated_id",
+            name: "updated_id",
+            orderable: true,
+            searchable: false
+        },
+        {
+            data: "status",
+            name: "status",
+            orderable: true,
+            searchable: true
+        },
+        {
+            data: "action",
+            name: "action",
+            orderable: false,
+            searchable: false
+        }
+    ];
+</script>
 @endsection

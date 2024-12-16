@@ -293,6 +293,121 @@ class BlogController extends Controller
         $data = MBlogTag::get();
         return view('blog-tag.index', compact('data'));
     }
+    public function getBlogTagData(Request $request)
+    {
+        $searchValue = $request->input('search.value');
+        $orderColumnIndex = $request->input('order.1.column');
+        $orderDirection = $request->input('order.1.dir', 'asc');
+        $columns = $request->input('columns');
+
+        $orderColumn = 'id';
+        if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
+            $orderColumn = $columns[$orderColumnIndex]['data'];
+        }
+
+        $blogTags = MBlogTag::select(
+            'm_blog_tag.*'
+        );
+
+        // Global search
+        if (!empty($searchValue)) {
+            $blogTags->where(function ($query) use ($searchValue) {
+                $query->where('name', 'like', "%{$searchValue}%")
+                    ->orWhere('color', 'like', "%{$searchValue}%")
+                    ->orWhere('description', 'like', "%{$searchValue}%");
+            });
+        }
+
+        // Column-specific search
+        foreach ($columns as $column) {
+            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnName = $column['data'];
+
+            if (!empty($columnSearchValue) && $columnName !== 'action') {
+                switch ($columnName) {
+                    case 'id':
+                        $blogTags->where('id', 'like', "%{$columnSearchValue}%");
+                        break;
+                    case 'name':
+                        $blogTags->where('name', 'like', "%{$columnSearchValue}%");
+                        break;
+                    case 'color':
+                        $blogTags->where('color', 'like', "%{$columnSearchValue}%");
+                        break;
+                    case 'description':
+                        $blogTags->where('description', 'like', "%{$columnSearchValue}%");
+                        break;
+                    case 'status':
+                        $blogTags->where('status', '=', stripos($columnSearchValue, 'Non') !== false ? 0 : 1);
+                        break;
+                    case 'created_at':
+                        $blogTags->where('created_at', 'like', "%{$columnSearchValue}%");
+                        break;
+                    case 'updated_at':
+                        $blogTags->where('updated_at', 'like', "%{$columnSearchValue}%");
+                        break;
+                    case 'created_id':
+                        $blogTags->where('created_id', 'like', "%{$columnSearchValue}%");
+                        break;
+                    case 'updated_id':
+                        $blogTags->where('updated_id', 'like', "%{$columnSearchValue}%");
+                        break;
+                }
+            }
+        }
+
+        // Ordering
+        $blogTags->orderBy($orderColumn, $orderDirection);
+
+        return DataTables::of($blogTags)
+            ->addIndexColumn()
+            ->addColumn('id', function ($row) {
+                return $row->id;
+            })
+            ->addColumn('name', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->name) . '">'
+                    . \Str::limit(e($row->name), 30)
+                    . '</span>';
+            })
+            ->addColumn('color', function ($row) {
+                return '<div class="rounded w-25 h-100" style="color: ' . e($row->color) . '; background-color: ' . e($row->color) . '">-</div>';
+            })
+            ->addColumn('description', function ($row) {
+                $description = strip_tags($row->description);
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e($description) . '">'
+                    . (!empty($description) ? \Str::limit(e($description), 30) : '-')
+                    . '</span>';
+            })
+            ->addColumn('created_at', function ($row) {
+                return $row->created_at;
+            })
+            ->addColumn('created_id', function ($row) {
+                return $row->created_id;
+            })
+            ->addColumn('updated_at', function ($row) {
+                return $row->updated_at;
+            })
+            ->addColumn('updated_id', function ($row) {
+                return $row->updated_id;
+            })
+            ->addColumn('status', function ($row) {
+                return '<button
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '"
+                    data-id="' . $row->id . '"
+                    data-status="' . $row->status . '"
+                    data-model="MBlogTag">
+                    ' . ($row->status == 1 ? 'Aktif' : 'Nonaktif') . '
+                </button>';
+            })
+            ->addColumn('action', function ($row) {
+                return '<div class="btn-group">
+                    <a href="' . route('getEditBlogTag', ['id' => $row->id]) . '"
+                        class="btn btn-primary">Ubah</a>
+                </div>';
+            })
+            ->rawColumns(['name', 'color', 'description', 'status', 'action'])
+            ->make(true);
+    }
     public function getAddBlogTag()
     {
         $data = MBlogTag::get();

@@ -401,6 +401,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/event/verification', [EventController::class, 'getEventVerification'])->name('getEventVerification');
 
     Route::get('/blog-tag', [BlogController::class, 'getBlogTag'])->name('getBlogTag');
+    Route::get('/blog-tag/data', [BlogController::class, 'getBlogTagData'])->name('getBlogTagData');
     Route::get('/blog-tag/add', [BlogController::class, 'getAddBlogTag'])->name('getAddBlogTag');
     Route::post('/blog-tag/add', [BlogController::class, 'postAddBlogTag'])->name('postAddBlogTag');
     Route::get('/blog-tag/edit', [BlogController::class, 'getEditBlogTag'])->name('getEditBlogTag');
