@@ -50,14 +50,21 @@ class CourseClassMemberController extends Controller
     {
         $idCourse = $request->input('id');
         $searchValue = $request->input('search.value');
-        $orderColumnIndex = $request->input('order.1.column');
-        $orderDirection = $request->input('order.1.dir', 'asc');
+        $orderColumnIndex = $request->input('order.0.column');
+        $orderDirection = $request->input('order.0.dir', 'asc');
         $columns = $request->input('columns');
 
         $orderColumn = 'id';
         if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
             $orderColumn = $columns[$orderColumnIndex]['data'];
         }
+
+        $orderColumnMapping = [
+            'DT_RowIndex' => 'id'
+        ];
+        
+        // Gunakan mapping untuk menentukan kolom pengurutan
+        $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
         $courseClassMembers = DB::table('course_class_member')
             ->select(
@@ -122,7 +129,7 @@ class CourseClassMemberController extends Controller
         }
 
         // Ordering
-        $courseClassMembers->orderBy($orderColumn, $orderDirection);
+        $courseClassMembers->orderBy($finalOrderColumn, $orderDirection);
 
         return DataTables::of($courseClassMembers)
             ->addIndexColumn()
