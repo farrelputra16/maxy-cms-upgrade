@@ -284,7 +284,7 @@ class CourseClassController extends Controller
             $columnSearchValue = $column['search']['value'] ?? null;
             $columnName = $column['data'];
             
-            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action', 'krs_url', 'status_ongoing'])) {
+            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action', 'krs_url'])) {
                 continue;
             } else if ($columnName == 'course_name') {
                 $query->where('course.name', 'like', "%{$columnSearchValue}%");
@@ -312,6 +312,32 @@ class CourseClassController extends Controller
                 $query->where('course_class.updated_at', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'updated_id') {
                 $query->where('course_class.updated_id', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'status_ongoing') {
+                $lowerSearchValue = strtolower($columnSearchValue);
+                
+                // Mapping pencarian dengan berbagai kemungkinan input
+                $statusMapping = [
+                    'belum' => 0,  // Belum Dimulai
+                    'sedang' => 1, // Sedang Berlangsung
+                    'sudah' => 2,  // Sudah Selesai
+                    'b' => 0,      // Singkatan Belum
+                    'sed' => 1,      // Singkatan Sedang
+                    'sud' => 2     // Singkatan Selesai
+                ];
+
+                // Temukan status berdasarkan input
+                $ongoing = null;
+                foreach ($statusMapping as $key => $status) {
+                    if (stripos($lowerSearchValue, $key) === 0) {
+                        $ongoing = $status;
+                        break;
+                    }
+                }
+
+                // Jika status ditemukan, tambahkan filter
+                if ($ongoing !== null) {
+                    $query->where('course_class.status_ongoing', $ongoing);
+                }
             } else {
                 $query->where($columnName, 'like', "%{$columnSearchValue}%");
             }
