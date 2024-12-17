@@ -100,7 +100,7 @@
     const columns = [
         { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
         { data: "id", name: "id" },
-        { data: "name", name: "name", orderable: true, searchable: true },
+        { data: "name", name: "name", orderable: false, searchable: false },
         { data: "responden_name", name: "responden_name", orderable: true, searchable: true },
         { data: "content", name: "content", orderable: true, searchable: true },
         { data: "score", name: "score", orderable: true, searchable: true },
