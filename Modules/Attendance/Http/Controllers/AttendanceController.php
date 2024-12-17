@@ -247,7 +247,7 @@ class AttendanceController extends Controller
 
         // Column-specific filtering
         foreach ($columns as $column) {
-            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnSearchValue = isset($column['search']['value']) ? $column['search']['value'] : null;
             $columnName = $column['data'];
             
             if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
@@ -269,11 +269,14 @@ class AttendanceController extends Controller
             } else if ($columnName == 'updated_id') {
                 $query->where('ccm.updated_id', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'status') {
-                $query->where('ma.status', '=', match(strtolower($columnSearchValue)) {
-                    'hadir' => 1,
-                    'izin' => 2,
-                    default => 0
-                });
+                $status = 0; // Default status
+                $lowerSearchValue = strtolower($columnSearchValue);
+                if ($lowerSearchValue === 'hadir') {
+                    $status = 1;
+                } else if ($lowerSearchValue === 'izin') {
+                    $status = 2;
+                }
+                $query->where('ma.status', '=', $status);
             }
         }
 
@@ -295,18 +298,31 @@ class AttendanceController extends Controller
                 </span>';
             })
             ->addColumn('status', function ($row) {
-                $status = $row->attendance_status ?? 0;
-                $statusClass = match($status) {
-                    1 => 'badge bg-primary',
-                    2 => 'badge bg-warning',
-                    default => 'badge bg-danger'
-                };
-                $statusText = match($status) {
-                    1 => 'Hadir',
-                    2 => 'Izin',
-                    default => 'Tidak Hadir'
-                };
-
+                $status = isset($row->attendance_status) ? $row->attendance_status : 0;
+                
+                // Tentukan class status
+                $statusClass = 'badge bg-danger'; // Default
+                switch ($status) {
+                    case 1:
+                        $statusClass = 'badge bg-primary';
+                        break;
+                    case 2:
+                        $statusClass = 'badge bg-warning';
+                        break;
+                }
+            
+                // Tentukan teks status
+                $statusText = 'Tidak Hadir'; // Default
+                switch ($status) {
+                    case 1:
+                        $statusText = 'Hadir';
+                        break;
+                    case 2:
+                        $statusText = 'Izin';
+                        break;
+                }
+            
+                // Return button dengan atribut yang sesuai
                 return '<button 
                     class="btn btn-status-entities ' . $statusClass . '" 
                     data-id="' . $row->attendance_id . '" 
@@ -315,7 +331,7 @@ class AttendanceController extends Controller
                     data-model="MemberAttendance">
                     ' . $statusText . '
                 </button>';
-            })
+            })            
             ->addColumn('action', function ($row) use ($request) {
                 $class_id = $request->input('class_id');
                 $class_attendance_id = $request->input('id');
