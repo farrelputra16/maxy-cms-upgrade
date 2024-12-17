@@ -20,19 +20,53 @@ class PartnerController extends Controller
 
     function getPartnerData(Request $request){
         $searchValue = $request->input('search.value');
-        $orderColumnIndex = $request->input('order.1.column');
-        $orderDirection = $request->input('order.1.dir', 'asc');
-        $columns = $request->input('columns');//dd($orderDirection);
+        $orderColumnIndex = $request->input('order.0.column');
+        $orderDirection = $request->input('order.0.dir', 'asc');
+        $columns = $request->input('columns');
 
-        $orderColumn = 'id';
+        // Default ke sorting berdasarkan id jika DT_RowIndex dipilih
+        $orderColumn = 'm_partner.id';
         if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
-            $orderColumn = $columns[$orderColumnIndex]['data'];
+            $columnName = $columns[$orderColumnIndex]['data'];
+            $orderColumn = $columnName === 'DT_RowIndex' ? 'm_partner.id' : 'm_partner.' . $columnName;
         }
 
         $partners = Partner::with('MPartnerType')
-            ->select('id', 'name', 'logo', 'm_partner_type_id', 'url', 'address', 'phone', 'email', 'contact_person', 'status_highlight', 'description', 'created_at', 'created_id', 'updated_at', 'updated_id', 'status')
-            ->orderBy($orderColumn, $orderDirection);
+            ->select(
+                'm_partner.id', 
+                'm_partner.name', 
+                'm_partner.logo', 
+                'm_partner.m_partner_type_id', 
+                'm_partner.url', 
+                'm_partner.address', 
+                'm_partner.phone', 
+                'm_partner.email', 
+                'm_partner.contact_person', 
+                'm_partner.status_highlight', 
+                'm_partner.description', 
+                'm_partner.created_at', 
+                'm_partner.created_id', 
+                'm_partner.updated_at', 
+                'm_partner.updated_id', 
+                'm_partner.status',
+                'm_partner_type.name as partner_type_name'
+            )
+            ->leftJoin('m_partner_type', 'm_partner.m_partner_type_id', '=', 'm_partner_type.id');
 
+        // Mapping untuk kolom tertentu
+        $orderColumnMapping = [
+            'm_partner_type' => 'm_partner_type.name'
+        ];
+
+        // Tentukan kolom pengurutan akhir
+        $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
+
+        if ($orderColumn === 'm_partner.m_partner_type') {
+            $partners->orderBy('m_partner_type.name', $orderDirection);
+        } else {
+            $partners->orderBy($finalOrderColumn, $orderDirection);
+        }
+        
         // global search datatable
         // if (!empty($searchValue)) {
         //     $partners->where(function ($q) use ($searchValue, $columns) {
@@ -90,7 +124,7 @@ class PartnerController extends Controller
                 return '<img src="' . asset('uploads/partner/' . $row->logo) . '" style="max-width: 100px; height: auto;">';
             })
             ->addColumn('m_partner_type', function ($row) {
-                return $row->MPartnerType->name ?? '-'; // Safely access the related model
+                return $row->partner_type_name ?? '-'; // Safely access the related model
             })
             ->addColumn('url', function ($row) {
                 return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->url) . '">'
