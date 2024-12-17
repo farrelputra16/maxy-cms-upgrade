@@ -66,8 +66,8 @@ class CourseClassModuleController extends Controller
     function getCourseClassParentModuleData(Request $request)
     {
         $searchValue = $request->input('search.value');
-        $orderColumnIndex = $request->input('order.1.column');
-        $orderDirection = $request->input('order.1.dir', 'asc');
+        $orderColumnIndex = $request->input('order.0.column');
+        $orderDirection = $request->input('order.0.dir', 'asc');
         $columns = $request->input('columns');
         $course_class_id = $request->input('id');
 
@@ -75,6 +75,21 @@ class CourseClassModuleController extends Controller
         if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
             $orderColumn = $columns[$orderColumnIndex]['data'];
         }
+
+        // Mapping kolom untuk pengurutan yang benar
+        $orderColumnMapping = [
+            'DT_RowIndex' => 'id',
+            'course_module_name' => 'cm.name',
+            'priority' => 'course_class_module.priority',
+            'start_date' => 'course_class_module.start_date',
+            'end_date' => 'course_class_module.end_date',
+            'status' => 'course_class_module.status',
+            'created_at' => 'course_class_module.created_at',
+            'updated_at' => 'course_class_module.updated_at'
+        ];
+
+        // Gunakan mapping untuk menentukan kolom pengurutan
+        $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
         
 
         // Base query
@@ -93,7 +108,7 @@ class CourseClassModuleController extends Controller
             ->where('course_class_module.level', 1);
 
         // Ordering
-        $query->orderBy($orderColumn, $orderDirection);
+        $query->orderBy($finalOrderColumn, $orderDirection);
 
         // Column-specific filtering
         foreach ($columns as $column) {
@@ -299,8 +314,8 @@ class CourseClassModuleController extends Controller
     function getCourseClassChildModuleData(Request $request)
     {
         $searchValue = $request->input('search.value');
-        $orderColumnIndex = $request->input('order.1.column');
-        $orderDirection = $request->input('order.1.dir', 'asc');
+        $orderColumnIndex = $request->input('order.0.column');
+        $orderDirection = $request->input('order.0.dir', 'asc');
         $columns = $request->input('columns');
         $parent_id = $request->input('id');
 
@@ -311,6 +326,13 @@ class CourseClassModuleController extends Controller
 
         $ccmod_parent = CourseClassModule::find($parent_id);
         $ccmod_parent->detail = CourseModule::find($ccmod_parent->course_module_id);
+
+        $orderColumnMapping = [
+            'DT_RowIndex' => 'id',
+        ];
+        
+        // Gunakan mapping untuk menentukan kolom pengurutan
+        $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
         // Base query
         $query = DB::table('course_class_module')
@@ -332,7 +354,7 @@ class CourseClassModuleController extends Controller
             ->where('cm.course_module_parent_id', $ccmod_parent->course_module_id);
 
         // Ordering
-        $query->orderBy($orderColumn, $orderDirection);
+        $query->orderBy($finalOrderColumn, $orderDirection);
 
         // Column-specific filtering
         foreach ($columns as $column) {
@@ -507,8 +529,8 @@ class CourseClassModuleController extends Controller
     function getJournalCourseClassChildModuleData(Request $request)
     {
         $searchValue = $request->input('search.value');
-        $orderColumnIndex = $request->input('order.1.column');
-        $orderDirection = $request->input('order.1.dir', 'asc');
+        $orderColumnIndex = $request->input('order.0.column');
+        $orderDirection = $request->input('order.0.dir', 'asc');
         $columns = $request->input('columns');
         $parent_id = $request->input('id');
 
@@ -516,6 +538,13 @@ class CourseClassModuleController extends Controller
         if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
             $orderColumn = $columns[$orderColumnIndex]['data'];
         }
+
+        $orderColumnMapping = [
+            'DT_RowIndex' => 'id',
+        ];
+        
+        // Gunakan mapping untuk menentukan kolom pengurutan
+        $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
         // Base query
         $query = DB::table('course_journal')
@@ -529,7 +558,7 @@ class CourseClassModuleController extends Controller
             ->where('course_journal.priority', 1);
 
         // Ordering
-        $query->orderBy($orderColumn, $orderDirection);
+        $query->orderBy($finalOrderColumn, $orderDirection);
 
         // Column-specific filtering
         foreach ($columns as $column) {
