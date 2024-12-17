@@ -411,9 +411,9 @@ class CourseClassModuleController extends Controller
                     ' . ($row->status == 1 ? 'Aktif' : 'Nonaktif') . '
                 </button>';
             })
-            ->addColumn('action', function ($row) {
+            ->addColumn('action', function ($row) use ($ccmod_parent) {
                 return '
-                    <a href="' . route('getEditCourseClassChildModule', ['id' => $row->id]) . '" class="btn btn-primary rounded">Ubah</a>
+                    <a href="' . route('getEditCourseClassChildModule', ['id' => $row->id, 'parent_id' => $ccmod_parent->id]) . '" class="btn btn-primary rounded">Ubah</a>
                     <a href="' . route('getJournalCourseClassChildModule', ['id' => $row->id]) . '" class="btn btn-outline-primary rounded">Kelola Jurnal</a>
                 ';
             })
