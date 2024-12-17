@@ -42,6 +42,7 @@
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
                         data-server-processing="true" 
                         data-url="{{ route('getMemberAttendanceData') }}"
+                        data-no-status="true"
                         data-colvis="[1, -3, -4, -5, -6]"
                         data-id="{{ $class_attendance_id }}">
                         <thead>
