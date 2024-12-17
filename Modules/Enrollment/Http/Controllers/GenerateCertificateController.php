@@ -50,13 +50,40 @@ class GenerateCertificateController extends Controller
         $openSansBoldPath = public_path("font/OpenSans-Bold.ttf");
         $timesNewRomanPath = public_path("font/Times New Roman/Times-New-Roman.ttf");
 
-        $templateImage->text($className, $templateImage->width() / 2, $templateImage->height() / 3.68, function ($font) use ($timesNewRomanPath) {
-            $font->file($timesNewRomanPath);
-            $font->size(68);
-            $font->color('#000000');
-            $font->align('center');
-            $font->valign('middle');
-        });
+        function addWrappedText($image, $text, $x, $y, $fontPath, $fontSize, $color, $maxWidth, $lineSpacing = 10)
+        {
+            $words = explode(' ', $text);
+            $lines = [];
+            $currentLine = '';
+
+            foreach ($words as $word) {
+                $testLine = $currentLine . ' ' . $word;
+                $testBox = imagettfbbox($fontSize, 0, $fontPath, trim($testLine));
+
+                // Jika lebar melebihi batas, simpan baris saat ini dan mulai baris baru
+                if ($testBox[2] - $testBox[0] > $maxWidth) {
+                    $lines[] = trim($currentLine);
+                    $currentLine = $word;
+                } else {
+                    $currentLine = $testLine;
+                }
+            }
+            $lines[] = trim($currentLine); // Tambahkan baris terakhir
+
+            // Tulis setiap baris ke gambar
+            foreach ($lines as $i => $line) {
+                $image->text($line, $x, $y + ($i * ($fontSize + $lineSpacing)), function ($font) use ($fontPath, $fontSize, $color) {
+                    $font->file($fontPath);
+                    $font->size($fontSize);
+                    $font->color($color);
+                    $font->align('center');
+                    $font->valign('top');
+                });
+            }
+        }
+
+        $maxWidth = 3200; // Batas lebar teks dalam pixel
+        addWrappedText($templateImage, $className, $templateImage->width() / 2, $templateImage->height() / 3.68, $timesNewRomanPath, 68, '#000000', $maxWidth);
 
         $templateImage->text($user->name, $templateImage->width() / 2, $templateImage->height() / 2.4, function ($font) use ($openSansBoldPath) {
             $font->file($openSansBoldPath);
