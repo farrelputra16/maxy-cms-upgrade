@@ -33,8 +33,8 @@ class AttendanceController extends Controller
     public function getCourseClassAttendanceData(Request $request)
     {
         $searchValue = $request->input('search.value');
-        $orderColumnIndex = $request->input('order.1.column');
-        $orderDirection = $request->input('order.1.dir', 'asc');
+        $orderColumnIndex = $request->input('order.0.column');
+        $orderDirection = $request->input('order.0.dir', 'asc');
         $columns = $request->input('columns');
         $class_id = $request->input('id');
 
@@ -42,6 +42,13 @@ class AttendanceController extends Controller
         if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
             $orderColumn = $columns[$orderColumnIndex]['data'];
         }
+
+        $orderColumnMapping = [
+            'DT_RowIndex' => 'id'
+        ];
+        
+        // Gunakan mapping untuk menentukan kolom pengurutan
+        $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
         // Base query
         $query = DB::table('course_class_attendance as cca')
@@ -55,7 +62,7 @@ class AttendanceController extends Controller
             ->where('ccmod.level', 1);
 
         // Ordering
-        $query->orderBy($orderColumn, $orderDirection);
+        $query->orderBy($finalOrderColumn, $orderDirection);
 
         // Column-specific filtering
         foreach ($columns as $column) {
@@ -215,8 +222,8 @@ class AttendanceController extends Controller
     public function getMemberAttendanceData(Request $request)
     {
         $searchValue = $request->input('search.value');
-        $orderColumnIndex = $request->input('order.1.column');
-        $orderDirection = $request->input('order.1.dir', 'asc');
+        $orderColumnIndex = $request->input('order.0.column');
+        $orderDirection = $request->input('order.0.dir', 'asc');
         $columns = $request->input('columns');
         $class_id = $request->input('class_id');
         $class_attendance_id = $request->input('id');
@@ -225,6 +232,14 @@ class AttendanceController extends Controller
         if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
             $orderColumn = $columns[$orderColumnIndex]['data'];
         }
+
+        $orderColumnMapping = [
+            'DT_RowIndex' => 'id',
+            'status' => 'ma.status',
+        ];
+        
+        // Gunakan mapping untuk menentukan kolom pengurutan
+        $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
         // Base query
         $query = DB::table('course_class_member as ccm')
@@ -244,7 +259,7 @@ class AttendanceController extends Controller
             ->where('ccm.course_class_id', $class_id);
 
         // Ordering
-        $query->orderBy($orderColumn, $orderDirection);
+        $query->orderBy($finalOrderColumn, $orderDirection);
 
         // Column-specific filtering
         foreach ($columns as $column) {
@@ -272,9 +287,9 @@ class AttendanceController extends Controller
             } else if ($columnName == 'status') {
                 $status = 0; // Default status
                 $lowerSearchValue = strtolower($columnSearchValue);
-                if ($lowerSearchValue === 'hadir') {
+                if (strpos('hadir', $lowerSearchValue) === 0) { // Cek jika dimulai dengan 'h' atau 'ha'
                     $status = 1;
-                } else if ($lowerSearchValue === 'izin') {
+                } else if (strpos('izin', $lowerSearchValue) === 0) { // Cek jika dimulai dengan 'i' atau 'iz'
                     $status = 2;
                 }
                 $query->where('ma.status', '=', $status);
