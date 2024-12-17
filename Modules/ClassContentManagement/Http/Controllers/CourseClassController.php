@@ -346,7 +346,7 @@ class CourseClassController extends Controller
         return DataTables::of($query)
             ->addIndexColumn()
             ->addColumn('course_name', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->course_name) . '">'
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->course_name) . ' Kelas Paralel ' . $row->batch . '">'
                     . \Str::limit(e($row->course_name . ' Kelas Paralel ' . $row->batch), 30)
                     . '</span>';
             })
