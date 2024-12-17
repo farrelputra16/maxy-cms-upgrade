@@ -41,7 +41,8 @@
 
                         <!-- Nama Presensi -->
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nama Presensi</label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nama Presensi <span class="text-danger"
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name" id="name"
                                     placeholder="Masukkan nama presensi, misalnya: 'Presensi Pertemuan 1'"
