@@ -115,9 +115,9 @@ class UserController extends Controller
                 return $row->accessgroup;
             })
             ->addColumn('description', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' 
-                    . e(strip_tags($row->description)) . '">' 
-                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') 
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
+                    . e(strip_tags($row->description)) . '">'
+                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-')
                     . '</span>';
             })
             ->addColumn('date_of_birth', function ($row) {
@@ -127,9 +127,9 @@ class UserController extends Controller
                 return $row->phone;
             })
             ->addColumn('address', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' 
-                    . e(strip_tags($row->address)) . '">' 
-                    . (!empty($row->address) ? \Str::limit(strip_tags($row->address), 30) : '-') 
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
+                    . e(strip_tags($row->address)) . '">'
+                    . (!empty($row->address) ? \Str::limit(strip_tags($row->address), 30) : '-')
                     . '</span>';
             })
             ->addColumn('university', function ($row) {
@@ -181,18 +181,18 @@ class UserController extends Controller
                 return $row->updated_id;
             })
             ->addColumn('status', function ($row) {
-                return '<button 
-                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
-                    data-id="' . $row->id . '" 
+                return '<button
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '"
+                    data-id="' . $row->id . '"
                     data-status="' . $row->status . '"
                     data-model="User">
                     ' . ($row->status == 1 ? 'Aktif' : 'Non aktif') . '
                 </button>';
             })
             ->addColumn('action', function ($row) {
-                return '<a href="' . route('getEditUser', ['id' => $row->id]) . '" 
+                return '<a href="' . route('getEditUser', ['id' => $row->id]) . '"
                             class="btn btn-primary rounded">Ubah</a>' . " " .
-                        '<a href="' . route('getProfileUser', ['id' => $row->id]) . '" 
+                        '<a href="' . route('getProfileUser', ['id' => $row->id]) . '"
                             class="btn btn-outline-primary rounded">Profil</a>';
             })
             ->orderColumn('id', 'id $1')
@@ -487,9 +487,10 @@ class UserController extends Controller
     {
         $validate = $request->validate([
             'name' => 'required',
+            'nickname' => 'required',
             'email' => 'required|email',
             'phone' => 'required|regex:/^[0-9]{10,15}$/',
-            'password' => 'required|min:6',
+            'password' => 'nullable|min:6',
             'access_group' => 'required',
         ]);
 
