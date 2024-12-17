@@ -9,6 +9,7 @@ use App\Models\MBlogTag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
 class BlogController extends Controller
@@ -25,14 +26,21 @@ class BlogController extends Controller
     public function getBlogData(Request $request)
     {
         $searchValue = $request->input('search.value');
-        $orderColumnIndex = $request->input('order.1.column');
-        $orderDirection = $request->input('order.1.dir', 'asc');
+        $orderColumnIndex = $request->input('order.0.column');
+        $orderDirection = $request->input('order.0.dir', 'asc');
         $columns = $request->input('columns');
 
         $orderColumn = 'id';
         if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
             $orderColumn = $columns[$orderColumnIndex]['data'];
         }
+
+        $orderColumnMapping = [
+            'DT_RowIndex' => 'id',
+        ];
+        
+        // Gunakan mapping untuk menentukan kolom pengurutan
+        $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
         $blogs = MBlog::select(
             'm_blog.*',
@@ -41,13 +49,13 @@ class BlogController extends Controller
         ->with('tags');
 
         // Global search
-        if (!empty($searchValue)) {
-            $blogs->where(function ($query) use ($searchValue) {
-                $query->where('title', 'like', "%{$searchValue}%")
-                    ->orWhere('slug', 'like', "%{$searchValue}%")
-                    ->orWhere('content', 'like', "%{$searchValue}%");
-            });
-        }
+        // if (!empty($searchValue)) {
+        //     $blogs->where(function ($query) use ($searchValue) {
+        //         $query->where('title', 'like', "%{$searchValue}%")
+        //             ->orWhere('slug', 'like', "%{$searchValue}%")
+        //             ->orWhere('content', 'like', "%{$searchValue}%");
+        //     });
+        // }
 
         // Column-specific search
         foreach ($columns as $column) {
@@ -66,17 +74,21 @@ class BlogController extends Controller
                         $blogs->where('content', 'like', "%{$columnSearchValue}%");
                         break;
                     case 'highlight_status':
-                        $blogs->where('status_highlight', $columnSearchValue);
+                        if (stripos($columnSearchValue, 'y') !== false) {
+                            $blogs->where('status_highlight', '=', 1);
+                        } else if (stripos($columnSearchValue, 't') !== false) {
+                            $blogs->where('status_highlight', '=', 0);
+                        }
                         break;
                     case 'status':
-                        $blogs->where('status', $columnSearchValue);
+                        $blogs->where('status', '=', stripos($columnSearchValue, 'Non') !== false ? 0 : 1);
                         break;
                 }
             }
         }
 
         // Ordering
-        $blogs->orderBy($orderColumn, $orderDirection);
+        $blogs->orderBy($finalOrderColumn, $orderDirection);
 
         return DataTables::of($blogs)
             ->addIndexColumn()
@@ -296,8 +308,8 @@ class BlogController extends Controller
     public function getBlogTagData(Request $request)
     {
         $searchValue = $request->input('search.value');
-        $orderColumnIndex = $request->input('order.1.column');
-        $orderDirection = $request->input('order.1.dir', 'asc');
+        $orderColumnIndex = $request->input('order.0.column');
+        $orderDirection = $request->input('order.0.dir', 'asc');
         $columns = $request->input('columns');
 
         $orderColumn = 'id';
@@ -305,18 +317,25 @@ class BlogController extends Controller
             $orderColumn = $columns[$orderColumnIndex]['data'];
         }
 
+        $orderColumnMapping = [
+            'DT_RowIndex' => 'id',
+        ];
+        
+        // Gunakan mapping untuk menentukan kolom pengurutan
+        $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
+
         $blogTags = MBlogTag::select(
             'm_blog_tag.*'
         );
 
         // Global search
-        if (!empty($searchValue)) {
-            $blogTags->where(function ($query) use ($searchValue) {
-                $query->where('name', 'like', "%{$searchValue}%")
-                    ->orWhere('color', 'like', "%{$searchValue}%")
-                    ->orWhere('description', 'like', "%{$searchValue}%");
-            });
-        }
+        // if (!empty($searchValue)) {
+        //     $blogTags->where(function ($query) use ($searchValue) {
+        //         $query->where('name', 'like', "%{$searchValue}%")
+        //             ->orWhere('color', 'like', "%{$searchValue}%")
+        //             ->orWhere('description', 'like', "%{$searchValue}%");
+        //     });
+        // }
 
         // Column-specific search
         foreach ($columns as $column) {
@@ -357,7 +376,7 @@ class BlogController extends Controller
         }
 
         // Ordering
-        $blogTags->orderBy($orderColumn, $orderDirection);
+        $blogTags->orderBy($finalOrderColumn, $orderDirection);
 
         return DataTables::of($blogTags)
             ->addIndexColumn()

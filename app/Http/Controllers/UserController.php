@@ -32,8 +32,8 @@ class UserController extends Controller
     function getUserData(Request $request)
     {
         $searchValue = $request->input('search.value');
-        $orderColumnIndex = $request->input('order.1.column');
-        $orderDirection = $request->input('order.1.dir', 'asc');
+        $orderColumnIndex = $request->input('order.0.column');
+        $orderDirection = $request->input('order.0.dir', 'asc');
         $columns = $request->input('columns');//dd($orderDirection);
 
         $orderColumn = 'id';
@@ -41,9 +41,16 @@ class UserController extends Controller
             $orderColumn = $columns[$orderColumnIndex]['data'];
         }
 
+        $orderColumnMapping = [
+            'DT_RowIndex' => 'id',
+        ];
+        
+        // Gunakan mapping untuk menentukan kolom pengurutan
+        $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
+
         $user = User::select('users.*', 'access_group.name AS accessgroup')
             ->join('access_group', 'users.access_group_id', '=', 'access_group.id')
-            ->orderBy($orderColumn, $orderDirection);
+            ->orderBy($finalOrderColumn, $orderDirection);
 
         // global search datatable
         // if (!empty($searchValue)) {

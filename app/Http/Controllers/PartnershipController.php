@@ -18,48 +18,55 @@ class PartnershipController extends Controller
 {
     function getPartnership()
     {
-        $partnerships = Partnership::with(['Partner', 'MPartnershipType'])->get();
+        // $partnerships = Partnership::with(['Partner', 'MPartnershipType'])->get();
 
-        return view('partnership.indexv3', [
-            'partnerships' => $partnerships
-        ]);
+        return view('partnership.indexv3');
 
     }
 
     function getPartnershipData(Request $request)
     {
         $searchValue = $request->input('search.value');
-        $orderColumnIndex = $request->input('order.1.column');
-        $orderDirection = $request->input('order.1.dir', 'asc');
-        $columns = $request->input('columns');//dd($orderDirection);
+        $orderColumnIndex = $request->input('order.0.column');
+        $orderDirection = $request->input('order.0.dir', 'asc');
+        $columns = $request->input('columns');
 
         $orderColumn = 'id';
         if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
             $orderColumn = $columns[$orderColumnIndex]['data'];
         }
 
-        $partnership = Partnership::with(['Partner', 'MPartnershipType'])
-            ->select('id', 'm_partner_id', 'm_partnership_type_id', 'file', 'date_start', 'date_end', 'description', 'created_at', 'created_id', 'updated_at', 'updated_id', 'status')
-            ->orderBy($orderColumn, $orderDirection);
+        $orderColumnMapping = [
+            'DT_RowIndex' => 'id',
+            'date_start' => 'date_start',
+            'date_end' => 'date_end',
+            'created_at' => 'created_at',
+            'updated_at' => 'updated_at',
+        ];
 
-        // global search datatable
-        // if (!empty($searchValue)) {
-        //     $partners->where(function ($q) use ($searchValue, $columns) {
-        //         foreach ($columns as $column) {
-        //             $columnName = $column['data'];
+        $partnership = Partnership::with(['Partner:id,name', 'MPartnershipType:id,name'])
+            ->select('partnership.*');
 
-        //             if (in_array($columnName, ['DT_RowIndex', 'action'])) {
-        //                 continue;
-        //             } else if ($columnName === 'm_partner_type') {
-        //                 $q->orWhereHas('MPartnerType', function ($query) use ($searchValue) {
-        //                     $query->where('name', 'like', "%{$searchValue}%");
-        //                 });
-        //             } else {
-        //                 $q->orWhere($columnName, 'like', "%{$searchValue}%");
-        //             }
-        //         }
-        //     });
-        // }
+        // Custom ordering logic
+        if ($orderColumn === 'name') {
+            $partnership->orderBy(
+                Partner::select('name')
+                    ->whereColumn('m_partner.id', 'partnership.m_partner_id')
+                    ->limit(1), 
+                $orderDirection
+            );
+        } elseif ($orderColumn === 'type') {
+            $partnership->orderBy(
+                MPartnershipType::select('name')
+                    ->whereColumn('m_partnership_type.id', 'partnership.m_partnership_type_id')
+                    ->limit(1), 
+                $orderDirection
+            );
+        } else {
+            // Gunakan mapping untuk menentukan kolom pengurutan
+            $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
+            $partnership->orderBy($finalOrderColumn, $orderDirection);
+        }
 
         // Filter kolom
         foreach ($columns as $column) {
