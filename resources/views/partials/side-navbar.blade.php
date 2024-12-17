@@ -130,6 +130,11 @@
                                     Session::get('access_master')->contains('access_master_name', 'template_certificate_manage'))
                                 <li><a href="{{ route('certificate-templates.index') }}" key="t-certificate">Template Sertifikat</a></li>
                             @endif
+
+                            @if (Session::has('access_master') &&
+                                    Session::get('access_master')->contains('access_master_name', 'course_class_member_log_read'))
+                                <li><a href="{{ route('getCCMH') }}" key="t-student-tracker">Riwayat Mahasiswa</a></li>
+                            @endif
                             {{-- <li><a href="{{ route('getCCMH') }}" key="t-student-tracker">Student Tracker</a></li> --}}
                             @if (Session::has('access_master') &&
                                     Session::get('access_master')->contains('access_master_name', 'course_class_member_grading_manage'))

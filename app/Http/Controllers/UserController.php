@@ -44,7 +44,7 @@ class UserController extends Controller
         $orderColumnMapping = [
             'DT_RowIndex' => 'id',
         ];
-        
+
         // Gunakan mapping untuk menentukan kolom pengurutan
         $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
@@ -200,7 +200,9 @@ class UserController extends Controller
                 return '<a href="' . route('getEditUser', ['id' => $row->id]) . '"
                             class="btn btn-primary rounded">Ubah</a>' . " " .
                         '<a href="' . route('getProfileUser', ['id' => $row->id]) . '"
-                            class="btn btn-outline-primary rounded">Profil</a>';
+                            class="btn btn-outline-primary rounded">Profil</a>'. " " .
+                        '<a href="' . route('getCCMH', ['user_id' => $row->id]) . '"
+                            class="btn btn-info rounded">Riwayat</a>';
             })
             ->orderColumn('id', 'id $1')
             ->rawColumns(['name', 'email', 'description', 'address','status', 'action']) // Allow HTML rendering

@@ -62,7 +62,7 @@ class CourseClassMemberController extends Controller
         $orderColumnMapping = [
             'DT_RowIndex' => 'id'
         ];
-        
+
         // Gunakan mapping untuk menentukan kolom pengurutan
         $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
@@ -173,7 +173,9 @@ class CourseClassMemberController extends Controller
                 return '<a href="' . route('getEditCourseClassMember', ['course_class_member' => $row->id]) . '"
                         class="btn btn-primary rounded">Ubah</a>
                         <a href="' . route('getGenerateCertificate', ['course_class_member' => $row->id, 'user' => $row->user_id, 'course_class' => $idCourse]) . '"
-                                            class="btn btn-info rounded">Buat Sertifikat</a>';
+                                            class="btn btn-info rounded">Buat Sertifikat</a>'. " " .
+                        '<a href="' . route('getCCMH', ['user_id' => $row->id]) . '"
+                            class="btn btn-info rounded">Riwayat</a>';
             })
             ->rawColumns(['user_name', 'user_email', 'description', 'status', 'action'])
             ->make(true);

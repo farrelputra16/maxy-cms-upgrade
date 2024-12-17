@@ -8,10 +8,10 @@ Route::prefix('trackandgrade')->group(function () {
     Route::get('/', 'TrackandGradeController@index');
 });
 
-// Route::get('/course/class/member/history/serverside', [CourseClassMemberLogController::class, 'getCCMH_ServerSide'])->name('getCCMH_ServerSide');
+Route::get('/course/class/member/history/data', [CourseClassMemberLogController::class, 'getCCMHData'])->name('getCCMHData');
 
 Route::get('/course/class/member/history', [CourseClassMemberLogController::class, 'getCCMH'])->name('getCCMH')->middleware('access:course_class_member_log_read');
-Route::get('/course/class/member/history/json', [CourseClassMemberLogController::class, 'getCCMHajax'])->name('getCCMHajax')->middleware('access:course_class_member_log_read');
+// Route::get('/course/class/member/history/json', [CourseClassMemberLogController::class, 'getCCMHajax'])->name('getCCMHajax')->middleware('access:course_class_member_log_read');
 
 
 Route::get('/course/class/member/history/serverside/COBAA', [CourseClassMemberLogController::class, 'getCCMHCOBA'])->name('getCCMHCOBA')->middleware('access:course_class_member_log_read');
