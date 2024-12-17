@@ -2,6 +2,7 @@
 
 namespace Modules\Attendance\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
