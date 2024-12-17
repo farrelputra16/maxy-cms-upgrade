@@ -22,8 +22,8 @@ class AccessGroupController extends Controller
     function getAccessGroupData(Request $request)
     {
         $searchValue = $request->input('search.value');
-        $orderColumnIndex = $request->input('order.1.column');
-        $orderDirection = $request->input('order.1.dir', 'asc');
+        $orderColumnIndex = $request->input('order.0.column');
+        $orderDirection = $request->input('order.0.dir', 'asc');
         $columns = $request->input('columns');//dd($orderDirection);
 
         $orderColumn = 'id';
@@ -31,8 +31,15 @@ class AccessGroupController extends Controller
             $orderColumn = $columns[$orderColumnIndex]['data'];
         }
 
+        $orderColumnMapping = [
+            'DT_RowIndex' => 'id',
+        ];
+        
+        // Gunakan mapping untuk menentukan kolom pengurutan
+        $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
+
         $accessGroup = AccessGroup::select('id', 'name', 'description', 'created_at', 'created_id', 'updated_at', 'updated_id', 'status')
-            ->orderBy($orderColumn, $orderDirection);
+            ->orderBy($finalOrderColumn, $orderDirection);
 
         // global search datatable
         // if (!empty($searchValue)) {
