@@ -104,7 +104,7 @@
         {
             data: "proposal",
             name: "proposal",
-            orderable: false,
+            orderable: true,
             searchable: true
         },
         {

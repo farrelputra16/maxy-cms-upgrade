@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CourseClass;
+use App\Models\MScore;
+use App\Models\Schedule;
 use App\Models\Transkrip;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use DB;
@@ -18,15 +22,27 @@ class TranskripController extends Controller
     }
     function getTranskripData(Request $request){
         $searchValue = $request->input('search.value');
-        $orderColumnIndex = $request->input('order.1.column');
-        $orderDirection = $request->input('order.1.dir', 'asc');
-        $columns = $request->input('columns');//dd($orderDirection);
-
+        $orderColumnIndex = $request->input('order.0.column');
+        $orderDirection = $request->input('order.0.dir', 'asc');
+        $columns = $request->input('columns');
+    
         $orderColumn = 'id';
         if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
             $orderColumn = $columns[$orderColumnIndex]['data'];
         }
-
+    
+        $orderColumnMapping = [
+            'DT_RowIndex' => 'id',                         
+            'name' => 'name',                        
+            'course_class' => 'CourseClass.slug',         
+            'academic_period' => 'academic_period', 
+            'score' => 'score',                     
+            'created_at' => 'created_at',                 
+            'updated_at' => 'updated_at',                 
+            'created_by' => 'created_id',                 
+            'updated_by' => 'updated_id',                 
+        ];
+        
         $transkrip = Transkrip::with([
             'User:id,name',
             'CourseClass:id,slug',
@@ -34,29 +50,44 @@ class TranskripController extends Controller
             'CourseClass.Schedule.MAcademicPeriod:id,name',
             'MScore:id,name'
         ])
-            ->select('id', 'user_id', 'course_class_id', 'm_score_id', 'created_at', 'created_id', 'updated_at', 'updated_id')
-            ->orderBy($orderColumn, $orderDirection);
-        
-        // global search datatable
-        // if (!empty($searchValue)) {
-        //     $partners->where(function ($q) use ($searchValue, $columns) {
-        //         foreach ($columns as $column) {
-        //             $columnName = $column['data'];
-
-        //             if (in_array($columnName, ['DT_RowIndex', 'action'])) {
-        //                 continue;
-        //             } else if ($columnName === 'm_partner_type') {
-        //                 $q->orWhereHas('MPartnerType', function ($query) use ($searchValue) {
-        //                     $query->where('name', 'like', "%{$searchValue}%");
-        //                 });
-        //             } else {
-        //                 $q->orWhere($columnName, 'like', "%{$searchValue}%");
-        //             }
-        //         }
-        //     });
-        // }
-
-        // Filter kolom
+        ->select('transkrip.*');
+    
+        // Custom ordering logic
+        if ($orderColumn === 'name') {
+            $transkrip->orderBy(
+                User::select('name')
+                    ->whereColumn('users.id', 'transkrip.user_id')
+                    ->limit(1), 
+                $orderDirection
+            );
+        } elseif ($orderColumn === 'score') {
+            $transkrip->orderBy(
+                MScore::select('name')
+                    ->whereColumn('m_score.id', 'transkrip.m_score_id')
+                    ->limit(1), 
+                $orderDirection
+            );
+        } else if ($orderColumn === 'slug') {
+            $transkrip->orderBy(
+                CourseClass::select('slug')
+                    ->whereColumn('course_class.id', 'transkrip.course_class_id')
+                    ->limit(1), 
+                $orderDirection
+            );
+        } elseif ($orderColumn === 'academic_period') {
+            $transkrip->orderBy(
+                Schedule::select('m_academic_period.name')
+                    ->join('m_academic_period', 'schedule.m_academic_period_id', '=', 'm_academic_period.id')
+                    ->whereColumn('schedule.course_class_id', 'transkrip.course_class_id')
+                    ->limit(1), 
+                $orderDirection
+            );
+        } else {
+            $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
+            $transkrip->orderBy($finalOrderColumn, $orderDirection);
+        }
+    
+        // Filter kolom (existing code remains the same)
         foreach ($columns as $column) {
             $columnSearchValue = $column['search']['value'] ?? null;
             $columnName = $column['data'];
@@ -87,14 +118,14 @@ class TranskripController extends Controller
                 $transkrip->where($columnName, 'like', "%{$columnSearchValue}%");
             }
         }
-
+    
         return DataTables::of($transkrip)
-            ->addIndexColumn() // Adds DT_RowIndex for serial number
+            ->addIndexColumn()
             ->addColumn('id', function ($row) {
                 return $row->id;
             })
             ->addColumn('name', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->name) . '">'
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->User->name) . '">'
                     . \Str::limit(e($row->User->name), 30)
                     . '</span>';
             })
@@ -124,8 +155,7 @@ class TranskripController extends Controller
             ->addColumn('updated_id', function ($row) {
                 return $row->updated_id;
             })
-            ->orderColumn('id', 'id $1')
-            ->rawColumns(['name']) // Allow HTML rendering
+            ->rawColumns(['name'])
             ->make(true);
     }
 }
