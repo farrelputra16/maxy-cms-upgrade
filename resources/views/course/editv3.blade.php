@@ -57,7 +57,7 @@
                             </label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="name"
-                                    value="{{ old('name', count(explode('-', $courses->name)) > 1 ? explode('-', $courses->name)[1] : '') }}"
+                                    value="{{ old('name', count(explode('-', $courses->name)) > 1 ? explode('-', $courses->name)[1] : $courses->name) }}"
                                     id="name">
                             </div>
                         </div>
