@@ -110,7 +110,7 @@
     @if (Session::has('access_master') &&
             Session::get('access_master')->contains('access_master_name', 'course_class_module_create'))
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddCourseClassChildModule', ['id' => $parent_module->id]) }}" target="_blank"
+        <a href="{{ route('getAddCourseClassChildModule', ['id' => $parent_module->id]) }}"
             data-toggle="tooltip" title="Tambah Modul Anak">
             <i class="fas fa-plus"></i>
         </a>

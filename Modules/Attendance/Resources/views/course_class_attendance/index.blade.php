@@ -82,7 +82,7 @@
 
     <!-- Tombol Tambah Presensi -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddCourseClassAttendance', ['class_id' => $class->id]) }}" target="_blank"
+        <a href="{{ route('getAddCourseClassAttendance', ['class_id' => $class->id]) }}"
             data-toggle="tooltip" title="Tambah Presensi">
             <i class="fas fa-plus"></i>
         </a>

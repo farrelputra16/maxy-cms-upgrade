@@ -99,7 +99,7 @@
     @if (Session::has('access_master') &&
             Session::get('access_master')->contains('access_master_name', 'm_course_type_create'))
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddCourseType') }}" target="_blank">
+        <a href="{{ route('getAddCourseType') }}" >
             <i class="fas fa-plus"></i>
         </a>
     </div>

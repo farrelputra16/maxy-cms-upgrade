@@ -86,7 +86,7 @@
                                     <td class="data-medium" data-toggle="tooltip" data-placement="top"
                                         title="{{ $item->slug }}">
                                         <a href="{{ env('FRONTEND_APP_URL') }}/blog/{{ $item->slug }}"
-                                            target="_blank">{!! \Str::limit($item->slug, 30) !!}</a>
+                                           >{!! \Str::limit($item->slug, 30) !!}</a>
                                     </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->content) !!}">
@@ -154,7 +154,7 @@
 
     <!-- FAB add starts -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddBlog') }}" target="_blank">
+        <a href="{{ route('getAddBlog') }}">
             <i class="fas fa-plus"></i>
         </a>
     </div>

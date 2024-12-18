@@ -97,10 +97,10 @@
             Session::get('access_master')->contains('access_master_name', 'course_class_member_create'))
     <div id="floating-whatsapp-button">
         @if (!empty($courseClassDetail->id))
-            <a href="{{ route('getAddCourseClassMember', ['id' => $courseClassDetail->id]) }}" target="_blank"
+            <a href="{{ route('getAddCourseClassMember', ['id' => $courseClassDetail->id]) }}"
                 data-toggle="tooltip" title="Tambah Anggota Kelas">
             @else
-                <a href="{{ route('getAddCourseClassMember') }}" target="_blank" data-toggle="tooltip"
+                <a href="{{ route('getAddCourseClassMember') }}" data-toggle="tooltip"
                     title="Tambah Anggota Kelas">
         @endif
         <i class="fas fa-plus"></i>

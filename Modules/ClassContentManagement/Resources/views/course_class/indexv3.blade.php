@@ -127,12 +127,12 @@
     @if (Session::has('access_master') &&
             Session::get('access_master')->contains('access_master_name', 'course_class_create'))
         <div id="floating-whatsapp-button" style='margin-bottom: 5%;'>
-            <a href="{{ route('getAddCourseClass') }}" target="_blank" data-toggle="tooltip" title="Add New Course Class">
+            <a href="{{ route('getAddCourseClass') }}" data-toggle="tooltip" title="Add New Course Class">
                 <i class="fas fa-plus"></i>
             </a>
         </div>
         <div id="floating-whatsapp-button">
-            <a href="{{ route('getDuplicateCourseClass') }}" target="_blank" data-toggle="tooltip"
+            <a href="{{ route('getDuplicateCourseClass') }}" data-toggle="tooltip"
                 title="Duplicate Course Class">
                 <i class="fa-solid fa-copy"></i>
             </a>

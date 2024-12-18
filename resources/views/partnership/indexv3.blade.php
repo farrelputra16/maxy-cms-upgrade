@@ -107,7 +107,7 @@
     @if (Session::has('access_master') &&
             Session::get('access_master')->contains('access_master_name', 'partnership_create'))
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddPartnership') }}" target="_blank">
+        <a href="{{ route('getAddPartnership') }}">
             <i class="fas fa-plus"></i>
         </a>
     </div>

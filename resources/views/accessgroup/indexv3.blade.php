@@ -93,7 +93,7 @@
     @if (Session::has('access_master') &&
             Session::get('access_master')->contains('access_master_name', 'access_group_create'))
         <div id="floating-whatsapp-button">
-            <a href="{{ route('getAddAccessGroup') }}" target="_blank" data-toggle="tooltip" title="Tambah Grup Akses">
+            <a href="{{ route('getAddAccessGroup') }}" data-toggle="tooltip" title="Tambah Grup Akses">
                 <i class="fas fa-plus"></i>
             </a>
         </div>

@@ -102,7 +102,7 @@
     @if (Session::has('access_master') &&
             Session::get('access_master')->contains('access_master_name', 'event_create'))
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddEvent') }}" target="_blank">
+        <a href="{{ route('getAddEvent') }}">
             <i class="fas fa-plus"></i>
         </a>
     </div>

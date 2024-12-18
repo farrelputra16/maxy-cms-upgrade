@@ -97,7 +97,7 @@
 
     <!-- FAB Add Starts -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('certificate-templates.create') }}" target="_blank" data-toggle="tooltip"
+        <a href="{{ route('certificate-templates.create') }}" data-toggle="tooltip"
             title="Tambah Sertifikat">
             <i class="fas fa-plus"></i>
         </a>

@@ -97,7 +97,7 @@
 
     <!-- FAB add starts -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddBlogTag') }}" target="_blank">
+        <a href="{{ route('getAddBlogTag') }}">
             <i class="fas fa-plus"></i>
         </a>
     </div>
