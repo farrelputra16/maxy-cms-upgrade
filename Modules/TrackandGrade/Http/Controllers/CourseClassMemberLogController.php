@@ -149,8 +149,12 @@ class CourseClassMemberLogController extends Controller
             }
         }
 
-        // Order the query
-        $query->orderBy($orderColumn, $orderDirection);
+        if (!$orderColumnIndex) {
+            $query->orderBy('course_class_member_log.created_at', 'desc');
+        } else {
+            // Order the query
+            $query->orderBy($orderColumn, $orderDirection);
+        }
 
         return DataTables::of($query)
             ->addIndexColumn()
