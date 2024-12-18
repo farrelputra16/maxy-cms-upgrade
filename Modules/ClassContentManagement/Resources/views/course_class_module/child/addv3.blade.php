@@ -338,8 +338,14 @@
                         success: function(data) {
                             console.log('Module content fetched:', data);
 
+                            function stripTags(html) {
+                                var doc = new DOMParser().parseFromString(html, 'text/html');
+                                return doc.body.textContent || "";
+                            }
+
                             if (data.type === 'quiz') {
-                                var idQuiz = afterLastSlash(data.content);
+                                var content = stripTags(data.content);
+                                var idQuiz = afterLastSlash(content);
 
                                 $('#quiz_content').val(frontendUrl + '/lms/survey/' + idQuiz);
                                 $('#quiz_content').trigger('change');
@@ -351,7 +357,8 @@
                                 $('#elm1').removeAttr('name');
                                 $('#eval_content').removeAttr('name');
                             } else if (data.type === 'eval') {
-                                var idEval = afterLastSlash(data.content);
+                                var content = stripTags(data.content);
+                                var idEval = afterLastSlash(content);
 
                                 $('#eval_content').val(frontendUrl + '/lms/survey/' + idEval);
                                 $('#eval_content').trigger('change');
@@ -498,7 +505,7 @@
                                 @foreach ($quiz as $item)
                                 <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}"
                                     {{ old('quiz_content') == config('app.frontend_app_url') . '/lms/survey/' . $item->id ? 'selected' : '' }}>
-                                    {{ $item->name }}
+                                    {{ $item->name }} {{ $item->id }}
                                 </option>
                                 @endforeach
                             </select>
@@ -514,7 +521,7 @@
                             <select class="form-control select2" name="eval_content" required>
                                 @foreach ($eval as $item)
                                 <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}"
-                                    {{ old('eval_content') == config('app.frontend_app_url') . '/lms/survey/' . $item->id ? 'selected' : '' }}>
+                                    {{ strip_tags(old('eval_content')) == config('app.frontend_app_url') . '/lms/survey/' . $item->id ? 'selected' : '' }}>
                                     {{ $item->name }}
                                 </option>
                                 @endforeach
