@@ -110,11 +110,6 @@ class PartnershipController extends Controller
             ->addColumn('image', function ($row) {
                 return '<img src="' . asset('uploads/partnership/' . $row->file) . '" alt="Image" style="max-width: 200px; max-height: 150px;">';
             })
-            ->addColumn('short_desc', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->name) . '">'
-                    . \Str::limit(e($row->short_desc), 30)
-                    . '</span>';
-            })
             ->addColumn('date_start', function ($row) {
                 return $row->date_start;
             })

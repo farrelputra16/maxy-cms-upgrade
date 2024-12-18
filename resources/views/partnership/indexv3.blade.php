@@ -62,7 +62,6 @@
                                 <th class="data-medium">Mitra</th>
                                 <th class="data-medium">Tipe Kerja Sama</th>
                                 <th>File</th>
-                                <th class="data-medium">Deskripsi Pratinjau</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Akhir</th>
                                 <th class="data-long">Catatan Admin</th>
@@ -84,7 +83,6 @@
                                 <th class="data-medium">Mitra</th>
                                 <th class="data-medium">Tipe Kerja Sama</th>
                                 <th>File</th>
-                                <th class="data-medium">Deskripsi Pratinjau</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Akhir</th>
                                 <th class="data-long">Catatan Admin</th>
@@ -144,12 +142,6 @@
             name: "image",
             orderable: false,
             searchable: false
-        },
-        {
-            data: "short_desc",
-            name: "short_desc",
-            orderable: true,
-            searchable: true
         },
         {
             data: "date_start",
