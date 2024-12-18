@@ -397,6 +397,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Event Requirement
     Route::get('/event/requirement', [EventController::class, 'getEventRequirement'])->name('getEventRequirement');
+    Route::get('/event/requirement/data', [EventController::class, 'getEventRequirementData'])->name('getEventRequirementData');
     Route::get('/event/requirement/add', [EventController::class, 'getAddEventRequirement'])->name('getAddEventRequirement');
     Route::post('/event/requirement/add', [EventController::class, 'postAddEventRequirement'])->name('postAddEventRequirement');
     Route::get('/event/requirement/edit', [EventController::class, 'getEditEventRequirement'])->name('getEditEventRequirement');

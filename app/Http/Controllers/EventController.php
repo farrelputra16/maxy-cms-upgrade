@@ -288,12 +288,136 @@ class EventController extends Controller
     public function getEventRequirement(Request $request)
     {
         // dd($request->all());
-        $requirement = EventRequirement::getRequirementsByEventId($request->id);
+        // $requirement = EventRequirement::getRequirementsByEventId($request->id);
         $event = Event::find($request->id);
 
         // dd($event);
 
-        return view('event.requirement.indexv3', compact(['requirement', 'event']));
+        return view('event.requirement.indexv3', compact('event'));
+    }
+    function getEventRequirementData(Request $request)
+    {
+        $searchValue = $request->input('search.value');
+        $orderColumnIndex = $request->input('order.0.column');
+        $orderDirection = $request->input('order.0.dir', 'asc');
+        $columns = $request->input('columns');
+        $eventId = $request->input('id'); // Add event_id parameter
+
+        $orderColumn = 'id';
+        if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
+            $orderColumn = $columns[$orderColumnIndex]['data'];
+        }
+
+        $orderColumnMapping = [
+            'DT_RowIndex' => 'id',
+        ];
+        
+        // Use mapping to determine the sorting column
+        $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
+
+        $eventRequirement = EventRequirement::select(
+            'id', 
+            'event_id', 
+            'name', 
+            'is_upload', 
+            'is_required', 
+            'description', 
+            'created_at', 
+            'created_id', 
+            'updated_at', 
+            'updated_id', 
+            'status'
+        )
+        ->where('event_id', $eventId) // Filter by event_id
+        ->orderBy($finalOrderColumn, $orderDirection);
+
+        // Column filtering
+        foreach ($columns as $column) {
+            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnName = $column['data'];
+            
+            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
+                continue;
+            } else if ($columnName == 'status') {
+                if (strpos(strtolower($columnSearchValue), 'non') !== false)
+                    $eventRequirement->where('status', '=', 0);
+                else
+                    $eventRequirement->where('status', '=', 1);
+            } else if ($columnName == 'is_upload') {
+                $firstChar = strtolower(substr($columnSearchValue, 0, 1));
+                if ($firstChar === 'y') {
+                    $eventRequirement->where('is_upload', '=', 1);
+                } elseif ($firstChar === 't') {
+                    $eventRequirement->where('is_upload', '=', 0);
+                }
+            } else if ($columnName == 'is_required') {
+                $firstChar = strtolower(substr($columnSearchValue, 0, 1));
+                if ($firstChar === 'y') {
+                    $eventRequirement->where('is_required', '=', 1);
+                } elseif ($firstChar === 't') {
+                    $eventRequirement->where('is_required', '=', 0);
+                }
+            } else {
+                $eventRequirement->where($columnName, 'like', "%{$columnSearchValue}%");
+            }
+        }
+
+        return DataTables::of($eventRequirement)
+            ->addIndexColumn() // Adds DT_RowIndex for serial number
+            ->addColumn('id', function ($row) {
+                return $row->id;
+            })
+            ->addColumn('name', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->name) . '">'
+                    . \Str::limit(e($row->name), 30)
+                    . '</span>';
+            })
+            ->addColumn('is_upload', function ($row) {
+                return $row->is_upload == 1 
+                    ? '<span class="badge bg-success">Ya</span>' 
+                    : '<span class="badge bg-danger">Tidak</span>';
+            })
+            ->addColumn('is_required', function ($row) {
+                return $row->is_required == 1 
+                    ? '<span class="badge bg-success">Ya</span>' 
+                    : '<span class="badge bg-danger">Tidak</span>';
+            })
+            ->addColumn('description', function ($row) {
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' 
+                    . e(strip_tags($row->description)) . '">' 
+                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') 
+                    . '</span>';
+            })
+            ->addColumn('created_at', function ($row) {
+                return $row->created_at;
+            })
+            ->addColumn('created_id', function ($row) {
+                return $row->created_id;
+            })
+            ->addColumn('updated_at', function ($row) {
+                return $row->updated_at;
+            })
+            ->addColumn('updated_id', function ($row) {
+                return $row->updated_id;
+            })
+            ->addColumn('status', function ($row) {
+                return '<button 
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
+                    data-id="' . $row->id . '" 
+                    data-status="' . $row->status . '"
+                    data-model="EventRequirement">
+                    ' . ($row->status == 1 ? 'Aktif' : 'Non aktif') . '
+                </button>';
+            })
+            ->addColumn('action', function ($row) use ($request) {
+                return '<a href="' . route('getEditEventRequirement', [
+                    'id' => $row->id, 
+                    'event_id' => $request->input('id')
+                ]) . '" class="btn btn-primary rounded">Ubah</a>';
+            })
+            ->orderColumn('id', 'id $1')
+            ->rawColumns(['name', 'is_upload', 'is_required', 'description', 'status', 'action'])
+            ->make(true);
     }
     public function getAddEventRequirement(Request $request)
     {
