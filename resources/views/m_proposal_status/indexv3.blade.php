@@ -102,7 +102,7 @@
     @if (Session::has('access_master') &&
             Session::get('access_master')->contains('access_master_name', 'm_proposal_status_create'))
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddProposalStatus') }}" target="_blank"
+        <a href="{{ route('getAddProposalStatus') }}"
             data-toggle="tooltip" title="Tambah Status Proposal Baru">
             <i class="fas fa-plus"></i>
         </a>

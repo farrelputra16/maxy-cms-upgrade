@@ -95,7 +95,7 @@
     @if (Session::has('access_master') &&
             Session::get('access_master')->contains('access_master_name', 'm_partner_type_create'))
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddPartnerType') }}" target="_blank"
+        <a href="{{ route('getAddPartnerType') }}"
             data-toggle="tooltip" title="Tambah Tipe Mitra Baru">
             <i class="fas fa-plus"></i>
         </a>

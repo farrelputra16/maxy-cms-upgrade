@@ -96,7 +96,7 @@
                     @if (Session::has('access_master') &&
                         Session::get('access_master')->contains('access_master_name', 'm_jobdesc_create'))
                     <div id="floating-whatsapp-button">
-                        <a href="{{ route('getAddJobdesc') }}" target="_blank" data-toggle="tooltip"
+                        <a href="{{ route('getAddJobdesc') }}" data-toggle="tooltip"
                             title="Tambah Rincian Pekerjaan Baru">
                             <i class="fas fa-plus"></i>
                         </a>

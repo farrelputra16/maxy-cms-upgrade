@@ -101,7 +101,7 @@
     @if (Session::has('access_master') &&
             Session::get('access_master')->contains('access_master_name', 'm_score_create'))
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddScore') }}" target="_blank">
+        <a href="{{ route('getAddScore') }}">
             <i class="fas fa-plus"></i>
         </a>
     </div>

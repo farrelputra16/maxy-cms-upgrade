@@ -97,7 +97,7 @@
     @if (Session::has('access_master') &&
             Session::get('access_master')->contains('access_master_name', 'm_class_type_create'))
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddClassType') }}" target="_blank"
+        <a href="{{ route('getAddClassType') }}"
             data-toggle="tooltip" title="Tambah Jenis Kelas Baru">
             <i class="fas fa-plus"></i>
         </a>
