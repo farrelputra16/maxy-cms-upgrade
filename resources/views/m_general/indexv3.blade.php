@@ -113,7 +113,7 @@
         { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
         { data: "id", name: "id" },
         { data: "name", name: "name", orderable: true, searchable: true },
-        { data: "value", name: "value", orderable: false, searchable: false },
+        { data: "value", name: "value", orderable: true, searchable: true },
         { data: "description", name: "description", orderable: true, searchable: true },
         { data: "created_at", name: "created_at" },
         { data: "created_id", name: "created_id" },
