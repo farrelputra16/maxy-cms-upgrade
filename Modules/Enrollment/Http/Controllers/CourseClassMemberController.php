@@ -296,6 +296,7 @@ class CourseClassMemberController extends Controller
         $users = $courseClassMember->user_id;
         $currentMentors = DB::table('user_mentorships')
             ->where('member_id', $users)
+            ->where('course_class_id', $courseClassMember->course_class_id)
             ->select('mentor_id', 'm_jobdesc_id')
             ->get();
         // dd($courseClassMember);
