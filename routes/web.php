@@ -545,6 +545,7 @@ Route::get('/event/edit', [EventController::class, 'getEditEvent'])->name('getEd
 Route::post('/event/edit', [EventController::class, 'postEditEvent'])->name('postEditEvent')->middleware('access:event_update');
 
 Route::get('/event/attendance', [EventController::class, 'getAttendanceEvent'])->name('getAttendanceEvent')->middleware('access:event_attendance_read');
+Route::get('/event/attendance/data', [EventController::class, 'getAttendanceEventData'])->name('getAttendanceEventData');
 
 //                                     Partnership
 //Partnership Routes #########################################################################################################

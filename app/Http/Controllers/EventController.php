@@ -281,8 +281,132 @@ class EventController extends Controller
             ->get(['users.name', 'event_participant.*']);
 
         return view('event.attendancev3', [
-            'event_attendances' => $event_attendances
+            'event_attendances' => $event_attendances,
+            'idevent' => $idevent
         ]);
+    }
+    function getAttendanceEventData(Request $request)
+    {
+        $searchValue = $request->input('search.value');
+        $orderColumnIndex = $request->input('order.0.column');
+        $orderDirection = $request->input('order.0.dir', 'asc');
+        $columns = $request->input('columns');
+        $idevent = $request->input('id'); // Assuming you'll pass the event ID
+
+        $orderColumn = 'id';
+        if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
+            $orderColumn = $columns[$orderColumnIndex]['data'];
+        }
+
+        $orderColumnMapping = [
+            'DT_RowIndex' => 'id',
+        ];
+        
+        // Use mapping to determine sorting column
+        $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
+
+        $eventAttendances = DB::table('event_participant')
+            ->join('users', 'event_participant.user_id', 'users.id')
+            ->select(
+                'event_participant.id', 
+                'users.name', 
+                'event_participant.description', 
+                'event_participant.created_at', 
+                'event_participant.created_id', 
+                'event_participant.updated_at', 
+                'event_participant.updated_id', 
+                'event_participant.status',
+                'event_participant.user_id',
+                'event_participant.event_id'
+            )
+            ->where('event_id', $idevent)
+            ->orderBy($finalOrderColumn, $orderDirection);
+
+        // Column filtering with explicit table references
+        foreach ($columns as $column) {
+            $columnSearchValue = $column['search']['value'] ?? null;
+            $columnName = $column['data'];
+            
+            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
+                continue;
+            } 
+            
+            // Use explicit table references for ambiguous columns
+            switch ($columnName) {
+                case 'id':
+                    $eventAttendances->where('event_participant.id', 'like', "%{$columnSearchValue}%");
+                    break;
+                case 'description':
+                    $eventAttendances->where('event_participant.description', 'like', "%{$columnSearchValue}%");
+                    break;
+                case 'status':
+                    if (strpos(strtolower($columnSearchValue), 'h') !== false) {
+                        $eventAttendances->where('event_participant.status', '=', 1);
+                    } else if (strpos(strtolower($columnSearchValue), 't') !== false){
+                        $eventAttendances->where('event_participant.status', '=', 0);
+                    } else {}
+                    break;
+                case 'name':
+                    $eventAttendances->where('users.name', 'like', "%{$columnSearchValue}%");
+                    break;
+                case 'created_at':
+                    $eventAttendances->where('event_participant.created_at', 'like', "%{$columnSearchValue}%");
+                    break;
+                case 'updated_at':
+                    $eventAttendances->where('event_participant.updated_at', 'like', "%{$columnSearchValue}%");
+                    break;
+                case 'created_id':
+                    $eventAttendances->where('event_participant.created_id', 'like', "%{$columnSearchValue}%");
+                    break;
+                case 'updated_id':
+                    $eventAttendances->where('event_participant.updated_id', 'like', "%{$columnSearchValue}%");
+                    break;
+                default:
+                    $eventAttendances->where($columnName, 'like', "%{$columnSearchValue}%");
+            }
+        }
+
+        return DataTables::of($eventAttendances)
+            ->addIndexColumn() // Adds DT_RowIndex for serial number
+            ->addColumn('id', function ($row) {
+                return $row->id;
+            })
+            ->addColumn('name', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->name) . '">'
+                    . \Str::limit(e($row->name), 30)
+                    . '</span>';
+            })
+            ->addColumn('description', function ($row) {
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' 
+                    . e(strip_tags($row->description)) . '">' 
+                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') 
+                    . '</span>';
+            })
+            ->addColumn('created_at', function ($row) {
+                return $row->created_at;
+            })
+            ->addColumn('created_id', function ($row) {
+                return $row->created_id;
+            })
+            ->addColumn('updated_at', function ($row) {
+                return $row->updated_at;
+            })
+            ->addColumn('updated_id', function ($row) {
+                return $row->updated_id;
+            })
+            ->addColumn('status', function ($row) {
+                return '<button 
+                    class="btn ' . ($row->status == 1 ? 'btn-success' : 'btn-info') . ' disabled">
+                    ' . ($row->status == 1 ? 'Hadir' : 'Terdaftar') . '
+                </button>';
+            })
+            ->addColumn('action', function ($row) {
+                return '<a href="' . route('getEventVerification', ['user_id' => $row->user_id, 'event_id' => $row->event_id]) . '" 
+                            class="btn btn-primary">Verifikasi</a>';
+            })
+            ->orderColumn('id', 'id $1')
+            ->rawColumns(['name', 'description', 'status', 'action'])
+            ->make(true);
     }
 
     public function getEventRequirement(Request $request)
