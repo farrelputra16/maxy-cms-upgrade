@@ -38,7 +38,7 @@ class BlogController extends Controller
         $orderColumnMapping = [
             'DT_RowIndex' => 'id',
         ];
-        
+
         // Gunakan mapping untuk menentukan kolom pengurutan
         $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
@@ -79,6 +79,14 @@ class BlogController extends Controller
                         } else if (stripos($columnSearchValue, 't') !== false) {
                             $blogs->where('status_highlight', '=', 0);
                         }
+                        break;
+                    case 'tags':
+                        $blogs->whereHas('tags', function ($query) use ($columnSearchValue) {
+                            $query->where('name', 'like', "%{$columnSearchValue}%");
+                        });
+                        break;
+                    case 'description':
+                        $blogs->where('description', 'like', "%{$columnSearchValue}%");
                         break;
                     case 'status':
                         $blogs->where('status', '=', stripos($columnSearchValue, 'Non') !== false ? 0 : 1);
@@ -320,7 +328,7 @@ class BlogController extends Controller
         $orderColumnMapping = [
             'DT_RowIndex' => 'id',
         ];
-        
+
         // Gunakan mapping untuk menentukan kolom pengurutan
         $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
