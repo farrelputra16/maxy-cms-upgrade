@@ -66,7 +66,6 @@
                                 <th>ID</th>
                                 <th class="data-medium">Nama Modul</th>
                                 <th>Hari</th>
-                                <th>Konten</th>
                                 <th class="data-long">Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>ID Pembuat</th>
@@ -85,7 +84,6 @@
                                 <th>ID</th>
                                 <th>Nama Modul</th>
                                 <th>Hari</th>
-                                <th>Konten</th>
                                 <th>Catatan Admin</th>
                                 <th>Dibuat Pada</th>
                                 <th>ID Pembuat</th>
@@ -119,7 +117,6 @@
             { data: "id", name: "id" },
             { data: "name", name: "name", orderable: true, searchable: true },
             { data: "priority", name: "priority", orderable: true, searchable: true },
-            { data: "content", name: "content", orderable: true, searchable: true },
             { data: "description", name: "description", orderable: true, searchable: true },
             { data: "created_at", name: "created_at" },
             { data: "created_id", name: "created_id" },

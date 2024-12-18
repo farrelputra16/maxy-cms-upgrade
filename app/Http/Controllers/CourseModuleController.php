@@ -120,11 +120,6 @@ class CourseModuleController extends Controller
             ->addColumn('priority', function ($row) {
                 return $row->priority;
             })
-            ->addColumn('content', function ($row) {
-                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->content)) . '">'
-                    . (!empty($row->content) ? \Str::limit(strip_tags($row->content), 30) : '-')
-                    . '</span>';
-            })
             ->addColumn('description', function ($row) {
                 return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->description)) . '">'
                     . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-')
