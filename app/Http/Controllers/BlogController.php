@@ -96,7 +96,11 @@ class BlogController extends Controller
         }
 
         // Ordering
-        $blogs->orderBy($finalOrderColumn, $orderDirection);
+        if ($finalOrderColumn === 'content') {
+            $blogs->orderByRaw("REGEXP_REPLACE($finalOrderColumn, '<[^>]+>', '') $orderDirection");
+        } else {
+            $blogs->orderBy($finalOrderColumn, $orderDirection);
+        }
 
         return DataTables::of($blogs)
             ->addIndexColumn()
