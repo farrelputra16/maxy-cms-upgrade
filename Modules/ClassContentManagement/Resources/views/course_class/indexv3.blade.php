@@ -218,10 +218,7 @@
                 data: "announcement", 
                 name: "announcement",
                 orderable: false,
-                searchable: true,
-                render: function(data, type, row) {
-                    return data && data.length > 30 ? data.substr(0, 30) + '...' : data;
-                }
+                searchable: true
             },
             {
                 data: "id", 
@@ -236,19 +233,13 @@
                 data: "content", 
                 name: "content",
                 orderable: false,
-                searchable: true,
-                render: function(data, type, row) {
-                    return data && data.length > 30 ? data.substr(0, 30) + '...' : data;
-                }
+                searchable: true
             },
             {
                 data: "description", 
                 name: "description",
                 orderable: false,
-                searchable: true,
-                render: function(data, type, row) {
-                    return data && data.length > 30 ? data.substr(0, 30) + '...' : data;
-                }
+                searchable: true
             },
             {
                 data: "created_at", 

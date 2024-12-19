@@ -366,6 +366,21 @@ class CourseClassController extends Controller
                 
                 return "<span class='badge {$status['class']}' style='pointer-events: none;'>{$status['text']}</span>";
             })
+            ->addColumn('announcement', function ($row) {
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->announcement)) . '">
+                    ' . (!empty($row->announcement) ? \Str::limit(strip_tags($row->announcement), 30) : '-') . '
+                </span>';
+            })
+            ->addColumn('content', function ($row) {
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->content)) . '">
+                    ' . (!empty($row->content) ? \Str::limit(strip_tags($row->content), 30) : '-') . '
+                </span>';
+            })
+            ->addColumn('description', function ($row) {
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->description)) . '">
+                    ' . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') . '
+                </span>';
+            })
             ->addColumn('start_date', function ($row) {
                 return !empty($row->start_date) ? \Str::limit($row->start_date, 30) : '-';
             })
@@ -419,7 +434,7 @@ class CourseClassController extends Controller
                 return implode(' ', $actions);
             })
             ->orderColumn('id', 'course_class.id $1')
-            ->rawColumns(['course_name', 'status_ongoing', 'status', 'action'])
+            ->rawColumns(['course_name', 'status_ongoing', 'status', 'action', 'announcement', 'content', 'description'])
             ->make(true);
     }
     function getAddCourseClass()
