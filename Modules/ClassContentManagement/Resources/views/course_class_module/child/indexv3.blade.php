@@ -168,10 +168,7 @@
             { data: 'end_date', name: 'end_date' },
             { 
                 data: 'description', 
-                name: 'description',
-                render: function(data) {
-                    return data ? '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' + data + '">' + (data.length > 30 ? data.substr(0, 30) + '...' : data) + '</span>' : '-';
-                }
+                name: 'description'
             },
             { data: 'created_at', name: 'created_at' },
             { data: 'created_id', name: 'created_id' },
