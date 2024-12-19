@@ -131,7 +131,7 @@
         },
         {
             data: "template_content",
-            name: "konten_template",
+            name: "template_content",
             orderable: true,
             searchable: true
         },

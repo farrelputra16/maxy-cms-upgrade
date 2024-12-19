@@ -41,7 +41,6 @@ class CertificateTemplateController extends Controller
         $sortableColumns = [
             'id' => 'certificate_template.id', // Tambahkan nama tabel
             'type_mata_kuliah' => 'type.name',
-            'marker_state' => 'certificate_template.marker_state',
             'template_content' => 'certificate_template.template_content',
             'created_at' => 'certificate_template.created_at',
             'updated_at' => 'certificate_template.updated_at'
@@ -105,7 +104,7 @@ class CertificateTemplateController extends Controller
                 $imagePath = asset('uploads/certificate/' . $row->type->id . '/' . $row->filename);
                 return '<img src="' . $imagePath . '" alt="' . $row->filename . '" width="225">';
             })
-            ->addColumn('konten_template', function ($row) {
+            ->addColumn('template_content', function ($row) {
                 $content = !empty($row->template_content) ? \Str::limit(strip_tags($row->template_content)) : '-';
                 return '<span data-toggle="tooltip" data-placement="top" title="' . e($row->template_content) . '">' . $content . '</span>';
             })
@@ -134,7 +133,7 @@ class CertificateTemplateController extends Controller
                     </form>
                 ';
             })
-            ->rawColumns(['filename', 'konten_template', 'action'])
+            ->rawColumns(['filename', 'template_content', 'action'])
             ->make(true);
     }
 
