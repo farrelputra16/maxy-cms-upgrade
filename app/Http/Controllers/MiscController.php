@@ -155,4 +155,108 @@ class MiscController extends Controller
             'message' => 'HTML tags removed from all description columns.'
         ]);
     }
+
+    public function updateLogContent()
+    {
+        // Fetch logs with joined data
+        $logs = DB::table('course_class_member_log')
+            ->leftJoin('users', 'users.id', '=', 'course_class_member_log.user_id')
+            ->leftJoin('course_class_module', 'course_class_module.id', '=', 'course_class_member_log.course_class_module_id')
+            ->leftJoin('course_module', 'course_module.id', '=', 'course_class_module.course_module_id')
+            ->leftJoin('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
+            ->leftJoin('course', 'course.id', '=', 'course_class.course_id')
+            ->select(
+                'course_class_member_log.*',
+                'users.name as user_name',
+                'course.name as course_name',
+                'course_class.batch as batch',
+                'course_module.name as course_module_name',
+                'course_module.type as course_type',
+                'course_module.day as day'
+            )
+            ->get();
+
+        foreach ($logs as $log) {
+            $historyText = $this->generateHistoryText($log);
+
+            if (!empty($historyText)) {
+                DB::table('course_class_member_log')
+                    ->where('id', $log->id)
+                    ->update(['content' => $historyText]);
+            }
+        }
+    }
+
+    protected function generateHistoryText($log)
+    {
+        $historyText = '';
+        $userName = $log->user_name;
+        $courseName = $log->course_name;
+        $batch = $log->batch;
+        $moduleName = $log->course_module_name;
+        $courseType = $log->course_type;
+        $day = $log->day;
+        $statusLog = $log->status_log;
+        $logType = $log->log_type;
+        $paketSoal = $log->paket_soal ?? '';
+
+        // Regenerate history text logic
+        if ($statusLog == 1) {
+            if (in_array($courseType, ['pretest', 'postest', 'unjukketerampilan'])) {
+                $historyText = "{$userName} di kelas {$courseName} - Batch {$batch} Mendapatkan Paket Soal {$paketSoal} Mengerjakan Module yaitu {$moduleName} - Day {$day}";
+            } elseif ($courseType == 'assignment') {
+                $historyText = "{$userName} di kelas {$courseName} - Batch {$batch} Mengumpulkan(submit) Tugas Module yaitu {$moduleName} - Day {$day}";
+            }
+        } elseif ($statusLog == 2) {
+            if ($logType == 'profile') {
+                $historyText = "{$userName} Membuka Profilenya";
+            } else {
+                $historyText = "{$userName} di kelas {$courseName} - Batch {$batch}, Membuka Module yaitu {$moduleName} - Day {$day}";
+            }
+        } elseif ($statusLog == 3) {
+            $historyText = "{$userName} Mengubah Profilenya";
+        } elseif ($statusLog == 4) {
+            if ($logType == 'profile') {
+                $historyText = "{$userName} Mengubah Foto Profilenya";
+            } else {
+                $historyText = "{$userName} di kelas {$courseName} - Batch {$batch}, Menghapus(unsubmit) Tugas Modulenya yaitu {$moduleName} - Day {$day}";
+            }
+        }
+
+        return $historyText;
+    }
+
+    // Optional: Add a method to handle large datasets with chunking
+    public function updateLogContentInChunks()
+    {
+        DB::table('course_class_member_log')
+            ->leftJoin('users', 'users.id', '=', 'course_class_member_log.user_id')
+            ->leftJoin('course_class_module', 'course_class_module.id', '=', 'course_class_member_log.course_class_module_id')
+            ->leftJoin('course_module', 'course_module.id', '=', 'course_class_module.course_module_id')
+            ->leftJoin('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
+            ->leftJoin('course', 'course.id', '=', 'course_class.course_id')
+            ->select(
+                'course_class_member_log.id',
+                'users.name as user_name',
+                'course.name as course_name',
+                'course_class.batch as batch',
+                'course_module.name as course_module_name',
+                'course_module.type as course_type',
+                'course_module.day as day',
+                'course_class_member_log.status_log',
+                'course_class_member_log.log_type',
+                'course_class_member_log.paket_soal'
+            )
+            ->chunk(100, function ($logs) {
+                foreach ($logs as $log) {
+                    $historyText = $this->generateHistoryText($log);
+
+                    if (!empty($historyText)) {
+                        DB::table('course_class_member_log')
+                            ->where('id', $log->id)
+                            ->update(['content' => $historyText]);
+                    }
+                }
+            });
+    }
 }

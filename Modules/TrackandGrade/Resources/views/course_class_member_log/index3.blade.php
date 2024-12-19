@@ -1,21 +1,20 @@
 @extends('layout.main-v3')
 
-@section('title', 'CCMH Tracking')
+@section('title', 'Riwayat Mahasiswa')
 
 @section('content')
     <!-- Judul Halaman -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">CCMH Tracking</h4>
+                <h4 class="mb-sm-0 font-size-18">Riwayat Mahasiswa</h4>
 
                 <!-- Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Class</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Student Tracker</a></li>
-                        <li class="breadcrumb-item active">CCMH Tracking</li>
+                        <li class="breadcrumb-item active">Riwayat Mahasiswa</li>
                     </ol>
                 </div>
                 <!-- Akhir Breadcrumb -->
@@ -29,7 +28,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">CCMH Tracking</h4>
+                    <h4 class="card-title">Riwayat Mahasiswa</h4>
                     <p class="card-title-desc">
                         Halaman ini menampilkan riwayat aktivitas siswa dalam kelas. Anda dapat melacak berbagai kegiatan
                         seperti pengerjaan tugas, mengakses modul, dan perubahan profil.
@@ -48,11 +47,11 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>User Name</th>
-                                <th>History</th>
-                                <th>Course Type</th>
-                                <th>Log Type</th>
-                                <th>Created At</th>
+                                <th>Mahasiswa</th>
+                                <th>Kegiatan</th>
+                                <th>Kelas</th>
+                                <th>Tipe</th>
+                                <th>Dibuat Pada</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,11 +60,11 @@
                         <tfoot>
                             <tr>
                                 <th>No</th>
-                                <th>User Name</th>
-                                <th>History</th>
-                                <th>Course Type</th>
-                                <th>Log Type</th>
-                                <th>Created At</th>
+                                <th>Mahasiswa</th>
+                                <th>Kegiatan</th>
+                                <th>Kelas</th>
+                                <th>Tipe</th>
+                                <th>Dibuat Pada</th>
                             </tr>
                         </tfoot>
                     </table>

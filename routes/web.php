@@ -581,6 +581,7 @@ Route::get('/updateGKCourseImage', [MiscController::class, 'updateGKCourseImage'
 Route::get('/reorderUpskillingPriority', [MiscController::class, 'reorderUpskillingPriority'])->name('reorderUpskillingPriority');
 Route::get('/updateSlugCourseClass', [MiscController::class, 'updateSlugCourseClass'])->name('updateSlugCourseClass');
 Route::get('/clean-descriptions', [MiscController::class, 'cleanDescriptions']);
+Route::get('/update-log-content', [MiscController::class, 'updateLogContent']);
 
 // jago digital route ###########################################################################################################
 Route::prefix('agent')->name('agent.')->group(function () {
