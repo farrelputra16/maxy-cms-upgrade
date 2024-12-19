@@ -54,9 +54,9 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Program MBKM</th>
-                                <th class="data-medium">Ringkasan Singkat</th>
-                                <th class="data-long">Detail Ringkasan</th>
-                                <th class="data-long">Konten Tambahan</th>
+                                <th class="data-medium">Deskripsi Pratinjau</th>
+                                <th class="data-long">Catatan Admin</th>
+                                <th class="data-long">Konten</th>
                                 <th>Waktu Dibuat</th>
                                 <th>Dibuat Oleh</th>
                                 <th>Waktu Diperbarui</th>
@@ -73,9 +73,9 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Program MBKM</th>
-                                <th class="data-medium">Ringkasan Singkat</th>
-                                <th class="data-long">Detail Ringkasan</th>
-                                <th class="data-long">Konten Tambahan</th>
+                                <th class="data-medium">Deskripsi Pratinjau</th>
+                                <th class="data-long">Catatan Admin</th>
+                                <th class="data-long">Konten</th>
                                 <th>Waktu Dibuat</th>
                                 <th>Dibuat Oleh</th>
                                 <th>Waktu Diperbarui</th>

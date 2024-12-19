@@ -52,7 +52,7 @@
 
 
                     @if (env('APP_ENV')=='local')
-                        <table id="datatable" class="table table-bordered dt-responsive nowrap w-100" data-server-processing="true" data-url="{{ route('getCourseData') }}" data-colvis="[-3, -4, -5, -6, -12]">
+                        <table id="datatable" class="table table-bordered dt-responsive nowrap w-100" data-server-processing="true" data-url="{{ route('getCourseData') }}" data-colvis="[1, -3, -4, -5, -6]">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -64,8 +64,10 @@
                                     <th class="data-long">Deskripsi Pratinjau</th>
                                     <th class="data-long">Catatan Admin</th>
                                     <th class="data-long">Konten</th>
-                                    <th>Dibuat Pada</th>
-                                    <th>Diperbarui Pada</th>
+                                    <th>Waktu Dibuat</th>
+                                    <th>Dibuat Oleh</th>
+                                    <th>Waktu Diperbarui</th>
+                                    <th>Diperbarui Oleh</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -84,15 +86,17 @@
                                     <th>Deskripsi Pratinjau</th>
                                     <th>Catatan Admin</th>
                                     <th>Konten</th>
-                                    <th>Dibuat Pada</th>
-                                    <th>Diperbarui Pada</th>
+                                    <th>Waktu Dibuat</th>
+                                    <th>Dibuat Oleh</th>
+                                    <th>Waktu Diperbarui</th>
+                                    <th>Diperbarui Oleh</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </tfoot>
                         </table>
                     @else
-                        <table id="datatable" class="table table-bordered dt-responsive nowrap w-100" data-server-processing="true" data-url="{{ route('getCourseData') }}" data-colvis="[-3, -4, -5, -6, -11, -12, -15]">
+                        <table id="datatable" class="table table-bordered dt-responsive nowrap w-100" data-server-processing="true" data-url="{{ route('getCourseData') }}" data-colvis="[1, -3, -4, -5, -6]">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -106,8 +110,10 @@
                                     <th class="data-long">Deskripsi Pratinjau</th>
                                     <th class="data-long">Catatan Admin</th>
                                     <th class="data-long">Konten</th>
-                                    <th>Dibuat Pada</th>
-                                    <th>Diperbarui Pada</th>
+                                    <th>Waktu Dibuat</th>
+                                    <th>Dibuat Oleh</th>
+                                    <th>Waktu Diperbarui</th>
+                                    <th>Diperbarui Oleh</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -128,8 +134,10 @@
                                     <th>Deskripsi Pratinjau</th>
                                     <th>Catatan Admin</th>
                                     <th>Konten</th>
-                                    <th>Dibuat Pada</th>
-                                    <th>Diperbarui Pada</th>
+                                    <th>Waktu Dibuat</th>
+                                    <th>Dibuat Oleh</th>
+                                    <th>Waktu Diperbarui</th>
+                                    <th>Diperbarui Oleh</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -168,7 +176,9 @@
                 { data: "description", name: "description", orderable: true, searchable: true },
                 { data: "content", name: "content", orderable: true, searchable: true },
                 { data: "created_at", name: "created_at" },
+                { data: "created_id", name: "created_id" },
                 { data: "updated_at", name: "updated_at" },
+                { data: "updated_id", name: "updated_id" },
                 { data: "status", name: "status", orderable: true, searchable: true },
                 { data: "action", name: "action", orderable: false, searchable: false },
             ];
@@ -186,7 +196,9 @@
                 { data: "description", name: "description", orderable: true, searchable: true },
                 { data: "content", name: "content", orderable: true, searchable: true },
                 { data: "created_at", name: "created_at" },
+                { data: "created_id", name: "created_id" },
                 { data: "updated_at", name: "updated_at" },
+                { data: "updated_id", name: "updated_id" },
                 { data: "status", name: "status", orderable: true, searchable: true },
                 { data: "action", name: "action", orderable: false, searchable: false },
             ];

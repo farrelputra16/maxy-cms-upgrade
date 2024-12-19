@@ -45,7 +45,7 @@ class CourseController extends Controller
             ->whereHas('type', function ($q) {
                 $q->where('name', '!=', 'MBKM');
             })
-            ->select('id', 'name', 'fake_price', 'price', 'm_course_type_id', 'credits', 'duration', 'short_description', 'description', 'content', 'created_at', 'updated_at', 'status')
+            ->select('id', 'name', 'fake_price', 'price', 'm_course_type_id', 'credits', 'duration', 'short_description', 'description', 'content', 'created_at', 'created_id','updated_at', 'updated_id', 'status')
             ->orderBy($finalOrderColumn, $orderDirection);
 
         foreach ($columns as $column) {
@@ -108,8 +108,14 @@ class CourseController extends Controller
                 ->addColumn('created_at', function ($row) {
                     return $row->created_at;
                 })
+                ->addColumn('created_id', function ($row) {
+                    return $row->created_id;
+                })
                 ->addColumn('updated_at', function ($row) {
                     return $row->updated_at;
+                })
+                ->addColumn('updated_id', function ($row) {
+                    return $row->updated_id;
                 })
                 ->addColumn('status', function ($row) {
                     return '<button
@@ -176,8 +182,14 @@ class CourseController extends Controller
                 ->addColumn('created_at', function ($row) {
                     return $row->created_at;
                 })
+                ->addColumn('created_id', function ($row) {
+                    return $row->created_id;
+                })
                 ->addColumn('updated_at', function ($row) {
                     return $row->updated_at;
+                })
+                ->addColumn('updated_id', function ($row) {
+                    return $row->updated_id;
                 })
                 ->addColumn('status', function ($row) {
                     return '<button
