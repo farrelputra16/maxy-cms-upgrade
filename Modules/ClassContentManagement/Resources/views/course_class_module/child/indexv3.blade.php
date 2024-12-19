@@ -152,10 +152,7 @@
             },
             { 
                 data: 'content', 
-                name: 'cm.content',
-                render: function(data) {
-                    return data ? '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' + data + '">' + (data.length > 30 ? data.substr(0, 30) + '...' : data) + '</span>' : '-';
-                }
+                name: 'cm.content'
             },
             { 
                 data: 'course_module_material', 

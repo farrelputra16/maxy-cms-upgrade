@@ -114,9 +114,10 @@
                                 <a href="{{ asset('fe/public/files/' . $child_cm_detail->material) }}"
                                     target="_blank">{{ $child_cm_detail->material }}</a>
                             </div>
-
-                            <div class="field">
-                                <label for=""></label>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="input-content" class="col-md-2 col-form-label">Konten</label>
+                            <div class="col-md-10">
                                 <textarea id="elm1" name="content" readonly>{{ old('content', $child_detail->content ?? $child_cm_detail->content) }}</textarea>
                             </div>
                         </div>

@@ -396,6 +396,11 @@ class CourseClassModuleController extends Controller
             ->addColumn('course_module_name', function ($row) {
                 return '<span class="batch" scope="row">' . e($row->course_module_name) . '</span>';
             })
+            ->addColumn('content', function ($row) {
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->content)) . '">
+                    ' . (!empty($row->content) ? \Str::limit(strip_tags($row->content), 30) : '-') . '
+                </span>';
+            })
             ->addColumn('description', function ($row) {
                 return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->description)) . '">
                     ' . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') . '
@@ -417,7 +422,7 @@ class CourseClassModuleController extends Controller
                     <a href="' . route('getJournalCourseClassChildModule', ['id' => $row->id]) . '" class="btn btn-outline-primary rounded">Kelola Jurnal</a>
                 ';
             })
-            ->rawColumns(['course_module_name', 'description', 'status', 'action'])
+            ->rawColumns(['course_module_name', 'description', 'status', 'action', 'content'])
             ->make(true);
     }
 
@@ -750,6 +755,7 @@ class CourseClassModuleController extends Controller
                 'start_date' => $request->start,
                 'end_date' => $request->end,
                 'priority' => $request->priority,
+                'content' => $request->content,
                 'course_module_id' => $request->course_module_id,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
@@ -759,7 +765,6 @@ class CourseClassModuleController extends Controller
 
         $updateContent = CourseModule::where('id', $request->course_module_id)
             ->update([
-                'content' => $request->content,
                 'created_id' => auth()->user()->id,
                 'updated_id' => auth()->user()->id
             ]);
