@@ -63,7 +63,9 @@
                                 <th class="data-medium">Nama</th>
                                 <th class="data-medium">Email</th>
                                 <th>Kelas</th>
-                                <th>Partner</th>
+                                @if ($courseClassDetail->course_type_id == $mbkmType)
+                                    <th>Partner</th>
+                                @endif
                                 <th class="data-long">Catatan Admin</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
@@ -79,7 +81,9 @@
                                 <th>Nama</th>
                                 <th>Email</th>
                                 <th>Kelas</th>
-                                <th>Partner</th>
+                                @if ($courseClassDetail->course_type_id == $mbkmType)
+                                    <th>Partner</th>
+                                @endif
                                 <th>Catatan Admin</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
@@ -111,6 +115,7 @@
 @endsection
 
 @section('script')
+@if ($courseClassDetail->course_type_id == $mbkmType)
     <script>
         const columns = [{
                 data: "DT_RowIndex",
@@ -172,4 +177,61 @@
             },
         ];
     </script>
+@else
+    <script>
+        const columns = [{
+                data: "DT_RowIndex",
+                name: "DT_RowIndex",
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: "id",
+                name: "id"
+            },
+            {
+                data: "user_name",
+                name: "user_name",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "user_email",
+                name: "user_email",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "course_name",
+                name: "course_name",
+                orderable: true,
+                searchable: true
+            },
+            // {
+            //     data: "course_class_batch",
+            //     name: "course_class_batch",
+            //     orderable: true,
+            //     searchable: true
+            // },
+            {
+                data: "description",
+                name: "description",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "status",
+                name: "status",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "action",
+                name: "action",
+                orderable: false,
+                searchable: false
+            },
+        ];
+    </script>
+@endif
 @endsection
