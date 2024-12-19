@@ -55,7 +55,6 @@ class CertificateTemplateController extends Controller
             'certificate_template.m_course_type_id', 
             'certificate_template.batch', 
             'certificate_template.filename', 
-            'certificate_template.marker_state', 
             'certificate_template.template_content', 
             'certificate_template.created_at',
             'certificate_template.updated_at',
@@ -105,9 +104,6 @@ class CertificateTemplateController extends Controller
             ->addColumn('filename', function ($row) {
                 $imagePath = asset('uploads/certificate/' . $row->type->id . '/' . $row->filename);
                 return '<img src="' . $imagePath . '" alt="' . $row->filename . '" width="225">';
-            })
-            ->addColumn('status_penanda', function ($row) {
-                return \Str::limit($row->marker_state);
             })
             ->addColumn('konten_template', function ($row) {
                 $content = !empty($row->template_content) ? \Str::limit(strip_tags($row->template_content)) : '-';

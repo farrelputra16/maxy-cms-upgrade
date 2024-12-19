@@ -54,14 +54,13 @@
                         data-server-processing="true" 
                         data-url="{{ route('getCertificateTemplateData') }}"
                         data-no-status="true"
-                        data-colvis="[1, 6, 7, 8, 9]">
+                        data-colvis="[1, 5, 6, 7, 8]">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
                                 <th>Jenis Mata Kuliah - Kelas Paralel</th>
                                 <th>Gambar</th>
-                                <th>Status Penanda</th>
                                 <th>Konten Template</th>
                                 <th>Dibuat Pada</th>
                                 <th>ID Pembuat</th>
@@ -79,7 +78,6 @@
                                 <th>Id</th>
                                 <th>Jenis Mata Kuliah - Kelas Paralel</th>
                                 <th>Gambar</th>
-                                <th>Status Penanda</th>
                                 <th>Konten Template</th>
                                 <th>Dibuat Pada</th>
                                 <th>ID Pembuat</th>
@@ -130,12 +128,6 @@
             name: "gambar",
             orderable: false,
             searchable: false
-        },
-        {
-            data: "marker_state",
-            name: "status_penanda",
-            orderable: true,
-            searchable: true
         },
         {
             data: "template_content",
