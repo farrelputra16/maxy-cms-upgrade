@@ -25,7 +25,7 @@
     <div class="row">
         <div class="col-12">
             <!-- Class Selection Card -->
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Pilih Kelas</h4>
                     <form id="class-selection-form">
@@ -47,7 +47,7 @@
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> --}}
 
             <!-- DataTables Card -->
             <div class="card">
@@ -84,6 +84,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>ID</th>
+                                <th>Kelas</th>
                                 <th>Modul</th>
                                 <th>Hari</th>
                                 <th>Nama Mahasiswa</th>
@@ -101,6 +102,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>ID</th>
+                                <th>Kelas</th>
                                 <th>Modul</th>
                                 <th>Hari</th>
                                 <th>Nama Mahasiswa</th>
@@ -123,11 +125,6 @@
 
 @section('script')
 <script>
-$("#show-grades").on("click", function () {
-    var selectedClassId = $("#classSelect").val(); // Ambil nilai class_id yang dipilih
-    $(".table").DataTable().ajax.reload(null, false) // Reload DataTable tanpa reset pagination
-});
-
 // Define columns array to match the DataTables initialization
 var columns = [
     { 
@@ -136,6 +133,10 @@ var columns = [
     },
     { 
         data: 'id',
+        searchable: true
+    },
+    {
+        data: 'class',
         searchable: true
     },
     { 
@@ -201,10 +202,10 @@ var columns = [
     },
     { 
         data: 'action',
-        searchable: false, // Kolom aksi tidak bisa dicari
+        searchable: false,
         orderable: false,
         render: function(data, type, row) {
-            return data; // Since we're now returning HTML directly
+            return data;
         }
     }
 ];

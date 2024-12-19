@@ -86,7 +86,6 @@ class CourseClassMemberGradingController extends Controller
 
     public function getGradeData(Request $request)
     {
-        $class_id = $request->input('class_id');
         $draw = $request->input('draw');
         $start = $request->input('start', 0);
         $length = $request->input('length', 10);
@@ -96,64 +95,67 @@ class CourseClassMemberGradingController extends Controller
         $orderColumnIndex = $request->input('order.0.column');
         $orderDirection = $request->input('order.0.dir', 'asc');
 
-        if (!$class_id) {
-            return response()->json([
-                'draw' => $draw,
-                'recordsTotal' => 0, 
-                'recordsFiltered' => 0,
-                'data' => []
-            ]);
-        }
-
-        $data = CourseClass::getAssignmentModulesByClassId($class_id);
-        $processedData = [];
-        $filteredData = [];
+        // Get all classes data
+        $allClassesData = [];
         $data_index = 0;
+        
+        // Get all classes that have assignment modules
+        $classes = CourseClass::select('course_class.*', 'course.name as course_name')
+            ->join('course', 'course.id', '=', 'course_class.course_id')
+            ->get();
 
-        foreach ($data as $item) {
-            foreach ($item->member_list as $key => $member) {
-                $data_index++;
-                
-                // Get status dengan text untuk sorting dan searching
-                $statusBadge = $this->getStatusBadge($item, $member);
-                $statusText = $statusBadge['text'];
-                
-                $action = $this->getActionButton($member, $item);
+        foreach ($classes as $class) {
+            $moduleData = CourseClass::getAssignmentModulesByClassId($class->id);
+            
+            foreach ($moduleData as $item) {
+                foreach ($item->member_list as $key => $member) {
+                    $data_index++;
+                    
+                    // Get status dengan text untuk sorting dan searching
+                    $statusBadge = $this->getStatusBadge($item, $member);
+                    $statusText = $statusBadge['text'];
+                    
+                    $action = $this->getActionButton($member, $item);
 
-                $rowData = [
-                    'no' => str_pad($data_index, 2, '0', STR_PAD_LEFT),
-                    'id' => isset($member->submission) ? str_pad($member->submission->id, 2, '0', STR_PAD_LEFT) : '-',
-                    'module' => \Str::limit($item->module_name, 30),
-                    'module_full' => $item->module_name,
-                    'day' => isset($item->parent->priority) ? str_pad($item->parent->priority, 2, '0', STR_PAD_LEFT) : '-',
-                    'student_name' => $member->user_name,
-                    'file' => $member->submission->submitted_file ?? '-',
-                    'submission_time' => $member->submission->submitted_at ?? '-',
-                    'grade' => $member->submission->grade ?? '-',
-                    'updated_at' => $member->submission->updated_at ?? '-',
-                    'student_comment' => $member->submission && $member->submission->comment 
-                        ? \Str::limit(strip_tags($member->submission->comment), 30) 
-                        : '-',
-                    'student_comment_full' => $member->submission ? strip_tags($member->submission->comment) : '-',
-                    'tutor_comment' => $member->submission && $member->submission->tutor_comment 
-                        ? \Str::limit(strip_tags($member->submission->tutor_comment), 30) 
-                        : '-',
-                    'tutor_comment_full' => $member->submission ? strip_tags($member->submission->tutor_comment) : '-',
-                    'status' => [
-                        'display' => $statusBadge,  // untuk tampilan
-                        'sort' => $statusText       // untuk sorting
-                    ],
-                    'action' => $action
-                ];
+                    // Add class name and batch to the data
+                    $className = $class->course_name . ' - Batch ' . $class->batch;
 
-                // Global search
-                $matchesGlobalSearch = empty($searchValue) || $this->rowMatchesSearch($rowData, $searchValue);
+                    $rowData = [
+                        'no' => str_pad($data_index, 2, '0', STR_PAD_LEFT),
+                        'id' => isset($member->submission) ? str_pad($member->submission->id, 2, '0', STR_PAD_LEFT) : '-',
+                        'class' => $className,
+                        'module' => \Str::limit($item->module_name, 30),
+                        'module_full' => $item->module_name,
+                        'day' => isset($item->parent->priority) ? str_pad($item->parent->priority, 2, '0', STR_PAD_LEFT) : '-',
+                        'student_name' => $member->user_name,
+                        'file' => $member->submission->submitted_file ?? '-',
+                        'submission_time' => $member->submission->submitted_at ?? '-',
+                        'grade' => $member->submission->grade ?? '-',
+                        'updated_at' => $member->submission->updated_at ?? '-',
+                        'student_comment' => $member->submission && $member->submission->comment 
+                            ? \Str::limit(strip_tags($member->submission->comment), 30) 
+                            : '-',
+                        'student_comment_full' => $member->submission ? strip_tags($member->submission->comment) : '-',
+                        'tutor_comment' => $member->submission && $member->submission->tutor_comment 
+                            ? \Str::limit(strip_tags($member->submission->tutor_comment), 30) 
+                            : '-',
+                        'tutor_comment_full' => $member->submission ? strip_tags($member->submission->tutor_comment) : '-',
+                        'status' => [
+                            'display' => $statusBadge,  // untuk tampilan
+                            'sort' => $statusText       // untuk sorting
+                        ],
+                        'action' => $action
+                    ];
 
-                // Individual column search
-                $matchesColumnSearch = $this->rowMatchesColumnSearch($rowData, $columns);
+                    // Global search
+                    $matchesGlobalSearch = empty($searchValue) || $this->rowMatchesSearch($rowData, $searchValue);
 
-                if ($matchesGlobalSearch && $matchesColumnSearch) {
-                    $filteredData[] = $rowData;
+                    // Individual column search
+                    $matchesColumnSearch = $this->rowMatchesColumnSearch($rowData, $columns);
+
+                    if ($matchesGlobalSearch && $matchesColumnSearch) {
+                        $allClassesData[] = $rowData;
+                    }
                 }
             }
         }
@@ -161,9 +163,9 @@ class CourseClassMemberGradingController extends Controller
         // Sorting
         if ($orderColumnIndex !== null) {
             $orderColumn = $columns[$orderColumnIndex]['data'];
-            // Jangan sort jika kolom yang dipilih adalah 'no'
+            // Don't sort if column is 'no'
             if ($orderColumn !== 'no') {
-                usort($filteredData, function($a, $b) use ($orderColumn, $orderDirection) {
+                usort($allClassesData, function($a, $b) use ($orderColumn, $orderDirection) {
                     if ($orderColumn === 'status') {
                         $valueA = $a['status']['sort'];
                         $valueB = $b['status']['sort'];
@@ -182,20 +184,18 @@ class CourseClassMemberGradingController extends Controller
             }
         }
 
-        $paginatedData = array_slice($filteredData, $start, $length);
+        $paginatedData = array_slice($allClassesData, $start, $length);
 
         // Format final output
-        // Update nomor berdasarkan pagination
         foreach ($paginatedData as $index => &$row) {
             $row['no'] = str_pad($start + $index + 1, 2, '0', STR_PAD_LEFT);
             $row['status'] = $row['status']['display'];
-            unset($row['original_index']); // Hapus index asli sebelum output
         }
 
         return response()->json([
             'draw' => $draw,
-            'recordsTotal' => count($data),
-            'recordsFiltered' => count($filteredData),
+            'recordsTotal' => count($allClassesData),
+            'recordsFiltered' => count($allClassesData),
             'data' => $paginatedData
         ]);
     }
