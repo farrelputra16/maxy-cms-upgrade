@@ -158,7 +158,7 @@
                                         </select>
                                     </div>
                                     <label for="jobdesc_{{ $index }}" class="col-md-3 col-form-label">Deskripsi
-                                        Pekerjaan<span
+                                        Pekerjaan Dosen<span
                                         class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span>:</label>
                                     <div class="col-md-3">
                                         <select name="jobdesc[]" class="form-control select2 jobdesc-select">
@@ -282,7 +282,7 @@
                     @endforeach
                 </select>
             </div>
-            <label for="jobdesc" class="col-md-3 col-form-label">Deskripsi Pekerjaan<span
+            <label for="jobdesc" class="col-md-3 col-form-label">Deskripsi Pekerjaan Dosen<span
                                     class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span>:</label>
             <div class="col-md-3">
                 <select name="jobdesc[]" class="form-control select2 jobdesc-select" data-placeholder="Pilih Deskripsi Pekerjaan">
