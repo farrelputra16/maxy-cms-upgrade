@@ -77,6 +77,7 @@
                         class="table table-bordered dt-responsive nowrap w-100" 
                         data-server-processing="true"
                         data-url="{{ route('getGradeData') }}"
+                        data-no-status="true"
                         data-colvis="[-6, -5, -4, -3, 1]"
                     >
                         <thead>

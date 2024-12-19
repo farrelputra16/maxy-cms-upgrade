@@ -96,7 +96,6 @@ class CourseClassMemberGradingController extends Controller
         $orderColumnIndex = $request->input('order.0.column');
         $orderDirection = $request->input('order.0.dir', 'asc');
 
-        // Validate class_id is provided
         if (!$class_id) {
             return response()->json([
                 'draw' => $draw,
@@ -106,10 +105,7 @@ class CourseClassMemberGradingController extends Controller
             ]);
         }
 
-        // Get assignment modules for the class
         $data = CourseClass::getAssignmentModulesByClassId($class_id);
-
-        // Prepare the data for DataTables
         $processedData = [];
         $filteredData = [];
         $data_index = 0;
@@ -118,10 +114,10 @@ class CourseClassMemberGradingController extends Controller
             foreach ($item->member_list as $key => $member) {
                 $data_index++;
                 
-                // Fungsi untuk mendapatkan status
-                $status = $this->getStatusBadge($item, $member);
+                // Get status dengan text untuk sorting dan searching
+                $statusBadge = $this->getStatusBadge($item, $member);
+                $statusText = $statusBadge['text'];
                 
-                // Fungsi untuk mendapatkan tombol aksi
                 $action = $this->getActionButton($member, $item);
 
                 $rowData = [
@@ -143,7 +139,10 @@ class CourseClassMemberGradingController extends Controller
                         ? \Str::limit(strip_tags($member->submission->tutor_comment), 30) 
                         : '-',
                     'tutor_comment_full' => $member->submission ? strip_tags($member->submission->tutor_comment) : '-',
-                    'status' => $status,
+                    'status' => [
+                        'display' => $statusBadge,  // untuk tampilan
+                        'sort' => $statusText       // untuk sorting
+                    ],
                     'action' => $action
                 ];
 
@@ -162,18 +161,36 @@ class CourseClassMemberGradingController extends Controller
         // Sorting
         if ($orderColumnIndex !== null) {
             $orderColumn = $columns[$orderColumnIndex]['data'];
-            usort($filteredData, function($a, $b) use ($orderColumn, $orderDirection) {
-                $valueA = $this->getSortValue($a, $orderColumn);
-                $valueB = $this->getSortValue($b, $orderColumn);
-
-                return $orderDirection === 'asc' 
-                    ? strcmp($valueA, $valueB) 
-                    : strcmp($valueB, $valueA);
-            });
+            // Jangan sort jika kolom yang dipilih adalah 'no'
+            if ($orderColumn !== 'no') {
+                usort($filteredData, function($a, $b) use ($orderColumn, $orderDirection) {
+                    if ($orderColumn === 'status') {
+                        $valueA = $a['status']['sort'];
+                        $valueB = $b['status']['sort'];
+                    } else {
+                        $valueA = $this->getSortValue($a, $orderColumn);
+                        $valueB = $this->getSortValue($b, $orderColumn);
+                    }
+                    
+                    $valueA = (string)$valueA;
+                    $valueB = (string)$valueB;
+                    
+                    return $orderDirection === 'asc' 
+                        ? strcmp($valueA, $valueB) 
+                        : strcmp($valueB, $valueA);
+                });
+            }
         }
 
-        // Potong data sesuai pagination
         $paginatedData = array_slice($filteredData, $start, $length);
+
+        // Format final output
+        // Update nomor berdasarkan pagination
+        foreach ($paginatedData as $index => &$row) {
+            $row['no'] = str_pad($start + $index + 1, 2, '0', STR_PAD_LEFT);
+            $row['status'] = $row['status']['display'];
+            unset($row['original_index']); // Hapus index asli sebelum output
+        }
 
         return response()->json([
             'draw' => $draw,
@@ -184,6 +201,7 @@ class CourseClassMemberGradingController extends Controller
     }
 
     // Metode tambahan untuk pencarian global
+    // Update metode pencarian global untuk handle status
     private function rowMatchesSearch($row, $search)
     {
         $search = strtolower($search);
@@ -194,9 +212,18 @@ class CourseClassMemberGradingController extends Controller
             'student_comment', 'tutor_comment'
         ];
 
+        // Check regular columns
         foreach ($searchableColumns as $column) {
             $value = strtolower($row[$column] ?? '');
             if (strpos($value, $search) !== false) {
+                return true;
+            }
+        }
+
+        // Check status
+        if (isset($row['status']['sort'])) {
+            $statusValue = strtolower($row['status']['sort']);
+            if (strpos($statusValue, $search) !== false) {
                 return true;
             }
         }
@@ -211,12 +238,16 @@ class CourseClassMemberGradingController extends Controller
             $columnSearchValue = $column['search']['value'] ?? null;
             $columnName = $column['data'];
 
-            // Skip empty search values and non-searchable columns
-            if (empty($columnSearchValue) || in_array($columnName, ['action', 'status'])) {
+            if (empty($columnSearchValue)) {
                 continue;
             }
 
-            $value = strtolower($row[$columnName] ?? '');
+            if ($columnName === 'status') {
+                $value = strtolower($row['status']['sort']);
+            } else {
+                $value = strtolower($row[$columnName] ?? '');
+            }
+
             $searchValue = strtolower($columnSearchValue);
 
             if (strpos($value, $searchValue) === false) {
@@ -230,7 +261,9 @@ class CourseClassMemberGradingController extends Controller
     // Metode untuk mendapatkan nilai sorting
     private function getSortValue($row, $column)
     {
-        // Tambahkan logika khusus untuk kolom tertentu jika diperlukan
+        if ($column === 'status') {
+            return $row['status']['sort'];
+        }
         return $row[$column] ?? '';
     }
 
