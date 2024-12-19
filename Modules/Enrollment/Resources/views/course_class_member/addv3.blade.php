@@ -52,7 +52,8 @@
                         @csrf
 
                         <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Pilih Pengguna: </label>
+                            <label for="input-tag" class="col-md-2 col-form-label">Pilih Pengguna<span
+                                class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span> : </label>
                             <div class="col-md-10">
                                 <select class="form-control select2 multiple" multiple="multiple" name="users[]"
                                     data-placeholder="Pilih pengguna yang ingin ditambahkan ke kelas">
@@ -69,7 +70,8 @@
                         <div id="mentor-fields-container">
                             @foreach (old('mentor', ['']) as $index => $oldMentor)
                                 <div class="mb-3 row mentor-field-group">
-                                    <label for="mentor" class="col-md-2 col-form-label">Pilih Dosen: </label>
+                                    <label for="mentor" class="col-md-2 col-form-label">Pilih Dosen<span
+                                        class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span> : </label>
                                     <div class="col-md-4">
                                         <select class="form-control select2 mentor-select" name="mentor[]"
                                             data-placeholder="Pilih dosen yang akan mendampingi kelas">
@@ -82,8 +84,9 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <label for="jobdesc" class="col-md-2 col-form-label">Deskripsi Pekerjaan</label>
-                                    <div class="col-md-4">
+                                    <label for="jobdesc" class="col-md-3 col-form-label">Deskripsi Pekerjaan<span
+                                        class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span> : </label>
+                                    <div class="col-md-3">
                                         <select name="jobdesc[]" class="form-control select2 jobdesc-select"
                                             data-placeholder="Pilih deskripsi tugas dosen">
                                             <option value="">Pilih Deskripsi Pekerjaan</option>
@@ -318,7 +321,8 @@
                 newMentorFieldGroup.className = 'mb-3 row mentor-field-group';
 
                 newMentorFieldGroup.innerHTML = `
-                <label for="mentor" class="col-md-2 col-form-label">Pilih Mentor: </label>
+                <label for="mentor" class="col-md-2 col-form-label">Pilih Dosen<span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span>:</label>
                 <div class="col-md-4">
                     <select class="form-control select2 mentor-select" name="mentor[]" data-placeholder="Pilih Dosen">
                         <option value="">Pilih Dosen</option>
@@ -329,8 +333,9 @@
                         @endforeach
                     </select>
                 </div>
-                <label for="jobdesc" class="col-md-2 col-form-label">Job Description</label>
-                <div class="col-md-4">
+                <label for="jobdesc" class="col-md-3 col-form-label">Deskripsi Pekerjaan<span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span>:</label>
+                <div class="col-md-3">
                     <select name="jobdesc[]" class="form-control select2 jobdesc-select" data-placeholder="Pilih Job Description">
                         @foreach ($jobdescriptions as $jobdesc)
                             <option value="{{ $jobdesc->id ?? '' }}">{{ $jobdesc->name ?? '' }}</option>

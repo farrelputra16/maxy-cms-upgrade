@@ -143,7 +143,8 @@
                         <div id="mentor-fields-container">
                             @foreach ($currentMentors as $index => $currentMentor)
                                 <div class="mb-3 row mentor-field-group">
-                                    <label for="mentor_{{ $index }}" class="col-md-2 col-form-label">Pilih Dosen:
+                                    <label for="mentor_{{ $index }}" class="col-md-2 col-form-label">Pilih Dosen<span
+                                        class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span>:
                                     </label>
                                     <div class="col-md-4">
                                         <select class="form-control select2 mentor-select" name="mentor[]">
@@ -156,9 +157,10 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <label for="jobdesc_{{ $index }}" class="col-md-2 col-form-label">Deskripsi
-                                        Pekerjaan</label>
-                                    <div class="col-md-4">
+                                    <label for="jobdesc_{{ $index }}" class="col-md-3 col-form-label">Deskripsi
+                                        Pekerjaan<span
+                                        class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span>:</label>
+                                    <div class="col-md-3">
                                         <select name="jobdesc[]" class="form-control select2 jobdesc-select">
                                             <option value="">Pilih Deskripsi Pekerjaan</option>
                                             @foreach ($jobdescriptions as $jobdesc)
@@ -271,7 +273,8 @@
             <label for="mentor" class="col-md-2 col-form-label">Pilih Dosen: </label>
             <div class="col-md-4">
                 <select class="form-control select2 mentor-select" name="mentor[]" data-placeholder="Pilih Dosen">
-                    <option value="">Pilih Dosen</option>
+                    <option value="">Pilih Dosen<span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span>:</option>
                     @foreach ($mentors as $mentor)
                         <option value="{{ $mentor->id }}" data-jobdesc="{{ $jobdescriptions[$mentor->id] ?? '' }}">
                             {{ $mentor->email }} - {{ $mentor->name }}
@@ -279,8 +282,9 @@
                     @endforeach
                 </select>
             </div>
-            <label for="jobdesc" class="col-md-2 col-form-label">Deskripsi Pekerjaan</label>
-            <div class="col-md-4">
+            <label for="jobdesc" class="col-md-3 col-form-label">Deskripsi Pekerjaan<span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Wajib diisi">*</span>:</label>
+            <div class="col-md-3">
                 <select name="jobdesc[]" class="form-control select2 jobdesc-select" data-placeholder="Pilih Deskripsi Pekerjaan">
                     <option value="">Pilih Deskripsi Pekerjaan</option>
                     @foreach ($jobdescriptions as $jobdesc)
