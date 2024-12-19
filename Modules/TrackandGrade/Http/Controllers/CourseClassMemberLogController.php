@@ -146,6 +146,9 @@ class CourseClassMemberLogController extends Controller
                 case 'log_type':
                     $query->where('course_class_member_log.log_type', 'like', "%{$columnSearchValue}%");
                     break;
+                case 'created_at':
+                    $query->where('course_class_member_log.created_at', 'like', "%{$columnSearchValue}%");
+                    break;
             }
         }
 
