@@ -174,7 +174,7 @@ class CourseClassMemberController extends Controller
                         class="btn btn-primary rounded">Ubah</a>
                         <a href="' . route('getGenerateCertificate', ['course_class_member' => $row->id, 'user' => $row->user_id, 'course_class' => $idCourse]) . '"
                                             class="btn btn-info rounded">Buat Sertifikat</a>'. " " .
-                        '<a href="' . route('getCCMH', ['user_id' => $row->id]) . '"
+                        '<a href="' . route('getCCMH', ['user_id' => $row->user_id]) . '"
                             class="btn btn-info rounded">Riwayat</a>';
             })
             ->rawColumns(['user_name', 'user_email', 'description', 'status', 'action'])
