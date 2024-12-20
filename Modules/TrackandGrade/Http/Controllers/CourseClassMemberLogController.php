@@ -165,34 +165,10 @@ class CourseClassMemberLogController extends Controller
                 return $row->user_name; // Return the user name
             })
             ->addColumn('history', function ($row) {
-                // Your existing logic for generating history text
-                $historyText = '';
-                if ($row->status_log == 1) {
-                    if (in_array($row->course_type, ['pretest', 'postest', 'unjukketerampilan'])) {
-                        $historyText = "{$row->user_name} di kelas {$row->course_name} - Batch {$row->batch} Mendapatkan Paket Soal {$row->paket_soal} Mengerjakan Module yaitu {$row->course_module_name} - Day {$row->day}";
-                    } elseif ($row->course_type == 'assignment') {
-                        $historyText = "{$row->user_name} di kelas {$row->course_name} - Batch {$row->batch} Mengumpulkan(submit) Tugas Module yaitu {$row->course_module_name} - Day {$row->day}";
-                    }
-                } elseif ($row->status_log == 2) {
-                    if ($row->log_type == 'profile') {
-                        $historyText = "{$row->user_name} Membuka Profilenya";
-                    } else {
-                        $historyText = "{$row->user_name} di kelas {$row->course_name} - Batch {$row->batch}, Membuka Module yaitu {$row->course_module_name} - Day {$row->day}";
-                    }
-                } elseif ($row->status_log == 3) {
-                    $historyText = "{$row->user_name} Mengubah Profilenya";
-                } elseif ($row->status_log == 4) {
-                    if ($row->log_type == 'profile') {
-                        $historyText = "{$row->user_name} Mengubah Foto Profilenya";
-                    } else {
-                        $historyText = "{$row->user_name} di kelas {$row->course_name} - Batch {$row->batch}, Menghapus(unsubmit) Tugas Modulenya yaitu {$row->course_module_name} - Day {$row->day}";
-                    }
-                }
-
                 return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
-                    . e(strip_tags($historyText)) . '">'
-                    . (!empty($historyText) ? \Str::limit(strip_tags($historyText), 50) : '-')
-                    . '</span>';
+                . e(strip_tags($row->content)) . '">'
+                . (!empty($row->content) ? \Str::limit(strip_tags($row->content), 50) : '-')
+                . '</span>';
             })
             ->addColumn('course_type', function ($row) {
                 return $row->course_name ? "{$row->course_name} - Batch {$row->batch}" : '';

@@ -174,6 +174,7 @@ class MiscController extends Controller
                 'course_module.type as course_type',
                 'course_module.day as day'
             )
+            ->whereNull('course_class_member_log.content')
             ->get();
 
         foreach ($logs as $log) {
@@ -214,7 +215,11 @@ class MiscController extends Controller
                 $historyText = "{$userName} di kelas {$courseName} - Batch {$batch}, Membuka Module yaitu {$moduleName} - Day {$day}";
             }
         } elseif ($statusLog == 3) {
-            $historyText = "{$userName} Mengubah Profilenya";
+            if ($logType == 'profile') {
+                $historyText = "{$userName} Mengubah Profilenya";
+            } else {
+                $historyText = "{$userName} di kelas {$courseName} - Batch {$batch} Mengubah Jawaban pada Module Assignment yaitu {$moduleName} - Day {$day}";
+            }
         } elseif ($statusLog == 4) {
             if ($logType == 'profile') {
                 $historyText = "{$userName} Mengubah Foto Profilenya";
