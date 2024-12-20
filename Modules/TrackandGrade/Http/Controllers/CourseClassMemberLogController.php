@@ -75,7 +75,8 @@ class CourseClassMemberLogController extends Controller
             ->leftJoin('course_class_module', 'course_class_module.id', '=', 'course_class_member_log.course_class_module_id')
             ->leftJoin('course_module', 'course_module.id', '=', 'course_class_module.course_module_id')
             ->leftJoin('course_class', 'course_class.id', '=', 'course_class_module.course_class_id')
-            ->leftJoin('course', 'course.id', '=', 'course_class.course_id');
+            ->leftJoin('course', 'course.id', '=', 'course_class.course_id')
+            ->where('course_class_member_log.content', '!=', null);
 
         // Add condition for non-admin users
         if (!$hasManageAllClass) {
