@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Imports\UserImport;
 use App\Models\CourseClass;
 use App\Models\CourseClassMember;
+use App\Models\MJobdesc;
 use Illuminate\Support\Facades\DB;
-use Modules\Enrollment\Entities\Jobdesc;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
@@ -339,9 +339,9 @@ class UserController extends Controller
         foreach ($members as $member) {
             $courseName = CourseClass::where('id', $member->course_class_id)->value('slug');
 
-            $mentorJob = DB::table('jobdesc')
+            $mentorJob = DB::table('m_jobdesc')
                 ->where('id', $member->m_jobdesc_id)
-                ->value('jobdesc');
+                ->value('name');
 
             $courseId = CourseClass::where('id', $member->course_class_id)->value('course_id');
 
