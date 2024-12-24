@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Testimonial extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'user_testimonial';
 
     protected $fillable = [
@@ -19,6 +19,7 @@ class Testimonial extends Model
         'status_highlight',
         'user_id',
         'content',
+        'content_en',
         'course_class_id',
         'description',
         'status',

@@ -47,6 +47,7 @@
                                 <th>Role</th>
                                 <th>Status Highlight</th>
                                 <th class="data-long">Content</th>
+                                <th class="data-long">Content (Inggris)</th>
                                 <th>Stars</th>
                                 <th class="data-long">Description</th>
                                 <th>Created At</th>
@@ -75,6 +76,10 @@
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
                                         title="{!! strip_tags($item->content) !!}">
                                         {!! !empty($item->content) ? \Str::limit($item->content, 30) : '-' !!}
+                                    </td>
+                                    <td class="data-long" data-toggle="tooltip" data-placement="top"
+                                        title="{!! strip_tags($item->content_en) !!}">
+                                        {!! !empty($item->content_en) ? \Str::limit($item->content_en, 30) : '-' !!}
                                     </td>
                                     <td>{{ $item->stars }}</td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"
@@ -110,6 +115,7 @@
                                 <th>Role</th>
                                 <th>Status Highlight</th>
                                 <th class="data-long">Content</th>
+                                <th class="data-long">Content (Inggris)</th>
                                 <th>Stars</th>
                                 <th class="data-long">Description</th>
                                 <th>Created At</th>
@@ -129,8 +135,7 @@
 
     <!-- FAB Add Starts -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddTestimonial') }}" target="_blank" data-toggle="tooltip"
-            title="Tambah Testimoni">
+        <a href="{{ route('getAddTestimonial') }}" target="_blank" data-toggle="tooltip" title="Tambah Testimoni">
             <i class="fas fa-plus"></i>
         </a>
     </div>

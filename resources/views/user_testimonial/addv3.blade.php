@@ -33,7 +33,8 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form id="addTestimonial" action="{{ route('postAddTestimonial') }}" method="post" enctype="multipart/form-data">
+                    <form id="addTestimonial" action="{{ route('postAddTestimonial') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Rating (in stars)</label>
@@ -62,10 +63,11 @@
                         <div class="mb-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">User</label>
                             <div class="col-md-10">
-                                <select class="form-control select2" name="user_id" id="type_selector">
+                                <select class="form-control select2" name="user_id" id="type_selector_user">
                                     <option selected value="">-- Pilih User --</option>
                                     @foreach ($allmember as $item)
-                                        <option value="{{ $item->id }}" {{ old('user_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}"
+                                            {{ old('user_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('user_id'))
@@ -81,7 +83,9 @@
                                 <select class="form-control select2" name="course_class_id" id="type_selector">
                                     <option selected value="">-- Pilih Batch Course Class --</option>
                                     @foreach ($allcourseclass as $item)
-                                        <option value="{{ $item->id }}" {{ old('course_class_id') == $item->id ? 'selected' : '' }}>{{ $item->slug }}</option>
+                                        <option value="{{ $item->id }}"
+                                            {{ old('course_class_id') == $item->id ? 'selected' : '' }}>
+                                            {{ $item->slug }}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('course_class_id'))
@@ -94,7 +98,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Content</label>
                             <div class="col-md-10">
-                                <textarea id="elm1" name="content" id="content">{{  old('content')}}</textarea>
+                                <textarea id="elm1" name="content" id="content">{{ old('content') }}</textarea>
                                 @if ($errors->has('content'))
                                     @foreach ($errors->get('content') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -103,9 +107,20 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
+                            <label for="input-content_en" class="col-md-2 col-form-label">Content (Inggris)</label>
+                            <div class="col-md-10">
+                                <textarea id="elm2" name="content_en" id="content_en">{{ old('content_en') }}</textarea>
+                                @if ($errors->has('content_en'))
+                                    @foreach ($errors->get('content_en') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm2" name="description" class="form-control" id="description">{{ old('description')}}</textarea>
+                                <textarea id="content" rows="7" name="description" class="form-control">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -125,13 +140,15 @@
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Highlight</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status_highlight" value="1" {{ old('status_highlight') ? 'checked' : '' }}>
+                                    name="status_highlight" value="1"
+                                    {{ old('status_highlight') ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addTestimonial">Add Testimonial</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addTestimonial">Add Testimonial</button>
                             </div>
                         </div>
                     </form>

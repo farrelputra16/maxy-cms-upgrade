@@ -42,13 +42,13 @@ class TestimonialController extends Controller
     }
 
     function postAddTestimonial(Request $request){
-        // return dd($request);
         $validated= $request->validate([
             'stars' => 'required',
             'role' => 'required',
             'user_id' => 'required',
             'course_class_id' => 'required',
             'content' => 'required',
+            'content_en' => 'nullable',
         ]);
 
         if ($validated){
@@ -59,6 +59,7 @@ class TestimonialController extends Controller
                 'user_id' => $request->user_id,
                 'course_class_id' => $request->course_class_id,
                 'content' => $request->content,
+                'content_en' => $request->content_en,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => Auth::user()->id,
@@ -108,6 +109,7 @@ class TestimonialController extends Controller
             'user_id' => 'required',
             'course_class_id' => 'required',
             'content' => 'required',
+            'content_en' => 'nullable',
         ]);
 
         $updateData = Testimonial::where('id', $idtestimonial)
@@ -118,6 +120,7 @@ class TestimonialController extends Controller
                 'user_id' => $request->user_id,
                 'course_class_id' => $request->course_class_id,
                 'content' => $request->content,
+                'content_en' => $request->content_en,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0
             ]);

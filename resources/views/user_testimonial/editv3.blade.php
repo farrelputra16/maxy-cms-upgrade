@@ -33,7 +33,8 @@
                         listed below. Ensure that all the information you enter is accurate to provide the best learning
                         experience for the course participants.</p>
 
-                    <form action="{{ route('postEditTestimonial', ['id' => request()->query('id')]) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('postEditTestimonial', ['id' => request()->query('id')]) }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Rating (in stars)</label>
@@ -68,7 +69,9 @@
                                         </option>
                                     @endif
                                     @foreach ($allmember as $item)
-                                        <option value="{{ $item->id }}" {{ old('user_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}"
+                                            {{ old('user_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -83,7 +86,9 @@
                                         </option>
                                     @endif
                                     @foreach ($allcourseclass as $item)
-                                        <option value="{{ $item->id }}" {{ old('course_class_id') == $item->id ? 'selected' : '' }}>{{ $item->batch }}</option>
+                                        <option value="{{ $item->id }}"
+                                            {{ old('course_class_id') == $item->id ? 'selected' : '' }}>
+                                            {{ $item->batch }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -100,9 +105,20 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
+                            <label for="input-content_en" class="col-md-2 col-form-label">Content (Inggris)</label>
+                            <div class="col-md-10">
+                                <textarea id="elm2" name="content_en" id="content_en">{{ old('content_en', $testimonials->content_en) }}</textarea>
+                                @if ($errors->has('content_en'))
+                                    @foreach ($errors->get('content_en') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Description</label>
                             <div class="col-md-10">
-                                <textarea id="elm2" name="description" id="description" class="form-control">{{ old('description', $testimonials->description) }}</textarea>
+                                <textarea name="description" id="content" rows="7" class="form-control">{{ old('description', $testimonials->description) }}</textarea>
                             </div>
                         </div>
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
@@ -124,7 +140,8 @@
                                 <input type="hidden" name="status_highlight" value="0">
 
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
-                                    name="status_highlight" value="1" {{ old('status', isset($testimonials) ? $testimonials->status_highlight : false) ? 'checked' : '' }}>
+                                    name="status_highlight" value="1"
+                                    {{ old('status', isset($testimonials) ? $testimonials->status_highlight : false) ? 'checked' : '' }}>
                                 <label class="m-0">Aktif</label>
                             </div>
                         </div>
