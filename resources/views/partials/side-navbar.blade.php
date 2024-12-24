@@ -51,7 +51,8 @@
                             @endif
                             @if (Session::has('access_master') &&
                                     Session::get('access_master')->contains('access_master_name', 'm_course_type_manage'))
-                                <li><a href="{{ route('getCourseType') }}" key="t-testimonial">Jenis Mata Kuliah</a></li>
+                                <li><a href="{{ route('getCourseType') }}" key="t-testimonial">Jenis Mata Kuliah</a>
+                                </li>
                             @endif
                             @if (env('APP_ENV') != 'local')
                                 @if (Session::has('access_master') &&
@@ -104,7 +105,8 @@
                             @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'm_jobdesc_manage'))
                                 <li><a href="{{ route('getJobdesc') }}" key="t-blog">Rincian Pekerjaan</a></li>
                             @endif
-                            @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'm_class_type_manage'))
+                            @if (Session::has('access_master') &&
+                                    Session::get('access_master')->contains('access_master_name', 'm_class_type_manage'))
                                 <li><a href="{{ route('getClassType') }}" key="t-blog">Jenis Kelas</a></li>
                             @endif
                         </ul>
@@ -128,7 +130,8 @@
 
                             @if (Session::has('access_master') &&
                                     Session::get('access_master')->contains('access_master_name', 'template_certificate_manage'))
-                                <li><a href="{{ route('certificate-templates.index') }}" key="t-certificate">Template Sertifikat</a></li>
+                                <li><a href="{{ route('certificate-templates.index') }}" key="t-certificate">Template
+                                        Sertifikat</a></li>
                             @endif
 
                             @if (Session::has('access_master') &&
@@ -233,7 +236,8 @@
                             @if (env('APP_ENV') != 'local')
                                 @if (Session::has('access_master') &&
                                         Session::get('access_master')->contains('access_master_name', 'redeem_code_manage'))
-                                    <li><a href="{{ route('getRedeemCode') }}" key="t-redeem-code">Redeem Code</a></li>
+                                    <li><a href="{{ route('getRedeemCode') }}" key="t-redeem-code">Redeem Code</a>
+                                    </li>
                                 @endif
                             @endif
                             @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'proposal_manage'))
@@ -284,6 +288,17 @@
                             <li><a href="{{ route('getBlogTag') }}" key="t-blog-tag">Tag Blog</a></li>
                         </ul>
                     </li>
+                @endif
+
+                @if (env('APP_ENV') != 'local')
+                    @if (Route::has('pageManagement.page.index'))
+                        <li>
+                            <a href="{{ route('pageManagement.page.index') }}" class="waves-effect">
+                                <i class='bx bx-code-block'></i>
+                                <span key="t-landing-page">Landing Page</span>
+                            </a>
+                        </li>
+                    @endif
                 @endif
 
                 @if (Session::has('access_master') &&

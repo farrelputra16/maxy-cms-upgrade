@@ -7,5 +7,8 @@
     "CertificateTemplate": true,
     "Quiz": true,
     "Form": true,
-    "Attendance": true
+    "Attendance": true,
+    "Accredify": true,
+    "PageManagement": true,
+    "GoKampus": true
 }

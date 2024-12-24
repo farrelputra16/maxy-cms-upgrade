@@ -13,12 +13,15 @@ class SanitizeInput
             return $next($request); // Langsung lewati middleware tanpa sanitasi
         }
 
+        // array of fields that should bypass sanitization
+        $bypassFields = ['gtm_header', 'gtm_body', 'custom_css', 'header_code', 'footer_code', 'additional_script'];
+
         $input = $request->all();
 
         // Bersihkan setiap input menggunakan Purifier, kecuali null
-        array_walk_recursive($input, function (&$input) {
-            if (!is_null($input)) {
-                $input = Purifier::clean($input);
+        array_walk_recursive($input, function (&$input, $key) use ($bypassFields) {
+            if (!in_array($key, $bypassFields) && !is_null($input)) {
+                $input = Purifier::clean($input, 'default');
             }
         });
 

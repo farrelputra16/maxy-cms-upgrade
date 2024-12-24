@@ -28,21 +28,34 @@
     <link rel="stylesheet" href="https://unpkg.com/survey-core@1.10.5/defaultV2.css" />
     <link rel="stylesheet" href="https://unpkg.com/survey-creator-core@1.10.5/survey-creator-core.css" />
 
+    <!-- Bootstrap Css -->
+    <link href="{{ asset('assets/cms-v3/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet"
+        type="text/css" />
 
     <!-- Fontawesome Icons -->
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
     <!-- BoxIcons Css -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
     <!-- Material Design Icons Css -->
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
 
+    <!-- Icons Css -->
+    <link href="{{ asset('assets/cms-v3/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+
     <!-- DataTables CSS -->
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"> --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
 
     <!-- DataTables Buttons CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+
+    <!-- DataTables Fixed Column -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.3.0/css/fixedColumns.dataTables.min.css">
+
+    <!-- SWAL -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
     <!-- Advanced Forms -->
     <link href="{{ asset('assets/cms-v3/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
@@ -57,27 +70,16 @@
     <link rel="stylesheet" href="{{ asset('assets/cms-v3/libs/@chenfengyuan/datepicker/datepicker.min.css') }}">
     @yield('style')
 
-    <!-- Bootstrap Css -->
-    <link href="{{ asset('assets/cms-v3/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet"
-        type="text/css" />
-        {{-- <link href="{{ asset('assets/css/bootstrap.css') }}" id="bootstrapd-style" rel="stylesheet"
-        type="text/css" /> --}}
-    <!-- Icons Css -->
-    <link href="{{ asset('assets/cms-v3/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href="{{ asset('assets/cms-v3/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
-    {{-- <link href="{{ asset('assets/css/app.css') }}" id="apps-style" rel="stylesheet" type="text/css" /> --}}
+
     <!-- App js -->
     <script src="{{ asset('assets/cms-v3/js/plugin.js') }}"></script>
+
     <!-- Custom Css -->
     <link href="{{ asset('assets/cms-v3/css/datatables-custom.css') }}" rel="stylesheet" type="text/css" />
-    {{-- <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" /> --}}
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-        crossorigin="anonymous" />
-    <!-- swal -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -203,9 +205,11 @@
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
 
 
-    <!-- Datatable init js -->
+    <!-- DataTables Initialization -->
     <script src="{{ asset('assets/cms-v3/js/pages/datatables.init.js') }}"></script>
 
+    <!-- DataTables FixedColumns Library -->
+    <script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
 
     <!-- Advanced Forms -->
     <script src="{{ asset('assets/cms-v3/libs/select2/js/select2.min.js') }}"></script>
@@ -269,8 +273,8 @@
 
     <!-- Status Button For Models -->
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.body.addEventListener('click', function (e) {
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.addEventListener('click', function(e) {
                 if (e.target.classList.contains('btn-status')) {
                     const button = e.target;
                     const courseId = button.getAttribute('data-id');
@@ -287,24 +291,27 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             fetch("{{ route('updateStatus') }}", {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                },
-                                body: JSON.stringify({
-                                    model: `App\\Models\\${courseModel}`,
-                                    id: courseId,
-                                    column: 'status' // Kolom yang ingin diubah
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                    },
+                                    body: JSON.stringify({
+                                        model: `App\\Models\\${courseModel}`,
+                                        id: courseId,
+                                        column: 'status' // Kolom yang ingin diubah
+                                    })
                                 })
-                            })
                                 .then(response => response.json())
                                 .then(data => {
                                     if (data.success) {
                                         button.setAttribute('data-status', data.newStatus);
-                                        button.classList.toggle('btn-success', data.newStatus == 1);
-                                        button.classList.toggle('btn-danger', data.newStatus == 0);
-                                        button.textContent = data.newStatus == 1 ? 'Aktif' : 'Nonaktif';
+                                        button.classList.toggle('btn-success', data.newStatus ==
+                                            1);
+                                        button.classList.toggle('btn-danger', data.newStatus ==
+                                            0);
+                                        button.textContent = data.newStatus == 1 ? 'Aktif' :
+                                            'Nonaktif';
 
                                         Swal.fire('Berhasil!', data.message, 'success');
                                     } else {
@@ -312,7 +319,8 @@
                                     }
                                 })
                                 .catch(error => {
-                                    Swal.fire('Error!', 'Terjadi kesalahan saat mengubah status.', 'error');
+                                    Swal.fire('Error!',
+                                        'Terjadi kesalahan saat mengubah status.', 'error');
                                     console.error('Error:', error);
                                 });
                         }
@@ -324,8 +332,8 @@
 
     <!-- Status Button For Entities -->
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.body.addEventListener('click', function (e) {
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.addEventListener('click', function(e) {
                 if (e.target.classList.contains('btn-status-entities')) {
                     const button = e.target;
                     const courseId = button.getAttribute('data-id');
@@ -343,24 +351,27 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             fetch("{{ route('updateStatus') }}", {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                },
-                                body: JSON.stringify({
-                                    model: `Modules\\${parentEntities}\\Entities\\${courseModel}`,
-                                    id: courseId,
-                                    column: 'status' // Kolom yang ingin diubah
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                    },
+                                    body: JSON.stringify({
+                                        model: `Modules\\${parentEntities}\\Entities\\${courseModel}`,
+                                        id: courseId,
+                                        column: 'status' // Kolom yang ingin diubah
+                                    })
                                 })
-                            })
                                 .then(response => response.json())
                                 .then(data => {
                                     if (data.success) {
                                         button.setAttribute('data-status', data.newStatus);
-                                        button.classList.toggle('btn-success', data.newStatus == 1);
-                                        button.classList.toggle('btn-danger', data.newStatus == 0);
-                                        button.textContent = data.newStatus == 1 ? 'Aktif' : 'Nonaktif';
+                                        button.classList.toggle('btn-success', data.newStatus ==
+                                            1);
+                                        button.classList.toggle('btn-danger', data.newStatus ==
+                                            0);
+                                        button.textContent = data.newStatus == 1 ? 'Aktif' :
+                                            'Nonaktif';
 
                                         Swal.fire('Berhasil!', data.message, 'success');
                                     } else {
@@ -368,7 +379,8 @@
                                     }
                                 })
                                 .catch(error => {
-                                    Swal.fire('Error!', 'Terjadi kesalahan saat mengubah status.', 'error');
+                                    Swal.fire('Error!',
+                                        'Terjadi kesalahan saat mengubah status.', 'error');
                                     console.log('Error:', error);
                                 });
                         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Ok, glad you are here
  * first we get a config instance, and set the settings
@@ -25,10 +26,15 @@ return [
     'settings'      => [
         'default' => [
             'HTML.Doctype'             => 'HTML 4.01 Transitional',
-            'HTML.Allowed'             => 'div,b,strong,i,em,u,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src],h1,h2,h3,h4,h5,h6,blockquote,pre,code,table[border|cellspacing|cellpadding|width],thead,tbody,tr,th,td,figcaption,figure,hr',
+            'HTML.AllowedElements' => 'div, span, script',
+            'HTML.AllowedAttributes' => 'id, class, style, src, async, type, data-*',
+            'HTML.SafeScripting' => ['script'],
+            'HTML.Allowed' => 'div,b,strong,i,em,u,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src],h1,h2,h3,h4,h5,h6,blockquote,pre,code,table[border|cellspacing|cellpadding|width],thead,tbody,tr,th,td,figcaption,figure,hr',
+            'HTML.Trusted' => true,
             'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,padding-right,padding-top,padding-bottom,margin-left,margin-right,margin-top,margin-bottom,color,background-color,text-align,line-height,vertical-align,letter-spacing,word-spacing,border,border-width,border-color,border-style,width,height,max-width,min-width,max-height,min-height,white-space,float,clear',
             'AutoFormat.AutoParagraph' => false,
-            'AutoFormat.RemoveEmpty'   => true,
+            'AutoFormat.RemoveEmpty'   => false,
+            'URI.SafeIframeRegexp' => '%^(https?:)?//www.googletagmanager.com/%',
         ],
         'test'    => [
             'Attr.EnableID' => 'true',
@@ -49,39 +55,39 @@ return [
                 ['aside',   'Block', 'Flow', 'Common'],
                 ['header',  'Block', 'Flow', 'Common'],
                 ['footer',  'Block', 'Flow', 'Common'],
-				
-				// Content model actually excludes several tags, not modelled here
+
+                // Content model actually excludes several tags, not modelled here
                 ['address', 'Block', 'Flow', 'Common'],
                 ['hgroup', 'Block', 'Required: h1 | h2 | h3 | h4 | h5 | h6', 'Common'],
-				
-				// http://developers.whatwg.org/grouping-content.html
+
+                // http://developers.whatwg.org/grouping-content.html
                 ['figure', 'Block', 'Optional: (figcaption, Flow) | (Flow, figcaption) | Flow', 'Common'],
                 ['figcaption', 'Inline', 'Flow', 'Common'],
-				
-				// http://developers.whatwg.org/the-video-element.html#the-video-element
+
+                // http://developers.whatwg.org/the-video-element.html#the-video-element
                 ['video', 'Block', 'Optional: (source, Flow) | (Flow, source) | Flow', 'Common', [
                     'src' => 'URI',
-					'type' => 'Text',
-					'width' => 'Length',
-					'height' => 'Length',
-					'poster' => 'URI',
-					'preload' => 'Enum#auto,metadata,none',
-					'controls' => 'Bool',
+                    'type' => 'Text',
+                    'width' => 'Length',
+                    'height' => 'Length',
+                    'poster' => 'URI',
+                    'preload' => 'Enum#auto,metadata,none',
+                    'controls' => 'Bool',
                 ]],
                 ['source', 'Block', 'Flow', 'Common', [
-					'src' => 'URI',
-					'type' => 'Text',
+                    'src' => 'URI',
+                    'type' => 'Text',
                 ]],
 
-				// http://developers.whatwg.org/text-level-semantics.html
+                // http://developers.whatwg.org/text-level-semantics.html
                 ['s',    'Inline', 'Inline', 'Common'],
                 ['var',  'Inline', 'Inline', 'Common'],
                 ['sub',  'Inline', 'Inline', 'Common'],
                 ['sup',  'Inline', 'Inline', 'Common'],
                 ['mark', 'Inline', 'Inline', 'Common'],
                 ['wbr',  'Inline', 'Empty', 'Core'],
-				
-				// http://developers.whatwg.org/edits.html
+
+                // http://developers.whatwg.org/edits.html
                 ['ins', 'Block', 'Flow', 'Common', ['cite' => 'URI', 'datetime' => 'CDATA']],
                 ['del', 'Block', 'Flow', 'Common', ['cite' => 'URI', 'datetime' => 'CDATA']],
             ],

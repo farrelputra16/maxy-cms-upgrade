@@ -1,0 +1,13 @@
+{
+    "name": "PageManagement",
+    "alias": "pagemanagement",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\PageManagement\\Providers\\PageManagementServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
