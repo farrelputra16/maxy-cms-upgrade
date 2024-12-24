@@ -30,15 +30,21 @@
                 <div class="card-body">
                     <h4 class="card-title">Manfaat Paket Mata Kuliah</h4>
                     <p>
-                        Halaman ini menampilkan manfaat yang diperoleh dari setiap Paket Mata Kuliah. Anda dapat melihat keuntungan utama yang akan didapatkan peserta setelah mengikuti paket mata kuliah tertentu, termasuk nama manfaat dan deskripsinya.
+                        Halaman ini menampilkan manfaat yang diperoleh dari setiap Paket Mata Kuliah. Anda dapat melihat
+                        keuntungan utama yang akan didapatkan peserta setelah mengikuti paket mata kuliah tertentu, termasuk
+                        nama manfaat dan deskripsinya.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
-                        <ul>
-                            <li><strong>Nama Manfaat Paket Mata Kuliah:</strong> Lihat nama manfaat dari setiap paket mata kuliah yang dijelaskan secara singkat.</li>
-                            <li><strong>Catatan Admin:</strong> Baca catatan admin rinci tentang manfaat yang akan diperoleh peserta dari paket mata kuliah ini.</li>
-                            <li><strong>Tambah Manfaat:</strong> Klik tombol <em>Tambah Manfaat</em> untuk menambahkan manfaat baru pada paket mata kuliah.</li>
-                            <li><strong>Ubah Manfaat:</strong> Klik tombol <em>Ubah</em> di kolom "Aksi" untuk memperbarui informasi manfaat paket mata kuliah.</li>
-                        </ul>
+                    <ul>
+                        <li><strong>Nama Manfaat Paket Mata Kuliah:</strong> Lihat nama manfaat dari setiap paket mata
+                            kuliah yang dijelaskan secara singkat.</li>
+                        <li><strong>Catatan Admin:</strong> Baca catatan admin rinci tentang manfaat yang akan diperoleh
+                            peserta dari paket mata kuliah ini.</li>
+                        <li><strong>Tambah Manfaat:</strong> Klik tombol <em>Tambah Manfaat</em> untuk menambahkan manfaat
+                            baru pada paket mata kuliah.</li>
+                        <li><strong>Ubah Manfaat:</strong> Klik tombol <em>Ubah</em> di kolom "Aksi" untuk memperbarui
+                            informasi manfaat paket mata kuliah.</li>
+                    </ul>
                     </p>
 
 
@@ -48,6 +54,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Nama Manfaat Paket Mata Kuliah</th>
+                                <th class="data-medium">Nama Manfaat Paket Mata Kuliah (Inggris)</th>
                                 <th>ID Paket Mata Kuliah - Harga</th>
                                 <th class="data-long">Catatan Admin</th>
                                 <th>Created At</th>
@@ -66,6 +73,10 @@
                                     <td class="data-medium" data-toggle="tooltip" data-placement="top"
                                         title="{{ $item->name }}">
                                         {!! \Str::limit($item->name, 30) !!}
+                                    </td>
+                                    <td class="data-medium" data-toggle="tooltip" data-placement="top"
+                                        title="{{ $item->name_en }}">
+                                        {!! \Str::limit($item->name_en, 30) !!}
                                     </td>
                                     <td>{{ $item->course_package_name }} - Rp.
                                         {{ number_format($item->course_package_price, 0, ',', '.') }}
@@ -99,6 +110,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Nama Manfaat Paket Mata Kuliah</th>
+                                <th class="data-medium">Nama Manfaat Paket Mata Kuliah (Inggris)</th>
                                 <th>ID Paket Mata Kuliah - Harga</th>
                                 <th class="data-long">Catatan Admin</th>
                                 <th>Created At</th>

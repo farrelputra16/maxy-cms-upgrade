@@ -32,10 +32,12 @@
                     <h4 class="card-title">Tambah Manfaat Mata Kuliah</h4>
                     <p class="card-title-desc">
                         Halaman ini memungkinkan Anda untuk menambahkan manfaat baru ke dalam Paket Mata Kuliah.
-                        Isikan informasi berikut untuk menggambarkan manfaat yang akan didapatkan peserta dari paket mata kuliah yang Anda buat.
+                        Isikan informasi berikut untuk menggambarkan manfaat yang akan didapatkan peserta dari paket mata
+                        kuliah yang Anda buat.
                     </p>
 
-                    <form id="addCoursePackageBenefit" action="{{ route('postAddCoursePackageBenefit') }}" method="post" enctype="multipart/form-data">
+                    <form id="addCoursePackageBenefit" action="{{ route('postAddCoursePackageBenefit') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         @isset($idCPB)
                             <div class="mb-3 row">
@@ -53,6 +55,19 @@
                                     placeholder="Masukkan Package Benefit">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="input-name_en" class="col-md-2 col-form-label">Nama Manfaat Paket Mata Kuliah
+                                (Inggris)</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" name="name_en"
+                                    placeholder="Masukkan Package Benefit (Inggris)">
+                                @if ($errors->has('name_en'))
+                                    @foreach ($errors->get('name_en') as $error)
                                         <span style="color: red;">{{ $error }}</span>
                                     @endforeach
                                 @endif
@@ -89,7 +104,8 @@
                         </div>
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit" form="addCoursePackageBenefit">Tambah Manfaat Paket Mata Kuliah</button>
+                                <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"
+                                    form="addCoursePackageBenefit">Tambah Manfaat Paket Mata Kuliah</button>
                             </div>
                         </div>
                     </form>

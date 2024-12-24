@@ -35,10 +35,12 @@
                         Pastikan semua detail yang dimasukkan akurat agar peserta mendapatkan pengalaman belajar terbaik.
                         <br><br>
                         <strong>Cara Penggunaan:</strong>
-                        <ul>
-                            <li>Isi kolom Nama Manfaat Paket Mata Kuliah, ID Paket Mata Kuliah, dan Catatan Admin sesuai kebutuhan.</li>
-                            <li>Setelah semua detail terisi, gunakan tombol <strong>'Simpan & Perbarui'</strong> untuk menyimpan perubahan yang telah Anda buat.</li>
-                        </ul>
+                    <ul>
+                        <li>Isi kolom Nama Manfaat Paket Mata Kuliah, ID Paket Mata Kuliah, dan Catatan Admin sesuai
+                            kebutuhan.</li>
+                        <li>Setelah semua detail terisi, gunakan tombol <strong>'Simpan & Perbarui'</strong> untuk menyimpan
+                            perubahan yang telah Anda buat.</li>
+                    </ul>
                     </p>
 
 
@@ -71,6 +73,19 @@
                                 <input class="form-control" type="text" name="name" value="{{ $currentData->name }}">
                                 @if ($errors->has('name'))
                                     @foreach ($errors->get('name') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="input-name_en" class="col-md-2 col-form-label">Nama Manfaat Paket Mata Kuliah
+                                (Inggris)</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" name="name_en"
+                                    value="{{ $currentData->name_en }}" placeholder="Masukkan Package Benefit (Inggris)">
+                                @if ($errors->has('name_en'))
+                                    @foreach ($errors->get('name_en') as $error)
                                         <span style="color: red;">{{ $error }}</span>
                                     @endforeach
                                 @endif

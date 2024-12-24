@@ -15,6 +15,7 @@ class CoursePackageBenefit extends Model
 
     protected $fillable = [
         'name',
+        'name_en',
         'course_package_id',
         'description',
         'status',
@@ -24,7 +25,7 @@ class CoursePackageBenefit extends Model
         'updated_id'
     ];
 
-    public static function getCoursePackageBenefit($idCPB = null){  
+    public static function getCoursePackageBenefit($idCPB = null){
         // dd($idCPB);
         if($idCPB){
             $coursePackageBenefits = DB::select('
@@ -50,21 +51,22 @@ class CoursePackageBenefit extends Model
             ');
             // dd($coursePackageBenefits);
         }
-        
+
 
         return $coursePackageBenefits;
     }
 
 
-    public static function getEditCoursePackageBenefit($request){  
+    public static function getEditCoursePackageBenefit($request){
         $idCoursePackageBenefit = $request->id;
-        $currentData = collect(DB::select('SELECT course_package.name AS course_package_name, 
+        $currentData = collect(DB::select('SELECT course_package.name AS course_package_name,
             course_package.id AS course_package_id,
             course_package_benefit.id,
             course_package_benefit.name,
+            course_package_benefit.name_en,
             course_package_benefit.description,
             course_package_benefit.status
-            FROM course_package_benefit 
+            FROM course_package_benefit
             JOIN course_package
             WHERE course_package_benefit.course_package_id = course_package.id
             AND course_package_benefit.id = ?

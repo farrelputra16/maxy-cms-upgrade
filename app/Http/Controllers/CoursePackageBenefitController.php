@@ -51,6 +51,7 @@ class CoursePackageBenefitController extends Controller
 
         $validated = $request->validate([
             'name' => 'required',
+            'name_en' => 'nullable',
             'course_package_id' => 'required',
             'description' => 'nullable',
         ]);
@@ -58,6 +59,7 @@ class CoursePackageBenefitController extends Controller
         if ($validated) {
             $created = CoursePackageBenefit::create([
                 'name' => $request->name,
+                'name_en' => $request->name_en,
                 'course_package_id' => $request->course_package_id,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
@@ -109,6 +111,7 @@ class CoursePackageBenefitController extends Controller
         // Validasi input
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'name_en' => 'nullable|string|max:255',
             'course_package_id' => 'required|exists:course_package,id',
             'description' => 'nullable|string',
         ]);
@@ -117,6 +120,7 @@ class CoursePackageBenefitController extends Controller
             $updated = CoursePackageBenefit::where('id', '=', $request->id)
                 ->update([
                     'name' => $request->name,
+                    'name_en' => $request->name_en,
                     'course_package_id' => $request->course_package_id,
                     'description' => $request->description,
                     'status' => $request->status ? 1 : 0,
