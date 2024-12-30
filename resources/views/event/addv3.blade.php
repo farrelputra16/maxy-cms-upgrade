@@ -59,6 +59,20 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
+                            <label for="input-name" class="col-md-2 col-form-label">Nama (Inggris) <span class="text-danger"
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" name="name_en" id="name_en"
+                                    placeholder="Masukkan nama acara, contoh: 'Seminar Bisnis 2024'"
+                                    value="{{ old('name_en') }}">
+                                @if ($errors->has('name_en'))
+                                    @foreach ($errors->get('name_en') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Tanggal Mulai <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
@@ -100,8 +114,8 @@
                             <label for="input-file" class="col-md-2 col-form-label">Gambar <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10" style="height: 200px">
-                                <input class="form-control" type="file" name="image" id="image" accept="image/*"
-                                    onchange="previewImage()">
+                                <input class="form-control" type="file" name="image" id="image"
+                                    accept="image/*" onchange="previewImage()">
                                 <p class="text-muted mb-0 text-truncate">Ukuran yang direkomendasikan maksimal 5MB.</p>
                                 <img id="frame" src="" alt="Preview Image" class="img-fluid h-100" />
                                 @if ($errors->has('image'))

@@ -10,12 +10,13 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'event';
 
     protected $fillable = [
         'm_event_type_id',
         'name',
+        'name_en',
         'date_start',
         'date_end',
         'url',

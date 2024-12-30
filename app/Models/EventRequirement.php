@@ -15,6 +15,7 @@ class EventRequirement extends Model
     protected $fillable = [
         'event_id',
         'name',
+        'name_en',
         'description',
         'status',
         'is_upload',

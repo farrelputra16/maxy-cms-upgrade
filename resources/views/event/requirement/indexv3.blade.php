@@ -56,15 +56,14 @@
 
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
-                        data-server-processing="true" 
-                        data-url="{{ route('getEventRequirementData') }}"
-                        data-id="{{ $event->id }}"
-                        data-colvis="[1, -3, -4, -5, -6]">
+                        data-server-processing="true" data-url="{{ route('getEventRequirementData') }}"
+                        data-id="{{ $event->id }}" data-colvis="[1, -3, -4, -5, -6]">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Nama</th>
+                                <th class="data-medium">Nama (Inggris)</th>
                                 <th>Upload</th>
                                 <th>Wajib</th>
                                 <th class="data-long">Catatan Admin</th>
@@ -77,13 +76,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Nama</th>
+                                <th class="data-medium">Nama (Inggris)</th>
                                 <th>Upload</th>
                                 <th>Wajib</th>
                                 <th class="data-long">Catatan Admin</th>
@@ -112,21 +112,65 @@
 @endsection
 
 @section('script')
-<script>
-    const columns = [
-        // Column definitions matching the blade template
-        { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
-        { data: 'id', name: 'id' },
-        { data: 'name', name: 'name' },
-        { data: 'is_upload', name: 'is_upload' },
-        { data: 'is_required', name: 'is_required' },
-        { data: 'description', name: 'description' },
-        { data: 'created_at', name: 'created_at' },
-        { data: 'created_id', name: 'created_id' },
-        { data: 'updated_at', name: 'updated_at' },
-        { data: 'updated_id', name: 'updated_id' },
-        { data: 'status', name: 'status' },
-        { data: 'action', name: 'action', orderable: false, searchable: false }
-    ];
-</script>
+    <script>
+        const columns = [
+            // Column definitions matching the blade template
+            {
+                data: 'DT_RowIndex',
+                name: 'DT_RowIndex',
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: 'id',
+                name: 'id'
+            },
+            {
+                data: 'name',
+                name: 'name'
+            },
+            {
+                data: 'name_en',
+                name: 'name_en'
+            },
+            {
+                data: 'is_upload',
+                name: 'is_upload'
+            },
+            {
+                data: 'is_required',
+                name: 'is_required'
+            },
+            {
+                data: 'description',
+                name: 'description'
+            },
+            {
+                data: 'created_at',
+                name: 'created_at'
+            },
+            {
+                data: 'created_id',
+                name: 'created_id'
+            },
+            {
+                data: 'updated_at',
+                name: 'updated_at'
+            },
+            {
+                data: 'updated_id',
+                name: 'updated_id'
+            },
+            {
+                data: 'status',
+                name: 'status'
+            },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: false,
+                searchable: false
+            }
+        ];
+    </script>
 @endsection

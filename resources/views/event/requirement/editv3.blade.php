@@ -54,6 +54,19 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
+                            <label for="input-name" class="col-md-2 col-form-label">Nama (Inggris) <span class="text-danger"
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" name="name_en" id="name_en"
+                                    value="{{ $requirement->name_en }}">
+                                @if ($errors->has('name_en'))
+                                    @foreach ($errors->get('name_en') as $error)
+                                        <span style="color: red;">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
                             <div class="col-md-10">
                                 <textarea id="content" class="form-control" name="description">{{ $requirement->description }}</textarea>

@@ -41,11 +41,11 @@ class EventController extends Controller
         $orderColumnMapping = [
             'DT_RowIndex' => 'id',
         ];
-        
+
         // Gunakan mapping untuk menentukan kolom pengurutan
         $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
-        $accessGroup = Event::select('id', 'name', 'image', 'date_start', 'date_end', 'description', 'is_need_verification', 'is_public', 'created_at', 'created_id', 'updated_at', 'updated_id', 'status')
+        $accessGroup = Event::select('id', 'name', 'name_en', 'image', 'date_start', 'date_end', 'description', 'is_need_verification', 'is_public', 'created_at', 'created_id', 'updated_at', 'updated_id', 'status')
             ->orderBy($finalOrderColumn, $orderDirection);
 
         // global search datatable
@@ -93,6 +93,11 @@ class EventController extends Controller
                     . \Str::limit(e($row->name), 30)
                     . '</span>';
             })
+            ->addColumn('name', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->name) . '">'
+                    . \Str::limit(e($row->name), 30)
+                    . '</span>';
+            })
             ->addColumn('image', function ($row) {
                 return '<img src="' . asset('uploads/event/' . $row->image) . '" alt="Image" style="max-width: 200px; max-height: 150px;">';
             })
@@ -103,9 +108,9 @@ class EventController extends Controller
                 return $row->date_end;
             })
             ->addColumn('description', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' 
-                    . e(strip_tags($row->description)) . '">' 
-                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') 
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
+                    . e(strip_tags($row->description)) . '">'
+                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-')
                     . '</span>';
             })
             ->addColumn('is_need_verification', function ($row) {
@@ -135,20 +140,20 @@ class EventController extends Controller
                 return $row->updated_id;
             })
             ->addColumn('status', function ($row) {
-                return '<button 
-                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
-                    data-id="' . $row->id . '" 
+                return '<button
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '"
+                    data-id="' . $row->id . '"
                     data-status="' . $row->status . '"
                     data-model="Event">
                     ' . ($row->status == 1 ? 'Aktif' : 'Non aktif') . '
                 </button>';
             })
             ->addColumn('action', function ($row) {
-                return '<a href="' . route('getEditEvent', ['id' => $row->id]) . '" 
-                            class="btn btn-primary rounded">Ubah</a>' . " " . 
-                        '<a href="' . route('getAttendanceEvent', ['id' => $row->id]) . '" 
+                return '<a href="' . route('getEditEvent', ['id' => $row->id]) . '"
+                            class="btn btn-primary rounded">Ubah</a>' . " " .
+                        '<a href="' . route('getAttendanceEvent', ['id' => $row->id]) . '"
                             class="btn btn-info">Kehadiran</a>' . " " .
-                        '<a href="' . route('getEventRequirement', ['id' => $row->id]) . '" 
+                        '<a href="' . route('getEventRequirement', ['id' => $row->id]) . '"
                             class="btn btn-secondary">Persyaratan</a>';
             })
             ->orderColumn('id', 'id $1')
@@ -181,6 +186,7 @@ class EventController extends Controller
             $create = Event::create([
                 'm_event_type_id' => $request->event_type,
                 'name' => $request->name,
+                'name_en' => $request->name_en,
                 'date_start' => date('Y-m-d H:i:s', strtotime($request->date_start)),
                 'date_end' => date('Y-m-d H:i:s', strtotime($request->date_end)),
                 'image' => $image,
@@ -242,6 +248,7 @@ class EventController extends Controller
                 ->update([
                     'm_event_type_id' => $request->event_type,
                     'name' => $request->name,
+                    'name_en' => $request->name_en,
                     'date_start' => date('Y-m-d H:i:s', strtotime($request->date_start)),
                     'date_end' => date('Y-m-d H:i:s', strtotime($request->date_end)),
                     'url' => $request->url,
@@ -301,20 +308,20 @@ class EventController extends Controller
         $orderColumnMapping = [
             'DT_RowIndex' => 'id',
         ];
-        
+
         // Use mapping to determine sorting column
         $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
         $eventAttendances = DB::table('event_participant')
             ->join('users', 'event_participant.user_id', 'users.id')
             ->select(
-                'event_participant.id', 
-                'users.name', 
-                'event_participant.description', 
-                'event_participant.created_at', 
-                'event_participant.created_id', 
-                'event_participant.updated_at', 
-                'event_participant.updated_id', 
+                'event_participant.id',
+                'users.name',
+                'event_participant.description',
+                'event_participant.created_at',
+                'event_participant.created_id',
+                'event_participant.updated_at',
+                'event_participant.updated_id',
                 'event_participant.status',
                 'event_participant.user_id',
                 'event_participant.event_id'
@@ -326,11 +333,11 @@ class EventController extends Controller
         foreach ($columns as $column) {
             $columnSearchValue = $column['search']['value'] ?? null;
             $columnName = $column['data'];
-            
+
             if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
                 continue;
-            } 
-            
+            }
+
             // Use explicit table references for ambiguous columns
             switch ($columnName) {
                 case 'id':
@@ -377,9 +384,9 @@ class EventController extends Controller
                     . '</span>';
             })
             ->addColumn('description', function ($row) {
-                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' 
-                    . e(strip_tags($row->description)) . '">' 
-                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') 
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="'
+                    . e(strip_tags($row->description)) . '">'
+                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-')
                     . '</span>';
             })
             ->addColumn('created_at', function ($row) {
@@ -395,13 +402,13 @@ class EventController extends Controller
                 return $row->updated_id;
             })
             ->addColumn('status', function ($row) {
-                return '<button 
+                return '<button
                     class="btn ' . ($row->status == 1 ? 'btn-success' : 'btn-info') . ' disabled">
                     ' . ($row->status == 1 ? 'Hadir' : 'Terdaftar') . '
                 </button>';
             })
             ->addColumn('action', function ($row) {
-                return '<a href="' . route('getEventVerification', ['user_id' => $row->user_id, 'event_id' => $row->event_id]) . '" 
+                return '<a href="' . route('getEventVerification', ['user_id' => $row->user_id, 'event_id' => $row->event_id]) . '"
                             class="btn btn-primary">Verifikasi</a>';
             })
             ->orderColumn('id', 'id $1')
@@ -435,21 +442,22 @@ class EventController extends Controller
         $orderColumnMapping = [
             'DT_RowIndex' => 'id',
         ];
-        
+
         // Use mapping to determine the sorting column
         $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
         $eventRequirement = EventRequirement::select(
-            'id', 
-            'event_id', 
-            'name', 
-            'is_upload', 
-            'is_required', 
-            'description', 
-            'created_at', 
-            'created_id', 
-            'updated_at', 
-            'updated_id', 
+            'id',
+            'event_id',
+            'name',
+            'name_en',
+            'is_upload',
+            'is_required',
+            'description',
+            'created_at',
+            'created_id',
+            'updated_at',
+            'updated_id',
             'status'
         )
         ->where('event_id', $eventId) // Filter by event_id
@@ -459,7 +467,7 @@ class EventController extends Controller
         foreach ($columns as $column) {
             $columnSearchValue = $column['search']['value'] ?? null;
             $columnName = $column['data'];
-            
+
             if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
                 continue;
             } else if ($columnName == 'status') {
@@ -496,20 +504,25 @@ class EventController extends Controller
                     . \Str::limit(e($row->name), 30)
                     . '</span>';
             })
+            ->addColumn('name', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->name) . '">'
+                    . \Str::limit(e($row->name), 30)
+                    . '</span>';
+            })
             ->addColumn('is_upload', function ($row) {
-                return $row->is_upload == 1 
-                    ? '<span class="badge bg-success">Ya</span>' 
+                return $row->is_upload == 1
+                    ? '<span class="badge bg-success">Ya</span>'
                     : '<span class="badge bg-danger">Tidak</span>';
             })
             ->addColumn('is_required', function ($row) {
-                return $row->is_required == 1 
-                    ? '<span class="badge bg-success">Ya</span>' 
+                return $row->is_required == 1
+                    ? '<span class="badge bg-success">Ya</span>'
                     : '<span class="badge bg-danger">Tidak</span>';
             })
             ->addColumn('description', function ($row) {
-                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' 
-                    . e(strip_tags($row->description)) . '">' 
-                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') 
+                return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="'
+                    . e(strip_tags($row->description)) . '">'
+                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-')
                     . '</span>';
             })
             ->addColumn('created_at', function ($row) {
@@ -525,9 +538,9 @@ class EventController extends Controller
                 return $row->updated_id;
             })
             ->addColumn('status', function ($row) {
-                return '<button 
-                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
-                    data-id="' . $row->id . '" 
+                return '<button
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '"
+                    data-id="' . $row->id . '"
                     data-status="' . $row->status . '"
                     data-model="EventRequirement">
                     ' . ($row->status == 1 ? 'Aktif' : 'Non aktif') . '
@@ -535,7 +548,7 @@ class EventController extends Controller
             })
             ->addColumn('action', function ($row) use ($request) {
                 return '<a href="' . route('getEditEventRequirement', [
-                    'id' => $row->id, 
+                    'id' => $row->id,
                     'event_id' => $request->input('id')
                 ]) . '" class="btn btn-primary rounded">Ubah</a>';
             })
@@ -561,6 +574,7 @@ class EventController extends Controller
             $requirement = new EventRequirement();
             $requirement->event_id = $request->event_id;
             $requirement->name = $request->name;
+            $requirement->name_en = $request->name_en;
             $requirement->description = $request->description;
             $requirement->is_upload = $request->upload ? 1 : 0;
             $requirement->is_required = $request->required ? 1 : 0;
@@ -593,6 +607,7 @@ class EventController extends Controller
         try {
             $requirement = EventRequirement::find($request->id);
             $requirement->name = $request->name;
+            $requirement->name_en = $request->name_en;
             $requirement->description = $request->description;
             $requirement->is_upload = $request->upload ? 1 : 0;
             $requirement->is_required = $request->required ? 1 : 0;

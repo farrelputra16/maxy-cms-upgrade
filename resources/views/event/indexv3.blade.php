@@ -55,6 +55,7 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th class="data-medium">Nama</th>
+                                <th class="data-medium">Nama (Inggris)</th>
                                 <th>Gambar</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Akhir</th>
@@ -70,13 +71,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Module Name</th>
+                                <th>Name</th>
+                                <th>Name (Inggris)</th>
                                 <th>Image</th>
                                 <th>Date Start</th>
                                 <th>Date End</th>
@@ -99,107 +101,112 @@
     <!-- End Content -->
 
     <!-- FAB Add Starts -->
-    @if (Session::has('access_master') &&
-            Session::get('access_master')->contains('access_master_name', 'event_create'))
-    <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddEvent') }}">
-            <i class="fas fa-plus"></i>
-        </a>
-    </div>
+    @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'event_create'))
+        <div id="floating-whatsapp-button">
+            <a href="{{ route('getAddEvent') }}">
+                <i class="fas fa-plus"></i>
+            </a>
+        </div>
     @endif
     <!-- FAB Add Ends -->
 @endsection
 
 @section('script')
-<script>
-    const columns = [{
-            data: "DT_RowIndex",
-            name: "DT_RowIndex",
-            orderable: false,
-            searchable: false
-        },
-        {
-            data: "id",
-            name: "id"
-        },
-        {
-            data: "name",
-            name: "name",
-            orderable: true,
-            searchable: true
-        },
-        {
-            data: "image",
-            name: "image",
-            orderable: false,
-            searchable: false
-        },
-        {
-            data: "date_start",
-            name: "date_start",
-            orderable: true,
-            searchable: true
-        },
-        {
-            data: "date_end",
-            name: "date_end",
-            orderable: true,
-            searchable: true
-        },
-        {
-            data: "description",
-            name: "description",
-            orderable: true,
-            searchable: true
-        },
-        {
-            data: "is_need_verification",
-            name: "is_need_verification",
-            orderable: true,
-            searchable: false
-        },
-        {
-            data: "is_public",
-            name: "is_public",
-            orderable: true,
-            searchable: false
-        },
-        {
-            data: "created_at",
-            name: "created_at",
-            orderable: true,
-            searchable: false
-        },
-        {
-            data: "created_id",
-            name: "created_id",
-            orderable: false,
-            searchable: false
-        },
-        {
-            data: "updated_at",
-            name: "updated_at",
-            orderable: true,
-            searchable: false
-        },
-        {
-            data: "updated_id",
-            name: "updated_id",
-            orderable: false,
-            searchable: false
-        },
-        {
-            data: "status",
-            name: "status",
-            orderable: true,
-            searchable: true
-        },
-        {
-            data: "action",
-            name: "action",
-            orderable: false,
-            searchable: false
-        },
-    ];
-</script>
+    <script>
+        const columns = [{
+                data: "DT_RowIndex",
+                name: "DT_RowIndex",
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: "id",
+                name: "id"
+            },
+            {
+                data: "name",
+                name: "name",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "name_en",
+                name: "name_en",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "image",
+                name: "image",
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: "date_start",
+                name: "date_start",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "date_end",
+                name: "date_end",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "description",
+                name: "description",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "is_need_verification",
+                name: "is_need_verification",
+                orderable: true,
+                searchable: false
+            },
+            {
+                data: "is_public",
+                name: "is_public",
+                orderable: true,
+                searchable: false
+            },
+            {
+                data: "created_at",
+                name: "created_at",
+                orderable: true,
+                searchable: false
+            },
+            {
+                data: "created_id",
+                name: "created_id",
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: "updated_at",
+                name: "updated_at",
+                orderable: true,
+                searchable: false
+            },
+            {
+                data: "updated_id",
+                name: "updated_id",
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: "status",
+                name: "status",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "action",
+                name: "action",
+                orderable: false,
+                searchable: false
+            },
+        ];
+    </script>
 @endsection
