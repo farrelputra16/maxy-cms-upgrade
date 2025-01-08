@@ -124,7 +124,7 @@
 
     <!-- FAB Tambah Mulai -->
     @if (Session::has('access_master') &&
-            Session::get('access_master')->contains('access_master_name', 'user_create'))
+            Session::get('access_master')->contains('access_master_name', 'users_create'))
     <div id="floating-whatsapp-button">
         <a href="{{ route('getAddUser') }}" data-toggle="tooltip" title="Tambah Pengguna">
             <i class="fas fa-plus"></i>

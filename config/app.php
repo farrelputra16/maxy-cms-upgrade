@@ -179,6 +179,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Mews\Purifier\PurifierServiceProvider::class,
 
     ],
 
@@ -237,6 +238,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => \Barryvdh\DomPDF\Facade\Pdf::class,
         'PDFMerger' => Webklex\PDFMerger\Facades\PDFMergerFacade::class,
+        'Purifier' => Mews\Purifier\Facades\Purifier::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
 
     ],
