@@ -414,7 +414,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users,email|email',
-            'phone' => 'required|regex:/^[0-9]{10,15}$/',
+            'phone' => 'nullable|regex:/^[0-9]{10,15}$/',
             'password' => 'required|min:6',
             'access_group' => 'required',
         ]);
@@ -496,9 +496,8 @@ class UserController extends Controller
     {
         $validate = $request->validate([
             'name' => 'required',
-            'nickname' => 'required',
             'email' => 'required|email',
-            'phone' => 'required|regex:/^[0-9]{10,15}$/',
+            'phone' => 'nullable|regex:/^[0-9]{10,15}$/',
             'password' => 'nullable|min:6',
             'access_group' => 'required',
         ]);
@@ -577,14 +576,6 @@ class UserController extends Controller
         } else {
             return app(HelperController::class)->Warning('getUser');
         }
-
-        // Perbarui password hanya jika diisi
-        if ($request->filled('password')) {
-            $currentData->password = bcrypt($request->password);
-        }
-
-        // Simpan perubahan
-        $currentData->save();
     }
 
     function importCSV(Request $request)

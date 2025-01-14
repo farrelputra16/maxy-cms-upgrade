@@ -96,8 +96,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="input-name" class="col-md-2 col-form-label">Nomor Telepon <span class="text-danger"
-                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <label for="input-name" class="col-md-2 col-form-label">Nomor Telepon</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="phone" id="phone"
                                     placeholder="Masukkan Nomor Telepon (contoh: 081234567890)"
