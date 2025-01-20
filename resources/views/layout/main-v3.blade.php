@@ -226,6 +226,8 @@
     <!-- App js -->
     <script src="{{ asset('assets/cms-v3/js/app.js') }}"></script>
 
+    @yield('fontAwesomePicker')
+
     <!-- Submit Button -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
