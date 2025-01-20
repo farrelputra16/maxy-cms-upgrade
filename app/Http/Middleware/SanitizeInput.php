@@ -22,7 +22,11 @@ class SanitizeInput
             'custom_css',
             'header_code',
             'footer_code',
-            'additional_script'
+            'additional_script',
+            'html',
+            'php',
+            'js',
+            'python'
         ];
 
         // Ambil semua input dari request

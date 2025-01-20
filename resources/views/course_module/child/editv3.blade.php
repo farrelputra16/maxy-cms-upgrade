@@ -110,21 +110,18 @@
                             <div class="card m-5 p-5" style="border-radius: 25px; border: 1px solid #b0bad8;">
                                 <!-- TO DO -->
                                 <div class="mb-3">
-                                    <label for="input-tag">Tipe Modul</label>
+                                    <label for="input-tag">Jenis Modul</label>
                                     <select name="type" class="form-control" id="type_selector">
-                                        <option value="materi_pembelajaran"
-                                            @if ($childModule->type == 'materi_pembelajaran') selected @endif>materi_pembelajaran</option>
-                                        <option value="video_pembelajaran"
-                                            @if ($childModule->type == 'video_pembelajaran') selected @endif>video_pembelajaran</option>
-                                        <option value="assignment" @if ($childModule->type == 'assignment') selected @endif>
-                                            Tugas</option>
-                                        <option value="quiz" @if ($childModule->type == 'quiz') selected @endif>Kuis
-                                        </option>
-                                        <option value="eval" @if ($childModule->type == 'eval') selected @endif>Evaluasi
-                                        </option>
+                                        @foreach ($type as $item)
+                                        @if ($item->name!='parent')
+                                            <option value="{{ $item->id }}" {{ $childModule->type == $item->id ? 'selected' : '' }}
+                                                {{ old('type', $childModule->type) == $item->id ? 'selected' : '' }}>
+                                                {{ $item->description }} </option>
+                                        @endif
+                                        @endforeach
                                     </select>
                                     <div class="" id="material">
-                                        @if ($childModule->type === 'materi_pembelajaran')
+                                        @if ($childModule->type === 4)
                                             <label for="input-name" class="col-md-2 col-form-label"
                                                 style="margin-top: 1%">File Saat Ini Materi Pembelajaran</label>
                                             <div class="col-md-10">
@@ -134,7 +131,7 @@
                                                 <input class="form-control" type="hidden" name="duration"
                                                     value="">
                                             </div>
-                                        @elseif ($childModule->type === 'video_pembelajaran')
+                                        @elseif ($childModule->type === 3)
                                             <label for="" class="form-label" style="margin-top: 1%">Link
                                                 Video</label>
                                             <input class="form-control" type="text" name="material"
@@ -143,7 +140,7 @@
                                                 Video</label>
                                             <input class="form-control" type="number" name="duration"
                                                 value="{{ $childModule->duration }}">
-                                        @elseif($childModule->type === 'assignment')
+                                        @elseif($childModule->type === 5)
                                             <label class="form-label pt-2" for="SwitchCheckSizemd">Dapat
                                                 Dinilai</label>
                                             <div class="form-switch form-switch-md" style="margin-left: -2rem">
@@ -159,9 +156,9 @@
                                                 Penugasan</label>
                                             <input class="form-control" type="file" id="formFile" name="material">
                                             <input type="hidden" name="duration"
-                                                @if ($childModule->type == 'asignment') value="{{ $childModule->material }}" @endif>
+                                                @if ($childModule->type == '5') value="{{ $childModule->material }}" @endif>
                                             <input type="hidden" name="duration" value="">
-                                        @elseif($childModule->type === 'quiz')
+                                        @elseif($childModule->type === 6)
                                             <label for="" class="form-label" style="margin-top: 1%"></label>
                                             <select class="form-control select2" name="quiz_content" id="quiz_content"
                                                 required>
@@ -172,7 +169,7 @@
                                                         {{ $item->name }}</option>
                                                 @endforeach
                                             </select>
-                                        @elseif($childModule->type === 'eval')
+                                        @elseif($childModule->type === 7)
                                             <label for="" class="form-label" style="margin-top: 1%"></label>
                                             <select class="form-control select2" name="eval_content" id="eval_content"
                                                 required>
@@ -183,6 +180,18 @@
                                                         {{ $item->name }}</option>
                                                 @endforeach
                                             </select>
+                                        @elseif($childModule->type === 8)
+                                            <label for="html" class="form-label" style="margin-top: 1%">HTML</label>
+                                            <input class="form-control" type="text" name="html" id="html" value="{{ $childModule->html }}">
+
+                                            <label for="js" class="form-label" style="margin-top: 1%">Javascript</label>
+                                            <input class="form-control" type="text" name="js" id="js" value="{{ $childModule->js }}">
+
+                                            <label for="php" class="form-label" style="margin-top: 1%">PHP</label>
+                                            <input class="form-control" type="text" name="php" id="php" value="{{ $childModule->php }}">
+
+                                            <label for="python" class="form-label" style="margin-top: 1%">Python</label>
+                                            <input class="form-control" type="text" name="python" id="python" value="{{ $childModule->python }}">
                                         @endif
                                     </div>
                                 </div>
@@ -193,7 +202,7 @@
                         <label for="input-content" class="col-md-2 col-form-label">Konten</label>
                         <div class="col-md-10">
                             <textarea id="elm1" name="content">
-                                @if ($childModule->type != 'quiz' && $childModule->type != 'eval')
+                                @if ($childModule->type != '6' && $childModule->type != '7')
 {{ $childModule->content }}
 @endif
                             </textarea>
@@ -265,7 +274,7 @@
             var quizContentDiv = document.getElementById('quiz-content');
             var evalContentDiv = document.getElementById('eval-content');
 
-            if (typeSelector.value === 'quiz' || typeSelector.value === 'eval') {
+            if (typeSelector.value === '6' || typeSelector.value === '7') {
                 contentDiv.style.display = 'none';
             } else {
                 contentDiv.style.display = 'block';
@@ -274,21 +283,21 @@
             typeSelector.addEventListener('change', function() {
                 console.log(typeSelector.value)
 
-                if (typeSelector.value === 'quiz' || typeSelector.value === 'eval') {
+                if (typeSelector.value === '6' || typeSelector.value === '7') {
                     contentDiv.style.display = 'none';
                 } else {
                     contentDiv.style.display = 'block';
                 }
 
                 // Memeriksa apakah opsi yang dipilih adalah "assignment"
-                if (typeSelector.value === 'materi_pembelajaran') {
+                if (typeSelector.value === '4') {
                     material.innerHTML = `
                 <label for="" class="form-label" style="margin-top: 1%">File Materi Pembelajaran</label>
                 <input class="form-control" type="file" id="formFile" name="material">
-                <input type="hidden" name="duration" @if ($childModule->type == 'materi_pembelajaran') value="{{ $childModule->material }}" @endif>
+                <input type="hidden" name="duration" @if ($childModule->type == '4') value="{{ $childModule->material }}" @endif>
             `;
                     duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-                } else if (typeSelector.value === 'video_pembelajaran') {
+                } else if (typeSelector.value === '3') {
                     material.innerHTML = `
                  <label for="" class="form-label" style="margin-top: 1%">Link
                     Video</label>
@@ -301,13 +310,13 @@
                 <label for="" class="form-label" style="margin-top: 1%">Durasi Video</label>
                 <input type="number" name="duration" value="{{ $childModule->duration }}">
             `;
-                } else if (typeSelector.value === 'assignment') {
+                } else if (typeSelector.value === '5') {
                     material.innerHTML = `
                 <label for="" class="form-label" style="margin-top: 1%">File Penugasan</label>
                 <input class="form-control" type="file" id="formFile" name="material">
-                <input type="hidden" name="duration" @if ($childModule->type == 'asignment') value="{{ $childModule->material }}" @endif>
+                <input type="hidden" name="duration" @if ($childModule->type == '5') value="{{ $childModule->material }}" @endif>
             `;
-                } else if (typeSelector.value === 'quiz') {
+                } else if (typeSelector.value === '6') {
                     material.innerHTML = `
                     <label for="" class="form-label" style="margin-top: 1%"></label>
                     <select class="form-control select2" name="quiz_content" id="quiz_content"
@@ -321,7 +330,7 @@
                     </select>
                     `;
                     duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-                } else if (typeSelector.value === 'eval') {
+                } else if (typeSelector.value === '7') {
                     material.innerHTML = `
                     <label for="" class="form-label" style="margin-top: 1%"></label>
                     <select class="form-control select2" name="eval_content" id="eval_content"
@@ -333,6 +342,21 @@
                                 {{ $item->name }}</option>
                         @endforeach
                     </select>
+                    `;
+                    duration.innerHTML = `<input type="hidden" name="duration" value="">`;
+                } else if (typeSelector.value === '8') {
+                    material.innerHTML = `
+                    <label for="html" class="form-label" style="margin-top: 1%">HTML</label>
+                    <input class="form-control" type="text" name="html" id="html">
+
+                    <label for="js" class="form-label" style="margin-top: 1%">Javascript</label>
+                    <input class="form-control" type="text" name="js" id="js">
+
+                    <label for="php" class="form-label" style="margin-top: 1%">PHP</label>
+                    <input class="form-control" type="text" name="php" id="php">
+
+                    <label for="python" class="form-label" style="margin-top: 1%">Python</label>
+                    <input class="form-control" type="text" name="python" id="python">
                     `;
                     duration.innerHTML = `<input type="hidden" name="duration" value="">`;
                 }

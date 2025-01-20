@@ -17,6 +17,8 @@ class CourseModule extends Model
         'name',
         'html',
         'js',
+        'php',
+        'python',
         'priority',
         'level',
         'course_id',
@@ -34,6 +36,11 @@ class CourseModule extends Model
         'updated_id'
     ];
 
+    public function MModuleType()
+    {
+        return $this->belongsTo(MModuleType::class, 'type', 'id');
+    }
+
     public static function getCourseModuleDetailByModuleId($module_id){
         $module_detail = DB::table('course_module as cm')
             ->select('cm.*', 'c.name as course_name', 'c.id as course_id')
@@ -50,7 +57,7 @@ class CourseModule extends Model
             ->select('cm.*')
             ->where('cm.course_module_parent_id', null)
             ->where('cm.course_id', $course_id)
-            ->where('cm.type', 'company_profile')
+            ->where('cm.type', '9')
             ->orderBy('cm.id', 'ASC')
             ->get();
         } else { // jika buka list module parent LMS

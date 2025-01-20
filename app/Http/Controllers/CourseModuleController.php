@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\CourseModule;
 use App\Models\MCourseType;
 use App\Models\MSurvey;
+use App\Models\MModuleType;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -62,21 +63,21 @@ class CourseModuleController extends Controller
         $orderColumnMapping = [
             'DT_RowIndex' => 'id',
         ];
-        
+
         // Gunakan mapping untuk menentukan kolom pengurutan
         $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
         // Base query for course modules
         $parentModules = CourseModule::select(
-            'id', 
-            'name', 
-            'priority', 
-            'content', 
-            'description', 
-            'created_at', 
-            'created_id', 
-            'updated_at', 
-            'updated_id', 
+            'id',
+            'name',
+            'priority',
+            'content',
+            'description',
+            'created_at',
+            'created_id',
+            'updated_at',
+            'updated_id',
             'status'
         )
         ->where('course_id', $course_id)
@@ -93,7 +94,7 @@ class CourseModuleController extends Controller
         foreach ($columns as $column) {
             $columnSearchValue = $column['search']['value'] ?? null;
             $columnName = $column['data'];
-            
+
             if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
                 continue;
             } else if ($columnName == 'status') {
@@ -138,9 +139,9 @@ class CourseModuleController extends Controller
                 return $row->updated_id;
             })
             ->addColumn('status', function ($row) {
-                return '<button 
-                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
-                    data-id="' . $row->id . '" 
+                return '<button
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '"
+                    data-id="' . $row->id . '"
                     data-status="' . $row->status . '"
                     data-model="CourseModule">
                     ' . ($row->status == 1 ? 'Aktif' : 'Nonaktif') . '
@@ -149,13 +150,13 @@ class CourseModuleController extends Controller
             ->addColumn('action', function ($row) use ($page_type, $course_id) {
                 $editRoute = route('getEditCourseModule', ['id' => $row->id, 'page_type' => $page_type]);
                 $contentRoute = route('getCourseSubModule', ['course_id' => $course_id, 'module_id' => $row->id, 'page_type' => 'LMS_child']);
-                
+
                 $actions = '<a href="' . $editRoute . '" class="btn btn-primary rounded">Ubah</a>';
-                
+
                 if ($page_type == 'LMS') {
                     $actions .= ' <a href="' . $contentRoute . '" class="btn btn-outline-primary rounded-end">Konten</a>';
                 }
-                
+
                 return $actions;
             })
             ->orderColumn('id', 'id $1')
@@ -211,23 +212,23 @@ class CourseModuleController extends Controller
         $orderColumnMapping = [
             'DT_RowIndex' => 'id',
         ];
-        
+
         // Gunakan mapping untuk menentukan kolom pengurutan
         $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
         // Base query for course sub modules
         $subModules = CourseModule::select(
-            'id', 
-            'name', 
-            'priority', 
+            'id',
+            'name',
+            'priority',
             'type',
             'material',
-            'content', 
-            'description', 
-            'created_at', 
-            'created_id', 
-            'updated_at', 
-            'updated_id', 
+            'content',
+            'description',
+            'created_at',
+            'created_id',
+            'updated_at',
+            'updated_id',
             'status'
         )
         ->where('course_module_parent_id', $module_id)
@@ -237,7 +238,7 @@ class CourseModuleController extends Controller
         foreach ($columns as $column) {
             $columnSearchValue = $column['search']['value'] ?? null;
             $columnName = $column['data'];
-            
+
             if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
                 continue;
             } else if ($columnName == 'status') {
@@ -295,9 +296,9 @@ class CourseModuleController extends Controller
                 return $row->updated_id;
             })
             ->addColumn('status', function ($row) {
-                return '<button 
-                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
-                    data-id="' . $row->id . '" 
+                return '<button
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '"
+                    data-id="' . $row->id . '"
                     data-status="' . $row->status . '"
                     data-model="CourseModule">
                     ' . ($row->status == 1 ? 'Aktif' : 'Nonaktif') . '
@@ -305,7 +306,7 @@ class CourseModuleController extends Controller
             })
             ->addColumn('action', function ($row) {
                 $editRoute = route('getEditChildModule', ['id' => $row->id]);
-                
+
                 return '<a href="' . $editRoute . '" class="btn btn-primary rounded">Ubah</a>';
             })
             ->orderColumn('id', 'id $1')
@@ -423,13 +424,15 @@ class CourseModuleController extends Controller
         $course_type = MCourseType::find($course_detail->m_course_type_id);
         $quiz = MSurvey::where('type', 1)->get();
         $eval = MSurvey::where('type', 0)->get();
+        $type = MModuleType::where('status', 1)->get();
         // dd($course_type);
         return view('course_module.child.addv3', [
             'course_type' => $course_type,
             'parent' => $parent,
             'page_type' => $request->page_type,
             'quiz' => $quiz,
-            'eval' => $eval
+            'eval' => $eval,
+            'type' => $type,
             // 'allChildHave' => $childModules
         ]);
     }
@@ -438,7 +441,7 @@ class CourseModuleController extends Controller
     {
         // dd($request->all());
         // Validasi input yang diperlukan
-        if ($request->type == 'materi_pembelajaran') {
+        if ($request->type == '4') {
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
                 'priority' => 'required|integer|min:1',
@@ -447,7 +450,7 @@ class CourseModuleController extends Controller
             ], [
                 'material.required' => 'File materi pembelajaraan harus diisi.',
             ]);
-        } else if ($request->type == 'video_pembelajaran') {
+        } else if ($request->type == '3') {
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
                 'priority' => 'required|integer|min:1',
@@ -457,6 +460,13 @@ class CourseModuleController extends Controller
             ], [
                 'material.required' => 'Link video harus diisi.',
                 'duration.required' => 'Durasi video harus diisi.',
+            ]);
+        } else if ($request->type == '8') {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'priority' => 'required|integer|min:1',
+                'type' => 'required',
+                'content' => 'required'
             ]);
         } else {
             $validated = $request->validate([
@@ -477,14 +487,14 @@ class CourseModuleController extends Controller
                 'js' => $request->js,
                 'course_id' => $parentModule->course_id,
                 'course_module_parent_id' => $parentModule->id,
-                'type' => 'materi_pembelajaran',
+                'type' => $request->type,
                 'content' => $request->content,
                 'description' => $request->description,
                 'status' => $request->status ? 1 : 0,
                 'created_id' => Auth::user()->id,
                 'updated_id' => Auth::user()->id,
             ]);
-        } elseif ($request->type == 'quiz') {
+        } elseif ($request->type == '6') {
             $material = '';
             $create = CourseModule::create([
                 'name' => $validated['name'],
@@ -501,7 +511,7 @@ class CourseModuleController extends Controller
                 'created_id' => Auth::user()->id,
                 'updated_id' => Auth::user()->id,
             ]);
-        } elseif ($request->type == 'eval') {
+        } elseif ($request->type == '7') {
             $material = '';
             $create = CourseModule::create([
                 'name' => $validated['name'],
@@ -519,7 +529,7 @@ class CourseModuleController extends Controller
                 'updated_id' => Auth::user()->id,
             ]);
         } else {
-            if ($request->type == 'materi_pembelajaran' || $request->type == 'assignment') {
+            if ($request->type == '4' || $request->type == '5') {
                 $material = '';
                 if ($request->hasFile('material')) {
                     $file = $request->file('material');
@@ -536,6 +546,10 @@ class CourseModuleController extends Controller
 
             $create = CourseModule::create([
                 'name' => $validated['name'],
+                'html' => $request->html,
+                'js' => $request->js,
+                'php' => $request->php,
+                'python' => $request->python,
                 'priority' => $validated['priority'],
                 'level' => 2,
                 'course_id' => $parentModule->course_id,
@@ -576,13 +590,14 @@ class CourseModuleController extends Controller
         $course_detail = Course::getCourseDetailByCourseId($parentModule->course_id);
         $course_type = MCourseType::find($course_detail->m_course_type_id);
         $quiz = MSurvey::where('type', 1)->get();
+        $type = MModuleType::where('status', 1)->get();
         $idQuiz = '';
-        if ($childModule->type == 'quiz') {
+        if ($childModule->type == '6') {
             $idQuiz = Str::afterLast($childModule->content, '/');
         }
         $eval = MSurvey::where('type', 0)->get();
         $idEval = '';
-        if ($childModule->type == 'eval') {
+        if ($childModule->type == '7') {
             $idEval = Str::afterLast($childModule->content, '/');
         }
 
@@ -594,7 +609,8 @@ class CourseModuleController extends Controller
             'quiz' => $quiz,
             'idQuiz' => $idQuiz,
             'eval' => $eval,
-            'idEval' => $idEval
+            'idEval' => $idEval,
+            'type' => $type,
         ]);
     }
 
@@ -622,7 +638,7 @@ class CourseModuleController extends Controller
                     'status' => $request->status ? 1 : 0,
                     'updated_id' => Auth::user()->id,
                 ]);
-        } elseif ($request->type == 'quiz') {
+        } elseif ($request->type == '6') {
             $update = CourseModule::where('id', '=', $request->id)
                 ->update([
                     'name' => $validated['name'],
@@ -635,7 +651,7 @@ class CourseModuleController extends Controller
                     'status' => $request->status ? 1 : 0,
                     'updated_id' => Auth::user()->id,
                 ]);
-        } elseif ($request->type == 'eval') {
+        } elseif ($request->type == '7') {
             $update = CourseModule::where('id', '=', $request->id)
                 ->update([
                     'name' => $validated['name'],
@@ -649,7 +665,7 @@ class CourseModuleController extends Controller
                     'updated_id' => Auth::user()->id,
                 ]);
         } else {
-            if ($request->type == 'materi_pembelajaran' || $request->type == 'assignment') {
+            if ($request->type == '4' || $request->type == '5') {
                 $material = $module_detail->material;
                 if ($request->hasFile('material')) {
                     $file = $request->file('material');
@@ -667,6 +683,10 @@ class CourseModuleController extends Controller
             $update = CourseModule::where('id', '=', $request->id)
                 ->update([
                     'name' => $request->name,
+                    'html' => $request->html,
+                    'js' => $request->js,
+                    'php' => $request->php,
+                    'python' => $request->python,
                     'priority' => $request->priority,
                     'type' => $request->type,
                     'material' => $material,

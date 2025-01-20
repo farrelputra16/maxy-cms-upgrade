@@ -121,19 +121,14 @@
                                     <select class="form-control" name="type" id="type_selector" required>
                                         <option value="" disabled {{ old('type') == '' ? 'selected' : '' }}>Pilih
                                             Jenis Modul</option>
-                                        <option value="materi_pembelajaran"
-                                            {{ old('type') == 'materi_pembelajaran' ? 'selected' : '' }}>Materi
-                                            Pembelajaran (PDF, Slide, dll.)</option>
-                                        <option value="video_pembelajaran"
-                                            {{ old('type') == 'video_pembelajaran' ? 'selected' : '' }}> Video Pembelajaran
-                                            (MP4, YouTube, dll.)
-                                        </option>
-                                        <option value="assignment" {{ old('type') == 'assignment' ? 'selected' : '' }}>
-                                            Tugas (Unggah Berkas)</option>
-                                        <option value="quiz" {{ old('type') == 'quiz' ? 'selected' : '' }}>Kuis (Pilih
-                                            dari daftar kuis yang tersedia)</option>
-                                        <option value="eval" {{ old('type') == 'eval' ? 'selected' : '' }}>Evaluasi Akhir
-                                            (Survey atau Tes Akhir)</option>
+                                        @foreach ($type as $item)
+                                            @if ($item->name != 'parent')
+                                                <option value="{{ $item->id }}"
+                                                    {{ old('type') == $item->id ? 'selected' : '' }}>
+                                                    {{ $item->description }}
+                                                </option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                     @if ($errors->has('type'))
                                         @foreach ($errors->get('type') as $error)
@@ -186,7 +181,7 @@
                     tinymce.get('elm1').remove();
                 }
 
-                if (typeSelector.value === 'materi_pembelajaran') {
+                if (typeSelector.value === '4') {
                     material.innerHTML = `
                     <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">File Materi Pembelajaran</label>
@@ -209,7 +204,7 @@
                     </div>
                 </div>
                 `;
-                } else if (typeSelector.value === 'video_pembelajaran') {
+                } else if (typeSelector.value === '3') {
                     material.innerHTML = `
                     <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">Link Video</label>
@@ -242,7 +237,7 @@
                         </div>
                     </div>
                 `;
-                } else if (typeSelector.value === 'assignment') {
+                } else if (typeSelector.value === '5') {
                     material.innerHTML = `
                     <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">File Tugas</label>
@@ -268,7 +263,7 @@
                     </div>
                 </div>
                 `;
-                } else if (typeSelector.value === 'quiz') {
+                } else if (typeSelector.value === '6') {
                     material.innerHTML = `
                     <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">Pilih Kuis</label>
@@ -285,7 +280,7 @@
                     </div>
                 `;
                     duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-                } else if (typeSelector.value === 'eval') {
+                } else if (typeSelector.value === '7') {
                     material.innerHTML = `
                     <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">Pilih Kuis</label>
@@ -302,6 +297,42 @@
                     </div>
                 `;
                     duration.innerHTML = `<input type="hidden" name="duration" value="">`;
+                } else if (typeSelector.value === '8') {
+                    material.innerHTML = `
+                    <div class="mb-3 row">
+                        <label for="html" class="col-md-2 col-form-label">HTML</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="text" name="html" id="html">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="js" class="col-md-2 col-form-label">Javascript</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="text" name="js" id="js">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="php" class="col-md-2 col-form-label">PHP</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="text" name="php" id="php">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="python" class="col-md-2 col-form-label">Python</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="text" name="python" id="python">
+                        </div>
+                    </div>
+                    `;
+                    duration.innerHTML = `
+                    <input type="hidden" name="duration" value="">
+                    <div class="mb-3 row">
+                        <label for="input-content" class="col-md-2 col-form-label">Konten</label>
+                        <div class="col-md-10">
+                            <textarea id="elm1" name="content">{{ old('content') }}</textarea>
+                        </div>
+                    </div>
+                    `;
                 }
 
                 if (document.querySelector("textarea#elm1")) {
