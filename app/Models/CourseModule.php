@@ -15,6 +15,8 @@ class CourseModule extends Model
 
     protected $fillable = [
         'name',
+        'm_programming_language_id',
+        'code',
         'html',
         'js',
         'php',

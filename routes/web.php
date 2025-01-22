@@ -56,6 +56,7 @@ use App\Http\Controllers\CoursesAccredifyController;
 use App\Http\Controllers\CoAccreController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProgrammingLanguageController;
 
 
 // jago digital controller ###########################################################################################################
@@ -119,9 +120,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/course/delete', [CourseController::class, 'postDeleteCourse'])->name('postDeleteCourse')->middleware('access:course_delete');
 
-    // categori route ###########################################################################################################
-    Route::get('/category', [CategoryController::class, 'getCategory'])->name('getCategory')->middleware('access:category_manage');
+    // Programming Language Route ###########################################################################################################
+    Route::get('/programming-language', [ProgrammingLanguageController::class, 'getProgrammingLanguage'])->name('getProgrammingLanguage')->middleware('access:m_programming_language_manage');
+    Route::get('/programming-language/data', [ProgrammingLanguageController::class, 'getProgrammingLanguageData'])->name('getProgrammingLanguageData');
 
+    // category route ###########################################################################################################
+    Route::get('/category', [CategoryController::class, 'getCategory'])->name('getCategory')->middleware('access:category_manage');
     Route::get('/category/data', [CategoryController::class, 'getCategoryData'])->name('getCategoryData');
 
     Route::get('/category/add', [CategoryController::class, 'getAddCategory'])->name('getAddCategory')->middleware('access:category_create');

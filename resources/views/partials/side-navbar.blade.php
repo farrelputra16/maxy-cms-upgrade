@@ -113,6 +113,10 @@
                                     Session::get('access_master')->contains('access_master_name', 'm_module_type_manage'))
                                 <li><a href="{{ route('getModuleType') }}" key="t-blog">Jenis Modul</a></li>
                             @endif
+                            @if (Session::has('access_master') &&
+                                    Session::get('access_master')->contains('access_master_name', 'm_programming_language_manage'))
+                                <li><a href="{{ route('getProgrammingLanguage') }}" key="t-blog">Bahasa Pemrograman</a></li>
+                            @endif
                         </ul>
                     </li>
                 @endif
