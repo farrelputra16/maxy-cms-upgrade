@@ -136,6 +136,99 @@ class CourseClass extends Model
 
     public static function getAssignmentModulesByClassId($class_id)
     {
+        // Get assignment & quiz modules along with their parents and class details
+        $module_list = DB::table('course_module as cm')
+            ->select(
+                'ccm.*',
+                'cm.name as module_name',
+                'cm.grade_status as module_grade_status',
+                'cm.course_module_parent_id as parent_id',
+                'c.name as course_name',
+                'cc.batch as batch',
+                'cc.id as class_id',
+                DB::raw('COALESCE(parent_cm.id, NULL) as parent_cm_id'),
+                DB::raw('COALESCE(parent_cm.name, NULL) as parent_cm_name'),
+                DB::raw('COALESCE(parent_cm.grade_status, NULL) as parent_cm_grade_status'),
+                DB::raw('COALESCE(parent_cm.course_module_parent_id, NULL) as parent_cm_parent_id'),
+                DB::raw('COALESCE(parent_ccm.id, NULL) as parent_ccm_id'),
+                DB::raw('COALESCE(parent_ccm.status, NULL) as parent_ccm_status')
+            )
+            ->join('course_class_module as ccm', 'ccm.course_module_id', '=', 'cm.id')
+            ->join('course_class as cc', 'cc.id', '=', 'ccm.course_class_id')
+            ->join('course as c', 'c.id', '=', 'cc.course_id')
+            ->leftJoin('course_module as parent_cm', 'parent_cm.id', '=', 'cm.course_module_parent_id')
+            ->leftJoin('course_class_module as parent_ccm', function ($join) use ($class_id) {
+                $join->on('parent_ccm.course_module_id', '=', 'parent_cm.id')
+                    ->where('parent_ccm.course_class_id', '=', $class_id);
+            })
+            ->where('cm.type', 5)
+            ->where('ccm.status', 1)
+            ->where('cm.status', 1)
+            ->where('cc.id', $class_id)
+            ->get();
+
+        // Get class member list
+        $class_member_list = DB::table('course_class_member as ccmember')
+            ->select('ccmember.*', 'u.name as user_name', 'u.id as user_id')
+            ->join('users as u', 'u.id', '=', 'ccmember.user_id')
+            ->where('ccmember.course_class_id', $class_id)
+            ->get()
+            ->keyBy('user_id'); // Key by user_id for quick lookup
+
+        // Get all submissions for the class members and modules
+        $submissions = DB::table('course_class_member_grading')
+            ->whereIn('course_class_module_id', $module_list->pluck('id'))
+            ->whereIn('user_id', $class_member_list->keys())
+            ->get()
+            ->groupBy('course_class_module_id'); // Group by course_class_module_id for quick lookup
+
+        // Iterate through each module in the list
+        foreach ($module_list as $item) {
+            // Add parent course module data
+            $item->parent = (object) [
+                'course_module' => (object) [
+                    'id' => $item->parent_cm_id,
+                    'name' => $item->parent_cm_name,
+                    'grade_status' => $item->parent_cm_grade_status,
+                    'course_module_parent_id' => $item->parent_cm_parent_id,
+                ],
+                'course_class_module' => (object) [
+                    'id' => $item->parent_ccm_id,
+                    'status' => $item->parent_ccm_status,
+                ],
+            ];
+
+            // Add member list to each module
+            $item->member_list = $class_member_list->map(function ($member) use ($submissions, $item) {
+                // Clone the member to avoid affecting the original $class_member_list
+                $member = clone $member;
+
+                // Check assignment and quiz submission of each member on each module
+                $module_submissions = $submissions->get($item->id);
+                if ($module_submissions) {
+                    $member->submission = $module_submissions->firstWhere('user_id', $member->user_id);
+                } else {
+                    $member->submission = null;
+                }
+
+                return $member;
+            });
+
+            // Unset temporary columns used for joining
+            unset($item->parent_cm_id);
+            unset($item->parent_cm_name);
+            unset($item->parent_cm_grade_status);
+            unset($item->parent_cm_parent_id);
+            unset($item->parent_ccm_id);
+            unset($item->parent_ccm_status);
+        }
+
+        return $module_list;
+    }
+
+    public static function getAssignmentModulesByClassId2($class_id)
+
+    {
         // get assignment & quiz modules
         $module_list = DB::table('course_module as cm')
             ->select('ccm.*', 'cm.name as module_name', 'cm.grade_status as module_grade_status', 'cm.course_module_parent_id as parent_id', 'c.name as course_name', 'cc.batch as batch', 'cc.id as class_id')
