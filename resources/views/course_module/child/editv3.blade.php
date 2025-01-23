@@ -40,17 +40,9 @@
                         Halaman ini memungkinkan Anda untuk memperbarui informasi modul anak dalam mata kuliah.
                         Isi data dengan lengkap dan pastikan akurat untuk memberikan pengalaman belajar terbaik bagi
                         peserta.
-                        <br><br>
-                        <strong>Cara Penggunaan:</strong>
-                    <ul>
-                        <li>Isi <b>Nama Modul</b> dengan judul yang sesuai.</li>
-                        <li>Atur <b>Prioritas</b> untuk menentukan urutan tampil modul dalam mata kuliah.</li>
-                        <li>Pilih <b>Jenis Modul</b> dan isi konten tambahan yang diperlukan.</li>
-                        <li>Tambahkan deskripsi yang menjelaskan isi dari modul ini.</li>
-                        <li>Klik <b>Simpan & Perbarui</b> untuk menyimpan perubahan.</li>
-                    </ul>
                     </p>
 
+                    <!-- Start Form -->
                     <form action="{{ route('postEditChildModule', ['id' => $childModule->id]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
@@ -61,6 +53,7 @@
                                 <input class="form-control" type="text" value="{{ $parentModule->name }}" disabled>
                             </div>
                         </div>
+
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Nama Modul <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
@@ -73,6 +66,7 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="mb-3 row">
                             <label for="input-name" class="col-md-2 col-form-label">Prioritas <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
@@ -86,187 +80,77 @@
                                 @endif
                             </div>
                         </div>
-                        @if ($course_type->slug == 'rapid-onboarding')
-                            <div class="mb-3 row">
-                                <label for="input-content" class="col-md-2 col-form-label">HTML</label>
-                                <div class="col-md-10">
-                                    <textarea id="elm1" name="html">{{ $childModule->html }}</textarea>
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
-                                <label for="input-content" class="col-md-2 col-form-label">JS</label>
-                                <div class="col-md-10">
-                                    <textarea id="elm1" name="js">{{ $childModule->js }}</textarea>
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
-                                <label for="input-content" class="col-md-2 col-form-label">Konten</label>
-                                <div class="col-md-10">
-                                    <textarea id="elm1" name="content">{{ $childModule->content }}</textarea>
-                                </div>
-                            </div>
-                            <input type="hidden" name="rapid" value="1">
-                        @else
-                            <div class="card m-5 p-5" style="border-radius: 25px; border: 1px solid #b0bad8;">
-                                <!-- TO DO -->
-                                <div class="mb-3">
-                                    <label for="input-tag">Jenis Modul</label>
-                                    <select name="type" class="form-control" id="type_selector">
-                                        @foreach ($type as $item)
-                                        @if ($item->name!='parent')
-                                            <option value="{{ $item->id }}" {{ $childModule->type == $item->id ? 'selected' : '' }}
+
+                        <!-- Start Material -->
+                        <hr>
+                        <div class="mb-3 row">
+                            <label for="input-type" class="col-md-2 col-form-label">Jenis Modul <span class="text-danger"
+                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
+                            <div class="col-md-10">
+                                <select name="type" class="form-control" id="type_selector">
+                                    @foreach ($type as $item)
+                                        @if ($item->name != 'parent')
+                                            <option value="{{ $item->id }}"
+                                                {{ $childModule->type == $item->id ? 'selected' : '' }}
                                                 {{ old('type', $childModule->type) == $item->id ? 'selected' : '' }}>
                                                 {{ $item->description }} </option>
                                         @endif
-                                        @endforeach
-                                    </select>
-                                    <div class="" id="material">
-                                        @if ($childModule->type === 4)
-                                            <label for="input-name" class="col-md-2 col-form-label"
-                                                style="margin-top: 1%">File Saat Ini Materi Pembelajaran</label>
-                                            <div class="col-md-10">
-                                                <p class="pt-2"><a href="{{ asset('fe/public/files/' . $childModule->material) }}" target="_blank">{{ $childModule->material }}</a></p>
-                                                <label for="input-name" class="col-md-2 col-form-label">Ganti File</label>
-                                                <input class="form-control" type="file" id="formFile" name="material">
-                                                <input class="form-control" type="hidden" name="duration"
-                                                    value="">
-                                            </div>
-                                        @elseif ($childModule->type === 3)
-                                            <label for="" class="form-label" style="margin-top: 1%">Link
-                                                Video</label>
-                                            <input class="form-control" type="text" name="material"
-                                                value="{{ $childModule->material }}">
-                                            <label for="" class="form-label" style="margin-top: 1%">Durasi
-                                                Video</label>
-                                            <input class="form-control" type="number" name="duration"
-                                                value="{{ $childModule->duration }}">
-                                        @elseif($childModule->type === 5)
-                                            <label class="form-label pt-2" for="SwitchCheckSizemd">Dapat
-                                                Dinilai</label>
-                                            <div class="form-switch form-switch-md" style="margin-left: -2rem">
-                                                <input class="form-check-input p-0 m-0" type="checkbox"
-                                                    id="SwitchCheckSizemd" name="grade_status"
-                                                    {{ $childModule->grade_status ? 'checked' : '' }}>
-                                                <label class="m-0">Iya</label>
-                                            </div>
-                                            <label for="input-name" class="col-md-2 col-form-label"
-                                                style="margin-top: 1%">File Penugasan Saat Ini</label>
-                                            <p class="pt-2"><a href="{{ asset('fe/public/files/' . $childModule->material) }}" target="_blank">{{ $childModule->material }}</a></p>
-                                            <label for="" class="form-label" style="margin-top: 1%"> Ganti File
-                                                Penugasan</label>
-                                            <input class="form-control" type="file" id="formFile" name="material">
-                                            <input type="hidden" name="duration"
-                                                @if ($childModule->type == '5') value="{{ $childModule->material }}" @endif>
-                                            <input type="hidden" name="duration" value="">
-                                        @elseif($childModule->type === 6)
-                                            <label for="" class="form-label" style="margin-top: 1%"></label>
-                                            <select class="form-control select2" name="quiz_content" id="quiz_content"
-                                                required>
-                                                @foreach ($quiz as $item)
-                                                    <option
-                                                        value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}"
-                                                        @if ($item->id == $idQuiz) selected @endif>
-                                                        {{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        @elseif($childModule->type === 7)
-                                            <label for="" class="form-label" style="margin-top: 1%"></label>
-                                            <select class="form-control select2" name="eval_content" id="eval_content"
-                                                required>
-                                                @foreach ($eval as $item)
-                                                    <option
-                                                        value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}"
-                                                        @if ($item->id == $idEval) selected @endif>
-                                                        {{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        @elseif($childModule->type === 8)
-                                            <label for="html" class="form-label" style="margin-top: 1%">HTML</label>
-                                            <input class="form-control" type="text" name="html" id="html" value="{{ $childModule->html }}">
-
-                                            <label for="js" class="form-label" style="margin-top: 1%">Javascript</label>
-                                            <input class="form-control" type="text" name="js" id="js" value="{{ $childModule->js }}">
-
-                                            <label for="php" class="form-label" style="margin-top: 1%">PHP</label>
-                                            <input class="form-control" type="text" name="php" id="php" value="{{ $childModule->php }}">
-
-                                            <label for="python" class="form-label" style="margin-top: 1%">Python</label>
-                                            <input class="form-control" type="text" name="python" id="python" value="{{ $childModule->python }}">
-                                        @endif
-                                    </div>
-                                </div>
-                        @endif
-                </div>
-                <div id="content">
-                    <div class="mb-3 row" id="">
-                        <label for="input-content" class="col-md-2 col-form-label">Konten</label>
-                        <div class="col-md-10">
-                            <textarea id="elm1" name="content">
-                                @if ($childModule->type != '6' && $childModule->type != '7')
-{{ $childModule->content }}
-@endif
-                            </textarea>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="mb-3 row">
-                    <label for="input-content" class="col-md-2 col-form-label">Catatan Admin</label>
-                    <div class="col-md-10">
-                        <textarea id="content" class="form-control" name="description">{{ $childModule->description }}</textarea>
-                    </div>
-                </div>
-                {{-- <div id="quiz-content">
-                    <div class="mb-3 row">
-                        <label for="input-content" class="col-md-2 col-form-label">Konten Quiz</label>
-                        <div class="col-md-10">
-                            <select class="form-control select2" name="quiz_content" id="">
-                                @foreach ($quiz as $item)
-                                    <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}" @if ($item->id == $idQuiz) selected @endif>
-                                        {{ $item->name }}</option>
-                                @endforeach
-                            </select>
+                        <div id="material" class="mb-3 row">
+                            <!-- Generate Material Input Fields via JavaScript -->
                         </div>
-                    </div>
-                </div>
-                <div id="eval-content">
-                    <div class="mb-3 row">
-                        <label for="input-content" class="col-md-2 col-form-label">Konten Evaluasi</label>
-                        <div class="col-md-10">
-                            <select class="form-control select2" name="eval_content" id="">
-                                @foreach ($eval as $item)
-                                    <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}" @if ($item->id == $idEval) selected @endif>
-                                        {{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                </div> --}}
-                <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
-                    <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
-                    <div class="col-md-10 d-flex align-items-center">
-                        <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd" name="status"
-                            {{ $childModule->status == 1 ? 'checked' : '' }}>
-                        <label class="m-0">Aktif</label>
-                    </div>
-                </div>
-                <div class="mb-3 row justify-content-end">
-                    <div class="text-end">
-                        <button type="submit" class="btn btn-primary w-md text-center">Simpan & Perbarui</button>
-                    </div>
-                </div>
-                </form>
 
+                        <hr>
+                        <!-- End Material -->
+
+                        <div class="mb-3 row">
+                            <label for="input-content" class="col-md-2 col-form-label">Konten</label>
+                            <div class="col-md-10">
+                                <textarea id="content" name="content">
+                                    {{ $childModule->content ? $childModule->content : '' }}
+                                </textarea>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="input-description" class="col-md-2 col-form-label">Catatan Admin</label>
+                            <div class="col-md-10">
+                                <textarea id="description" class="form-control" name="description">{{ $childModule->description }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
+                            <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
+                            <div class="col-md-10 d-flex align-items-center">
+                                <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
+                                    name="status" {{ $childModule->status == 1 ? 'checked' : '' }}>
+                                <label class="m-0">Aktif</label>
+                            </div>
+                        </div>
+
+                        <!-- Start Save Button -->
+                        <div class="mb-3 row justify-content-end">
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary w-md text-center">Simpan & Perbarui</button>
+                            </div>
+                        </div>
+                        <!-- End Save Button -->
+                    </form>
+                    <!-- end form -->
+
+                </div>
             </div>
-        </div>
-    </div> <!-- end col -->
+        </div> <!-- end col -->
     </div> <!-- end row -->
 @endsection
 
 @section('script')
-
-    @if ($course_type->slug != 'rapid-onboarding')
-        <script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
             var typeSelector = document.getElementById('type_selector');
             var material = document.getElementById('material');
             var duration = document.getElementById('duration');
@@ -274,93 +158,82 @@
             var quizContentDiv = document.getElementById('quiz-content');
             var evalContentDiv = document.getElementById('eval-content');
 
-            if (typeSelector.value === '6' || typeSelector.value === '7') {
-                contentDiv.style.display = 'none';
-            } else {
-                contentDiv.style.display = 'block';
-            }
-            // Menambahkan event listener untuk perubahan pada elemen select
+            // Check Module Type on Load Page
+            updateMaterialInput(typeSelector.value);
+
+            // Module Type Selector Listener
             typeSelector.addEventListener('change', function() {
-                console.log(typeSelector.value)
-
-                if (typeSelector.value === '6' || typeSelector.value === '7') {
-                    contentDiv.style.display = 'none';
-                } else {
-                    contentDiv.style.display = 'block';
-                }
-
-                // Memeriksa apakah opsi yang dipilih adalah "assignment"
-                if (typeSelector.value === '4') {
-                    material.innerHTML = `
-                <label for="" class="form-label" style="margin-top: 1%">File Materi Pembelajaran</label>
-                <input class="form-control" type="file" id="formFile" name="material">
-                <input type="hidden" name="duration" @if ($childModule->type == '4') value="{{ $childModule->material }}" @endif>
-            `;
-                    duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-                } else if (typeSelector.value === '3') {
-                    material.innerHTML = `
-                 <label for="" class="form-label" style="margin-top: 1%">Link
-                    Video</label>
-                <input class="form-control" type="text" name="material">
-                <label for="" class="form-label" style="margin-top: 1%">Durasi
-                    Video</label>
-                <input class="form-control" type="number" name="duration" value="{{ $childModule->duration }}">
-            `;
-                    duration.innerHTML = `
-                <label for="" class="form-label" style="margin-top: 1%">Durasi Video</label>
-                <input type="number" name="duration" value="{{ $childModule->duration }}">
-            `;
-                } else if (typeSelector.value === '5') {
-                    material.innerHTML = `
-                <label for="" class="form-label" style="margin-top: 1%">File Penugasan</label>
-                <input class="form-control" type="file" id="formFile" name="material">
-                <input type="hidden" name="duration" @if ($childModule->type == '5') value="{{ $childModule->material }}" @endif>
-            `;
-                } else if (typeSelector.value === '6') {
-                    material.innerHTML = `
-                    <label for="" class="form-label" style="margin-top: 1%"></label>
-                    <select class="form-control select2" name="quiz_content" id="quiz_content"
-                        required>
-                        @foreach ($quiz as $item)
-                            <option
-                                value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}"
-                                @if ($item->id == $idQuiz) selected @endif>
-                                {{ $item->name }}</option>
-                        @endforeach
-                    </select>
-                    `;
-                    duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-                } else if (typeSelector.value === '7') {
-                    material.innerHTML = `
-                    <label for="" class="form-label" style="margin-top: 1%"></label>
-                    <select class="form-control select2" name="eval_content" id="eval_content"
-                        required>
-                        @foreach ($eval as $item)
-                            <option
-                                value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}"
-                                @if ($item->id == $idEval) selected @endif>
-                                {{ $item->name }}</option>
-                        @endforeach
-                    </select>
-                    `;
-                    duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-                } else if (typeSelector.value === '8') {
-                    material.innerHTML = `
-                    <label for="html" class="form-label" style="margin-top: 1%">HTML</label>
-                    <input class="form-control" type="text" name="html" id="html">
-
-                    <label for="js" class="form-label" style="margin-top: 1%">Javascript</label>
-                    <input class="form-control" type="text" name="js" id="js">
-
-                    <label for="php" class="form-label" style="margin-top: 1%">PHP</label>
-                    <input class="form-control" type="text" name="php" id="php">
-
-                    <label for="python" class="form-label" style="margin-top: 1%">Python</label>
-                    <input class="form-control" type="text" name="python" id="python">
-                    `;
-                    duration.innerHTML = `<input type="hidden" name="duration" value="">`;
-                }
+                updateMaterialInput(typeSelector.value);
             });
-        </script>
-    @endif
+
+            // Function for Updating Material Input Fields
+            function updateMaterialInput(moduleType) {
+                if (moduleType === '4') { // Assignment
+                    material.innerHTML = `
+                        <label for="" class="col-md-2 col-form-label" >File Materi Pembelajaran</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="file" id="formFile" name="material">
+                        </div>
+                        <input type="hidden" name="duration" value="">
+                    `;
+                } else if (moduleType === '3') { // Video Material (YouTube Link)
+                    material.innerHTML = `
+                        <label for="" class="col-md-2 col-form-label" >Link Video</label>
+                        <div class="col-md-10 mb-3">
+                            <input class="form-control" type="text" name="material">
+                        </div>
+
+                        <label for="" class="col-md-2 col-form-label" >Durasi</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="number" name="duration" value="{{ $childModule->duration }}">
+                        </div>
+                    `;
+                } else if (moduleType === '5') { // File Material (pdf, ppt, etc)
+                    material.innerHTML = `
+                        <label for="" class="col-md-2 col-form-label" >File Penugasan</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="file" id="formFile" name="material">
+                        </div>
+                        <input type="hidden" name="duration" @if ($childModule->type == '5') value="{{ $childModule->material }}" @endif>
+                    `;
+                } else if (moduleType === '6') { // Quiz
+                    material.innerHTML = `
+                        <label for="" class="col-md-2 col-form-label" ></label>
+                        <div class="col-md-10">
+                            <select class="form-control select2" name="quiz_content" id="quiz_content" required>
+                            @foreach ($quiz as $item)
+                                <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}" @if ($item->id == $idQuiz) selected @endif>
+                                    {{ $item->name }}
+                                </option>
+                            @endforeach
+                            </select>
+                        </div>
+                        <input type="hidden" name="duration" value="">
+                    `;
+                } else if (moduleType === '7') { // Evaluation Survey
+                    material.innerHTML = `
+                        <label for="" class="col-md-2 col-form-label" >Eval</label>
+                        <div class="col-md-10">
+                            <select class="form-control select2" name="eval_content" id="eval_content" required>
+                            @foreach ($eval as $item)
+                                <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}" @if ($item->id == $idEval) selected @endif>
+                                    {{ $item->name }}
+                                </option>
+                            @endforeach
+                            </select>
+                        </div>
+                        <input type="hidden" name="duration" value="">
+                    `;
+                } else if (moduleType === '8') { // Material w/ Snippet Code
+                    material.innerHTML = `
+                        <label for="html" class="col-md-2 col-form-label" >Code</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="text" name="html" id="html">
+                        </div>
+                        <input type="hidden" name="duration" value="">
+                    `;
+                }
+            }
+        });
+    </script>
 @endsection
