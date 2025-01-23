@@ -74,8 +74,8 @@
                                     <td>{{ $redeemCode->updated_at }}</td>
                                     <td>{{ $redeemCode->updated_id }}</td>
                                     <td>{{ $redeemCode->userUpdated->name }}</td>
-                                    <td value="{{ $item->status }}">
-                                        @if ($item->status == 1)
+                                    <td value="{{ $redeemCode->status }}">
+                                        @if ($redeemCode->status == 1)
                                             <span class="badge bg-success">Aktif</span>
                                         @else
                                             <span class="badge bg-danger">Non Aktif</span>
