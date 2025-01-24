@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Illuminate\Support\Facades\Auth;
-use DB;
+use Illuminate\Support\Facades\DB;
+
 use Modules\Attendance\Entities\CourseClassAttendance;
+use App\Models\CourseModule;
 
 class CourseClassModule extends Model
 {

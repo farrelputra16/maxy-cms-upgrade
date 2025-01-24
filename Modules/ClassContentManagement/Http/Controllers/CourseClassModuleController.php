@@ -15,7 +15,7 @@ use App\Http\Controllers\HelperController;
 use App\Models\CourseModule;
 use App\Models\CourseJournal;
 use App\Models\MSurvey;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -35,24 +35,24 @@ class CourseClassModuleController extends Controller
         $course_class_id = $request->id;
 
         // Ambil detail kelas berdasarkan class_id
-    $class_detail = CourseClass::where('id', $course_class_id)->first();
+        $class_detail = CourseClass::where('id', $course_class_id)->first();
 
-    if (!$class_detail) {
-        abort(404, 'Class not found');
-    }
+        if (!$class_detail) {
+            abort(404, 'Class not found');
+        }
 
-    // Ambil detail course berdasarkan course_id yang ada di class_detail
-    $course_detail = Course::find($class_detail->course_id);
+        // Ambil detail course berdasarkan course_id yang ada di class_detail
+        $course_detail = Course::find($class_detail->course_id);
 
-    if (!$course_detail) {
-        abort(404, 'Course not found');
-    }
+        if (!$course_detail) {
+            abort(404, 'Course not found');
+        }
 
-    // Ambil nama batch dari course_detail
-    $batch_number = $class_detail->batch; // Ambil nama batch langsung dari kolom course
+        // Ambil nama batch dari course_detail
+        $batch_number = $class_detail->batch; // Ambil nama batch langsung dari kolom course
 
-    // Ambil module berdasarkan class_id
-    $courseClassModules = CourseClassModule::getClassModuleParentByClassId($course_class_id);
+        // Ambil module berdasarkan class_id
+        $courseClassModules = CourseClassModule::getClassModuleParentByClassId($course_class_id);
 
         return view('classcontentmanagement::course_class_module.indexv3', [
             'courseclassmodules' => $courseClassModules,
@@ -90,7 +90,7 @@ class CourseClassModuleController extends Controller
 
         // Gunakan mapping untuk menentukan kolom pengurutan
         $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
-        
+
 
         // Base query
         $query = DB::table('course_class_module')
@@ -114,7 +114,7 @@ class CourseClassModuleController extends Controller
         foreach ($columns as $column) {
             $columnSearchValue = $column['search']['value'] ?? null;
             $columnName = $column['data'];
-            
+
             if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
                 continue;
             } else if ($columnName == 'id') {
@@ -153,9 +153,9 @@ class CourseClassModuleController extends Controller
                 </span>';
             })
             ->addColumn('status', function ($row) {
-                return '<button 
-                    class="btn btn-status-entities ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
-                    data-id="' . $row->id . '" 
+                return '<button
+                    class="btn btn-status-entities ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '"
+                    data-id="' . $row->id . '"
                     data-status="' . $row->status . '"
                     data-parent="ClassContentManagement"
                     data-model="CourseClassModule">
@@ -330,7 +330,7 @@ class CourseClassModuleController extends Controller
         $orderColumnMapping = [
             'DT_RowIndex' => 'id',
         ];
-        
+
         // Gunakan mapping untuk menentukan kolom pengurutan
         $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
@@ -361,7 +361,7 @@ class CourseClassModuleController extends Controller
             $columnSearchValue = $column['search']['value'] ?? null;
             $columnName = $column['data'];
 
-            
+
             if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
                 continue;
             } else if ($columnName == 'id') {
@@ -369,7 +369,7 @@ class CourseClassModuleController extends Controller
             } else if ($columnName == 'course_module_name') {
                 $query->where('cm.name', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'type') {
-                $query->where('cm.type', 'like', "%{$columnSearchValue}%"); 
+                $query->where('cm.type', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'priority') {
                 $query->where('course_class_module.priority', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'start_date') {
@@ -407,9 +407,9 @@ class CourseClassModuleController extends Controller
                 </span>';
             })
             ->addColumn('status', function ($row) {
-                return '<button 
-                    class="btn btn-status-entities ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
-                    data-id="' . $row->id . '" 
+                return '<button
+                    class="btn btn-status-entities ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '"
+                    data-id="' . $row->id . '"
                     data-status="' . $row->status . '"
                     data-parent="ClassContentManagement"
                     data-model="CourseClassModule">
@@ -547,7 +547,7 @@ class CourseClassModuleController extends Controller
         $orderColumnMapping = [
             'DT_RowIndex' => 'id',
         ];
-        
+
         // Gunakan mapping untuk menentukan kolom pengurutan
         $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
@@ -569,7 +569,7 @@ class CourseClassModuleController extends Controller
         foreach ($columns as $column) {
             $columnSearchValue = $column['search']['value'] ?? null;
             $columnName = $column['data'];
-            
+
             if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
                 continue;
             } else if ($columnName == 'id') {
@@ -605,16 +605,18 @@ class CourseClassModuleController extends Controller
                 $html = '';
 
                 // Check for access using Session
-                if (Session::has('access_master') && 
-                    Session::get('access_master')->contains('access_master_name', 'course_class_module_journal_create')) {
+                if (
+                    Session::has('access_master') &&
+                    Session::get('access_master')->contains('access_master_name', 'course_class_module_journal_create')
+                ) {
                     $html .= '<a href="' . route('getAddJournalCourseClassChildModule', [
-                        'id' => $row->id, 
-                        'user_id' => $row->user_id, 
+                        'id' => $row->id,
+                        'user_id' => $row->user_id,
                         'course_class_module_id' => $row->course_class_module_id
                     ]) . '" class="btn btn-primary rounded">Balas</a>';
                 }
 
-                $html .= $row->status == 1 
+                $html .= $row->status == 1
                     ? ' <button type="button" class="btn btn-danger hide-button" data-id="' . $row->id . '" data-course_class_module_id="' . $row->course_class_module_id . '">Sembunyikan</button>'
                     : ' <button type="button" class="btn btn-success hide-button" data-id="' . $row->id . '" data-course_class_module_id="' . $row->course_class_module_id . '">Tunjukkan</button>';
 
@@ -730,8 +732,7 @@ class CourseClassModuleController extends Controller
     {
         // dd($request->all());
         $journal = CourseJournal::findOrFail($request->id);
-        $journal->status = ($journal->status == 0) ? 1 : 0;
-        ;
+        $journal->status = ($journal->status == 0) ? 1 : 0;;
         $journal->updated_id = auth()->user()->id;
         $update = $journal->save();
 
