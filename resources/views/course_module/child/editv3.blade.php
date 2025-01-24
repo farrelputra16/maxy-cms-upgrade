@@ -110,7 +110,7 @@
                         <div class="mb-3 row">
                             <label for="input-content" class="col-md-2 col-form-label">Konten</label>
                             <div class="col-md-10">
-                                <textarea id="content" name="content">
+                                <textarea id="elm1" name="content">
                                     {{ $childModule->content ? $childModule->content : '' }}
                                 </textarea>
                             </div>
