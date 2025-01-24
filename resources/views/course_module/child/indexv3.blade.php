@@ -60,10 +60,8 @@
 
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
-                        data-server-processing="true"
-                        data-url="{{ route('getCourseSubModuleData') }}"
-                        data-colvis="[1, -3, -4, -5, -6]"
-                        data-id="{{ $parent_module_detail->id }}">
+                        data-server-processing="true" data-url="{{ route('getCourseSubModuleData') }}"
+                        data-colvis="[1, -3, -4, -5, -6]" data-id="{{ $parent_module_detail->id }}">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -112,8 +110,8 @@
 
     <!-- FAB Tambah Mulai -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddCourseChildModule', ['id' => $parent_module_detail->id, 'course_id' => $course_detail->id, 'page_type' => $page_type]) }}"
-            target="_blank">
+        <a
+            href="{{ route('getAddCourseChildModule', ['id' => $parent_module_detail->id, 'course_id' => $course_detail->id, 'page_type' => $page_type]) }}">
             <i class="fas fa-plus"></i>
         </a>
     </div>
@@ -121,22 +119,81 @@
 @endsection
 
 @section('script')
-<script>
-    const columns = [
-        { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
-        { data: "id", name: "id" },
-        { data: "name", name: "name", orderable: true, searchable: true },
-        { data: "priority", name: "priority", orderable: true, searchable: true },
-        { data: "type", name: "type", orderable: true, searchable: true },
-        { data: "material", name: "material", orderable: true, searchable: true },
-        { data: "content", name: "content", orderable: true, searchable: true },
-        { data: "description", name: "description", orderable: true, searchable: true },
-        { data: "created_at", name: "created_at" },
-        { data: "created_id", name: "created_id" },
-        { data: "updated_at", name: "updated_at" },
-        { data: "updated_id", name: "updated_id" },
-        { data: "status", name: "status", orderable: true, searchable: true },
-        { data: "action", name: "action", orderable: false, searchable: false },
-    ];
-</script>
+    <script>
+        const columns = [{
+                data: "DT_RowIndex",
+                name: "DT_RowIndex",
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: "id",
+                name: "id"
+            },
+            {
+                data: "name",
+                name: "name",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "priority",
+                name: "priority",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "type",
+                name: "type",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "material",
+                name: "material",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "content",
+                name: "content",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "description",
+                name: "description",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "created_at",
+                name: "created_at"
+            },
+            {
+                data: "created_id",
+                name: "created_id"
+            },
+            {
+                data: "updated_at",
+                name: "updated_at"
+            },
+            {
+                data: "updated_id",
+                name: "updated_id"
+            },
+            {
+                data: "status",
+                name: "status",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "action",
+                name: "action",
+                orderable: false,
+                searchable: false
+            },
+        ];
+    </script>
 @endsection
