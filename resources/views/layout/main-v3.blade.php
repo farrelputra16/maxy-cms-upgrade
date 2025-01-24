@@ -10,12 +10,7 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
 
-    <!-- logo -->
-    @if (env('APP_ENV') == 'local')
-        <link rel="icon" href="{{ asset(env('APP_CLIENT_FAVICON')) }}" type="image/x-icon">
-    @else
-        <link rel="icon" href="{{ asset('img/m-logo.png') }}" type="image/x-icon">
-    @endif
+    <link rel="icon" href="{{ asset('img/m-logo.png') }}" type="image/x-icon">
 
     <script src="https://unpkg.com/knockout/build/output/knockout-latest.js"></script>
     <script src="https://unpkg.com/survey-core@1.10.5/survey.core.min.js"></script>
@@ -69,6 +64,33 @@
         rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ asset('assets/cms-v3/libs/@chenfengyuan/datepicker/datepicker.min.css') }}">
     @yield('style')
+
+    <!-- CodeMirror Core -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.js"></script>
+
+    <!-- CodeMirror Themes -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/theme/dracula.min.css">
+
+    <!-- CodeMirror Keymap & Modes -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/keymap/sublime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/mode/javascript/javascript.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/mode/css/css.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/mode/xml/xml.js"></script>
+
+    <!-- CodeMirror Addons -->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/edit/matchbrackets.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/edit/closetag.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror/addon/hint/show-hint.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/hint/show-hint.css">
+
+    <!-- CodeMirror Addons for Autocomplete -->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/hint/html-hint.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/hint/javascript-hint.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/hint/css-hint.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/hint/xml-hint.min.js"></script>
 
     <!-- App Css-->
     <link href="{{ asset('assets/cms-v3/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
