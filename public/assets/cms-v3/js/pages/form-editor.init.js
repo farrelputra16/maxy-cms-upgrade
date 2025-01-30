@@ -1,6 +1,6 @@
 document.getElementById("elm1") &&
     tinymce.init({
-        selector: "textarea#elm1, textarea#elm2",
+        selector: "textarea#elm1, textarea#elm2, textarea#elm3, textarea#elm4, textarea#elm5",
         height: 350,
         plugins: [
             "advlist",

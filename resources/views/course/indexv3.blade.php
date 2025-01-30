@@ -34,20 +34,7 @@
                         mata kuliah yang tersedia. Setiap mata kuliah mencakup informasi seperti nama, catatan admin, harga,
                         jenis mata kuliah,
                         SKS, durasi, dan status. Anda dapat menggunakan <b>fitur visibilitas kolom, pengurutan, dan
-                            pencarian kolom</b> untuk menyesuaikan tampilan sesuai kebutuhan.
-                        <br><br>
-                        <strong>Cara Penggunaan:</strong>
-                    <ul>
-                        <li>Klik ikon <b>+ Tambah</b> di sudut kanan bawah untuk menambahkan mata kuliah baru.</li>
-                        <li>Pada setiap baris, tombol <b>Ubah</b> memungkinkan Anda memperbarui informasi mata kuliah,
-                            sementara
-                            tombol <b>Daftar Modul</b> mengarahkan Anda ke daftar modul terkait mata kuliah tersebut.</li>
-                        <li>Periksa kolom <b>Status</b> untuk melihat apakah mata kuliah dalam kondisi aktif atau nonaktif,
-                            yang
-                            mempengaruhi ketersediaan mata kuliah bagi pengguna.</li>
-                        <li>Manfaatkan fitur <b>Visibilitas Kolom</b>, <b>Pengurutan</b>, dan <b>Pencarian</b> pada tabel
-                            untuk menampilkan atau menyaring data mata kuliah dengan cepat sesuai kebutuhan.</li>
-                    </ul>
+                        pencarian kolom</b> untuk menyesuaikan tampilan sesuai kebutuhan.
                     </p>
 
 
@@ -62,8 +49,8 @@
                                     <th>SKS</th>
                                     <th>Durasi</th>
                                     <th class="data-long">Deskripsi Pratinjau</th>
-                                    <th class="data-long">Catatan Admin</th>
                                     <th class="data-long">Konten</th>
+                                    <th class="data-long">Catatan Admin</th>
                                     <th>Waktu Dibuat</th>
                                     <th>Dibuat Oleh</th>
                                     <th>Waktu Diperbarui</th>
@@ -73,7 +60,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -84,8 +71,8 @@
                                     <th>SKS</th>
                                     <th>Durasi</th>
                                     <th>Deskripsi Pratinjau</th>
-                                    <th>Catatan Admin</th>
                                     <th>Konten</th>
+                                    <th>Catatan Admin</th>
                                     <th>Waktu Dibuat</th>
                                     <th>Dibuat Oleh</th>
                                     <th>Waktu Diperbarui</th>
@@ -108,8 +95,8 @@
                                     <th>SKS</th>
                                     <th>Durasi</th>
                                     <th class="data-long">Deskripsi Pratinjau</th>
-                                    <th class="data-long">Catatan Admin</th>
                                     <th class="data-long">Konten</th>
+                                    <th class="data-long">Catatan Admin</th>
                                     <th>Waktu Dibuat</th>
                                     <th>Dibuat Oleh</th>
                                     <th>Waktu Diperbarui</th>
@@ -119,7 +106,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -132,8 +119,8 @@
                                     <th>SKS</th>
                                     <th>Durasi</th>
                                     <th>Deskripsi Pratinjau</th>
-                                    <th>Catatan Admin</th>
                                     <th>Konten</th>
+                                    <th>Catatan Admin</th>
                                     <th>Waktu Dibuat</th>
                                     <th>Dibuat Oleh</th>
                                     <th>Waktu Diperbarui</th>
@@ -173,8 +160,8 @@
                 { data: "credits", name: "credits", orderable: true, searchable: true },
                 { data: "duration", name: "duration", orderable: true, searchable: true },
                 { data: "short_description", name: "short_description", orderable: true, searchable: true },
-                { data: "description", name: "description", orderable: true, searchable: true },
                 { data: "content", name: "content", orderable: true, searchable: true },
+                { data: "description", name: "description", orderable: true, searchable: true },
                 { data: "created_at", name: "created_at" },
                 { data: "created_id", name: "created_id" },
                 { data: "updated_at", name: "updated_at" },
@@ -193,8 +180,8 @@
                 { data: "credits", name: "credits", orderable: true, searchable: true },
                 { data: "duration", name: "duration", orderable: true, searchable: true },
                 { data: "short_description", name: "short_description", orderable: true, searchable: true },
-                { data: "description", name: "description", orderable: true, searchable: true },
                 { data: "content", name: "content", orderable: true, searchable: true },
+                { data: "description", name: "description", orderable: true, searchable: true },
                 { data: "created_at", name: "created_at" },
                 { data: "created_id", name: "created_id" },
                 { data: "updated_at", name: "updated_at" },
