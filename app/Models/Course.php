@@ -71,7 +71,8 @@ class Course extends Model
         return $this->total_duration;
     }
 
-    public static function CurrentDataCourse($idCourse){
+    public static function CurrentDataCourse($idCourse)
+    {
         $currentDataCourse = collect(DB::select('SELECT course.id AS course_id,
             course.credits AS credits,
             course.duration AS duration,
@@ -89,7 +90,8 @@ class Course extends Model
         return $currentDataCourse;
     }
 
-    public static function CurrentCoursePackages($idCourse){
+    public static function CurrentCoursePackages($idCourse)
+    {
         $currentCoursePackages = collect(DB::select('SELECT course_package.id AS course_package_id, course_package.name AS course_package_name,
             course_package.price AS course_package_price
             FROM course
@@ -100,103 +102,8 @@ class Course extends Model
         return $currentCoursePackages;
     }
 
-
-    public static function postEditCourse($request){
-        $idCourse = $request->id;
-        if ($request->hasFile('file_image')) {
-            $file = $request->file('file_image');
-            $fileName = $file->getClientOriginalName();
-            $file->move(public_path('/uploads/course_img'), $fileName);
-        }
-        else{
-            $fileName = Course::find($idCourse)->image;
-        }
-        $trim_mini_fake_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_fake_price));
-        $trim_mini_price = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_price));
-
-        $courses = Course::find($idCourse);
-        // Concatenate kode mata kuliah dan nama mata kuliah
-        $courseCode = $request->code;
-        $courseName = $request->name;
-
-        // dd($request->name);
-
-        $courseConcatenate = $request->has('mbkmForm') ? $courseName : Str::upper($courseCode) . '-' . $courseName;
-
-
-        if ($request->package && $courses->fake_price && $courses->price){
-            return ($updateData = DB::table('course')
-                ->where('id', $idCourse)
-                ->update([
-                    'name' => $courseConcatenate,
-                    'fake_price' => null,
-                    'price' => null,
-                    'credits' => $request->credits,
-                    'duration' => $request->duration,
-                    'short_description' => $request->short_description,
-                    'image' => $fileName,
-                    'payment_link' => $request->payment_link,
-                    'slug' => $request->slug,
-                    'm_course_type_id' => $request->type,
-                    'course_package_id' => $request->type == 2 ? null : $request->package_price,
-                    'm_difficulty_type_id' => $request->level,
-                    'content' => $request->content,
-                    'description' => $request->description,
-                    'status' => $request->status == 0 ? 0 : 1,
-                    'created_id' => Auth::user()->id,
-                    'updated_id' => Auth::user()->id
-            ]));
-
-        } else if ($request->mini_fake_price && $request->mini_price && $courses->course_package_id){
-            return ($updateData = DB::table('course')
-                ->where('id', $idCourse)
-                ->update([
-                    'name' => $courseConcatenate,
-                    'fake_price' => (float)$trim_mini_fake_price,
-                    'price' => (float)$trim_mini_price,
-                    'credits' => $request->credits,
-                    'duration' => $request->duration,
-                    'short_description' => $request->short_description,
-                    'image' => $fileName,
-                    'payment_link' => $request->payment_link,
-                    'slug' => $request->slug,
-                    'm_course_type_id' => $request->type,
-                    'course_package_id' => $request->type == 2 ? null : $request->package,
-                    'm_difficulty_type_id' => $request->level,
-                    'content' => $request->content,
-                    'description' => $request->description,
-                    'status' => $request->status == 0 ? 0 : 1,
-                    'created_id' => Auth::user()->id,
-                    'updated_id' => Auth::user()->id
-            ]));
-
-        } else {
-            return ($updateData = DB::table('course')
-                ->where('id', $idCourse)
-                ->update([
-                    'name' => $courseConcatenate,
-                    'fake_price' => $request->mini_fake_price ? $trim_mini_fake_price : null,
-                    'price' => $request->mini_price ? $trim_mini_price : null,
-                    'credits' => $request->credits,
-                    'duration' => $request->duration,
-                    'short_description' => $request->short_description,
-                    'content' => $request->content,
-                    'image' => $fileName,
-                    'payment_link' => $request->payment_link,
-                    'slug' => $request->slug,
-                    'm_course_type_id' => $request->type,
-                    'course_package_id' => $request->package ? $request->package : null,
-                    'm_difficulty_type_id' => $request->level,
-                    'description' => $request->description,
-                    'status' => $request->status == 0 ? 0 : 1,
-                    'created_id' => Auth::user()->id,
-                    'updated_id' => Auth::user()->id
-            ]));
-        }
-
-    }
-
-    public static function getCourseDetailByCourseId($course_id){
+    public static function getCourseDetailByCourseId($course_id)
+    {
         $course_detail = DB::table('course as c')
             ->select('c.*', 'mct.name as course_type_name', 'mct.slug as course_type_slug', 'mct.id as course_type_id')
             ->join('m_course_type as mct', 'mct.id', '=', 'c.m_course_type_id')

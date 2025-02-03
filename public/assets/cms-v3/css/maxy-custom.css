@@ -1,0 +1,45 @@
+/* MAXY COLOR CODE */
+.maxy-primary {
+    color: #fbb041;
+}
+.maxy-bg-primary {
+    background-color: #fbb041;
+}
+.maxy-btn-primary {
+    background-color: #fbb041;
+    color: #010101;
+}
+.maxy-btn-primary:hover {
+    background-color: #efe2ba;
+    color: #fff;
+}
+.maxy-secondary {
+    color: #232f65;
+}
+.maxy-bg-secondary {
+    background-color: #232f65;
+}
+.maxy-btn-secondary {
+    background-color: #232f65;
+    color: #fff;
+}
+.maxy-btn-secondary:hover {
+    background-color: #c5cbe3;
+    color: #fff;
+}
+.maxy-primary-shade1 {
+    color: #f13c20;
+}
+.maxy-primary-shade2 {
+    color: #efe2ba;
+}
+.maxy-bg-primary-shade2 {
+    background-color: #efe2ba;
+}
+.maxy-dark1 {
+    color: #1e1e1e;
+}
+.maxy-dark2 {
+    color: #808080;
+}
+/* ### */

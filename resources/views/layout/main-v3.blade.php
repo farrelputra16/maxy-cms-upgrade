@@ -101,6 +101,7 @@
     <!-- Custom Css -->
     <link href="{{ asset('assets/cms-v3/css/datatables-custom.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/cms-v3/css/maxy-custom.css') }}" rel="stylesheet" type="text/css" />
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>

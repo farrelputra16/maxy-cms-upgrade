@@ -118,8 +118,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/course/edit/MBKM', [CourseController::class, 'getEditMBKM'])->name('getEditMBKM')->middleware('access:course_update');
 
-    Route::post('/course/delete', [CourseController::class, 'postDeleteCourse'])->name('postDeleteCourse')->middleware('access:course_delete');
-
     // Programming Language Route ###########################################################################################################
     Route::get('/programming-language', [ProgrammingLanguageController::class, 'getProgrammingLanguage'])->name('getProgrammingLanguage')->middleware('access:m_programming_language_manage');
     Route::get('/programming-language/data', [ProgrammingLanguageController::class, 'getProgrammingLanguageData'])->name('getProgrammingLanguageData');

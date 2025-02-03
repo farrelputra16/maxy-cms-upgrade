@@ -23,7 +23,8 @@ class CourseController extends Controller
         return view('course.indexv3');
     }
 
-    function getCourseData(Request $request){
+    function getCourseData(Request $request)
+    {
         $searchValue = $request->input('search.value');
         $orderColumnIndex = $request->input('order.0.column');
         $orderDirection = $request->input('order.0.dir', 'asc');
@@ -37,7 +38,7 @@ class CourseController extends Controller
         $orderColumnMapping = [
             'DT_RowIndex' => 'id',
         ];
-        
+
         // Gunakan mapping untuk menentukan kolom pengurutan
         $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
@@ -45,7 +46,7 @@ class CourseController extends Controller
             ->whereHas('type', function ($q) {
                 $q->where('name', '!=', 'MBKM');
             })
-            ->select('id', 'name', 'fake_price', 'price', 'm_course_type_id', 'credits', 'duration', 'short_description', 'description', 'content', 'created_at', 'created_id','updated_at', 'updated_id', 'status')
+            ->select('id', 'name', 'fake_price', 'price', 'm_course_type_id', 'credits', 'duration', 'short_description', 'description', 'content', 'created_at', 'created_id', 'updated_at', 'updated_id', 'status')
             ->orderBy($finalOrderColumn, $orderDirection);
 
         foreach ($columns as $column) {
@@ -67,7 +68,7 @@ class CourseController extends Controller
             }
         }
 
-        if (env('APP_ENV')=='local') {
+        if (env('APP_ENV') == 'local') {
             return DataTables::of($partners)
                 ->addIndexColumn() // Adds DT_RowIndex for serial number
                 ->addColumn('id', function ($row) {
@@ -217,7 +218,8 @@ class CourseController extends Controller
         return view('course.MBKM.indexv3');
     }
 
-    function getCourseMBKMData(Request $request){
+    function getCourseMBKMData(Request $request)
+    {
         $searchValue = $request->input('search.value');
         $orderColumnIndex = $request->input('order.0.column');
         $orderDirection = $request->input('order.0.dir', 'asc');
@@ -231,7 +233,7 @@ class CourseController extends Controller
         $orderColumnMapping = [
             'DT_RowIndex' => 'id',
         ];
-        
+
         // Gunakan mapping untuk menentukan kolom pengurutan
         $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
@@ -328,14 +330,15 @@ class CourseController extends Controller
         $allCourseDifficulty = MDifficultyType::where('status', 1)->get();
         $allCourseCategory = Category::where('status', 1)->get();
         $allCoursePackages = CoursePackage::where('status', 1)->get();
+        $allDifficultyTypes = MDifficultyType::where('status', 1)->get();
 
-
-        return view('course.addv3', [
+        return view('course.manage', [
             'allPackagePrices' => $allPackagePrices,
             'allCourseTypes' => $allCourseTypes,
             'allCourseDifficulty' => $allCourseDifficulty,
             'allCourseCategory' => $allCourseCategory,
-            'allCoursePackages' => $allCoursePackages
+            'allCoursePackages' => $allCoursePackages,
+            'allDifficultyTypes' => $allDifficultyTypes,
         ]);
     }
 
@@ -366,42 +369,39 @@ class CourseController extends Controller
 
     public function postAddCourse(Request $request)
     {
-
-        // Validasi input dengan aturan dinamis
+        // validation with dynamic rules
         $validated = $request->validate([
-            'code' => $request->has('mbkmForm') ? 'nullable' : 'required', // Code wajib jika route adalah /course/add
             'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
             'slug' => 'required',
             'type' => 'required',
-            'mini_fake_price' => 'nullable|string',
-            'mini_price' => 'nullable|string',
-            'credits' => 'nullable|numeric|min:0',
-            'duration' => 'nullable|numeric|min:0',
             'file_image' => [
                 'nullable',
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',
-                'max:2048', // Validasi ukuran maksimal 2MB
+                'max:2048', // max filesize 2MB
             ],
-            'short_description' => 'nullable|string|max:500',
-            'payment_link' => env('APP_ENV') != 'local' ? ['required', 'url', 'regex:/^https:\/\/.+$/'] : 'nullable',
-            'level' => 'nullable|numeric',
-            'content' => 'nullable|string|max:65535',
-            'description' => 'nullable|string',
-            'courseCategory' => 'nullable|array',
+            'level' => 'required|numeric', // difficulty level
+            'courseCategory' => 'required|array',
             'courseCategory.*' => 'exists:m_category_course,id',
+            'short_description' => 'nullable|string', // preview text
+            'content' => 'required|string', // full content text
+            'payment_link' => 'nullable|string|max:255',
+            'mini_fake_price' => 'nullable|string',
+            'mini_price' => 'nullable|string',
+            'credits' => 'required|numeric|min:1',
+            'description' => 'nullable|string', // admin notes
+
         ], [
-            'file_image.max' => 'Ukuran gambar terlalu besar, maksimal 2MB.', // Pesan error khusus
-            'file_image.image' => 'File yang diunggah harus berupa gambar.',
-            'file_image.mimes' => 'Format gambar harus salah satu dari: jpeg, png, jpg, gif, svg.',
-            'payment_link.required' => 'Link pembayaran diperlukan untuk lingkungan non-lokal.',
-            'payment_link.url' => 'Link pembayaran harus berupa URL valid.',
-            'payment_link.regex' => 'Link pembayaran harus diawali dengan "https://".',
-            'name.regex' => 'Nama hanya boleh mengandung huruf, angka, dan spasi.',
+            'file_image.max' => 'File is too large! (max 2MB)', // Pesan error khusus
+            'file_image.image' => 'File must be a type of image! (jpeg, png, jpg, gif, svg)',
+            'file_image.mimes' => 'File must be a type of image! (jpeg, png, jpg, gif, svg)',
+            'payment_link.url' => 'Payment link must use a valid URL!',
+            'payment_link.regex' => 'Payment link must start with "https://"!',
+            'name.regex' => 'Name must only contain letters, numbers, or spaces!',
         ]);
 
         try {
-            // Proses upload file gambar
+            // upload image file
             $fileName = null;
             if ($request->hasFile('file_image')) {
                 $file = $request->file('file_image');
@@ -409,33 +409,31 @@ class CourseController extends Controller
                 $file->move(public_path('/uploads/course_img'), $fileName);
             }
 
-            // Bersihkan simbol "Rp." dan karakter non-angka dari harga
-            $trim_mini_fake_price = preg_replace('/[^\d]/', '', $request->mini_fake_price);
-            $trim_mini_price = preg_replace('/[^\d]/', '', $request->mini_price);
+            // remove all non-numeric characters from price
+            $trimDiscountedPrice = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_fake_price));
+            $trimPrice = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_price));
 
-            // Concatenate kode mata kuliah dan nama mata kuliah
-            $courseCode = $request->code;
-            $courseName = $request->name;
+            // if there is discounted price, put it on price. original price will be put on "fake price" column instead.
+            if($trimDiscountedPrice > 0){
+                $fakePrice = $trimPrice;
+                $price = $trimDiscountedPrice;
+            }
 
-            $courseConcatenate = $request->has('mbkmForm') ? $courseName : Str::upper($courseCode) . '-' . $courseName;
-
-            // dd($courseConcatenate);
-
-            // Simpan data course ke database
+            // create new course
             $create = Course::create([
-                'name' => $courseConcatenate,
-                'fake_price' => (float) $trim_mini_fake_price,
-                'price' => (float) $trim_mini_price,
-                'short_description' => $request->short_description,
-                'image' => $fileName,
-                'payment_link' => env('APP_ENV') != 'local' ? $request->payment_link : null,
+                'name' => $request->name,
                 'slug' => $request->slug,
+                'image' => $fileName,
                 'credits' => $request->credits,
                 'duration' => $request->duration,
+                'short_description' => $request->short_description,
                 'm_course_type_id' => $request->type,
                 'course_package_id' => $request->type == 2 ? null : $request->package,
                 'm_difficulty_type_id' => $request->level,
                 'content' => $request->content,
+                'fake_price' => (float) $fakePrice,
+                'price' => (float) $price,
+                'payment_link' => env('APP_ENV') != 'local' ? $request->payment_link : null,
                 'description' => $request->description,
                 'status' => $request->status == '' ? 0 : 1,
                 'created_id' => Auth::user()->id,
@@ -443,9 +441,10 @@ class CourseController extends Controller
             ]);
 
             if ($create) {
-                session()->flash('course_added', 'Mata Kuliah berhasil dibuat! Silakan tambahkan modul untuk mata kuliah ini.');
+                session()->flash('course_added', 'Course created successfully! Please add new modules for this course.');
                 $categories = $request->courseCategory;
 
+                // add course category to category pivot table
                 if ($categories) {
                     foreach ($categories as $categoryId) {
                         DB::table('course_category')->insert([
@@ -457,19 +456,19 @@ class CourseController extends Controller
                     }
                 }
 
-                // Redirect berdasarkan tipe course
+                // redirect based on course type
                 $courseType = MCourseType::find($request->type);
                 if ($courseType && $courseType->name === 'MBKM') {
                     return redirect()->route('getCourseMBKM')->with('success', 'Berhasil menambahkan mata kuliah MBKM!');
                 } else {
-                    return redirect()->route('getCourse')->with('success', 'Berhasil menambahkan mata kuliah!');
+                    return redirect()->route('getCourse')->with('success', 'Course created successfully!');
                 }
             } else {
                 return app(HelperController::class)->Warning('getCourse');
             }
         } catch (\Exception $e) {
             \Log::error('Error adding course: ' . $e->getMessage());
-            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menambahkan mata kuliah.'])->withInput();
+            return redirect()->back()->withErrors(['error' => 'Error while trying to create the course'])->withInput();
         }
     }
 
@@ -478,14 +477,14 @@ class CourseController extends Controller
     function getEditCourse(Request $request)
     {
         $idCourse = $request->id;
-        $courses = Course::find($idCourse);
+        $course = Course::find($idCourse);
 
-        if (strpos($courses->name, '-') !== false) {
-            $parts = explode('-', $courses->name, 2);
-            $courses->code = trim($parts[0]);
+        if (strpos($course->name, '-') !== false) {
+            $parts = explode('-', $course->name, 2);
+            $course->code = trim($parts[0]);
             $name = trim($parts[1]);
         } else {
-            $courses->code = null;
+            $course->code = null;
         }
 
         $allCourseCategory = Category::where('status', 1)->get();
@@ -507,10 +506,10 @@ class CourseController extends Controller
             $allCoursePackages = CoursePackage::where('id', '!=', $currentCoursePackages->course_package_id)->where('status', 1)->get();
         } //dd($selectedCategoryId);
 
-        // dd(explode('-', $courses->name));
+        // dd(explode('-', $course->name));
 
-        return view('course.editv3', [
-            'courses' => $courses,
+        return view('course.manage', [
+            'course' => $course,
             'currentDataCourse' => $currentDataCourse,
             'allCourseTypes' => $allCourseTypes,
             'currentCoursePackages' => $currentCoursePackages,
@@ -555,68 +554,117 @@ class CourseController extends Controller
 
     function postEditCourse(Request $request)
     {
-        // Validasi input dengan pesan kustom
+        // validation with dynamic rules
         $validated = $request->validate([
-            'code' => $request->has('mbkmForm') ? 'nullable' : 'required',
-            'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255',
-            'mini_fake_price' => 'nullable|string',
-            'mini_price' => 'nullable|string',
-            'credits' => 'nullable|numeric|min:0',
-            'duration' => 'nullable|numeric|min:0',
-            'short_description' => 'nullable|string',
+            'name' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
+            'slug' => 'required',
+            'type' => 'required',
             'file_image' => [
                 'nullable',
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',
-                'max:2048', // Maksimal 2MB
+                'max:2048', // max filesize 2MB
             ],
+            'level' => 'required|numeric', // difficulty level
+            'courseCategory' => 'required|array',
+            'courseCategory.*' => 'exists:m_category_course,id',
+            'short_description' => 'nullable|string', // preview text
+            'content' => 'required|string', // full content text
+            'payment_link' => 'nullable|string|max:255',
+            'mini_fake_price' => 'nullable|string',
+            'mini_price' => 'nullable|string',
+            'credits' => 'required|numeric|min:1',
+            'description' => 'nullable|string', // admin notes
+
         ], [
-            'file_image.max' => 'Ukuran gambar terlalu besar, maksimal 2MB.', // Pesan error spesifik
-            'file_image.image' => 'File yang diunggah harus berupa gambar.',
-            'file_image.mimes' => 'Format gambar harus salah satu dari: jpeg, png, jpg, gif, svg.',
+            'file_image.max' => 'File is too large! (max 2MB)', // Pesan error khusus
+            'file_image.image' => 'File must be a type of image! (jpeg, png, jpg, gif, svg)',
+            'file_image.mimes' => 'File must be a type of image! (jpeg, png, jpg, gif, svg)',
+            'payment_link.url' => 'Payment link must use a valid URL!',
+            'payment_link.regex' => 'Payment link must start with "https://"!',
+            'name.regex' => 'Name must only contain letters, numbers, or spaces!',
         ]);
 
         try {
-            $updateData = Course::postEditCourse($request);
-            if (CourseCategory::where('course_id', $request->id)->exists()) {
-                DB::table('course_category')->where('course_id', $request->id)->delete();
-            }
+            $course = Course::find($request->id);
 
-            $categories = $request->input('courseCategory');
-            if ($categories) {
-                foreach ($categories as $categoryId) {
-                    DB::table('course_category')->insert([
-                        'course_id' => $request->id,
-                        'category_id' => $categoryId,
-                        'created_id' => Auth::user()->id,
-                        'updated_id' => Auth::user()->id,
-                    ]);
+            if ($course) {
+
+                // save new cover image file
+                if ($request->hasFile('file_image')) {
+                    $file = $request->file('file_image');
+                    $fileName = $file->getClientOriginalName();
+                    $file->move(public_path('/uploads/course_img'), $fileName);
+                } else {
+                    $fileName = $course->image;
                 }
-            }
 
-            // Cek apakah course type adalah MBKM
-            $courseType = MCourseType::find($request->type);
-            if ($courseType && $courseType->name === 'MBKM') {
-                return redirect()->route('getCourseMBKM')->with('success', 'Berhasil mengubah mata kuliah MBKM!');
+                // remove all non-numeric characters from price
+                $trimDiscountedPrice = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_fake_price));
+                $trimPrice = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_price));
+
+                // if there is discounted price, put it on price. original price will be put on "fake price" column instead.
+                if($trimDiscountedPrice > 0){
+                    $fakePrice = $trimPrice;
+                    $price = $trimDiscountedPrice;
+                }
+
+                $update = DB::table('course')
+                    ->where('id', $course->id)
+                    ->update([
+                        'name' => $request->name,
+                        'slug' => $request->slug,
+                        'image' => $fileName,
+                        'credits' => $request->credits,
+                        'duration' => $request->duration,
+                        'm_course_type_id' => $request->type,
+                        'm_difficulty_type_id' => $request->level,
+                        'short_description' => $request->short_description,
+                        'content' => $request->content,
+                        'payment_link' => $request->payment_link,
+                        'fake_price' => $fakePrice,
+                        'price' => $price,
+                        'description' => $request->description,
+                        'status' => $request->status == 0 ? 0 : 1,
+                        'updated_id' => Auth::user()->id
+                    ]);
+
+                if ($update) {
+                    // delete and re-insert course category
+                    if (CourseCategory::where('course_id', $request->id)->exists()) {
+                        DB::table('course_category')->where('course_id', $request->id)->delete();
+                    }
+
+                    $categories = $request->input('courseCategory');
+                    if ($categories) {
+                        foreach ($categories as $categoryId) {
+                            DB::table('course_category')->insert([
+                                'course_id' => $request->id,
+                                'category_id' => $categoryId,
+                                'created_id' => Auth::user()->id,
+                                'updated_id' => Auth::user()->id,
+                            ]);
+                        }
+                    }
+
+                    // redirect based on course type
+                    $courseType = MCourseType::find($request->type);
+                    if ($courseType && $courseType->name === 'MBKM') {
+                        return redirect()->route('getCourseMBKM')->with('success', 'Berhasil mengubah mata kuliah MBKM!');
+                    } else {
+                        return redirect()->route('getCourse')->with('success', 'Course updated successfully');
+                    }
+                } else {
+                    // if update failed
+                    return redirect()->back()->withErrors(['error' => 'Error while trying to update the course!'])->withInput();
+                }
             } else {
-                return redirect()->route('getCourse')->with('success', 'Berhasil mengubah mata kuliah!');
+                // if course not found
+                return redirect()->back()->withErrors(['error' => 'Course not found!'])->withInput();
             }
         } catch (\Exception $e) {
-            // Log error untuk developer/admin
-            \Log::error('Error updating course: ' . $e->getMessage());
-
-            // Kembalikan pesan error yang ramah kepada user
-            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat mengubah mata kuliah.'])->withInput();
-        }
-    }
-
-    public function postDeleteCourse(Request $request)
-    {
-        $idCourse = $request->id;
-
-        try {
-        } catch (Error $e) {
+            Log::error('Error updating course: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['error' => 'Error while trying to update the course!'])->withInput();
         }
     }
 }
