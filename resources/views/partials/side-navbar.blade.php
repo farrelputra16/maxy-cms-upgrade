@@ -42,29 +42,16 @@
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'course_manage'))
-                                <li><a href="{{ route('getCourse') }}" key="t-carousel">Mata Kuliah</a></li>
-                            @endif
-                            @if (env('APP_ENV') == 'local')
-                                @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'course_manage'))
-                                    <li><a href="{{ route('getCourseMBKM') }}" key="t-carousel">MBKM</a></li>
-                                @endif
+                                <li><a href="{{ route('getCourse') }}" key="t-carousel">Course</a></li>
                             @endif
                             @if (Session::has('access_master') &&
                                     Session::get('access_master')->contains('access_master_name', 'm_course_type_manage'))
-                                <li><a href="{{ route('getCourseType') }}" key="t-testimonial">Jenis Mata Kuliah</a>
+                                <li><a href="{{ route('getCourseType') }}" key="t-testimonial">Course Type</a>
                                 </li>
-                            @endif
-                            @if (env('APP_ENV') != 'local')
-                                @if (Session::has('access_master') &&
-                                        Session::get('access_master')->contains('access_master_name', 'course_package_manage'))
-                                    <li><a href="{{ route('getCoursePackage') }}" key="t-blog">Paket Mata Kuliah</a>
-                                    </li>
-                                @endif
                             @endif
                             @if (Session::has('access_master') &&
                                     Session::get('access_master')->contains('access_master_name', 'm_difficulty_type_manage'))
-                                <li><a href="{{ route('getDifficulty') }}" key="t-blog">Tingkat Kesulitan Mata
-                                        Kuliah</a></li>
+                                <li><a href="{{ route('getDifficulty') }}" key="t-blog">Difficulty Type</a></li>
                             @endif
                             @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'm_partner_manage'))
                                 <li><a href="{{ route('getPartner') }}" key="t-blog">Mitra</a></li>
@@ -107,7 +94,7 @@
                             @endif
                             @if (Session::has('access_master') &&
                                     Session::get('access_master')->contains('access_master_name', 'm_class_type_manage'))
-                                <li><a href="{{ route('getClassType') }}" key="t-blog">Jenis Kelas</a></li>
+                                <li><a href="{{ route('getClassType') }}" key="t-blog">Class Type</a></li>
                             @endif
                             @if (Session::has('access_master') &&
                                     Session::get('access_master')->contains('access_master_name', 'm_module_type_manage'))
@@ -115,7 +102,8 @@
                             @endif
                             @if (Session::has('access_master') &&
                                     Session::get('access_master')->contains('access_master_name', 'm_programming_language_manage'))
-                                <li><a href="{{ route('getProgrammingLanguage') }}" key="t-blog">Bahasa Pemrograman</a></li>
+                                <li><a href="{{ route('getProgrammingLanguage') }}" key="t-blog">Bahasa
+                                        Pemrograman</a></li>
                             @endif
                         </ul>
                     </li>
@@ -128,28 +116,29 @@
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class='bx bxs-graduation'></i>
-                            <span key="t-class">Kelas</span>
+                            <span key="t-class">Class</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             @if (Session::has('access_master') &&
                                     Session::get('access_master')->contains('access_master_name', 'course_class_manage'))
-                                <li><a href="{{ route('getCourseClass') }}" key="t-class">Daftar Kelas</a></li>
+                                <li><a href="{{ route('getCourseClass') }}" key="t-class">Class List</a></li>
                             @endif
 
                             @if (Session::has('access_master') &&
                                     Session::get('access_master')->contains('access_master_name', 'template_certificate_manage'))
-                                <li><a href="{{ route('certificate-templates.index') }}" key="t-certificate">Template
-                                        Sertifikat</a></li>
+                                <li><a href="{{ route('certificate-templates.index') }}"
+                                        key="t-certificate">Certificate Template</a></li>
                             @endif
 
                             @if (Session::has('access_master') &&
                                     Session::get('access_master')->contains('access_master_name', 'course_class_member_log_read'))
-                                <li><a href="{{ route('getCCMH') }}" key="t-student-tracker">Riwayat Mahasiswa</a></li>
+                                <li><a href="{{ route('getCCMH') }}" key="t-student-tracker">Student Tracker</a></li>
                             @endif
                             {{-- <li><a href="{{ route('getCCMH') }}" key="t-student-tracker">Student Tracker</a></li> --}}
                             @if (Session::has('access_master') &&
                                     Session::get('access_master')->contains('access_master_name', 'course_class_member_grading_manage'))
-                                <li><a href="{{ route('getGrade') }}" key="t-grade-assignment">Penilaian Tugas</a></li>
+                                <li><a href="{{ route('getGrade') }}" key="t-grade-assignment">Grade Assignment</a>
+                                </li>
                             @endif
                         </ul>
                     </li>
@@ -298,13 +287,35 @@
                     </li>
                 @endif
 
-                @if (env('APP_ENV') != 'local')
-                    @if (Route::has('pageManagement.page.index'))
+                @if (Route::has('pageManagement.page.index'))
+                    <li>
+                        <a href="{{ route('pageManagement.page.index') }}" class="waves-effect">
+                            <i class='bx bx-code-block'></i>
+                            <span key="t-landing-page">Landing Page</span>
+                        </a>
+                    </li>
+                @endif
+
+                <!-- check if report module enabled by route check -->
+                @if (Route::has('report.user.index'))
+
+                    <!-- check if user have access to manage report modules -->
+                    @if (Session::has('access_master') &&
+                            Session::get('access_master')->contains(function ($access) {
+                                return in_array($access->access_master_name, ['report_user_manage']);
+                            }))
                         <li>
-                            <a href="{{ route('pageManagement.page.index') }}" class="waves-effect">
-                                <i class='bx bx-code-block'></i>
-                                <span key="t-landing-page">Landing Page</span>
+
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class='bx bxs-report'></i>
+                                <span key="t-report">Report</span>
                             </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                @if (Session::has('access_master') &&
+                                        Session::get('access_master')->contains('access_master_name', 'report_user_manage'))
+                                    <li><a href="{{ route('report.user.index') }}" key="t-report-user">User</a></li>
+                                @endif
+                            </ul>
                         </li>
                     @endif
                 @endif
@@ -331,6 +342,7 @@
                         </ul>
                     </li>
                 @endif
+
                 <li>
                     <a href="{{ route('profile') }}" class="waves-effect">
                         <i class="bx bx-info-circle"></i>

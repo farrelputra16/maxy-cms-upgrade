@@ -318,11 +318,9 @@ class CourseModuleController extends Controller
     {
         $course_id = $request->id;
         $course_detail = Course::getCourseDetailByCourseId($course_id);
-        $page_type = $request->page_type;
 
-        return view('course_module.addv3', [
+        return view('course_module.manage', [
             'course_detail' => $course_detail,
-            'page_type' => $page_type,
         ]);
     }
 
@@ -334,22 +332,11 @@ class CourseModuleController extends Controller
             'priority' => 'required',
         ]);
 
-        $level = 1;
-        $type = '';
-
-        if ($request->page_type == 'LMS') {
-            $type = 'parent';
-        }
-        if ($request->page_type == 'CP') {
-            $type = 'company_profile';
-        }
-        // dd($type);
-
         $create = CourseModule::create([
             'name' => $request->name,
             'priority' => $request->priority,
-            'level' => $level,
-            'type' => $type,
+            'level' => 1,
+            'type' => 'parent',
             'course_id' => $request->course_id,
             'content' => $request->content,
             'description' => $request->description,
@@ -360,9 +347,9 @@ class CourseModuleController extends Controller
 
         if ($create) {
             session()->flash('parent_module_added', 'Modul berhasil ditambahkan! Silakan tambahkan konten.');
-            return redirect()->route('getCourseModule', ['course_id' => $request->course_id, 'page_type' => $request->page_type])->with('success', 'Sukses Menambah Modul');
+            return redirect()->route('getCourseModule', ['course_id' => $request->course_id])->with('success', 'Sukses Menambah Modul');
         } else {
-            return redirect()->route('getCourseModule', ['course_id' => $request->course_id, 'page_type' => $request->page_type])->with('error', 'Gagal Menambah Modul, silahkan coba lagi');
+            return redirect()->route('getCourseModule', ['course_id' => $request->course_id])->with('error', 'Gagal Menambah Modul, silahkan coba lagi');
         }
     }
 
@@ -372,11 +359,11 @@ class CourseModuleController extends Controller
         $module_id = $request->id;
         $module_detail = CourseModule::getCourseModuleDetailByModuleId($module_id);
         $course = Course::where('id', $module_detail->course_id)->with('type')->first();
+        $course_detail = Course::getCourseDetailByCourseId($course->id);
 
-        return view('course_module.editv3', [
+        return view('course_module.manage', [
             'module_detail' => $module_detail,
-            'course' => $course,
-            'page_type' => $request->page_type,
+            'course_detail' => $course_detail,
         ]);
     }
 
@@ -431,7 +418,8 @@ class CourseModuleController extends Controller
             ->first();
 
         // dd($highestPriority);
-        return view('course_module.child.addv3', [
+        return view('course_module.child.manage', [
+            'course_detail' => $course_detail,
             'course_type' => $course_type,
             'parent' => $parent,
             'page_type' => $request->page_type,
@@ -486,8 +474,6 @@ class CourseModuleController extends Controller
         $parentModule = CourseModule::find($request->parentId);
 
         if ($request->hasFile('material')) {
-            $material = $file->getClientOriginalName();
-
             $file = $request->file('material');
             $material = $file->getClientOriginalName();
             $destinationPath = public_path('/fe/public/files');
@@ -541,6 +527,11 @@ class CourseModuleController extends Controller
         $course_type = MCourseType::find($course_detail->m_course_type_id);
         $quiz = MSurvey::where('type', 1)->get();
         $type = MModuleType::where('status', 1)->get();
+        foreach($type as $data){
+            if($data->id == $childModule->type){
+                $childModule->type_name = $data->name;
+            }
+        }
         $idQuiz = '';
         if ($childModule->type == '6') {
             $idQuiz = Str::afterLast($childModule->content, '/');
@@ -551,7 +542,6 @@ class CourseModuleController extends Controller
             $idEval = Str::afterLast($childModule->content, '/');
         }
 
-        // dd($childModule);
         return view('course_module.child.editv3', [
             'childModule' => $childModule,
             'parentModule' => $parentModule,
@@ -622,8 +612,7 @@ class CourseModuleController extends Controller
                 if ($request->hasFile('material')) {
                     $file = $request->file('material');
                     $material = $file->getClientOriginalName();
-                    // $destinationPath = public_path('/uploads/course_module/' . $module_detail->course_module_parent_id);
-                    $destinationPath = public_path('/fe/public/files');
+                    $destinationPath = public_path('/uploads/course_module/' . $module_detail->course_module_parent_id);
                     if (!File::exists($destinationPath)) { // create folder jika blm ada
                         File::makeDirectory($destinationPath, 0777, true, true);
                     }

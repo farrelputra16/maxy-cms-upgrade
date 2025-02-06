@@ -36,22 +36,8 @@
                     <p class="card-title-desc">
                         Halaman ini menampilkan daftar modul utama dari mata kuliah yang telah dipilih, termasuk informasi
                         detail seperti nama modul, hari pelaksanaan, konten, catatan admin, dan status aktif. Anda dapat
-                        mengelola modul dengan mudah melalui fitur tabel interaktif yang menyediakan <b>pencarian,
-                            pengurutan, dan visibilitas kolom</b>.
-                        <br><br>
-                        <strong>Cara Penggunaan:</strong>
-                    <ul>
-                        <li>Klik ikon <b>+</b> di pojok kanan bawah untuk menambahkan modul baru ke dalam mata kuliah ini.
-                        </li>
-                        <li>Tekan tombol <b>Ubah</b> pada kolom Tindakan untuk memperbarui informasi modul seperti nama atau
-                            catatan admin.</li>
-                        <li>Pilih tombol <b>Konten</b> untuk mengelola sub-modul atau materi yang ada dalam modul tersebut.
-                        </li>
-                        <li>Gunakan kolom <b>Status</b> untuk mengetahui apakah modul sedang aktif atau non-aktif, yang
-                            memengaruhi visibilitas modul bagi peserta.</li>
-                        <li>Manfaatkan fitur <b>Pencarian</b>, <b>Pengurutan</b>, dan <b>Visibilitas Kolom</b> untuk
-                            mempermudah navigasi dan akses ke modul tertentu sesuai kebutuhan.</li>
-                    </ul>
+                        mengelola modul dengan mudah melalui fitur tabel interaktif yang menyediakan
+                        <b>pencarian, pengurutan, dan visibilitas kolom</b>.
                     </p>
 
 
@@ -100,8 +86,8 @@
 
     <!-- FAB Add Starts -->
     <div id="floating-whatsapp-button">
-        <a href="{{ route('getAddCourseModule', ['id' => $course_detail->id, 'page_type' => $page_type]) }}"
-            data-toggle="tooltip" title="Tambah Modul Baru">
+        <a href="{{ route('getAddCourseModule', ['id' => $course_detail->id]) }}"
+            data-toggle="tooltip" title="Add New Parent Module">
             <i class="fas fa-plus"></i>
         </a>
     </div>

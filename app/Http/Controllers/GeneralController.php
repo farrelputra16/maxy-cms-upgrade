@@ -33,7 +33,7 @@ class GeneralController extends Controller
         $orderColumnMapping = [
             'DT_RowIndex' => 'id',
         ];
-        
+
         // Gunakan mapping untuk menentukan kolom pengurutan
         $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
@@ -189,7 +189,7 @@ class GeneralController extends Controller
                 $file->move($destinationPath, $fileName);
 
                 // Path gambar yang baru
-                $imagePath = '/uploads/images/' . $fileName;
+                $imagePath = 'images/' . $fileName;
             } else {
                 // Jika tidak ada gambar yang diupload, menggunakan value yang ada
                 $imagePath = $request->value;

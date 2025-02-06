@@ -299,6 +299,7 @@
                             <label for="input-description" class="col-md-2 col-form-label">Admin Notes</label>
                             <div class="col-md-10">
                                 <input type="text" id="input-description" name="description" class="form-control"
+                                    placeholder="This note won't be shown to the students. Only admins or mentors can see it"
                                     value="{{ old('description', isset($course) ? $course->description : '') }}">
                                 @if ($errors->has('description'))
                                     @foreach ($errors->get('description') as $error)
