@@ -1,12 +1,161 @@
 $(document).ready(function () {
-    // Ambil title dari halaman HTML
-    var pageTitle = document.title; // Mengambil title dari tag <title> di HTML
+    var pageTitle = document.title;
 
-    // Inisialisasi DataTable
+    var buttons = [
+            {
+                extend: "copy",
+                text: "Copy",
+                className: "maxy-btn-secondary custom-colvis-btn",
+            },
+            {
+                extend: "excel",
+                text: "Export Excel",
+                className: "maxy-btn-secondary custom-colvis-btn",
+            },
+            {
+                extend: "pdfHtml5",
+                text: "Export PDF",
+                className: "maxy-btn-secondary custom-colvis-btn",
+                filename: pageTitle,
+                title: pageTitle,
+                orientation: "landscape",
+                pageSize: "A4",
+                exportOptions: {
+                    columns: function (idx, data, node) {
+                        // Export only shown columns; hidden columns won't be included
+                        return (
+                            $(node).css("display") !== "none" &&
+                            !$(node).is(":last-child")
+                        );
+                    },
+                    format: {
+                        body: function (data, row, column, node) {
+                            // Extract only the text content from the <td> element
+                            return $(node).text().trim();
+                        },
+                    },
+                },
+                customize: function (doc) {
+                    // Customize the PDF document
+                    console.log("customizing the PDF...");
+                    doc.pageMargins = [10, 10, 10, 10];
+                    var table = doc.content[1].table;
+                    var columnCount = table.body[0].length;
+                    var totalWidth = 595 - 20; // A4 landscape width minus margins (10 left + 10 right)
+                    if (columnCount > 10) {
+                        table.widths = Array(columnCount).fill(
+                            totalWidth / columnCount
+                        );
+                    } else {
+                        table.widths = Array(columnCount).fill("*");
+                    }
+                    doc.defaultStyle.fontSize = columnCount > 10 ? 6 : 8;
+                    doc.styles.tableHeader.fontSize = columnCount > 10 ? 7 : 9;
+                    doc.content[1].layout = {
+                        fillColor: function (rowIndex) {
+                            return rowIndex % 2 === 0 ? "#d9d9d9" : null;
+                        },
+                    };
+                    console.log("finished customizing the PDF.");
+                },
+            },
+            {
+                extend: "colvis",
+                className: "maxy-btn-secondary custom-colvis-btn",
+                postfixButtons: ["colvisRestore"],
+                columnText: function (dt, idx, title) {
+                    return title;
+                },
+            },
+        ];
+
+    if (window.exportCsvRoute) {
+        console.log("exportCsvRoute Found.");
+        buttons.push({
+            text: "Export All (CSV)",
+            className: "maxy-btn-secondary custom-colvis-btn",
+            action: function (e, dt, node, config) {
+                var params = dt.ajax.params();
+                params.start = 0;
+                params.length = -1; // Signal to export all data
+
+                $.ajax({
+                    url: window.exportCsvRoute,
+                    type: "POST",
+                    data: params,
+                    xhrFields: {
+                        responseType: "blob",
+                    },
+                    headers: {
+                        "X-CSRF-TOKEN": window.csrfToken,
+                    },
+                    success: function (data) {
+                        var blob = new Blob([data], { type: "text/csv" });
+                        var link = document.createElement("a");
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = "users_export.csv";
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        window.URL.revokeObjectURL(link.href);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Export error:", error);
+                        alert(
+                            "Error exporting data. Check console for details."
+                        );
+                    },
+                });
+            },
+        });
+    }
+    if (window.exportPdfRoute) {
+        console.log("exportPdfRoute Found");
+        buttons.push({
+            text: "Export All (PDF)",
+            className: "maxy-btn-secondary custom-colvis-btn",
+            action: function (e, dt, node, config) {
+                var params = dt.ajax.params();
+                params.start = 0;
+                params.length = -1; // Signal to export all data
+                $.ajax({
+                    url: window.exportPdfRoute,
+                    type: "POST",
+                    data: params,
+                    xhrFields: {
+                        responseType: "blob",
+                    },
+                    headers: {
+                        "X-CSRF-TOKEN": window.csrfToken,
+                    },
+                    success: function (data) {
+                        var blob = new Blob([data], {
+                            type: "application/pdf",
+                        });
+                        var link = document.createElement("a");
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = "users_export.pdf";
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        window.URL.revokeObjectURL(link.href);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Export error:", error);
+                        alert(
+                            "Error exporting data. Check console for details."
+                        );
+                    },
+                });
+            },
+        });
+    }
+
+    // Initialize DataTables
     $(".table").each(function () {
         var table = $(this);
 
-        // Cek apakah menggunakan server-side processing
+        // Check if DataTables is using server-side processing
         var isServerProcessing = table.data("server-processing") === true;
         var ajaxUrl = table.data("url");
         var colVis = table.data("colvis")
@@ -15,144 +164,32 @@ $(document).ready(function () {
         var id = table.data("id");
         var noStatus = table.data("no-status");
 
-        // Inisialisasi DataTable dengan atau tanpa server-side processing
+        if (isServerProcessing) console.log("server-processing set to TRUE.");
+        else console.log("server-processing set to FALSE");
+
+        // create DataTables
         var tableInstance = table.DataTable({
             dom: "Btip",
             autoWidth: true,
             scrollX: true,
             lengthChange: false,
-            processing: isServerProcessing, // Tampilkan indikator loading jika server processing aktif
-            serverSide: isServerProcessing, // Aktifkan server-side processing sesuai kebutuhan
+            processing: isServerProcessing,
+            serverSide: isServerProcessing,
             ajax: isServerProcessing
                 ? {
-                      url: ajaxUrl, // Ganti dengan URL yang sesuai
+                      url: ajaxUrl,
                       type: "GET",
                       data: function (d) {
-                          // Tambahkan data tambahan jika diperlukan
-                          d.class_id = $("#classSelect").val(); // Misal mengambil class_id dari dropdown
+                          // Add additional data if needed
+                          d.class_id = $("#classSelect").val(); // // Example: Get class_id from a dropdown
                           d.id = id;
                       },
                   }
-                : null, // Jika tidak server-side, tidak perlu ajax
+                : null, // No ajax if not server-side
             ...(isServerProcessing && { columns: columns }),
-            buttons: [
-                {
-                    extend: 'copy',
-                    text: 'Salin'
-                },
-                {
-                    extend: 'excel',
-                    text: 'Ekspor ke Excel'
-                },
-                // {
-                //     extend: "pdfHtml5",
-                //     text: "Export PDF",
-                //     filename: pageTitle, // Menggunakan title halaman sebagai nama file PDF
-                //     title: pageTitle, // Menggunakan title halaman sebagai judul PDF
-                //     orientation: "landscape", // Atur orientasi halaman PDF
-                //     pageSize: "A4", // Ukuran halaman
-                //     exportOptions: {
-                //         // Mengekspor kolom yang terlihat dan bukan kolom terakhir
-                //         columns: function (idx, data, node) {
-                //             // Pilih hanya kolom yang terlihat dan bukan kolom terakhir
-                //             return $(node).css('display') !== 'none' && !$(node).is(':last-child');
-                //         }
-                //     },
-                //     customize: function (doc) {
-                //         // Kurangi margin untuk menambah ruang
-                //         doc.styles.tableHeader.fontSize = 7; // Ukuran font header tabel
-                //         doc.styles.tableBodyOdd.fillColor = "#f3f3f3"; // Warna latar baris ganjil
-                //         doc.styles.tableBodyEven.fillColor = "#ffffff"; // Warna latar baris genap
-
-                //         // Sesuaikan lebar kolom agar sesuai dengan konten
-                //         var table = doc.content[1].table;
-                //         var columnCount = table.body[0].length;
-                //         var columnWidths = [];
-
-                //         // Tentukan lebar kolom berdasarkan konten terpanjang
-                //         for (var i = 0; i < columnCount; i++) {
-                //             var maxWidth = Math.max(
-                //                 ...table.body.map(function (row) {
-                //                     return (
-                //                         (row[i] && row[i].toString().length) ||
-                //                         0
-                //                     );
-                //                 })
-                //             );
-                //             columnWidths.push(maxWidth * 2); // Sesuaikan faktor untuk lebar kolom
-                //         }
-
-                //         // Terapkan lebar kolom yang dihitung
-                //         table.widths = columnWidths;
-
-                //         // Atur margin jika perlu
-                //         doc.pageMargins = [30, 30, 30, 30]; // Margin atas, kiri, kanan, bawah
-                //     },
-                // },
-                {
-                    extend: "pdfHtml5",
-                    text: "Export PDF",
-                    filename: pageTitle, // Gunakan title halaman sebagai nama file
-                    title: pageTitle, // Gunakan title halaman sebagai judul PDF
-                    orientation: "landscape", // Orientasi landscape untuk tabel lebar
-                    pageSize: "A4", // Ukuran kertas
-                    exportOptions: {
-                        columns: function (idx, data, node) {
-                            // Ekspor hanya kolom yang terlihat (tidak disembunyikan)
-                            return $(node).css("display") !== "none" && !$(node).is(":last-child");
-                        },
-
-                        format: {
-                            body: function (data, row, column, node) {
-                                // Ambil data dari atribut data-export jika ada
-                                var exportData = $(node).data("export");
-                                return exportData !== undefined ? exportData : data;
-                            }
-                        }
-                    },
-                    customize: function (doc) {
-                        // Gunakan margin kecil untuk memaksimalkan ruang kertas
-                        doc.pageMargins = [10, 10, 10, 10];
-
-                        // Ambil tabel dari konten
-                        var table = doc.content[1].table;
-                        var columnCount = table.body[0].length;
-
-                        // Tentukan lebar total halaman (A4 landscape dalam pt adalah 595)
-                        var totalWidth = 595 - 20; // 20 adalah total margin (10 + 10)
-
-                        // Jika tabel memiliki banyak kolom, kecilkan proporsional agar fit
-                        if (columnCount > 10) {
-                            table.widths = Array(columnCount).fill(totalWidth / columnCount);
-                        } else {
-                            // Jika kolom sedikit, gunakan auto-fit
-                            table.widths = Array(columnCount).fill("*");
-                        }
-
-                        // Sesuaikan ukuran font untuk keterbacaan
-                        doc.defaultStyle.fontSize = columnCount > 10 ? 6 : 8; // Font lebih kecil jika kolom banyak
-                        doc.styles.tableHeader.fontSize = columnCount > 10 ? 7 : 9; // Header lebih kecil juga jika kolom banyak
-
-                        // Warna latar baris bergantian
-                        doc.content[1].layout = {
-                            fillColor: function (rowIndex) {
-                                return rowIndex % 2 === 0 ? "#d9d9d9" : null; // Baris ganjil diberi warna
-                            }
-                        };
-                    }
-                },
-
-                {
-                    extend: "colvis",
-                    className: "custom-colvis-btn",
-                    postfixButtons: ["colvisRestore"],
-                    columnText: function (dt, idx, title) {
-                        return title;
-                    },
-                },
-            ],
+            buttons: buttons,
             language: {
-                url: 'https://cdn.datatables.net/plug-ins/2.1.8/i18n/id.json'  // Menambahkan URL bahasa Indonesia
+                url: "https://cdn.datatables.net/plug-ins/2.1.8/i18n/id.json", // Menambahkan URL bahasa Indonesia
             },
             scrollX: true, // Mengaktifkan scroll horizontal jika tabel terlalu lebar
             scrollCollapse: true, // Mengaktifkan collapse scroll jika tidak penuh

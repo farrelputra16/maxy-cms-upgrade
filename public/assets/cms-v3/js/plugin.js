@@ -15,11 +15,11 @@
                     document.documentElement.removeAttribute("dir");
                     updateStylesheet(
                         "bootstrap-style",
-                        baseUrl + "jago-digital/assets/css/bootstrap.min.css"
+                        baseUrl + "assets/cms-v3/css/bootstrap.min.css"
                     );
                     updateStylesheet(
                         "app-style",
-                        baseUrl + "jago-digital/assets/css/app.min.css"
+                        baseUrl + "assets/cms-v3/css/app.min.css"
                     );
                     document.documentElement.setAttribute(
                         "data-bs-theme",
@@ -30,11 +30,11 @@
                     document.documentElement.removeAttribute("dir");
                     updateStylesheet(
                         "bootstrap-style",
-                        baseUrl + "jago-digital/assets/css/bootstrap.min.css"
+                        baseUrl + "assets/cms-v3/css/bootstrap.min.css"
                     );
                     updateStylesheet(
                         "app-style",
-                        baseUrl + "jago-digital/assets/css/app.min.css"
+                        baseUrl + "assets/cms-v3/css/app.min.css"
                     );
                     document.documentElement.setAttribute(
                         "data-bs-theme",

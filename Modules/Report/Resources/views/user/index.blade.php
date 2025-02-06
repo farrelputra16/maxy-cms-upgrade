@@ -210,6 +210,13 @@
     </div>
     <!-- end DataTables -->
 
+    <script>
+        // Pass Laravel routes and CSRF token to external JS
+        window.exportCsvRoute = "{{ route('report.user.postExportCsv') }}";
+        window.exportPdfRoute = "{{ route('report.user.postExportPdf') }}";
+        window.csrfToken = "{{ csrf_token() }}";
+    </script>
+
 @endsection
 
 @section('script')
