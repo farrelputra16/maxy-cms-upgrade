@@ -10,5 +10,6 @@
     "Attendance": true,
     "Accredify": true,
     "PageManagement": true,
-    "GoKampus": true
+    "GoKampus": true,
+    "Report": true
 }
