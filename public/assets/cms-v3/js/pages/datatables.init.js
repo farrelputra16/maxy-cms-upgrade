@@ -151,6 +151,48 @@ $(document).ready(function () {
         });
     }
 
+    if (window.exportCVPdfRoute) {
+        console.log("exportCVPdfRoute Found");
+        buttons.push({
+            text: "Export All CV (PDF)",
+            className: "maxy-btn-secondary custom-colvis-btn",
+            action: function (e, dt, node, config) {
+                var params = dt.ajax.params();
+                params.start = 0;
+                params.length = -1; // Signal to export all data
+                $.ajax({
+                    url: window.exportCVPdfRoute,
+                    type: "POST",
+                    data: params,
+                    xhrFields: {
+                        responseType: "blob",
+                    },
+                    headers: {
+                        "X-CSRF-TOKEN": window.csrfToken,
+                    },
+                    success: function (data) {
+                        var blob = new Blob([data], {
+                            type: "application/pdf",
+                        });
+                        var link = document.createElement("a");
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = "users_export.pdf";
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        window.URL.revokeObjectURL(link.href);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Export error:", error);
+                        alert(
+                            "Error exporting data. Check console for details."
+                        );
+                    },
+                });
+            },
+        });
+    }
+
     // Initialize DataTables
     $(".table").each(function () {
         var table = $(this);

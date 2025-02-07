@@ -35,7 +35,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
-use ZipArchive;  
+use ZipArchive;
 use File;
 
 class ReportController extends Controller
@@ -50,172 +50,108 @@ class ReportController extends Controller
         return view('report::user.index', compact('user'));
     }
 
-    function getUserReportData(Request $request)
+    public function saveReportFilterToSession(Request $request)
     {
-        // Common query setup
-        $searchValue = $request->input('search.value');
+        $filters = [
+            'start_registered' => $request->input('start_registered'),
+            'end_registered' => $request->input('end_registered'),
+            'start_last_update' => $request->input('start_last_update'),
+            'end_last_update' => $request->input('end_last_update'),
+            'filter_name' => $request->input('filter_name'),
+        ];
+
+        session(['user_report_query' => $filters, 'filtered' => 1]);
+
+        return redirect()->back();
+    }
+
+
+
+    public function getUserReportData(Request $request)
+    {
+        $filters = session('user_report_query', []);
+
         $orderColumnIndex = $request->input('order.0.column');
         $orderDirection = $request->input('order.0.dir', 'asc');
-        $columns = $request->input('columns');//dd($orderDirection);
+        $columns = $request->input('columns');
 
         $orderColumn = 'id';
         if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
             $orderColumn = $columns[$orderColumnIndex]['data'];
         }
 
-        $orderColumnMapping = [
-            'DT_RowIndex' => 'id',
-        ];
-
-        // Use mapping to determine the sorting column
+        $orderColumnMapping = ['DT_RowIndex' => 'id'];
         $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
         $user = User::select('users.*', 'access_group.name AS accessgroup')
-            ->join('access_group', 'users.access_group_id', '=', 'access_group.id')
-            ->orderBy($finalOrderColumn, $orderDirection);
+            ->join('access_group', 'users.access_group_id', '=', 'access_group.id');
 
-        // Apply column filtering
+        if (!empty($filters['start_registered']) && !empty($filters['end_registered'])) {
+            $user->whereBetween('users.created_at', [
+                Carbon::createFromFormat('d M, Y', $filters['start_registered'])->startOfDay(),
+                Carbon::createFromFormat('d M, Y', $filters['end_registered'])->endOfDay(),
+            ]);
+        }
+
+        if (!empty($filters['start_last_update']) && !empty($filters['end_last_update'])) {
+            $user->whereBetween('users.created_at', [
+                Carbon::createFromFormat('d M, Y', $filters['start_last_update'])->startOfDay(),
+                Carbon::createFromFormat('d M, Y', $filters['end_last_update'])->endOfDay(),
+            ]);
+        }
+
+        if (!empty($filters['filter_name'])) {
+            $user->where('users.name', 'LIKE', "%{$filters['filter_name']}%");
+        }
+
+        // Apply global search
+        if (!empty($searchValue)) {
+            $user->where(function ($q) use ($searchValue, $columns) {
+                foreach ($columns as $column) {
+                    $columnName = $column['data'];
+                    if (in_array($columnName, ['DT_RowIndex', 'action'])) continue;
+                    if ($columnName === 'accessgroup') {
+                        $q->orWhere('access_group.name', 'like', "%{$searchValue}%");
+                    } else {
+                        $q->orWhere("users.{$columnName}", 'like', "%{$searchValue}%");
+                    }
+                }
+            });
+        }
+
+        // Apply column filters
         foreach ($columns as $column) {
             $columnSearchValue = $column['search']['value'] ?? null;
             $columnName = $column['data'];
-            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
-                continue;
-            } else if ($columnName == 'accessgroup') {
+            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) continue;
+
+            if ($columnName === 'accessgroup') {
                 $user->where('access_group.name', 'like', "%{$columnSearchValue}%");
-            } else if ($columnName == 'status') {
-                if (strpos(strtolower($columnSearchValue), 'non') !== false)
-                    $user->where('status', '=', 0);
-                else
-                    $user->where('user.status', '=', 1);
-            } else if ($columnName == 'name') {
-                $user->where('users.name', 'like', "%{$columnSearchValue}%");
-            } else if ($columnName == 'description') {
-                $user->where('users.description', 'like', "%{$columnSearchValue}%");
-            } else if ($columnName == 'id') {
-                $user->where('users.id', 'like', "%{$columnSearchValue}%");
-            } else if ($columnName == 'created_at') {
-                $user->where('users.created_at', 'like', "%{$columnSearchValue}%");
-            } else if ($columnName == 'created_id') {
-                $user->where('users.created_id', 'like', "%{$columnSearchValue}%");
-            } else if ($columnName == 'updated_at') {
-                $user->where('users.updated_at', 'like', "%{$columnSearchValue}%");
-            } else if ($columnName == 'updated_id') {
-                $user->where('users.updated_id', 'like', "%{$columnSearchValue}%");
+            } elseif ($columnName === 'status') {
+                $status = stripos($columnSearchValue, 'non') !== false ? 0 : 1;
+                $user->where('users.status', $status);
             } else {
-                $user->where($columnName, 'like', "%{$columnSearchValue}%");
+                $user->where("users.{$columnName}", 'like', "%{$columnSearchValue}%");
             }
         }
 
         return DataTables::of($user)
-            ->addIndexColumn() // Adds DT_RowIndex for serial number
-            ->addColumn('id', function ($row) {
-                return $row->id;
-            })
-            ->addColumn('name', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->name) . '">'
-                    . \Str::limit(e($row->name), 30)
-                    . '</span>';
-            })
-            ->addColumn('email', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->name) . '">'
-                    . \Str::limit(e($row->email), 30)
-                    . '</span>';
-            })
-            ->addColumn('accessgroup', function ($row) {
-                return $row->accessgroup;
-            })
-            ->addColumn('description', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
-                    . e(strip_tags($row->description)) . '">'
-                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-')
-                    . '</span>';
-            })
-            ->addColumn('date_of_birth', function ($row) {
-                return !empty($row->date_of_birth) ? \Str::limit($row->date_of_birth, 30) : '-';
-            })
-            ->addColumn('phone', function ($row) {
-                return $row->phone;
-            })
-            ->addColumn('address', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
-                    . e(strip_tags($row->address)) . '">'
-                    . (!empty($row->address) ? \Str::limit(strip_tags($row->address), 30) : '-')
-                    . '</span>';
-            })
-            ->addColumn('university', function ($row) {
-                return !empty($row->university) ? \Str::limit($row->university, 30) : '-';
-            })
-            ->addColumn('major', function ($row) {
-                return !empty($row->major) ? \Str::limit($row->major, 30) : '-';
-            })
-            ->addColumn('semester', function ($row) {
-                return !empty($row->semester) ? \Str::limit($row->semester, 30) : '-';
-            })
-            ->addColumn('city', function ($row) {
-                return !empty($row->city) ? \Str::limit($row->city, 30) : '-';
-            })
-            ->addColumn('country', function ($row) {
-                return !empty($row->country) ? \Str::limit($row->country, 30) : '-';
-            })
-            ->addColumn('level', function ($row) {
-                return $row->level;
-            })
-            ->addColumn('supervisor_name', function ($row) {
-                return !empty($row->supervisor_name) ? \Str::limit($row->supervisor_name, 30) : '-';
-            })
-            ->addColumn('supervisor_email', function ($row) {
-                return !empty($row->supervisor_email) ? \Str::limit($row->supervisor_email, 30) : '-';
-            })
-            ->addColumn('ipk', function ($row) {
-                return !empty($row->ipk) ? \Str::limit($row->ipk, 30) : '-';
-            })
-            ->addColumn('religion', function ($row) {
-                return !empty($row->religion) ? \Str::limit($row->religion, 30) : '-';
-            })
-            ->addColumn('hobby', function ($row) {
-                return !empty($row->hobby) ? \Str::limit($row->hobby, 30) : '-';
-            })
-            ->addColumn('citizenship_status', function ($row) {
-                return !empty($row->citizenship_status) ? \Str::limit($row->citizenship_status, 30) : '-';
-            })
-            ->addColumn('created_at', function ($row) {
-                return $row->created_at;
-            })
-            ->addColumn('created_id', function ($row) {
-                return $row->created_id;
-            })
-            ->addColumn('updated_at', function ($row) {
-                return $row->updated_at;
-            })
-            ->addColumn('updated_id', function ($row) {
-                return $row->updated_id;
-            })
+            ->addIndexColumn()
             ->addColumn('status', function ($row) {
-                return '<button
-                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '"
-                    data-id="' . $row->id . '"
-                    data-status="' . $row->status . '"
-                    data-model="User">
-                    ' . ($row->status == 1 ? 'Aktif' : 'Non aktif') . '
-                </button>';
+                return '<button class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '"
+                        data-id="' . $row->id . '" data-status="' . $row->status . '">
+                        ' . ($row->status == 1 ? 'Aktif' : 'Non aktif') . '
+                    </button>';
             })
-            ->addColumn('action', function ($row) {
-                return '<a href="' . route('getEditUser', ['id' => $row->id]) . '"
-                            class="btn btn-primary rounded">Ubah</a>' . " " .
-                        '<a href="' . route('getProfileUser', ['id' => $row->id]) . '"
-                            class="btn btn-outline-primary rounded">Profil</a>'. " " .
-                        '<a href="' . route('getCCMH', ['user_id' => $row->id]) . '"
-                            class="btn btn-info rounded">Riwayat</a>';
-            })
-            ->orderColumn('id', 'id $1')
-            ->rawColumns(['name', 'email', 'description', 'address','status', 'action']) // Allow HTML rendering
+            ->rawColumns(['status'])
             ->make(true);
     }
 
     private function buildUserQuery(Request $request)
     {
+        $filters = session('user_report_query', []);
+
         // Replicate the existing query building logic from getData()
-        $searchValue = $request->input('search.value');
         $orderColumnIndex = $request->input('order.0.column');
         $orderDirection = $request->input('order.0.dir', 'asc');
         $columns = $request->input('columns');
@@ -231,6 +167,24 @@ class ReportController extends Controller
         $user = User::select('users.*', 'access_group.name AS accessgroup')
             ->join('access_group', 'users.access_group_id', '=', 'access_group.id')
             ->orderBy($finalOrderColumn, $orderDirection);
+
+        if (!empty($filters['start_registered']) && !empty($filters['end_registered'])) {
+            $user->whereBetween('users.created_at', [
+                Carbon::createFromFormat('d M, Y', $filters['start_registered'])->startOfDay(),
+                Carbon::createFromFormat('d M, Y', $filters['end_registered'])->endOfDay(),
+            ]);
+        }
+
+        if (!empty($filters['start_last_update']) && !empty($filters['end_last_update'])) {
+            $user->whereBetween('users.created_at', [
+                Carbon::createFromFormat('d M, Y', $filters['start_last_update'])->startOfDay(),
+                Carbon::createFromFormat('d M, Y', $filters['end_last_update'])->endOfDay(),
+            ]);
+        }
+
+        if (!empty($filters['filter_name'])) {
+            $user->where('users.name', 'LIKE', "%{$filters['filter_name']}%");
+        }
 
         // Apply global search
         if (!empty($searchValue)) {
@@ -391,7 +345,7 @@ class ReportController extends Controller
 
         foreach ($users as $key => $user) {
             $html .= '<tr>';
-            $html .= '<td>' . ($key+1) . '</td>';
+            $html .= '<td>' . ($key + 1) . '</td>';
             $html .= '<td>' . $user->id . '</td>';
             $html .= '<td>' . $user->name . '</td>';
             $html .= '<td>' . $user->email . '</td>';
@@ -427,57 +381,53 @@ class ReportController extends Controller
     }
 
     # _______________________________________________________________________________________________________________________________________________________________
-    private function anonymize($string) {
+    private function anonymize($string)
+    {
         return mb_substr($string, 0, 1) . str_repeat('#', max(0, mb_strlen($string) - 1));
     }
 
 
-    public function handleReport(Request $request)
+    public function postExportCVPdf(Request $request)
     {
-        ini_set('max_execution_time', 30000); 
+        ini_set('max_execution_time', 30000);
         ini_set('memory_limit', '1G'); // Increase memory limit
 
-        // Fetch filters
-        $startRegistered = $request->input('start_registered');
-        $endRegistered = $request->input('end_registered');
-        $startLastUpdate = $request->input('start_last_update');
-        $endLastUpdate = $request->input('end_last_update');
-        $filterName = $request->input('filter_name'); 
-        $bulkExport = $request->input('bulk_export', "off");
+        $users = $this->buildUserQuery($request)->get();
+
+        // // Fetch filters
+        // $startRegistered = $request->input('start_registered');
+        // $endRegistered = $request->input('end_registered');
+        // $startLastUpdate = $request->input('start_last_update');
+        // $endLastUpdate = $request->input('end_last_update');
+        // $filterName = $request->input('filter_name');
         $encryptResume = $request->input('encrypt_resume', "off");
 
-        // Build query
-        $query = User::query();
-        $query->where(function ($q) use ($startRegistered, $endRegistered, $startLastUpdate, $endLastUpdate, $filterName) {
-            if ($startRegistered && $endRegistered) {
-                $q->whereBetween('created_at', [
-                    Carbon::createFromFormat('d M, Y', $startRegistered)->startOfDay(),
-                    Carbon::createFromFormat('d M, Y', $endRegistered)->endOfDay(),
-                ]);
-            }
-            if ($startLastUpdate && $endLastUpdate) {
-                $q->whereBetween('updated_at', [
-                    Carbon::createFromFormat('d M, Y', $startLastUpdate)->startOfDay(),
-                    Carbon::createFromFormat('d M, Y', $endLastUpdate)->endOfDay(),
-                ]);
-            }
-            if (!empty($filterName)) {
-                $q->where('name', 'LIKE', "%{$filterName}%");
-            }
-        });
+        // // Build query
+        // $query = User::query();
+        // $query->where(function ($q) use ($startRegistered, $endRegistered, $startLastUpdate, $endLastUpdate, $filterName) {
+        //     if ($startRegistered && $endRegistered) {
+        //         $q->whereBetween('created_at', [
+        //             Carbon::createFromFormat('d M, Y', $startRegistered)->startOfDay(),
+        //             Carbon::createFromFormat('d M, Y', $endRegistered)->endOfDay(),
+        //         ]);
+        //     }
+        //     if ($startLastUpdate && $endLastUpdate) {
+        //         $q->whereBetween('updated_at', [
+        //             Carbon::createFromFormat('d M, Y', $startLastUpdate)->startOfDay(),
+        //             Carbon::createFromFormat('d M, Y', $endLastUpdate)->endOfDay(),
+        //         ]);
+        //     }
+        //     if (!empty($filterName)) {
+        //         $q->where('name', 'LIKE', "%{$filterName}%");
+        //     }
+        // });
 
-        // If bulk export is enabled, process in chunks
-        if ($bulkExport == "on") {
-            return $this->generateBulkCVInChunks($query, $encryptResume);
-        }
-
-        // Return JSON response if not exporting
-        return response()->json($query->get());
+        return $this->generateBulkCVInChunks($users, $encryptResume);
     }
 
     private function generateBulkCVInChunks($query, $encryptResume)
     {
-        $batchSize = 500; 
+        $batchSize = 500;
         $batchIndex = 1;
         $zipFiles = [];
         $zipsFolder = storage_path('app/public/zips/');
@@ -492,6 +442,7 @@ class ReportController extends Controller
             if ($encryptResume == "on") {
                 foreach ($users as $user) {
                     $user->name = $this->anonymize($user->name);
+                    $user->address = $this->anonymize($user->address);
                     $user->nickname = $this->anonymize($user->nickname);
                     $user->phone = $this->anonymize($user->phone);
                     if ($user->city != '') {
@@ -525,7 +476,7 @@ class ReportController extends Controller
 
     private function generateZipForBatch($users, $batchIndex, $zipsFolder)
     {
-        $currentDate = now()->format('Ymd'); 
+        $currentDate = now()->format('Ymd');
         $zipFileName = "CVs_{$currentDate}_Batch{$batchIndex}.zip";
         $zipFilePath = $zipsFolder . $zipFileName;
 
@@ -533,29 +484,15 @@ class ReportController extends Controller
         if ($zip->open($zipFilePath, ZipArchive::CREATE) === TRUE) {
             $i = 1;
             foreach ($users as $user) {
-                // Fetch mentorships
-                $mentorships = DB::table('user_mentorships')
-                                ->where('mentor_id', $user->id)
-                                ->get()
-                                ->unique('course_class_id');
-
-                foreach ($mentorships as $mentorship) {
-                    $courseClass = CourseClass::find($mentorship->course_class_id);
-                    $course = $courseClass ? Course::find($courseClass->course_id) : null;
-                    $mentorship->course_class = $courseClass;
-                    if ($courseClass) {
-                        $mentorship->course_class->course = $course;
-                    }
-                }
 
                 // Generate PDF
-                $pdf = PDF::loadView('report::user.curriculum-vitae', compact('user', 'mentorships'));
+                $pdf = PDF::loadView('report::user.curriculum-vitae', compact('user'));
 
                 $pdfFileName = "CV_{$currentDate}_Batch{$batchIndex}_{$i}.pdf";
                 $i++;
 
                 // Store PDF
-                
+
                 $pdfsFolder = storage_path('app/public/pdfs/');
                 if (!File::exists($pdfsFolder)) {
                     File::makeDirectory($pdfsFolder, 0755, true, true);
@@ -593,8 +530,6 @@ class ReportController extends Controller
 
         return $finalZipFilePath;
     }
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -655,5 +590,4 @@ class ReportController extends Controller
     {
         //
     }
-
 }

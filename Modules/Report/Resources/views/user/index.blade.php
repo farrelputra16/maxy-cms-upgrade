@@ -34,7 +34,7 @@
                         your reports.
                     </p>
 
-                    <form action="{{ route('report.user.postUserReport') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('report.user.saveReportFilterToSession') }}" method="post" enctype="multipart/form-data">
                         @csrf
 
                         <!-- Name Filter -->
@@ -116,95 +116,128 @@
     </div>
 
     <!-- start DataTables -->
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
-                        data-server-processing="true" data-url="{{ route('report.user.getData') }}"
-                        data-colvis="[1, -3, -4, -5, -6]">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Id</th>
-                                <th>Nama Pengguna</th>
-                                <th>Email</th>
-                                <th>Grup Akses</th>
-                                <th>Catatan Admin</th>
-                                <th>Tanggal Lahir</th>
-                                <th>Telepon</th>
-                                <th>Alamat</th>
-                                <th>Universitas</th>
-                                <th>Jurusan</th>
-                                <th>Semester</th>
-                                <th>Kota</th>
-                                <th>Negara</th>
-                                <th>Level</th>
-                                <th>Nama Pembimbing</th>
-                                <th>Email Pembimbing</th>
-                                <th>IPK</th>
-                                <th>Agama</th>
-                                <th>Hobi</th>
-                                <th>Status Kewarganegaraan</th>
-                                <th>Dibuat Pada</th>
-                                <th>Dibuat Oleh</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Diperbarui Oleh</th>
-                                <th>Status</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+    @if(session('filtered') == 1)
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Form for Bulk Export -->
+                        <form action="{{ route('report.user.postExportCVPdf') }}" method="POST">
+                            @csrf
 
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>No</th>
-                                <th>Id</th>
-                                <th>Nama Pengguna</th>
-                                <th>Email</th>
-                                <th>Grup Akses</th>
-                                <th>Catatan Admin</th>
-                                <th>Tanggal Lahir</th>
-                                <th>Telepon</th>
-                                <th>Alamat</th>
-                                <th>Universitas</th>
-                                <th>Jurusan</th>
-                                <th>Semester</th>
-                                <th>Kota</th>
-                                <th>Negara</th>
-                                <th>Level</th>
-                                <th>Nama Pembimbing</th>
-                                <th>Email Pembimbing</th>
-                                <th>IPK</th>
-                                <th>Agama</th>
-                                <th>Hobi</th>
-                                <th>Status Kewarganegaraan</th>
-                                <th>Dibuat Pada</th>
-                                <th>Dibuat Oleh</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Diperbarui Oleh</th>
-                                <th>Status</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                            <div class="d-flex justify-content-between mb-3">
+                                <!-- Encryption Checkbox -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="encryptData" name="encrypt_resume" value="on">
+                                    <label class="form-check-label" for="encryptData">Encrypt Data</label>
+                                </div>
+
+                                <!-- Hidden Inputs for Filters -->
+                                <input type="hidden" name="start_registered" value="{{ session('user_report_query.start_registered') }}">
+                                <input type="hidden" name="end_registered" value="{{ session('user_report_query.end_registered') }}">
+                                <input type="hidden" name="start_last_update" value="{{ session('user_report_query.start_last_update') }}">
+                                <input type="hidden" name="end_last_update" value="{{ session('user_report_query.end_last_update') }}">
+                                <input type="hidden" name="filter_name" value="{{ session('user_report_query.filter_name') }}">
+
+                                <!-- Submit Button for Bulk Export -->
+                                <button type="submit" class="btn btn-primary">Bulk Export</button>
+                            </div>
+                        </form>
+                        <!-- Form for Clearing Cache -->
+
+                        <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
+                            data-server-processing="true" data-url="{{ route('report.user.getData') }}"
+                            data-colvis="[1, -3, -4, -5, -6]">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Id</th>
+                                    <th>Nama Pengguna</th>
+                                    <th>Email</th>
+                                    <th>Grup Akses</th>
+                                    <th>Catatan Admin</th>
+                                    <th>Tanggal Lahir</th>
+                                    <th>Telepon</th>
+                                    <th>Alamat</th>
+                                    <th>Universitas</th>
+                                    <th>Jurusan</th>
+                                    <th>Semester</th>
+                                    <th>Kota</th>
+                                    <th>Negara</th>
+                                    <th>Level</th>
+                                    <th>Nama Pembimbing</th>
+                                    <th>Email Pembimbing</th>
+                                    <th>IPK</th>
+                                    <th>Agama</th>
+                                    <th>Hobi</th>
+                                    <th>Status Kewarganegaraan</th>
+                                    <th>Dibuat Pada</th>
+                                    <th>Dibuat Oleh</th>
+                                    <th>Diperbarui Pada</th>
+                                    <th>Diperbarui Oleh</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Id</th>
+                                    <th>Nama Pengguna</th>
+                                    <th>Email</th>
+                                    <th>Grup Akses</th>
+                                    <th>Catatan Admin</th>
+                                    <th>Tanggal Lahir</th>
+                                    <th>Telepon</th>
+                                    <th>Alamat</th>
+                                    <th>Universitas</th>
+                                    <th>Jurusan</th>
+                                    <th>Semester</th>
+                                    <th>Kota</th>
+                                    <th>Negara</th>
+                                    <th>Level</th>
+                                    <th>Nama Pembimbing</th>
+                                    <th>Email Pembimbing</th>
+                                    <th>IPK</th>
+                                    <th>Agama</th>
+                                    <th>Hobi</th>
+                                    <th>Status Kewarganegaraan</th>
+                                    <th>Dibuat Pada</th>
+                                    <th>Dibuat Oleh</th>
+                                    <th>Diperbarui Pada</th>
+                                    <th>Diperbarui Oleh</th>
+                                    <th>Status</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
     <!-- end DataTables -->
+
 
     <script>
         // Pass Laravel routes and CSRF token to external JS
         window.exportCsvRoute = "{{ route('report.user.postExportCsv') }}";
         window.exportPdfRoute = "{{ route('report.user.postExportPdf') }}";
+        window.exportCVPdfRoute = "{{ route('report.user.postExportCVPdf') }}";
         window.csrfToken = "{{ csrf_token() }}";
     </script>
 
 @endsection
 
 @section('script')
+
+    <script>
+        $(document).ready(function () {
+            $("form").on("submit", function () {
+                window.location.reload();
+            });
+        });
+    </script>
+
     <script>
         const columns = [{
                 data: "DT_RowIndex",
@@ -359,12 +392,6 @@
                 name: "status",
                 orderable: true,
                 searchable: true
-            },
-            {
-                data: "action",
-                name: "action",
-                orderable: false,
-                searchable: false
             },
         ];
     </script>
