@@ -3,12 +3,40 @@
 namespace Modules\Report\Http\Controllers;
 
 use App\Models\User;
+use App\Models\AccessGroup;
+use App\Models\MProvince;
+use App\Models\Partner;
+use App\Imports\UserImport;
+use App\Models\CourseClass;
+use App\Models\CourseClassMember;
+use App\Models\MJobdesc;
+use App\Models\Category;
+use App\Models\Course;
+use App\Models\CourseClassMemberLog;
+use App\Models\CourseClassRedeemCode;
+use App\Models\MLanguage;
+use App\Models\MSkill;
+use App\Models\RedeemCode;
+use App\Models\UserParent;
+use App\Models\UserRedeemCode;
+
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+use App\Http\Requests\UpdateCVInfoRequest;
+use App\Http\Requests\UpdateProfileRequest;
+
 use Yajra\DataTables\Facades\DataTables;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+use ZipArchive;  
+use File;
 
 class ReportController extends Controller
 {
@@ -398,6 +426,176 @@ class ReportController extends Controller
         return $pdf->download('users_export_' . now()->format('Ymd_His') . '.pdf');
     }
 
+    # _______________________________________________________________________________________________________________________________________________________________
+    private function anonymize($string) {
+        return mb_substr($string, 0, 1) . str_repeat('#', max(0, mb_strlen($string) - 1));
+    }
+
+
+    public function handleReport(Request $request)
+    {
+        ini_set('max_execution_time', 30000); 
+        ini_set('memory_limit', '1G'); // Increase memory limit
+
+        // Fetch filters
+        $startRegistered = $request->input('start_registered');
+        $endRegistered = $request->input('end_registered');
+        $startLastUpdate = $request->input('start_last_update');
+        $endLastUpdate = $request->input('end_last_update');
+        $filterName = $request->input('filter_name'); 
+        $bulkExport = $request->input('bulk_export', "off");
+        $encryptResume = $request->input('encrypt_resume', "off");
+
+        // Build query
+        $query = User::query();
+        $query->where(function ($q) use ($startRegistered, $endRegistered, $startLastUpdate, $endLastUpdate, $filterName) {
+            if ($startRegistered && $endRegistered) {
+                $q->whereBetween('created_at', [
+                    Carbon::createFromFormat('d M, Y', $startRegistered)->startOfDay(),
+                    Carbon::createFromFormat('d M, Y', $endRegistered)->endOfDay(),
+                ]);
+            }
+            if ($startLastUpdate && $endLastUpdate) {
+                $q->whereBetween('updated_at', [
+                    Carbon::createFromFormat('d M, Y', $startLastUpdate)->startOfDay(),
+                    Carbon::createFromFormat('d M, Y', $endLastUpdate)->endOfDay(),
+                ]);
+            }
+            if (!empty($filterName)) {
+                $q->where('name', 'LIKE', "%{$filterName}%");
+            }
+        });
+
+        // If bulk export is enabled, process in chunks
+        if ($bulkExport == "on") {
+            return $this->generateBulkCVInChunks($query, $encryptResume);
+        }
+
+        // Return JSON response if not exporting
+        return response()->json($query->get());
+    }
+
+    private function generateBulkCVInChunks($query, $encryptResume)
+    {
+        $batchSize = 500; 
+        $batchIndex = 1;
+        $zipFiles = [];
+        $zipsFolder = storage_path('app/public/zips/');
+
+        // Ensure "zips" folder exists
+        if (!File::exists($zipsFolder)) {
+            File::makeDirectory($zipsFolder, 0755, true, true);
+        }
+
+        // Process in chunks
+        $query->chunk($batchSize, function ($users) use (&$batchIndex, &$zipFiles, $encryptResume, $zipsFolder) {
+            if ($encryptResume == "on") {
+                foreach ($users as $user) {
+                    $user->name = $this->anonymize($user->name);
+                    $user->nickname = $this->anonymize($user->nickname);
+                    $user->phone = $this->anonymize($user->phone);
+                    if ($user->city != '') {
+                        $user->city = $this->anonymize($user->city);
+                    }
+                    $user->linked_in = $this->anonymize($user->linked_in);
+                    $user->email = $this->anonymize($user->email);
+                    if ($user->MProvince) {
+                        $user->MProvince->name = $this->anonymize($user->MProvince->name);
+                    }
+                }
+            }
+
+            // Generate ZIP for batch
+            $zipFile = $this->generateZipForBatch($users, $batchIndex, $zipsFolder);
+            $zipFiles[] = $zipFile;
+            $batchIndex++;
+        });
+
+        // Create final ZIP containing all batch ZIPs
+        $finalZip = $this->generateFinalZip($zipFiles, $zipsFolder);
+
+        // Delete batch ZIPs after final ZIP is created
+        foreach ($zipFiles as $file) {
+            File::delete($file);
+        }
+
+        // Return final ZIP for download
+        return response()->download($finalZip)->deleteFileAfterSend(true);
+    }
+
+    private function generateZipForBatch($users, $batchIndex, $zipsFolder)
+    {
+        $currentDate = now()->format('Ymd'); 
+        $zipFileName = "CVs_{$currentDate}_Batch{$batchIndex}.zip";
+        $zipFilePath = $zipsFolder . $zipFileName;
+
+        $zip = new ZipArchive;
+        if ($zip->open($zipFilePath, ZipArchive::CREATE) === TRUE) {
+            $i = 1;
+            foreach ($users as $user) {
+                // Fetch mentorships
+                $mentorships = DB::table('user_mentorships')
+                                ->where('mentor_id', $user->id)
+                                ->get()
+                                ->unique('course_class_id');
+
+                foreach ($mentorships as $mentorship) {
+                    $courseClass = CourseClass::find($mentorship->course_class_id);
+                    $course = $courseClass ? Course::find($courseClass->course_id) : null;
+                    $mentorship->course_class = $courseClass;
+                    if ($courseClass) {
+                        $mentorship->course_class->course = $course;
+                    }
+                }
+
+                // Generate PDF
+                $pdf = PDF::loadView('report::user.curriculum-vitae', compact('user', 'mentorships'));
+
+                $pdfFileName = "CV_{$currentDate}_Batch{$batchIndex}_{$i}.pdf";
+                $i++;
+
+                // Store PDF
+                
+                $pdfsFolder = storage_path('app/public/pdfs/');
+                if (!File::exists($pdfsFolder)) {
+                    File::makeDirectory($pdfsFolder, 0755, true, true);
+                }
+
+                // Store PDF
+                Storage::disk('public')->put("pdfs/$pdfFileName", $pdf->output());
+                $zip->addFile(storage_path("app/public/pdfs/$pdfFileName"), $pdfFileName);
+            }
+            $zip->close();
+        }
+
+        // Clean up PDFs
+        $pdfFiles = Storage::files('public/pdfs');
+        foreach ($pdfFiles as $file) {
+            Storage::delete($file);
+        }
+
+        return $zipFilePath;
+    }
+
+    private function generateFinalZip($zipFiles, $zipsFolder)
+    {
+        $currentDate = now()->format('Ymd');
+        $finalZipFileName = "All_CVs_{$currentDate}.zip";
+        $finalZipFilePath = $zipsFolder . $finalZipFileName;
+
+        $zip = new ZipArchive;
+        if ($zip->open($finalZipFilePath, ZipArchive::CREATE) === TRUE) {
+            foreach ($zipFiles as $batchZip) {
+                $zip->addFile($batchZip, basename($batchZip));
+            }
+            $zip->close();
+        }
+
+        return $finalZipFilePath;
+    }
+
+
+
     /**
      * Show the form for creating a new resource.
      * @return Renderable
@@ -457,4 +655,5 @@ class ReportController extends Controller
     {
         //
     }
+
 }

@@ -34,96 +34,81 @@
                         your reports.
                     </p>
 
-                    <form
-                        action="{{ isset($course) ? route('postEditCourse', ['id' => $course->id]) : route('postAddCourse') }}"
-                        method="post" enctype="multipart/form-data">
+                    <form action="{{ route('report.user.postUserReport') }}" method="post" enctype="multipart/form-data">
                         @csrf
 
-                        <!-- start registered date -->
+                        <!-- Name Filter -->
                         <div class="mb-3 row">
-                            <label class="col-md-2 col-form-label">
-                                Registered Date
-                            </label>
+                            <label for="filter-name" class="col-md-2 col-form-label">Name</label>
+                            <div class="col-md-10">
+                                <input type="text" id="filter-name" class="form-control" name="filter_name" placeholder="Enter name (partial match allowed)">
+                            </div>
+                        </div>
+                        
+                        <!-- Registered Date -->
+                        <div class="mb-3 row">
+                            <label class="col-md-2 col-form-label">Registered Date</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <div class="input-group" id="datepicker-start-register">
-                                    <input type="text" class="form-control" placeholder="dd M, yyyy"
+                                    <input type="text" class="form-control" name="start_registered" placeholder="dd M, yyyy" 
                                         data-date-format="dd M, yyyy" data-date-container="#datepicker-start-register"
                                         data-provide="datepicker" data-date-autoclose="true">
-
                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                 </div><!-- input-group -->
 
                                 <strong class="mx-4">TO</strong>
 
                                 <div class="input-group" id="datepicker-end-register">
-                                    <input type="text" class="form-control" placeholder="dd M, yyyy"
+                                    <input type="text" class="form-control" name="end_registered" placeholder="dd M, yyyy" 
                                         data-date-format="dd M, yyyy" data-date-container="#datepicker-end-register"
                                         data-provide="datepicker" data-date-autoclose="true">
-
                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                 </div><!-- input-group -->
                             </div>
                         </div>
-                        <!-- end registered date -->
 
-                        <!-- start last update -->
+                        <!-- Last Update -->
                         <div class="mb-3 row">
-                            <label class="col-md-2 col-form-label">
-                                Last Update
-                            </label>
+                            <label class="col-md-2 col-form-label">Last Update</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <div class="input-group" id="datepicker-start-last-update">
-                                    <input type="text" class="form-control" placeholder="dd M, yyyy"
+                                    <input type="text" class="form-control" name="start_last_update" placeholder="dd M, yyyy" 
                                         data-date-format="dd M, yyyy" data-date-container="#datepicker-start-last-update"
                                         data-provide="datepicker" data-date-autoclose="true">
-
                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                 </div><!-- input-group -->
 
                                 <strong class="mx-4">TO</strong>
 
                                 <div class="input-group" id="datepicker-end-last-update">
-                                    <input type="text" class="form-control" placeholder="dd M, yyyy"
+                                    <input type="text" class="form-control" name="end_last_update" placeholder="dd M, yyyy" 
                                         data-date-format="dd M, yyyy" data-date-container="#datepicker-end-last-update"
                                         data-provide="datepicker" data-date-autoclose="true">
-
                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                 </div><!-- input-group -->
                             </div>
                         </div>
-                        <!-- end last update -->
 
-                        <!-- start export resume -->
+                        <!-- Export and Encrypt Options -->
                         <div class="mb-3 row">
-                            <label for="input-export-resume" class="col-md-2 col-form-label">
-                                Bulk Export Resume
-                            </label>
+                            <label for="input-export-resume" class="col-md-2 col-form-label">Bulk Export Resume</label>
                             <div class="col-md-10 d-flex align-items-center">
-                                <input id="input-export-resume" class="form-check-input" type="checkbox">
+                                <input id="input-export-resume" class="form-check-input" type="checkbox" name="bulk_export">
                             </div>
                         </div>
-                        <!-- end export resume -->
-
-                        <!-- start encrypt data -->
                         <div class="mb-3 row">
-                            <label for="input-encrypt-resume" class="col-md-2 col-form-label">
-                                Encrypt Resume
-                            </label>
+                            <label for="input-encrypt-resume" class="col-md-2 col-form-label">Encrypt Resume</label>
                             <div class="col-md-10 d-flex align-items-center">
-                                <input id="input-encrypt-resume" class="form-check-input" type="checkbox">
+                                <input id="input-encrypt-resume" class="form-check-input" type="checkbox" name="encrypt_resume">
                             </div>
                         </div>
-                        <!-- end encrypt data -->
 
-                        <!-- start submit button -->
+                        <!-- Submit Button -->
                         <div class="mb-3 row justify-content-end">
                             <div class="text-center">
-                                <button type="submit" class="btn maxy-btn-secondary w-md text-center">Create
-                                    Report</button>
+                                <button type="submit" class="btn maxy-btn-secondary w-md text-center">Create Report</button>
                             </div>
                         </div>
-                        <!-- end submit button -->
-
                     </form>
                 </div>
             </div>

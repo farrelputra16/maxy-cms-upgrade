@@ -164,4 +164,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(SurveyResult::class, 'user_id');
     }
+    public function skills()
+    {
+        return $this->belongsToMany(MSkill::class, 'user_skill', 'user_id', 'm_skill_id');
+    }
+
+    public function organizations()
+    {
+        return $this->hasMany(UserOrganization::class, 'user_id');
+    }
 }

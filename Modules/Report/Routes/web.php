@@ -26,5 +26,10 @@ Route::prefix('report')->name('report.')->group(function () {
 
         Route::post('/export-csv', [ReportController::class, 'postExportCsv'])->name('postExportCsv');
         Route::post('/export-pdf', [ReportController::class, 'postExportPdf'])->name('postExportPdf');
+
+
+        Route::post('/user-report', [ReportController::class, 'handleReport'])->name('postUserReport');
+        Route::post('/export-user-data', [ReportController::class, 'exportData'])->name('export.user.data');
+        Route::get('/anonymize', [ReportController::class, 'anonymizeString'])->name('anonymize');
     });
 });
