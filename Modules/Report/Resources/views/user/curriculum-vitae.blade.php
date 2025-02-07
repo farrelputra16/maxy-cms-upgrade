@@ -85,6 +85,8 @@
 </head>
 
 <body>
+    <img src="{{ public_path('assets/cms-v3/images/logo-maxy-dark.png') }}" style="height: 40px;">
+
     <h1 class="fs-1 fw-bold text-navy text-center">{{ $user->name ?? '' }}</h1>
     <p class="text-center main-info">
         {{ $user->address ?? '' }}{{ $user->address ? ', ' : '' }}
