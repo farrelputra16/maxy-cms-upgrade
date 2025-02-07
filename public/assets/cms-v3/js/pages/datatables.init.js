@@ -154,30 +154,33 @@ $(document).ready(function () {
     if (window.exportCVPdfRoute) {
         console.log("exportCVPdfRoute Found");
         buttons.push({
-            text: "Export All CV (Zip)",
+            text: "Export All CV (ZIP)", // Change button text to indicate ZIP export
             className: "maxy-btn-secondary custom-colvis-btn",
             action: function (e, dt, node, config) {
                 var params = dt.ajax.params();
                 params.start = 0;
-                params.length = -1; // Signal to export all data
+                params.length = -1; // Export all data
+    
+                // Get the value of the checkbox
+                var encryptResume = document.getElementById("encryptResumeCheckbox").checked ? "on" : "off";
+                params.encrypt_resume = encryptResume; // Add it to params
+    
                 $.ajax({
                     url: window.exportCVPdfRoute,
                     type: "POST",
                     data: params,
                     xhrFields: {
-                        responseType: "blob",
+                        responseType: "blob", // Expect binary data (ZIP)
                     },
                     headers: {
                         "X-CSRF-TOKEN": window.csrfToken,
                     },
                     success: function (data, status, xhr) {
                         var contentType = xhr.getResponseHeader("Content-Type");
+    
                         // Ensure the response is a ZIP file
                         if (contentType === "application/zip") {
-                            var blob = new Blob([data], {
-                                type: "application/zip",
-                            });
-
+                            var blob = new Blob([data], { type: "application/zip" });
                             var link = document.createElement("a");
                             link.href = window.URL.createObjectURL(blob);
                             link.download = "users_export.zip"; // Set correct file extension
@@ -186,23 +189,19 @@ $(document).ready(function () {
                             document.body.removeChild(link);
                             window.URL.revokeObjectURL(link.href);
                         } else {
-                            console.error(
-                                "Unexpected content type:",
-                                contentType
-                            );
+                            console.error("Unexpected content type:", contentType);
                             alert("Error: Received unexpected file format.");
                         }
                     },
                     error: function (xhr, status, error) {
-                        console.error("Export error:", error);
-                        alert(
-                            "Error exporting data. Check console for details."
-                        );
+                        console.error("Export error:??", error);
+                        alert("Error exporting data. Check console for details.");
                     },
                 });
             },
         });
     }
+    
 
     // Initialize DataTables
     $(".table").each(function () {

@@ -88,21 +88,6 @@
                                 </div><!-- input-group -->
                             </div>
                         </div>
-
-                        <!-- Export and Encrypt Options -->
-                        <div class="mb-3 row">
-                            <label for="input-export-resume" class="col-md-2 col-form-label">Bulk Export Resume</label>
-                            <div class="col-md-10 d-flex align-items-center">
-                                <input id="input-export-resume" class="form-check-input" type="checkbox" name="bulk_export">
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="input-encrypt-resume" class="col-md-2 col-form-label">Encrypt Resume</label>
-                            <div class="col-md-10 d-flex align-items-center">
-                                <input id="input-encrypt-resume" class="form-check-input" type="checkbox" name="encrypt_resume">
-                            </div>
-                        </div>
-
                         <!-- Submit Button -->
                         <div class="mb-3 row justify-content-end">
                             <div class="text-center">
@@ -121,29 +106,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <!-- Form for Bulk Export -->
-                        <form action="{{ route('report.user.postExportCVPdf') }}" method="POST">
-                            @csrf
-
-                            <div class="d-flex justify-content-between mb-3">
-                                <!-- Encryption Checkbox -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="encryptData" name="encrypt_resume" value="on">
-                                    <label class="form-check-label" for="encryptData">Encrypt Data</label>
-                                </div>
-
-                                <!-- Hidden Inputs for Filters -->
-                                <input type="hidden" name="start_registered" value="{{ session('user_report_query.start_registered') }}">
-                                <input type="hidden" name="end_registered" value="{{ session('user_report_query.end_registered') }}">
-                                <input type="hidden" name="start_last_update" value="{{ session('user_report_query.start_last_update') }}">
-                                <input type="hidden" name="end_last_update" value="{{ session('user_report_query.end_last_update') }}">
-                                <input type="hidden" name="filter_name" value="{{ session('user_report_query.filter_name') }}">
-
-                                <!-- Submit Button for Bulk Export -->
-                                <button type="submit" class="btn btn-primary">Bulk Export</button>
-                            </div>
-                        </form>
-                        <!-- Form for Clearing Cache -->
+                        <label>
+                            <input type="checkbox" id="encryptResumeCheckbox"> Encrypt Resume
+                        </label>
 
                         <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
                             data-server-processing="true" data-url="{{ route('report.user.getData') }}"

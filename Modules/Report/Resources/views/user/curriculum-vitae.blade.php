@@ -87,10 +87,10 @@
 <body>
     <h1 class="fs-1 fw-bold text-navy text-center">{{ $user->name ?? '' }}</h1>
     <p class="text-center main-info">
+        {{ $user->address ?? '' }}{{ $user->address ? ', ' : '' }}
         {{ $user->city ?? '' }} {{ $user->MProvince->name ?? '' }}&nbsp; | &nbsp;
         <a href="https://api.whatsapp.com/send?phone={{ $user->phone ?? '' }}">{{ $user->phone ?? '' }}</a>
-        &nbsp; |
-        &nbsp;<span class="text-primary">{{ $user->email }}</span>&nbsp;
+        &nbsp; | &nbsp;<span class="text-primary">{{ $user->email }}</span>&nbsp;
         | &nbsp;<a href="/{{ $user->linked_in }}" target="_blank"
             rel="noopener noreferrer">{{ substr($user->linked_in, 12) }}
         </a>

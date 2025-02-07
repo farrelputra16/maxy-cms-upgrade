@@ -285,6 +285,7 @@ class ReportController extends Controller
 
     public function postExportCVPdf(Request $request)
     {
+
         ini_set('max_execution_time', 30000);
         ini_set('memory_limit', '1G'); // Increase memory limit
 
@@ -315,19 +316,32 @@ class ReportController extends Controller
             ->join('access_group', 'users.access_group_id', '=', 'access_group.id')
             ->orderBy($finalOrderColumn, $orderDirection);
 
-        if (!empty($filters['start_registered']) && !empty($filters['end_registered'])) {
-            $user->whereBetween('users.created_at', [
-                Carbon::createFromFormat('d M, Y', $filters['start_registered'])->startOfDay(),
-                Carbon::createFromFormat('d M, Y', $filters['end_registered'])->endOfDay(),
-            ]);
+        if (!empty($filters['start_registered']) || !empty($filters['end_registered'])) {
+            $start = !empty($filters['start_registered']) ? Carbon::createFromFormat('d M, Y', $filters['start_registered'])->startOfDay() : null;
+            $end = !empty($filters['end_registered']) ? Carbon::createFromFormat('d M, Y', $filters['end_registered'])->endOfDay() : null;
+        
+            if ($start && $end) {
+                $user->whereBetween('users.created_at', [$start, $end]);
+            } elseif ($start) {
+                $user->where('users.created_at', '>=', $start);
+            } elseif ($end) {
+                $user->where('users.created_at', '<=', $end);
+            }
         }
-
-        if (!empty($filters['start_last_update']) && !empty($filters['end_last_update'])) {
-            $user->whereBetween('users.created_at', [
-                Carbon::createFromFormat('d M, Y', $filters['start_last_update'])->startOfDay(),
-                Carbon::createFromFormat('d M, Y', $filters['end_last_update'])->endOfDay(),
-            ]);
+        
+        if (!empty($filters['start_last_update']) || !empty($filters['end_last_update'])) {
+            $start = !empty($filters['start_last_update']) ? Carbon::createFromFormat('d M, Y', $filters['start_last_update'])->startOfDay() : null;
+            $end = !empty($filters['end_last_update']) ? Carbon::createFromFormat('d M, Y', $filters['end_last_update'])->endOfDay() : null;
+        
+            if ($start && $end) {
+                $user->whereBetween('users.updated_at', [$start, $end]);
+            } elseif ($start) {
+                $user->where('users.updated_at', '>=', $start);
+            } elseif ($end) {
+                $user->where('users.updated_at', '<=', $end);
+            }
         }
+            
 
         if (!empty($filters['filter_name'])) {
             $user->where('users.name', 'LIKE', "%{$filters['filter_name']}%");
@@ -405,7 +419,7 @@ class ReportController extends Controller
             $zipFiles[] = $zipFile;
             $batchIndex++;
         }
-        dd($users);
+
         // Create final ZIP containing all batch ZIPs
         $finalZip = $this->generateFinalZip($zipFiles, $batchZipPath);
 
