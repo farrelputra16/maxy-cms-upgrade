@@ -2,72 +2,72 @@ $(document).ready(function () {
     var pageTitle = document.title;
 
     var buttons = [
-            {
-                extend: "copy",
-                text: "Copy",
-                className: "maxy-btn-secondary custom-colvis-btn",
-            },
-            {
-                extend: "excel",
-                text: "Export Excel",
-                className: "maxy-btn-secondary custom-colvis-btn",
-            },
-            {
-                extend: "pdfHtml5",
-                text: "Export PDF",
-                className: "maxy-btn-secondary custom-colvis-btn",
-                filename: pageTitle,
-                title: pageTitle,
-                orientation: "landscape",
-                pageSize: "A4",
-                exportOptions: {
-                    columns: function (idx, data, node) {
-                        // Export only shown columns; hidden columns won't be included
-                        return (
-                            $(node).css("display") !== "none" &&
-                            !$(node).is(":last-child")
-                        );
+        {
+            extend: "copy",
+            text: "Copy",
+            className: "maxy-btn-secondary custom-colvis-btn",
+        },
+        {
+            extend: "excel",
+            text: "Export Excel",
+            className: "maxy-btn-secondary custom-colvis-btn",
+        },
+        {
+            extend: "pdfHtml5",
+            text: "Export PDF",
+            className: "maxy-btn-secondary custom-colvis-btn",
+            filename: pageTitle,
+            title: pageTitle,
+            orientation: "landscape",
+            pageSize: "A4",
+            exportOptions: {
+                columns: function (idx, data, node) {
+                    // Export only shown columns; hidden columns won't be included
+                    return (
+                        $(node).css("display") !== "none" &&
+                        !$(node).is(":last-child")
+                    );
+                },
+                format: {
+                    body: function (data, row, column, node) {
+                        // Extract only the text content from the <td> element
+                        return $(node).text().trim();
                     },
-                    format: {
-                        body: function (data, row, column, node) {
-                            // Extract only the text content from the <td> element
-                            return $(node).text().trim();
-                        },
+                },
+            },
+            customize: function (doc) {
+                // Customize the PDF document
+                console.log("customizing the PDF...");
+                doc.pageMargins = [10, 10, 10, 10];
+                var table = doc.content[1].table;
+                var columnCount = table.body[0].length;
+                var totalWidth = 595 - 20; // A4 landscape width minus margins (10 left + 10 right)
+                if (columnCount > 10) {
+                    table.widths = Array(columnCount).fill(
+                        totalWidth / columnCount
+                    );
+                } else {
+                    table.widths = Array(columnCount).fill("*");
+                }
+                doc.defaultStyle.fontSize = columnCount > 10 ? 6 : 8;
+                doc.styles.tableHeader.fontSize = columnCount > 10 ? 7 : 9;
+                doc.content[1].layout = {
+                    fillColor: function (rowIndex) {
+                        return rowIndex % 2 === 0 ? "#d9d9d9" : null;
                     },
-                },
-                customize: function (doc) {
-                    // Customize the PDF document
-                    console.log("customizing the PDF...");
-                    doc.pageMargins = [10, 10, 10, 10];
-                    var table = doc.content[1].table;
-                    var columnCount = table.body[0].length;
-                    var totalWidth = 595 - 20; // A4 landscape width minus margins (10 left + 10 right)
-                    if (columnCount > 10) {
-                        table.widths = Array(columnCount).fill(
-                            totalWidth / columnCount
-                        );
-                    } else {
-                        table.widths = Array(columnCount).fill("*");
-                    }
-                    doc.defaultStyle.fontSize = columnCount > 10 ? 6 : 8;
-                    doc.styles.tableHeader.fontSize = columnCount > 10 ? 7 : 9;
-                    doc.content[1].layout = {
-                        fillColor: function (rowIndex) {
-                            return rowIndex % 2 === 0 ? "#d9d9d9" : null;
-                        },
-                    };
-                    console.log("finished customizing the PDF.");
-                },
+                };
+                console.log("finished customizing the PDF.");
             },
-            {
-                extend: "colvis",
-                className: "maxy-btn-secondary custom-colvis-btn",
-                postfixButtons: ["colvisRestore"],
-                columnText: function (dt, idx, title) {
-                    return title;
-                },
+        },
+        {
+            extend: "colvis",
+            className: "maxy-btn-secondary custom-colvis-btn",
+            postfixButtons: ["colvisRestore"],
+            columnText: function (dt, idx, title) {
+                return title;
             },
-        ];
+        },
+    ];
 
     if (window.exportCsvRoute) {
         console.log("exportCsvRoute Found.");
@@ -154,7 +154,7 @@ $(document).ready(function () {
     if (window.exportCVPdfRoute) {
         console.log("exportCVPdfRoute Found");
         buttons.push({
-            text: "Export All CV (PDF)",
+            text: "Export All CV (Zip)",
             className: "maxy-btn-secondary custom-colvis-btn",
             action: function (e, dt, node, config) {
                 var params = dt.ajax.params();
@@ -170,17 +170,28 @@ $(document).ready(function () {
                     headers: {
                         "X-CSRF-TOKEN": window.csrfToken,
                     },
-                    success: function (data) {
-                        var blob = new Blob([data], {
-                            type: "application/pdf",
-                        });
-                        var link = document.createElement("a");
-                        link.href = window.URL.createObjectURL(blob);
-                        link.download = "users_export.pdf";
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                        window.URL.revokeObjectURL(link.href);
+                    success: function (data, status, xhr) {
+                        var contentType = xhr.getResponseHeader("Content-Type");
+                        // Ensure the response is a ZIP file
+                        if (contentType === "application/zip") {
+                            var blob = new Blob([data], {
+                                type: "application/zip",
+                            });
+
+                            var link = document.createElement("a");
+                            link.href = window.URL.createObjectURL(blob);
+                            link.download = "users_export.zip"; // Set correct file extension
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                            window.URL.revokeObjectURL(link.href);
+                        } else {
+                            console.error(
+                                "Unexpected content type:",
+                                contentType
+                            );
+                            alert("Error: Received unexpected file format.");
+                        }
                     },
                     error: function (xhr, status, error) {
                         console.error("Export error:", error);
