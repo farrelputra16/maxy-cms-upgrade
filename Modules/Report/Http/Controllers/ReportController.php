@@ -319,7 +319,7 @@ class ReportController extends Controller
         if (!empty($filters['start_registered']) || !empty($filters['end_registered'])) {
             $start = !empty($filters['start_registered']) ? Carbon::createFromFormat('d M, Y', $filters['start_registered'])->startOfDay() : null;
             $end = !empty($filters['end_registered']) ? Carbon::createFromFormat('d M, Y', $filters['end_registered'])->endOfDay() : null;
-        
+
             if ($start && $end) {
                 $user->whereBetween('users.created_at', [$start, $end]);
             } elseif ($start) {
@@ -328,11 +328,11 @@ class ReportController extends Controller
                 $user->where('users.created_at', '<=', $end);
             }
         }
-        
+
         if (!empty($filters['start_last_update']) || !empty($filters['end_last_update'])) {
             $start = !empty($filters['start_last_update']) ? Carbon::createFromFormat('d M, Y', $filters['start_last_update'])->startOfDay() : null;
             $end = !empty($filters['end_last_update']) ? Carbon::createFromFormat('d M, Y', $filters['end_last_update'])->endOfDay() : null;
-        
+
             if ($start && $end) {
                 $user->whereBetween('users.updated_at', [$start, $end]);
             } elseif ($start) {
@@ -341,7 +341,7 @@ class ReportController extends Controller
                 $user->where('users.updated_at', '<=', $end);
             }
         }
-            
+
 
         if (!empty($filters['filter_name'])) {
             $user->where('users.name', 'LIKE', "%{$filters['filter_name']}%");
@@ -421,10 +421,10 @@ class ReportController extends Controller
         }
 
         // Create final ZIP containing all batch ZIPs
-        $finalZip = $this->generateFinalZip($zipFiles, $batchZipPath);
+        $finalZipPath = $this->generateFinalZip($zipFiles, $batchZipPath);
 
         // Return final ZIP for download
-        return response()->download($finalZip, "users_export.zip", [
+        return response()->download($finalZipPath, "users_export.zip", [
             'Content-Type' => 'application/zip',
         ])->deleteFileAfterSend(true);
     }
@@ -477,6 +477,13 @@ class ReportController extends Controller
                 $zip->addFile($batchZip, basename($batchZip));
             }
             $zip->close();
+        }
+
+        // Clean up intermediate ZIP files
+        foreach ($zipFiles as $batchZip) {
+            if (file_exists($batchZip)) {
+                unlink($batchZip);
+            }
         }
 
         return $finalZipFilePath;
