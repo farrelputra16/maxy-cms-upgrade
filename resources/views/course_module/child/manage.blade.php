@@ -152,6 +152,7 @@
                                             target="_blank">{{ $childModule->material }} <i
                                                 class="fas fa-external-link-alt mx-2"></i></a>
                                     @elseif($childModule->type_name == 'code')
+                                        <textarea id="code-editor-preview" name="material" class="form-control" rows="10">{{ $childModule->material }}</textarea>
                                     @endif
                                 </div>
                                 <!-- End Previous Material Preview -->
@@ -185,6 +186,7 @@
 
                         <div id="material" class="mb-3 row">
                             <!-- Material Input Fields will be generated here via JavaScript -->
+
                         </div>
 
                         <div class="row mb-3">
@@ -263,6 +265,21 @@
             });
         });
 
+        // Initialize CodeMirror for Previous Material
+        if (document.getElementById('code-editor-preview')) {
+            const editor = CodeMirror.fromTextArea(document.getElementById('code-editor-preview'), {
+                lineNumbers: true,
+                mode: 'htmlmixed',
+                theme: 'dracula',
+                readOnly: true,
+                lineWrapping: true,
+                scrollbarStyle: null,
+            });
+
+            editor.setSize("100%", "40vh");
+        }
+
+
         // Function for Updating Material Input Fields
         function updateMaterialInput(moduleType) {
             if (moduleType == 4) { // File Material (pdf, ppt, etc)
@@ -270,6 +287,7 @@
                     <label for="formFile" class="col-md-2 col-form-label" >Lesson File</label>
                     <div class="col-md-10">
                         <input class="form-control" type="file" id="formFile" name="material">
+                        <small class="text-secondary">leave it empty if you don't want to change the material.</small>
                     </div>
                 `;
             } else if (moduleType == 3) { // Video Material (YouTube Link)
@@ -277,6 +295,7 @@
                     <label for="input-material" class="col-md-2 col-form-label" >Video URL</label>
                     <div class="col-md-10">
                         <input id="input-material" class="form-control" type="text" name="material" placeholder="https://..." value="{{ old('material') }}">
+                        <small class="text-secondary">leave it empty if you don't want to change the material.</small>
                     </div>
                 `;
             } else if (moduleType == 5) { // Assignment
@@ -284,6 +303,7 @@
                     <label for="formFile" class="col-md-2 col-form-label" >Assignment File</label>
                     <div class="col-md-10">
                         <input class="form-control" type="file" id="formFile" name="material">
+                        <small class="text-secondary">leave it empty if you don't want to change the material.</small>
                     </div>
                 `;
             } else if (moduleType == 6) { // Quiz
@@ -297,6 +317,8 @@
                             </option>
                         @endforeach
                         </select>
+
+                        <small class="text-secondary">leave it empty if you don't want to change the material.</small>
                     </div>
                 `;
 
@@ -315,6 +337,8 @@
                             </option>
                         @endforeach
                         </select>
+
+                        <small class="text-secondary">leave it empty if you don't want to change the material.</small>
                     </div>
                 `;
 
@@ -327,6 +351,7 @@
                     <label for="code-editor" class="col-md-2 col-form-label" >Code</label>
                     <div class="col-md-10">
                         <textarea id="code-editor" name="material" class="form-control" rows="10">{{ old('material') }}</textarea>
+                        <small class="text-secondary">leave it empty if you don't want to change the material.</small>
                     </div>
                 `;
 
@@ -336,7 +361,7 @@
                     "script", "link"
                 ];
 
-                // Initialize CodeMirror
+                // Initialize CodeMirror for Dynamic Fields
                 const editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
                     lineNumbers: true,
                     mode: 'htmlmixed',
@@ -401,10 +426,6 @@
                         CodeMirror.commands.autocomplete(cm);
                     }
                 });
-            } else {
-                material.innerHTML = `
-                <input type="hidden" id="material" name="material" value="">
-                `;
             }
         }
     </script>
