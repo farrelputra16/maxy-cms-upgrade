@@ -1,17 +1,17 @@
 @extends('layout.main-v3')
 
-@section('title', 'Dasbor')
+@section('title', 'Dashboard')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Dasbor</h4>
+                <h4 class="mb-sm-0 font-size-18">Dashboard</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item active">Dasbor</li>
+                        <li class="breadcrumb-item active">Dashboard</li>
                     </ol>
                 </div>
             </div>
@@ -27,8 +27,8 @@
                         <div class="row">
                             <div class="col-7">
                                 <div class="text-primary p-3">
-                                    <h5 class="text-primary">Selamat Datang Kembali!</h5>
-                                    <p>Dasbor Admin CMS</p>
+                                    <h5 class="text-primary">Welcome Back!</h5>
+                                    <p>MAXY CMS Dashboard</p>
                                 </div>
                             </div>
                             <div class="col-5 align-self-end">
@@ -51,8 +51,8 @@
                                     @endif
                                 </div>
                                 <h5 class="font-size-15 text-truncate">{{ auth()->user()->name }}</h5>
-                                <p class="text-muted mb-0 text-truncate"> Role akun ini adalah:
-                                    <strong>{{ $admin->accessGroup->name }}</strong>
+                                <p class="text-muted mb-0 text-truncate">
+                                    You are logged in as <strong>{{ $admin->accessGroup->name }}</strong> account
                                 </p>
                             </div>
                         </div>
@@ -68,13 +68,13 @@
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Siswa</p>
+                                        <p class="text-muted fw-medium">Students</p>
                                         <h4 class="mb-0" id="student_total">
                                             {{ number_format($studentCount, 0, ',', '.') }}</h4>
                                     </div>
                                     <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
                                         <span class="avatar-title rounded-circle bg-primary">
-                                            <i class="fa-solid fa-id-badge font-size-24"></i>
+                                            <i class="fas fa-id-badge font-size-24"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -86,13 +86,13 @@
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Universitas</p>
+                                        <p class="text-muted fw-medium">Universities</p>
                                         <h4 class="mb-0" id="university_total">
                                             {{ number_format($universityCount, 0, ',', '.') }}</h4>
                                     </div>
                                     <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
                                         <span class="avatar-title rounded-circle bg-primary">
-                                            <i class="fa-solid fa-school font-size-24"></i>
+                                            <i class="fas fa-school font-size-24"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -104,13 +104,13 @@
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Perusahaan</p>
+                                        <p class="text-muted fw-medium">Companies</p>
                                         <h4 class="mb-0" id="company_total">
                                             {{ number_format($companyCount, 0, ',', '.') }}</h4>
                                     </div>
                                     <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
                                         <span class="avatar-title rounded-circle bg-primary">
-                                            <i class="fa-solid fa-building font-size-24"></i>
+                                            <i class="fas fa-building font-size-24"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -120,23 +120,22 @@
                 </div>
             </div>
             <br>
-            <h4 class="card-title mb-4">Daftar Kemitraan yang Akan Berakhir</h4>
+            <h4 class="card-title mb-4">Partnerships <strong class="text-danger">expiring soon</strong></h4>
             <div class="container">
                 <div class="card">
                     <div class="card-body" style="height: 100%;">
                         <div class="boxActive box">
                             @if ($partnerships->isEmpty())
                                 <div class="alert alert-info text-center" role="alert">
-                                    Tidak ada kemitraan yang akan segera berakhir.
+                                    No partnership is expiring soon.
                                 </div>
                             @else
                                 <table id="table" class="tableActive table-striped" style="width: 100%;">
                                     <thead>
                                         <tr>
-                                            <th class="ticlass" style="width: 50%; text-align: left;">Mitra</th>
-                                            <th class="tibatch" style="width: 20%;">Tipe</th>
-                                            <th class="tiaction" style="width: 30%; text-align: right;">Tanggal Berakhir
-                                            </th>
+                                            <th class="ticlass" style="width: 50%; text-align: left;">Partner</th>
+                                            <th class="tibatch" style="width: 20%;">Type</th>
+                                            <th class="tiaction" style="width: 30%; text-align: right;">Expired Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -159,16 +158,16 @@
             <div class="container">
                 <div class="row g-4">
                     <div class="col-8">
-                        <h4 class="card-title mb-4">Kelas Aktif</h4>
+                        <h4 class="card-title mb-4">Ongoing Classes</h4>
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table mb-0 table">
                                         <thead>
                                             <tr>
-                                                <th>Kelas</th>
-                                                <th>Paralel</th>
-                                                <th>Aksi</th>
+                                                <th>Class</th>
+                                                <th>Batch</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -189,18 +188,18 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <h4 class="card-title mb-4">Siswa</h4>
+                        <h4 class="card-title mb-4">Student Account Statistics</h4>
                         <div class="card">
                             <div class="card-body">
                                 <div id="student-chart" style="height: 100%;"></div>
                                 <div class="justify-content-center row">
                                     <div class="col-6 text-center">
                                         <h5 id="user-active" class="mb-0">{{ $activeStudentCount }}</h5>
-                                        <p class="text-muted">Aktif</p>
+                                        <p class="text-muted">Active</p>
                                     </div>
                                     <div class="col-6 text-center">
                                         <h5 id="user-inactive" class="mb-0">{{ $inactiveStudentCount }}</h5>
-                                        <p class="text-muted">Tidak Aktif</p>
+                                        <p class="text-muted">Inactive</p>
                                     </div>
                                 </div>
                             </div>

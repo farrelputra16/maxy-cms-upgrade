@@ -17,13 +17,13 @@
                             <a href="{{ route('getCourse') }}">Course</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="{{ route('getCourseModule', ['course_id' => $parent->course_id]) }}">Modules:
-                                {{ $course_detail->name }}</a>
+                            <a href="{{ route('getCourseModule', ['course_id' => $parentModule->course_id]) }}">Modules:
+                                {{ $courseDetail->name }}</a>
                         </li>
                         <li class="breadcrumb-item">
                             <a
-                                href="{{ route('getCourseSubModule', ['course_id' => $parent->course_id, 'module_id' => $parent->id]) }}">Child
-                                Modules: {{ $parent->name }}</a>
+                                href="{{ route('getCourseSubModule', ['course_id' => $parentModule->course_id, 'module_id' => $parentModule->id]) }}">Child
+                                Modules: {{ $parentModule->name }}</a>
                         </li>
                         <li class="breadcrumb-item active">
                             {{ isset($childModule) ? 'Edit Child Module: ' . $childModule->name : 'Add New Child Module' }}
@@ -42,7 +42,7 @@
                 <div class="card-body">
                     <h4 class="card-title">
                         @if (isset($childModule))
-                            Edit Child Module: {{ $parent->name }}
+                            Edit Child Module: {{ $parentModule->name }}
                         @else
                             Add New Child Module
                         @endif
@@ -54,7 +54,7 @@
 
                     <!-- Start Form -->
                     <form
-                        action="{{ isset($childModule) ? route('postEditChildModule', ['id' => $childModule->id]) : route('postAddChildModule', ['parentId' => $parent->id]) }}"
+                        action="{{ isset($childModule) ? route('postEditChildModule', ['id' => $childModule->id]) : route('postAddChildModule', ['parentId' => $parentModule->id]) }}"
                         method="post" enctype="multipart/form-data">
                         @csrf
 
@@ -65,7 +65,7 @@
                             <label for="input-parent-module" class="col-md-2 col-form-label">Parent Module</label>
                             <div class="col-md-10">
                                 <input id="input-parent-module" class="form-control" type="text"
-                                    value="{{ $parent->name }}" disabled>
+                                    value="{{ $parentModule->name }}" disabled>
                             </div>
                         </div>
 
@@ -101,9 +101,68 @@
                             </div>
                         </div>
 
-                        <!-- Start Material Section -->
+                        <!-- Start Previous Material Section -->
+                        @if (isset($childModule))
+                            <hr>
+                            <strong class="text-secondary">PREVIOUS MATERIAL</strong>
+
+                            <div class="my-3 row">
+                                <label for="input-type" class="col-md-2 col-form-label">
+                                    Module Type
+                                </label>
+                                <div class="col-md-10">
+                                    <select id="old-input-type" name="type" class="form-control select2"
+                                        onload="updateMaterialInput(this.value)" style="width: 100%;" disabled>
+                                        @foreach ($type as $item)
+                                            @if ($item->name != 'parent')
+                                                <option value="{{ $item->id }}"
+                                                    {{ (isset($childModule) && $childModule->type == $item->id) || old('type') == $item->id ? 'selected' : '' }}>
+                                                    {{ $item->description }}
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label class="col-md-2 col-form-label">
+                                    Previous Material
+                                </label>
+
+                                <!-- Start Previous Material Preview -->
+                                <div id="previous-material" class="col-md-10 d-flex align-items-center">
+                                    @if ($childModule->type_name == 'assignment' || $childModule->type_name == 'materi_pembelajaran')
+                                        <div class="w-100">
+                                            <embed
+                                                src="{{ asset('uploads/courses/' . $courseDetail->id . '/modules/' . $parentModule->id . '/' . $childModule->id . '/' . $childModule->material) }}"
+                                                frameborder="0" style="width:100%; height: 30vh;"></embed>
+                                            <a href="{{ asset('uploads/courses/' . $courseDetail->id . '/modules/' . $parentModule->id . '/' . $childModule->id . '/' . $childModule->material) }}"
+                                                target="_blank">{{ $childModule->material }}</a>
+                                        </div>
+                                    @elseif($childModule->type_name == 'video_pembelajaran')
+                                        <div class="w-100">
+                                            <iframe src="{{ $childModule->material }}" frameborder="0"
+                                                style="width:100%; height: 400px;"></iframe>
+                                            <a href="{{ $childModule->material }}"
+                                                target="_blank">{{ $childModule->material }}</a>
+                                        </div>
+                                    @elseif($childModule->type_name == 'quiz' || $childModule->type_name == 'eval')
+                                        <a href="{{ $childModule->material }}"
+                                            target="_blank">{{ $childModule->material }} <i
+                                                class="fas fa-external-link-alt mx-2"></i></a>
+                                    @elseif($childModule->type_name == 'code')
+                                    @endif
+                                </div>
+                                <!-- End Previous Material Preview -->
+
+                            </div>
+                        @endif
+
+                        <!-- Start Current Material -->
+
                         <hr>
-                        <strong class="text-secondary">MATERIAL</strong>
+                        <strong class="text-secondary">CURRENT MATERIAL</strong>
 
                         <div class="my-3 row">
                             <label for="input-type" class="col-md-2 col-form-label">
@@ -123,19 +182,6 @@
                                 </select>
                             </div>
                         </div>
-
-                        @if (isset($childModule))
-                            <div class="mb-3 row">
-                                <label class="col-md-2 col-form-label">
-                                    Previous Material
-                                </label>
-                                <div id="previous-material" class="col-md-10">
-                                    @if ($childModule->type_name == 'assignment' || $childModule->type_name == 'materi_pembelajaran')
-                                        <a href="{{ asset('') }}"></a>
-                                    @endif
-                                </div>
-                            </div>
-                        @endif
 
                         <div id="material" class="mb-3 row">
                             <!-- Material Input Fields will be generated here via JavaScript -->
@@ -162,7 +208,7 @@
                         </div>
 
                         <hr>
-                        <!-- End Material Section -->
+                        <!-- End Current Material -->
 
                         <strong class="text-secondary">FOOTER DATA</strong>
 

@@ -160,11 +160,11 @@ $(document).ready(function () {
                 var params = dt.ajax.params();
                 params.start = 0;
                 params.length = -1; // Export all data
-    
+
                 // Get the value of the checkbox
                 var encryptResume = document.getElementById("encryptResumeCheckbox").checked ? "on" : "off";
                 params.encrypt_resume = encryptResume; // Add it to params
-    
+
                 $.ajax({
                     url: window.exportCVPdfRoute,
                     type: "POST",
@@ -177,7 +177,7 @@ $(document).ready(function () {
                     },
                     success: function (data, status, xhr) {
                         var contentType = xhr.getResponseHeader("Content-Type");
-    
+
                         // Ensure the response is a ZIP file
                         if (contentType === "application/zip") {
                             var blob = new Blob([data], { type: "application/zip" });
@@ -201,7 +201,7 @@ $(document).ready(function () {
             },
         });
     }
-    
+
 
     // Initialize DataTables
     $(".table").each(function () {

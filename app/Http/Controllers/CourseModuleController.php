@@ -80,15 +80,15 @@ class CourseModuleController extends Controller
             'updated_id',
             'status'
         )
-        ->where('course_id', $course_id)
-        ->where('course_module_parent_id', null)
-        ->when($page_type != 'CP', function ($query) {
-            return $query->where('type', '!=', 'company_profile');
-        })
-        ->when($page_type == 'CP', function ($query) {
-            return $query->where('type', 'company_profile');
-        })
-        ->orderBy($finalOrderColumn, $orderDirection);
+            ->where('course_id', $course_id)
+            ->where('course_module_parent_id', null)
+            ->when($page_type != 'CP', function ($query) {
+                return $query->where('type', '!=', 'company_profile');
+            })
+            ->when($page_type == 'CP', function ($query) {
+                return $query->where('type', 'company_profile');
+            })
+            ->orderBy($finalOrderColumn, $orderDirection);
 
         // Filter columns
         foreach ($columns as $column) {
@@ -231,8 +231,8 @@ class CourseModuleController extends Controller
             'updated_id',
             'status'
         )
-        ->where('course_module_parent_id', $module_id)
-        ->orderBy($finalOrderColumn, $orderDirection);
+            ->where('course_module_parent_id', $module_id)
+            ->orderBy($finalOrderColumn, $orderDirection);
 
         // Filter columns
         foreach ($columns as $column) {
@@ -419,9 +419,9 @@ class CourseModuleController extends Controller
 
         // dd($highestPriority);
         return view('course_module.child.manage', [
-            'course_detail' => $course_detail,
+            'courseDetail' => $course_detail,
             'course_type' => $course_type,
-            'parent' => $parent,
+            'parentModule' => $parent,
             'page_type' => $request->page_type,
             'quiz' => $quiz,
             'eval' => $eval,
@@ -436,84 +436,55 @@ class CourseModuleController extends Controller
         // dd($request->all());
 
         // Validasi input yang diperlukan
-        if ($request->type == '4') {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'priority' => 'required|integer|min:1',
-                'type' => 'required',
-                'material' => 'required'
-            ], [
-                'material.required' => 'File materi pembelajaraan harus diisi.',
-            ]);
-        } else if ($request->type == '3') {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'priority' => 'required|integer|min:1',
-                'type' => 'required',
-                'material' => 'required',
-                'duration' => 'required',
-            ], [
-                'material.required' => 'Link video harus diisi.',
-                'duration.required' => 'Durasi video harus diisi.',
-            ]);
-        } else if ($request->type == '8') {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'priority' => 'required|integer|min:1',
-                'type' => 'required',
-                'content' => 'required'
-            ]);
-        } else {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'priority' => 'required|integer|min:1',
-                'type' => 'required',
-            ]);
-        }
-
-        $parentModule = CourseModule::find($request->parentId);
-
-        if ($request->hasFile('material')) {
-            $file = $request->file('material');
-            $material = $file->getClientOriginalName();
-            $destinationPath = public_path('/fe/public/files');
-            if (!File::exists($destinationPath)) {
-                File::makeDirectory($destinationPath, 0777, true, true);
-            }
-            $file->move($destinationPath, $material);
-        } else {
-            $material = $request->material;
-        }
-
-        $create = CourseModule::create([
-            'name' => $validated['name'],
-            'priority' => $validated['priority'],
-            'level' => 2,
-            'course_id' => $parentModule->course_id,
-            'course_module_parent_id' => $parentModule->id,
-            'type' => $request->type,
-            'material' => $material,
-            'grade_status' => $request->grade_status ? 1 : 0,
-            'duration' => $request->duration,
-            'content' => $request->content,
-            'description' => $request->description,
-            'status' => $request->status ? 1 : 0,
-            'created_id' => Auth::user()->id,
-            'updated_id' => Auth::user()->id,
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'priority' => 'required|integer|min:1',
+            'type' => 'required',
+            'material' => 'required'
         ]);
 
-        if ($create) {
-            if ($request->current_page == 'class_management') {
-                return redirect()->back()->with('success', 'Sukses Menambah Modul');
+        try {
+            $parentModule = CourseModule::find($request->parentId);
+
+            // if child module material contains file, save the file
+            if ($request->hasFile('material')) {
+                $file = $request->file('material');
+                $material = $file->getClientOriginalName();
+                // $destinationPath = public_path('/fe/public/files'); // old file directory
+                $destinationPath = public_path('/uploads/courses/' . $parentModule->course_id . '/modules/' . $parentModule->id . '');
+
+                if (!File::exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, 0777, true, true);
+                }
+                $file->move($destinationPath, $material);
             } else {
-                return redirect()->route('getCourseSubModule', ['course_id' => $parentModule->course_id, 'module_id' => $parentModule->id, 'page_type' => 'LMS_child'])->with('success', 'Sukses Update Module');
+                $material = $request->material;
             }
-        } else {
-            if ($request->current_page == 'class_management') {
-                return redirect()->back()->with('error', 'Gagal Menambah Modul, silahkan coba lagi');
+
+            $create = CourseModule::create([
+                'name' => $validated['name'],
+                'priority' => $validated['priority'],
+                'level' => 2,
+                'course_id' => $parentModule->course_id,
+                'course_module_parent_id' => $parentModule->id,
+                'type' => $request->type,
+                'material' => $material,
+                'grade_status' => $request->grade_status ? 1 : 0,
+                'duration' => $request->duration,
+                'content' => $request->content,
+                'description' => $request->description,
+                'status' => $request->status ? 1 : 0,
+                'created_id' => Auth::user()->id,
+                'updated_id' => Auth::user()->id,
+            ]);
+
+            if ($create) {
+                return redirect()->route('getCourseSubModule', ['course_id' => $parentModule->course_id, 'module_id' => $parentModule->id])->with('success', 'Child module created successfully');
             } else {
-                return redirect()->route('getCourseSubModule', ['course_id' => $parentModule->course_id, 'module_id' => $parentModule->id, 'page_type' => 'LMS_child'])->with('error', 'Gagal Update Modul, silahkan coba lagi');
+                return redirect()->route('getCourseSubModule', ['course_id' => $parentModule->course_id, 'module_id' => $parentModule->id])->with('error', 'Failed to add child module, please try again');
             }
+        } catch (\Exception $e) {
+            return redirect()->route('getCourseSubModule', ['course_id' => $parentModule->course_id, 'module_id' => $parentModule->id])->with('error', 'Failed to add child module: ' . $e->getMessage());
         }
     }
 
@@ -523,15 +494,16 @@ class CourseModuleController extends Controller
         // dd($request->all());
         $childModule = CourseModule::find($request->id);
         $parentModule = CourseModule::find($childModule->course_module_parent_id);
-        $course_detail = Course::getCourseDetailByCourseId($parentModule->course_id);
-        $course_type = MCourseType::find($course_detail->m_course_type_id);
-        $quiz = MSurvey::where('type', 1)->get();
+        $courseDetail = Course::getCourseDetailByCourseId($parentModule->course_id);
+        $course_type = MCourseType::find($courseDetail->m_course_type_id);
         $type = MModuleType::where('status', 1)->get();
-        foreach($type as $data){
-            if($data->id == $childModule->type){
+        foreach ($type as $data) {
+            if ($data->id == $childModule->type) {
                 $childModule->type_name = $data->name;
             }
         }
+
+        $quiz = MSurvey::where('type', 1)->get();
         $idQuiz = '';
         if ($childModule->type == '6') {
             $idQuiz = Str::afterLast($childModule->content, '/');
@@ -542,9 +514,10 @@ class CourseModuleController extends Controller
             $idEval = Str::afterLast($childModule->content, '/');
         }
 
-        return view('course_module.child.editv3', [
+        return view('course_module.child.manage', [
             'childModule' => $childModule,
             'parentModule' => $parentModule,
+            'courseDetail' => $courseDetail,
             'course_type' => $course_type,
             'quiz' => $quiz,
             'idQuiz' => $idQuiz,
@@ -557,93 +530,52 @@ class CourseModuleController extends Controller
     function postEditChildModule(Request $request)
     {
         // dd($request->all());
-        $module_detail = CourseModule::find($request->id);
 
         // Validasi input yang diperlukan
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'priority' => 'required|integer|min:1',
+            'type' => 'required|integer|min:1',
         ]);
 
-        if (isset($request->rapid) & $request->rapid == 1) {
-            $update = CourseModule::where('id', '=', $request->id)
-                ->update([
-                    'name' => $validated['name'],
-                    'priority' => $validated['priority'],
-                    'html' => $request->html,
-                    'js' => $request->js,
-                    'type' => $request->type,
-                    'content' => $request->content,
-                    'description' => $request->description,
-                    'status' => $request->status ? 1 : 0,
-                    'updated_id' => Auth::user()->id,
-                ]);
-        } elseif ($request->type == '6') {
-            $update = CourseModule::where('id', '=', $request->id)
-                ->update([
-                    'name' => $validated['name'],
-                    'priority' => $validated['priority'],
-                    'html' => $request->html,
-                    'js' => $request->js,
-                    'type' => $request->type,
-                    'material' => $request->quiz_content,
-                    'content' => $request->content,
-                    'description' => $request->description,
-                    'status' => $request->status ? 1 : 0,
-                    'updated_id' => Auth::user()->id,
-                ]);
-        } elseif ($request->type == '7') {
-            $update = CourseModule::where('id', '=', $request->id)
-                ->update([
-                    'name' => $validated['name'],
-                    'priority' => $validated['priority'],
-                    'html' => $request->html,
-                    'js' => $request->js,
-                    'type' => $request->type,
-                    'material' => $request->eval_content,
-                    'content' => $request->content,
-                    'description' => $request->description,
-                    'status' => $request->status ? 1 : 0,
-                    'updated_id' => Auth::user()->id,
-                ]);
-        } else {
-            if ($request->type == '4' || $request->type == '5') {
-                $material = $module_detail->material;
-                if ($request->hasFile('material')) {
-                    $file = $request->file('material');
-                    $material = $file->getClientOriginalName();
-                    $destinationPath = public_path('/uploads/course_module/' . $module_detail->course_module_parent_id);
-                    if (!File::exists($destinationPath)) { // create folder jika blm ada
-                        File::makeDirectory($destinationPath, 0777, true, true);
-                    }
-                    $file->move($destinationPath, $material);
+        try {
+            $childModule = CourseModule::find($request->id);
+            $parentModule = CourseModule::find($childModule->course_module_parent_id);
+
+            // if child module material contains file, save the file
+            if ($request->hasFile('material')) {
+                $file = $request->file('material');
+                $material = $file->getClientOriginalName();
+                $destinationPath = public_path('/uploads/courses/' . $parentModule->course_id . '/modules/' . $parentModule->id . '/' . $childModule->id);
+
+                if (!File::exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, 0777, true, true);
                 }
+                $file->move($destinationPath, $material);
             } else {
-                $material = $request->material;
+                $material = $request->material != '' ? $request->material : $childModule->material;
             }
+            // dd($material);
             $update = CourseModule::where('id', '=', $request->id)
                 ->update([
-                    'name' => $request->name,
-                    'html' => $request->html,
-                    'js' => $request->js,
-                    'php' => $request->php,
-                    'python' => $request->python,
-                    'priority' => $request->priority,
+                    'name' => $validated['name'],
+                    'priority' => $validated['priority'],
                     'type' => $request->type,
                     'material' => $material,
-                    'grade_status' => $request->grade_status ? 1 : 0,
                     'duration' => $request->duration,
                     'content' => $request->content,
                     'description' => $request->description,
                     'status' => $request->status ? 1 : 0,
                     'updated_id' => Auth::user()->id,
                 ]);
-        }
 
-        if ($update) {
-            return redirect()->route('getCourseSubModule', ['course_id' => $module_detail->course_id, 'module_id' => $module_detail->course_module_parent_id, 'page_type' => 'LMS_child'])->with('success', 'Sukses Update Module');
-        } else {
-            return redirect()->route('getCourseSubModule', ['course_id' => $module_detail->course_id, 'module_id' => $module_detail->course_module_parent_id, 'page_type' => 'LMS_child'])->with('error', 'Gagal Update Modul, silahkan coba lagi');
+            if ($update) {
+                return redirect()->route('getCourseSubModule', ['course_id' => $childModule->course_id, 'module_id' => $childModule->course_module_parent_id])->with('success', 'Child module updated successfully');
+            } else {
+                return redirect()->route('getCourseSubModule', ['course_id' => $childModule->course_id, 'module_id' => $childModule->course_module_parent_id])->with('error', 'Failed to update child module, please try again');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('getCourseSubModule', ['course_id' => $childModule->course_id, 'module_id' => $childModule->course_module_parent_id])->with('error', 'Failed to update module: ' . $e->getMessage());
         }
     }
 }
