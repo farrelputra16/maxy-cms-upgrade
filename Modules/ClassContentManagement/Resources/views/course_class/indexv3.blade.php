@@ -35,85 +35,62 @@
                 <div class="card-body">
                     <h4 class="card-title">Daftar Kelas</h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda untuk mengelola dan memantau data kelas yang tersedia di platform.
-                        Setiap baris dalam tabel ini berisi informasi penting mengenai kelas, termasuk kelas paralel, tipe,
-                        tanggal mulai dan selesai, kuota, SKS, durasi, dan status kelas.
-                        <br><br>
-                        <strong>Cara Penggunaan:</strong>
-                    <ul>
-                        <li><strong>Visibilitas Kolom dan Pengurutan:</strong> Atur tampilan dengan mengurutkan kolom
-                            tertentu untuk mempermudah pencarian data spesifik. Anda juga bisa menggunakan bilah pencarian
-                            untuk mencari kelas tertentu berdasarkan nama, kelas paralel, atau tipe.</li>
-                        <li><strong>Ubah Data:</strong> Klik tombol <em>Ubah</em> pada kolom “Aksi” untuk memperbarui
-                            informasi kelas.</li>
-                        <li><strong>Modul dan Mahasiswa:</strong> Gunakan tombol <em>Modul</em> untuk mengelola modul, dan
-                            tombol <em>Mahasiswa</em> untuk melihat daftar peserta di kelas tersebut.</li>
-                        <li><strong>Absensi dan Penilaian:</strong> Tombol <em>Absensi</em> memungkinkan Anda memantau
-                            kehadiran peserta, sementara tombol <em>Penilaian</em> membantu mengakses penilaian atau nilai
-                            yang diberikan dalam kelas tersebut.</li>
-                        <li><strong>Tambah atau Duplikasi Kelas:</strong> Gunakan ikon <em>Tambah</em> di kanan bawah untuk
-                            menambah kelas baru atau ikon <em>Duplikat</em> untuk menggandakan kelas yang sudah ada dengan
-                            pengaturan yang sama.</li>
-                    </ul>
+                        ...
                     </p>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
-                        data-server-processing="true" 
+                        data-server-processing="true"
                         data-url="{{ route('getCourseClassData') }}"
                         data-colvis="[1, -3, -4, -5, -6]">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Kelas Paralel</th>
-                                <th>Tipe</th>
-                                <th>Jenis Kelas</th>
-                                <th>Berjalan</th>
-                                <th>Mulai</th>
-                                <th>Selesai</th>
-                                <th>Kuota</th>
-                                <th>Semester</th>
-                                <th>SKS</th>
-                                <th>Durasi</th>
-                                <th>Pengumuman</th>
-                                <th>KRS URL</th>
-                                <th>Konten</th>
-                                <th>Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Id Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Id Pembaruan</th>
+                                <th>Batch</th>
+                                <th>Type</th>
+                                <th>Study Type</th>
+                                <th>Ongoing Status</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Quota</th>
+                                <th>Credits</th>
+                                <th>Duration (hours)</th>
+                                <th>Announcement</th>
+                                <th>Content</th>
+                                <th>Admin Notes</th>
+                                <th>Created At</th>
+                                <th>Created Id</th>
+                                <th>Updated At</th>
+                                <th>Updated Id</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Kelas Paralel</th>
-                                <th>Tipe</th>
-                                <th>Jenis Kelas</th>
-                                <th>Berjalan</th>
-                                <th>Mulai</th>
-                                <th>Selesai</th>
-                                <th>Kuota</th>
-                                <th>Semester</th>
-                                <th>SKS</th>
-                                <th>Durasi</th>
-                                <th>Pengumuman</th>
-                                <th>KRS URL</th>
-                                <th>Konten</th>
-                                <th>Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Id Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Id Pembaruan</th>
+                                <th>Batch</th>
+                                <th>Type</th>
+                                <th>Study Type</th>
+                                <th>Ongoing Status</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Quota</th>
+                                <th>Credits</th>
+                                <th>Duration (hours)</th>
+                                <th>Announcement</th>
+                                <th>Content</th>
+                                <th>Admin Notes</th>
+                                <th>Created At</th>
+                                <th>Created Id</th>
+                                <th>Updated At</th>
+                                <th>Updated Id</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -134,7 +111,7 @@
         <div id="floating-whatsapp-button">
             <a href="{{ route('getDuplicateCourseClass') }}" data-toggle="tooltip"
                 title="Duplicate Course Class">
-                <i class="fa-solid fa-copy"></i>
+                <i class="fas fa-copy"></i>
             </a>
         </div>
     @endif
@@ -145,134 +122,121 @@
     <script>
         const columns = [
             {
-                data: "DT_RowIndex", 
+                data: "DT_RowIndex",
                 name: "DT_RowIndex",
                 orderable: false,
                 searchable: false
             },
             {
-                data: "id", 
-                name: "id"
+                data: "id",
+                name: "id",
+                orderable: true,
+                searchable: true
             },
             {
-                data: "course_name", 
+                data: "course_name",
                 name: "course_name",
                 orderable: true,
                 searchable: true
             },
             {
-                data: "type", 
+                data: "type",
                 name: "type",
                 orderable: true,
                 searchable: true
             },
             {
-                data: "class_type", 
+                data: "class_type",
                 name: "class_type",
                 orderable: true,
                 searchable: true
             },
             {
-                data: "status_ongoing", 
+                data: "status_ongoing",
                 name: "status_ongoing",
                 orderable: true,
                 searchable: true
             },
             {
-                data: "start_date", 
+                data: "start_date",
                 name: "start_date",
                 orderable: true,
                 searchable: false
             },
             {
-                data: "end_date", 
+                data: "end_date",
                 name: "end_date",
                 orderable: true,
                 searchable: false
             },
             {
-                data: "quota", 
+                data: "quota",
                 name: "quota",
                 orderable: true,
-                searchable: false
+                searchable: true
             },
             {
-                data: "semester", 
-                name: "semester",
-                orderable: false,
-                searchable: false
-            },
-            {
-                data: "credits", 
+                data: "credits",
                 name: "credits",
                 orderable: true,
-                searchable: false
+                searchable: true
             },
             {
-                data: "duration", 
+                data: "duration",
                 name: "duration",
                 orderable: true,
-                searchable: false
+                searchable: true
             },
             {
-                data: "announcement", 
+                data: "announcement",
                 name: "announcement",
                 orderable: false,
                 searchable: true
             },
             {
-                data: "id", 
-                name: "krs_url",
-                orderable: false,
-                searchable: false,
-                render: function(data, type, row) {
-                    return "{{ env('FRONTEND_APP_URL') }}/lms/krs/course/" + row.type_slug + "/" + row.course_slug;
-                }
-            },
-            {
-                data: "content", 
+                data: "content",
                 name: "content",
                 orderable: false,
                 searchable: true
             },
             {
-                data: "description", 
+                data: "description",
                 name: "description",
                 orderable: false,
                 searchable: true
             },
             {
-                data: "created_at", 
+                data: "created_at",
                 name: "created_at",
                 orderable: true,
                 searchable: false
             },
             {
-                data: "created_id", 
+                data: "created_id",
                 name: "created_id",
-                orderable: false,
-                searchable: false
+                orderable: true,
+                searchable: true
             },
             {
-                data: "updated_at", 
+                data: "updated_at",
                 name: "updated_at",
                 orderable: true,
                 searchable: false
             },
             {
-                data: "updated_id", 
+                data: "updated_id",
                 name: "updated_id",
-                orderable: false,
-                searchable: false
+                orderable: true,
+                searchable: true
             },
             {
-                data: "status", 
+                data: "status",
                 name: "status",
                 orderable: true,
                 searchable: true
             },
             {
-                data: "action", 
+                data: "action",
                 name: "action",
                 orderable: false,
                 searchable: false

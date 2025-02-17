@@ -1,19 +1,19 @@
 @extends('layout.main-v3')
 
-@section('title', 'Duplikasi Kelas')
+@section('title', 'Duplicate Class')
 
 @section('content')
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Tambah Duplikasi Kelas</h4>
+                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Kelas</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Daftar Kelas</a></li>
-                        <li class="breadcrumb-item active">Duplikasi Kelas</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Class</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('getCourseClass') }}">Class List</a></li>
+                        <li class="breadcrumb-item active">Duplicate Class</li>
                     </ol>
                 </div>
 
@@ -26,37 +26,26 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-
+                    <h4 class="card-title">Duplicate Course</h4>
                     <p class="card-title-desc">
-                        Halaman ini memungkinkan Anda untuk menduplikasi kelas yang sudah ada dengan menambahkan kelas baru.
-                        Pastikan semua informasi yang diisi sudah benar agar proses pembelajaran dapat berjalan dengan
-                        lancar dan optimal.
-                        <br><br>
-                        <strong>Cara Penggunaan:</strong>
-                    <ul>
-                        <li>Isi kolom <strong>Mata Kuliah</strong> dengan memilih mata kuliah yang sesuai dari daftar yang
-                            tersedia.</li>
-                        <li>Masukkan <strong>Batch</strong> untuk menentukan kelas paralel dari kelas baru yang akan dibuat.
-                        </li>
-                        <li>Gunakan tombol <strong>'Duplikasi Modul Mata Kuliah'</strong> untuk menyimpan dan membuat kelas
-                            baru.</li>
-                    </ul>
+                        This page allows you to duplicate an existing class. Please select the class you want to duplicate,
+                        then enter the new class information.
                     </p>
-
 
                     <form action="{{ route('postDuplicateCourseClass') }}" method="post" enctype="multipart/form-data">
                         @csrf
+                        <hr>
+                        <strong class="text-secondary">Choose an Existing Class</strong>
 
-                        <br>
-                        <h4><b>Pilih Kelas</b></h4>
-                        <div class="mb-3 row">
+                        <div class="my-3 row">
                             <label for="input-tag" class="col-md-2 col-form-label">Kelas</label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="course_class_id"
-                                    data-placeholder="Pilih kelas yang ingin diduplikasi..." id="type_selector">
+                                    data-placeholder="--- Choose a class as the source to duplicate ---" id="type_selector">
                                     @foreach ($class_list as $item)
-                                        <option value="{{ $item->id }}">{{ $item->course_name }} Kelas Paralel
-                                            {{ $item->batch }}</option>
+                                        <option value="{{ $item->id }}">
+                                            {{ $item->course_name }} Batch {{ $item->batch }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('courseid'))
@@ -66,29 +55,15 @@
                                 @endif
                             </div>
                         </div>
-                        <br>
-                        <h4><b>Kelas Baru</b></h4>
-                        {{-- <div class="mb-3 row">
-                            <label for="input-tag" class="col-md-2 col-form-label">Mata Kuliah</label>
-                            <div class="col-md-10">
-                                <select class="form-control select2" name="course_id"
-                                    data-placeholder="Pilih mata kuliah untuk kelas baru..." id="type_selector">
-                                    @foreach ($course_list as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-                                @if ($errors->has('course_id'))
-                                    @foreach ($errors->get('course_id') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div> --}}
-                        <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Kelas Paralel</label>
+
+                        <hr>
+                        <strong class="text-secondary">New Class Information</strong>
+
+                        <div class="my-3 row">
+                            <label for="input-title" class="col-md-2 col-form-label">Batch</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="batch"
-                                    placeholder="Masukkan kelas paralel (contoh: 2024)">
+                                    placeholder="Enter the batch of the new class here...">
                                 @if ($errors->has('batch'))
                                     @foreach ($errors->get('batch') as $error)
                                         <span style="color: red;">{{ $error }}</span>
@@ -96,23 +71,13 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="input-title" class="col-md-2 col-form-label">Semester</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="number" name="semester" placeholder="Masukkan Semester">
-                                @if ($errors->has('semester'))
-                                    @foreach ($errors->get('semester') as $error)
-                                        <span style="color: red;">{{ $error }}</span>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="class_type_id" class="col-md-2 col-form-label">Jenis Kelas <span class="text-danger"
+                            <label for="class_type_id" class="col-md-2 col-form-label">Class Type <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select id="class_type_id" class="form-control select2" name="class_type_id"
-                                    data-placeholder="Pilih Mata Kuliah yang tersedia">
+                                    data-placeholder="--- Choose a class type ---">
                                     @foreach ($allClassType as $ctype)
                                         <option value="{{ $ctype->id }}"
                                             {{ old('class_type_id') == $ctype->id ? 'selected' : '' }}>
@@ -125,8 +90,9 @@
                                 @enderror
                             </div>
                         </div>
+
                         <div class="mb-3 row">
-                            <label for="ongoing" class="col-md-2 col-form-label">Status Kelas <span class="text-danger"
+                            <label for="ongoing" class="col-md-2 col-form-label">Ongoing Status <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" name="ongoing" id="ongoing"
@@ -143,18 +109,24 @@
                                 @enderror
                             </div>
                         </div>
+
                         <div class="row form-switch form-switch-md mb-3 p-0" dir="ltr">
                             <label class="col-md-2 col-form-label" for="SwitchCheckSizemd">Status</label>
                             <div class="col-md-10 d-flex align-items-center">
                                 <input class="form-check-input p-0 m-0" type="checkbox" id="SwitchCheckSizemd"
                                     name="status">
-                                <label class="m-0">Aktif</label>
+                                <span>
+                                    <i class="far fa-question-circle" data-bs-toggle="tooltip"
+                                        title="Turn this OFF to archive the data instead of publishing it"></i>
+                                </span>
                             </div>
                         </div>
+
                         <div class="mb-3 row justify-content-end">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary w-md text-center">Duplikasi Kelas Mata
-                                    Kuliah</button>
+                                <button type="submit" class="btn btn-primary w-md text-center">
+                                    Duplicate Class
+                                </button>
                             </div>
                         </div>
                     </form>

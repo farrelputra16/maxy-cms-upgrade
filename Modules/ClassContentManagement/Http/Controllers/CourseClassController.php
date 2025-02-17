@@ -260,16 +260,16 @@ class CourseClassController extends Controller
 
         // Base query
         $query = CourseClass::select(
-            'course_class.*', 
-            'course.name as course_name', 
-            'course.slug as course_slug', 
-            'm_course_type.name as type', 
-            'm_course_type.slug as type_slug', 
+            'course_class.*',
+            'course.name as course_name',
+            'course.slug as course_slug',
+            'm_course_type.name as type',
+            'm_course_type.slug as type_slug',
             'm_class_type.name as class_type'
         )
-        ->join('course', 'course.id', '=', 'course_class.course_id')
-        ->join('m_course_type', 'm_course_type.id', '=', 'course.m_course_type_id')
-        ->join('m_class_type', 'm_class_type.id', '=', 'course_class.m_class_type_id');
+            ->join('course', 'course.id', '=', 'course_class.course_id')
+            ->join('m_course_type', 'm_course_type.id', '=', 'course.m_course_type_id')
+            ->join('m_class_type', 'm_class_type.id', '=', 'course_class.m_class_type_id');
 
         // If user doesn't have manage_all_class, filter by mentor
         if (!$hasManageAllClass) {
@@ -283,27 +283,29 @@ class CourseClassController extends Controller
         foreach ($columns as $column) {
             $columnSearchValue = $column['search']['value'] ?? null;
             $columnName = $column['data'];
-            
-            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action', 'krs_url'])) {
+
+            if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
                 continue;
+            } else if ($columnName == 'course_class.id') {
+                $query->where('course_class.id', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'course_name') {
                 $query->where('course.name', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'type') {
                 $query->where('m_course_type.name', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'class_type') {
                 $query->where('m_class_type.name', 'like', "%{$columnSearchValue}%");
-            } else if ($columnName == 'status') {
-                $query->where('course_class.status', '=', stripos($columnSearchValue, 'Non') !== false ? 0 : 1);
+            } else if ($columnName == 'course_class.quota') {
+                $query->where('course_class.quota', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'course_class.credits') {
+                $query->where('course_class.credits', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'course_class.duration') {
+                $query->where('course_class.duration', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'course_class.announcement') {
+                $query->where('course_class.announcement', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'course_class.content') {
+                $query->where('course_class.content', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'description') {
                 $query->where('course_class.description', 'like', "%{$columnSearchValue}%");
-            } else if ($columnName == 'content') {
-                $query->where('course_class.content', 'like', "%{$columnSearchValue}%");
-            } else if ($columnName == 'credits') {
-                $query->where('course_class.credits', 'like', "%{$columnSearchValue}%");
-            } else if ($columnName == 'duration') {
-                $query->where('course_class.duration', 'like', "%{$columnSearchValue}%");
-            } else if ($columnName == 'id') {
-                $query->where('course_class.id', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'created_at') {
                 $query->where('course_class.created_at', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'created_id') {
@@ -312,9 +314,11 @@ class CourseClassController extends Controller
                 $query->where('course_class.updated_at', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'updated_id') {
                 $query->where('course_class.updated_id', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'status') {
+                $query->where('course_class.status', '=', stripos($columnSearchValue, 'Non') !== false ? 0 : 1);
             } else if ($columnName == 'status_ongoing') {
                 $lowerSearchValue = strtolower($columnSearchValue);
-                
+
                 // Mapping pencarian dengan berbagai kemungkinan input
                 $statusMapping = [
                     'belum' => 0,  // Belum Dimulai
@@ -345,9 +349,12 @@ class CourseClassController extends Controller
 
         return DataTables::of($query)
             ->addIndexColumn()
+            ->addColumn('id', function ($row) {
+                return $row->id;
+            })
             ->addColumn('course_name', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->course_name) . ' Kelas Paralel ' . $row->batch . '">'
-                    . \Str::limit(e($row->course_name . ' Kelas Paralel ' . $row->batch), 30)
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->course_name) . ' Batch ' . $row->batch . '">'
+                    . \Str::limit(e($row->course_name . ' Batch ' . $row->batch), 30)
                     . '</span>';
             })
             ->addColumn('type', function ($row) {
@@ -363,8 +370,23 @@ class CourseClassController extends Controller
                     2 => ['text' => 'Sudah Selesai', 'class' => 'bg-primary']
                 ];
                 $status = $statusLabels[$row->status_ongoing] ?? ['text' => 'Status Tidak Diketahui', 'class' => 'bg-danger'];
-                
+
                 return "<span class='badge {$status['class']}' style='pointer-events: none;'>{$status['text']}</span>";
+            })
+            ->addColumn('start_date', function ($row) {
+                return !empty($row->start_date) ? \Str::limit($row->start_date, 30) : '-';
+            })
+            ->addColumn('end_date', function ($row) {
+                return !empty($row->end_date) ? \Str::limit($row->end_date, 30) : '-';
+            })
+            ->addColumn('quota', function ($row) {
+                return $row->quota;
+            })
+            ->addColumn('credits', function ($row) {
+                return $row->credits;
+            })
+            ->addColumn('duration', function ($row) {
+                return $row->duration;
             })
             ->addColumn('announcement', function ($row) {
                 return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->announcement)) . '">
@@ -381,12 +403,6 @@ class CourseClassController extends Controller
                     ' . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') . '
                 </span>';
             })
-            ->addColumn('start_date', function ($row) {
-                return !empty($row->start_date) ? \Str::limit($row->start_date, 30) : '-';
-            })
-            ->addColumn('end_date', function ($row) {
-                return !empty($row->end_date) ? \Str::limit($row->end_date, 30) : '-';
-            })
             ->addColumn('created_at', function ($row) {
                 return $row->created_at;
             })
@@ -400,9 +416,9 @@ class CourseClassController extends Controller
                 return $row->updated_id;
             })
             ->addColumn('status', function ($row) {
-                return '<button 
-                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
-                    data-id="' . $row->id . '" 
+                return '<button
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '"
+                    data-id="' . $row->id . '"
                     data-status="' . $row->status . '"
                     data-model="CourseClass">
                     ' . ($row->status == 1 ? 'Aktif' : 'Nonaktif') . '
@@ -418,11 +434,13 @@ class CourseClassController extends Controller
                 ];
 
                 // Conditionally add delete button based on user session
-                if (Session::has('access_master') && 
-                    Session::get('access_master')->contains('access_master_name', 'course_class_delete')) {
+                if (
+                    Session::has('access_master') &&
+                    Session::get('access_master')->contains('access_master_name', 'course_class_delete')
+                ) {
                     $actions[] = '
-                    <form id="delete-course-class-form-' . $row->id . '" 
-                        action="' . route('deleteCourseClass', ['id' => $row->id]) . '" 
+                    <form id="delete-course-class-form-' . $row->id . '"
+                        action="' . route('deleteCourseClass', ['id' => $row->id]) . '"
                         method="POST" class="d-inline-block"
                         data-course-name="' . $row->course_name . '">
                         ' . method_field('DELETE') . '
@@ -470,117 +488,113 @@ class CourseClassController extends Controller
 
     public function postAddCourseClass(Request $request)
     {
-        // Validasi input termasuk slug
         $validated = $request->validate([
             'batch' => 'required',
             'slug' => 'required|unique:course_class,slug', // Pastikan slug unik
             'class_type_id' => 'required',
             'start' => 'required|date',
             'end' => 'required|date|after:start',
-            'quota' => 'required|integer|gte:1',
+            'quota' => 'required',
             'ongoing' => 'required',
-            'semester' => 'required|numeric|min:1',
             'credits' => 'required',
             'duration' => 'required'
         ]);
-        // dd($request->all());
 
-        // Jika validasi berhasil
-        if ($validated) {
-            // Input data ke database
-            $create = CourseClass::create([
-                'batch' => $request->batch,
-                'slug' => $request->slug, // Slug disimpan di database
-                'credits' => $request->credits,
-                'duration' => $request->duration,
-                'start_date' => $request->start,
-                'end_date' => $request->end,
-                'quota' => $request->quota,
-                'course_id' => $request->course_id,
-                'm_class_type_id' => $request->class_type_id,
-                'announcement' => $request->announcement,
-                'semester' => $request->semester,
-                'content' => $request->content,
-                'description' => $request->description,
-                'status_ongoing' => $request->ongoing,
-                'status' => $request->status ? 1 : 0,
-                'created_id' => Auth::user()->id,
-                'updated_id' => Auth::user()->id
-            ]);
+        try {
+            if ($validated) {
+                $create = CourseClass::create([
+                    'batch' => $request->batch,
+                    'slug' => $request->slug,
+                    'credits' => $request->credits,
+                    'duration' => $request->duration,
+                    'start_date' => $request->start,
+                    'end_date' => $request->end,
+                    'quota' => $request->quota,
+                    'course_id' => $request->course_id,
+                    'm_class_type_id' => $request->class_type_id,
+                    'announcement' => $request->announcement,
+                    'content' => $request->content,
+                    'description' => $request->description,
+                    'status_ongoing' => $request->ongoing,
+                    'status' => $request->status ? 1 : 0,
+                    'created_id' => Auth::user()->id,
+                    'updated_id' => Auth::user()->id
+                ]);
 
-            // Redirect atau feedback berdasarkan hasil create
-            if ($create) {
-                session()->flash('class_added', 'Kelas berhasil ditambahkan! Silakan tambahkan modul kelas.');
-                return app(HelperController::class)->Positive('getCourseClass');
+                if ($create) {
+                    return redirect()->route('getCourseClass')->with('success', 'Class added successfully! Please add modules to the class.');
+                } else {
+                    return redirect()->back()->with('error', 'Failed to add class, please try again.');
+                }
             }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to add class: ' . $e->getMessage());
+
         }
     }
 
 
     public function postDuplicateCourseClass(Request $request)
     {
+        // dd($request->all());
         $validated = $request->validate([
+            'course_class_id' => 'required',
+            'batch' => 'required',
             'class_type_id' => 'required',
             'ongoing' => 'required',
         ]);
+        try {
+            if ($validated) {
+                $class = new CourseClass();
+                $existingClass = CourseClass::with('course')->where('id', $request->course_class_id)->first();
 
-        if ($validated) {
-            $courseClass = CourseClass::with('course')->where('id', $request->course_class_id)->first();
-            $courseClass->slug = $courseClass->course->name . '-' . $request->batch;
-            $courseClass->batch = $request->batch;
-            $courseClass->semester = $request->semester;
-            $courseClass->m_class_type_id = $request->class_type_id;
-            if ($request->ongoing != null) {
-                $courseClass->status_ongoing = $request->ongoing;
-            }
-            // $courseClass->course_id = $request->course_id;
-            
-            // insert course class yang telah diubah
-            $newCourseClass = $courseClass->replicate();
-            
-            // Memeriksa jika start_date tidak valid dan menggantinya dengan tanggal hari ini
-            if ($newCourseClass->start_date == '0000-00-00') {
-                $currentDate = date('Y-m-d');
-                $newCourseClass->start_date = $currentDate;
-            }
-            // Memeriksa jika end_date tidak valid dan menggantinya dengan tanggal hari ini
-            if ($newCourseClass->end_date == '0000-00-00') {
-                $currentDate = date('Y-m-d');
-                $newCourseClass->end_date = $currentDate;
-            }
-            // mengubah status dari class baru
-            if ($request->status == null) {
-                $newCourseClass->status = 0;
-            } else {
-                $newCourseClass->status = 1;
-            }
-    
-            $newCourseClass->save();
-    
-            // mengambil id course class yang barusan dibuat
-            $lastCourseClassId = CourseClass::orderBy('id', 'desc')->first();
-    
-            // mengambil id course class module yang ingin di duplicate
-            $courseClassModule = CourseClassModule::where('course_class_id', $request->course_class_id)->get();
-    
-            // Duplicate setiap course class module
-            foreach ($courseClassModule as $module) {
-                $newModule = $module->replicate();
-                $newModule->course_class_id = $lastCourseClassId->id;
-    
-                // Memeriksa jika start_date tidak valid dan menggantinya dengan waktu hari ini
-                if ($newModule->start_date == '0000-00-00 00:00:00') {
-                    $newModule->start_date = now();
+                $slug = strtolower(str_replace('/\s+/', '-', $existingClass->course->name)) . '-' . $request->batch;
+
+                $class->batch = $request->batch;
+                $class->slug = $slug;
+                $class->credits = $existingClass->credits;
+                $class->duration = $existingClass->duration;
+                $class->start_date = $existingClass->start_date == '0000-00-00' ? date('Y-m-d') : $existingClass->start_date;
+                $class->end_date = $existingClass->end_date == '0000-00-00' ? date('Y-m-d') : $existingClass->end_date;
+                $class->quota = $existingClass->quota;
+                $class->course_id = $existingClass->course_id;
+                $class->m_class_type_id = $request->class_type_id;
+                $class->announcement = $existingClass->announcement;
+                $class->content = $existingClass->content;
+                $class->description = $existingClass->description;
+                $class->status_ongoing = $request->ongoing ? $request->ongoing : $existingClass->status_ongoing;
+                $class->status = $request->status == null ? 0 : 1;
+                $class->created_id = Auth::user()->id;
+                $class->updated_id = Auth::user()->id;
+                $class->save();
+
+                // get created class's id
+                $lastCourseClassId = CourseClass::orderBy('id', 'desc')->first();
+
+                // get modules of the existing class
+                $courseClassModule = CourseClassModule::where('course_class_id', $request->course_class_id)->get();
+
+                // duplicate all modules from existing class to the new class
+                foreach ($courseClassModule as $module) {
+                    $newModule = $module->replicate();
+                    $newModule->course_class_id = $lastCourseClassId->id;
+
+                    // Memeriksa jika start_date tidak valid dan menggantinya dengan waktu hari ini
+                    if ($newModule->start_date == '0000-00-00 00:00:00') {
+                        $newModule->start_date = now();
+                    }
+                    // Memeriksa jika end_date tidak valid dan menggantinya dengan waktu hari ini
+                    if ($newModule->end_date == '0000-00-00 00:00:00') {
+                        $newModule->end_date = now();
+                    }
+
+                    $newModule->save();
                 }
-                // Memeriksa jika end_date tidak valid dan menggantinya dengan waktu hari ini
-                if ($newModule->end_date == '0000-00-00 00:00:00') {
-                    $newModule->end_date = now();
-                }
-    
-                $newModule->save();
+                return redirect()->route('getCourseClass')->with('success', 'Class duplicated successfully.');
+                // return app(HelperController::class)->Positive('getCourseClass');
             }
-    
-            return app(HelperController::class)->Positive('getCourseClass');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to duplicate class: ' . $e->getMessage());
         }
     }
 
@@ -607,9 +621,8 @@ class CourseClassController extends Controller
             'slug' => 'required|unique:course_class,slug,' . $request->id, // Slug unik kecuali milik sendiri
             'start' => 'required|date',
             'end' => 'required|date|after:start',
-            'quota' => 'required|integer|gte:1',
+            'quota' => 'required',
             'ongoing' => 'required',
-            'semester' => 'required|numeric|min:1',
             'credits' => 'required',
             'duration' => 'required'
         ]);
@@ -631,7 +644,6 @@ class CourseClassController extends Controller
                 'course_id' => $request->course_id,
                 'm_class_type_id' => $request->class_type_id,
                 'announcement' => $request->announcement,
-                'semester' => $request->semester,
                 'content' => $request->content,
                 'status_ongoing' => $request->ongoing ? $request->ongoing : 0,
                 'description' => $request->description,
@@ -664,7 +676,7 @@ class CourseClassController extends Controller
             $courseClassModules = CourseClassModule::where('course_class_id', $courseClassId)->get();
 
             foreach ($courseClassModules as $module) {
-                 // 1. Hapus course_journal yang terkait dengan module terlebih dahulu
+                // 1. Hapus course_journal yang terkait dengan module terlebih dahulu
                 $courseJournals = CourseJournal::where('course_class_module_id', $module->id)->get();
                 foreach ($courseJournals as $journal) {
                     $journal->delete(); // Hapus setiap jurnal terkait
@@ -676,7 +688,7 @@ class CourseClassController extends Controller
                 foreach ($gradings as $grading) {
                     if ($grading->submitted_file) {
                         // Hapus file dari storage
-                        $folderPath = public_path("uploads/"."course_class_member_grading/"."$courseClass->id");
+                        $folderPath = public_path("uploads/" . "course_class_member_grading/" . "$courseClass->id");
                         $this->deleteFolderRecursive($folderPath);
                     }
                 }
