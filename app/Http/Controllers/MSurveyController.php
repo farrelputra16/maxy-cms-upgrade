@@ -31,7 +31,7 @@ class MSurveyController extends Controller
         $orderColumnMapping = [
             'DT_RowIndex' => 'id',
         ];
-        
+
         // Gunakan mapping untuk menentukan kolom pengurutan
         $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
@@ -64,10 +64,10 @@ class MSurveyController extends Controller
             if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action', 'url'])) {
                 continue;
             } else if ($columnName == 'status') {
-                if (strpos(strtolower($columnSearchValue), 'non') !== false)
-                    $mSurvey->where('status', '=', 0);
-                else
+                if ($columnSearchValue == 'active')
                     $mSurvey->where('status', '=', 1);
+                else
+                    $mSurvey->where('status', '=', 0);
             } else if ($columnName == 'type') {
                 $tipe = 0;
                 $lowerSearchValue = strtolower($columnSearchValue);
@@ -103,9 +103,9 @@ class MSurveyController extends Controller
                     return '<span class="badge text-bg-primary" style="padding: 15%; font-size: smaller;">Kuis</span>';
             })
             ->addColumn('description', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' 
-                    . e(strip_tags($row->description)) . '">' 
-                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') 
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
+                    . e(strip_tags($row->description)) . '">'
+                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-')
                     . '</span>';
             })
             ->addColumn('created_at', function ($row) {
@@ -121,18 +121,18 @@ class MSurveyController extends Controller
                 return $row->updated_id;
             })
             ->addColumn('status', function ($row) {
-                return '<button 
-                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
-                    data-id="' . $row->id . '" 
+                return '<button
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '"
+                    data-id="' . $row->id . '"
                     data-status="' . $row->status . '"
                     data-model="MSurvey">
                     ' . ($row->status == 1 ? 'Aktif' : 'Non aktif') . '
                 </button>';
             })
             ->addColumn('action', function ($row) {
-                return '<a href="' . route('getEditSurvey', ['id' => $row->id, 'access' => 'm_survey_update']) . '" 
+                return '<a href="' . route('getEditSurvey', ['id' => $row->id, 'access' => 'm_survey_update']) . '"
                             class="btn btn-primary rounded">Ubah</a>' . " " .
-                        '<a href="' . route('getSurveyResult', ['id' => $row->id, 'access' => 'survey_result_manage']) . '" 
+                        '<a href="' . route('getSurveyResult', ['id' => $row->id, 'access' => 'survey_result_manage']) . '"
                             class="btn btn-info rounded">Hasil</a>';
             })
             ->orderColumn('id', 'id $1')
@@ -274,15 +274,15 @@ class MSurveyController extends Controller
             // Filter untuk responden_name (kolom name di tabel users)
             if ($columnName == 'responden_name') {
                 $mSurveyResult->where('users.name', 'like', "%{$columnSearchValue}%");
-            } 
+            }
             // Filter untuk status
             else if ($columnName == 'status') {
-                if (strpos(strtolower($columnSearchValue), 'non') !== false) {
-                    $mSurveyResult->where('survey_result.status', '=', 0);
-                } else {
+                if ($columnSearchValue == 'active') {
                     $mSurveyResult->where('survey_result.status', '=', 1);
+                } else {
+                    $mSurveyResult->where('survey_result.status', '=', 0);
                 }
-            } 
+            }
             // Filter untuk kolom lain
             else {
                 $mSurveyResult->where("survey_result.$columnName", 'like', "%{$columnSearchValue}%");
@@ -320,7 +320,7 @@ class MSurveyController extends Controller
             ->addColumn('updated_at', fn($row) => $row->updated_at)
             ->addColumn('updated_id', fn($row) => $row->updated_id)
             ->addColumn('action', function ($row) {
-                return '<a href="' . route('getSurveyResultDetail', ['id' => $row->id, 'access' => 'survey_result_read']) . '" 
+                return '<a href="' . route('getSurveyResultDetail', ['id' => $row->id, 'access' => 'survey_result_read']) . '"
                             class="btn btn-primary rounded">Detail</a>';
             })
             ->orderColumn('id', 'survey_result.id $1')

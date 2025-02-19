@@ -280,29 +280,29 @@ class CourseClassController extends Controller
         $query->orderBy($finalOrderColumn, $orderDirection);
 
         // Column-specific filtering
-        foreach ($columns as $column) {
+        foreach ($columns as $key => $column) {
             $columnSearchValue = $column['search']['value'] ?? null;
             $columnName = $column['data'];
 
             if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
                 continue;
-            } else if ($columnName == 'course_class.id') {
-                $query->where('course_class.id', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'course_name') {
                 $query->where('course.name', 'like', "%{$columnSearchValue}%");
+            } else if ($columnName == 'status') {
+                if ($columnSearchValue == 'active') {
+                    $query->where('course_class.status', '=', 1);
+                } else {
+                    $query->where('course_class.status', '=', 0);
+                }
             } else if ($columnName == 'type') {
                 $query->where('m_course_type.name', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'class_type') {
                 $query->where('m_class_type.name', 'like', "%{$columnSearchValue}%");
-            } else if ($columnName == 'course_class.quota') {
-                $query->where('course_class.quota', 'like', "%{$columnSearchValue}%");
-            } else if ($columnName == 'course_class.credits') {
+            } else if ($columnName == 'credits') {
                 $query->where('course_class.credits', 'like', "%{$columnSearchValue}%");
-            } else if ($columnName == 'course_class.duration') {
+            } else if ($columnName == 'duration') {
                 $query->where('course_class.duration', 'like', "%{$columnSearchValue}%");
-            } else if ($columnName == 'course_class.announcement') {
-                $query->where('course_class.announcement', 'like', "%{$columnSearchValue}%");
-            } else if ($columnName == 'course_class.content') {
+            } else if ($columnName == 'content') {
                 $query->where('course_class.content', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'description') {
                 $query->where('course_class.description', 'like', "%{$columnSearchValue}%");
@@ -314,33 +314,13 @@ class CourseClassController extends Controller
                 $query->where('course_class.updated_at', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'updated_id') {
                 $query->where('course_class.updated_id', 'like', "%{$columnSearchValue}%");
-            } else if ($columnName == 'status') {
-                $query->where('course_class.status', '=', stripos($columnSearchValue, 'Non') !== false ? 0 : 1);
             } else if ($columnName == 'status_ongoing') {
-                $lowerSearchValue = strtolower($columnSearchValue);
-
-                // Mapping pencarian dengan berbagai kemungkinan input
-                $statusMapping = [
-                    'belum' => 0,  // Belum Dimulai
-                    'sedang' => 1, // Sedang Berlangsung
-                    'sudah' => 2,  // Sudah Selesai
-                    'b' => 0,      // Singkatan Belum
-                    'sed' => 1,      // Singkatan Sedang
-                    'sud' => 2     // Singkatan Selesai
-                ];
-
-                // Temukan status berdasarkan input
-                $ongoing = null;
-                foreach ($statusMapping as $key => $status) {
-                    if (stripos($lowerSearchValue, $key) === 0) {
-                        $ongoing = $status;
-                        break;
-                    }
-                }
-
-                // Jika status ditemukan, tambahkan filter
-                if ($ongoing !== null) {
-                    $query->where('course_class.status_ongoing', $ongoing);
+                if ($columnSearchValue == 'completed') {
+                    $query->where('course_class.status_ongoing', '=', 2);
+                } else if ($columnSearchValue == 'ongoing') {
+                    $query->where('course_class.status_ongoing', '=', 1);
+                } else {
+                    $query->where('course_class.status_ongoing', '=', 0);
                 }
             } else {
                 $query->where($columnName, 'like', "%{$columnSearchValue}%");
@@ -353,8 +333,8 @@ class CourseClassController extends Controller
                 return $row->id;
             })
             ->addColumn('course_name', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->course_name) . ' Batch ' . $row->batch . '">'
-                    . \Str::limit(e($row->course_name . ' Batch ' . $row->batch), 30)
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->course_name) . '">'
+                    . \Str::limit(e($row->course_name), 30)
                     . '</span>';
             })
             ->addColumn('type', function ($row) {
@@ -365,11 +345,11 @@ class CourseClassController extends Controller
             })
             ->addColumn('status_ongoing', function ($row) {
                 $statusLabels = [
-                    0 => ['text' => 'Belum Dimulai', 'class' => 'bg-secondary'],
-                    1 => ['text' => 'Sedang Berlangsung', 'class' => 'bg-success'],
-                    2 => ['text' => 'Sudah Selesai', 'class' => 'bg-primary']
+                    0 => ['text' => 'Not Started', 'class' => 'bg-secondary'],
+                    1 => ['text' => 'Ongoing', 'class' => 'bg-success'],
+                    2 => ['text' => 'Completed', 'class' => 'bg-primary']
                 ];
-                $status = $statusLabels[$row->status_ongoing] ?? ['text' => 'Status Tidak Diketahui', 'class' => 'bg-danger'];
+                $status = $statusLabels[$row->status_ongoing] ?? ['text' => 'Unknown', 'class' => 'bg-danger'];
 
                 return "<span class='badge {$status['class']}' style='pointer-events: none;'>{$status['text']}</span>";
             })
@@ -421,7 +401,7 @@ class CourseClassController extends Controller
                     data-id="' . $row->id . '"
                     data-status="' . $row->status . '"
                     data-model="CourseClass">
-                    ' . ($row->status == 1 ? 'Aktif' : 'Nonaktif') . '
+                    ' . ($row->status == 1 ? 'Active' : 'Disabled') . '
                 </button>';
             })
             ->addColumn('action', function ($row) {
@@ -529,7 +509,6 @@ class CourseClassController extends Controller
             }
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to add class: ' . $e->getMessage());
-
         }
     }
 

@@ -162,7 +162,11 @@ $(document).ready(function () {
                 params.length = -1; // Export all data
 
                 // Get the value of the checkbox
-                var encryptResume = document.getElementById("encryptResumeCheckbox").checked ? "on" : "off";
+                var encryptResume = document.getElementById(
+                    "encryptResumeCheckbox"
+                ).checked
+                    ? "on"
+                    : "off";
                 params.encrypt_resume = encryptResume; // Add it to params
 
                 $.ajax({
@@ -180,7 +184,9 @@ $(document).ready(function () {
 
                         // Ensure the response is a ZIP file
                         if (contentType === "application/zip") {
-                            var blob = new Blob([data], { type: "application/zip" });
+                            var blob = new Blob([data], {
+                                type: "application/zip",
+                            });
                             var link = document.createElement("a");
                             link.href = window.URL.createObjectURL(blob);
                             link.download = "users_export.zip"; // Set correct file extension
@@ -189,19 +195,23 @@ $(document).ready(function () {
                             document.body.removeChild(link);
                             window.URL.revokeObjectURL(link.href);
                         } else {
-                            console.error("Unexpected content type:", contentType);
+                            console.error(
+                                "Unexpected content type:",
+                                contentType
+                            );
                             alert("Error: Received unexpected file format.");
                         }
                     },
                     error: function (xhr, status, error) {
                         console.error("Export error:??", error);
-                        alert("Error exporting data. Check console for details.");
+                        alert(
+                            "Error exporting data. Check console for details."
+                        );
                     },
                 });
             },
         });
     }
-
 
     // Initialize DataTables
     $(".table").each(function () {
@@ -258,14 +268,21 @@ $(document).ready(function () {
                     var columnIndex = column.index();
                     var totalColumns = api.columns().count();
                     if (!noStatus) {
-                        var statusColumnIndex = totalColumns - 2; // Indeks kolom status (ke-2 dari akhir)
-
                         // Cek apakah kolom memiliki footer
                         if ($(column.footer()).length) {
-                            if (columnIndex === statusColumnIndex) {
-                                // Membuat elemen dropdown untuk kolom status
+                            if (
+                                columnIndex === 0 ||
+                                columnIndex === totalColumns - 1
+                            ) {
+                                // Disable the search for the first and last column
+                                $(column.footer()).empty(); // Remove any existing search input
+                                $(column.footer()).append(
+                                    '<span class="form-control" style="background-color: #f5f5f5; cursor: not-allowed;" disabled>Search disabled</span>'
+                                );
+                            } else if (title == "Status") {
+                                // Create dropdown for the "Status" column
                                 var select = $(
-                                    '<select class="form-control"><option value="">All</option><option value="Aktif">Aktif</option><option value="Non Aktif">Nonaktif</option></select>'
+                                    '<select class="form-control"><option value="">All</option><option value="active">Active</option><option value="disabled">Disabled</option></select>'
                                 )
                                     .appendTo($(column.footer()).empty())
                                     .on("change", function () {
@@ -274,15 +291,25 @@ $(document).ready(function () {
                                                 $(this).val()
                                             );
                                         column
-                                            .search(
-                                                val ? "^" + val + "$" : "",
-                                                true,
-                                                false
-                                            )
+                                            .search(val !== '' ? val : "", true, false)
+                                            .draw();
+                                    });
+                            } else if (title == "Ongoing Status") {
+                                // Create dropdown for "Ongoing Status"
+                                var select = $(
+                                    '<select class="form-control"><option value="">All</option><option value="completed">Completed</option><option value="ongoing">Ongoing</option><option value="not-started">Not Started</option></select>'
+                                )
+                                    .appendTo($(column.footer()).empty())
+                                    .on("change", function () {
+                                        var val =
+                                            $.fn.dataTable.util.escapeRegex(
+                                                $(this).val()
+                                            );
+                                        column
+                                            .search(val ? val : "", true, false)
                                             .draw();
                                     });
                             } else {
-                                // Membuat elemen input text untuk kolom lainnya
                                 $(
                                     '<input class="form-control" type="text" placeholder="Search ' +
                                         title +
@@ -297,19 +324,31 @@ $(document).ready(function () {
                             }
                         }
                     } else {
+                        // Handle case when `noStatus` is true
                         if ($(column.footer()).length) {
-                            // Membuat elemen input text untuk kolom lainnya
-                            $(
-                                '<input class="form-control" type="text" placeholder="Search ' +
-                                    title +
-                                    '" />'
-                            )
-                                .appendTo($(column.footer()).empty())
-                                .on("keyup change clear", function () {
-                                    if (column.search() !== this.value) {
-                                        column.search(this.value).draw();
-                                    }
-                                });
+                            // Disable the search for the first and last column
+                            if (
+                                columnIndex === 0 ||
+                                columnIndex === totalColumns - 1
+                            ) {
+                                $(column.footer()).empty(); // Remove any existing search input
+                                $(column.footer()).append(
+                                    '<span class="form-control" style="background-color: #f5f5f5; cursor: not-allowed;" disabled>Search disabled</span>'
+                                );
+                            } else {
+                                // Create text input for other columns
+                                $(
+                                    '<input class="form-control" type="text" placeholder="Search ' +
+                                        title +
+                                        '" />'
+                                )
+                                    .appendTo($(column.footer()).empty())
+                                    .on("keyup change clear", function () {
+                                        if (column.search() !== this.value) {
+                                            column.search(this.value).draw();
+                                        }
+                                    });
+                            }
                         }
                     }
                 });

@@ -9,31 +9,31 @@
         </div>
     @endif
 
-    <!-- Mulai Judul Halaman -->
+    <!-- Start Page Title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Manajemen Kelas</h4>
+                <h4 class="mb-sm-0 font-size-18">Data Overview</h4>
 
-                <!-- Breadcrumb -->
+                <!-- Start Breadcrumb -->
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Kelas</a></li>
-                        <li class="breadcrumb-item active">Daftar Kelas</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Class</a></li>
+                        <li class="breadcrumb-item active">Class List</li>
                     </ol>
                 </div>
-                <!-- Akhir Breadcrumb -->
+                <!-- End Breadcrumb -->
             </div>
         </div>
     </div>
-    <!-- Akhir Judul Halaman -->
+    <!-- End Page Title -->
 
-    <!-- Mulai Konten -->
+    <!-- Start Content -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Daftar Kelas</h4>
+                    <h4 class="card-title">Class List</h4>
                     <p class="card-title-desc">
                         ...
                     </p>
@@ -46,6 +46,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
+                                <th>Course Name</th>
                                 <th>Batch</th>
                                 <th>Type</th>
                                 <th>Study Type</th>
@@ -73,6 +74,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
+                                <th>Course Name</th>
                                 <th>Batch</th>
                                 <th>Type</th>
                                 <th>Study Type</th>
@@ -98,7 +100,7 @@
             </div>
         </div>
     </div>
-    <!-- Akhir Konten -->
+    <!-- End Content -->
 
     <!-- FAB Add Starts -->
     @if (Session::has('access_master') &&
@@ -136,6 +138,12 @@
             {
                 data: "course_name",
                 name: "course_name",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "batch",
+                name: "batch",
                 orderable: true,
                 searchable: true
             },

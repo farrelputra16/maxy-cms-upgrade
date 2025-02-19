@@ -33,21 +33,21 @@ class PartnerController extends Controller
 
         $partners = Partner::with('MPartnerType')
             ->select(
-                'm_partner.id', 
-                'm_partner.name', 
-                'm_partner.logo', 
-                'm_partner.m_partner_type_id', 
-                'm_partner.url', 
-                'm_partner.address', 
-                'm_partner.phone', 
-                'm_partner.email', 
-                'm_partner.contact_person', 
-                'm_partner.status_highlight', 
-                'm_partner.description', 
-                'm_partner.created_at', 
-                'm_partner.created_id', 
-                'm_partner.updated_at', 
-                'm_partner.updated_id', 
+                'm_partner.id',
+                'm_partner.name',
+                'm_partner.logo',
+                'm_partner.m_partner_type_id',
+                'm_partner.url',
+                'm_partner.address',
+                'm_partner.phone',
+                'm_partner.email',
+                'm_partner.contact_person',
+                'm_partner.status_highlight',
+                'm_partner.description',
+                'm_partner.created_at',
+                'm_partner.created_id',
+                'm_partner.updated_at',
+                'm_partner.updated_id',
                 'm_partner.status',
                 'm_partner_type.name as partner_type_name'
             )
@@ -66,7 +66,7 @@ class PartnerController extends Controller
         } else {
             $partners->orderBy($finalOrderColumn, $orderDirection);
         }
-        
+
         // global search datatable
         // if (!empty($searchValue)) {
         //     $partners->where(function ($q) use ($searchValue, $columns) {
@@ -96,15 +96,15 @@ class PartnerController extends Controller
                     $query->where('name', 'like', "%{$columnSearchValue}%");
                 });
             } else if ($columnName == 'status_highlight') {
-                if (strpos(strtolower($columnSearchValue), 'non') !== false)
-                    $partners->where('status_highlight', '=', 0);
-                else
+                if ($columnSearchValue == 'active')
                     $partners->where('status_highlight', '=', 1);
-            } else if ($columnName == 'status') {
-                if (strpos(strtolower($columnSearchValue), 'non') !== false)
-                    $partners->where('status', '=', 0);
                 else
+                    $partners->where('status_highlight', '=', 0);
+            } else if ($columnName == 'status') {
+                if ($columnSearchValue == 'active')
                     $partners->where('status', '=', 1);
+                else
+                    $partners->where('status', '=', 0);
             } else {
                 $partners->where($columnName, 'like', "%{$columnSearchValue}%");
             }
@@ -132,38 +132,38 @@ class PartnerController extends Controller
                     . '</span>';
             })
             ->addColumn('address', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' 
-                    . e(strip_tags($row->address)) . '">' 
-                    . (!empty($row->address) ? \Str::limit(strip_tags($row->address), 30) : '-') 
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
+                    . e(strip_tags($row->address)) . '">'
+                    . (!empty($row->address) ? \Str::limit(strip_tags($row->address), 30) : '-')
                     . '</span>';
             })
             ->addColumn('phone', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' 
-                    . e(strip_tags($row->phone)) . '">' 
-                    . (!empty($row->phone) ? \Str::limit(strip_tags($row->phone), 30) : '-') 
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
+                    . e(strip_tags($row->phone)) . '">'
+                    . (!empty($row->phone) ? \Str::limit(strip_tags($row->phone), 30) : '-')
                     . '</span>';
             })
             ->addColumn('email', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' 
-                    . e(strip_tags($row->email)) . '">' 
-                    . (!empty($row->email) ? \Str::limit(strip_tags($row->email), 30) : '-') 
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
+                    . e(strip_tags($row->email)) . '">'
+                    . (!empty($row->email) ? \Str::limit(strip_tags($row->email), 30) : '-')
                     . '</span>';
             })
             ->addColumn('contact_person', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' 
-                    . e(strip_tags($row->contact_person)) . '">' 
-                    . (!empty($row->contact_person) ? \Str::limit(strip_tags($row->contact_person), 30) : '-') 
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
+                    . e(strip_tags($row->contact_person)) . '">'
+                    . (!empty($row->contact_person) ? \Str::limit(strip_tags($row->contact_person), 30) : '-')
                     . '</span>';
             })
             ->addColumn('status_highlight', function ($row) {
-                return $row->status_highlight == 1 
-                    ? '<span class="badge bg-success">Aktif</span>' 
+                return $row->status_highlight == 1
+                    ? '<span class="badge bg-success">Aktif</span>'
                     : '<span class="badge bg-danger">Non Aktif</span>';
             })
             ->addColumn('description', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' 
-                    . e(strip_tags($row->description)) . '">' 
-                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') 
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
+                    . e(strip_tags($row->description)) . '">'
+                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-')
                     . '</span>';
             })
             ->addColumn('created_at', function ($row) {
@@ -179,16 +179,16 @@ class PartnerController extends Controller
                 return $row->updated_id;
             })
             ->addColumn('status', function ($row) {
-                return '<button 
-                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
-                    data-id="' . $row->id . '" 
+                return '<button
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '"
+                    data-id="' . $row->id . '"
                     data-status="' . $row->status . '"
                     data-model="Partner">
                     ' . ($row->status == 1 ? 'Aktif' : 'Non aktif') . '
                 </button>';
             })
             ->addColumn('action', function ($row) {
-                return '<a href="' . route('getEditPartner', ['id' => $row->id]) . '" 
+                return '<a href="' . route('getEditPartner', ['id' => $row->id]) . '"
                             class="btn btn-primary rounded">Ubah</a>';
             })
             ->orderColumn('id', 'id $1')

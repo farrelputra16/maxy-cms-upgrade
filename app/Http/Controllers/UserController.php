@@ -80,10 +80,10 @@ class UserController extends Controller
             } else if ($columnName == 'accessgroup') {
                 $user->where('access_group.name', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'status') {
-                if (strpos(strtolower($columnSearchValue), 'non') !== false)
-                    $user->where('status', '=', 0);
-                else
+                if ($columnSearchValue == 'active')
                     $user->where('user.status', '=', 1);
+                else
+                    $user->where('user.status', '=', 0);
             } else if ($columnName == 'name') {
                 $user->where('users.name', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'description') {

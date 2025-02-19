@@ -29,7 +29,7 @@ class MAcademicPeriodController extends Controller
         $orderColumnMapping = [
             'DT_RowIndex' => 'id',
         ];
-        
+
         // Gunakan mapping untuk menentukan kolom pengurutan
         $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
 
@@ -62,10 +62,10 @@ class MAcademicPeriodController extends Controller
             if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
                 continue;
             } else if ($columnName == 'status') {
-                if (strpos(strtolower($columnSearchValue), 'non') !== false)
-                    $mAcademicPeriod->where('status', '=', 0);
-                else
+                if ($columnSearchValue == 'active')
                     $mAcademicPeriod->where('status', '=', 1);
+                else
+                    $mAcademicPeriod->where('status', '=', 0);
             } else {
                 $mAcademicPeriod->where($columnName, 'like', "%{$columnSearchValue}%");
             }
@@ -82,9 +82,9 @@ class MAcademicPeriodController extends Controller
                     . '</span>';
             })
             ->addColumn('description', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' 
-                    . e(strip_tags($row->description)) . '">' 
-                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') 
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
+                    . e(strip_tags($row->description)) . '">'
+                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-')
                     . '</span>';
             })
             ->addColumn('date_start', function ($row) {
@@ -106,16 +106,16 @@ class MAcademicPeriodController extends Controller
                 return $row->updated_id;
             })
             ->addColumn('status', function ($row) {
-                return '<button 
-                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
-                    data-id="' . $row->id . '" 
+                return '<button
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '"
+                    data-id="' . $row->id . '"
                     data-status="' . $row->status . '"
                     data-model="MAcademicPeriod">
                     ' . ($row->status == 1 ? 'Aktif' : 'Non aktif') . '
                 </button>';
             })
             ->addColumn('action', function ($row) {
-                return '<a href="' . route('getEditAcademicPeriod', ['id' => $row->id, 'access' => 'm_academic_period_update']) . '" 
+                return '<a href="' . route('getEditAcademicPeriod', ['id' => $row->id, 'access' => 'm_academic_period_update']) . '"
                             class="btn btn-primary rounded">Ubah</a>';
             })
             ->orderColumn('id', 'id $1')

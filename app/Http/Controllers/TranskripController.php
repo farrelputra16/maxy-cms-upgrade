@@ -25,24 +25,24 @@ class TranskripController extends Controller
         $orderColumnIndex = $request->input('order.0.column');
         $orderDirection = $request->input('order.0.dir', 'asc');
         $columns = $request->input('columns');
-    
+
         $orderColumn = 'id';
         if ($orderColumnIndex !== null && isset($columns[$orderColumnIndex])) {
             $orderColumn = $columns[$orderColumnIndex]['data'];
         }
-    
+
         $orderColumnMapping = [
-            'DT_RowIndex' => 'id',                         
-            'name' => 'name',                        
-            'course_class' => 'CourseClass.slug',         
-            'academic_period' => 'academic_period', 
-            'score' => 'score',                     
-            'created_at' => 'created_at',                 
-            'updated_at' => 'updated_at',                 
-            'created_by' => 'created_id',                 
-            'updated_by' => 'updated_id',                 
+            'DT_RowIndex' => 'id',
+            'name' => 'name',
+            'course_class' => 'CourseClass.slug',
+            'academic_period' => 'academic_period',
+            'score' => 'score',
+            'created_at' => 'created_at',
+            'updated_at' => 'updated_at',
+            'created_by' => 'created_id',
+            'updated_by' => 'updated_id',
         ];
-        
+
         $transkrip = Transkrip::with([
             'User:id,name',
             'CourseClass:id,slug',
@@ -51,27 +51,27 @@ class TranskripController extends Controller
             'MScore:id,name'
         ])
         ->select('transkrip.*');
-    
+
         // Custom ordering logic
         if ($orderColumn === 'name') {
             $transkrip->orderBy(
                 User::select('name')
                     ->whereColumn('users.id', 'transkrip.user_id')
-                    ->limit(1), 
+                    ->limit(1),
                 $orderDirection
             );
         } elseif ($orderColumn === 'score') {
             $transkrip->orderBy(
                 MScore::select('name')
                     ->whereColumn('m_score.id', 'transkrip.m_score_id')
-                    ->limit(1), 
+                    ->limit(1),
                 $orderDirection
             );
         } else if ($orderColumn === 'slug') {
             $transkrip->orderBy(
                 CourseClass::select('slug')
                     ->whereColumn('course_class.id', 'transkrip.course_class_id')
-                    ->limit(1), 
+                    ->limit(1),
                 $orderDirection
             );
         } elseif ($orderColumn === 'academic_period') {
@@ -79,14 +79,14 @@ class TranskripController extends Controller
                 Schedule::select('m_academic_period.name')
                     ->join('m_academic_period', 'schedule.m_academic_period_id', '=', 'm_academic_period.id')
                     ->whereColumn('schedule.course_class_id', 'transkrip.course_class_id')
-                    ->limit(1), 
+                    ->limit(1),
                 $orderDirection
             );
         } else {
             $finalOrderColumn = $orderColumnMapping[$orderColumn] ?? $orderColumn;
             $transkrip->orderBy($finalOrderColumn, $orderDirection);
         }
-    
+
         // Filter kolom (existing code remains the same)
         foreach ($columns as $column) {
             $columnSearchValue = $column['search']['value'] ?? null;
@@ -94,10 +94,10 @@ class TranskripController extends Controller
             if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
                 continue;
             } else if ($columnName == 'status') {
-                if (strpos(strtolower($columnSearchValue), 'non') !== false)
-                    $transkrip->where('status', '=', 0);
-                else
+                if ($columnSearchValue == 'active')
                     $transkrip->where('status', '=', 1);
+                else
+                    $transkrip->where('status', '=', 0);
             } else if ($columnName == 'name'){
                 $transkrip->whereHas('User', function ($query) use ($columnSearchValue) {
                     $query->where('name', 'like', "%{$columnSearchValue}%");
@@ -118,7 +118,7 @@ class TranskripController extends Controller
                 $transkrip->where($columnName, 'like', "%{$columnSearchValue}%");
             }
         }
-    
+
         return DataTables::of($transkrip)
             ->addIndexColumn()
             ->addColumn('id', function ($row) {
@@ -130,13 +130,13 @@ class TranskripController extends Controller
                     . '</span>';
             })
             ->addColumn('academic_period', function ($row) {
-                if (!empty($row->CourseClass) && 
-                    !empty($row->CourseClass->Schedule) && 
+                if (!empty($row->CourseClass) &&
+                    !empty($row->CourseClass->Schedule) &&
                     !empty($row->CourseClass->Schedule->first()->MAcademicPeriod)) {
                     return \Str::limit($row->CourseClass->Schedule->first()->MAcademicPeriod->name, 30);
                 }
                 return '-';
-            })            
+            })
             ->addColumn('slug', function ($row) {
                 return !empty($row->CourseClass->slug) ? \Str::limit($row->CourseClass->slug, 30) : '-';
             })

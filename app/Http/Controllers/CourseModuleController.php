@@ -98,10 +98,10 @@ class CourseModuleController extends Controller
             if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
                 continue;
             } else if ($columnName == 'status') {
-                if (strpos(strtolower($columnSearchValue), 'non') !== false) {
-                    $parentModules->where('status', '=', 0);
-                } else {
+                if ($columnSearchValue == 'active') {
                     $parentModules->where('status', '=', 1);
+                } else {
+                    $parentModules->where('status', '=', 0);
                 }
             } else {
                 $parentModules->where($columnName, 'like', "%{$columnSearchValue}%");
@@ -242,10 +242,10 @@ class CourseModuleController extends Controller
             if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
                 continue;
             } else if ($columnName == 'status') {
-                if (strpos(strtolower($columnSearchValue), 'non') !== false) {
-                    $subModules->where('status', '=', 0);
-                } else {
+                if ($columnSearchValue == 'active') {
                     $subModules->where('status', '=', 1);
+                } else {
+                    $subModules->where('status', '=', 0);
                 }
             } else {
                 $subModules->where($columnName, 'like', "%{$columnSearchValue}%");

@@ -52,14 +52,14 @@ class PartnershipController extends Controller
             $partnership->orderBy(
                 Partner::select('name')
                     ->whereColumn('m_partner.id', 'partnership.m_partner_id')
-                    ->limit(1), 
+                    ->limit(1),
                 $orderDirection
             );
         } elseif ($orderColumn === 'type') {
             $partnership->orderBy(
                 MPartnershipType::select('name')
                     ->whereColumn('m_partnership_type.id', 'partnership.m_partnership_type_id')
-                    ->limit(1), 
+                    ->limit(1),
                 $orderDirection
             );
         } else {
@@ -83,10 +83,10 @@ class PartnershipController extends Controller
                     $query->where('name', 'like', "%{$columnSearchValue}%");
                 });
             } else if ($columnName == 'status') {
-                if (strpos(strtolower($columnSearchValue), 'non') !== false)
-                    $partnership->where('status', '=', 0);
-                else
+                if ($columnSearchValue == 'active')
                     $partnership->where('status', '=', 1);
+                else
+                    $partnership->where('status', '=', 0);
             } else {
                 $partnership->where($columnName, 'like', "%{$columnSearchValue}%");
             }
@@ -117,9 +117,9 @@ class PartnershipController extends Controller
                 return $row->date_end;
             })
             ->addColumn('description', function ($row) {
-                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' 
-                    . e(strip_tags($row->description)) . '">' 
-                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') 
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
+                    . e(strip_tags($row->description)) . '">'
+                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-')
                     . '</span>';
             })
             ->addColumn('created_at', function ($row) {
@@ -135,16 +135,16 @@ class PartnershipController extends Controller
                 return $row->updated_id;
             })
             ->addColumn('status', function ($row) {
-                return '<button 
-                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '" 
-                    data-id="' . $row->id . '" 
+                return '<button
+                    class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '"
+                    data-id="' . $row->id . '"
                     data-status="' . $row->status . '"
                     data-model="Partnership">
                     ' . ($row->status == 1 ? 'Aktif' : 'Non aktif') . '
                 </button>';
             })
             ->addColumn('action', function ($row) {
-                return '<a href="' . route('getEditPartnership', ['id' => $row->id]) . '" 
+                return '<a href="' . route('getEditPartnership', ['id' => $row->id]) . '"
                             class="btn btn-primary rounded">Ubah</a>';
             })
             ->orderColumn('id', 'id $1')

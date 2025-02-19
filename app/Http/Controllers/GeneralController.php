@@ -46,10 +46,10 @@ class GeneralController extends Controller
             if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
                 continue;
             } else if ($columnName == 'status') {
-                if (strpos(strtolower($columnSearchValue), 'non') !== false)
-                    $partners->where('status', '=', 0);
-                else
+                if ($columnSearchValue == 'active')
                     $partners->where('status', '=', 1);
+                else
+                    $partners->where('status', '=', 0);
             } else {
                 $partners->where($columnName, 'like', "%{$columnSearchValue}%");
             }

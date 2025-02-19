@@ -74,10 +74,10 @@ class EventController extends Controller
             if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
                 continue;
             } else if ($columnName == 'status') {
-                if (strpos(strtolower($columnSearchValue), 'non') !== false)
-                    $accessGroup->where('status', '=', 0);
-                else
+                if ($columnSearchValue == 'active')
                     $accessGroup->where('status', '=', 1);
+                else
+                    $accessGroup->where('status', '=', 0);
             } else {
                 $accessGroup->where($columnName, 'like', "%{$columnSearchValue}%");
             }
@@ -471,10 +471,10 @@ class EventController extends Controller
             if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
                 continue;
             } else if ($columnName == 'status') {
-                if (strpos(strtolower($columnSearchValue), 'non') !== false)
-                    $eventRequirement->where('status', '=', 0);
-                else
+                if ($columnSearchValue == 'active')
                     $eventRequirement->where('status', '=', 1);
+                else
+                    $eventRequirement->where('status', '=', 0);
             } else if ($columnName == 'is_upload') {
                 $firstChar = strtolower(substr($columnSearchValue, 0, 1));
                 if ($firstChar === 'y') {

@@ -20,7 +20,7 @@ class CourseController extends Controller
 {
     function getCourse()
     {
-        return view('course.indexv3');
+        return view('course.index');
     }
 
     function getCourseData(Request $request)
@@ -59,10 +59,10 @@ class CourseController extends Controller
                     $query->where('name', 'like', "%{$columnSearchValue}%");
                 });
             } else if ($columnName == 'status') {
-                if (strpos(strtolower($columnSearchValue), 'non') !== false)
-                    $partners->where('status', '=', 0);
-                else
+                if ($columnSearchValue == 'active')
                     $partners->where('status', '=', 1);
+                else
+                    $partners->where('status', '=', 0);
             } else {
                 $partners->where($columnName, 'like', "%{$columnSearchValue}%");
             }
@@ -254,10 +254,10 @@ class CourseController extends Controller
                     $query->where('name', 'like', "%{$columnSearchValue}%");
                 });
             } else if ($columnName == 'status') {
-                if (strpos(strtolower($columnSearchValue), 'non') !== false)
-                    $partners->where('status', '=', 0);
-                else
+                if ($columnSearchValue == 'active')
                     $partners->where('status', '=', 1);
+                else
+                    $partners->where('status', '=', 0);
             } else {
                 $partners->where($columnName, 'like', "%{$columnSearchValue}%");
             }
@@ -383,12 +383,12 @@ class CourseController extends Controller
             'level' => 'required|numeric', // difficulty level
             'courseCategory' => 'required|array',
             'courseCategory.*' => 'exists:m_category_course,id',
+            'credits' => 'required|numeric|min:1',
             'short_description' => 'nullable|string', // preview text
             'content' => 'required|string', // full content text
             'payment_link' => 'nullable|string|max:255',
             'mini_fake_price' => 'nullable|string',
             'mini_price' => 'nullable|string',
-            'credits' => 'required|numeric|min:1',
             'description' => 'nullable|string', // admin notes
 
         ], [
@@ -409,32 +409,34 @@ class CourseController extends Controller
                 $file->move(public_path('/uploads/course_img'), $fileName);
             }
 
-            // remove all non-numeric characters from price
-            $trimDiscountedPrice = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_fake_price));
-            $trimPrice = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_price));
+            if ($request->mini_price) {
+                // remove all non-numeric characters from price
+                $trimDiscountedPrice = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_fake_price));
+                $trimPrice = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_price));
 
-            // if there is discounted price, put it on price. original price will be put on "fake price" column instead.
-            if($trimDiscountedPrice > 0){
-                $fakePrice = $trimPrice;
-                $price = $trimDiscountedPrice;
+                // if there is discounted price, put it on price. original price will be put on "fake price" column instead.
+                if ($trimDiscountedPrice > 0) {
+                    $fakePrice = $trimPrice;
+                    $price = $trimDiscountedPrice;
+                }
             }
 
             // create new course
             $create = Course::create([
-                'name' => $request->name,
-                'slug' => $request->slug,
-                'image' => $fileName,
-                'credits' => $request->credits,
-                'duration' => $request->duration,
-                'short_description' => $request->short_description,
-                'm_course_type_id' => $request->type,
+                'name' => $request->name ? $request->name : null,
+                'slug' => $request->slug ? $request->slug : null,
+                'image' => $fileName ? $fileName : null,
+                'credits' => $request->credits ? $request->credits : null,
+                'duration' => $request->duration ? $request->duration : null,
+                'short_description' => $request->short_description ? $request->short_description : null,
+                'm_course_type_id' => $request->type ? $request->type : null,
                 'course_package_id' => $request->type == 2 ? null : $request->package,
-                'm_difficulty_type_id' => $request->level,
-                'content' => $request->content,
-                'fake_price' => (float) $fakePrice,
-                'price' => (float) $price,
-                'payment_link' => env('APP_ENV') != 'local' ? $request->payment_link : null,
-                'description' => $request->description,
+                'm_difficulty_type_id' => $request->level ? $request->level : null,
+                'content' => $request->content ? $request->content : null,
+                'fake_price' => isset($fakePrice) ? $fakePrice : 0,
+                'price' => isset($price) ? $price : 0,
+                'payment_link' => $request->payment_link ? $request->payment_link : null,
+                'description' => $request->description ? $request->description : null,
                 'status' => $request->status == '' ? 0 : 1,
                 'created_id' => Auth::user()->id,
                 'updated_id' => Auth::user()->id
@@ -468,7 +470,7 @@ class CourseController extends Controller
             }
         } catch (\Exception $e) {
             \Log::error('Error adding course: ' . $e->getMessage());
-            return redirect()->back()->withErrors(['error' => 'Error while trying to create the course'])->withInput();
+            return redirect()->back()->withErrors(['error' => 'Error while trying to create the course: ' . $e->getMessage()])->withInput();
         }
     }
 
@@ -599,32 +601,34 @@ class CourseController extends Controller
                     $fileName = $course->image;
                 }
 
-                // remove all non-numeric characters from price
-                $trimDiscountedPrice = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_fake_price));
-                $trimPrice = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_price));
+                if ($request->mini_price) {
+                    // remove all non-numeric characters from price
+                    $trimDiscountedPrice = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_fake_price));
+                    $trimPrice = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_price));
 
-                // if there is discounted price, put it on price. original price will be put on "fake price" column instead.
-                if($trimDiscountedPrice > 0){
-                    $fakePrice = $trimPrice;
-                    $price = $trimDiscountedPrice;
+                    // if there is discounted price, put it on price. original price will be put on "fake price" column instead.
+                    if ($trimDiscountedPrice > 0) {
+                        $fakePrice = $trimPrice;
+                        $price = $trimDiscountedPrice;
+                    }
                 }
 
                 $update = DB::table('course')
                     ->where('id', $course->id)
                     ->update([
-                        'name' => $request->name,
-                        'slug' => $request->slug,
-                        'image' => $fileName,
-                        'credits' => $request->credits,
-                        'duration' => $request->duration,
-                        'm_course_type_id' => $request->type,
-                        'm_difficulty_type_id' => $request->level,
-                        'short_description' => $request->short_description,
-                        'content' => $request->content,
-                        'payment_link' => $request->payment_link,
-                        'fake_price' => $fakePrice,
-                        'price' => $price,
-                        'description' => $request->description,
+                        'name' => $request->name ? $request->name : $course->name,
+                        'slug' => $request->slug ? $request->slug : $course->slug,
+                        'image' => $fileName ? $fileName : $course->image,
+                        'credits' => $request->credits ? $request->credits : $course->credits,
+                        'duration' => $request->duration ? $request->duration : $course->duration,
+                        'm_course_type_id' => $request->type ? $request->type : $course->type,
+                        'm_difficulty_type_id' => $request->level ? $request->level : $course->level,
+                        'short_description' => $request->short_description ? $request->short_description : $course->short_description,
+                        'content' => $request->content ? $request->content : $course->content,
+                        'payment_link' => $request->payment_link ? $request->payment_link : $course->payment_link,
+                        'fake_price' => isset($fakePrice) ? $fakePrice : $course->fake_price,
+                        'price' => isset($price) ? $price : $course->price,
+                        'description' => $request->description ? $request->description : $course->description,
                         'status' => $request->status == 0 ? 0 : 1,
                         'updated_id' => Auth::user()->id
                     ]);
@@ -664,7 +668,7 @@ class CourseController extends Controller
             }
         } catch (\Exception $e) {
             Log::error('Error updating course: ' . $e->getMessage());
-            return redirect()->back()->withErrors(['error' => 'Error while trying to update the course!'])->withInput();
+            return redirect()->back()->withErrors(['error' => 'Error while trying to update the course: ' . $e->getMessage()])->withInput();
         }
     }
 }

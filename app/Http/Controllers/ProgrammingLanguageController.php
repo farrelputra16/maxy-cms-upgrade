@@ -41,10 +41,10 @@ class ProgrammingLanguageController extends Controller
             if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
                 continue;
             } else if ($columnName == 'status') {
-                if (strpos(strtolower($columnSearchValue), 'non') !== false)
-                    $data->where('status', '=', 0);
-                else
+                if ($columnSearchValue == 'active')
                     $data->where('status', '=', 1);
+                else
+                    $data->where('status', '=', 0);
             } else {
                 $data->where($columnName, 'like', "%{$columnSearchValue}%");
             }

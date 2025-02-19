@@ -14,53 +14,31 @@ class CourseClassMemberImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
-        if (env('APP_ENV')=='local') {
-            if (!filter_var($row['email_mahasiswa'], FILTER_VALIDATE_EMAIL)) {
-                // Jika format email tidak valid, Anda bisa mengabaikan baris ini atau memberikan notifikasi
-                // session()->flash('error', 'Format email ' . $row['email'] . ' tidak valid.');
-                return null;
-            }
 
-            $user = DB::table('users')
-                ->select('id')
-                ->where('email', $row['email_mahasiswa'])
-                ->first();
-        } else {
-            if (!filter_var($row['email'], FILTER_VALIDATE_EMAIL)) {
-                // Jika format email tidak valid, Anda bisa mengabaikan baris ini atau memberikan notifikasi
-                // session()->flash('error', 'Format email ' . $row['email'] . ' tidak valid.');
-                return null;
-            }
-
-            $user = DB::table('users')
-                ->select('id')
-                ->where('email', $row['email'])
-                ->first();
+        if (!filter_var($row['email'], FILTER_VALIDATE_EMAIL)) {
+            // Jika format email tidak valid, Anda bisa mengabaikan baris ini atau memberikan notifikasi
+            // session()->flash('error', 'Format email ' . $row['email'] . ' tidak valid.');
+            return null;
         }
 
-        if (env('APP_ENV')=='local') {
-            if (!filter_var($row['email_dosen'], FILTER_VALIDATE_EMAIL)) {
-                // Jika format email tidak valid, Anda bisa mengabaikan baris ini atau memberikan notifikasi
-                // session()->flash('error', 'Format email ' . $row['email'] . ' tidak valid.');
-                return null;
-            }
+        $user = DB::table('users')
+            ->select('id')
+            ->where('email', $row['email'])
+            ->first();
 
-            $mentor = DB::table('users')
-                ->select('id')
-                ->where('email', $row['email_dosen'])
-                ->first();
-        } else {
-            if (!filter_var($row['mentor_email'], FILTER_VALIDATE_EMAIL)) {
-                // Jika format email tidak valid, Anda bisa mengabaikan baris ini atau memberikan notifikasi
-                // session()->flash('error', 'Format email ' . $row['email'] . ' tidak valid.');
-                return null;
-            }
 
-            $mentor = DB::table('users')
-                ->select('id')
-                ->where('email', $row['mentor_email'])
-                ->first();
+
+        if (!filter_var($row['mentor_email'], FILTER_VALIDATE_EMAIL)) {
+            // Jika format email tidak valid, Anda bisa mengabaikan baris ini atau memberikan notifikasi
+            // session()->flash('error', 'Format email ' . $row['email'] . ' tidak valid.');
+            return null;
         }
+
+        $mentor = DB::table('users')
+            ->select('id')
+            ->where('email', $row['mentor_email'])
+            ->first();
+
 
         $course_class = DB::table('course_class')
             ->select('id')

@@ -65,10 +65,10 @@ class MModuleTypeController extends Controller
             if (empty($columnSearchValue) || in_array($columnName, ['DT_RowIndex', 'action'])) {
                 continue;
             } else if ($columnName == 'status') {
-                if (strpos(strtolower($columnSearchValue), 'non') !== false)
-                    $mModuleType->where('status', '=', 0);
-                else
+                if ($columnSearchValue == 'active')
                     $mModuleType->where('status', '=', 1);
+                else
+                    $mModuleType->where('status', '=', 0);
             } else {
                 $mModuleType->where($columnName, 'like', "%{$columnSearchValue}%");
             }
