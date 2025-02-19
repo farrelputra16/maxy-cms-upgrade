@@ -91,30 +91,64 @@ class CourseClassMemberGradingController extends Controller
         $length = $request->input('length', 10);
         $searchValue = $request->input('search.value');
         $columns = $request->input('columns');
-        
+
         $orderColumnIndex = $request->input('order.0.column');
         $orderDirection = $request->input('order.0.dir', 'asc');
 
         // Get all classes data
         $allClassesData = [];
         $data_index = 0;
-        
-        // Get all classes that have assignment modules
-        $classes = CourseClass::select('course_class.*', 'course.name as course_name')
-            ->join('course', 'course.id', '=', 'course_class.course_id')
-            ->get();
+
+
+
+        // check if user have access to manage all class
+        $broGotAccessMaster = AccessMaster::getUserAccessMaster();
+        $hasManageAllClass = false;
+
+        foreach ($broGotAccessMaster as $access) {
+            if ($access->name === 'manage_all_class') {
+                $hasManageAllClass = true;
+                break;
+            }
+        }
+
+        // get class list based on user access
+        if ($hasManageAllClass) {
+            $classes = DB::table('course_class')
+                ->join('course', 'course.id', '=', 'course_class.course_id')
+                ->select('course.name as course_name', 'course_class.*')
+                ->where('course_class.status', 1)
+                ->where('course_class.status_ongoing', 1)
+                ->get();
+        } else {
+            $classes = DB::table('course_class')
+                ->leftJoin('user_mentorships', 'user_mentorships.course_class_id', '=', 'course_class.id')
+                ->leftJoin('course', 'course_class.course_id', '=', 'course.id')
+                ->where('course_class.status', 1)
+                ->where('course_class.status_ongoing', 1)
+                ->where('user_mentorships.mentor_id', Auth::user()->id)
+                ->select('course_class.*','course.name as course_name')
+                ->distinct()
+                ->get();
+        }
+
+        // $classes = CourseClass::select('course_class.*', 'course.name as course_name')
+        //     ->join('course', 'course.id', '=', 'course_class.course_id')
+        //     ->get();
+
+        // return dd($classes);
 
         foreach ($classes as $class) {
             $moduleData = CourseClass::getAssignmentModulesByClassId($class->id);
-            
+
             foreach ($moduleData as $item) {
                 foreach ($item->member_list as $key => $member) {
                     $data_index++;
-                    
+
                     // Get status dengan text untuk sorting dan searching
                     $statusBadge = $this->getStatusBadge($item, $member);
                     $statusText = $statusBadge['text'];
-                    
+
                     $action = $this->getActionButton($member, $item);
 
                     // Add class name and batch to the data
@@ -132,12 +166,12 @@ class CourseClassMemberGradingController extends Controller
                         'submission_time' => $member->submission->submitted_at ?? '-',
                         'grade' => $member->submission->grade ?? '-',
                         'updated_at' => $member->submission->updated_at ?? '-',
-                        'student_comment' => $member->submission && $member->submission->comment 
-                            ? \Str::limit(strip_tags($member->submission->comment), 30) 
+                        'student_comment' => $member->submission && $member->submission->comment
+                            ? \Str::limit(strip_tags($member->submission->comment), 30)
                             : '-',
                         'student_comment_full' => $member->submission ? strip_tags($member->submission->comment) : '-',
-                        'tutor_comment' => $member->submission && $member->submission->tutor_comment 
-                            ? \Str::limit(strip_tags($member->submission->tutor_comment), 30) 
+                        'tutor_comment' => $member->submission && $member->submission->tutor_comment
+                            ? \Str::limit(strip_tags($member->submission->tutor_comment), 30)
                             : '-',
                         'tutor_comment_full' => $member->submission ? strip_tags($member->submission->tutor_comment) : '-',
                         'status' => [
@@ -173,12 +207,12 @@ class CourseClassMemberGradingController extends Controller
                         $valueA = $this->getSortValue($a, $orderColumn);
                         $valueB = $this->getSortValue($b, $orderColumn);
                     }
-                    
+
                     $valueA = (string)$valueA;
                     $valueB = (string)$valueB;
-                    
-                    return $orderDirection === 'asc' 
-                        ? strcmp($valueA, $valueB) 
+
+                    return $orderDirection === 'asc'
+                        ? strcmp($valueA, $valueB)
                         : strcmp($valueB, $valueA);
                 });
             }
@@ -207,8 +241,8 @@ class CourseClassMemberGradingController extends Controller
         $search = strtolower($search);
 
         $searchableColumns = [
-            'no', 'id', 'module', 'day', 'student_name', 
-            'file', 'submission_time', 'grade', 'updated_at', 
+            'no', 'id', 'module', 'day', 'student_name',
+            'file', 'submission_time', 'grade', 'updated_at',
             'student_comment', 'tutor_comment'
         ];
 
@@ -284,7 +318,7 @@ class CourseClassMemberGradingController extends Controller
             ];
         }
 
-        return $member->submission->grade 
+        return $member->submission->grade
             ? [
                 'text' => 'Sudah Dinilai',
                 'class' => 'bg-success'

@@ -277,7 +277,7 @@ $(document).ready(function () {
                                 // Disable the search for the first and last column
                                 $(column.footer()).empty(); // Remove any existing search input
                                 $(column.footer()).append(
-                                    '<span class="form-control" style="background-color: #f5f5f5; cursor: not-allowed;" disabled>Search disabled</span>'
+                                    '<span class="form-control" style="background-color: #f5f5f5; cursor: not-allowed;" disabled>-</span>'
                                 );
                             } else if (title == "Status") {
                                 // Create dropdown for the "Status" column
@@ -333,7 +333,7 @@ $(document).ready(function () {
                             ) {
                                 $(column.footer()).empty(); // Remove any existing search input
                                 $(column.footer()).append(
-                                    '<span class="form-control" style="background-color: #f5f5f5; cursor: not-allowed;" disabled>Search disabled</span>'
+                                    '<span class="form-control" style="background-color: #f5f5f5; cursor: not-allowed;" disabled>-</span>'
                                 );
                             } else {
                                 // Create text input for other columns

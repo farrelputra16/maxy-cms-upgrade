@@ -68,149 +68,80 @@ class CourseController extends Controller
             }
         }
 
-        if (env('APP_ENV') == 'local') {
-            return DataTables::of($partners)
-                ->addIndexColumn() // Adds DT_RowIndex for serial number
-                ->addColumn('id', function ($row) {
-                    return $row->id;
-                })
-                ->addColumn('name', function ($row) {
-                    return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->name) . '">'
-                        . \Str::limit(e($row->name), 30)
-                        . '</span>';
-                })
-                ->addColumn('m_course_type_id', function ($row) {
-                    return $row->type->name ?? '-';
-                })
-                ->addColumn('credits', function ($row) {
-                    return $row->credits;
-                })
-                ->addColumn('duration', function ($row) {
-                    return $row->duration;
-                })
-                ->addColumn('short_description', function ($row) {
-                    return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
-                        . e(strip_tags($row->short_description)) . '">'
-                        . (!empty($row->short_description) ? \Str::limit(strip_tags($row->short_description), 30) : '-')
-                        . '</span>';
-                })
-                ->addColumn('description', function ($row) {
-                    return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
-                        . e(strip_tags($row->description)) . '">'
-                        . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-')
-                        . '</span>';
-                })
-                ->addColumn('content', function ($row) {
-                    return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
-                        . e(strip_tags($row->content)) . '">'
-                        . (!empty($row->content) ? \Str::limit(strip_tags($row->content), 30) : '-')
-                        . '</span>';
-                })
-                ->addColumn('created_at', function ($row) {
-                    return $row->created_at;
-                })
-                ->addColumn('created_id', function ($row) {
-                    return $row->created_id;
-                })
-                ->addColumn('updated_at', function ($row) {
-                    return $row->updated_at;
-                })
-                ->addColumn('updated_id', function ($row) {
-                    return $row->updated_id;
-                })
-                ->addColumn('status', function ($row) {
-                    return '<button
+
+        return DataTables::of($partners)
+            ->addIndexColumn() // Adds DT_RowIndex for serial number
+            ->addColumn('id', function ($row) {
+                return $row->id;
+            })
+            ->addColumn('name', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->name) . '">'
+                    . \Str::limit(e($row->name), 30)
+                    . '</span>';
+            })
+            ->addColumn('fake_price', function ($row) {
+                return $row->fake_price;
+            })
+            ->addColumn('price', function ($row) {
+                return $row->price;
+            })
+            ->addColumn('m_course_type_id', function ($row) {
+                return $row->type->name ?? '-';
+            })
+            ->addColumn('credits', function ($row) {
+                return $row->credits;
+            })
+            ->addColumn('duration', function ($row) {
+                return $row->duration;
+            })
+            ->addColumn('short_description', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
+                    . e(strip_tags($row->short_description)) . '">'
+                    . (!empty($row->short_description) ? \Str::limit(strip_tags($row->short_description), 30) : '-')
+                    . '</span>';
+            })
+            ->addColumn('description', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
+                    . e(strip_tags($row->description)) . '">'
+                    . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-')
+                    . '</span>';
+            })
+            ->addColumn('content', function ($row) {
+                return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
+                    . e(strip_tags($row->content)) . '">'
+                    . (!empty($row->content) ? \Str::limit(strip_tags($row->content), 30) : '-')
+                    . '</span>';
+            })
+            ->addColumn('created_at', function ($row) {
+                return $row->created_at;
+            })
+            ->addColumn('created_id', function ($row) {
+                return $row->created_id;
+            })
+            ->addColumn('updated_at', function ($row) {
+                return $row->updated_at;
+            })
+            ->addColumn('updated_id', function ($row) {
+                return $row->updated_id;
+            })
+            ->addColumn('status', function ($row) {
+                return '<button
                         class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '"
                         data-id="' . $row->id . '"
                         data-status="' . $row->status . '"
                         data-model="Course">
-                        ' . ($row->status == 1 ? 'Aktif' : 'Non aktif') . '
+                        ' . ($row->status == 1 ? 'Active' : 'Disabled') . '
                     </button>';
-                })
-                ->addColumn('action', function ($row) {
-                    return '<a href="' . route('getEditCourse', ['id' => $row->id]) . '"
+            })
+            ->addColumn('action', function ($row) {
+                return '<a href="' . route('getEditCourse', ['id' => $row->id]) . '"
                                 class="btn btn-primary rounded">Ubah</a>
                             <a href="' . route('getCourseModule', ['course_id' => $row->id, 'page_type' => 'LMS']) . '"
                                 class="btn btn-outline-primary rounded-end">Daftar Modul</a>';
-                })
-                ->orderColumn('id', 'id $1')
-                ->rawColumns(['name', 'short_description', 'description', 'content', 'status', 'action'])
-                ->make(true);
-        } else {
-            return DataTables::of($partners)
-                ->addIndexColumn() // Adds DT_RowIndex for serial number
-                ->addColumn('id', function ($row) {
-                    return $row->id;
-                })
-                ->addColumn('name', function ($row) {
-                    return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->name) . '">'
-                        . \Str::limit(e($row->name), 30)
-                        . '</span>';
-                })
-                ->addColumn('fake_price', function ($row) {
-                    return $row->fake_price;
-                })
-                ->addColumn('price', function ($row) {
-                    return $row->price;
-                })
-                ->addColumn('m_course_type_id', function ($row) {
-                    return $row->type->name ?? '-';
-                })
-                ->addColumn('credits', function ($row) {
-                    return $row->credits;
-                })
-                ->addColumn('duration', function ($row) {
-                    return $row->duration;
-                })
-                ->addColumn('short_description', function ($row) {
-                    return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
-                        . e(strip_tags($row->short_description)) . '">'
-                        . (!empty($row->short_description) ? \Str::limit(strip_tags($row->short_description), 30) : '-')
-                        . '</span>';
-                })
-                ->addColumn('description', function ($row) {
-                    return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
-                        . e(strip_tags($row->description)) . '">'
-                        . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-')
-                        . '</span>';
-                })
-                ->addColumn('content', function ($row) {
-                    return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="'
-                        . e(strip_tags($row->content)) . '">'
-                        . (!empty($row->content) ? \Str::limit(strip_tags($row->content), 30) : '-')
-                        . '</span>';
-                })
-                ->addColumn('created_at', function ($row) {
-                    return $row->created_at;
-                })
-                ->addColumn('created_id', function ($row) {
-                    return $row->created_id;
-                })
-                ->addColumn('updated_at', function ($row) {
-                    return $row->updated_at;
-                })
-                ->addColumn('updated_id', function ($row) {
-                    return $row->updated_id;
-                })
-                ->addColumn('status', function ($row) {
-                    return '<button
-                        class="btn btn-status ' . ($row->status == 1 ? 'btn-success' : 'btn-danger') . '"
-                        data-id="' . $row->id . '"
-                        data-status="' . $row->status . '"
-                        data-model="Course">
-                        ' . ($row->status == 1 ? 'Aktif' : 'Non aktif') . '
-                    </button>';
-                })
-                ->addColumn('action', function ($row) {
-                    return '<a href="' . route('getEditCourse', ['id' => $row->id]) . '"
-                                class="btn btn-primary rounded">Ubah</a>
-                            <a href="' . route('getCourseModule', ['course_id' => $row->id, 'page_type' => 'LMS']) . '"
-                                class="btn btn-outline-primary rounded-end">Daftar Modul</a>';
-                })
-                ->orderColumn('id', 'id $1')
-                ->rawColumns(['name', 'short_description', 'description', 'content', 'status', 'action'])
-                ->make(true);
-        }
+            })
+            ->orderColumn('id', 'id $1')
+            ->rawColumns(['name', 'short_description', 'description', 'content', 'status', 'action'])
+            ->make(true);
     }
 
     function getCourseMBKM()
@@ -309,7 +240,7 @@ class CourseController extends Controller
                     data-id="' . $row->id . '"
                     data-status="' . $row->status . '"
                     data-model="Course">
-                    ' . ($row->status == 1 ? 'Aktif' : 'Non aktif') . '
+                    ' . ($row->status == 1 ? 'Active' : 'Disabled') . '
                 </button>';
             })
             ->addColumn('action', function ($row) {

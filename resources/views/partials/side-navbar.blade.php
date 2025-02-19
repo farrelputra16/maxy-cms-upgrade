@@ -288,12 +288,17 @@
                 @endif
 
                 @if (Route::has('pageManagement.page.index'))
-                    <li>
-                        <a href="{{ route('pageManagement.page.index') }}" class="waves-effect">
-                            <i class='bx bx-code-block'></i>
-                            <span key="t-landing-page">Landing Page</span>
-                        </a>
-                    </li>
+                    @if (Session::has('access_master') &&
+                            Session::get('access_master')->contains(function ($access) {
+                                return in_array($access->access_master_name, ['m_page_manage']);
+                            }))
+                        <li>
+                            <a href="{{ route('pageManagement.page.index') }}" class="waves-effect">
+                                <i class='bx bx-code-block'></i>
+                                <span key="t-landing-page">Landing Page</span>
+                            </a>
+                        </li>
+                    @endif
                 @endif
 
                 <!-- check if report module enabled by route check -->
@@ -343,24 +348,23 @@
                     </li>
                 @endif
 
-                <li>
-                    <a href="{{ route('profile') }}" class="waves-effect">
-                        <i class="bx bx-info-circle"></i>
-                        <span key="t-profile">Profil</span>
-                    </a>
-                </li>
-
                 @if (Route::has('accredify.template.index'))
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class='bx bx-badge-check'></i>
-                            <span key="t-accredify">Accredify</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{ route('accredify.template.index') }}" key="t-template">Template</a></li>
-                            <li><a href="{{ route('accredify.course.index') }}" key="t-course">Courses</a></li>
-                        </ul>
-                    </li>
+                    @if (Session::has('access_master') &&
+                            Session::get('access_master')->contains(function ($access) {
+                                return in_array($access->access_master_name, ['accredify_manage']);
+                            }))
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class='bx bx-badge-check'></i>
+                                <span key="t-accredify">Accredify</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{ route('accredify.template.index') }}" key="t-template">Template</a>
+                                </li>
+                                <li><a href="{{ route('accredify.course.index') }}" key="t-course">Courses</a></li>
+                            </ul>
+                        </li>
+                    @endif
                 @endif
             </ul>
         </div>

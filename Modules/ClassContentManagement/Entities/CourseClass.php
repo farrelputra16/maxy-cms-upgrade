@@ -134,8 +134,9 @@ class CourseClass extends Model
         return $class_list;
     }
 
-    public static function getAssignmentModulesByClassId($class_id)
+    public static function getAssignmentModulesByClassId2($class_id)
     {
+        // return $modules = CourseClassModule::where('course_class_id', $class_id);
         // Get assignment & quiz modules along with their parents and class details
         $module_list = DB::table('course_module as cm')
             ->select(
@@ -226,7 +227,7 @@ class CourseClass extends Model
         return $module_list;
     }
 
-    public static function getAssignmentModulesByClassId2($class_id)
+    public static function getAssignmentModulesByClassId($class_id)
 
     {
         // get assignment & quiz modules
@@ -250,20 +251,6 @@ class CourseClass extends Model
 
         // iterate through each module in the list
         foreach ($module_list as $key => $item) {
-            // 1. find parent cm id
-            // 2. find ccm id where cm id = parent cm id
-
-            // find parent course module
-            $parent_module = DB::table('course_module as cm')
-                ->where('cm.id', $item->parent_id)
-                ->first();
-
-            // add parent course class module data using parent cm id and class id to each module
-            $item->parent = DB::table('course_class_module as ccm')
-                ->where('course_module_id', $parent_module->id)
-                ->where('course_class_id', $class_id)
-                ->first();
-
             // add member list to each module
             // ** use map to create a clone of the member list to avoid affecting the original $class_member_list **
             $item->member_list = $class_member_list->map(function ($member) {
