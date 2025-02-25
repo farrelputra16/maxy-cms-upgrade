@@ -253,7 +253,6 @@ $(document).ready(function () {
             language: {
                 url: "https://cdn.datatables.net/plug-ins/2.1.8/i18n/id.json", // Menambahkan URL bahasa Indonesia
             },
-            scrollX: true, // Mengaktifkan scroll horizontal jika tabel terlalu lebar
             scrollCollapse: true, // Mengaktifkan collapse scroll jika tidak penuh
             searching: true,
             columnDefs: [{ visible: false, targets: colVis }],

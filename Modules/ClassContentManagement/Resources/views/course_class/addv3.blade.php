@@ -143,16 +143,6 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="credits" class="col-md-2 col-form-label">Semester <span class="text-danger"
-                                    data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="number" name="semester" id="semester"
-                                    placeholder="Masukkan semester (misalnya: 1)" value="{{ old('semester') }}"
-                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
                             <label for="credits" class="col-md-2 col-form-label">Kredit (SKS) <span class="text-danger"
                                     data-bs-toggle="tooltip" title="Wajib diisi">*</span></label>
                             <div class="col-md-10">
