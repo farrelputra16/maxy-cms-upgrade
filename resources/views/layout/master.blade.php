@@ -229,12 +229,10 @@
                                 <a href="{{ route('getCourse') }}"
                                     class="list-group-item list-group-item-action {{ Route::is('getCourse') ? 'active' : '' }}">Course</a>
                             </li>
-                            @if(env('APP_ENV') == 'local')
                             <li class="nav-item">
                                 <a href="{{ route('getCourseMBKM') }}"
                                     class="list-group-item list-group-item-action {{ Route::is('getCourseMBKM') ? 'active' : '' }}">MBKM</a>
                             </li>
-                            @endif
                             <li class="nav-item">
                                 <a href="{{ route('getCourseType') }}"
                                     class="list-group-item list-group-item-action {{ Route::is('getCourseType') ? 'active' : '' }}">Course
@@ -283,11 +281,11 @@
                                     class="list-group-item list-group-item-action {{ Route::is('getSurvey') ? 'active' : '' }}">Survey</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('getAcademicPeriod') }}" 
+                                <a href="{{ route('getAcademicPeriod') }}"
                                     class="list-group-item list-group-item-action {{ Route::is('getAcademicPeriod') ? 'active' : '' }}">Academic Period</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('getScore') }}" 
+                                <a href="{{ route('getScore') }}"
                                     class="list-group-item list-group-item-action {{ Route::is('getScore') ? 'active' : '' }}">Grade</a>
                             </li>
                         </ul>

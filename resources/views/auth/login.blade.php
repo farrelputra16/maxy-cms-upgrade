@@ -58,25 +58,15 @@
                             <div class="auth-logo"><a class="auth-logo-light" href="/">
                                     <div class="avatar-md profile-user-wid mb-4"><span
                                             class="avatar-title rounded-circle bg-light">
-                                            @if (env('APP_ENV') == 'local')
-                                                <img src="{{ asset(env('APP_CLIENT_FAVICON')) }}" alt=""
-                                                    class="rounded-circle" height="54">
-                                            @else
-                                                <img src="{{ asset('assets/images/logo-m.png') }}" alt=""
-                                                    class="rounded-circle" height="34">
-                                            @endif
+                                            <img src="{{ asset('assets/images/logo-m.png') }}" alt=""
+                                                class="rounded-circle" height="34">
                                         </span>
                                     </div>
                                 </a><a class="auth-logo-dark" href="/">
                                     <div class="avatar-md profile-user-wid mb-4">
                                         <span class="avatar-title rounded-circle bg-light">
-                                            @if (env('APP_ENV') == 'local')
-                                                <img src="{{ asset(env('APP_CLIENT_FAVICON')) }}" alt=""
-                                                    class="rounded-circle" height="54">
-                                            @else
-                                                <img src="{{ asset('assets/images/logo-m.png') }}" alt=""
-                                                    class="rounded-circle" height="34">
-                                            @endif
+                                            <img src="{{ asset('assets/images/logo-m.png') }}" alt=""
+                                                class="rounded-circle" height="34">
                                         </span>
                                     </div>
                                 </a></div>
@@ -151,11 +141,7 @@
                         </div>
                     </div>
                     <div class="mt-5 text-center">
-                        @if (env('APP_ENV') == 'local')
-                            <p>© 2024 {{ env('APP_CLIENT') }}</p>
-                        @else
-                            <p>© 2024 Maxy Academy</p>
-                        @endif
+                        <p>© 2024 Maxy Academy</p>
                     </div>
                 </div>
             </div>

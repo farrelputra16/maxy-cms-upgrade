@@ -171,7 +171,7 @@
                                                 <label for="csv_file" class="form-label">Unggah CSV disini</label>
                                                 <br>
                                                 <small>Sample: <i class="fa fa-file" aria-hidden="true"></i> <a
-                                                        href="{{ env('APP_ENV') == 'local' ? asset('csv/addccmember.csv') : asset('csv/addccmember_maxy.csv') }}"
+                                                        href="{{ asset('csv/addccmember_maxy.csv') }}"
                                                         download>Contoh CSV
                                                         (Klik untuk Unduh)</a></small>
                                                 <input class="form-control" type="file" id="csv_file"
