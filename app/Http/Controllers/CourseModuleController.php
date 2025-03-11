@@ -503,13 +503,16 @@ class CourseModuleController extends Controller
             }
         }
 
+        $quiz = [];
+        $idQuiz = '';
+        $eval = [];
+        $idEval = '';
+
         if ($childModule->type == '6') {
             $quiz = MSurvey::where('type', 1)->get();
-            $idQuiz = '';
             $idQuiz = Str::afterLast($childModule->content, '/');
         } else if ($childModule->type == '7') {
             $eval = MSurvey::where('type', 0)->get();
-            $idEval = '';
             $idEval = Str::afterLast($childModule->content, '/');
         }
 

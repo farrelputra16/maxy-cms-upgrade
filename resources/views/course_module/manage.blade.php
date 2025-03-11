@@ -36,7 +36,7 @@
                 <div class="card-body">
                     <h4 class="card-title">
                         @if (isset($module_detail))
-                            {{ $module_detail->name }} <small>[ ID: {{ $module_detail->id }} ]</small>
+                            {{ $module_detail->name }} <small>[ #{{ $module_detail->id }} ]</small>
                         @else
                             Add New Parent Module for: {{ $course_detail->name }}
                         @endif

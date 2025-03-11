@@ -27,7 +27,11 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">
-                        {{ isset($course) ? $course->name . ' <small>[ ID: ' . $course->id . ' ]</small>' : 'Add New Course' }}
+                        @if (isset($course))
+                            {{ $course->name }} <small>[ #{{ $course->id }} ]</small>
+                        @else
+                            Add new Course
+                        @endif
                     </h4>
                     <p class="card-title-desc">
                         This page is used to manage courses, to its modules and submodules.

@@ -136,7 +136,7 @@ class CourseController extends Controller
             ->addColumn('action', function ($row) {
                 return '<a href="' . route('getEditCourse', ['id' => $row->id]) . '"
                                 class="btn btn-primary rounded">Ubah</a>
-                            <a href="' . route('getCourseModule', ['course_id' => $row->id, 'page_type' => 'LMS']) . '"
+                            <a href="' . route('getCourseModule', ['course_id' => $row->id]) . '"
                                 class="btn btn-outline-primary rounded-end">Daftar Modul</a>';
             })
             ->orderColumn('id', 'id $1')
@@ -246,7 +246,7 @@ class CourseController extends Controller
             ->addColumn('action', function ($row) {
                 return '<a href="' . route('getEditMBKM', ['id' => $row->id]) . '"
                             class="btn btn-primary rounded">Ubah</a>
-                        <a href="' . route('getCourseModule', ['course_id' => $row->id, 'page_type' => 'LMS']) . '"
+                        <a href="' . route('getCourseModule', ['course_id' => $row->id]) . '"
                             class="btn btn-outline-primary rounded">Daftar Modul</a>';
             })
             ->orderColumn('id', 'id $1')
