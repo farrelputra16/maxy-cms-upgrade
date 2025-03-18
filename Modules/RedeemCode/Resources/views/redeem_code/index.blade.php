@@ -41,7 +41,8 @@
                             <tr>
                                 <th>No</th>
                                 <th>ID</th>
-                                <th class="data-medium">Code</th>
+                                <th>Name</th>
+                                <th>Code</th>
                                 <th>Quota</th>
                                 <th>Expiration Date</th>
                                 <th class="data-long">Admin Notes</th>
@@ -58,7 +59,8 @@
                             <tr>
                                 <th>No</th>
                                 <th>ID</th>
-                                <th class="data-medium">Code</th>
+                                <th>Name</th>
+                                <th>Code</th>
                                 <th>Quota</th>
                                 <th>Expiration Date</th>
                                 <th class="data-long">Admin Notes</th>
@@ -106,6 +108,12 @@
             {
                 data: "name",
                 name: "name",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "code",
+                name: "code",
                 orderable: true,
                 searchable: true
             },
