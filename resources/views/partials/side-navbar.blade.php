@@ -12,7 +12,7 @@
                 <li>
                     <a href="{{ route('getDashboard') }}" class="waves-effect">
                         <i class="bx bx-home-circle"></i>
-                        <span key="t-dashboard">Dasbor</span>
+                        <span key="t-dashboard">Dashboard</span>
                     </a>
                 </li>
 
@@ -144,10 +144,10 @@
                     </li>
                 @endif
 
-                @if (Session::has('access_master') &&
-                        Session::get('access_master')->contains(function ($access) {
-                            return in_array($access->access_master_name, ['schedule_read', 'schedule_manage']);
-                        }))
+                {{-- @if (Session::has('access_master') &&
+    Session::get('access_master')->contains(function ($access) {
+        return in_array($access->access_master_name, ['schedule_read', 'schedule_manage']);
+    }))
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class='bx bx-calendar-event'></i>
@@ -163,7 +163,7 @@
                             @endif
                         </ul>
                     </li>
-                @endif
+                @endif --}}
 
                 @if (Session::has('access_master') &&
                         Session::get('access_master')->contains(function ($access) {
@@ -175,21 +175,21 @@
                         }))
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class='bx bx-universal-access'></i>
-                            <span key="t-user-access">Pengguna & Akses</span>
+                            <i class='bx bxs-user-detail'></i>
+                            <span key="t-user-access">User & Access</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'users_manage'))
-                                <li><a href="{{ route('getUser') }}" key="t-user">Pengguna</a></li>
+                                <li><a href="{{ route('getUser') }}" key="t-user">Users</a></li>
                             @endif
                             @if (Session::has('access_master') &&
                                     Session::get('access_master')->contains('access_master_name', 'access_group_manage'))
-                                <li><a href="{{ route('getAccessGroup') }}" key="t-access-group">Hak Grup Akses
-                                        (Peran)</a></li>
+                                <li><a href="{{ route('getAccessGroup') }}" key="t-access-group">Access Groups
+                                        (Roles)</a></li>
                             @endif
                             @if (Session::has('access_master') &&
                                     Session::get('access_master')->contains('access_master_name', 'access_master_manage'))
-                                <li><a href="{{ route('getAccessMaster') }}" key="t-access-master">Hak Akses Utama</a>
+                                <li><a href="{{ route('getAccessMaster') }}" key="t-access-master">Access List</a>
                                 </li>
                             @endif
                         </ul>
@@ -198,26 +198,36 @@
 
                 @if (Session::has('access_master') &&
                         Session::get('access_master')->contains(function ($access) {
-                            return in_array($access->access_master_name, ['trans_order_manage', 'trans_voucher_manage']);
+                            return in_array($access->access_master_name, [
+                                'trans_order_manage',
+                                'trans_voucher_manage',
+                                'redeem_code_manage',
+                            ]);
                         }))
-                    @if (env('APP_ENV') != 'local')
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class='bx bx-cart'></i>
-                                <span key="t-transaction">Transaksi</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class='bx bx-cart'></i>
+                            <span key="t-transaction">Transaction</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            @if (Session::has('access_master') &&
+                                    Session::get('access_master')->contains('access_master_name', 'trans_order_manage'))
+                                <li><a href="{{ route('getTransOrder') }}" key="t-order">Orders</a></li>
+                            @endif
+                            @if (Session::has('access_master') &&
+                                    Session::get('access_master')->contains('access_master_name', 'trans_voucher_manage'))
+                                <li><a href="{{ route('getVoucher') }}" key="t-voucher">Vouchers</a></li>
+                            @endif
+
+                            @if (Route::has('redeemCode.index'))
                                 @if (Session::has('access_master') &&
-                                        Session::get('access_master')->contains('access_master_name', 'trans_order_manage'))
-                                    <li><a href="{{ route('getTransOrder') }}" key="t-order">Pesanan</a></li>
+                                        Session::get('access_master')->contains('access_master_name', 'redeem_code_manage'))
+                                    <li><a href="{{ route('redeemCode.index') }}" key="t-redeem-code">Redeem Codes</a>
+                                    </li>
                                 @endif
-                                @if (Session::has('access_master') &&
-                                        Session::get('access_master')->contains('access_master_name', 'trans_voucher_manage'))
-                                    <li><a href="{{ route('getVoucher') }}" key="t-voucher">Vouchers</a></li>
-                                @endif
-                            </ul>
-                        </li>
-                    @endif
+                            @endif
+                        </ul>
+                    </li>
                 @endif
 
                 @if (Session::has('access_master') &&
@@ -226,17 +236,10 @@
                         }))
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class='bx bx-user-circle'></i>
-                            <span key="t-member">Mahasiswa</span>
+                            <i class='bx bxs-user-badge'></i>
+                            <span key="t-member">Student</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            @if (env('APP_ENV') != 'local')
-                                @if (Session::has('access_master') &&
-                                        Session::get('access_master')->contains('access_master_name', 'redeem_code_manage'))
-                                    <li><a href="{{ route('getRedeemCode') }}" key="t-redeem-code">Redeem Code</a>
-                                    </li>
-                                @endif
-                            @endif
                             @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'proposal_manage'))
                                 <li><a href="{{ route('getProposal') }}" key="t-proposal">Proposal</a></li>
                             @endif
@@ -252,37 +255,30 @@
                             return in_array($access->access_master_name, [
                                 'carousel_manage',
                                 'event_manage',
-                                'partnership_manage',
                                 'user_testimonial_manage',
                             ]);
                         }))
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="bx bxs-bar-chart-alt-2"></i>
-                            <span key="t-content">Konten</span>
+                            <span key="t-content">Content</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            @if (env('APP_ENV') != 'local')
-                                @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'carousel_manage'))
-                                    <li><a href="{{ route('getCarousel') }}" key="t-carousel">Carousel</a></li>
-                                @endif
+                            @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'carousel_manage'))
+                                <li><a href="{{ route('getCarousel') }}" key="t-carousel">Carousels (About Us)</a>
+                                </li>
                             @endif
                             @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'event_manage'))
-                                <li><a href="{{ route('getEvent') }}" key="t-event">Event</a></li>
-                            @endif
-                            @if (Session::has('access_master') &&
-                                    Session::get('access_master')->contains('access_master_name', 'partnership_manage'))
-                                <li><a href="{{ route('getPartnership') }}" key="t-partnership">Kerja Sama</a></li>
+                                <li><a href="{{ route('getEvent') }}" key="t-event">Events</a></li>
                             @endif
                             @if (Session::has('access_master') &&
                                     Session::get('access_master')->contains('access_master_name', 'user_testimonial_manage'))
-                                @if (env('APP_ENV') != 'local')
-                                    <li><a href="{{ route('getTestimonial') }}" key="t-testimonial">Testimonial</a>
-                                    </li>
-                                @endif
+                                <li>
+                                    <a href="{{ route('getTestimonial') }}" key="t-testimonial">Testimonials</a>
+                                </li>
                             @endif
-                            <li><a href="{{ route('getBlog') }}" key="t-blog">Blog</a></li>
-                            <li><a href="{{ route('getBlogTag') }}" key="t-blog-tag">Tag Blog</a></li>
+                            <li><a href="{{ route('getBlog') }}" key="t-blog">Blogs</a></li>
+                            <li><a href="{{ route('getBlogTag') }}" key="t-blog-tag">Blog Tags</a></li>
                         </ul>
                     </li>
                 @endif
@@ -327,23 +323,25 @@
 
                 @if (Session::has('access_master') &&
                         Session::get('access_master')->contains(function ($access) {
-                            return in_array($access->access_master_name, ['m_general_manage', 'maxy_talk_manage']);
+                            return in_array($access->access_master_name, ['m_general_manage', 'partnership_manage']);
                         }))
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class='bx bx-cog'></i>
-                            <span key="t-setting">Pengaturan</span>
+                            <span key="t-setting">Settings</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'm_general_manage'))
-                                <li><a href="{{ route('getGeneral') }}" key="t-general">Pengaturan Umum</a></li>
+                                <li><a href="{{ route('getGeneral') }}" key="t-general">General Settings</a></li>
                             @endif
-                            <li><a href="{{ route('getPages') }}" key="t-pages">Halaman</a></li>
-                            @if (env('APP_ENV') != 'local')
-                                @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'maxy_talk_manage'))
-                                    <li><a href="{{ route('getMaxyTalk') }}" key="t-maxy-talk">Maxy Talk</a></li>
-                                @endif
+                            @if (Session::has('access_master') &&
+                                    Session::get('access_master')->contains('access_master_name', 'partnership_manage'))
+                                <li><a href="{{ route('getPartnership') }}" key="t-partnership">Partnerships</a></li>
                             @endif
+                            {{-- <li><a href="{{ route('getPages') }}" key="t-pages">Pages</a></li> --}}
+                            {{-- @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'maxy_talk_manage'))
+                                <li><a href="{{ route('getMaxyTalk') }}" key="t-maxy-talk">Maxy Talk</a></li>
+                            @endif --}}
                         </ul>
                     </li>
                 @endif

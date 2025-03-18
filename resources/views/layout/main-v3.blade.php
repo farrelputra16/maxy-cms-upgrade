@@ -28,26 +28,22 @@
         type="text/css" />
 
     <!-- Fontawesome Icons -->
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link href="{{ asset('assets/cms-v3/css/fontawesome-5-15-1.min.css') }}" rel="stylesheet" type="text/css">
 
     <!-- BoxIcons Css -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="{{ asset('assets/cms-v3/css/boxicons.min.css') }}" rel="stylesheet">
 
     <!-- Material Design Icons Css -->
-    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/cms-v3/css/materialdesignicons.min.css') }}" rel="stylesheet">
 
     <!-- Icons Css -->
-    <link href="{{ asset('assets/cms-v3/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    {{-- <link href="{{ asset('assets/cms-v3/css/icons.min.css') }}" rel="stylesheet" type="text/css" /> --}}
 
     <!-- DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.css">
 
     <!-- DataTables Buttons CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
-
-    <!-- DataTables Fixed Column -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.3.0/css/fixedColumns.dataTables.min.css">
 
     <!-- SWAL -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -230,9 +226,6 @@
 
     <!-- DataTables Initialization -->
     <script src="{{ asset('assets/cms-v3/js/pages/datatables.init.js') }}"></script>
-
-    <!-- DataTables FixedColumns Library -->
-    <script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
 
     <!-- Advanced Forms -->
     <script src="{{ asset('assets/cms-v3/libs/select2/js/select2.min.js') }}"></script>

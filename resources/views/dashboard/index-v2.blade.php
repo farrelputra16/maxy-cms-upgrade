@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <!-- start page title -->
+    <!-- Start Page Title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -17,51 +17,68 @@
             </div>
         </div>
     </div>
-    <!-- end page title -->
+    <!-- End Page Title -->
 
+    <!-- Start Row -->
     <div class="row">
+
         <div class="col-xl-8">
-            <div class="">
-                <div class="card overflow-hidden">
-                    <div class="bg-primary-subtle">
-                        <div class="row">
-                            <div class="col-7">
-                                <div class="text-primary p-3">
-                                    <h5 class="text-primary">Welcome Back!</h5>
-                                    <p>MAXY CMS Dashboard</p>
-                                </div>
-                            </div>
-                            <div class="col-5 align-self-end">
-                                <img src="{{ asset('jago-digital/assets/images/profile-img.png') }}" alt=""
-                                    class="img-fluid">
+            <!-- Start Profile Card -->
+            <div class="card overflow-hidden">
+                <div class="bg-primary-subtle">
+                    <div class="row">
+                        <div class="col-7">
+                            <div class="text-primary p-3">
+                                <h5 class="text-primary">Welcome Back!</h5>
+                                <p>MAXY CMS Dashboard</p>
                             </div>
                         </div>
+                        <div class="col-5 align-self-end">
+                            <img src="{{ asset('jago-digital/assets/images/profile-img.png') }}" alt=""
+                                class="img-fluid">
+                        </div>
                     </div>
-                    <div class="card-body pt-0">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="avatar-md profile-user-wid mb-4">
-                                    @if (auth()->user()->profile_picture)
-                                        <img src="{{ asset('uploads/' . auth()->user()->profile_picture) }}"
-                                            alt="{{ auth()->user()->name }} profile"
-                                            class="img-thumbnail rounded-circle d-inline-block w-100 h-100">
-                                    @else
-                                        <img src="{{ asset('img/default_profile.png') }}" alt=""
-                                            class="img-thumbnail rounded-circle">
-                                    @endif
-                                </div>
-                                <h5 class="font-size-15 text-truncate">{{ auth()->user()->name }}</h5>
-                                <p class="text-muted mb-0 text-truncate">
-                                    You are logged in as <strong>{{ $admin->accessGroup->name }}</strong> account
-                                </p>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="avatar-md profile-user-wid mb-4">
+                                @if (auth()->user()->profile_picture)
+                                    <img src="{{ asset('uploads/' . auth()->user()->profile_picture) }}"
+                                        alt="{{ auth()->user()->name }} profile"
+                                        class="img-thumbnail rounded-circle d-inline-block w-100 h-100">
+                                @else
+                                    <img src="{{ asset('img/default_profile.png') }}" alt=""
+                                        class="img-thumbnail rounded-circle">
+                                @endif
                             </div>
+                            <h5 class="font-size-15 text-truncate">{{ auth()->user()->name }}</h5>
+                            <p class="text-muted mb-0 text-truncate">
+                                You are logged in as <strong>{{ $admin->accessGroup->name }}</strong> account
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-            <br>
-            <h4 class="card-title mb-4">Total</h4>
-            <div class="container">
+            <!-- End Profile Card -->
+        </div>
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Row -->
+    <div class="row">
+
+        <!-- Start Col 1 -->
+        <div class="col-xl-8">
+            <!-- Start Total Count Items -->
+            <div class="container py-4">
+                <h4 class="card-title mb-4">Total</h4>
                 <div class="row g-4">
                     <div class="col-md-4">
                         <div class="mini-stats-wid card">
@@ -119,9 +136,11 @@
                     </div>
                 </div>
             </div>
-            <br>
-            <h4 class="card-title mb-4">Partnerships <strong class="text-danger">expiring soon</strong></h4>
-            <div class="container">
+            <!-- End Total Count Items -->
+
+            <!-- Start Partnership Expiring Soon -->
+            <div class="container py-4">
+                <h4 class="card-title mb-4">Partnerships <strong class="text-danger">expiring soon</strong></h4>
                 <div class="card">
                     <div class="card-body" style="height: 100%;">
                         <div class="boxActive box">
@@ -154,138 +173,57 @@
                     </div>
                 </div>
             </div>
-            <br>
-            <div class="container">
-                <div class="row g-4">
-                    <div class="col-8">
-                        <h4 class="card-title mb-4">Ongoing Classes</h4>
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table mb-0 table">
-                                        <thead>
-                                            <tr>
-                                                <th>Class</th>
-                                                <th>Batch</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($active_class_list as $class)
-                                                <tr>
-                                                    <td>{{ $class->course_name }}</td>
-                                                    <td>{{ $class->batch }}</td>
-                                                    <td>
-                                                        <a href="{{ route('getCourseClassModule', ['id' => $class->id, 'batch' => $class->batch]) }}"
-                                                            class="btn btn-primary waves-effect waves-light">Detail</a>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <h4 class="card-title mb-4">Student Account Statistics</h4>
-                        <div class="card">
-                            <div class="card-body">
-                                <div id="student-chart" style="height: 100%;"></div>
-                                <div class="justify-content-center row">
-                                    <div class="col-6 text-center">
-                                        <h5 id="user-active" class="mb-0">{{ $activeStudentCount }}</h5>
-                                        <p class="text-muted">Active</p>
-                                    </div>
-                                    <div class="col-6 text-center">
-                                        <h5 id="user-inactive" class="mb-0">{{ $inactiveStudentCount }}</h5>
-                                        <p class="text-muted">Inactive</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- End Partnership Expiring Soon -->
         </div>
+        <!-- End Col 1 -->
+
+        <!-- Start Col 2 -->
         <div class="col-xl-4">
-            <div class="card">
-                <div class="card-body">
-                    <div id="calendar"></div>
-                </div>
-            </div>
-            {{-- <div class="card">
-                <div class="card-body">
-                    <h5>Jadwal Hari Ini</h5>
-                    <hr>
-                    <div>
-                        @if (isset($schedules) && $schedules->isNotEmpty())
-                            @foreach ($schedules as $schedule)
-                                <h6>{{ $schedule->title }}</h6>
-                                <p>{{ \Carbon\Carbon::parse($schedule->time)->format('H:i') }}</p>
-                                <hr>
-                            @endforeach
-                        @else
-                            <p>Jadwal Anda hari ini kosong – tidak ada jadwal!</p>
-                        @endif
+
+            <!-- Start Ongoing Class List -->
+            <div class="container py-4">
+                <h4 class="card-title mb-4">Ongoing Classes</h4>
+                <div class="card overflow-y-scroll" style="height: 380px;">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table mb-0 table">
+                                <thead>
+                                    <tr>
+                                        <th>Class</th>
+                                        <th>Batch</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($active_class_list as $class)
+                                        <tr>
+                                            <td>{{ $class->course_name }}</td>
+                                            <td>{{ $class->batch }}</td>
+                                            <td>
+                                                <a href="{{ route('getCourseClassModule', ['id' => $class->id, 'batch' => $class->batch]) }}"
+                                                    class="btn btn-primary waves-effect waves-light">Detail</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
+            <!-- End Ongoing Class List -->
+
         </div>
+        <!-- End Col 2 -->
+    </div>
+
+
+
+
     </div>
 @endsection
 
 @section('script')
-
-    <script>
-        fetch('/student-status-data')
-            .then(response => response.json())
-            .then(data => {
-                var active = data.active;
-                var inactive = data.inactive;
-                document.getElementById('user-active').innerText = data.active;
-                document.getElementById('user-inactive').innerText = data.inactive;
-
-                var options = {
-                    series: [active, inactive],
-                    chart: {
-                        type: 'pie',
-                        height: '100%',
-                        width: '100%'
-                    },
-                    legend: {
-                        position: 'bottom',
-                        horizontalAlign: 'center'
-                    },
-                    labels: ['Aktif', 'Tidak Aktif'],
-                    colors: ['#00E396', '#FF4560'],
-                    responsive: [{
-                        breakpoint: 480,
-                        options: {
-                            chart: {
-                                width: '100%'
-                            },
-                        }
-                    }]
-                };
-
-                var chart = new ApexCharts(document.querySelector("#student-chart"), options);
-                chart.render();
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var userActive = document.getElementById('user-active');
-            var userInactive = document.getElementById('user-inactive');
-            var activeCount = parseInt(userActive.textContent);
-            var inactiveCount = parseInt(userInactive.textContent);
-            userActive.textContent = activeCount.toLocaleString('id-ID');
-            userInactive.textContent = inactiveCount.toLocaleString('id-ID');
-        });
-    </script>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
@@ -318,8 +256,6 @@
                         "<strong>Tanggal Berakhir:</strong> " + partnership.date_end,
                 });
             });
-
-            console.log(eventDatas);
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',

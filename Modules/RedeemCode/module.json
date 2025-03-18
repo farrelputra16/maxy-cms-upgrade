@@ -1,0 +1,13 @@
+{
+    "name": "RedeemCode",
+    "alias": "redeemcode",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\RedeemCode\\Providers\\RedeemCodeServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

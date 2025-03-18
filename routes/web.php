@@ -85,9 +85,7 @@ Route::get('/noauthority', function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [DashboardController::class, 'getDashboard'])->name('getDashboard');
-    Route::get('/dashboard2', [DashboardController::class, 'getDashboard2'])->name('getDashboard2');
-    Route::get('/dashboard/synchronize', [DashboardController::class, 'synchronizeData'])->name('synchronizeData');
-    // Route::get('/student-status-data', [DashboardController::class, 'getStudentStatusData']);
+    Route::get('/student-status-data', [DashboardController::class, 'getStudentStatusData']);
 
     Route::get('/profile', function () {
         return view('profile.indexv3');
@@ -473,15 +471,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/testimonial/edit', [TestimonialController::class, 'getEditTestimonial'])->name('getEditTestimonial')->middleware('access:user_testimonial_update');
     Route::post('/testimonial/edit', [TestimonialController::class, 'postEditTestimonial'])->name('postEditTestimonial')->middleware('access:user_testimonial_update');
-
-    // ### Redeem Code Routes ###
-    Route::get('/redeemcode', [RedeemCodeController::class, 'getRedeemCode'])->name('getRedeemCode')->middleware('access:redeem_code_manage');
-
-    Route::get('/redeemcode/add', [RedeemCodeController::class, 'getAddRedeemCode'])->name('getAddRedeemCode')->middleware('access:redeem_code_create');
-    Route::post('/redeemcode/add', [RedeemCodeController::class, 'postAddRedeemCode'])->name('postAddRedeemCode')->middleware('access:redeem_code_create');
-
-    Route::get('/redeemcode/edit', [RedeemCodeController::class, 'getEditRedeemCode'])->name('getEditRedeemCode')->middleware('access:redeem_code_update');
-    Route::post('/redeemcode/edit', [RedeemCodeController::class, 'postEditRedeemCode'])->name('postEditRedeemCode')->middleware('access:redeem_code_update');
 
     // ### Transcript Routes? ###
     Route::get('/transkrip', [TranskripController::class, 'getTranskrip'])->name('getTranskrip')->middleware('access:transkrip_read');

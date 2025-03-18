@@ -7,17 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- Fontawesome Icons -->
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link href="{{ asset('assets/cms-v3/css/fontawesome-5-15-1.min.css') }}" rel="stylesheet" type="text/css">
     <!-- BoxIcons Css -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="{{ asset('assets/cms-v3/css/boxicons.min.css') }}" rel="stylesheet">
     <!-- Material Design Icons Css -->
-    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/cms-v3/css/materialdesignicons.min.css') }}" rel="stylesheet">
 
     <!-- Bootstrap Css -->
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/cms-v3/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet"
+        type="text/css" />
     <!-- Icons Css -->
-    <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/cms-v3/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
     <!-- App js -->
