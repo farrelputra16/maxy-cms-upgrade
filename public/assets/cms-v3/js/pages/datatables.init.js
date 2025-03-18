@@ -109,6 +109,7 @@ $(document).ready(function () {
             },
         });
     }
+
     if (window.exportPdfRoute) {
         console.log("exportPdfRoute Found");
         buttons.push({
@@ -224,6 +225,7 @@ $(document).ready(function () {
             ? table.data("colvis")
             : [-6, -5, -4, -3, 1];
         var id = table.data("id");
+        var orderBy = table.data("order-by");
         var noStatus = table.data("no-status");
 
         if (isServerProcessing) console.log("server-processing set to TRUE.");
@@ -235,6 +237,7 @@ $(document).ready(function () {
             autoWidth: true,
             scrollX: true,
             lengthChange: false,
+            order: [[orderBy ? orderBy : 0, "desc"]],
             processing: isServerProcessing,
             serverSide: isServerProcessing,
             ajax: isServerProcessing
@@ -290,7 +293,11 @@ $(document).ready(function () {
                                                 $(this).val()
                                             );
                                         column
-                                            .search(val !== '' ? val : "", true, false)
+                                            .search(
+                                                val !== "" ? val : "",
+                                                true,
+                                                false
+                                            )
                                             .draw();
                                     });
                             } else if (title == "Ongoing Status") {
