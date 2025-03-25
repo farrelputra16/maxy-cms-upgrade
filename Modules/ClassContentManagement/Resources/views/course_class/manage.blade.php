@@ -282,15 +282,15 @@
                                     data-placeholder="Choose current class's ongoing status">
                                     <option value="" disabled selected>Select a status...</option>
                                     <option value="0"
-                                        {{ old('ongoing') == '0' ? 'selected' : ($data->status_ongoing == 0 ? 'selected' : '') }}>
+                                        {{ old('ongoing') == '0' ? 'selected' : (($data->status_ongoing ?? null) == 0 ? 'selected' : '') }}>
                                         Planning
                                     </option>
                                     <option value="1"
-                                        {{ old('ongoing') == '1' ? 'selected' : ($data->status_ongoing == 1 ? 'selected' : '') }}>
+                                        {{ old('ongoing') == '1' ? 'selected' : (($data->status_ongoing ?? null) == 1 ? 'selected' : '') }}>
                                         Ongoing
                                     </option>
                                     <option value="2"
-                                        {{ old('ongoing') == '2' ? 'selected' : ($data->status_ongoing == 2 ? 'selected' : '') }}>
+                                        {{ old('ongoing') == '2' ? 'selected' : (($data->status_ongoing ?? null) == 2 ? 'selected' : '') }}>
                                         Completed
                                     </option>
                                 </select>
