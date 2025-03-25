@@ -23,13 +23,13 @@ use App\Models\MScore;
 use App\Models\TransOrder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Modules\Attendance\Entities\CourseClassAttendance;
 use Modules\Attendance\Entities\MemberAttendance;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
-
 
 class CourseClassController extends Controller
 {
@@ -334,14 +334,14 @@ class CourseClassController extends Controller
             })
             ->addColumn('course_name', function ($row) {
                 return '<span class="data-medium" data-toggle="tooltip" data-placement="top" title="' . e($row->course_name) . '">'
-                    . \Str::limit(e($row->course_name), 30)
+                    . Str::limit(e($row->course_name), 30)
                     . '</span>';
             })
             ->addColumn('type', function ($row) {
-                return \Str::limit($row->type, 30);
+                return Str::limit($row->type, 30);
             })
             ->addColumn('class_type', function ($row) {
-                return \Str::limit($row->class_type, 30);
+                return Str::limit($row->class_type, 30);
             })
             ->addColumn('status_ongoing', function ($row) {
                 $statusLabels = [
@@ -354,10 +354,10 @@ class CourseClassController extends Controller
                 return "<span class='badge {$status['class']}' style='pointer-events: none;'>{$status['text']}</span>";
             })
             ->addColumn('start_date', function ($row) {
-                return !empty($row->start_date) ? \Str::limit($row->start_date, 30) : '-';
+                return !empty($row->start_date) ? Str::limit($row->start_date, 30) : '-';
             })
             ->addColumn('end_date', function ($row) {
-                return !empty($row->end_date) ? \Str::limit($row->end_date, 30) : '-';
+                return !empty($row->end_date) ? Str::limit($row->end_date, 30) : '-';
             })
             ->addColumn('quota', function ($row) {
                 return $row->quota;
@@ -370,17 +370,26 @@ class CourseClassController extends Controller
             })
             ->addColumn('announcement', function ($row) {
                 return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->announcement)) . '">
-                    ' . (!empty($row->announcement) ? \Str::limit(strip_tags($row->announcement), 30) : '-') . '
+                    ' . (!empty($row->announcement) ? Str::limit(strip_tags($row->announcement), 30) : '-') . '
                 </span>';
+            })
+            ->addColumn('autocert', function ($row) {
+                $options = [
+                    0 => ['text' => 'Disabled', 'class' => 'bg-danger'],
+                    1 => ['text' => 'Enabled', 'class' => 'bg-success'],
+                ];
+                $data = $options[$row->autocert] ?? ['text' => 'Unknown', 'class' => 'bg-danger'];
+
+                return "<span class='badge {$data['class']}' style='pointer-events: none;'>{$data['text']}</span>";
             })
             ->addColumn('content', function ($row) {
                 return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->content)) . '">
-                    ' . (!empty($row->content) ? \Str::limit(strip_tags($row->content), 30) : '-') . '
+                    ' . (!empty($row->content) ? Str::limit(strip_tags($row->content), 30) : '-') . '
                 </span>';
             })
             ->addColumn('description', function ($row) {
                 return '<span class="data-long" data-toggle="tooltip" data-placement="top" title="' . e(strip_tags($row->description)) . '">
-                    ' . (!empty($row->description) ? \Str::limit(strip_tags($row->description), 30) : '-') . '
+                    ' . (!empty($row->description) ? Str::limit(strip_tags($row->description), 30) : '-') . '
                 </span>';
             })
             ->addColumn('created_at', function ($row) {
@@ -406,12 +415,17 @@ class CourseClassController extends Controller
             })
             ->addColumn('action', function ($row) {
                 $actions = [
-                    '<a href="' . route('getEditCourseClass', ['id' => $row->id]) . '" class="btn btn-primary btn-sm">Ubah</a>',
-                    '<a href="' . route('getCourseClassModule', ['id' => $row->id]) . '" class="btn btn-info btn-sm">Modul</a>',
-                    '<a href="' . route('getCourseClassMember', ['id' => $row->id]) . '" class="btn btn-info btn-sm">Mahasiswa</a>',
-                    '<a href="' . route('getCourseClassAttendance', ['id' => $row->id]) . '" class="btn btn-outline-primary btn-sm">Absensi</a>',
-                    '<a href="' . route('getCourseClassScoring', ['id' => $row->id]) . '" class="btn btn-outline-primary btn-sm">Penilaian</a>'
+                    '<a href="' . route('getEditCourseClass', ['id' => $row->id]) . '" class="btn btn-primary btn-sm">Edit</a>',
+                    '<a href="' . route('getCourseClassModule', ['id' => $row->id]) . '" class="btn btn-info btn-sm">Modules</a>',
+                    '<a href="' . route('getCourseClassMember', ['id' => $row->id]) . '" class="btn btn-info btn-sm">Students</a>',
+                    '<a href="' . route('getCourseClassAttendance', ['id' => $row->id]) . '" class="btn btn-outline-primary btn-sm">Attendance</a>',
+                    '<a href="' . route('getCourseClassScoring', ['id' => $row->id]) . '" class="btn btn-outline-primary btn-sm">Grading</a>'
                 ];
+
+                // if certificate template editor module is active, show this button
+                if (Route::has('certificate.index')) {
+                    $actions[] = '<a href="' . route('certificate.index', ['id' => $row->id]) . '" class="btn btn-info btn-sm">Certificate Template</a>';
+                }
 
                 // Conditionally add delete button based on user session
                 if (
@@ -432,17 +446,17 @@ class CourseClassController extends Controller
                 return implode(' ', $actions);
             })
             ->orderColumn('id', 'course_class.id $1')
-            ->rawColumns(['course_name', 'status_ongoing', 'status', 'action', 'announcement', 'content', 'description'])
+            ->rawColumns(['course_name', 'status_ongoing', 'status', 'action', 'announcement', 'autocert', 'content', 'description'])
             ->make(true);
     }
     function getAddCourseClass()
     {
-        $allCourses = Course::all();
-        $allClassType = MClassType::where('status', 1)->get();
+        $courseList = Course::all();
+        $classTypeList = MClassType::where('status', 1)->get();
 
-        return view('classcontentmanagement::course_class.addv3', [
-            'allCourses' => $allCourses,
-            'allClassType' => $allClassType
+        return view('classcontentmanagement::course_class.manage', [
+            'courseList' => $courseList,
+            'classTypeList' => $classTypeList
         ]);
     }
 
@@ -470,45 +484,45 @@ class CourseClassController extends Controller
     {
         $validated = $request->validate([
             'batch' => 'required',
-            'slug' => 'required|unique:course_class,slug', // Pastikan slug unik
-            'class_type_id' => 'required',
-            'start' => 'required|date',
-            'end' => 'required|date|after:start',
-            'quota' => 'required',
+            'slug' => 'required|unique:course_class,slug,' . $request->id,
+            'classTypeId' => 'required',
+            'start' => 'nullable|date',
+            'end' => 'nullable|date|after:start',
+            'quota' => 'required|numeric',
             'ongoing' => 'required',
-            'credits' => 'required',
-            'duration' => 'required'
+            'credits' => 'nullable|numeric',
+            'duration' => 'nullable|numeric'
         ]);
 
         try {
-            if ($validated) {
-                $create = CourseClass::create([
-                    'batch' => $request->batch,
-                    'slug' => $request->slug,
-                    'credits' => $request->credits,
-                    'duration' => $request->duration,
-                    'start_date' => $request->start,
-                    'end_date' => $request->end,
-                    'quota' => $request->quota,
-                    'course_id' => $request->course_id,
-                    'm_class_type_id' => $request->class_type_id,
-                    'announcement' => $request->announcement,
-                    'content' => $request->content,
-                    'description' => $request->description,
-                    'status_ongoing' => $request->ongoing,
-                    'status' => $request->status ? 1 : 0,
-                    'created_id' => Auth::user()->id,
-                    'updated_id' => Auth::user()->id
-                ]);
+            // dd($request->all());
 
-                if ($create) {
-                    return redirect()->route('getCourseClass')->with('success', 'Class added successfully! Please add modules to the class.');
-                } else {
-                    return redirect()->back()->with('error', 'Failed to add class, please try again.');
-                }
-            }
+            $create = CourseClass::create([
+                'batch' => $request->batch,
+                'slug' => $request->slug,
+                'credits' => $request->credits,
+                'duration' => $request->duration,
+                'start_date' => $request->start,
+                'end_date' => $request->end,
+                'quota' => $request->quota,
+                'course_id' => $request->course,
+                'm_class_type_id' => $request->classTypeId,
+                'autocert' => $request->autocert ? 1 : 0,
+                'certificate_congratulatory_message' => $request->congratulatory_message,
+                'certificate_expired_date' => $request->certificate_expired_date,
+                'certificate_expired_after' => $request->certificate_expired_after,
+                'announcement' => $request->announcement,
+                'content' => $request->content,
+                'description' => $request->description,
+                'status_ongoing' => $request->ongoing,
+                'status' => $request->status ? 1 : 0,
+                'created_id' => Auth::user()->id,
+                'updated_id' => Auth::user()->id
+            ]);
+
+            return redirect()->route('getCourseClass')->with('success', 'Data created successfully.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to add class: ' . $e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Failed to create data: ' . $e->getMessage());
         }
     }
 
@@ -579,63 +593,66 @@ class CourseClassController extends Controller
 
     function getEditCourseClass(Request $request)
     {
-        $courseClassId = $request->id;
-        $courseClassDetail = CourseClass::getClassDetailByClassId($courseClassId);
-
-        $courseList = Course::get();
+        $classId = $request->id;
+        $classDetail = CourseClass::getClassDetailByClassId($classId);
         $classTypeList = MClassType::where('status', 1)->get();
 
-        return view('classcontentmanagement::course_class.editv3', [
-            'course_class_detail' => $courseClassDetail,
-            'course_list' => $courseList,
-            'class_type_list' => $classTypeList
+        // dd($classDetail);
+
+        return view('classcontentmanagement::course_class.manage', [
+            'data' => $classDetail,
+            'classTypeList' => $classTypeList
         ]);
     }
 
     public function postEditCourseClass(Request $request)
     {
-        // Validasi input termasuk slug
-        $validated = $request->validate([
-            'batch' => 'required',
-            'slug' => 'required|unique:course_class,slug,' . $request->id, // Slug unik kecuali milik sendiri
-            'start' => 'required|date',
-            'end' => 'required|date|after:start',
-            'quota' => 'required',
-            'ongoing' => 'required',
-            'credits' => 'required',
-            'duration' => 'required'
-        ]);
-
-        // dd($request->announcement);
-
-        // Update data course class
-        $courseClassId = $request->id;
-
-        $updateData = CourseClass::where('id', $courseClassId)
-            ->update([
-                'batch' => $request->batch,
-                'slug' => $request->slug, // Slug disimpan di database
-                'start_date' => $request->start,
-                'end_date' => $request->end,
-                'quota' => $request->quota,
-                'credits' => $request->credits,
-                'duration' => $request->duration,
-                'course_id' => $request->course_id,
-                'm_class_type_id' => $request->class_type_id,
-                'announcement' => $request->announcement,
-                'content' => $request->content,
-                'status_ongoing' => $request->ongoing ? $request->ongoing : 0,
-                'description' => $request->description,
-                'status' => $request->status ? 1 : 0,
-                'created_id' => auth()->user()->id,
-                'updated_id' => auth()->user()->id
+        try {
+            // dd($request->alL());
+            // validate input
+            $validated = $request->validate([
+                'batch' => 'required',
+                'slug' => 'required|unique:course_class,slug,' . $request->id,
+                'classTypeId' => 'required',
+                'start' => 'nullable|date',
+                'end' => 'nullable|date|after:start',
+                'quota' => 'required|numeric',
+                'ongoing' => 'required',
+                'credits' => 'nullable|numeric',
+                'duration' => 'nullable|numeric'
             ]);
 
-        // Redirect atau feedback berdasarkan hasil update
-        if ($updateData) {
-            return app(HelperController::class)->Positive('getCourseClass');
-        } else {
-            return app(HelperController::class)->Warning('getCourseClass');
+            // dd($request->?alL());
+
+            // Update data course class
+            $courseClassId = $request->id;
+
+            $update = CourseClass::where('id', $courseClassId)
+                ->update([
+                    'batch' => $request->batch,
+                    'slug' => $request->slug, // Slug disimpan di database
+                    'start_date' => $request->start,
+                    'end_date' => $request->end,
+                    'quota' => $request->quota,
+                    'credits' => $request->credits,
+                    'duration' => $request->duration,
+                    'm_class_type_id' => $request->classTypeId,
+                    'announcement' => $request->announcement,
+                    'autocert' => $request->autocert ? 1 : 0,
+                    'certificate_congratulatory_message' => $request->congratulatory_message,
+                    'certificate_expired_date' => $request->certificate_expired_date,
+                    'certificate_expired_after' => $request->certificate_expired_after,
+                    'content' => $request->content,
+                    'status_ongoing' => $request->ongoing ? $request->ongoing : 0,
+                    'description' => $request->description,
+                    'status' => $request->status ? 1 : 0,
+                    'created_id' => auth()->user()->id,
+                    'updated_id' => auth()->user()->id
+                ]);
+
+            return redirect()->route('getCourseClass')->with('success', 'Data updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Failed to update data: ' . $e->getMessage());
         }
     }
 

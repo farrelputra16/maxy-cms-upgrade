@@ -1,0 +1,13 @@
+{
+    "name": "CertificateTemplateEditor",
+    "alias": "certificatetemplateeditor",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\CertificateTemplateEditor\\Providers\\CertificateTemplateEditorServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

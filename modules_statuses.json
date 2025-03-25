@@ -12,5 +12,6 @@
     "PageManagement": true,
     "GoKampus": true,
     "Report": true,
-    "RedeemCode": true
+    "RedeemCode": true,
+    "CertificateTemplateEditor": true
 }

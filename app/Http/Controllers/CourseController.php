@@ -332,14 +332,6 @@ class CourseController extends Controller
         ]);
 
         try {
-            // upload image file
-            $fileName = null;
-            if ($request->hasFile('file_image')) {
-                $file = $request->file('file_image');
-                $fileName = $file->getClientOriginalName();
-                $file->move(public_path('/uploads/course_img'), $fileName);
-            }
-
             if ($request->mini_price) {
                 // remove all non-numeric characters from price
                 $trimDiscountedPrice = preg_replace('/\s+/', '', str_replace(array("Rp.", "."), " ", $request->mini_fake_price));
@@ -356,7 +348,6 @@ class CourseController extends Controller
             $create = Course::create([
                 'name' => $request->name ? $request->name : null,
                 'slug' => $request->slug ? $request->slug : null,
-                'image' => $fileName ? $fileName : null,
                 'credits' => $request->credits ? $request->credits : null,
                 'duration' => $request->duration ? $request->duration : null,
                 'short_description' => $request->short_description ? $request->short_description : null,
@@ -372,6 +363,14 @@ class CourseController extends Controller
                 'created_id' => Auth::user()->id,
                 'updated_id' => Auth::user()->id
             ]);
+
+            // upload image file
+            $fileName = null;
+            if ($request->hasFile('file_image')) {
+                $file = $request->file('file_image');
+                $fileName = $file->getClientOriginalName();
+                $file->move(public_path('/uploads/course/' . $create->id . '/cover_img/'), $fileName);
+            }
 
             if ($create) {
                 session()->flash('course_added', 'Course created successfully! Please add new modules for this course.');
@@ -527,7 +526,7 @@ class CourseController extends Controller
                 if ($request->hasFile('file_image')) {
                     $file = $request->file('file_image');
                     $fileName = $file->getClientOriginalName();
-                    $file->move(public_path('/uploads/course_img'), $fileName);
+                    $file->move(public_path('/uploads/course/' . $course->id . '/cover_img/'), $fileName);
                 } else {
                     $fileName = $course->image;
                 }

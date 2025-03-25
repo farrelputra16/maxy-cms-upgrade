@@ -41,7 +41,7 @@
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100"
                         data-server-processing="true"
                         data-url="{{ route('getCourseClassData') }}"
-                        data-colvis="[1, -3, -4, -5, -6]">
+                        data-colvis="[1, 7, 8, -3, -4, -5, -6]">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -57,6 +57,7 @@
                                 <th>Credits</th>
                                 <th>Duration (hours)</th>
                                 <th>Announcement</th>
+                                <th>Auto Certificate</th>
                                 <th>Content</th>
                                 <th>Admin Notes</th>
                                 <th>Created At</th>
@@ -85,6 +86,7 @@
                                 <th>Credits</th>
                                 <th>Duration (hours)</th>
                                 <th>Announcement</th>
+                                <th>Auto Certificate</th>
                                 <th>Content</th>
                                 <th>Admin Notes</th>
                                 <th>Created At</th>
@@ -199,6 +201,12 @@
                 data: "announcement",
                 name: "announcement",
                 orderable: false,
+                searchable: true
+            },
+            {
+                data: "autocert",
+                name: "autocert",
+                orderable: true,
                 searchable: true
             },
             {
