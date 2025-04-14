@@ -202,7 +202,7 @@
                         <div class="col-md-10">
                             <select class="form-control select2" name="quiz_content" id="quiz_content" required>
                             @foreach ($quiz as $item)
-                                <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}" @if ($item->id == $idQuiz) selected @endif>
+                                <option value="{{ config('app.app_url_frontend') . '/lms/survey/' . $item->id }}" @if ($item->id == $idQuiz) selected @endif>
                                     {{ $item->name }}
                                 </option>
                             @endforeach
@@ -216,7 +216,7 @@
                         <div class="col-md-10">
                             <select class="form-control select2" name="eval_content" id="eval_content" required>
                             @foreach ($eval as $item)
-                                <option value="{{ config('app.frontend_app_url') . '/lms/survey/' . $item->id }}" @if ($item->id == $idEval) selected @endif>
+                                <option value="{{ config('app.app_url_frontend') . '/lms/survey/' . $item->id }}" @if ($item->id == $idEval) selected @endif>
                                     {{ $item->name }}
                                 </option>
                             @endforeach

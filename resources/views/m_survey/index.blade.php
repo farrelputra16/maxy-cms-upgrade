@@ -348,7 +348,7 @@
                             @foreach ($MSurvey as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
-                                <td>{{ config('app.frontend_app_url').'/lms/survey/'.$item->id }}</td>
+                                <td>{{ config('app.app_url_frontend').'/lms/survey/'.$item->id }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->expired_date }}</td>
                                 <td>
