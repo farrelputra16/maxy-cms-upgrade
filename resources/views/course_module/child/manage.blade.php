@@ -312,7 +312,7 @@
                     <div class="col-md-10">
                         <select class="form-control select2" name="material" id="quiz_content" data-placeholder="Choose..." required>
                         @foreach ($quiz as $item)
-                            <option value="{{ config('app.app_url_frontend') . '/lms/survey/' . $item->id }}">
+                            <option value="{{ env('FRONTEND_APP_URL') . '/lms/survey/' . $item->id }}">
                                 {{ $item->name }}
                             </option>
                         @endforeach
@@ -332,7 +332,7 @@
                     <div class="col-md-10">
                         <select class="form-control select2" name="material" id="eval_content" required>
                         @foreach ($eval as $item)
-                            <option value="{{ config('app.app_url_frontend') . '/lms/survey/' . $item->id }}">
+                            <option value="{{ env('FRONTEND_APP_URL') . '/lms/survey/' . $item->id }}">
                                 {{ $item->name }}
                             </option>
                         @endforeach
