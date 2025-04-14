@@ -130,7 +130,7 @@
                                 <select class="form-control select2" name="class_content" id="quiz_content"
                                     style="width: 100%">
                                     @foreach ($quiz as $item)
-                                        <option value="{{ env('FRONTEND_APP_URL') . '/lms/survey/' . $item->id }}">
+                                        <option value="{{ env('APP_URL_FRONTEND') . '/lms/survey/' . $item->id }}">
                                             {{ $item->name }}
                                         </option>
                                     @endforeach
@@ -144,7 +144,7 @@
                                 <select class="form-control select2" name="class_content" id="eval_content"
                                     style="width: 100%">
                                     @foreach ($eval as $item)
-                                        <option value="{{ env('FRONTEND_APP_URL') . '/lms/survey/' . $item->id }}">
+                                        <option value="{{ env('APP_URL_FRONTEND') . '/lms/survey/' . $item->id }}">
                                             {{ $item->name }}
                                         </option>
                                     @endforeach
@@ -323,7 +323,7 @@
         $(document).ready(function() {
             $('#type_selector').on('change', function() {
                 const moduleId = $(this).val();
-                const frontendUrl = '{{ env('FRONTEND_APP_URL') }}';
+                const frontendUrl = '{{ env('APP_URL_FRONTEND') }}';
                 const editor = tinymce.get('elm1');
 
                 if (!editor) {
@@ -503,8 +503,8 @@
                         <div class="col-md-10">
                             <select class="form-control select2" name="quiz_content" required>
                                 @foreach ($quiz as $item)
-                                <option value="{{ env('FRONTEND_APP_URL') . '/lms/survey/' . $item->id }}"
-                                    {{ old('quiz_content') == env('FRONTEND_APP_URL') . '/lms/survey/' . $item->id ? 'selected' : '' }}>
+                                <option value="{{ env('APP_URL_FRONTEND') . '/lms/survey/' . $item->id }}"
+                                    {{ old('quiz_content') == env('APP_URL_FRONTEND') . '/lms/survey/' . $item->id ? 'selected' : '' }}>
                                     {{ $item->name }} {{ $item->id }}
                                 </option>
                                 @endforeach
@@ -520,8 +520,8 @@
                         <div class="col-md-10">
                             <select class="form-control select2" name="eval_content" required>
                                 @foreach ($eval as $item)
-                                <option value="{{ env('FRONTEND_APP_URL') . '/lms/survey/' . $item->id }}"
-                                    {{ strip_tags(old('eval_content')) == env('FRONTEND_APP_URL') . '/lms/survey/' . $item->id ? 'selected' : '' }}>
+                                <option value="{{ env('APP_URL_FRONTEND') . '/lms/survey/' . $item->id }}"
+                                    {{ strip_tags(old('eval_content')) == env('APP_URL_FRONTEND') . '/lms/survey/' . $item->id ? 'selected' : '' }}>
                                     {{ $item->name }}
                                 </option>
                                 @endforeach

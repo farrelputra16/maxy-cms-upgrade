@@ -85,7 +85,7 @@
                                     </td>
                                     <td class="data-medium" data-toggle="tooltip" data-placement="top"
                                         title="{{ $item->slug }}">
-                                        <a href="{{ env('FRONTEND_APP_URL') }}/blog/{{ $item->slug }}"
+                                        <a href="{{ env('APP_URL_FRONTEND') }}/blog/{{ $item->slug }}"
                                            >{!! \Str::limit($item->slug, 30) !!}</a>
                                     </td>
                                     <td class="data-long" data-toggle="tooltip" data-placement="top"

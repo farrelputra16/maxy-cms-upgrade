@@ -92,7 +92,7 @@ class MSurveyController extends Controller
             })
             ->addColumn('url', function ($row) {
                 
-                return env('FRONTEND_APP_URL') . '/lms/survey/' . $row->id;
+                return env('APP_URL_FRONTEND') . '/lms/survey/' . $row->id;
             })
             ->addColumn('expired_date', function ($row) {
                 return $row->expired_date;
