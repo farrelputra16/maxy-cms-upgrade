@@ -112,6 +112,7 @@
                                 - Gunakan kolom <b>Value</b> pada <b>Choice Options</b> untuk mengatur opsi jawaban. <br>
                                 - Untuk menetapkan jawaban yang benar, buka tab <b>Data</b> dan pilih <b>Set Correct
                                     Answer</b>.
+                                - Jawaban dari Quiz bersifat <b> tidak </b> case sensitive
                             </div>
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary w-md text-center custom-btn-submit"

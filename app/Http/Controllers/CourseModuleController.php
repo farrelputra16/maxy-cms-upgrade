@@ -440,7 +440,7 @@ class CourseModuleController extends Controller
             'name' => 'required|string|max:255',
             'priority' => 'required|integer|min:1',
             'type' => 'required',
-            'material' => 'required'
+            'material' => 'nullable'
         ]);
 
         try {
