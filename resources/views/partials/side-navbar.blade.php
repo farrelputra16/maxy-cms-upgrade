@@ -144,27 +144,6 @@
                     </li>
                 @endif
 
-                {{-- @if (Session::has('access_master') &&
-    Session::get('access_master')->contains(function ($access) {
-        return in_array($access->access_master_name, ['schedule_read', 'schedule_manage']);
-    }))
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class='bx bx-calendar-event'></i>
-                            <span key="t-schedule">Jadwal</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'schedule_read'))
-                                <li><a href="{{ route('getSchedule') }}" key="t-schedule">Jadwal</a></li>
-                            @endif
-                            @if (Session::has('access_master') && Session::get('access_master')->contains('access_master_name', 'schedule_manage'))
-                                <li><a href="{{ route('getGeneralSchedule') }}" key="t-general-schedule">Jadwal
-                                        Umum</a></li>
-                            @endif
-                        </ul>
-                    </li>
-                @endif --}}
-
                 @if (Session::has('access_master') &&
                         Session::get('access_master')->contains(function ($access) {
                             return in_array($access->access_master_name, [
@@ -320,6 +299,37 @@
                         </li>
                     @endif
                 @endif
+
+                <!-- Start Donation Tracker -->
+                @if (Route::has('donation.index'))
+                    @if (Session::has('access_master') &&
+                            Session::get('access_master')->contains(function ($access) {
+                                return in_array($access->access_master_name, ['donation_manage']);
+                            }))
+                        <li>
+
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class='bx bx-donate-heart'></i>
+                                <span key="t-donation">Donation Tracker</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                @if (Session::has('access_master') &&
+                                        Session::get('access_master')->contains('access_master_name', 'donation_all_funds_manage'))
+                                    <li><a href="{{ route('donation.index') }}" key="t-donation">Donations</a></li>
+                                @endif
+                                @if (Session::has('access_master') &&
+                                        Session::get('access_master')->contains('access_master_name', 'donation_all_donator_manage'))
+                                    <li><a href="{{ route('donator.index') }}" key="t-list">Donator List</a></li>
+                                @endif
+                                @if (Session::has('access_master') &&
+                                        Session::get('access_master')->contains('access_master_name', 'donation_donator_sponsored_list_manage'))
+                                    <li><a href="{{ route('my-donation.index') }}" key="t-list">My Donations</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                @endif
+                <!-- End Donation Tracker -->
 
                 @if (Session::has('access_master') &&
                         Session::get('access_master')->contains(function ($access) {

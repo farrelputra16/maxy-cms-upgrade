@@ -13,5 +13,6 @@
     "GoKampus": true,
     "Report": true,
     "RedeemCode": true,
-    "CertificateTemplateEditor": true
+    "CertificateTemplateEditor": true,
+    "DonationTracker": true,
 }

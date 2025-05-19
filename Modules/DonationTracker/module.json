@@ -1,0 +1,13 @@
+{
+    "name": "DonationTracker",
+    "alias": "donationtracker",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\DonationTracker\\Providers\\DonationTrackerServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

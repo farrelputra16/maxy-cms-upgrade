@@ -99,8 +99,6 @@ class CourseClassMemberGradingController extends Controller
         $allClassesData = [];
         $data_index = 0;
 
-
-
         // check if user have access to manage all class
         $broGotAccessMaster = AccessMaster::getUserAccessMaster();
         $hasManageAllClass = false;
@@ -131,12 +129,6 @@ class CourseClassMemberGradingController extends Controller
                 ->distinct()
                 ->get();
         }
-
-        // $classes = CourseClass::select('course_class.*', 'course.name as course_name')
-        //     ->join('course', 'course.id', '=', 'course_class.course_id')
-        //     ->get();
-
-        // return dd($classes);
 
         foreach ($classes as $class) {
             $moduleData = CourseClass::getAssignmentModulesByClassId($class->id);
@@ -234,8 +226,6 @@ class CourseClassMemberGradingController extends Controller
         ]);
     }
 
-    // Metode tambahan untuk pencarian global
-    // Update metode pencarian global untuk handle status
     private function rowMatchesSearch($row, $search)
     {
         $search = strtolower($search);
@@ -265,7 +255,6 @@ class CourseClassMemberGradingController extends Controller
         return false;
     }
 
-    // Metode tambahan untuk pencarian per kolom
     private function rowMatchesColumnSearch($row, $columns)
     {
         foreach ($columns as $column) {
@@ -292,7 +281,6 @@ class CourseClassMemberGradingController extends Controller
         return true;
     }
 
-    // Metode untuk mendapatkan nilai sorting
     private function getSortValue($row, $column)
     {
         if ($column === 'status') {
@@ -300,8 +288,6 @@ class CourseClassMemberGradingController extends Controller
         }
         return $row[$column] ?? '';
     }
-
-    // Tambahkan metode untuk mendapatkan status
     private function getStatusBadge($item, $member)
     {
         if (!isset($member->submission)) {
@@ -328,8 +314,6 @@ class CourseClassMemberGradingController extends Controller
                 'class' => 'bg-warning'
             ];
     }
-
-    // Tambahkan metode untuk mendapatkan tombol aksi
     private function getActionButton($member, $item)
     {
         if (!$member->submission) {
