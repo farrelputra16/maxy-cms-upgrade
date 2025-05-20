@@ -45,14 +45,14 @@
                                 <th>No</th>
                                 <th>ID</th>
                                 <th class="data-medium">Nama Presensi</th>
-                                <th>Hari</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Dibuat Oleh</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Diperbarui Oleh</th>
+                                <th>Day</th>
+                                <th class="data-long">Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,15 +62,15 @@
                             <tr>
                                 <th>No</th>
                                 <th>ID</th>
-                                <th class="data-medium">Nama Modul</th>
-                                <th>Hari</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Dibuat Oleh</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Diperbarui Oleh</th>
+                                <th class="data-medium">Nama Module</th>
+                                <th>Day</th>
+                                <th class="data-long">Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

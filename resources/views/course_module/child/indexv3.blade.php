@@ -66,18 +66,18 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama Modul</th>
+                                <th class="data-medium">Nama Module</th>
                                 <th>Prioritas</th>
                                 <th>Jenis</th>
                                 <th class="data-long">Materi</th>
-                                <th class="data-long">Konten</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Id Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Id Pembaruan</th>
+                                <th class="data-long">Content</th>
+                                <th class="data-long">Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -87,18 +87,18 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Nama Modul</th>
+                                <th>Nama Module</th>
                                 <th>Prioritas</th>
                                 <th>Jenis</th>
                                 <th>Materi</th>
-                                <th>Konten</th>
-                                <th>Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Id Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Id Pembaruan</th>
+                                <th>Content</th>
+                                <th>Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

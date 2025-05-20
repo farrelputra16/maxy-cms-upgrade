@@ -58,16 +58,16 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama</th>
-                                <th>Tanggal Mulai</th>
-                                <th>Tanggal Selesai</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>ID Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>ID Pembaruan</th>
+                                <th class="data-medium">Name</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th class="data-long">Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,16 +77,16 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Nama</th>
-                                <th>Tanggal Mulai</th>
-                                <th>Tanggal Selesai</th>
-                                <th>Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>ID Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>ID Pembaruan</th>
+                                <th>Name</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

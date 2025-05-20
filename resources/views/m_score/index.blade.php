@@ -58,16 +58,16 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Bobot Penilaian</th>
-                                <th>Rentang Awal</th>
-                                <th>Rentang Akhir</th>
-                                <th>Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>ID Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>ID Pembaruan</th>
+                                <th>Grade Score</th>
+                                <th>Initial Range</th>
+                                <th>End Range</th>
+                                <th>Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
 
@@ -78,16 +78,16 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Bobot penilaian</th>
-                                <th>Rentang Awal</th>
-                                <th>Rentang Akhir</th>
-                                <th>Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>ID Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>ID Pembaruan</th>
+                                <th>Grade Score</th>
+                                <th>Initial Range</th>
+                                <th>End Range</th>
+                                <th>Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

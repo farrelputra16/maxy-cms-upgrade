@@ -41,20 +41,20 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama Voucher</th>
-                                <th>Kode Voucher</th>
-                                <th>Tanggal Mulai</th>
-                                <th>Tanggal Berakhir</th>
-                                <th>Jenis Diskon</th>
-                                <th>Diskon</th>
-                                <th>Maks Diskon</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>ID Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>ID Pembaruan</th>
+                                <th class="data-medium">Voucher Name</th>
+                                <th>Voucher Code</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Discount Type</th>
+                                <th>Discount</th>
+                                <th>Max Discount</th>
+                                <th class="data-long">Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -98,20 +98,20 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama Voucher</th>
-                                <th>Kode Voucher</th>
-                                <th>Tanggal Mulai</th>
-                                <th>Tanggal Berakhir</th>
-                                <th>Jenis Diskon</th>
-                                <th>Diskon</th>
-                                <th>Maks Diskon</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>ID Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>ID Pembaruan</th>
+                                <th class="data-medium">Voucher Name</th>
+                                <th>Voucher Code</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Discount Type</th>
+                                <th>Discount</th>
+                                <th>Max Discount</th>
+                                <th class="data-long">Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

@@ -318,13 +318,13 @@
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                                     <thead>
                                         <tr>
-                                            <th>Posisi</th>
+                                            <th>PosDescription</th>
                                             <th>Jenis Pekerjaan</th>
                                             <th>Perusahaan</th>
                                             <th>Industri</th>
                                             <th>Lokasi</th>
-                                            <th>Tanggal Mulai</th>
-                                            <th>Tanggal Selesai</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
                                             <!-- Add more table headers as needed -->
                                         </tr>
                                     </thead>
@@ -366,9 +366,9 @@
                                             <th>Sekolah</th>
                                             <th>Gelar</th>
                                             <th>Bidang Studi</th>
-                                            <th>Nilai</th>
-                                            <th>Tanggal Mulai</th>
-                                            <th>Tanggal Selesai</th>
+                                            <th>Score</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
                                             <!-- Add more table headers as needed -->
                                         </tr>
                                     </thead>
@@ -826,12 +826,12 @@
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                                     <thead>
                                         <tr>
-                                            <th>Nama</th>
+                                            <th>Name</th>
                                             <th>Perusahaan</th>
                                             <th>ID Kredensial</th>
                                             <th>URL Kredensial</th>
-                                            <th>Tanggal Mulai</th>
-                                            <th>Tanggal Selesai</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
                                             <th>Deskripsi</th>
                                             <!-- Add more table headers as needed -->
                                         </tr>

@@ -346,9 +346,9 @@
                     <th>Material</th>
                     <th>Description</th>
                     <th>Created At</th>
-                    <th>Created Id</th>
+                    <th>Created By</th>
                     <th>Updated At</th>
-                    <th>Updated Id</th>
+                    <th>Updated By</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>

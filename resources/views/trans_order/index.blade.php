@@ -42,24 +42,24 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nomor Pesanan</th>
-                                <th>Mahasiswa</th>
-                                <th>Kursus</th>
-                                <th>Tanggal</th>
+                                <th class="data-medium">Order ID</th>
+                                <th>Student</th>
+                                <th>Course</th>
+                                <th>Date</th>
                                 <th>Total</th>
-                                <th>Diskon</th>
-                                <th>Setelah Diskon</th>
-                                <th>Paket Kursus</th>
+                                <th>Discount</th>
+                                <th>After Discount</th>
+                                <th>Course Package</th>
                                 <th>Promo</th>
-                                <th>Agen Penjual</th>
-                                <th>Status Pembayaran</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Dibuat Oleh</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Diperbarui Oleh</th>
+                                <th>Seller Agent</th>
+                                <th>Payment Status</th>
+                                <th class="data-long">Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
 
@@ -135,24 +135,24 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nomor Pesanan</th>
-                                <th>Mahasiswa</th>
-                                <th>Kursus</th>
-                                <th>Tanggal</th>
+                                <th class="data-medium">Order ID</th>
+                                <th>Student</th>
+                                <th>Course</th>
+                                <th>Date</th>
                                 <th>Total</th>
-                                <th>Diskon</th>
-                                <th>Setelah Diskon</th>
-                                <th>Paket Kursus</th>
+                                <th>Discount</th>
+                                <th>After Discount</th>
+                                <th>Course Package</th>
                                 <th>Promo</th>
-                                <th>Agen Penjual</th>
-                                <th>Status Pembayaran</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Dibuat Oleh</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Diperbarui Oleh</th>
+                                <th>Seller Agent</th>
+                                <th>Payment Status</th>
+                                <th class="data-long">Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

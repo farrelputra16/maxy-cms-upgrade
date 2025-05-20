@@ -59,15 +59,16 @@
                         <tr>
                             <th>No</th>
                             <th>Id</th>
-                            <th class="data-medium">Nama Jenis Mata Kuliah</th>
+                            <!--   Nama Jenis Mata Kuliah -->
+                            <th class="data-medium">Course Type Name</th>
                             <th>Slug</th>
-                            <th class="data-long">Catatan Admin</th>
+                            <th class="data-long">Admin Note</th>
                             <th>Created At</th>
-                            <th>Created Id</th>
+                            <th>Created By</th>
                             <th>Updated At</th>
-                            <th>Updated Id</th>
+                            <th>Updated By</th>
                             <th>Status</th>
-                            <th>Aksi</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,15 +78,15 @@
                         <tr>
                             <th>No</th>
                             <th>Id</th>
-                            <th class="data-medium">Nama Jenis Mata Kuliah</th>
+                            <th class="data-medium">Course Type Name</th>
                             <th>Slug</th>
-                            <th class="data-long">Catatan Admin</th>
+                            <th class="data-long">Admin Note</th>
                             <th>Created At</th>
-                            <th>Created Id</th>
+                            <th>Created By</th>
                             <th>Updated At</th>
-                            <th>Updated Id</th>
+                            <th>Updated By</th>
                             <th>Status</th>
-                            <th>Aksi</th>
+                            <th>Action</th>
                         </tr>
                     </tfoot>
                 </table>

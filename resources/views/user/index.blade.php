@@ -341,7 +341,7 @@
                                 <th>Level</th>
                                 <th>supervisor_name</th>
                                 <th>supervisor_email</th>
-                                <th>IPK</th>
+                                <th>GPA</th>
                                 <th>Religion</th>
                                 <th>Hobby</th>
                                 <th>Citizenship Status</th>
@@ -413,7 +413,7 @@
                                 <th>Level</th>
                                 <th>supervisor_name</th>
                                 <th>supervisor_email</th>
-                                <th>IPK</th>
+                                <th>GPA</th>
                                 <th>Religion</th>
                                 <th>Hobby</th>
                                 <th>Citizenship Status</th>

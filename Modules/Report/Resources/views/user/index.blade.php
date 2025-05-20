@@ -117,29 +117,29 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Id</th>
-                                    <th>Nama Pengguna</th>
+                                    <th>Username</th>
                                     <th>Email</th>
-                                    <th>Grup Akses</th>
-                                    <th>Catatan Admin</th>
-                                    <th>Tanggal Lahir</th>
-                                    <th>Telepon</th>
-                                    <th>Alamat</th>
-                                    <th>Universitas</th>
-                                    <th>Jurusan</th>
+                                    <th>Group Access</th>
+                                    <th>Admin Note</th>
+                                    <th>Date of Birth</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
+                                    <th>University</th>
+                                    <th>Major</th>
                                     <th>Semester</th>
-                                    <th>Kota</th>
-                                    <th>Negara</th>
+                                    <th>City</th>
+                                    <th>County</th>
                                     <th>Level</th>
-                                    <th>Nama Pembimbing</th>
-                                    <th>Email Pembimbing</th>
-                                    <th>IPK</th>
-                                    <th>Agama</th>
-                                    <th>Hobi</th>
-                                    <th>Status Kewarganegaraan</th>
-                                    <th>Dibuat Pada</th>
-                                    <th>Dibuat Oleh</th>
-                                    <th>Diperbarui Pada</th>
-                                    <th>Diperbarui Oleh</th>
+                                    <th>Mentor Name</th>
+                                    <th>Mentor Email</th>
+                                    <th>GPA</th>
+                                    <th>Religion</th>
+                                    <th>Hobby</th>
+                                    <th>Citizenship</th>
+                                    <th>Created At</th>
+                                    <th>Created By</th>
+                                    <th>Updated At</th>
+                                    <th>Updated By</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -148,29 +148,29 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Id</th>
-                                    <th>Nama Pengguna</th>
+                                    <th>Username</th>
                                     <th>Email</th>
-                                    <th>Grup Akses</th>
-                                    <th>Catatan Admin</th>
-                                    <th>Tanggal Lahir</th>
-                                    <th>Telepon</th>
-                                    <th>Alamat</th>
-                                    <th>Universitas</th>
-                                    <th>Jurusan</th>
+                                    <th>Group Access</th>
+                                    <th>Admin Note</th>
+                                    <th>Date of Birth</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
+                                    <th>University</th>
+                                    <th>Major</th>
                                     <th>Semester</th>
-                                    <th>Kota</th>
-                                    <th>Negara</th>
+                                    <th>City</th>
+                                    <th>County</th>
                                     <th>Level</th>
-                                    <th>Nama Pembimbing</th>
-                                    <th>Email Pembimbing</th>
-                                    <th>IPK</th>
-                                    <th>Agama</th>
-                                    <th>Hobi</th>
-                                    <th>Status Kewarganegaraan</th>
-                                    <th>Dibuat Pada</th>
-                                    <th>Dibuat Oleh</th>
-                                    <th>Diperbarui Pada</th>
-                                    <th>Diperbarui Oleh</th>
+                                    <th>Mentor Name</th>
+                                    <th>Mentor Email</th>
+                                    <th>GPA</th>
+                                    <th>Religion</th>
+                                    <th>Hobby</th>
+                                    <th>Citizenship</th>
+                                    <th>Created At</th>
+                                    <th>Created By</th>
+                                    <th>Updated At</th>
+                                    <th>Updated By</th>
                                     <th>Status</th>
                                 </tr>
                             </tfoot>

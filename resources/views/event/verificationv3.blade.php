@@ -49,9 +49,9 @@
                                 <th>Requirement</th>
                                 <th class="data-medium">Value</th>
                                 <th>Created At</th>
-                                <th>Created Id</th>
+                                <th>Created By</th>
                                 <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Updated By</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -92,9 +92,9 @@
                                 <th>Requirement</th>
                                 <th class="data-medium">Value</th>
                                 <th>Created At</th>
-                                <th>Created Id</th>
+                                <th>Created By</th>
                                 <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Updated By</th>
                             </tr>
                         </tfoot>
                     </table>

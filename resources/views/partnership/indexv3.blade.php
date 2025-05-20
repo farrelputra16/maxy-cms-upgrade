@@ -59,18 +59,18 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Mitra</th>
-                                <th class="data-medium">Tipe Kerja Sama</th>
+                                <th class="data-medium">Partner</th>
+                                <th class="data-medium">Cooperative Type</th>
                                 <th>File</th>
-                                <th>Tanggal Mulai</th>
-                                <th>Tanggal Akhir</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Id Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Id Pembaruan</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th class="data-long">Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -80,18 +80,18 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Mitra</th>
-                                <th class="data-medium">Tipe Kerja Sama</th>
+                                <th class="data-medium">Partner</th>
+                                <th class="data-medium">Cooperative Type</th>
                                 <th>File</th>
-                                <th>Tanggal Mulai</th>
-                                <th>Tanggal Akhir</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Id Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Id Pembaruan</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th class="data-long">Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

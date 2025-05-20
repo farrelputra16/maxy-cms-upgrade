@@ -45,13 +45,13 @@
                                 <th>Favicon</th>
                                 <th>GA ID</th>
                                 <th>Social Image URL</th>
-                                <th>Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Id Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Id Pembaruan</th>
+                                <th>Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -105,13 +105,13 @@
                                 <th>Favicon</th>
                                 <th>GA ID</th>
                                 <th>Social Image URL</th>
-                                <th>Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Id Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Id Pembaruan</th>
+                                <th>Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

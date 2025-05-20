@@ -84,36 +84,36 @@
                             <tr>
                                 <th>No</th>
                                 <th>ID</th>
-                                <th>Kelas</th>
-                                <th>Modul</th>
-                                <th>Hari</th>
-                                <th>Nama Mahasiswa</th>
-                                <th>Berkas Tugas</th>
-                                <th>Waktu Pengumpulan</th>
-                                <th>Nilai</th>
-                                <th>Diperbarui Pada</th>
+                                <th>Class</th>
+                                <th>Module</th>
+                                <th>Day</th>
+                                <th>Student Name</th>
+                                <th>Assignment File</th>
+                                <th>Due Date</th>
+                                <th>Score</th>
+                                <th>Updated At</th>
                                 <th>Komentar Mahasiswa</th>
                                 <th>Komentar Dosen</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th>No</th>
                                 <th>ID</th>
-                                <th>Kelas</th>
-                                <th>Modul</th>
-                                <th>Hari</th>
-                                <th>Nama Mahasiswa</th>
-                                <th>Berkas Tugas</th>
-                                <th>Waktu Pengumpulan</th>
-                                <th>Nilai</th>
-                                <th>Diperbarui Pada</th>
+                                <th>Class</th>
+                                <th>Module</th>
+                                <th>Day</th>
+                                <th>Student Name</th>
+                                <th>Assignment File</th>
+                                <th>Due Date</th>
+                                <th>Score</th>
+                                <th>Updated At</th>
                                 <th>Komentar Mahasiswa</th>
                                 <th>Komentar Dosen</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

@@ -55,14 +55,14 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama</th>
-                                <th>Periode</th>
-                                <th>Kelas Mata Kuliah</th>
+                                <th class="data-medium">Name</th>
+                                <th>Period</th>
+                                <th>Course Class</th>
                                 <th>Nilai </th>
                                 <th>Created At</th>
-                                <th>Created Id</th>
+                                <th>Created By</th>
                                 <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Updated By</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,9 +77,9 @@
                                 <th>Course Class</th>
                                 <th>Score</th>
                                 <th>Created At</th>
-                                <th>Created Id</th>
+                                <th>Created By</th>
                                 <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Updated By</th>
                             </tr>
                         </tfoot>
                     </table>

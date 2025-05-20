@@ -40,15 +40,15 @@
                             <tr>
                                 <th>No</th>
                                 <th>ID</th>
-                                <th class="data-medium">Nama</th>
-                                <th class="data-medium">Judul</th>
+                                <th class="data-medium">Name</th>
+                                <th class="data-medium">Title</th>
                                 <th>Proposal</th>
-                                <th>Dibuat Pada</th>
-                                <th>Dibuat Oleh</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Diperbarui Oleh</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,12 +61,12 @@
                                 <th class="data-medium">Name</th>
                                 <th class="data-medium">Title</th>
                                 <th>Proposal</th>
-                                <th>Dibuat Pada</th>
-                                <th>Dibuat Oleh</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Diperbarui Oleh</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

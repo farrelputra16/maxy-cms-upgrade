@@ -57,14 +57,14 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama Tipe Mitra</th>
+                                <th class="data-medium">Partnership Type Name</th>
                                 <th class="data-long">Deskripsi</th>
-                                <th>Dibuat Pada</th>
-                                <th>Id Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Id Pembaruan</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -74,14 +74,14 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Nama</th>
+                                <th>Name</th>
                                 <th>Deskripsi</th>
-                                <th>Dibuat Pada</th>
-                                <th>Id Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Id Pembaruan</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

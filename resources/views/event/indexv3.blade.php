@@ -54,20 +54,20 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama</th>
-                                <th class="data-medium">Nama (Inggris)</th>
-                                <th>Gambar</th>
-                                <th>Tanggal Mulai</th>
-                                <th>Tanggal Akhir</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th>Verifikasi</th>
-                                <th>Publik</th>
+                                <th class="data-medium">Name</th>
+                                <th class="data-medium">Name (In English)</th>
+                                <th>Image</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th class="data-long">Admin Note</th>
+                                <th>Verification</th>
+                                <th>Public</th>
                                 <th>Created At</th>
-                                <th>Created Id</th>
+                                <th>Created By</th>
                                 <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -83,12 +83,12 @@
                                 <th>Date Start</th>
                                 <th>Date End</th>
                                 <th>Description</th>
-                                <th>Need verification</th>
+                                <th>Verification</th>
                                 <th>Public</th>
                                 <th>Created At</th>
-                                <th>Created Id</th>
+                                <th>Created By</th>
                                 <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>

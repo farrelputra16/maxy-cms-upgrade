@@ -55,14 +55,14 @@
                                 <th>Id</th>
                                 <th class="data-medium">Program MBKM</th>
                                 <th class="data-medium">Deskripsi Pratinjau</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th class="data-long">Konten</th>
+                                <th class="data-long">Admin Note</th>
+                                <th class="data-long">Content</th>
                                 <th>Waktu Dibuat</th>
-                                <th>Dibuat Oleh</th>
+                                <th>Created By</th>
                                 <th>Waktu Diperbarui</th>
-                                <th>Diperbarui Oleh</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -74,14 +74,14 @@
                                 <th>Id</th>
                                 <th class="data-medium">Program MBKM</th>
                                 <th class="data-medium">Deskripsi Pratinjau</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th class="data-long">Konten</th>
+                                <th class="data-long">Admin Note</th>
+                                <th class="data-long">Content</th>
                                 <th>Waktu Dibuat</th>
-                                <th>Dibuat Oleh</th>
+                                <th>Created By</th>
                                 <th>Waktu Diperbarui</th>
-                                <th>Diperbarui Oleh</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

@@ -55,7 +55,7 @@
                                 <th>No</th>
                                 <th>Halaman</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -66,7 +66,7 @@
                                 <th>No</th>
                                 <th>Halaman</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

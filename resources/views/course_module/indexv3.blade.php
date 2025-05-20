@@ -48,11 +48,11 @@
                             <tr>
                                 <th>No</th>
                                 <th>ID</th>
-                                <th class="data-medium">Nama Modul</th>
-                                <th>Hari</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>ID Pembuat</th>
+                                <th class="data-medium">Nama Module</th>
+                                <th>Day</th>
+                                <th class="data-long">Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
                                 <th>Diubah Pada</th>
                                 <th>ID Pengubah</th>
                                 <th>Status</th>
@@ -66,11 +66,11 @@
                             <tr>
                                 <th>No</th>
                                 <th>ID</th>
-                                <th>Nama Modul</th>
-                                <th>Hari</th>
-                                <th>Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>ID Pembuat</th>
+                                <th>Nama Module</th>
+                                <th>Day</th>
+                                <th>Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
                                 <th>Diubah Pada</th>
                                 <th>ID Pengubah</th>
                                 <th>Status</th>

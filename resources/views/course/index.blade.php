@@ -42,21 +42,21 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-long">Nama Mata Kuliah</th>
-                                <th>Harga Promo</th>
-                                <th>Harga</th>
-                                <th>Jenis Mata Kuliah</th>
+                                <th class="data-long">Subject Name</th>
+                                <th>Disc Price</th>
+                                <th>Price</th>
+                                <th>Subject Type</th>
                                 <th>SKS</th>
-                                <th>Durasi</th>
-                                <th class="data-long">Deskripsi Pratinjau</th>
-                                <th class="data-long">Konten</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th>Waktu Dibuat</th>
-                                <th>Dibuat Oleh</th>
-                                <th>Waktu Diperbarui</th>
-                                <th>Diperbarui Oleh</th>
+                                <th>Duration</th>
+                                <th class="data-long">Preview Description</th>
+                                <th class="data-long">Content</th>
+                                <th class="data-long">Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -66,21 +66,21 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="">Nama Mata Kuliah</th>
-                                <th>Harga Promo</th>
-                                <th>Harga</th>
-                                <th>Jenis Mata Kuliah</th>
+                                <th class="">Subject Name</th>
+                                <th>Disc Price</th>
+                                <th>Price</th>
+                                <th>Subject Type</th>
                                 <th>SKS</th>
-                                <th>Durasi</th>
-                                <th>Deskripsi Pratinjau</th>
-                                <th>Konten</th>
-                                <th>Catatan Admin</th>
-                                <th>Waktu Dibuat</th>
-                                <th>Dibuat Oleh</th>
-                                <th>Waktu Diperbarui</th>
-                                <th>Diperbarui Oleh</th>
+                                <th>Duration</th>
+                                <th>Preview Description</th>
+                                <th>Content</th>
+                                <th>Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

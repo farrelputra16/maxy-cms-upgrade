@@ -61,14 +61,14 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama Tingkat Kesulitan</th>
-                                <th class="data-long">Catatan Admin</th>
+                                <th class="data-medium">Difficulty Level Name</th>
+                                <th class="data-long">Admin Note</th>
                                 <th>Created At</th>
-                                <th>Created Id</th>
+                                <th>Created By</th>
                                 <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,14 +78,14 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama Tingkat Kesulitan</th>
-                                <th class="data-long">Catatan Admin</th>
+                                <th class="data-medium">Difficulty Level Name</th>
+                                <th class="data-long">Admin Note</th>
                                 <th>Created At</th>
-                                <th>Created Id</th>
+                                <th>Created By</th>
                                 <th>Updated At</th>
-                                <th>Updated Id</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

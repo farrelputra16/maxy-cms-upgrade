@@ -62,16 +62,16 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Judul</th>
+                                <th>Title</th>
                                 <th>Slug</th>
-                                <th>Konten</th>
+                                <th>Content</th>
                                 <th>Tags</th>
                                 <th>Highlight</th>
-                                <th>Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Diperbarui Pada</th>
+                                <th>Admin Note</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -133,16 +133,16 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Judul</th>
+                                <th class="data-medium">Title</th>
                                 <th>Slug</th>
-                                <th class="data-long">Konten</th>
+                                <th class="data-long">Content</th>
                                 <th>Tags</th>
                                 <th>Highlight</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Diperbarui Pada</th>
+                                <th class="data-long">Admin Note</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

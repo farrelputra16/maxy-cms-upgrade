@@ -40,19 +40,19 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th>Nomor Konfirmasi Pesanan</th>
-                                <th>Tanggal</th>
+                                <th>Date</th>
                                 <th>Jumlah</th>
                                 <th>Nama Akun Pengirim</th>
                                 <th>Nomor Akun Pengirim</th>
                                 <th>Bank Pengirim</th>
                                 <th>ID Pesanan Transaksi</th>
                                 <th>ID Akun Bank</th>
-                                <th>Dibuat Pada</th>
-                                <th>ID Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>ID Pembaruan</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                {{-- <th>Aksi</th> --}}
+                                {{-- <th>Action</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -93,19 +93,19 @@
                                 <th>No</th>
                                 <th>Id</th>
                                 <th>Nomor Konfirmasi Pesanan</th>
-                                <th>Tanggal</th>
+                                <th>Date</th>
                                 <th>Jumlah</th>
                                 <th>Nama Akun Pengirim</th>
                                 <th>Nomor Akun Pengirim</th>
                                 <th>Bank Pengirim</th>
                                 <th>ID Pesanan Transaksi</th>
                                 <th>ID Akun Bank</th>
-                                <th>Dibuat Pada</th>
-                                <th>ID Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>ID Pembaruan</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                {{-- <th>Aksi</th> --}}
+                                {{-- <th>Action</th> --}}
                             </tr>
                         </tfoot>
                     </table>

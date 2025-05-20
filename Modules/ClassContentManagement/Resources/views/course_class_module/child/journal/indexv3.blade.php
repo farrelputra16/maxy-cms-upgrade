@@ -66,13 +66,13 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama</th>
+                                <th class="data-medium">Name</th>
                                 <th class="data-long">Komentar</th>
-                                <th>Dibuat Pada</th>
-                                <th>Dibuat Oleh</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Diperbarui Oleh</th>
-                                <th>Aksi</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -82,13 +82,13 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Nama</th>
+                                <th>Name</th>
                                 <th>Komentar</th>
-                                <th>Dibuat Pada</th>
-                                <th>Dibuat Oleh</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Diperbarui Oleh</th>
-                                <th>Aksi</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

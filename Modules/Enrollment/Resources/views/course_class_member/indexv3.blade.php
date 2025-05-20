@@ -60,15 +60,15 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama</th>
+                                <th class="data-medium">Name</th>
                                 <th class="data-medium">Email</th>
-                                <th>Kelas</th>
+                                <th>Class</th>
                                 @if ($courseClassDetail->course_type_id == $mbkmType)
                                     <th>Partner</th>
                                 @endif
-                                <th class="data-long">Catatan Admin</th>
+                                <th class="data-long">Admin Note</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,15 +78,15 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Nama</th>
+                                <th>Name</th>
                                 <th>Email</th>
-                                <th>Kelas</th>
+                                <th>Class</th>
                                 @if ($courseClassDetail->course_type_id == $mbkmType)
                                     <th>Partner</th>
                                 @endif
-                                <th>Catatan Admin</th>
+                                <th>Admin Note</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

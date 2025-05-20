@@ -49,15 +49,15 @@
                             <tr>
                                 <th>No</th>
                                 <th>ID</th>
-                                <th class="data-medium">Nama</th>
+                                <th class="data-medium">Name</th>
                                 <th class="data-medium">Feedback</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>ID Pembuat</th>
-                                <th>Diperbarui Pada</th>
+                                <th class="data-long">Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
                                 <th>ID Pembaru</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,15 +67,15 @@
                             <tr>
                                 <th>No</th>
                                 <th>ID</th>
-                                <th class="data-medium">Nama</th>
+                                <th class="data-medium">Name</th>
                                 <th class="data-medium">Feedback</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>ID Pembuat</th>
-                                <th>Diperbarui Pada</th>
+                                <th class="data-long">Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
                                 <th>ID Pembaru</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

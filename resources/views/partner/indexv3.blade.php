@@ -51,22 +51,22 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama Partner</th>
+                                <th class="data-medium">Partner Name</th>
                                 <th>Logo</th>
-                                <th>Tipe</th>
+                                <th>Type</th>
                                 <th>URL</th>
-                                <th class="data-medium">Alamat</th>
-                                <th>Telepon</th>
+                                <th class="data-medium">Address</th>
+                                <th>Phone</th>
                                 <th>Email</th>
-                                <th>Kontak Person</th>
-                                <th>Status Sorotan</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Id Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Id Pembaruan</th>
+                                <th>Contact Person</th>
+                                <th>Highlight Status</th>
+                                <th class="data-long">Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,22 +76,22 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Nama Partner</th>
+                                <th>Partner Name</th>
                                 <th>Logo</th>
-                                <th>Tipe</th>
+                                <th>Type</th>
                                 <th>URL</th>
-                                <th>Alamat</th>
-                                <th>Telepon</th>
+                                <th>Address</th>
+                                <th>Phone</th>
                                 <th>Email</th>
-                                <th>Kontak Person</th>
-                                <th>Status Sorotan</th>
-                                <th>Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Id Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Id Pembaruan</th>
+                                <th>Contact Person</th>
+                                <th>Highlight Status</th>
+                                <th>Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

@@ -60,13 +60,13 @@
                                 <th>Id</th>
                                 <th class="data-medium">Nama Survei</th>
                                 <th class="data-medium">Nama Responden</th>
-                                <th class="data-long">Konten</th>
+                                <th class="data-long">Content</th>
                                 <th>Skor</th>
-                                <th>Dibuat Pada</th>
-                                <th>Id Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Id Pembaruan</th>
-                                <th>Aksi</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,13 +78,13 @@
                                 <th>Id</th>
                                 <th>Nama Survei</th>
                                 <th>Nama Responden</th>
-                                <th>Konten</th>
+                                <th>Content</th>
                                 <th>Skor</th>
-                                <th>Dibuat Pada</th>
-                                <th>Id Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Id Pembaruan</th>
-                                <th>Aksi</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

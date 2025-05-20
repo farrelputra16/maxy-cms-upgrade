@@ -59,14 +59,14 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Jenis Mata Kuliah - Kelas Paralel</th>
-                                <th>Gambar</th>
-                                <th>Konten Template</th>
-                                <th>Dibuat Pada</th>
-                                <th>ID Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>ID Pembaruan</th>
-                                <th>Aksi</th>
+                                <th>Course Type - Parallel Class</th>
+                                <th>Image</th>
+                                <th>Content Template</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,14 +76,14 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Jenis Mata Kuliah - Kelas Paralel</th>
-                                <th>Gambar</th>
-                                <th>Konten Template</th>
-                                <th>Dibuat Pada</th>
-                                <th>ID Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>ID Pembaruan</th>
-                                <th>Aksi</th>
+                                <th>Course Type - Parallel Class</th>
+                                <th>Image</th>
+                                <th>Content Template</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

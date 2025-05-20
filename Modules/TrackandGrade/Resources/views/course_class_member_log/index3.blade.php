@@ -47,11 +47,11 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Mahasiswa</th>
-                                <th>Kegiatan</th>
-                                <th>Kelas</th>
-                                <th>Tipe</th>
-                                <th>Dibuat Pada</th>
+                                <th>Student</th>
+                                <th>Activity</th>
+                                <th>Class</th>
+                                <th>Type</th>
+                                <th>Created At</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -60,11 +60,11 @@
                         <tfoot>
                             <tr>
                                 <th>No</th>
-                                <th>Mahasiswa</th>
-                                <th>Kegiatan</th>
-                                <th>Kelas</th>
-                                <th>Tipe</th>
-                                <th>Dibuat Pada</th>
+                                <th>Student</th>
+                                <th>Activity</th>
+                                <th>Class</th>
+                                <th>Type</th>
+                                <th>Created At</th>
                             </tr>
                         </tfoot>
                     </table>
