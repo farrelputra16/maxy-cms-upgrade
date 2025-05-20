@@ -64,17 +64,17 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama Modul</th>
-                                <th>Hari Modul</th>
-                                <th>Tanggal Mulai</th>
-                                <th>Tanggal Selesai</th>
-                                <th class="data-long">Catatan Admin</th>
+                                <th class="data-medium">Module Name</th>
+                                <th>Module Day</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th class="data-long">Admin Note</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>
                                 <th>Updated Id</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -84,17 +84,17 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Nama Modul</th>
-                                <th>Hari Modul</th>
-                                <th>Tanggal Mulai</th>
-                                <th>Tanggal Selesai</th>
-                                <th class="data-long">Catatan Admin</th>
+                                <th class="data-medium">Module Name</th>
+                                <th>Module Day</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th class="data-long">Admin Note</th>
                                 <th>Created At</th>
                                 <th>Created Id</th>
                                 <th>Updated At</th>
                                 <th>Updated Id</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

@@ -51,7 +51,7 @@ class CourseModuleController extends Controller
 
         $searchValue = $request->input('search.value');
         $orderColumnIndex = $request->input('order.0.column');
-        $orderDirection = $request->input('order.0.dir', 'asc');
+        $orderDirection = $request->input('order.3.dir', 'asc');
         $columns = $request->input('columns');
 
         // Default order column

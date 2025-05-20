@@ -67,7 +67,7 @@ class CourseClassModuleController extends Controller
     {
         $searchValue = $request->input('search.value');
         $orderColumnIndex = $request->input('order.0.column');
-        $orderDirection = $request->input('order.0.dir', 'asc');
+        $orderDirection = $request->input('order.3.dir', 'asc');
         $columns = $request->input('columns');
         $course_class_id = $request->input('id');
 
@@ -337,18 +337,19 @@ class CourseClassModuleController extends Controller
         // Base query
         $query = DB::table('course_class_module')
             ->select(
-                'course_class_module.*',
-                'cm.name AS course_module_name',
-                'cc.batch AS course_class_batch',
-                'cm.course_module_parent_id as parent_id',
-                'c.name AS course_name',
-                'cm.content AS course_module_content',
-                'cm.material AS course_module_material',
-                'cm.type AS type'
+            'course_class_module.*',
+            'cm.name AS course_module_name',
+            'cc.batch AS course_class_batch',
+            'cm.course_module_parent_id as parent_id',
+            'c.name AS course_name',
+            'cm.content AS course_module_content',
+            'cm.material AS course_module_material',
+            'mct.name AS type' // Use the name from m_course_type
             )
             ->join('course_module as cm', 'cm.id', '=', 'course_class_module.course_module_id')
             ->join('course_class as cc', 'cc.id', '=', 'course_class_module.course_class_id')
             ->join('course as c', 'c.id', '=', 'cm.course_id')
+            ->leftJoin('m_course_type as mct', 'cm.type', '=', 'mct.id') // Join to m_course_type
             ->where('course_class_module.course_class_id', $ccmod_parent->course_class_id)
             ->where('course_class_module.level', 2)
             ->where('cm.course_module_parent_id', $ccmod_parent->course_module_id);
@@ -369,7 +370,7 @@ class CourseClassModuleController extends Controller
             } else if ($columnName == 'course_module_name') {
                 $query->where('cm.name', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'type') {
-                $query->where('cm.type', 'like', "%{$columnSearchValue}%");
+                $query->where('mct.name', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'priority') {
                 $query->where('course_class_module.priority', 'like', "%{$columnSearchValue}%");
             } else if ($columnName == 'start_date') {

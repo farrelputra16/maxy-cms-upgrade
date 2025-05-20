@@ -60,20 +60,20 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th class="data-medium">Modul Mata Kuliah</th>
-                                <th>Prioritas</th>
-                                <th>Tipe</th>
-                                <th class="data-long">Konten</th>
-                                <th class="data-long">Materi Mata Kuliah</th>
-                                <th>Tanggal Mulai</th>
-                                <th>Tanggal Selesai</th>
-                                <th class="data-long">Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Id Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Id Pembaru</th>
+                                <th class="data-medium">Module Subject</th>
+                                <th>Priority</th>
+                                <th>Type</th>
+                                <th class="data-long">Content</th>
+                                <th class="data-long">Course Material</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th class="data-long">Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created Id</th>
+                                <th>Updated at</th>
+                                <th>Updated Id</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -83,20 +83,20 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Modul Mata Kuliah</th>
-                                <th>Prioritas</th>
-                                <th>Tipe</th>
-                                <th>Konten</th>
-                                <th>Materi Mata Kuliah</th>
-                                <th>Tanggal Mulai</th>
-                                <th>Tanggal Selesai</th>
-                                <th>Catatan Admin</th>
-                                <th>Dibuat Pada</th>
-                                <th>Id Pembuat</th>
-                                <th>Diperbarui Pada</th>
-                                <th>Id Pembaru</th>
+                                <th>Module Subject</th>
+                                <th>Priority</th>
+                                <th>Type</th>
+                                <th>Content</th>
+                                <th>Course Material</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Admin Note</th>
+                                <th>Created At</th>
+                                <th>Created Id</th>
+                                <th>Updated at</th>
+                                <th>Updated Id</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

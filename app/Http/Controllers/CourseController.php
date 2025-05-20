@@ -410,7 +410,6 @@ class CourseController extends Controller
     {
         $idCourse = $request->id;
         $course = Course::find($idCourse);
-
         if (strpos($course->name, '-') !== false) {
             $parts = explode('-', $course->name, 2);
             $course->code = trim($parts[0]);
@@ -418,7 +417,7 @@ class CourseController extends Controller
         } else {
             $course->code = null;
         }
-
+        
         $allCourseCategory = Category::where('status', 1)->get();
         $selectedCategoryId = DB::table('course_category')
             ->where('course_id', $idCourse)
@@ -429,7 +428,7 @@ class CourseController extends Controller
         $currentDataCourse = Course::CurrentDataCourse($idCourse);
         $currentCoursePackages = Course::CurrentCoursePackages($idCourse);
 
-        $allCourseTypes = MCourseType::where('id', '!=', $currentDataCourse->m_course_type_id)->where('status', 1)->get();
+        $allCourseTypes = MCourseType::where('status', 1)->get();
         $allDifficultyTypes = MDifficultyType::where('id', '!=', $currentDataCourse->m_difficulty_type_id)->where('status', 1)->get();
 
         if ($currentCoursePackages == NULL) {
