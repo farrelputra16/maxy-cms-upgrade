@@ -34,6 +34,10 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
+        if (config('app.env') === 'production') {
+            \URL::forceScheme('https');
+        }
+
         view()->composer('*', function ($view) {
             if (Auth::check()) {
                 $broGotAccessMaster = DB::table('access_group_detail')
@@ -47,7 +51,6 @@ class AppServiceProvider extends ServiceProvider
                     ->with('userAccess', $this->getUserAccess());
             }
         });
-
     }
 
     function getUserAccess()
